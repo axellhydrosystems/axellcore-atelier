@@ -270,7 +270,7 @@ final class Admin_Rest {
 			update_post_meta( $post->ID, '_aac_uf', $uf );
 		}
 
-		foreach ( Rest::TEXT_META_FIELDS as $field ) {
+		foreach ( Members::TEXT_META_FIELDS as $field ) {
 			if ( isset( $params[ $field ] ) ) {
 				$this->store_meta( $post->ID, '_aac_' . $field, sanitize_text_field( $this->param_string( $params, $field ) ) );
 			}
@@ -360,7 +360,7 @@ final class Admin_Rest {
 			'status'      => $post->post_status,
 		);
 
-		foreach ( Rest::TEXT_META_FIELDS as $field ) {
+		foreach ( Members::TEXT_META_FIELDS as $field ) {
 			$data[ $field ] = (string) get_post_meta( $post->ID, '_aac_' . $field, true );
 		}
 

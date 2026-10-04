@@ -1,7 +1,7 @@
 <?php
 /**
  * Registers the `aac_member` post type — one record per submitted Atelier
- * Club application (created by Rest::create_member() on form submission).
+ * Club application (created by Members::create_from_params() on form submission).
  * Internal record-keeping only (not a public post type): admins review
  * submissions in wp-admin, nothing here is ever queried on the frontend.
  *
@@ -169,7 +169,7 @@ final class Member {
 				'capability_type' => 'post',
 				'map_meta_cap'    => true,
 				'capabilities'    => array(
-					// Members only come from the public application form (Rest::create_member).
+					// Members only come from the public application form (Members::create_from_params).
 					'create_posts' => 'do_not_allow',
 				),
 			)

@@ -84,6 +84,9 @@ final class Plugin {
 		Icons::instance()->register_hooks();
 		Member::instance()->register_hooks();
 		Locations::instance()->register_hooks();
+		Members::instance()->register_hooks();
+		Form_Block::instance()->register_hooks();
+		Activator::register_hooks();
 		Rest::instance()->register_hooks();
 		Admin_Rest::instance()->register_hooks();
 		Template_Parts::instance()->register_hooks();

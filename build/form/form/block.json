@@ -22,10 +22,12 @@
     "anchor": true,
     "align": false,
     "className": true,
-    "customClassName": true
+    "customClassName": true,
+    "interactivity": true
   },
   "editorScript": [
     "file:./index.js",
     "file:./member-apply-variation.js"
-  ]
+  ],
+  "viewScriptModule": "file:./view.js"
 }

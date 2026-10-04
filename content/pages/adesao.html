@@ -37,7 +37,7 @@
 
 <!-- wp:column -->
 <div class="wp-block-column"><!-- wp:axell/form {"submitsToRest":true} -->
-<form data-aac-club-form="" novalidate class="wp-block-axell-form"><!-- wp:axell/form-fieldset -->
+<form novalidate data-wp-interactive="axell/form" data-wp-context="{&quot;status&quot;:&quot;idle&quot;}" data-wp-on--submit="actions.submit" class="wp-block-axell-form"><input type="hidden" name="action" value="axellcore_member_submit"/><div hidden><input type="text" name="website" tabindex="-1" autocomplete="off" aria-label="Leave this field empty"/></div><!-- wp:axell/form-fieldset -->
 <fieldset class="wp-block-axell-form-fieldset"><!-- wp:group -->
 <div class="wp-block-group"><!-- wp:group -->
 <div class="wp-block-group"><!-- wp:axell/form-label {"for":"nome"} -->
@@ -260,7 +260,7 @@
 <!-- /wp:group -->
 
 <!-- wp:axell/form-submission-notification -->
-<div class="wp-block-axell-form-submission-notification aac-notice aac-notice-success" data-aac-notice-type="success"><!-- wp:paragraph -->
+<div hidden data-axell-notice-type="success" data-wp-bind--hidden="!state.isSuccess" class="wp-block-axell-form-submission-notification"><!-- wp:paragraph -->
 <p>Sua solicitação foi enviada.</p>
 <!-- /wp:paragraph -->
 
@@ -270,7 +270,7 @@
 <!-- /wp:axell/form-submission-notification -->
 
 <!-- wp:axell/form-submission-notification {"type":"error"} -->
-<div class="wp-block-axell-form-submission-notification aac-notice aac-notice-error" data-aac-notice-type="error"><!-- wp:paragraph -->
+<div hidden data-axell-notice-type="error" data-wp-bind--hidden="!state.isError" class="wp-block-axell-form-submission-notification"><!-- wp:paragraph -->
 <p>Não foi possível enviar sua solicitação. Tente novamente em instantes.</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:axell/form-submission-notification -->

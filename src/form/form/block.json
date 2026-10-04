@@ -5,17 +5,29 @@
 	"title": "Atelier Form",
 	"category": "text",
 	"description": "Self-contained <form> wrapper for the Atelier Axell Club application form. Submits to the plugin's REST endpoint, which creates an aac_member post and resolves its Country/State/City taxonomy term.",
-	"keywords": [ "form", "application", "adesão" ],
+	"keywords": [
+		"form",
+		"application",
+		"adesão"
+	],
 	"textdomain": "axellcore-atelierclub",
 	"attributes": {
-		"submitsToRest": { "type": "boolean", "default": false }
+		"submitsToRest": {
+			"type": "boolean",
+			"default": false
+		}
 	},
 	"supports": {
 		"html": false,
 		"anchor": true,
 		"align": false,
 		"className": true,
-		"customClassName": true
+		"customClassName": true,
+		"interactivity": true
 	},
-	"editorScript": [ "file:./index.js", "file:./member-apply-variation.js" ]
+	"editorScript": [
+		"file:./index.js",
+		"file:./member-apply-variation.js"
+	],
+	"viewScriptModule": "file:./view.ts"
 }

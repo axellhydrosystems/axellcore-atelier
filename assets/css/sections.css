@@ -1331,12 +1331,10 @@ section{ position: relative; }
 }
 .aac-consent a{ color: var(--bronze-2); text-decoration: underline; text-underline-offset: 3px; }
 
-/* axellcore/form-submission-notification — hidden until assets/js/frontend.js
-   adds .is-active on submit (see class-blocks.php / form-submission-
-   notification's own header comment for why this differs from the removed
-   core/form-submission-notification block's GET-param approach). */
-.aac-notice{
-  display: none;
+/* axell/form-submission-notification: hidden until the form's Interactivity
+   store shows it (src/form/form/view.ts). Keyed on the block's own wrapper
+   class and on data-axell-notice-type, so the saved markup has no plugin class. */
+.wp-block-axell-form-submission-notification{
   align-items: flex-start;
   gap: 12px;
   padding: 18px 20px;
@@ -1349,17 +1347,11 @@ section{ position: relative; }
   color: rgba(239,236,228,0.85);
   font-weight: 300;
 }
-.aac-notice.is-active{ display: flex; }
-.aac-notice p{ margin: 0; }
-.aac-notice p + p{ margin-top: 8px; }
-.aac-notice-error{ border-left-color: var(--amber); }
-.aac-notice-detail{
-  margin-top: 8px !important;
-  font-style: italic;
-  font-family: var(--serif);
-  color: rgba(239,236,228,0.55);
-  font-size: 12px;
-}
+.wp-block-axell-form-submission-notification:not([hidden]){ display: flex; }
+.wp-block-axell-form-submission-notification[hidden]{ display: none !important; }
+.wp-block-axell-form-submission-notification p{ margin: 0; }
+.wp-block-axell-form-submission-notification p + p{ margin-top: 8px; }
+.wp-block-axell-form-submission-notification[data-axell-notice-type="error"]{ border-left-color: var(--amber); }
 
 .aac-apply-form .aac-submit-row{
   display: flex; align-items: center; justify-content: space-between;

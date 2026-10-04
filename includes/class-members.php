@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 final class Members {
 
 	/**
-	 * admin-post action of the no-JavaScript submission.
+	 * Admin-post action of the no-JavaScript submission.
 	 */
 	const ADMIN_ACTION = 'axellcore_member_submit';
 

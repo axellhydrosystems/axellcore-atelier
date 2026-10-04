@@ -28,56 +28,6 @@ final class Rest {
 	const NAMESPACE = 'axellcore-atelierclub/v1';
 
 	/**
-	 * Required fields for a member submission.
-	 *
-	 * @var string[]
-	 */
-	const REQUIRED_FIELDS = array(
-		'nome',
-		'escritorio',
-		'email',
-		'telefone',
-		'atuacao',
-		'tipoDoc',
-		'documento',
-		'rua',
-		'numero',
-		'bairro',
-		'cidade',
-		'uf',
-		'cep',
-		'regulamento',
-	);
-
-	/**
-	 * Optional text-meta fields, stored verbatim (sanitize_text_field) under
-	 * `_aac_{field}`. `email` and `portfolio` are handled separately (their
-	 * own sanitizers); `uf`/`cidade` are handled by the location-resolution
-	 * step, not stored as plain meta.
-	 *
-	 * @var string[]
-	 */
-	const TEXT_META_FIELDS = array(
-		'escritorio',
-		'telefone',
-		'registro',
-		'atuacao',
-		'tipoDoc',
-		'documento',
-		'rua',
-		'numero',
-		'complemento',
-		'bairro',
-		'referencia',
-		'cep',
-		'loja1',
-		'loja2',
-		'loja3',
-		'loja4',
-		'loja5',
-	);
-
-	/**
 	 * Singleton instance.
 	 *
 	 * @var Rest|null
@@ -184,61 +134,11 @@ final class Rest {
 			$params = $request->get_body_params();
 		}
 
-		foreach ( self::REQUIRED_FIELDS as $field ) {
-			if ( empty( $params[ $field ] ) ) {
-				return new \WP_Error(
-					'aac_missing_field',
-					/* translators: %s: form field name. */
-					sprintf( __( 'Missing required field: %s', 'axellcore-atelierclub' ), $field ),
-					array( 'status' => 400 )
-				);
-			}
+		$result = Members::instance()->submit( (array) $params, Members::client_ip() );
+		if ( is_wp_error( $result ) ) {
+			return $result;
 		}
 
-		$email = sanitize_email( $params['email'] );
-		if ( '' === $email || ! is_email( $email ) ) {
-			return new \WP_Error( 'aac_invalid_email', __( 'Invalid email address.', 'axellcore-atelierclub' ), array( 'status' => 400 ) );
-		}
-
-		$uf        = strtoupper( sanitize_text_field( $params['uf'] ) );
-		$city_code = absint( $params['cidade'] );
-		$city_term = Locations::instance()->resolve_city_term( $uf, $city_code );
-		if ( null === $city_term ) {
-			return new \WP_Error( 'aac_invalid_location', __( 'Invalid state/city.', 'axellcore-atelierclub' ), array( 'status' => 400 ) );
-		}
-
-		$post_id = wp_insert_post(
-			array(
-				'post_type'   => Member::POST_TYPE,
-				'post_title'  => sanitize_text_field( $params['nome'] ),
-				'post_status' => 'publish',
-			),
-			true
-		);
-
-		if ( is_wp_error( $post_id ) ) {
-			return new \WP_Error( 'aac_insert_failed', __( 'Could not save your application.', 'axellcore-atelierclub' ), array( 'status' => 500 ) );
-		}
-
-		wp_set_object_terms( $post_id, array( $city_term ), Locations::TAXONOMY );
-
-		update_post_meta( $post_id, '_aac_email', $email );
-		if ( ! empty( $params['portfolio'] ) ) {
-			update_post_meta( $post_id, '_aac_portfolio', esc_url_raw( $params['portfolio'] ) );
-		}
-		update_post_meta( $post_id, '_aac_uf', $uf );
-
-		foreach ( self::TEXT_META_FIELDS as $field ) {
-			if ( ! empty( $params[ $field ] ) ) {
-				update_post_meta( $post_id, '_aac_' . $field, sanitize_text_field( $params[ $field ] ) );
-			}
-		}
-
-		return rest_ensure_response(
-			array(
-				'success' => true,
-				'id'      => $post_id,
-			)
-		);
+		return rest_ensure_response( $result );
 	}
 }

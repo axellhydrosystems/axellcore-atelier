@@ -90,7 +90,7 @@ final class Locations {
 	 * would otherwise let anyone type an arbitrary term name. The `*_terms`
 	 * capabilities are additionally locked to `do_not_allow` as defense in
 	 * depth, in case any other admin surface tries to expose term
-	 * management. None of this affects Rest::create_member(): wp_insert_term()
+	 * management. None of this affects Members::create_from_params(): wp_insert_term()
 	 * and wp_set_object_terms() are plain function calls, not capability-
 	 * gated, so the REST-driven Country > State > City resolution still
 	 * works exactly as before — only humans in wp-admin are locked out.

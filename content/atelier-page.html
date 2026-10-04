@@ -560,7 +560,7 @@
 <!-- wp:axellcore/chapter {"label":"Como Entrar","className":"aac-section-pad"} -->
 <div class="wp-block-axellcore-chapter aac-chapter aac-section-pad"><p class="aac-chapter-tag"><span class="aac-chapter-label">Como Entrar</span></p><div class="aac-chapter-body"><!-- wp:group {"metadata":{"name":"Como entrar container"},"style":{"spacing":{"padding":{"left":"max(clamp(20px, 4vw, 60px), calc(50% - 580px))","right":"max(clamp(20px, 4vw, 60px), calc(50% - 580px))","bottom":"clamp(90px, 13vw, 180px)"}}},"layout":{"type":"default"}} -->
 <div class="wp-block-group" style="padding-right:max(clamp(20px, 4vw, 60px), calc(50% - 580px));padding-bottom:clamp(90px, 13vw, 180px);padding-left:max(clamp(20px, 4vw, 60px), calc(50% - 580px))"><!-- wp:columns {"verticalAlignment":"bottom","style":{"spacing":{"margin":{"bottom":"88px"},"blockGap":{"top":"28px","left":"80px"}},"@mobile":{"spacing":{"margin":{"bottom":"80px"}}}},"revealMode":"block"} -->
-<div class="wp-block-columns are-vertically-aligned-bottom" style="margin-bottom:88px"><!-- wp:column {"width":"46.5%","style":[]} -->
+<div class="wp-block-columns are-vertically-aligned-bottom" style="margin-bottom:88px"><!-- wp:column {"width":"46.5%"} -->
 <div class="wp-block-column" style="flex-basis:46.5%"><!-- wp:heading {"style":{"typography":{"fontFamily":"Cormorant Garamond, Times New Roman, Georgia, serif","fontWeight":"300","fontSize":"clamp(36px, 5vw, 68px)","lineHeight":"1.05","letterSpacing":"-0.015em"},"color":{"text":"#EFECE4"},"spacing":{"margin":{"top":"0","bottom":"24px"}}}} -->
 <h2 class="wp-block-heading has-text-color" style="color:#EFECE4;margin-top:0;margin-bottom:24px;font-family:Cormorant Garamond, Times New Roman, Georgia, serif;font-size:clamp(36px, 5vw, 68px);font-weight:300;letter-spacing:-0.015em;line-height:1.05">Quatro passos <em style="font-style:italic;color:#C6AC7E">até o clube</em>.</h2>
 <!-- /wp:heading --></div>
@@ -1271,7 +1271,7 @@
 
 <!-- wp:column {"revealMode":"block"} -->
 <div class="wp-block-column"><!-- wp:axell/form {"submitsToRest":true,"className":"aac-apply-form"} -->
-<form data-aac-club-form="" novalidate class="wp-block-axell-form aac-apply-form"><!-- wp:axell/form-fieldset -->
+<form novalidate data-wp-interactive="axell/form" data-wp-context="{&quot;status&quot;:&quot;idle&quot;}" data-wp-on--submit="actions.submit" class="wp-block-axell-form aac-apply-form"><input type="hidden" name="action" value="axellcore_member_submit"/><div hidden><input type="text" name="website" tabindex="-1" autocomplete="off" aria-label="Leave this field empty"/></div><!-- wp:axell/form-fieldset -->
 <fieldset class="wp-block-axell-form-fieldset"><legend class="aac-form-legend-text">01 — Autoria</legend><!-- wp:group {"className":"aac-form-row aac-cols-2"} -->
 <div class="wp-block-group aac-form-row aac-cols-2"><!-- wp:group {"className":"aac-field"} -->
 <div class="wp-block-group aac-field"><!-- wp:axell/form-label {"for":"nome"} -->
@@ -1496,7 +1496,7 @@
 <!-- /wp:group -->
 
 <!-- wp:axell/form-submission-notification -->
-<div class="wp-block-axell-form-submission-notification aac-notice aac-notice-success" data-aac-notice-type="success"><!-- wp:paragraph {"className":"wp-block-paragraph"} -->
+<div hidden data-axell-notice-type="success" data-wp-bind--hidden="!state.isSuccess" class="wp-block-axell-form-submission-notification"><!-- wp:paragraph {"className":"wp-block-paragraph"} -->
 <p class="wp-block-paragraph">Sua solicitação foi enviada.</p>
 <!-- /wp:paragraph -->
 
@@ -1506,7 +1506,7 @@
 <!-- /wp:axell/form-submission-notification -->
 
 <!-- wp:axell/form-submission-notification {"type":"error"} -->
-<div class="wp-block-axell-form-submission-notification aac-notice aac-notice-error" data-aac-notice-type="error"><!-- wp:paragraph {"className":"wp-block-paragraph"} -->
+<div hidden data-axell-notice-type="error" data-wp-bind--hidden="!state.isError" class="wp-block-axell-form-submission-notification"><!-- wp:paragraph {"className":"wp-block-paragraph"} -->
 <p class="wp-block-paragraph">Não foi possível enviar sua solicitação. Tente novamente em instantes.</p>
 <!-- /wp:paragraph --></div>
 <!-- /wp:axell/form-submission-notification -->
@@ -1525,4 +1525,3 @@
 <!-- /wp:axell/form --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns -->
-

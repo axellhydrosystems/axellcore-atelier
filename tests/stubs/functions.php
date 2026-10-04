@@ -80,3 +80,31 @@ if ( ! function_exists( 'wp_is_block_theme' ) ) {
 		return true;
 	}
 }
+
+if ( ! class_exists( 'WP_Error' ) ) {
+	class WP_Error {
+		public $code;
+		public $message;
+		public $data;
+
+		public function __construct( $code = '', $message = '', $data = null ) {
+			$this->code    = $code;
+			$this->message = $message;
+			$this->data    = $data;
+		}
+
+		public function get_error_code() {
+			return $this->code;
+		}
+
+		public function get_error_data() {
+			return $this->data;
+		}
+	}
+}
+
+if ( ! function_exists( 'is_wp_error' ) ) {
+	function is_wp_error( $thing ) {
+		return $thing instanceof \WP_Error;
+	}
+}

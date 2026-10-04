@@ -58,12 +58,7 @@ final class Activator {
 
 		self::create_page();
 		foreach ( self::child_pages() as $slug => $title ) {
-			self::create_child_page(
-				self::PAGE_SLUG,
-				$slug,
-				$title,
-				AXELLCORE_ATELIERCLUB_PATH . 'content/pages/' . $slug . '.html'
-			);
+			self::create_child_page( self::PAGE_SLUG, $slug, $title, self::child_file( $slug ) );
 		}
 	}
 
@@ -124,6 +119,78 @@ final class Activator {
 				'post_content' => self::read_content_file( $content_file, '' ),
 			)
 		);
+	}
+
+	/**
+	 * Option holding the hash of the child page content files last synced.
+	 */
+	const PAGES_SYNC_OPTION = 'axellcore_atelierclub_pages_hash';
+
+	/**
+	 * Hook the content sync. Runs on every request, but only writes when a
+	 * content file changed (same approach as Template_Parts::maybe_sync).
+	 */
+	public static function register_hooks() {
+		add_action( 'init', array( __CLASS__, 'maybe_sync_pages' ), 25 );
+	}
+
+	/**
+	 * Update the child pages that already exist when their content file changed.
+	 * Pages are never created here (activate() does that), and the landing page
+	 * itself is never touched: its content is edited in the database.
+	 */
+	public static function maybe_sync_pages() {
+		$pages = self::child_pages();
+
+		$contents = array();
+		$parts    = array();
+		foreach ( $pages as $slug => $title ) {
+			$contents[ $slug ] = self::read_content_file( self::child_file( $slug ), '' );
+			$parts[]           = $slug . ':' . md5( $contents[ $slug ] );
+		}
+		$hash = md5( implode( '|', $parts ) );
+
+		if ( get_option( self::PAGES_SYNC_OPTION ) === $hash ) {
+			return;
+		}
+
+		foreach ( $contents as $slug => $content ) {
+			self::sync_child_page( $slug, $content );
+		}
+
+		update_option( self::PAGES_SYNC_OPTION, $hash, false );
+	}
+
+	/**
+	 * Write one child page's content when it differs from its file.
+	 *
+	 * @param string $slug    Child page slug (under PAGE_SLUG).
+	 * @param string $content Block markup from content/pages/{slug}.html.
+	 */
+	private static function sync_child_page( $slug, $content ) {
+		$page = get_page_by_path( self::PAGE_SLUG . '/' . $slug, OBJECT, 'page' );
+		if ( ! $page instanceof \WP_Post || '' === $content || $content === $page->post_content ) {
+			return;
+		}
+
+		kses_remove_filters();
+		wp_update_post(
+			array(
+				'ID'           => $page->ID,
+				'post_content' => wp_slash( $content ),
+			)
+		);
+		kses_init_filters();
+	}
+
+	/**
+	 * Content file of one child page.
+	 *
+	 * @param string $slug Child page slug.
+	 * @return string
+	 */
+	private static function child_file( $slug ) {
+		return AXELLCORE_ATELIERCLUB_PATH . 'content/pages/' . $slug . '.html';
 	}
 
 	/**
