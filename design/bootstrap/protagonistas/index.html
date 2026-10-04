@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Protagonistas — Atelier Axell Club (protótipo)</title>
+<meta name="description" content="O Atelier Axell Club é um clube por seleção. Para arquitetos e designers que transformam o banho em obra, o spa em poesia e o projeto em memória. Solicite sua adesão.">
+
+<link rel="preload" href="../assets/fonts/cormorant-garamond-normal-300-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/cormorant-garamond-italic-300-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/inter-normal-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<script>
+(function () {
+  var root = document.documentElement;
+  var types = ['scroll', 'pointerdown', 'keydown', 'touchstart'];
+  function loadRest() {
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = '../assets/fonts/fonts-rest.css';
+    document.head.appendChild(link);
+  }
+  // No class (default): all faces at once.
+  // <html class="fonts-rest-lazy">: all faces on the first interaction.
+  // <html class="fonts-above-only">: only the above-the-fold faces (inline).
+  if (root.classList.contains('fonts-above-only')) return;
+  if (!root.classList.contains('fonts-rest-lazy')) { loadRest(); return; }
+  var done = false;
+  function once() {
+    if (done) return;
+    done = true;
+    loadRest();
+    types.forEach(function (type) { window.removeEventListener(type, once); });
+  }
+  types.forEach(function (type) { window.addEventListener(type, once, { once: true, passive: true }); });
+})();
+</script>
+<style>
+@font-face { font-family: 'Cormorant Garamond'; font-style: italic; font-weight: 300; font-display: swap; src: url(../assets/fonts/cormorant-garamond-italic-300-latin-ext.woff2) format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: 'Cormorant Garamond'; font-style: italic; font-weight: 300; font-display: swap; src: url(../assets/fonts/cormorant-garamond-italic-300-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Cormorant Garamond'; font-style: normal; font-weight: 300; font-display: swap; src: url(../assets/fonts/cormorant-garamond-normal-300-latin-ext.woff2) format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: 'Cormorant Garamond'; font-style: normal; font-weight: 300; font-display: swap; src: url(../assets/fonts/cormorant-garamond-normal-300-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 400; font-display: swap; src: url(../assets/fonts/inter-normal-400-latin-ext.woff2) format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 400; font-display: swap; src: url(../assets/fonts/inter-normal-400-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+</style>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="../style.min.css">
+</head>
+<body>
+<main>
+<section class="protagonists on-ivory section" aria-labelledby="protagonistas-title">
+  <div class="container">
+    <div class="section-head">
+      <div class="head-left">
+        <p class="eyebrow on-ivory">Capítulo 04 · Protagonistas</p>
+        <h2 class="section-title" id="protagonistas-title">O arquiteto e o <em>designer</em>.</h2>
+      </div>
+      <div class="head-right">
+        <p class="body">A Axell reconhece os profissionais que transformam banheiras e spas em <em>momentos extraordinários</em>. Antes da venda, existe o olhar que escolhe. Antes do gesto, existe a mão que desenha.</p>
+      </div>
+    </div>
+  </div>
+
+  <ol class="prota-grid">
+    <li class="prota">
+      <span class="num">i.</span>
+      <h3>Vocês assinam ambientes</h3>
+      <p>Detalham o projeto, escolhem o produto, validam o ritual. A mão de vocês está em cada momento — do primeiro croqui ao último acabamento.</p>
+    </li>
+    <li class="prota">
+      <span class="num">ii.</span>
+      <h3>Vocês educam o cliente</h3>
+      <p>Recomendam com curadoria, esclarecem diferenças técnicas, fecham a especificação antes da compra. Vocês são a voz de confiança.</p>
+    </li>
+    <li class="prota">
+      <span class="num">iii.</span>
+      <h3>Vocês constroem a marca</h3>
+      <p>Cada projeto é um capítulo de conteúdo. Vocês são a voz técnica e autoral da Axell no campo — a marca fala através das obras.</p>
+    </li>
+  </ol>
+</section>
+</main>
+</body>
+</html>

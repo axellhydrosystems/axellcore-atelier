@@ -1656,6 +1656,10 @@ section {
   border-bottom-color: rgba(239, 236, 228, 0.08);
 }
 
+.nav-logo img {
+  filter: brightness(0) saturate(100%) invert(92%) sepia(5%) saturate(597%) hue-rotate(332deg) brightness(108%) contrast(87%);
+}
+
 .nav-logo {
   display: flex;
   align-items: center;

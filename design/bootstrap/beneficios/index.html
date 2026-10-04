@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Benefícios — Atelier Axell Club (protótipo)</title>
+<meta name="description" content="O Atelier Axell Club é um clube por seleção. Para arquitetos e designers que transformam o banho em obra, o spa em poesia e o projeto em memória. Solicite sua adesão.">
+
+<link rel="preload" href="../assets/fonts/cormorant-garamond-normal-300-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/cormorant-garamond-italic-300-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/inter-normal-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+<script>
+(function () {
+  var root = document.documentElement;
+  var types = ['scroll', 'pointerdown', 'keydown', 'touchstart'];
+  function loadRest() {
+    var link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = '../assets/fonts/fonts-rest.css';
+    document.head.appendChild(link);
+  }
+  // No class (default): all faces at once.
+  // <html class="fonts-rest-lazy">: all faces on the first interaction.
+  // <html class="fonts-above-only">: only the above-the-fold faces (inline).
+  if (root.classList.contains('fonts-above-only')) return;
+  if (!root.classList.contains('fonts-rest-lazy')) { loadRest(); return; }
+  var done = false;
+  function once() {
+    if (done) return;
+    done = true;
+    loadRest();
+    types.forEach(function (type) { window.removeEventListener(type, once); });
+  }
+  types.forEach(function (type) { window.addEventListener(type, once, { once: true, passive: true }); });
+})();
+</script>
+<style>
+@font-face { font-family: 'Cormorant Garamond'; font-style: italic; font-weight: 300; font-display: swap; src: url(../assets/fonts/cormorant-garamond-italic-300-latin-ext.woff2) format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: 'Cormorant Garamond'; font-style: italic; font-weight: 300; font-display: swap; src: url(../assets/fonts/cormorant-garamond-italic-300-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Cormorant Garamond'; font-style: normal; font-weight: 300; font-display: swap; src: url(../assets/fonts/cormorant-garamond-normal-300-latin-ext.woff2) format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: 'Cormorant Garamond'; font-style: normal; font-weight: 300; font-display: swap; src: url(../assets/fonts/cormorant-garamond-normal-300-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 400; font-display: swap; src: url(../assets/fonts/inter-normal-400-latin-ext.woff2) format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 400; font-display: swap; src: url(../assets/fonts/inter-normal-400-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+</style>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="../style.min.css">
+</head>
+<body>
+<main>
+<section class="benefits" id="beneficios" aria-labelledby="beneficios-heading">
+  <div class="container pt-benefits">
+    <div class="section-head">
+      <div class="head-left">
+        <p class="eyebrow">Capítulo 09 · Benefícios</p>
+        <h2 class="section-title" id="beneficios-heading">Recompensas à altura do <em>talento</em>.</h2>
+      </div>
+      <div class="head-right">
+        <p class="body">Do bônus financeiro à placa em pedra, dos lançamentos antecipados às viagens internacionais — cada benefício foi desenhado para respeitar o ofício, o tempo e a influência do autor.</p>
+      </div>
+    </div>
+  </div>
+
+  <ol class="benefits-grid">
+    <li class="benefit">
+      <span class="num">01</span>
+      <h3>Área exclusiva</h3>
+      <p>Histórico de reconhecimento, projetos cadastrados e campanhas ativas em painel privado.</p>
+    </li>
+    <li class="benefit">
+      <span class="num">02</span>
+      <h3>Materiais premium</h3>
+      <p>Catálogos, blocos CAD, manuais técnicos e biblioteca completa de especificações.</p>
+    </li>
+    <li class="benefit">
+      <span class="num">03</span>
+      <h3>Apoio prioritário</h3>
+      <p>Atendimento com consultor Axell dedicado ao seu escritório, canal direto.</p>
+    </li>
+    <li class="benefit">
+      <span class="num">04</span>
+      <h3>Consultoria de produto</h3>
+      <p>Suporte técnico especializado para banheiras, spas e linhas completas.</p>
+    </li>
+    <li class="benefit">
+      <span class="num">05</span>
+      <h3>Lançamentos antecipados</h3>
+      <p>Conhecimento de novidades antes do mercado, com pré-venda e amostras.</p>
+    </li>
+    <li class="benefit">
+      <span class="num">06</span>
+      <h3>Treinamentos exclusivos</h3>
+      <p>Convites para workshops, aulas técnicas e imersões de produto na fábrica.</p>
+    </li>
+    <li class="benefit">
+      <span class="num">07</span>
+      <h3>Selo digital de membro</h3>
+      <p>Selo oficial Atelier Axell Club para site, redes sociais e materiais do escritório.</p>
+    </li>
+    <li class="benefit">
+      <span class="num">08</span>
+      <h3>Diretório de parceiros</h3>
+      <p>Destaque em diretório público Axell com link direto para o seu portfólio.</p>
+    </li>
+    <li class="benefit">
+      <span class="num">09</span>
+      <h3>Placa de membro</h3>
+      <p>Peça única, uma obra de arte em pedra, gravada com o nome do arquiteto.</p>
+    </li>
+  </ol>
+
+  <div class="benefits-prizes">
+    <div class="container p-0">
+      <p class="eyebrow">Premiações do clube</p>
+      <ul class="prizes-list">
+        <li class="prize-chip">Vouchers &amp; gift cards</li>
+        <li class="prize-chip">Produtos Axell</li>
+        <li class="prize-chip">Experiências gastronômicas</li>
+        <li class="prize-chip">Hospedagens premium</li>
+        <li class="prize-chip">Viagens &amp; upgrades</li>
+        <li class="prize-chip">Feiras &amp; eventos</li>
+      </ul>
+
+      <div class="notice-pill mt-32">
+        <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4">
+          <circle cx="7" cy="7" r="5.5"/>
+          <path d="M7 4 v3 l2 1.5"/>
+        </svg>
+        Concedidas por categorização
+      </div>
+      <p class="notice-caption c-ivory-68">As recompensas do clube são liberadas de acordo com o estágio de categorização alcançado pelo profissional. Cada nível abre um novo repertório de benefícios — e mantém os anteriores como base permanente.</p>
+    </div>
+  </div>
+</section>
+</main>
+</body>
+</html>
