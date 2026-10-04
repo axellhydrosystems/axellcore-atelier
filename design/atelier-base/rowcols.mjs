@@ -1,0 +1,11 @@
+import { createRequire } from 'node:module';
+import { pathToFileURL } from 'node:url';
+const S = process.env.HOME + '/.claude/skills/figma-auto-html-merge/scripts';
+const { chromium } = createRequire(S + '/x.js')('playwright-core');
+const { launchOptions } = await import(pathToFileURL(S + '/browser.mjs').href);
+const browser = await chromium.launch({ ...launchOptions(), args: [ '--disable-gpu' ] });
+const page = await browser.newPage({ viewport: { width: 390, height: 844 } });
+await page.goto('http://localhost:8906/atelier/', { waitUntil: 'load' });
+const out = await page.evaluate(() => { const p = [...document.querySelectorAll('p')].find(x => x.textContent.startsWith('Espaço de criação')); const row = p.closest('.wp-block-columns'); const cols = [...row.children].map(c => ({ w: Math.round(c.getBoundingClientRect().width), basis: getComputedStyle(c).flexBasis, style: c.getAttribute('style'), fs: getComputedStyle(p).fontSize, lh: getComputedStyle(p).lineHeight })); return { rowW: Math.round(row.getBoundingClientRect().width), cols }; });
+console.log(JSON.stringify(out));
+await browser.close();

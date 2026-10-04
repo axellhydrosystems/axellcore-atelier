@@ -1,0 +1,11 @@
+import { createRequire } from 'node:module';
+import { pathToFileURL } from 'node:url';
+const S = process.env.HOME + '/.claude/skills/figma-auto-html-merge/scripts';
+const { chromium } = createRequire(S + '/x.js')('playwright-core');
+const { launchOptions } = await import(pathToFileURL(S + '/browser.mjs').href);
+const browser = await chromium.launch({ ...launchOptions(), args: [ '--disable-gpu' ] });
+const page = await browser.newPage({ viewport: { width: Number(process.argv[3]), height: 900 } });
+await page.goto(process.argv[2], { waitUntil: 'load' });
+const out = await page.evaluate((sels) => sels.map(s => { const el = document.querySelector(s); if (!el) return [s, null]; const r = el.getBoundingClientRect(); return [s, { x: Math.round(r.left), w: Math.round(r.width), y: Math.round(r.top + scrollY), h: Math.round(r.height) }]; }), process.argv.slice(4));
+console.log(JSON.stringify(out));
+await browser.close();

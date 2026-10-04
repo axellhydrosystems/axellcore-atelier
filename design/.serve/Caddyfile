@@ -1,0 +1,38 @@
+{
+    auto_https off
+    admin off
+}
+
+https://localhost:8543 {
+    root * /clone
+    encode zstd gzip
+
+    @immutable path /assets/fonts/* /assets/icons/* /uploads/*
+    header @immutable Cache-Control "public, max-age=31536000, immutable"
+
+    @revalidate path *.css *.css.map
+    header @revalidate Cache-Control "no-cache"
+
+    @html path *.html /
+    header @html Cache-Control "no-cache"
+
+    tls /certs/localhost.pem /certs/localhost-key.pem
+    file_server browse
+}
+
+https://localhost:8544 {
+    root * /source
+    encode zstd gzip
+
+    @immutable path *.png *.jpg *.jpeg *.webp *.avif *.woff *.woff2
+    header @immutable Cache-Control "public, max-age=31536000, immutable"
+
+    @revalidate path *.css
+    header @revalidate Cache-Control "no-cache"
+
+    @html path *.html /
+    header @html Cache-Control "no-cache"
+
+    tls /certs/localhost.pem /certs/localhost-key.pem
+    file_server browse
+}

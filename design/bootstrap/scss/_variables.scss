@@ -1,0 +1,14 @@
+$prefix: aa- !default; // Axell Atelier
+$font-family-serif: serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !default;
+$primary: #B4996A !default;
+$headings-font-family: $font-family-serif !default;
+
+// Breakpoints of the approved mockup (2 columns from 561px, 4 from 901px).
+$grid-breakpoints: (
+  xs: 0,
+  sm: 561px,
+  md: 901px,
+  lg: 1201px,
+  xl: 1401px,
+  xxl: 1601px
+) !default;

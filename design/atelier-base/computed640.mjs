@@ -1,0 +1,11 @@
+import { createRequire } from 'node:module';
+import { pathToFileURL } from 'node:url';
+const S = process.env.HOME + '/.claude/skills/figma-auto-html-merge/scripts';
+const { chromium } = createRequire(S + '/x.js')('playwright-core');
+const { launchOptions } = await import(pathToFileURL(S + '/browser.mjs').href);
+const browser = await chromium.launch({ ...launchOptions(), args: [ '--disable-gpu' ] });
+const page = await browser.newPage({ viewport: { width: 640, height: 900 } });
+await page.goto(process.argv[2], { waitUntil: 'load' });
+const out = await page.evaluate((sel) => { const r = document.querySelector(sel); const c = r.querySelector(':scope > .wp-block-column'); const cs = getComputedStyle(r), cc = getComputedStyle(c); return { row: { dir: cs.flexDirection, wrap: cs.flexWrap, display: cs.display, w: r.getBoundingClientRect().width }, col: { basis: cc.flexBasis, width: c.getBoundingClientRect().width, flex: cc.flex } }; }, process.argv[3]);
+console.log(JSON.stringify(out));
+await browser.close();

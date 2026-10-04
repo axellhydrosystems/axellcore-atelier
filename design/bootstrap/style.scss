@@ -1,0 +1,14 @@
+// Atelier Axell Club prototype: Bootstrap 5 grid and mixins, without reboot,
+// so the browser defaults stay as in the approved mockup. The mockup rules
+// come after Bootstrap and win on conflicts.
+@import "node_modules/bootstrap/scss/functions";
+@import "scss/variables";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/variables-dark";
+@import "node_modules/bootstrap/scss/maps";
+@import "node_modules/bootstrap/scss/mixins";
+@import "node_modules/bootstrap/scss/root";
+@import "node_modules/bootstrap/scss/containers";
+@import "node_modules/bootstrap/scss/grid";
+
+@import "scss/mockup";

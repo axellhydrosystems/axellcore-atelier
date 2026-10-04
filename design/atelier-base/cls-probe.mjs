@@ -1,0 +1,23 @@
+import { createRequire } from 'node:module';
+import { pathToFileURL } from 'node:url';
+const SK = process.env.HOME + '/.claude/skills/figma-auto-html-merge/scripts';
+const req = createRequire(SK + '/x.js');
+const { chromium } = req('playwright-core');
+const { launchOptions } = await import(pathToFileURL(SK + '/browser.mjs').href);
+const url = process.argv[2]; const width = Number(process.argv[3] || 1440);
+const browser = await chromium.launch({ ...launchOptions(), args: [ '--disable-gpu' ] });
+const page = await browser.newPage({ viewport: { width, height: 900 } });
+const logs = [];
+page.on('console', (m) => { if (m.type() === 'error') logs.push('console: ' + m.text().slice(0, 160)); });
+page.on('response', (r) => { if (r.status() >= 400) logs.push('HTTP ' + r.status() + ' ' + r.url().slice(0, 120)); });
+page.on('requestfailed', (r) => logs.push('FAILED ' + r.url().slice(0, 120) + ' ' + (r.failure() || {}).errorText));
+await page.addInitScript(() => {
+  window.__shifts = [];
+  new PerformanceObserver((list) => { for (const e of list.getEntries()) { if (!e.hadRecentInput) window.__shifts.push({ value: +e.value.toFixed(4), t: Math.round(e.startTime), sources: (e.sources || []).map((s) => (s.node ? (s.node.tagName || '') + '.' + String(s.node.className || '').slice(0, 40) : 'n/a') + ' ' + JSON.stringify(s.previousRect || {}).slice(0,60)) }); } }).observe({ type: 'layout-shift', buffered: true });
+});
+await page.goto(url, { waitUntil: 'load' });
+await page.waitForTimeout(2500);
+const shifts = await page.evaluate(() => window.__shifts);
+console.log(logs.join('\n') || 'no console errors or failed requests');
+console.log('layout shifts:', JSON.stringify(shifts.slice(0, 6), null, 1));
+await browser.close();

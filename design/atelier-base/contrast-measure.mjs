@@ -1,0 +1,14 @@
+import { createRequire } from 'node:module';
+import { pathToFileURL } from 'node:url';
+const SK = process.env.HOME + '/.claude/skills/figma-auto-html-merge/scripts';
+const req = createRequire(SK + '/x.js');
+const { chromium } = req('playwright-core');
+const { launchOptions } = await import(pathToFileURL(SK + '/browser.mjs').href);
+const [ url, ...sels ] = process.argv.slice(2);
+const browser = await chromium.launch({ ...launchOptions(), args: [ '--disable-gpu' ] });
+const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
+await page.goto(url, { waitUntil: 'load' });
+await page.evaluate(() => document.fonts.ready);
+const out = await page.evaluate((sels) => sels.map((s) => { const e = document.querySelector(s); if (!e) return [s, null]; const c = getComputedStyle(e); let bg = null, el = e; while (el) { const b = getComputedStyle(el).backgroundColor; if (b && b !== 'rgba(0, 0, 0, 0)') { bg = b; break; } el = el.parentElement; } return [s, c.color, c.opacity, bg]; }), sels);
+console.log(JSON.stringify(out, null, 1));
+await browser.close();
