@@ -72,6 +72,7 @@ final class Blocks {
 		register_block_type_from_metadata( AXELLCORE_ATELIERCLUB_PATH . 'build/form/form-control' );
 		register_block_type_from_metadata( AXELLCORE_ATELIERCLUB_PATH . 'build/form/form-fieldset' );
 		register_block_type_from_metadata( AXELLCORE_ATELIERCLUB_PATH . 'build/form/form-submission-notification' );
+		register_block_type_from_metadata( AXELLCORE_ATELIERCLUB_PATH . 'build/sticky-header' );
 		register_block_type_from_metadata( AXELLCORE_ATELIERCLUB_PATH . 'build/chapters/chapters' );
 		register_block_type_from_metadata(
 			AXELLCORE_ATELIERCLUB_PATH . 'build/chapters/chapter',

@@ -34,6 +34,8 @@ define( 'AXELLCORE_ATELIERCLUB_URL', 'http://example.com/wp-content/plugins/axel
 require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-plugin.php';
 require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-template-loader.php';
 require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-assets.php';
+require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-classic-template.php';
+require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-template-parts.php';
 require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-blocks.php';
 require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-member.php';
 require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-locations.php';

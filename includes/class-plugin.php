@@ -85,5 +85,9 @@ final class Plugin {
 		Member::instance()->register_hooks();
 		Locations::instance()->register_hooks();
 		Rest::instance()->register_hooks();
+		Admin_Rest::instance()->register_hooks();
+		Template_Parts::instance()->register_hooks();
+		Classic_Template::instance()->register_hooks();
+		Reveal::instance()->register_hooks();
 	}
 }

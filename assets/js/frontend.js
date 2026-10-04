@@ -8,53 +8,6 @@
 	'use strict';
 
 	/* ---------------------------------------------------------------------
-	 * Nav scroll state — adds .aac-scrolled to .aac-nav past 40px of scroll.
-	 * ------------------------------------------------------------------- */
-	var nav = document.querySelector( '.aac-nav' );
-	if ( nav ) {
-		var onScroll = function () {
-			if ( window.scrollY > 40 ) {
-				nav.classList.add( 'aac-scrolled' );
-			} else {
-				nav.classList.remove( 'aac-scrolled' );
-			}
-		};
-		window.addEventListener( 'scroll', onScroll, { passive: true } );
-		onScroll();
-	}
-
-	/* ---------------------------------------------------------------------
-	 * Reveal on scroll — any element already carrying .aac-reveal (set via
-	 * the block's "Additional CSS class(es)" field at content-authoring
-	 * time) gets .aac-in the first time it enters the viewport. The 4 card
-	 * grids built as real <ol>/<li> lists (core/list-item can't carry a
-	 * className) are selected structurally instead, so each card still
-	 * stagger-reveals individually like the approved mockup.
-	 * ------------------------------------------------------------------- */
-	var REVEAL_SELECTOR =
-		'.aac-reveal, .aac-pillars > li, .aac-prota-grid > li, .aac-promises-grid > li, .aac-benefits-grid > li';
-	if ( 'IntersectionObserver' in window ) {
-		var io = new IntersectionObserver(
-			function ( entries ) {
-				entries.forEach( function ( entry ) {
-					if ( entry.isIntersecting ) {
-						entry.target.classList.add( 'aac-in' );
-						io.unobserve( entry.target );
-					}
-				} );
-			},
-			{ threshold: 0.1 }
-		);
-		document.querySelectorAll( REVEAL_SELECTOR ).forEach( function ( el ) {
-			io.observe( el );
-		} );
-	} else {
-		document.querySelectorAll( REVEAL_SELECTOR ).forEach( function ( el ) {
-			el.classList.add( 'aac-in' );
-		} );
-	}
-
-	/* ---------------------------------------------------------------------
 	 * Input masks — driven by data-aac-mask="cpf-cnpj|cep|phone" on the
 	 * <input>. A cpf-cnpj field additionally reads a sibling <select> named
 	 * via data-aac-mask-source="<field name>" within the same <form> to

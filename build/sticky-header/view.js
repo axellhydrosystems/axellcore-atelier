@@ -1,0 +1,1 @@
+import{getContext as o,store as r}from"@wordpress/interactivity";r("axell/sticky-header",{actions:{onScroll:()=>{o().scrolled=window.scrollY>40}}});

@@ -68,3 +68,15 @@ if ( ! function_exists( 'wp_enqueue_style' ) ) {
 if ( ! function_exists( 'wp_enqueue_script' ) ) {
 	function wp_enqueue_script( $handle, $src = '', $deps = array(), $ver = false, $args = array() ) {}
 }
+
+if ( ! function_exists( 'is_page' ) ) {
+	function is_page( $page = '' ) {
+		return false;
+	}
+}
+
+if ( ! function_exists( 'wp_is_block_theme' ) ) {
+	function wp_is_block_theme() {
+		return true;
+	}
+}

@@ -57,6 +57,73 @@ final class Activator {
 		);
 
 		self::create_page();
+		foreach ( self::child_pages() as $slug => $title ) {
+			self::create_child_page(
+				self::PAGE_SLUG,
+				$slug,
+				$title,
+				AXELLCORE_ATELIERCLUB_PATH . 'content/pages/' . $slug . '.html'
+			);
+		}
+	}
+
+	/**
+	 * Child pages of PAGE_SLUG: slug => title. One unstyled page per section
+	 * of the landing (same copy, anchors on the landing still point to #),
+	 * plus the apply form. Content files live in content/pages/{slug}.html.
+	 *
+	 * @return array<string,string>
+	 */
+	private static function child_pages() {
+		return array(
+			'inicio'        => __( 'Início', 'axellcore-atelierclub' ),
+			'convite'       => __( 'Convite', 'axellcore-atelierclub' ),
+			'manifesto'     => __( 'Manifesto', 'axellcore-atelierclub' ),
+			'a-placa'       => __( 'A Placa', 'axellcore-atelierclub' ),
+			'protagonistas' => __( 'Protagonistas', 'axellcore-atelierclub' ),
+			'proposta'      => __( 'Proposta', 'axellcore-atelierclub' ),
+			'o-nome'        => __( 'O Nome', 'axellcore-atelierclub' ),
+			'como-entrar'   => __( 'Como Entrar', 'axellcore-atelierclub' ),
+			'niveis'        => __( 'Níveis', 'axellcore-atelierclub' ),
+			'beneficios'    => __( 'Benefícios', 'axellcore-atelierclub' ),
+			'editorial'     => __( 'Editorial', 'axellcore-atelierclub' ),
+			'chamada'       => __( 'Chamada para adesão', 'axellcore-atelierclub' ),
+			'adesao'        => __( 'Adesão', 'axellcore-atelierclub' ),
+		);
+	}
+
+	/**
+	 * Create a child page under $parent_slug if it doesn't already exist.
+	 *
+	 * Uses the default page template on purpose: the content is plain block
+	 * markup with no styling, and the page should show the theme's defaults.
+	 *
+	 * @param string $parent_slug   Slug of the parent page (must exist).
+	 * @param string $slug          Slug of the child page.
+	 * @param string $title         Title of the child page.
+	 * @param string $content_file  Absolute path to the block-markup content file.
+	 */
+	private static function create_child_page( string $parent_slug, string $slug, string $title, string $content_file ) {
+		$parent = get_page_by_path( $parent_slug, OBJECT, 'page' );
+		if ( ! $parent instanceof \WP_Post ) {
+			return;
+		}
+
+		// Full path, so a same-named page elsewhere doesn't count as existing.
+		if ( get_page_by_path( $parent_slug . '/' . $slug, OBJECT, 'page' ) instanceof \WP_Post ) {
+			return;
+		}
+
+		self::insert_trusted_content(
+			array(
+				'post_type'    => 'page',
+				'post_title'   => $title,
+				'post_name'    => $slug,
+				'post_status'  => 'publish',
+				'post_parent'  => $parent->ID,
+				'post_content' => self::read_content_file( $content_file, '' ),
+			)
+		);
 	}
 
 	/**
@@ -75,7 +142,7 @@ final class Activator {
 				'post_name'    => self::PAGE_SLUG,
 				'post_status'  => 'publish',
 				'post_content' => self::read_content_file(
-					AXELLCORE_ATELIERCLUB_PATH . 'content/seed-content.html',
+					AXELLCORE_ATELIERCLUB_PATH . 'content/atelier-page.html',
 					self::placeholder_content()
 				),
 			)

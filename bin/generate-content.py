@@ -950,9 +950,5 @@ OUT.clear()
 
 with open(f'{PLUGIN_DIR}/content/seed-content.html', 'w', encoding='utf-8') as f:
     f.write('\n'.join(page_content) + '\n')
-with open(f'{PLUGIN_DIR}/content/header-part.html', 'w', encoding='utf-8') as f:
-    f.write('\n'.join(header_part) + '\n')
-with open(f'{PLUGIN_DIR}/content/footer-part.html', 'w', encoding='utf-8') as f:
-    f.write('\n'.join(footer_part) + '\n')
 
-print(f"wrote seed-content.html: {len(page_content)} lines, header-part.html: {len(header_part)} lines, footer-part.html: {len(footer_part)} lines")
+print(f"wrote seed-content.html: {len(page_content)} lines")

@@ -1,0 +1,50 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "axell/sticky-header",
+	"title": "Sticky Header",
+	"category": "theme",
+	"description": "A group that stays fixed at the top of the viewport and changes its padding and background once the page scrolls past 40px. Its inner blocks are the header content.",
+	"keywords": [ "header", "sticky", "fixed", "navigation", "nav" ],
+	"textdomain": "axellcore-atelierclub",
+	"attributes": {},
+	"supports": {
+		"html": false,
+		"anchor": true,
+		"className": true,
+		"customClassName": true,
+		"layout": {
+			"allowSwitching": false,
+			"allowInheriting": false,
+			"allowEditing": true,
+			"default": {
+				"type": "flex",
+				"justifyContent": "space-between",
+				"alignItems": "center"
+			}
+		},
+		"spacing": {
+			"padding": true,
+			"margin": false,
+			"blockGap": true,
+			"__experimentalDefaultControls": { "padding": true }
+		},
+		"color": {
+			"background": true,
+			"text": true,
+			"__experimentalDefaultControls": {
+				"background": true,
+				"text": true
+			}
+		},
+		"typography": {
+			"fontSize": true,
+			"lineHeight": true,
+			"__experimentalDefaultControls": { "fontSize": true }
+		}
+	},
+	"render": "file:./render.php",
+	"viewScriptModule": "file:./view.ts",
+	"editorScript": "file:./index.js",
+	"style": "file:./style-index.css"
+}

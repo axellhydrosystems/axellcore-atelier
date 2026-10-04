@@ -1,0 +1,29 @@
+/*
+ * Reveal on scroll (front end only). The hidden state applies only once the
+ * view module has set `is-ready`, so content stays visible without JavaScript,
+ * and never hides for users who prefer reduced motion.
+ */
+
+@media (prefers-reduced-motion: no-preference) {
+	.axell-reveal.is-ready[data-axell-reveal='block']:not( .is-in ) {
+		opacity: 0;
+		transform: translateY( 24px );
+	}
+
+	.axell-reveal.is-ready[data-axell-reveal='block'].is-in {
+		opacity: 1;
+		transform: none;
+		transition: opacity 0.9s ease, transform 0.9s ease;
+	}
+
+	.axell-reveal.is-ready[data-axell-reveal='items'] > :not( .is-in ) {
+		opacity: 0;
+		transform: translateY( 24px );
+	}
+
+	.axell-reveal.is-ready[data-axell-reveal='items'] > .is-in {
+		opacity: 1;
+		transform: none;
+		transition: opacity 0.9s ease, transform 0.9s ease;
+	}
+}

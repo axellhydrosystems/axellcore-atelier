@@ -194,24 +194,7 @@ section{ position: relative; }
 /* ============================================
    NAV
    ============================================ */
-.aac-nav{
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 60;
-  padding: 24px var(--gutter);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  transition: background .4s ease, backdrop-filter .4s ease, border-color .4s ease, padding .4s ease;
-  border-bottom: 1px solid transparent;
-}
-.aac-nav.aac-scrolled{
-  padding-top: 16px; padding-bottom: 16px;
-  background: rgba(11,14,18,0.72);
-  backdrop-filter: blur(20px) saturate(1.3);
-  -webkit-backdrop-filter: blur(20px) saturate(1.3);
-  border-bottom-color: rgba(239,236,228,0.08);
-}
+/* The fixed header itself is axell/sticky-header (src/sticky-header/style.scss). */
 .aac-nav-logo{
   display: flex;
   align-items: center;
@@ -261,6 +244,7 @@ section{ position: relative; }
 
 @media (max-width: 980px){
   .aac-nav-links a:not(.aac-nav-cta){ display: none; }
+  .aac-nav-links > .wp-block-paragraph{ display: none; }
   .aac-nav-logo .aac-n2{ display:none; }
 }
 
@@ -1396,6 +1380,8 @@ section{ position: relative; }
   .aac-form-row.aac-cols-2, .aac-form-row.aac-cols-3, .aac-form-row.aac-cols-addr, .aac-form-row.aac-cols-city{ grid-template-columns: 1fr; }
   .aac-partners-grid{ grid-template-columns: 1fr; }
   .aac-apply-form .aac-submit-row{ flex-direction: column; align-items: stretch; }
+  .aac-apply-form .aac-submit-row .wp-block-button,
+  .aac-apply-form .aac-submit-row .wp-block-button__link{ max-width: 100%; box-sizing: border-box; white-space: normal; }
 }
 
 /* ============================================
@@ -1607,20 +1593,64 @@ section{ position: relative; }
 .aac-partner-slot input::placeholder{ color: rgba(239,236,228,0.32); font-weight: 300; }
 .aac-partner-slot input:focus{ color: var(--bronze-3); }
 
-/* Reveal on scroll */
-/* core/list-item can't carry a className (block.json sets "className":
-   false), so the 4 card grids that became real <ol>/<li> lists (Pillars,
-   Protagonists, Promises, Benefits) can't tag each <li> with .aac-reveal —
-   the stagger-in-on-scroll from the approved mockup is preserved via these
-   structural child selectors instead (frontend.js's IntersectionObserver
-   selects the same list). */
-.aac-reveal,
-.aac-pillars > li,
-.aac-prota-grid > li,
-.aac-promises-grid > li,
-.aac-benefits-grid > li{ opacity: 0; transform: translateY(24px); transition: opacity .9s ease, transform .9s ease; }
-.aac-reveal.aac-in,
-.aac-pillars > li.aac-in,
-.aac-prota-grid > li.aac-in,
-.aac-promises-grid > li.aac-in,
-.aac-benefits-grid > li.aac-in{ opacity: 1; transform: translateY(0); }
+
+@media (max-width: 379px){
+  .aac-btn-lg{ max-width: 100%; box-sizing: border-box; white-space: normal; }
+  .wp-block-heading, .wp-block-heading em{ overflow-wrap: anywhere; }
+  .aac-cta-strip-inner{ grid-template-columns: minmax(0, 1fr); }
+  .aac-nav-cta{ padding: 12px 14px; letter-spacing: 0.16em; min-width: 0; }
+}
+
+.aac-section-pad{ padding-top: clamp(90px, 13vw, 180px); }
+.aac-chapter-tag{
+  margin: 0 0 40px;
+  padding-inline: max(clamp(20px, 4vw, 60px), calc(50% - 580px));
+}
+
+/* "Placa" stone texture: no block-attribute equivalent (multi-layer gradients,
+   pseudo-element veining and ore dots), so it stays a single documented class. */
+.aac-placa-stone{ position: relative; overflow: hidden; aspect-ratio: 4 / 5; box-shadow: 0 40px 80px -30px rgba(0,0,0,0.6), inset 0 0 0 1px rgba(230,178,122,0.15); }
+.aac-placa-stone::before, .aac-placa-stone::after{ content: ""; position: absolute; inset: 0; pointer-events: none; }
+.aac-placa-stone::before{
+  background-image:
+    repeating-linear-gradient(115deg, rgba(255,240,220,0.03) 0 2px, transparent 2px 30px),
+    repeating-linear-gradient(35deg, rgba(0,0,0,0.15) 0 1px, transparent 1px 45px);
+  mix-blend-mode: overlay;
+}
+.aac-placa-stone::after{
+  background-image:
+    radial-gradient(1px 1px at 20% 30%, rgba(230,178,122,0.4), transparent),
+    radial-gradient(1px 1px at 70% 20%, rgba(255,235,200,0.3), transparent),
+    radial-gradient(1.5px 1.5px at 40% 80%, rgba(230,178,122,0.5), transparent),
+    radial-gradient(1px 1px at 85% 65%, rgba(255,235,200,0.35), transparent),
+    radial-gradient(1px 1px at 15% 60%, rgba(230,178,122,0.4), transparent);
+}
+.aac-placa-stone > .wp-block-group{ width: 100%; box-sizing: border-box; }
+
+/* Ivory chapter band: the chapter block has no background support, so its
+   light variant is a single documented class. */
+.aac-chapter.aac-ivory{ background: #EFECE4; color: #0B0E12; }
+.aac-chapter.aac-ivory .aac-chapter-tag{ color: #B4996A; }
+.aac-section-sm-pad{ padding-top: clamp(70px, 9vw, 120px); }
+
+/* Pillar row: two per row between 561 and 781px, one per row below 560px (as the design). */
+@media (min-width: 561px) and (max-width: 781px){
+  .aac-pillar-row.wp-block-columns{ flex-direction: row; flex-wrap: wrap; row-gap: 0; }
+  .aac-pillar-row.wp-block-columns.aac-pillar-row > .wp-block-column{ flex: 0 0 50% !important; max-width: 50% !important; }
+  .aac-pillar-row.wp-block-columns > .wp-block-column:nth-child(2n){ border-right: 0 !important; }
+  .aac-pillar-row.wp-block-columns > .wp-block-column:nth-child(-n+2){ border-bottom: 1px solid rgba(239,236,228,0.10); }
+}
+
+/* Chapter 01: the label sits above the left column on desktop, as in the design.
+   Desktop only; below 782px the label stays above the content. */
+@media (min-width: 782px){
+  .aac-tag-side{ position: relative; }
+  .aac-tag-side > .aac-chapter-tag{
+    position: absolute;
+    top: clamp(90px, 13vw, 180px);
+    left: max(clamp(20px, 4vw, 60px), calc(50% - 580px));
+    margin: 0;
+    padding: 0;
+  }
+  .aac-tag-side h2{ margin-top: 57px; }
+}

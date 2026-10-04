@@ -1,0 +1,21 @@
+/* Hide the default CPT list table and edit form the app replaces. */
+.aac-members-list {
+	#posts-filter,
+	.subsubsub,
+	.page-title-action,
+	.wp-header-end ~ .search-box {
+		display: none;
+	}
+}
+
+.aac-members-edit {
+	#post,
+	#poststuff {
+		display: none;
+	}
+}
+
+#aac-members-app {
+	margin-top: 1em;
+	max-width: 1100px;
+}

@@ -58,7 +58,7 @@ final class Assets {
 	 * @return bool
 	 */
 	private function is_our_template() {
-		return is_page_template( Plugin::TEMPLATE_SLUG );
+		return is_page_template( Plugin::TEMPLATE_SLUG ) || Classic_Template::is_active();
 	}
 
 	/**
