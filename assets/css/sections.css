@@ -75,7 +75,7 @@ p.aac-body{
   color: var(--bronze-2);
   font-weight: 500;
 }
-.aac-on-ivory .aac-chapter-tag{ color: var(--bronze); }
+.aac-on-ivory .aac-chapter-tag{ color: #7D6138; } /* 4.9:1 on ivory (AA); --bronze is 2.3:1 there */
 
 /* ============================================
    CHAPTERS — axellcore/chapters > axellcore/chapter. The "Capítulo NN"
@@ -827,7 +827,7 @@ section{ position: relative; }
   color: var(--bronze-2);
   margin-bottom: 10px;
 }
-.aac-jstep h4{
+.aac-jstep h3{
   font-family: var(--serif); font-weight: 400;
   font-size: 24px; line-height: 1.25;
   margin: 0 0 12px; color: var(--ivory);
@@ -1392,7 +1392,7 @@ section{ position: relative; }
   padding-bottom: 44px;
   border-bottom: 1px solid var(--line-dk);
 }
-.aac-footer h5{
+.aac-footer h3{
   font-family: var(--sans);
   font-size: 10px; letter-spacing: 0.32em;
   text-transform: uppercase;
@@ -1411,7 +1411,7 @@ section{ position: relative; }
   padding-top: 26px;
   display: flex; justify-content: space-between; align-items: center;
   font-size: 11px; letter-spacing: 0.06em;
-  color: rgba(239,236,228,0.4);
+  color: rgba(239,236,228,0.55); /* 5.4:1 on ink (AA); 0.4 was 3.4:1 */
 }
 .aac-footer-bottom .aac-edition{
   font-family: var(--serif); font-style: italic;
@@ -1622,7 +1622,7 @@ section{ position: relative; }
 /* Ivory chapter band: the chapter block has no background support, so its
    light variant is a single documented class. */
 .aac-chapter.aac-ivory{ background: #EFECE4; color: #0B0E12; }
-.aac-chapter.aac-ivory .aac-chapter-tag{ color: #B4996A; }
+.aac-chapter.aac-ivory .aac-chapter-tag{ color: #7D6138; } /* 4.9:1 on ivory (AA) */
 .aac-section-sm-pad{ padding-top: clamp(70px, 9vw, 120px); }
 
 /* Pillar row: two per row between 561 and 781px, one per row below 560px (as the design). */

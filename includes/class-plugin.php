@@ -87,6 +87,7 @@ final class Plugin {
 		Members::instance()->register_hooks();
 		Form_Block::instance()->register_hooks();
 		Activator::register_hooks();
+		Seo::instance()->register_hooks();
 		Rest::instance()->register_hooks();
 		Admin_Rest::instance()->register_hooks();
 		Template_Parts::instance()->register_hooks();
