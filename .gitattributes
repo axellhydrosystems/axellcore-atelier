@@ -22,3 +22,4 @@ Gruntfile.js           export-ignore
 README.md              export-ignore
 .editorconfig          export-ignore
 **/.DS_Store           export-ignore
+design/ export-ignore
