@@ -213,7 +213,7 @@ h6, h5, h4, h3, h2, h1 {
   margin-bottom: 0.5rem;
   font-family: serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   font-weight: 500;
-  line-height: 1.2;
+  line-height: 1.05;
   color: var(--aa-heading-color);
 }
 
@@ -227,12 +227,7 @@ h1 {
 }
 
 h2 {
-  font-size: calc(1.325rem + 0.9vw);
-}
-@media (min-width: 1200px) {
-  h2 {
-    font-size: 2rem;
-  }
+  font-size: clamp(36px, 5vw, 68px);
 }
 
 h3 {
@@ -594,7 +589,7 @@ progress {
 .container-lg,
 .container-md,
 .container-sm {
-  --aa-gutter-x: 100px;
+  --aa-gutter-x: 7.2rem;
   --aa-gutter-y: 0;
   width: 100%;
   padding-right: calc(var(--aa-gutter-x) * 0.5);
@@ -638,7 +633,7 @@ progress {
 }
 
 .row {
-  --aa-gutter-x: 100px;
+  --aa-gutter-x: 7.2rem;
   --aa-gutter-y: 0;
   display: flex;
   flex-wrap: wrap;
@@ -2581,7 +2576,7 @@ textarea.form-control-lg {
   --aa-card-color: ;
   --aa-card-bg: var(--aa-body-bg);
   --aa-card-img-overlay-padding: 1rem;
-  --aa-card-group-margin: 50px;
+  --aa-card-group-margin: 3.6rem;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -4257,7 +4252,7 @@ textarea.form-control-lg {
 }
 
 .fs-2 {
-  font-size: calc(1.325rem + 0.9vw) !important;
+  font-size: clamp(36px, 5vw, 68px) !important;
 }
 
 .fs-3 {
@@ -7818,9 +7813,6 @@ textarea.form-control-lg {
   .fs-1 {
     font-size: 2.5rem !important;
   }
-  .fs-2 {
-    font-size: 2rem !important;
-  }
   .fs-3 {
     font-size: 1.75rem !important;
   }
@@ -7862,4 +7854,56 @@ textarea.form-control-lg {
   .d-print-none {
     display: none !important;
   }
+}
+.visually-hidden,
+.visually-hidden-focusable:not(:focus):not(:focus-within) {
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+.visually-hidden:not(caption),
+.visually-hidden-focusable:not(:focus):not(:focus-within):not(caption) {
+  position: absolute !important;
+}
+.visually-hidden *,
+.visually-hidden-focusable:not(:focus):not(:focus-within) * {
+  overflow: hidden !important;
+}
+
+.apply {
+  padding-block: clamp(90px, 13vw, 180px);
+  --aa-tertiary-bg-rgb: 239, 236, 228;
+  --aa-border-color-translucent: rgba(239,236,228,0.18);
+}
+@media (min-width: 1201px) {
+  .apply .col-lg-5 {
+    width: 43.731%;
+  }
+  .apply .col-lg-7 {
+    width: 56.269%;
+  }
+}
+.apply .list-group {
+  --aa-list-group-border-radius: 0;
+  --aa-list-group-item-padding-x: 0;
+}
+.apply .list-group-item {
+  border-inline-width: 0;
+}
+.apply .g-4 {
+  --aa-gutter-y: 6.25rem;
+  --aa-gutter-x: 6.25rem;
+}
+.apply .card {
+  --aa-card-spacer-y: 2.75rem;
+  --aa-card-spacer-x: 2.75rem;
+  padding: calc(var(--aa-card-spacer-y) + 0.25rem) var(--aa-card-spacer-x) calc(var(--aa-card-spacer-y) - 0.25rem);
+}
+.apply .bg-body-tertiary {
+  --aa-bg-opacity: 0.03;
 }
