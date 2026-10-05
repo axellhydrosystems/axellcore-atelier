@@ -81,7 +81,7 @@ def fix_anchors(text):
 CDN_CSS = ('<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" '
            'rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" '
            'crossorigin="anonymous">')
-BS_ADESAO = (ROOT / 'bs' / 'adesao.html').read_text(encoding='utf-8')
+PURE_ADESAO = (ROOT / 'pure' / 'adesao' / 'index.html').read_text(encoding='utf-8')
 
 
 def page(name, body, script='', css=None):
@@ -107,7 +107,13 @@ write('header', page('header', header, nav_script))
 write('hero', page('hero', hero))
 for name, section in zip(MAIN_NAMES, sections):
     if name == 'adesao':
-        write(name, page(name, f'<main>\n{BS_ADESAO}</main>', form_script, css=CDN_CSS))
+        # pure/adesao is the reference markup; this folder is generated from it, one level up.
+        (ROOT / 'adesao').mkdir(exist_ok=True)
+        html = PURE_ADESAO.replace('../../', '../')
+        html, n = re.subn(r'<link href="https://cdn\.jsdelivr\.net/npm/bootstrap@[^>]*>', '<link rel="stylesheet" href="../theme/adesao.css">', html, count=1)
+        assert n == 1
+        (ROOT / 'adesao' / 'index.html').write_text(html, encoding='utf-8')
+        print('adesao/index.html (from pure)')
         continue
     write(name, page(name, f'<main>\n{section}\n</main>'))
 write('footer', page('footer', footer))

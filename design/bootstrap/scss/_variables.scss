@@ -12,3 +12,69 @@ $grid-breakpoints: (
   xl: 1401px,
   xxl: 1601px
 ) !default;
+
+// Mockup tokens (atelier-axell-club.html :root). Everything the Bootstrap
+// components need is set here, before Bootstrap's own variables are imported.
+$ink: #0B0E12;
+$ivory: #EFECE4;
+$bronze: #B4996A;
+$bronze-2: #C6AC7E;
+$line-dk: rgba($ivory, .10);
+$line-dk-2: rgba($ivory, .18);
+
+// Dark color mode (data-bs-theme="dark") is the mockup's only mode.
+$body-bg: $ink;
+$body-color: $ivory;
+$body-bg-dark: $ink;
+$body-color-dark: $ivory;
+$border-color-dark: $line-dk-2;
+$link-color-dark: $bronze-2;
+$primary: $bronze;
+$container-max-widths: (sm: 100%, md: 100%, lg: 100%, xl: 1280px, xxl: 1280px);
+$grid-gutter-width: 100px;
+
+// Inputs: only a bottom rule (inset shadow), no box, as in the mockup.
+$input-bg: transparent;
+$input-color: $ivory;
+$input-border-width: 0;
+$input-border-radius: 0;
+$input-box-shadow: inset 0 -1px 0 $line-dk-2;
+$input-focus-box-shadow: inset 0 -1px 0 $bronze-2;
+$input-focus-border-color: transparent;
+$input-placeholder-color: rgba($ivory, .35);
+$input-padding-x: 0;
+$input-padding-y: 12px;
+$input-font-size: 15px;
+$input-font-weight: 300;
+$input-line-height: 1.6;
+
+$form-label-margin-bottom: 10px;
+$form-label-font-size: 10px;
+$form-label-font-weight: 500;
+$form-label-color: $bronze-2;
+$form-text-margin-top: 6px;
+$form-text-font-size: 11.5px;
+$form-text-font-style: italic;
+$form-text-color: rgba($ivory, .45);
+
+$form-check-input-width: 1em;
+$form-check-input-bg: transparent;
+$form-check-input-border: 1px solid rgba($ivory, .40);
+$form-check-input-border-radius: 2px;
+$form-check-input-checked-bg-color: $bronze;
+$form-check-input-checked-border-color: $bronze;
+$form-check-input-checked-color: $ink;
+$form-check-input-focus-border: $bronze-2;
+
+$btn-border-radius: 999px;
+$btn-font-size: 11.5px;
+$btn-font-weight: 500;
+$btn-padding-x: 32px;
+$btn-padding-y: 20px;
+$btn-line-height: 1.6;
+
+// Typography of the mockup: Inter for text, Cormorant Garamond for headings.
+$font-family-sans-serif: "Inter", -apple-system, "Segoe UI", system-ui, sans-serif !default;
+$font-family-serif: "Cormorant Garamond", "Times New Roman", Georgia, serif !default;
+$font-family-base: $font-family-sans-serif;
+$headings-font-family: $font-family-serif;
