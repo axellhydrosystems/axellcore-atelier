@@ -90,6 +90,7 @@ final class Plugin {
 		Seo::instance()->register_hooks();
 		Rest::instance()->register_hooks();
 		Options_Rest::instance()->register_hooks();
+		Kses::instance()->register_hooks();
 		Admin_Rest::instance()->register_hooks();
 		Template_Parts::instance()->register_hooks();
 		Classic_Template::instance()->register_hooks();
