@@ -246,7 +246,7 @@ def button(text, style=None, url="#", tag_name="a"):
 
 
 # ============================================================
-# TOKENS (from atelier-axell-club.html :root — hand-carried, since this
+# TOKENS (from source/index.html :root — hand-carried, since this
 # experiment has no tokens.css to reference custom properties from)
 # ============================================================
 INK = "#0B0E12"

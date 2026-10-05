@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Splits atelier-axell-club.html (the source) into one page per block, header to footer.
+"""Splits source/index.html (the source) into one page per block, header to footer.
 
 Each block lives in source/<name>/index.html (served on :8544 by Caddy) with the same head, fonts and CSS as
 the source, so one block can be reviewed on its own. Run again after editing the
@@ -10,7 +10,7 @@ import re
 
 ROOT = pathlib.Path(__file__).resolve().parent
 OUT = ROOT / 'source'
-SRC = (ROOT / 'atelier-axell-club.html').read_text(encoding='utf-8')
+SRC = (ROOT / 'source' / 'index.html').read_text(encoding='utf-8')
 
 SECTION_NAMES = [
     'hero', 'convite', 'manifesto', 'placa', 'protagonistas', 'promessas', 'conceito',

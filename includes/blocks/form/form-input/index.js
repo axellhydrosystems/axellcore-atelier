@@ -13,7 +13,7 @@
  * Static (no PHP render), no build step (plain browser JS against wp.*
  * globals). Renders text/email/url/number/tel/textarea/select/checkbox/
  * hidden, matching the markup the plugin's assets/css/sections.css (ported
- * from atelier-axell-club.html) expects: `.aac-field` wrapper (or
+ * from source/index.html) expects: `.aac-field` wrapper (or
  * `.aac-consent` for the consent variant).
  *
  * Source strings are English; translations live in languages/*.po (see

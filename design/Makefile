@@ -20,9 +20,8 @@ cert: ## Gera certificado local (mkcert) se ainda não existir
 	@mkdir -p $(CERTS)
 	@test -f $(CERTS)/localhost.pem || mkcert -cert-file $(CERTS)/localhost.pem -key-file $(CERTS)/localhost-key.pem localhost 127.0.0.1 ::1
 
-sync: ## Copia atelier-axell-club.html para source/index.html e assets/ para clone e source
+sync: ## Copia assets/ para clone e source (source/index.html é a fonte)
 	@mkdir -p $(SOURCE)
-	@cp $(CURDIR)/atelier-axell-club.html $(SOURCE)/index.html
 	@rm -rf $(SOURCE)/assets $(CLONE)/assets && cp -R $(CURDIR)/assets $(SOURCE)/assets && cp -R $(CURDIR)/assets $(CLONE)/assets
 
 up: cert sync ## Sobe clone (:8543, bootstrap/) e source (:8544, source/)

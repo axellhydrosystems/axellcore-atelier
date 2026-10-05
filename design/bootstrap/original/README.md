@@ -1,6 +1,6 @@
 # Original (approved source)
 
-- `index.html`: copy of `atelier-axell-club.html` (approved mockup, sha256 35eb9c16…). Do not edit.
+- `index.html`: copy of `source/index.html` (approved mockup, sha256 35eb9c16…). Do not edit.
 - `base-desktop.png` (1440 × 15951) and `base-mobile.png` (390 × 24849): approved bases, rendered from the original with reveals forced visible and transitions off.
 
 The prototype (`../index.html`, `../style.min.css`) is the source going forward. It must stay at 0.00% against these bases, except for the exceptions below.

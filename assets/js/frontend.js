@@ -1,6 +1,6 @@
 /**
  * Atelier Axell Club — shared frontend behavior.
- * Ported 1:1 from the approved atelier-axell-club.html mockup's inline <script>,
+ * Ported 1:1 from the approved source/index.html mockup's inline <script>,
  * adapted to work against class/data-attribute hooks instead of hardcoded element IDs
  * so it works regardless of which block instance renders the markup.
  */

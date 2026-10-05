@@ -41,7 +41,7 @@ same license as this plugin) is vendored at
   native `color`/`border` block supports on the input field. The mockup's
   field chrome (`assets/css/sections.css`'s `.aac-field`/`.aac-consent`
   rules) is fixed brand design ported 1:1 from the approved
-  `atelier-axell-club.html` mockup, not meant to be per-field-themeable by an
+  `source/index.html` mockup, not meant to be per-field-themeable by an
   editor — adding color/border supports would let someone accidentally break
   pixel-parity with the approved design. See "What's still worth doing next"
   in `docs/ARCHITECTURE.md` for the project's standing pixel-parity

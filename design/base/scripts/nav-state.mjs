@@ -1,0 +1,20 @@
+import { createRequire } from 'node:module';
+import { pathToFileURL } from 'node:url';
+const SK = process.env.HOME + '/.claude/skills/figma-auto-html-merge/scripts';
+const req = createRequire(SK + '/x.js');
+const { chromium } = req('playwright-core');
+const { launchOptions } = await import(pathToFileURL(SK + '/browser.mjs').href);
+const browser = await chromium.launch({ ...launchOptions(), args: [ '--disable-gpu' ] });
+const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
+await page.goto(pathToFileURL(process.cwd() + '/source/index.html').href, { waitUntil: 'load' });
+const read = () => page.evaluate(() => {
+	const n = document.querySelector('.nav'); const c = getComputedStyle(n); const r = n.getBoundingClientRect();
+	const links = document.querySelector('.nav-links a'); const lc = links ? getComputedStyle(links) : null;
+	return { cls: n.className, pos: c.position, top: r.top, h: r.height, op: c.opacity, vis: c.visibility, color: lc && lc.color, linkOp: lc && lc.opacity };
+});
+console.log('top      ', JSON.stringify(await read()));
+await page.evaluate(() => window.scrollTo(0, 2000)); await page.waitForTimeout(800);
+console.log('scrolled ', JSON.stringify(await read()));
+await page.evaluate(() => window.scrollTo(0, 0)); await page.waitForTimeout(800);
+console.log('back     ', JSON.stringify(await read()));
+await browser.close();

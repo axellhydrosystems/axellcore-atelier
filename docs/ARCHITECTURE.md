@@ -322,7 +322,7 @@ scouting exercise, not a permanent second page. The next step is to:
    limits (CSS counters/pseudo-elements/backdrop-filter/transitions/
    multi-layer gradients — see the skill for the exact list).
 3. Verify with **0.00% visual regression** against the original approved
-   mockup (`atelier-axell-club.html`), via direct screenshot comparison
+   mockup (`source/index.html`), via direct screenshot comparison
    (chrome-devtools MCP), not just "looks close" — the noclass experiment
    was judged that way because it was explicitly a proof-of-concept; the
    production page is held to full pixel parity, same as it always has
