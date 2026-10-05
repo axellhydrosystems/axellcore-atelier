@@ -6,5 +6,6 @@ node_modules/
 tests/coverage/
 playwright-report/
 test-results/
-design/source/
+design/source/index.html
+design/source/assets/
 design/.serve/certs/
