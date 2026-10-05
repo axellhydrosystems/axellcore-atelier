@@ -59,6 +59,18 @@
     "citiesSourceName": {
       "type": "string",
       "default": ""
+    },
+    "sourcePostType": {
+      "type": "string",
+      "default": ""
+    },
+    "labelTemplate": {
+      "type": "string",
+      "default": "[post_title]"
+    },
+    "allowNotFound": {
+      "type": "boolean",
+      "default": false
     }
   },
   "supports": {
@@ -105,11 +117,13 @@
         "style": false,
         "width": false
       }
-    }
+    },
+    "interactivity": true
   },
   "editorScript": [
     "file:./index.js",
     "file:./variations.js"
   ],
-  "style": "file:./style.scss"
+  "style": "file:./style.scss",
+  "viewScriptModule": "file:./view.js"
 }

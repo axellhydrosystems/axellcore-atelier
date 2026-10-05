@@ -1172,17 +1172,64 @@
 <!-- /wp:axell/form-fieldset -->
 <!-- wp:axell/form-fieldset {} -->
 <fieldset class="wp-block-axell-form-fieldset"><legend class="aac-form-legend-text">04 — Lojas parceiras</legend>
-<!-- wp:group {"className":"aac-field"} -->
-<div class="wp-block-group aac-field">
+<!-- wp:group {"className":"aac-partner-slots"} -->
+<div class="wp-block-group aac-partner-slots">
 <!-- wp:paragraph {"className":"aac-field-label-text"} -->
 <p class="wp-block-paragraph aac-field-label-text">Onde você costuma especificar Axell?</p>
 <!-- /wp:paragraph -->
 <!-- wp:paragraph {"className":"aac-hint"} -->
 <p class="wp-block-paragraph aac-hint">Liste até <strong style="color:var(--bronze-3);font-weight:500">cinco</strong> revendas ou showrooms parceiros com quem você trabalha. Preencha apenas o que fizer sentido — os campos vazios podem ficar em branco.</p>
 <!-- /wp:paragraph -->
-<!-- wp:html -->
-<ol type="i" class="aac-partner-slots"><li class="aac-partner-slot"><input type="text" name="loja1" placeholder="Nome da loja · cidade"></li><li class="aac-partner-slot"><input type="text" name="loja2" placeholder="Nome da loja · cidade"></li><li class="aac-partner-slot"><input type="text" name="loja3" placeholder="Nome da loja · cidade"></li><li class="aac-partner-slot"><input type="text" name="loja4" placeholder="Nome da loja · cidade"></li><li class="aac-partner-slot"><input type="text" name="loja5" placeholder="Nome da loja · cidade"></li></ol>
-<!-- /wp:html -->
+<!-- wp:group {"className":"aac-field"} -->
+<div class="wp-block-group aac-field">
+<!-- wp:axell/form-label {"for":"loja1","visuallyHidden":true} -->
+<label class="wp-block-axell-form-label is-visually-hidden" for="loja1"><span class="aac-field-label-text">Loja parceira 1</span></label>
+<!-- /wp:axell/form-label -->
+<!-- wp:axell/form-control {"type":"autocomplete","id":"loja1","placeholder":"Nome da loja · cidade","sourcePostType":"aas_assistencia","labelTemplate":"[post_title] - [tax:cidade] [tax:estado]","allowNotFound":true} -->
+<div class="wp-block-axell-form-control" data-wp-interactive="axell/autocomplete" data-wp-context="{&quot;postType&quot;:&quot;aas_assistencia&quot;,&quot;template&quot;:&quot;[post_title] - [tax:cidade] [tax:estado]&quot;,&quot;allowNotFound&quot;:true,&quot;text&quot;:&quot;&quot;,&quot;selectedId&quot;:&quot;&quot;,&quot;titulo&quot;:&quot;&quot;,&quot;open&quot;:false,&quot;notFound&quot;:false,&quot;activeIndex&quot;:-1,&quot;options&quot;:[]}" data-wp-on--keydown="actions.onKeydown" data-wp-on--focusout="actions.onFocusOut"><input type="text" id="loja1" autocomplete="off" role="combobox" aria-autocomplete="list" aria-controls="loja1-list" placeholder="Nome da loja · cidade" data-wp-bind--value="context.text" data-wp-bind--aria-expanded="context.open" data-wp-on--input="actions.onInput"/><input type="hidden" name="loja1" data-wp-bind--value="context.selectedId"/><input type="hidden" name="loja1_titulo" data-wp-bind--value="context.titulo"/><ul id="loja1-list" role="listbox" hidden data-wp-bind--hidden="!context.open" data-wp-on--click="actions.pick" data-wp-on--mousedown="actions.keepFocus" data-wp-watch="callbacks.renderList"></ul></div>
+<!-- /wp:axell/form-control -->
+</div>
+<!-- /wp:group -->
+<!-- wp:group {"className":"aac-field"} -->
+<div class="wp-block-group aac-field">
+<!-- wp:axell/form-label {"for":"loja2","visuallyHidden":true} -->
+<label class="wp-block-axell-form-label is-visually-hidden" for="loja2"><span class="aac-field-label-text">Loja parceira 2</span></label>
+<!-- /wp:axell/form-label -->
+<!-- wp:axell/form-control {"type":"autocomplete","id":"loja2","placeholder":"Nome da loja · cidade","sourcePostType":"aas_assistencia","labelTemplate":"[post_title] - [tax:cidade] [tax:estado]","allowNotFound":true} -->
+<div class="wp-block-axell-form-control" data-wp-interactive="axell/autocomplete" data-wp-context="{&quot;postType&quot;:&quot;aas_assistencia&quot;,&quot;template&quot;:&quot;[post_title] - [tax:cidade] [tax:estado]&quot;,&quot;allowNotFound&quot;:true,&quot;text&quot;:&quot;&quot;,&quot;selectedId&quot;:&quot;&quot;,&quot;titulo&quot;:&quot;&quot;,&quot;open&quot;:false,&quot;notFound&quot;:false,&quot;activeIndex&quot;:-1,&quot;options&quot;:[]}" data-wp-on--keydown="actions.onKeydown" data-wp-on--focusout="actions.onFocusOut"><input type="text" id="loja2" autocomplete="off" role="combobox" aria-autocomplete="list" aria-controls="loja2-list" placeholder="Nome da loja · cidade" data-wp-bind--value="context.text" data-wp-bind--aria-expanded="context.open" data-wp-on--input="actions.onInput"/><input type="hidden" name="loja2" data-wp-bind--value="context.selectedId"/><input type="hidden" name="loja2_titulo" data-wp-bind--value="context.titulo"/><ul id="loja2-list" role="listbox" hidden data-wp-bind--hidden="!context.open" data-wp-on--click="actions.pick" data-wp-on--mousedown="actions.keepFocus" data-wp-watch="callbacks.renderList"></ul></div>
+<!-- /wp:axell/form-control -->
+</div>
+<!-- /wp:group -->
+<!-- wp:group {"className":"aac-field"} -->
+<div class="wp-block-group aac-field">
+<!-- wp:axell/form-label {"for":"loja3","visuallyHidden":true} -->
+<label class="wp-block-axell-form-label is-visually-hidden" for="loja3"><span class="aac-field-label-text">Loja parceira 3</span></label>
+<!-- /wp:axell/form-label -->
+<!-- wp:axell/form-control {"type":"autocomplete","id":"loja3","placeholder":"Nome da loja · cidade","sourcePostType":"aas_assistencia","labelTemplate":"[post_title] - [tax:cidade] [tax:estado]","allowNotFound":true} -->
+<div class="wp-block-axell-form-control" data-wp-interactive="axell/autocomplete" data-wp-context="{&quot;postType&quot;:&quot;aas_assistencia&quot;,&quot;template&quot;:&quot;[post_title] - [tax:cidade] [tax:estado]&quot;,&quot;allowNotFound&quot;:true,&quot;text&quot;:&quot;&quot;,&quot;selectedId&quot;:&quot;&quot;,&quot;titulo&quot;:&quot;&quot;,&quot;open&quot;:false,&quot;notFound&quot;:false,&quot;activeIndex&quot;:-1,&quot;options&quot;:[]}" data-wp-on--keydown="actions.onKeydown" data-wp-on--focusout="actions.onFocusOut"><input type="text" id="loja3" autocomplete="off" role="combobox" aria-autocomplete="list" aria-controls="loja3-list" placeholder="Nome da loja · cidade" data-wp-bind--value="context.text" data-wp-bind--aria-expanded="context.open" data-wp-on--input="actions.onInput"/><input type="hidden" name="loja3" data-wp-bind--value="context.selectedId"/><input type="hidden" name="loja3_titulo" data-wp-bind--value="context.titulo"/><ul id="loja3-list" role="listbox" hidden data-wp-bind--hidden="!context.open" data-wp-on--click="actions.pick" data-wp-on--mousedown="actions.keepFocus" data-wp-watch="callbacks.renderList"></ul></div>
+<!-- /wp:axell/form-control -->
+</div>
+<!-- /wp:group -->
+<!-- wp:group {"className":"aac-field"} -->
+<div class="wp-block-group aac-field">
+<!-- wp:axell/form-label {"for":"loja4","visuallyHidden":true} -->
+<label class="wp-block-axell-form-label is-visually-hidden" for="loja4"><span class="aac-field-label-text">Loja parceira 4</span></label>
+<!-- /wp:axell/form-label -->
+<!-- wp:axell/form-control {"type":"autocomplete","id":"loja4","placeholder":"Nome da loja · cidade","sourcePostType":"aas_assistencia","labelTemplate":"[post_title] - [tax:cidade] [tax:estado]","allowNotFound":true} -->
+<div class="wp-block-axell-form-control" data-wp-interactive="axell/autocomplete" data-wp-context="{&quot;postType&quot;:&quot;aas_assistencia&quot;,&quot;template&quot;:&quot;[post_title] - [tax:cidade] [tax:estado]&quot;,&quot;allowNotFound&quot;:true,&quot;text&quot;:&quot;&quot;,&quot;selectedId&quot;:&quot;&quot;,&quot;titulo&quot;:&quot;&quot;,&quot;open&quot;:false,&quot;notFound&quot;:false,&quot;activeIndex&quot;:-1,&quot;options&quot;:[]}" data-wp-on--keydown="actions.onKeydown" data-wp-on--focusout="actions.onFocusOut"><input type="text" id="loja4" autocomplete="off" role="combobox" aria-autocomplete="list" aria-controls="loja4-list" placeholder="Nome da loja · cidade" data-wp-bind--value="context.text" data-wp-bind--aria-expanded="context.open" data-wp-on--input="actions.onInput"/><input type="hidden" name="loja4" data-wp-bind--value="context.selectedId"/><input type="hidden" name="loja4_titulo" data-wp-bind--value="context.titulo"/><ul id="loja4-list" role="listbox" hidden data-wp-bind--hidden="!context.open" data-wp-on--click="actions.pick" data-wp-on--mousedown="actions.keepFocus" data-wp-watch="callbacks.renderList"></ul></div>
+<!-- /wp:axell/form-control -->
+</div>
+<!-- /wp:group -->
+<!-- wp:group {"className":"aac-field"} -->
+<div class="wp-block-group aac-field">
+<!-- wp:axell/form-label {"for":"loja5","visuallyHidden":true} -->
+<label class="wp-block-axell-form-label is-visually-hidden" for="loja5"><span class="aac-field-label-text">Loja parceira 5</span></label>
+<!-- /wp:axell/form-label -->
+<!-- wp:axell/form-control {"type":"autocomplete","id":"loja5","placeholder":"Nome da loja · cidade","sourcePostType":"aas_assistencia","labelTemplate":"[post_title] - [tax:cidade] [tax:estado]","allowNotFound":true} -->
+<div class="wp-block-axell-form-control" data-wp-interactive="axell/autocomplete" data-wp-context="{&quot;postType&quot;:&quot;aas_assistencia&quot;,&quot;template&quot;:&quot;[post_title] - [tax:cidade] [tax:estado]&quot;,&quot;allowNotFound&quot;:true,&quot;text&quot;:&quot;&quot;,&quot;selectedId&quot;:&quot;&quot;,&quot;titulo&quot;:&quot;&quot;,&quot;open&quot;:false,&quot;notFound&quot;:false,&quot;activeIndex&quot;:-1,&quot;options&quot;:[]}" data-wp-on--keydown="actions.onKeydown" data-wp-on--focusout="actions.onFocusOut"><input type="text" id="loja5" autocomplete="off" role="combobox" aria-autocomplete="list" aria-controls="loja5-list" placeholder="Nome da loja · cidade" data-wp-bind--value="context.text" data-wp-bind--aria-expanded="context.open" data-wp-on--input="actions.onInput"/><input type="hidden" name="loja5" data-wp-bind--value="context.selectedId"/><input type="hidden" name="loja5_titulo" data-wp-bind--value="context.titulo"/><ul id="loja5-list" role="listbox" hidden data-wp-bind--hidden="!context.open" data-wp-on--click="actions.pick" data-wp-on--mousedown="actions.keepFocus" data-wp-watch="callbacks.renderList"></ul></div>
+<!-- /wp:axell/form-control -->
+</div>
+<!-- /wp:group -->
 </div>
 <!-- /wp:group -->
 </fieldset>

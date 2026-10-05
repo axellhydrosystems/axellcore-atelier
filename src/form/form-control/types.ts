@@ -12,7 +12,8 @@ export type FormControlType =
 	| 'textarea'
 	| 'select'
 	| 'checkbox'
-	| 'hidden';
+	| 'hidden'
+	| 'autocomplete';
 
 export interface FormControlAttributes {
 	type: FormControlType;
@@ -26,5 +27,8 @@ export interface FormControlAttributes {
 	mask: string;
 	maskSourceName: string;
 	citiesSourceName: string;
+	sourcePostType: string;
+	labelTemplate: string;
+	allowNotFound: boolean;
 	[ key: string ]: unknown;
 }

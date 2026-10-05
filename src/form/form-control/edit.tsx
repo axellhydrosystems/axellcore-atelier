@@ -24,6 +24,10 @@ const TYPE_OPTIONS = [
 	},
 	{ label: __( 'Checkbox', 'axellcore-atelierclub' ), value: 'checkbox' },
 	{ label: __( 'Hidden', 'axellcore-atelierclub' ), value: 'hidden' },
+	{
+		label: __( 'Autocomplete (posts)', 'axellcore-atelierclub' ),
+		value: 'autocomplete',
+	},
 ];
 
 const MASK_OPTIONS = [
@@ -113,6 +117,38 @@ export default function Edit( {
 								}
 							/>
 						) }
+					{ attributes.type === 'autocomplete' && (
+						<>
+							<SelectControl
+								label={ __( 'Source post type', 'axellcore-atelierclub' ) }
+								value={ attributes.sourcePostType }
+								options={ [
+									{ label: __( 'Choose…', 'axellcore-atelierclub' ), value: '' },
+									{ label: __( 'Assistências', 'axellcore-atelierclub' ), value: 'aas_assistencia' },
+								] as { label: string; value: string }[] }
+								onChange={ ( value: string ) =>
+									setAttributes( { sourcePostType: value } )
+								}
+							/>
+							<TextControl
+								label={ __( 'Label template', 'axellcore-atelierclub' ) }
+								help={ __( 'Tokens: [post_title], [tax:cidade], [tax:estado], [meta:key]', 'axellcore-atelierclub' ) }
+								value={ attributes.labelTemplate }
+								onChange={ ( value: string ) =>
+									setAttributes( { labelTemplate: value } )
+								}
+							/>
+							<ToggleControl
+								label={ __( 'Aceitar "Não encontrada"', 'axellcore-atelierclub' ) }
+								help={ __( 'Mostra a opção e um campo de texto livre para quem não encontrar.', 'axellcore-atelierclub' ) }
+								checked={ attributes.allowNotFound }
+								onChange={ ( value: boolean ) =>
+									setAttributes( { allowNotFound: value } )
+								}
+							/>
+						</>
+					) }
+
 					{ attributes.type === 'select' && (
 						<>
 							<TextareaControl

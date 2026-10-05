@@ -1646,3 +1646,38 @@ section{ position: relative; }
   }
   .aac-tag-side h2{ margin-top: 57px; }
 }
+
+/* Partner stores (autocomplete): roman numerals from a counter, list box under the input. */
+.aac-partner-slots { counter-reset: loja; }
+.aac-partner-slots .aac-field { counter-increment: loja; display: flex; align-items: center; gap: 20px; }
+.aac-partner-slots .aac-field::before {
+  content: counter(loja, lower-roman) ".";
+  font-family: var(--serif);
+  font-style: italic;
+  color: var(--bronze-2);
+  font-size: 17px;
+  min-width: 34px;
+}
+.aac-partner-slots .wp-block-axell-form-control { flex: 1; position: relative; }
+.wp-block-axell-form-control [role="listbox"] {
+  position: absolute; left: 0; right: 0; top: 100%; z-index: 10;
+  list-style: none; margin: 0; padding: 0;
+  background: var(--ink-2); border: 1px solid var(--line-dk-2);
+}
+.wp-block-axell-form-control [role="listbox"][hidden] { display: none; }
+.wp-block-axell-form-control [role="option"] { padding: 12px 14px; cursor: pointer; color: var(--ivory); font-size: 14px; }
+.wp-block-axell-form-control [role="option"][aria-selected="true"],
+.wp-block-axell-form-control [role="option"]:hover { background: rgba(180,153,106,0.12); }
+
+/* Visually hidden label (screen readers only), e.g. the partner store labels. */
+.is-visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  margin: -1px !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}

@@ -98,6 +98,80 @@ export default function ControlElement(
 			}
 		: {};
 
+	if ( type === 'autocomplete' ) {
+		if ( ! isSave ) {
+			return (
+				<div { ...blockProps }>
+					<input
+						type="text"
+						disabled
+						placeholder={ __(
+							'Autocomplete (posts)',
+							'axellcore-atelierclub'
+						) }
+					/>
+				</div>
+			);
+		}
+
+		// Initial state of the Interactivity store "axell/autocomplete" for this control.
+		const context = {
+			postType: attributes.sourcePostType || '',
+			template: attributes.labelTemplate || '[post_title]',
+			allowNotFound: !! attributes.allowNotFound,
+			text: '',
+			selectedId: '',
+			titulo: '',
+			open: false,
+			notFound: false,
+			activeIndex: -1,
+			options: [],
+		};
+		const listId = `${ name as string }-list`;
+
+		return (
+			<div
+				{ ...blockProps }
+				data-wp-interactive="axell/autocomplete"
+				data-wp-context={ JSON.stringify( context ) }
+				data-wp-on--keydown="actions.onKeydown"
+				data-wp-on--focusout="actions.onFocusOut"
+			>
+				<input
+					type="text"
+					id={ id }
+					autoComplete="off"
+					role="combobox"
+					aria-autocomplete="list"
+					aria-controls={ listId }
+					placeholder={ placeholder || undefined }
+					data-wp-bind--value="context.text"
+					data-wp-bind--aria-expanded="context.open"
+					data-wp-on--input="actions.onInput"
+				/>
+				<input
+					type="hidden"
+					name={ name as string }
+					data-wp-bind--value="context.selectedId"
+				/>
+				<input
+					type="hidden"
+					name={ `${ name as string }_titulo` }
+					data-wp-bind--value="context.titulo"
+				/>
+				<ul
+					id={ listId }
+					role="listbox"
+					hidden
+					data-wp-bind--hidden="!context.open"
+					data-wp-on--click="actions.pick"
+					data-wp-on--mousedown="actions.keepFocus"
+					data-wp-watch="callbacks.renderList"
+				/>
+			</div>
+		);
+	}
+
 	if ( type === 'hidden' ) {
 		if ( ! isSave ) {
 			return (

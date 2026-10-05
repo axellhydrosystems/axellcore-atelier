@@ -80,12 +80,15 @@ final class Members {
 		'bairro',
 		'referencia',
 		'cep',
-		'loja1',
-		'loja2',
-		'loja3',
-		'loja4',
-		'loja5',
 	);
+
+	/**
+	 * Partner store slots. Each slot stores its ID (`_aac_lojaN`, empty for free
+	 * text) and the text shown to the user (`_aac_lojaN_titulo`).
+	 *
+	 * @var string[]
+	 */
+	const LOJA_FIELDS = array( 'loja1', 'loja2', 'loja3', 'loja4', 'loja5' );
 
 	/**
 	 * Singleton instance.
@@ -198,6 +201,16 @@ final class Members {
 			if ( ! empty( $params[ $field ] ) ) {
 				update_post_meta( $post_id, '_aac_' . $field, sanitize_text_field( $params[ $field ] ) );
 			}
+		}
+
+		foreach ( self::LOJA_FIELDS as $field ) {
+			$id    = absint( $params[ $field ] ?? 0 );
+			$title = sanitize_text_field( $params[ $field . '_titulo' ] ?? '' );
+			if ( 0 === $id && '' === $title ) {
+				continue;
+			}
+			update_post_meta( $post_id, '_aac_' . $field, $id > 0 ? $id : '' );
+			update_post_meta( $post_id, '_aac_' . $field . '_titulo', $title );
 		}
 
 		return array(

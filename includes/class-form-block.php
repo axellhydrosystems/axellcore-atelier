@@ -81,6 +81,13 @@ final class Form_Block {
 		$processor->set_attribute( 'data-wp-context', (string) wp_json_encode( array( 'status' => $status ) ) );
 
 		wp_interactivity_state(
+			'axell/autocomplete',
+			array(
+				'optionsUrl' => rest_url( Rest::NAMESPACE . '/options' ),
+			)
+		);
+
+		wp_interactivity_state(
 			self::STORE,
 			array(
 				'restUrl'      => rest_url( Rest::NAMESPACE . '/members' ),

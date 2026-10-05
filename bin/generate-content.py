@@ -658,7 +658,34 @@ def _control_html(type_, id_, name, required, placeholder, mask, mask_source, op
 
     return f'<input{common} type="{type_}"/>'
 
-def form_control(type_, id_, name="", required=False, placeholder="", mask="", mask_source="", options=None, checked=False, value="", cities_source=""):
+def autocomplete_html(id_, name, placeholder, ac):
+    """Static markup of axell/form-control (type autocomplete) — mirrors
+    control-element.tsx's save output, with the Interactivity directives of
+    store axell/autocomplete (view.ts). Initial context is empty."""
+    import html as _html
+    ctx = {
+        "postType": ac["postType"], "template": ac["template"],
+        "allowNotFound": bool(ac.get("allowNotFound")),
+        "text": "", "selectedId": "", "titulo": "", "open": False,
+        "notFound": False, "activeIndex": -1, "options": [],
+    }
+    ctx_attr = _html.escape(json.dumps(ctx, ensure_ascii=False, separators=(",", ":")), quote=True)
+    list_id = f"{name}-list"
+    return (
+        f'<div class="wp-block-axell-form-control" data-wp-interactive="axell/autocomplete" '
+        f'data-wp-context="{ctx_attr}" data-wp-on--keydown="actions.onKeydown" data-wp-on--focusout="actions.onFocusOut">'
+        f'<input type="text" id="{id_}" autocomplete="off" role="combobox" aria-autocomplete="list" '
+        f'aria-controls="{list_id}" placeholder="{placeholder}" data-wp-bind--value="context.text" '
+        f'data-wp-bind--aria-expanded="context.open" data-wp-on--input="actions.onInput"/>'
+        f'<input type="hidden" name="{name}" data-wp-bind--value="context.selectedId"/>'
+        f'<input type="hidden" name="{name}_titulo" data-wp-bind--value="context.titulo"/>'
+        f'<ul id="{list_id}" role="listbox" hidden data-wp-bind--hidden="!context.open" '
+        f'data-wp-on--click="actions.pick" data-wp-on--mousedown="actions.keepFocus" '
+        f'data-wp-watch="callbacks.renderList"></ul>'
+        f'</div>'
+    )
+
+def form_control(type_, id_, name="", required=False, placeholder="", mask="", mask_source="", options=None, checked=False, value="", cities_source="", autocomplete=None):
     """axell/form-control — the actual input/select/textarea. `name` falls
     back to `id_` (already unique across the whole form)."""
     name = name or id_
@@ -681,8 +708,15 @@ def form_control(type_, id_, name="", required=False, placeholder="", mask="", m
         attrs["maskSourceName"] = mask_source
     if cities_source:
         attrs["citiesSourceName"] = cities_source
+    if type_ == "autocomplete":
+        attrs["sourcePostType"] = autocomplete["postType"]
+        attrs["labelTemplate"] = autocomplete["template"]
+        attrs["allowNotFound"] = bool(autocomplete.get("allowNotFound"))
 
-    html = _control_html(type_, id_, name, required, placeholder, mask, mask_source, options, checked, value, cities_source)
+    if type_ == "autocomplete":
+        html = autocomplete_html(id_, name, placeholder, autocomplete)
+    else:
+        html = _control_html(type_, id_, name, required, placeholder, mask, mask_source, options, checked, value, cities_source)
     OUT.append(f'<!-- wp:axell/form-control {esc_attrs(attrs)} -->')
     OUT.append(html)
     OUT.append('<!-- /wp:axell/form-control -->')
@@ -707,7 +741,7 @@ def form_label(for_, text, required=False, visually_hidden=False):
     OUT.append(html)
     OUT.append('<!-- /wp:axell/form-label -->')
 
-def field(type_, name, label, required=False, placeholder="", hint="", options=None, mask="", mask_source="", value="", checked=False, cities_source="", visually_hidden=False):
+def field(type_, name, label, required=False, placeholder="", hint="", options=None, mask="", mask_source="", value="", checked=False, cities_source="", visually_hidden=False, autocomplete=None):
     """The atomic 'field' unit: a core/group.aac-field wrapping a
     axell/form-label + axell/form-control pair (`id`/`name` both = `name`,
     already unique across the whole form — verified). Reuses
@@ -717,7 +751,7 @@ def field(type_, name, label, required=False, placeholder="", hint="", options=N
     actual `<label>`/`<input>`, as long as the DOM shape stays the same."""
     def inner():
         form_label(name, label, required, visually_hidden)
-        form_control(type_, name, required=required, placeholder=placeholder, mask=mask, mask_source=mask_source, options=options, checked=checked, value=value, cities_source=cities_source)
+        form_control(type_, name, required=required, placeholder=placeholder, mask=mask, mask_source=mask_source, options=options, checked=checked, value=value, cities_source=cities_source, autocomplete=autocomplete)
         if hint:
             paragraph(hint, 'aac-hint')
     group('aac-field', inner)
@@ -862,21 +896,17 @@ def apply_section():
                 def partners():
                     paragraph('Onde você costuma especificar Axell?', 'aac-field-label-text')
                     paragraph('Liste até <strong style="color:var(--bronze-3);font-weight:500">cinco</strong> revendas ou showrooms parceiros com quem você trabalha. Preencha apenas o que fizer sentido — os campos vazios podem ficar em branco.', 'aac-hint')
-                    # The 5 partner-store inputs stay as core/html: they're
-                    # plain optional <input name="lojaN"> fields with no
-                    # visible <label> — a shape axell/form-control/
-                    # axell/form-label don't produce together as one unit,
-                    # and not worth a dedicated field for 5 rarely-edited
-                    # placeholder strings. They ARE a genuine sequential
-                    # list though, so it's a real <ol type="i"> here — the
-                    # browser numbers each <li> natively (i., ii., iii.…),
-                    # not a hand-typed numeral span.
-                    slots = ''.join(
-                        f'<li class="aac-partner-slot"><input type="text" name="loja{i}" placeholder="Nome da loja · cidade"></li>'
-                        for i in range(1, 6)
-                    )
-                    html_block(f'<ol type="i" class="aac-partner-slots">{slots}</ol>')
-                group('aac-field', partners)
+                    # Five autocomplete fields over the assistencia post type. The label
+                    # shows "[post_title] - [tax:cidade] [tax:estado]"; the form submits
+                    # the ID (lojaN) and the shown text (lojaN_titulo). "Não encontrada"
+                    # accepts free text.
+                    for i in range(1, 6):
+                        field('autocomplete', f'loja{i}', f'Loja parceira {i}', False,
+                              placeholder='Nome da loja · cidade', visually_hidden=True,
+                              autocomplete={'postType': 'aas_assistencia',
+                                            'template': '[post_title] - [tax:cidade] [tax:estado]',
+                                            'allowNotFound': True})
+                group('aac-partner-slots', partners)
             fieldset('04 — Lojas parceiras', section4)
 
             consent_field('regulamento', 'Li e concordo com o <a href="#">regulamento do Atelier Axell Club</a> e com o tratamento dos meus dados conforme a Política de Privacidade e a LGPD.', required=True)

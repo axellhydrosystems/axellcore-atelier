@@ -364,6 +364,11 @@ final class Admin_Rest {
 			$data[ $field ] = (string) get_post_meta( $post->ID, '_aac_' . $field, true );
 		}
 
+		// Partner stores are shown by their text, not their ID.
+		foreach ( Members::LOJA_FIELDS as $field ) {
+			$data[ $field ] = (string) get_post_meta( $post->ID, '_aac_' . $field . '_titulo', true );
+		}
+
 		return $data;
 	}
 

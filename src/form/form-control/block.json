@@ -4,22 +4,74 @@
 	"name": "axell/form-control",
 	"title": "Form Control",
 	"category": "text",
-	"ancestor": [ "axell/form" ],
+	"ancestor": [
+		"axell/form"
+	],
 	"description": "The actual input/select/textarea of a form field — text, email, tel, number, textarea, select, checkbox, or hidden, with optional input masking (CPF/CNPJ, CEP, phone). Pair with an axell/form-label sibling (same id/for) for the visible label — see this plugin's CLAUDE.md.",
-	"keywords": [ "input", "control", "field", "form" ],
+	"keywords": [
+		"input",
+		"control",
+		"field",
+		"form"
+	],
 	"textdomain": "axellcore-atelierclub",
 	"attributes": {
-		"type": { "type": "string", "default": "text" },
-		"id": { "type": "string", "default": "" },
-		"name": { "type": "string", "default": "" },
-		"required": { "type": "boolean", "default": false },
-		"placeholder": { "type": "string", "default": "" },
-		"value": { "type": "string", "default": "" },
-		"checked": { "type": "boolean", "default": false },
-		"options": { "type": "array", "default": [] },
-		"mask": { "type": "string", "default": "" },
-		"maskSourceName": { "type": "string", "default": "" },
-		"citiesSourceName": { "type": "string", "default": "" }
+		"type": {
+			"type": "string",
+			"default": "text"
+		},
+		"id": {
+			"type": "string",
+			"default": ""
+		},
+		"name": {
+			"type": "string",
+			"default": ""
+		},
+		"required": {
+			"type": "boolean",
+			"default": false
+		},
+		"placeholder": {
+			"type": "string",
+			"default": ""
+		},
+		"value": {
+			"type": "string",
+			"default": ""
+		},
+		"checked": {
+			"type": "boolean",
+			"default": false
+		},
+		"options": {
+			"type": "array",
+			"default": []
+		},
+		"mask": {
+			"type": "string",
+			"default": ""
+		},
+		"maskSourceName": {
+			"type": "string",
+			"default": ""
+		},
+		"citiesSourceName": {
+			"type": "string",
+			"default": ""
+		},
+		"sourcePostType": {
+			"type": "string",
+			"default": ""
+		},
+		"labelTemplate": {
+			"type": "string",
+			"default": "[post_title]"
+		},
+		"allowNotFound": {
+			"type": "boolean",
+			"default": false
+		}
 	},
 	"supports": {
 		"html": false,
@@ -41,7 +93,9 @@
 			"__experimentalFontStyle": true,
 			"__experimentalLetterSpacing": true,
 			"__experimentalTextTransform": true,
-			"__experimentalDefaultControls": { "fontSize": true }
+			"__experimentalDefaultControls": {
+				"fontSize": true
+			}
 		},
 		"color": {
 			"text": true,
@@ -63,8 +117,13 @@
 				"style": false,
 				"width": false
 			}
-		}
+		},
+		"interactivity": true
 	},
-	"editorScript": [ "file:./index.js", "file:./variations.js" ],
-	"style": "file:./style.scss"
+	"editorScript": [
+		"file:./index.js",
+		"file:./variations.js"
+	],
+	"style": "file:./style.scss",
+	"viewScriptModule": "file:./view.ts"
 }
