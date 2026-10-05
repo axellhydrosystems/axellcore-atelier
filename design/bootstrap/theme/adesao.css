@@ -1,3 +1,4 @@
+@charset "UTF-8";
 :root,
 [data-bs-theme=light] {
   --aa-blue: #0d6efd;
@@ -208,7 +209,7 @@ hr {
   opacity: 0.25;
 }
 
-h6, h5, h4, h3, h2, h1 {
+h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, h1, .h1 {
   margin-top: 0;
   margin-bottom: 0.5rem;
   font-family: serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
@@ -217,42 +218,42 @@ h6, h5, h4, h3, h2, h1 {
   color: var(--aa-heading-color);
 }
 
-h1 {
+h1, .h1 {
   font-size: calc(1.375rem + 1.5vw);
 }
 @media (min-width: 1200px) {
-  h1 {
+  h1, .h1 {
     font-size: 2.5rem;
   }
 }
 
-h2 {
+h2, .h2 {
   font-size: clamp(36px, 5vw, 68px);
 }
 
-h3 {
+h3, .h3 {
   font-size: calc(1.3rem + 0.6vw);
 }
 @media (min-width: 1200px) {
-  h3 {
+  h3, .h3 {
     font-size: 1.75rem;
   }
 }
 
-h4 {
+h4, .h4 {
   font-size: calc(1.275rem + 0.3vw);
 }
 @media (min-width: 1200px) {
-  h4 {
+  h4, .h4 {
     font-size: 1.5rem;
   }
 }
 
-h5 {
+h5, .h5 {
   font-size: 1.25rem;
 }
 
-h6 {
+h6, .h6 {
   font-size: 1rem;
 }
 
@@ -310,11 +311,11 @@ strong {
   font-weight: bolder;
 }
 
-small {
+small, .small {
   font-size: 0.875em;
 }
 
-mark {
+mark, .mark {
   padding: 0.1875em;
   color: var(--aa-highlight-color);
   background-color: var(--aa-highlight-bg);
@@ -580,6 +581,117 @@ progress {
 
 [hidden] {
   display: none !important;
+}
+
+.lead {
+  font-size: clamp(20px, 2vw, 26px);
+  font-weight: 300;
+}
+
+.display-1 {
+  font-weight: 300;
+  line-height: 1.05;
+  font-size: calc(1.625rem + 4.5vw);
+}
+@media (min-width: 1200px) {
+  .display-1 {
+    font-size: 5rem;
+  }
+}
+
+.display-2 {
+  font-weight: 300;
+  line-height: 1.05;
+  font-size: calc(1.575rem + 3.9vw);
+}
+@media (min-width: 1200px) {
+  .display-2 {
+    font-size: 4.5rem;
+  }
+}
+
+.display-3 {
+  font-weight: 300;
+  line-height: 1.05;
+  font-size: calc(1.525rem + 3.3vw);
+}
+@media (min-width: 1200px) {
+  .display-3 {
+    font-size: 4rem;
+  }
+}
+
+.display-4 {
+  font-weight: 300;
+  line-height: 1.05;
+  font-size: calc(1.475rem + 2.7vw);
+}
+@media (min-width: 1200px) {
+  .display-4 {
+    font-size: 3.5rem;
+  }
+}
+
+.display-5 {
+  font-weight: 300;
+  line-height: 1.05;
+  font-size: calc(1.425rem + 2.1vw);
+}
+@media (min-width: 1200px) {
+  .display-5 {
+    font-size: 3rem;
+  }
+}
+
+.display-6 {
+  font-weight: 300;
+  line-height: 1.05;
+  font-size: calc(1.375rem + 1.5vw);
+}
+@media (min-width: 1200px) {
+  .display-6 {
+    font-size: 2.5rem;
+  }
+}
+
+.list-unstyled {
+  padding-left: 0;
+  list-style: none;
+}
+
+.list-inline {
+  padding-left: 0;
+  list-style: none;
+}
+
+.list-inline-item {
+  display: inline-block;
+}
+.list-inline-item:not(:last-child) {
+  margin-right: 0.5rem;
+}
+
+.initialism {
+  font-size: 0.875em;
+  text-transform: uppercase;
+}
+
+.blockquote {
+  margin-bottom: 1rem;
+  font-size: 1.25rem;
+}
+.blockquote > :last-child {
+  margin-bottom: 0;
+}
+
+.blockquote-footer {
+  margin-top: -1rem;
+  margin-bottom: 1rem;
+  font-size: 0.875em;
+  color: #6c757d;
+}
+.blockquote-footer::before {
+  content: "— ";
 }
 
 .container,
@@ -7906,4 +8018,10 @@ textarea.form-control-lg {
 }
 .apply .bg-body-tertiary {
   --aa-bg-opacity: 0.03;
+}
+
+.apply .lead {
+  font-family: serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-style: italic;
+  color: rgba(239, 236, 228, 0.75);
 }
