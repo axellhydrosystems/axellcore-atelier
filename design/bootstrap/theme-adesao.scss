@@ -25,9 +25,15 @@
 @import "node_modules/bootstrap/scss/helpers/visually-hidden";
 
 .apply {
-    padding-block: clamp(90px, 13vw, 180px);
     --#{$prefix}tertiary-bg-rgb: 239, 236, 228;
     --#{$prefix}border-color-translucent: rgba(239,236,228,0.18);
+    --#{$prefix}border-radius: 0.25rem;
+    color: rgba($ivory, .75);
+
+    &.py-5 {
+        padding-top: clamp(90px, 13vw, 180px) !important;
+        padding-bottom: clamp(90px, 13vw, 180px) !important;
+    }
 
     @include media-breakpoint-up(lg) {
         .col-lg-5 {
@@ -37,15 +43,62 @@
             width: 56.269%;
         }
     }
+    h2,
+    legend {
+        font-family: "Inter", -apple-system, "Segoe UI", system-ui, sans-serif; // $font-family-base
+        font-weight: 500;
+        font-size: 0.65625rem;
+        letter-spacing: 0.32em;
+        color: $bronze-2;
+        line-height: 1.6;
+    }
+    legend {
+        padding-bottom: 1.25rem;
+        margin-bottom: 1.25rem !important;
+        border-bottom: 1px solid $line-dk;
+    }
+    .h2 {
+        font-family: "Cormorant Garamond", "Times New Roman", Georgia, serif; // $headings-font-family
+        font-weight: $h2-font-weight;
+        font-size: $h2-font-size;
+        letter-spacing: -0.015em;
+        line-height: $headings-line-height;
+        color: $ivory;
+        margin-bottom: 1.5rem;
+
+        em {
+            color: $bronze-2;
+        }
+    }
+    .lead {
+        font-family: "Cormorant Garamond", "Times New Roman", Georgia, serif; // $headings-font-family
+        font-style: italic;
+        line-height: 1.4;
+        margin-bottom: 2.5rem;
+    }
     .list-group {
         --#{$prefix}list-group-border-radius: 0;
         --#{$prefix}list-group-item-padding-x: 0;
+        --#{$prefix}list-group-border-color: #{$line-dk};
     }
     .list-group-item {
+        color: inherit;
         border-inline-width: 0;
+        font-size: 0.875rem;
+        line-height: 1.54964286;
+        display: flex;
+        align-items: center;
+        padding-block: 1.125rem;
+        gap: 1.25rem;
     }
-    .g-4 {
-        --#{$prefix}gutter-y: 6.25rem;
+    .list-lines-roman-item::before {
+        font-family: "Cormorant Garamond", "Times New Roman", Georgia, serif; // $headings-font-family
+        color: $bronze-2;
+        font-size: 1.0625rem;
+        line-height: 1.54964706;
+        min-width: 2.125rem;
+    }
+    .gx-4 {
         --#{$prefix}gutter-x: 6.25rem;
     }
     .card {
@@ -56,11 +109,43 @@
     .bg-body-tertiary {
         --#{$prefix}bg-opacity: 0.03;
     }
-}
-
-// Lede of the section: serif italic, as in the mockup (.lede).
-.apply .lead {
-    font-family: $font-family-serif;
-    font-style: italic;
-    color: rgba($ivory, .75);
+    .eyebrow {
+        &.gap-2 {
+            gap: 0.875rem !important;
+        }
+        &::before {
+            width: 2rem;
+        }
+        &.mb-3 {
+            margin-bottom: 2rem !important;
+        }
+    }
+    .list-roman-item {
+        &::before {
+            font-family: "Cormorant Garamond", "Times New Roman", Georgia, serif; // $headings-font-family
+            color: $bronze-2;
+            font-size: 1.25rem;
+            font-style: italic;
+        }
+    }
+    footer {
+        &.g-3 {
+            --aa-gutter-x: 3.573rem;
+        }
+    }
+    .form-control {
+        position: relative;
+        z-index: 0;
+    }
+    .btn {
+        border-radius: 50rem;
+        font-weight: 500;
+        letter-spacing: 0.26em;
+        text-transform: uppercase;
+    }
+    .btn-lg {
+        padding: 1.5rem 2.375rem;
+        font-size: 0.75rem;
+        min-width: 220px;
+    }
 }

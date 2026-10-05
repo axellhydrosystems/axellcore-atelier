@@ -17,6 +17,7 @@ $grid-breakpoints: (
 // components need is set here, before Bootstrap's own variables are imported.
 $ink: #0B0E12;
 $ivory: #EFECE4;
+$ivory-rgb: 239,236,228;
 $bronze: #B4996A;
 $bronze-2: #C6AC7E;
 $line-dk: rgba($ivory, .10);
@@ -76,8 +77,8 @@ $btn-line-height: 1.6;
 // Typography of the mockup: Inter for text, Cormorant Garamond for headings.
 $font-family-sans-serif: "Inter", -apple-system, "Segoe UI", system-ui, sans-serif !default;
 $font-family-serif: "Cormorant Garamond", "Times New Roman", Georgia, serif !default;
-$font-family-base: $font-family-sans-serif;
-$headings-font-family: $font-family-serif;
+$font-family-base: $font-family-sans-serif !default;
+$headings-font-family: $font-family-serif !default;
 
 // Headings and lead of the section, as in the mockup (section-title, lede).
 $h2-font-size: clamp(36px, 5vw, 68px);
