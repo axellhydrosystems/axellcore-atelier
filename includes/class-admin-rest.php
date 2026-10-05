@@ -7,7 +7,7 @@
  *  - POST /axellcore-atelierclub/v1/admin/members/{id}  — partial update.
  *
  * Everything here requires edit_posts (and edit_post per record). The list
- * masks CPF/CNPJ; the full value is only returned by the single-record read.
+ * returns the full CPF/CNPJ in the list and the single-record read.
  *
  * @package Axellcore_Atelierclub
  */
@@ -319,7 +319,7 @@ final class Admin_Rest {
 	}
 
 	/**
-	 * Compact row shape for the list view. CPF/CNPJ is masked.
+	 * Compact row shape for the list view.
 	 *
 	 * @param \WP_Post $post Member post.
 	 * @return array
@@ -334,7 +334,7 @@ final class Admin_Rest {
 			'atuacao'             => (string) get_post_meta( $post->ID, '_aac_atuacao', true ),
 			'uf'                  => (string) get_post_meta( $post->ID, '_aac_uf', true ),
 			'cidade'              => $this->city_name( $post->ID ),
-			'documento_mascarado' => $this->mask_document( (string) get_post_meta( $post->ID, '_aac_documento', true ) ),
+			'documento' => (string) get_post_meta( $post->ID, '_aac_documento', true ),
 			'data'                => $post->post_date,
 			'status'              => $post->post_status,
 		);
@@ -399,20 +399,6 @@ final class Admin_Rest {
 		}
 
 		return null;
-	}
-
-	/**
-	 * Hide all but the last four characters of a CPF/CNPJ.
-	 *
-	 * @param string $document Raw document value.
-	 * @return string
-	 */
-	private function mask_document( string $document ) {
-		$length = strlen( $document );
-		if ( $length <= 4 ) {
-			return $document;
-		}
-		return str_repeat( '•', $length - 4 ) . substr( $document, -4 );
 	}
 
 	/**

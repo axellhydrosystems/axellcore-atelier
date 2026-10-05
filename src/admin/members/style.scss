@@ -3,6 +3,7 @@
 	#posts-filter,
 	.subsubsub,
 	.page-title-action,
+	#screen-meta-links,
 	.wp-header-end ~ .search-box {
 		display: none;
 	}
@@ -17,5 +18,10 @@
 
 #aac-members-app {
 	margin-top: 1em;
-	max-width: 1100px;
+	max-width: none;
+}
+
+/* DataViews hides row actions until hover; keep them visible in the members list. */
+.aac-members-list .dataviews-view-table tr .dataviews-item-actions .components-button {
+	opacity: 1;
 }

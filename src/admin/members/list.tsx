@@ -20,11 +20,7 @@ const DEFAULT_VIEW: View = {
 		'cidade',
 		'uf',
 		'atuacao',
-		'email',
-		'telefone',
-		'documento_mascarado',
 		'data',
-		'status',
 	],
 	layout: {},
 };
@@ -136,7 +132,11 @@ export default function MembersList( {
 				id: 'uf',
 				label: __( 'UF', 'axellcore-atelierclub' ),
 				type: 'text',
-				elements: states,
+				// UF is shown by its code (PR), not the state name.
+				elements: states.map( ( state ) => ( {
+					value: state.value,
+					label: state.value,
+				} ) ),
 				filterBy: { operators: [ 'is' ] },
 			},
 			{
@@ -163,7 +163,7 @@ export default function MembersList( {
 				enableSorting: false,
 			},
 			{
-				id: 'documento_mascarado',
+				id: 'documento',
 				label: __( 'CPF / CNPJ', 'axellcore-atelierclub' ),
 				type: 'text',
 				enableSorting: false,
@@ -188,7 +188,7 @@ export default function MembersList( {
 		() => [
 			{
 				id: 'edit',
-				label: __( 'Abrir cadastro', 'axellcore-atelierclub' ),
+				label: __( 'Ver', 'axellcore-atelierclub' ),
 				isPrimary: true,
 				callback: ( items ) => {
 					if ( items[ 0 ] ) {

@@ -151,7 +151,7 @@ final class Member {
 					'name'               => __( 'Members', 'axellcore-atelierclub' ),
 					'singular_name'      => __( 'Member', 'axellcore-atelierclub' ),
 					'add_new_item'       => __( 'Add New Member', 'axellcore-atelierclub' ),
-					'edit_item'          => __( 'Edit Member', 'axellcore-atelierclub' ),
+					'edit_item'          => __( 'View Member', 'axellcore-atelierclub' ),
 					'view_item'          => __( 'View Member', 'axellcore-atelierclub' ),
 					'search_items'       => __( 'Search Members', 'axellcore-atelierclub' ),
 					'not_found'          => __( 'No members found.', 'axellcore-atelierclub' ),

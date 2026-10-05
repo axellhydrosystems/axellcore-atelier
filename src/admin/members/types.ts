@@ -7,7 +7,7 @@ export interface MemberSummary {
 	atuacao: string;
 	uf: string;
 	cidade: string;
-	documento_mascarado: string;
+	documento: string;
 	data: string;
 	status: string;
 }
@@ -37,6 +37,7 @@ export interface MemberDetail {
 	loja1: string;
 	loja2: string;
 	loja3: string;
+	loja4: string;
 }
 
 export interface SelectOption {

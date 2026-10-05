@@ -25,10 +25,23 @@ const extraEntriesByConfig = [
 	},
 ];
 
+/*
+ * @wordpress/dataviews declares "sideEffects": false, so webpack drops its
+ * stylesheet import and the admin list renders unstyled. Keep that file.
+ */
+const keepDataviewsStyles = {
+	test: /@wordpress[\\/]dataviews[\\/]build-style[\\/]style\.css$/,
+	sideEffects: true,
+};
+
 const withExtraEntries = ( config, extraEntries ) => {
 	const defaultEntry = config.entry;
 	return {
 		...config,
+		module: {
+			...config.module,
+			rules: [ keepDataviewsStyles, ...( config.module?.rules ?? [] ) ],
+		},
 		entry: async () => ( {
 			...( typeof defaultEntry === 'function'
 				? await defaultEntry()
