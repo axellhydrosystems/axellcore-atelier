@@ -1,5 +1,11 @@
-import { useBlockProps, useInnerBlocksProps } from '@wordpress/block-editor';
+import {
+	InspectorControls,
+	useBlockProps,
+	useInnerBlocksProps,
+} from '@wordpress/block-editor';
 import type { BlockEditProps } from '@wordpress/blocks';
+import { PanelBody, SelectControl } from '@wordpress/components';
+import { __ } from '@wordpress/i18n';
 import type { FormAttributes } from './types';
 
 const ALLOWED_BLOCKS = [
@@ -65,6 +71,7 @@ function formProps(
  */
 export default function Edit( {
 	attributes,
+	setAttributes,
 }: BlockEditProps< FormAttributes > ) {
 	const blockProps = useBlockProps();
 	const innerBlocksProps = useInnerBlocksProps(
@@ -75,5 +82,25 @@ export default function Edit( {
 			templateLock: false,
 		}
 	);
-	return <form { ...innerBlocksProps } />;
+	return (
+		<>
+			<InspectorControls>
+				<PanelBody title={ __( 'Envio', 'axellcore-atelierclub' ) }>
+					<SelectControl
+						label={ __( 'Destino do envio', 'axellcore-atelierclub' ) }
+						help={ __( 'Post: envio HTML para a própria página, sem JavaScript e sem criar registro. Membro: envio via REST, cria um cadastro de membro.', 'axellcore-atelierclub' ) }
+						value={ attributes.submitsToRest ? 'member' : 'post' }
+						options={ [
+							{ label: __( 'Post (HTML)', 'axellcore-atelierclub' ), value: 'post' },
+							{ label: __( 'Membro (REST)', 'axellcore-atelierclub' ), value: 'member' },
+						] }
+						onChange={ ( value: string ) =>
+							setAttributes( { submitsToRest: value === 'member' } )
+						}
+					/>
+				</PanelBody>
+			</InspectorControls>
+			<form { ...innerBlocksProps } />
+		</>
+	);
 }

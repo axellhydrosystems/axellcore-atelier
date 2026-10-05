@@ -1,4 +1,4 @@
-/* Hide the default CPT list table and edit form the app replaces. */
+/* Members admin screens. */
 .aac-members-list {
 	#posts-filter,
 	.subsubsub,
@@ -6,6 +6,10 @@
 	#screen-meta-links,
 	.wp-header-end ~ .search-box {
 		display: none;
+	}
+
+	.dataviews-view-table tr .dataviews-item-actions .components-button {
+		opacity: 1;
 	}
 }
 
@@ -19,9 +23,4 @@
 #aac-members-app {
 	margin-top: 1em;
 	max-width: none;
-}
-
-/* DataViews hides row actions until hover; keep them visible in the members list. */
-.aac-members-list .dataviews-view-table tr .dataviews-item-actions .components-button {
-	opacity: 1;
 }

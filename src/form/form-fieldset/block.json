@@ -2,7 +2,7 @@
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
 	"name": "axell/form-fieldset",
-	"title": "Form Fieldset",
+	"title": "Fieldset",
 	"category": "text",
 	"ancestor": [ "axell/form" ],
 	"description": "Groups a set of related form fields inside a real <fieldset>, with an optional <legend>.",

@@ -1,30 +1,16 @@
-/**
- * Loaded EVERYWHERE (editor + frontend, block-registered via block.json's
- * `style` field — see this plugin's CLAUDE.md).
- */
+/* axell/form-label. Loaded in the editor and on the frontend (block style). */
 :where(.wp-block-axell-form-label) {
 	display: block;
-}
 
-/**
- * The standard, well-established visually-hidden-but-readable-by-screen-
- * readers technique (the same one `_s`-derived themes ship as
- * `.screen-reader-text`) — NOT reused from the active theme's own class,
- * since the isolated /atelier template unhooks the theme's stylesheet
- * entirely (confirmed this session while debugging an unrelated gap) —
- * this block needs to be self-contained on any page. Deliberately not
- * wrapped in `:where(...)`: unlike the brand-design rules elsewhere in
- * this file family, there's no "branded version" of visually-hidden to
- * defer to — this should reliably win.
- */
-.is-visually-hidden {
-	position: absolute !important;
-	width: 1px !important;
-	height: 1px !important;
-	padding: 0 !important;
-	margin: -1px !important;
-	overflow: hidden !important;
-	clip-path: inset( 50% ) !important;
-	white-space: nowrap !important;
-	border: 0 !important;
+	&.is-visually-hidden {
+		position: absolute !important;
+		width: 1px !important;
+		height: 1px !important;
+		padding: 0 !important;
+		margin: -1px !important;
+		overflow: hidden !important;
+		clip-path: inset( 50% ) !important;
+		white-space: nowrap !important;
+		border: 0 !important;
+	}
 }

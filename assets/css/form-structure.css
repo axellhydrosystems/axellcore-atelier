@@ -1,0 +1,31 @@
+/*
+ * Structural CSS of the application form blocks, loaded on any page that
+ * contains them (see includes/class-assets.php). Matches the structure of
+ * the core/form blocks (packages/block-library/src/form-input/style.scss).
+ * Zero specificity (:where) so the brand design (sections.css, /atelier) wins.
+ */
+:where(.wp-block-axell-form-label) {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	gap: 0.25em;
+	margin-bottom: 0.5em;
+}
+
+:where(.wp-block-axell-form-control):not([type="checkbox"]) {
+	display: block;
+	width: 100%;
+	box-sizing: border-box;
+	min-height: 2em;
+	line-height: 2;
+	border-width: 1px;
+	border-style: solid;
+	padding: 0 0.5em;
+	font-size: 1em;
+	margin-bottom: 0.5em;
+}
+
+:where(textarea.wp-block-axell-form-control) {
+	min-height: 10em;
+	padding: 0.5em;
+}

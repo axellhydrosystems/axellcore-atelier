@@ -1,1 +1,1 @@
-:where(.wp-block-axell-form-fieldset){border:0;margin:0;min-width:0;padding:0}:where(.wp-block-axell-form-fieldset .aac-form-legend-text){padding:0}
+:where(.wp-block-axell-form-fieldset){border:0;margin:0;min-width:0;padding:0}:where(.wp-block-axell-form-fieldset) .aac-form-legend-text{padding:0}

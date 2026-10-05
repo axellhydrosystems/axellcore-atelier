@@ -48,6 +48,8 @@ final class Assets {
 	public function register_hooks() {
 		add_action( 'template_redirect', array( $this, 'strip_theme_and_core_assets' ), 5 );
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_frontend_assets' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_form_structure' ), 20 );
+		add_action( 'enqueue_block_editor_assets', array( $this, 'enqueue_form_editor' ) );
 		add_filter( 'wp_resource_hints', array( $this, 'add_google_fonts_preconnect' ), 10, 2 );
 	}
 
@@ -167,6 +169,32 @@ final class Assets {
 	 * resource every block's native fontFamily attribute references — but
 	 * nothing else: no aac-*.css, no frontend.js.
 	 */
+	/**
+	 * Structural CSS of the application form, on any singular page that has
+	 * one of the axell/form blocks. Block-registered styles are not printed on
+	 * every page, so the form's structure is loaded explicitly here.
+	 */
+	public function enqueue_form_structure() {
+		if ( ! is_singular() ) {
+			return;
+		}
+		$post = get_queried_object();
+		if ( ! $post instanceof \WP_Post ) {
+			return;
+		}
+		if ( ! has_block( 'axell/form', $post ) && ! has_block( 'axell/form-control', $post ) && ! has_block( 'axell/form-label', $post ) ) {
+			return;
+		}
+		wp_enqueue_style( 'axellcore-form-structure', AXELLCORE_ATELIERCLUB_URL . 'assets/css/form-structure.css', array(), AXELLCORE_ATELIERCLUB_VERSION );
+	}
+
+	/**
+	 * Editor: the form structure and the hatched notification placeholders.
+	 */
+	public function enqueue_form_editor() {
+		wp_enqueue_style( 'axellcore-form-structure', AXELLCORE_ATELIERCLUB_URL . 'assets/css/form-structure.css', array(), AXELLCORE_ATELIERCLUB_VERSION );
+	}
+
 	private function enqueue_noclass_fonts() {
 		wp_enqueue_style(
 			'aac-google-fonts',

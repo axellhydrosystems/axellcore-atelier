@@ -1,44 +1,31 @@
-/**
- * Minimal STRUCTURAL CSS for this block, loaded EVERYWHERE (editor +
- * frontend, block-registered via block.json's `style` field) — not scoped
- * to any template. Without this, any page using axellcore/form-input
- * outside the isolated /atelier template (e.g. a plain page built for
- * comparison, on the default theme) has NO layout CSS for this block at
- * all: `label`/`input` are bare inline siblings that cram onto one line,
- * and the raw browser UA default `<input>` style shows through (2px inset
- * border, ~13px font, 1-2px padding). Confirmed by comparing computed
- * styles directly against the live core/form-input block, in both the
- * editor canvas and on a plain frontend page.
- *
- * Every rule here is wrapped in `:where(...)` — same technique the
- * reference block's own style.scss uses (`:where(.wp-block-form-input__
- * input)`) — which contributes ZERO specificity. That means
- * assets/css/sections.css's own `.aac-field input`/`.aac-field label`/
- * `.aac-consent` rules (normal specificity, loaded only on the isolated
- * /atelier template) always win, regardless of stylesheet load order. This
- * file is a bare-minimum fallback for everywhere else, never a competitor
- * to the branded design — the page's pixel-parity commitment stays intact.
- */
-:where(.aac-field label) {
-	display: block;
-	margin-bottom: 0.4em;
+/* Form field structure (.aac-field, .aac-consent). Zero specificity. */
+:where(.aac-field) {
+	label {
+		display: block;
+		margin-bottom: 0.4em;
+	}
+
+	input,
+	select,
+	textarea {
+		display: block;
+		width: 100%;
+		box-sizing: border-box;
+		min-height: 2em;
+		line-height: 2;
+		border-width: 1px;
+		border-style: solid;
+		padding: 0 0.5em;
+		font-size: 1em;
+		margin-bottom: 0.5em;
+	}
+
+	textarea {
+		min-height: 10em;
+		padding: 0.5em;
+	}
 }
-:where(.aac-field input, .aac-field select, .aac-field textarea) {
-	display: block;
-	width: 100%;
-	box-sizing: border-box;
-	min-height: 2em;
-	line-height: 2;
-	border-width: 1px;
-	border-style: solid;
-	padding: 0 0.5em;
-	font-size: 1em;
-	margin-bottom: 0.5em;
-}
-:where(.aac-field textarea) {
-	min-height: 10em;
-	padding: 0.5em;
-}
+
 :where(.aac-consent) {
 	display: flex;
 	align-items: flex-start;

@@ -1,14 +1,10 @@
 import { __ } from '@wordpress/i18n';
-import {
-	useBlockProps,
-	useInnerBlocksProps,
-	InspectorControls,
-} from '@wordpress/block-editor';
-import { PanelBody, SelectControl } from '@wordpress/components';
+import { useBlockProps, useInnerBlocksProps } from '@wordpress/block-editor';
 import type { BlockEditProps } from '@wordpress/blocks';
+import './editor.scss';
 import type { FormSubmissionNotificationAttributes } from './types';
 
-const ALLOWED_BLOCKS = [ 'core/paragraph', 'core/heading' ];
+const ALLOWED_BLOCKS = [ 'core/paragraph', 'core/heading', 'core/group' ];
 const TEMPLATE: Array< [ string, Record< string, unknown > ] > = [
 	[ 'core/paragraph', {} ],
 ];
@@ -16,7 +12,11 @@ const TEMPLATE: Array< [ string, Record< string, unknown > ] > = [
 function classesFor(
 	attributes: FormSubmissionNotificationAttributes
 ): string {
-	return [ 'aac-notice', `aac-notice-${ attributes.type }` ].join( ' ' );
+	return [
+		'aac-notice',
+		`aac-notice-${ attributes.type }`,
+		`form-notification-type-${ attributes.type }`,
+	].join( ' ' );
 }
 
 /**
@@ -44,7 +44,13 @@ export default function Edit( {
 }: BlockEditProps< FormSubmissionNotificationAttributes > ) {
 	const blockProps = useBlockProps( { className: classesFor( attributes ) } );
 	const innerBlocksProps = useInnerBlocksProps(
-		{ ...blockProps, 'data-aac-notice-type': attributes.type },
+		{
+			...blockProps,
+			'data-aac-notice-type': attributes.type,
+			// Shown by the editor-only ::after overlay (form-editor.css), as in core.
+			'data-message-success': __( 'Submission success notification', 'axellcore-atelierclub' ),
+			'data-message-error': __( 'Submission error notification', 'axellcore-atelierclub' ),
+		},
 		{
 			allowedBlocks: ALLOWED_BLOCKS,
 			template: TEMPLATE,
@@ -54,31 +60,6 @@ export default function Edit( {
 
 	return (
 		<>
-			<InspectorControls>
-				<PanelBody
-					title={ __( 'Notification', 'axellcore-atelierclub' ) }
-				>
-					<SelectControl
-						label={ __( 'Type', 'axellcore-atelierclub' ) }
-						value={ attributes.type }
-						options={ [
-							{
-								label: __( 'Success', 'axellcore-atelierclub' ),
-								value: 'success',
-							},
-							{
-								label: __( 'Error', 'axellcore-atelierclub' ),
-								value: 'error',
-							},
-						] }
-						onChange={ ( value: string ) =>
-							setAttributes( {
-								type: value as FormSubmissionNotificationAttributes[ 'type' ],
-							} )
-						}
-					/>
-				</PanelBody>
-			</InspectorControls>
 			<div { ...innerBlocksProps } />
 		</>
 	);

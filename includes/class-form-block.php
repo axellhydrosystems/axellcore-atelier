@@ -64,7 +64,7 @@ final class Form_Block {
 	 * @return string
 	 */
 	public function decorate( $content, $block ) {
-		if ( empty( $block['attrs']['submitsToRest'] ) || '' === trim( $content ) ) {
+		if ( '' === trim( $content ) ) {
 			return $content;
 		}
 
@@ -73,11 +73,18 @@ final class Form_Block {
 			return $content;
 		}
 
+		$rest = ! empty( $block['attrs']['submitsToRest'] );
+
+		// "Post" destination: plain HTML POST to this page (no JavaScript, no record).
+		// The region still exists so the notices resolve their state (hidden).
 		$processor->set_attribute( 'method', 'post' );
-		$processor->set_attribute( 'action', admin_url( 'admin-post.php' ) );
+		if ( $rest ) {
+			$processor->set_attribute( 'action', admin_url( 'admin-post.php' ) );
+		}
+		$processor->set_attribute( 'data-wp-interactive', self::STORE );
 
 		// Result of a no-JavaScript submission (Members::handle_form_post).
-		$status = self::result_from_query();
+		$status = $rest ? self::result_from_query() : 'idle';
 		$processor->set_attribute( 'data-wp-context', (string) wp_json_encode( array( 'status' => $status ) ) );
 
 		wp_interactivity_state(

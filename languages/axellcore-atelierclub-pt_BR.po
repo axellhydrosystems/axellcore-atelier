@@ -693,3 +693,39 @@ msgstr "O rótulo de um campo de formulário, associado ao axell/form-control ir
 msgctxt "block keyword"
 msgid "label"
 msgstr "rótulo"
+
+#: build/form/form-submission-notification/index.js
+msgid "Submission success notification"
+msgstr "Notificação de sucesso do envio"
+
+#: build/form/form-submission-notification/index.js
+msgid "Submission pending notification"
+msgstr "Notificação de envio pendente"
+
+#: build/form/form-submission-notification/index.js
+msgid "Submission error notification"
+msgstr "Notificação de erro do envio"
+
+#: build/form/form-submission-notification/index.js
+msgid "Form Submission Success"
+msgstr "Envio do formulário bem-sucedido"
+
+#: build/form/form-submission-notification/index.js
+msgid "Form Submission Pending"
+msgstr "Envio do formulário pendente"
+
+#: build/form/form-submission-notification/index.js
+msgid "Form Submission Error"
+msgstr "Envio do formulário com erro"
+
+#: build/form/form-submission-notification/index.js
+msgid "Your form has been submitted successfully."
+msgstr "Seu formulário foi enviado com sucesso."
+
+#: build/form/form-submission-notification/index.js
+msgid "Your form is being submitted."
+msgstr "Seu formulário está sendo enviado."
+
+#: build/form/form-submission-notification/index.js
+msgid "There was an error submitting your form."
+msgstr "Houve um erro ao enviar seu formulário."

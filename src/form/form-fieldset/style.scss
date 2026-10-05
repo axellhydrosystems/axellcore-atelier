@@ -1,21 +1,11 @@
-/**
- * Loaded EVERYWHERE (editor + frontend, block-registered via block.json's
- * `style` field — see this plugin's CLAUDE.md). Resets the browser's own
- * default `<fieldset>`/`<legend>` chrome (a visible border + padding UA
- * stylesheets apply by default) to a neutral baseline, so the block's own
- * native border/spacing supports — not an accidental browser default — are
- * what's actually in control.
- *
- * Wrapped in `:where(...)`: zero specificity, so
- * assets/css/sections.css and/or this block's own supports-driven inline
- * styles always win.
- */
+/* axell/form-fieldset. Zero specificity, so the brand design wins. */
 :where(.wp-block-axell-form-fieldset) {
 	border: 0;
 	padding: 0;
 	margin: 0;
 	min-width: 0;
-}
-:where(.wp-block-axell-form-fieldset .aac-form-legend-text) {
-	padding: 0;
+
+	.aac-form-legend-text {
+		padding: 0;
+	}
 }

@@ -1,4 +1,5 @@
 import { registerBlockType } from '@wordpress/blocks';
+import { group as groupIcon } from '@wordpress/icons';
 import metadata from './block.json';
 import Edit from './edit';
 import save from './save';
@@ -7,7 +8,7 @@ import './style.scss';
 
 registerBlockType< FormFieldsetAttributes >( metadata.name, {
 	...metadata,
-	icon: 'editor-table',
+	icon: groupIcon,
 	edit: Edit,
 	save,
 } );

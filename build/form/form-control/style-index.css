@@ -1,1 +1,1 @@
-:where(.wp-block-axell-form-control):not([type=checkbox]){border-style:solid;border-width:1px;box-sizing:border-box;display:block;font-size:1em;line-height:2;min-height:2em;padding:0 .5em;width:100%}:where(textarea.wp-block-axell-form-control){min-height:10em;padding:.5em}
+:where(.wp-block-axell-form-control):not([type=checkbox]){border-style:solid;border-width:1px;box-sizing:border-box;display:block;font-size:1em;line-height:2;min-height:2em;padding:0 .5em;width:100%}:where(.wp-block-axell-form-control):where(textarea){min-height:10em;padding:.5em}

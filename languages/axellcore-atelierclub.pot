@@ -693,3 +693,39 @@ msgstr ""
 msgctxt "block keyword"
 msgid "adesão"
 msgstr ""
+
+#: build/form/form-submission-notification/index.js
+msgid "Submission success notification"
+msgstr ""
+
+#: build/form/form-submission-notification/index.js
+msgid "Submission pending notification"
+msgstr ""
+
+#: build/form/form-submission-notification/index.js
+msgid "Submission error notification"
+msgstr ""
+
+#: build/form/form-submission-notification/index.js
+msgid "Form Submission Success"
+msgstr ""
+
+#: build/form/form-submission-notification/index.js
+msgid "Form Submission Pending"
+msgstr ""
+
+#: build/form/form-submission-notification/index.js
+msgid "Form Submission Error"
+msgstr ""
+
+#: build/form/form-submission-notification/index.js
+msgid "Your form has been submitted successfully."
+msgstr ""
+
+#: build/form/form-submission-notification/index.js
+msgid "Your form is being submitted."
+msgstr ""
+
+#: build/form/form-submission-notification/index.js
+msgid "There was an error submitting your form."
+msgstr ""
