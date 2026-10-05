@@ -47,7 +47,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" integrity="sha384-XGjxtQfXaH2tnPFa9x+ruJTuLE3Aa6LhHSWRr1XeTyhezb4abCG4ccI5AkVDxqC+" crossorigin="anonymous">
 <style>
 /* Numeração por contador: o markup não leva i., ii. nem 01 */
-/* .list-lines-roman { counter-reset: lines; list-style: none; padding-left: 0; }
+.list-lines-roman { counter-reset: lines; list-style: none; padding-left: 0; }
 .list-lines-roman-item { counter-increment: lines; display: flex; gap: .5rem; }
 .list-lines-roman-item::before { content: counter(lines, lower-roman) "."; font-style: italic; flex: 0 0 auto; min-width: 1rem; }
 
@@ -57,10 +57,10 @@
 .list-roman { counter-reset: roman; }
 .list-roman-item { counter-increment: roman; position: relative; }
 .list-roman-item::before { content: counter(roman, lower-roman) "."; position: absolute; left: .5rem; top: 50%; transform: translateY(-50%); font-style: italic; pointer-events: none; z-index: 1; padding-inline: .5rem; min-width: 2rem; text-align: center; }
-.list-roman-item .form-control { padding-left: 2rem; } */
+.list-roman-item .form-control { padding-left: 2rem; }
 
 /* Eyebrow: só o traço antes; o resto vem de utilidades do Bootstrap no markup */
-/* .eyebrow::before { content: ""; width: 1.5rem; height: 1px; background: currentColor; display: inline-block; } */
+.eyebrow::before { content: ""; width: 1.5rem; height: 1px; background: currentColor; display: inline-block; }
 </style>
 </head>
 <body>
