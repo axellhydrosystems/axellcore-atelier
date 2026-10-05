@@ -3,6 +3,7 @@
 @import "node_modules/bootstrap/scss/functions";
 @import "scss/variables";
 @import "node_modules/bootstrap/scss/variables";
+@import "scss/variables-dark";
 @import "node_modules/bootstrap/scss/variables-dark";
 @import "node_modules/bootstrap/scss/maps";
 @import "node_modules/bootstrap/scss/mixins";
@@ -25,10 +26,7 @@
 @import "node_modules/bootstrap/scss/helpers/visually-hidden";
 
 .apply {
-    --#{$prefix}tertiary-bg-rgb: 239, 236, 228;
-    --#{$prefix}border-color-translucent: rgba(239,236,228,0.18);
     --#{$prefix}border-radius: 0.25rem;
-    color: rgba($ivory, .75);
 
     &.py-5 {
         padding-top: clamp(90px, 13vw, 180px) !important;
@@ -49,13 +47,12 @@
         font-weight: 500;
         font-size: 0.65625rem;
         letter-spacing: 0.32em;
-        color: $bronze-2;
         line-height: 1.6;
+        color: $primary;
     }
     legend {
         padding-bottom: 1.25rem;
         margin-bottom: 1.25rem !important;
-        border-bottom: 1px solid $line-dk;
     }
     .h2 {
         font-family: "Cormorant Garamond", "Times New Roman", Georgia, serif; // $headings-font-family
@@ -63,11 +60,11 @@
         font-size: $h2-font-size;
         letter-spacing: -0.015em;
         line-height: $headings-line-height;
-        color: $ivory;
         margin-bottom: 1.5rem;
+        color: $white;
 
         em {
-            color: $bronze-2;
+            color: $primary;
         }
     }
     .lead {
@@ -79,7 +76,6 @@
     .list-group {
         --#{$prefix}list-group-border-radius: 0;
         --#{$prefix}list-group-item-padding-x: 0;
-        --#{$prefix}list-group-border-color: #{$line-dk};
     }
     .list-group-item {
         color: inherit;
@@ -90,13 +86,13 @@
         align-items: center;
         padding-block: 1.125rem;
         gap: 1.25rem;
-    }
-    .list-lines-roman-item::before {
-        font-family: "Cormorant Garamond", "Times New Roman", Georgia, serif; // $headings-font-family
-        color: $bronze-2;
-        font-size: 1.0625rem;
-        line-height: 1.54964706;
-        min-width: 2.125rem;
+        &::before {
+            font-family: "Cormorant Garamond", "Times New Roman", Georgia, serif; // $headings-font-family
+            color: $primary;
+            font-size: 1.0625rem;
+            line-height: 1.54964706;
+            min-width: 2.125rem;
+        }
     }
     .gx-4 {
         --#{$prefix}gutter-x: 6.25rem;
@@ -105,9 +101,6 @@
         --#{$prefix}card-spacer-y: 2.75rem;
         --#{$prefix}card-spacer-x: 2.75rem;
         padding: calc(var(--#{$prefix}card-spacer-y) + 0.25rem) var(--#{$prefix}card-spacer-x) calc(var(--#{$prefix}card-spacer-y) - 0.25rem);
-    }
-    .bg-body-tertiary {
-        --#{$prefix}bg-opacity: 0.03;
     }
     .eyebrow {
         &.gap-2 {
@@ -123,7 +116,6 @@
     .list-roman-item {
         &::before {
             font-family: "Cormorant Garamond", "Times New Roman", Georgia, serif; // $headings-font-family
-            color: $bronze-2;
             font-size: 1.25rem;
             font-style: italic;
         }
@@ -132,6 +124,10 @@
         &.g-3 {
             --aa-gutter-x: 3.573rem;
         }
+    }
+    .form-label {
+        text-transform: uppercase;
+        letter-spacing: 0.26em;
     }
     .form-control {
         position: relative;
@@ -147,5 +143,37 @@
         padding: 1.5rem 2.375rem;
         font-size: 0.75rem;
         min-width: 220px;
+    }
+}
+
+[data-bs-theme="dark"] {
+    .apply {
+        --#{$prefix}tertiary-bg-rgb: 239, 236, 228;
+        --#{$prefix}border-color-translucent: rgba(239,236,228,0.18);
+        color: rgba($ivory, .75);
+        legend {
+            border-bottom: 1px solid $line-dk;
+        }
+        h2,
+        legend {
+            color: $bronze-2;
+        }
+        .h2 {
+            color: $ivory;
+            em {
+                color: $bronze-2;
+            }
+        }
+        .list-group {
+            --#{$prefix}list-group-border-color: #{$line-dk};
+        }
+        .list-lines-roman-item {
+            &::before {
+                color: $bronze-2;
+            }
+        }
+        .bg-body-tertiary {
+            --#{$prefix}bg-opacity: 0.03;
+        }
     }
 }
