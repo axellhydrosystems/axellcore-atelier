@@ -159,40 +159,6 @@ final class Options_Rest {
 		);
 		$ids = array_map( 'intval', $by_title );
 
-		if ( '' !== $query ) {
-			foreach ( get_object_taxonomies( $post_type ) as $taxonomy ) {
-				$term_ids = get_terms(
-					array(
-						'taxonomy'   => $taxonomy,
-						'name__like' => $query,
-						'hide_empty' => false,
-						'fields'     => 'ids',
-						'number'     => self::LIMIT,
-					)
-				);
-				if ( is_wp_error( $term_ids ) || ! $term_ids ) {
-					continue;
-				}
-				$by_term = get_posts(
-					array(
-						'post_type'      => $post_type,
-						'post_status'    => 'publish',
-						'fields'         => 'ids',
-						'posts_per_page' => self::LIMIT,
-						'no_found_rows'  => true,
-						'tax_query'      => array(
-							array(
-								'taxonomy' => $taxonomy,
-								'field'    => 'term_id',
-								'terms'    => array_map( 'intval', $term_ids ),
-							),
-						),
-					)
-				);
-				$ids = array_merge( $ids, array_map( 'intval', $by_term ) );
-			}
-		}
-
 		return array_slice( array_values( array_unique( $ids ) ), 0, self::LIMIT );
 	}
 }

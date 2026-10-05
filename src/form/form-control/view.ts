@@ -14,18 +14,42 @@ interface AutocompleteContext {
 	titulo: string;
 	open: boolean;
 	notFound: boolean;
+	loading: boolean;
+	custom: boolean;
+	customName: string;
+	customUf: string;
+	customCity: string;
+	cityOptions: CityOption[];
 	activeIndex: number;
 	options: Option[];
 }
 
+interface CityOption {
+	label: string;
+	value: string;
+}
+
 const DEBOUNCE_MS = 250;
-const NOT_FOUND_LABEL = 'Não encontrada';
+const NOT_FOUND_LABEL = 'Adicionar não encontrada';
 
 /**
  * optionsUrl is provided by includes/class-form-block.php (wp_interactivity_state).
  */
 const serverState = (): { optionsUrl: string } =>
 	state as unknown as { optionsUrl: string };
+
+/**
+ * The custom store text "Nome - UF Cidade", or '' while any part is missing.
+ *
+ * @param context Autocomplete context.
+ */
+function composeTitulo( context: AutocompleteContext ): string {
+	const nome = context.customName.trim();
+	const cidade = context.customCity.trim();
+	return nome && context.customUf && cidade
+		? `${ nome } - ${ context.customUf } ${ cidade }`
+		: '';
+}
 
 /**
  * Select the option at index; an index past the list is "Não encontrada".
@@ -40,10 +64,13 @@ function choose( context: AutocompleteContext, index: number ) {
 		context.text = option.label;
 		context.titulo = option.label;
 		context.notFound = false;
+		context.custom = false;
 	} else {
 		context.selectedId = '';
-		context.titulo = context.text;
 		context.notFound = true;
+		context.custom = true;
+		context.customName = context.text.trim();
+		context.titulo = composeTitulo( context );
 	}
 	context.open = false;
 	context.activeIndex = -1;
@@ -61,8 +88,10 @@ const { state } = store( 'axell/autocomplete', {
 			context.titulo = query;
 			context.selectedId = '';
 			context.notFound = false;
+			context.custom = false;
 			context.activeIndex = -1;
 			context.open = query.trim() !== '';
+			context.loading = context.open;
 
 			if ( ! context.open ) {
 				context.options = [];
@@ -88,10 +117,77 @@ const { state } = store( 'axell/autocomplete', {
 				const options = ( yield response.json() ) as Option[];
 				if ( context.text === query ) {
 					context.options = options;
+					context.loading = false;
 				}
 			} catch {
 				if ( context.text === query ) {
 					context.options = [];
+					context.loading = false;
+				}
+			}
+		},
+
+		onCustomInput( event: Event ) {
+			const input = event.target as HTMLInputElement;
+			const context = getContext< AutocompleteContext >();
+			context.customName = input.value;
+			context.titulo = composeTitulo( context );
+		},
+
+		onCustomCity( event: Event ) {
+			const select = event.target as HTMLSelectElement;
+			const context = getContext< AutocompleteContext >();
+			context.customCity = select.value;
+			context.titulo = composeTitulo( context );
+		},
+
+		backToSearch( event: MouseEvent ) {
+			const context = getContext< AutocompleteContext >();
+			context.custom = false;
+			context.notFound = false;
+			context.selectedId = '';
+			context.titulo = '';
+			context.activeIndex = -1;
+			// Back to the search with the list open (its options and the add row).
+			context.open = context.text.trim() !== '';
+
+			// Focus the search input once it is shown again.
+			const button = event.currentTarget as HTMLElement;
+			const input = button
+				.closest( '[data-wp-interactive="axell/autocomplete"]' )
+				?.querySelector< HTMLInputElement >( 'input[role="combobox"]' );
+			setTimeout( () => input?.focus(), 0 );
+		},
+
+		*onCustomUf( event: Event ): Generator< unknown, void, unknown > {
+			const select = event.target as HTMLSelectElement;
+			const context = getContext< AutocompleteContext >();
+			context.customUf = select.value;
+			context.customCity = '';
+			context.cityOptions = [];
+			context.titulo = composeTitulo( context );
+
+			if ( ! select.value ) {
+				return;
+			}
+
+			// The cities of the chosen UF, from the same REST root as the options.
+			const url = new URL( serverState().optionsUrl );
+			url.pathname = url.pathname.replace( /options$/, 'cities' );
+			url.search = `uf=${ encodeURIComponent( select.value ) }`;
+
+			try {
+				const response = ( yield fetch( url.toString() ) ) as Response;
+				if ( ! response.ok ) {
+					throw new Error( response.statusText );
+				}
+				const cities = ( yield response.json() ) as CityOption[];
+				if ( context.customUf === select.value ) {
+					context.cityOptions = cities;
+				}
+			} catch {
+				if ( context.customUf === select.value ) {
+					context.cityOptions = [];
 				}
 			}
 		},
@@ -153,21 +249,50 @@ const { state } = store( 'axell/autocomplete', {
 				return;
 			}
 			const context = getContext< AutocompleteContext >();
+			// Leaving without a valid choice (no item picked, no custom store) clears the text.
+			if ( ! context.selectedId && ! context.custom ) {
+				context.text = '';
+				context.titulo = '';
+				context.options = [];
+				context.loading = false;
+			}
 			context.open = false;
 			context.activeIndex = -1;
 		},
 	},
 
 	callbacks: {
+		// The city select lists the cities of the chosen UF.
+		renderCities() {
+			const context = getContext< AutocompleteContext >();
+			const select = getElement().ref as HTMLSelectElement;
+			const placeholder = new Option(
+				context.customUf ? 'Cidade' : 'Selecione UF',
+				''
+			);
+			// The city name is the value: that is what the title is built from.
+			const cities = context.cityOptions.map(
+				( city ) => new Option( city.label, city.label )
+			);
+			select.replaceChildren( placeholder, ...cities );
+			select.value = context.customCity;
+		},
+
 		// The list is rebuilt whenever the options, the active item or the text change.
 		renderList() {
 			const context = getContext< AutocompleteContext >();
 			const list = getElement().ref as HTMLElement;
 
-			const entries = context.options.map( ( option ) => option.label );
-			if ( context.allowNotFound && context.text.trim() ) {
-				entries.push( NOT_FOUND_LABEL );
+			if ( context.loading ) {
+				const searching = document.createElement( 'li' );
+				searching.className = 'aac-ac-loading';
+				searching.textContent = 'Procurando…';
+				list.replaceChildren( searching );
+				return;
 			}
+
+			const entries = context.options.map( ( option ) => option.label );
+			const showNotFound = context.allowNotFound && context.text.trim() !== '';
 
 			const items = entries.map( ( label, index ) => {
 				const li = document.createElement( 'li' );
@@ -177,6 +302,26 @@ const { state } = store( 'axell/autocomplete', {
 				li.textContent = label;
 				return li;
 			} );
+
+			if ( showNotFound ) {
+				// The typed text itself, with the add action at its end.
+				const li = document.createElement( 'li' );
+				li.setAttribute( 'role', 'option' );
+				li.className = 'aac-ac-notfound';
+				li.dataset.index = String( entries.length );
+				li.setAttribute( 'aria-selected', String( entries.length === context.activeIndex ) );
+
+				const typed = document.createElement( 'span' );
+				typed.textContent = context.text.trim();
+
+				const add = document.createElement( 'button' );
+				add.type = 'button';
+				add.className = 'aac-ac-add';
+				add.textContent = NOT_FOUND_LABEL;
+
+				li.append( typed, add );
+				items.push( li );
+			}
 
 			list.replaceChildren( ...items );
 		},

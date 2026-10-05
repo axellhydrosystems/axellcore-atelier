@@ -128,6 +128,12 @@ final class Assets {
 		}
 
 		if ( ! $this->is_our_template() ) {
+			// Theme-styled pages with an application form (the adesão child
+			// page) keep their own look, but still need the input masks and
+			// the cities cascade from frontend.js.
+			if ( is_singular() && has_block( 'axell/form', get_post() ) ) {
+				$this->enqueue_frontend_script();
+			}
 			return;
 		}
 
@@ -142,6 +148,14 @@ final class Assets {
 		wp_enqueue_style( 'aac-sections', AXELLCORE_ATELIERCLUB_URL . 'assets/css/sections.css', array( 'aac-tokens' ), AXELLCORE_ATELIERCLUB_VERSION );
 		wp_enqueue_style( 'aac-blocks-bridge', AXELLCORE_ATELIERCLUB_URL . 'assets/css/blocks-bridge.css', array( 'aac-sections' ), AXELLCORE_ATELIERCLUB_VERSION );
 
+		$this->enqueue_frontend_script();
+	}
+
+	/**
+	 * frontend.js (input masks, cities cascade) and its REST root. The REST
+	 * endpoints are public and unauthenticated, so no nonce is localized here.
+	 */
+	private function enqueue_frontend_script() {
 		wp_enqueue_script(
 			'aac-frontend',
 			AXELLCORE_ATELIERCLUB_URL . 'assets/js/frontend.js',
@@ -153,9 +167,6 @@ final class Assets {
 			)
 		);
 
-		// REST root for the cities cascading-select fetch + the real form
-		// submission (see includes/class-rest.php) — both public, unauthenticated
-		// endpoints, so no nonce is localized here.
 		wp_localize_script(
 			'aac-frontend',
 			'aacRest',

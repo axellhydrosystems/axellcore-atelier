@@ -1,6 +1,11 @@
 import { __ } from '@wordpress/i18n';
 import type { FormControlAttributes } from './types';
 
+const UF_CODES = [
+	'AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA',
+	'PB', 'PR', 'PE', 'PI', 'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO',
+];
+
 /**
  * Editor-only placeholder shown in place of the (otherwise invisible,
  * unselectable) hidden `<input>` — ported from the reference block's
@@ -125,6 +130,12 @@ export default function ControlElement(
 			titulo: '',
 			open: false,
 			notFound: false,
+			loading: false,
+			custom: false,
+			customName: '',
+			customUf: '',
+			customCity: '',
+			cityOptions: [],
 			activeIndex: -1,
 			options: [],
 		};
@@ -143,6 +154,7 @@ export default function ControlElement(
 					id={ id }
 					autoComplete="off"
 					role="combobox"
+					data-wp-bind--hidden="context.custom"
 					aria-autocomplete="list"
 					aria-controls={ listId }
 					placeholder={ placeholder || undefined }
@@ -160,6 +172,61 @@ export default function ControlElement(
 					name={ `${ name as string }_titulo` }
 					data-wp-bind--value="context.titulo"
 				/>
+				<div className="aac-ac-custom" hidden data-wp-bind--hidden="!context.custom">
+					<div className="aac-ac-name">
+						<input
+							type="text"
+							data-field="name"
+							aria-label={ __( 'Nome', 'axellcore-atelierclub' ) }
+							placeholder={ __( 'Nome', 'axellcore-atelierclub' ) }
+							data-wp-bind--value="context.customName"
+							data-wp-on--input="actions.onCustomInput"
+						/>
+						<button
+							type="button"
+							className="aac-ac-back"
+							aria-label={ __( 'Voltar à busca', 'axellcore-atelierclub' ) }
+							data-wp-on--click="actions.backToSearch"
+						>
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								viewBox="0 0 24 24"
+								width="18"
+								height="18"
+								fill="none"
+								stroke="currentColor"
+								strokeWidth="2"
+								aria-hidden="true"
+								focusable="false"
+							>
+								<circle cx="11" cy="11" r="7" />
+								<path d="m20 20-3.5-3.5" />
+							</svg>
+						</button>
+					</div>
+					<select
+						aria-label={ __( 'UF', 'axellcore-atelierclub' ) }
+						data-wp-bind--value="context.customUf"
+						data-wp-on--change="actions.onCustomUf"
+					>
+						<option value="">UF</option>
+						{ UF_CODES.map( ( uf ) => (
+							<option key={ uf } value={ uf }>
+								{ uf }
+							</option>
+						) ) }
+					</select>
+					<select
+						aria-label={ __( 'Cidade', 'axellcore-atelierclub' ) }
+						data-field="city"
+						disabled
+						data-wp-bind--disabled="!context.customUf"
+						data-wp-on--change="actions.onCustomCity"
+						data-wp-watch="callbacks.renderCities"
+					>
+						<option value="">{ __( 'Selecione UF', 'axellcore-atelierclub' ) }</option>
+					</select>
+				</div>
 				<ul
 					id={ listId }
 					role="listbox"

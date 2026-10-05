@@ -12,6 +12,15 @@ export interface MemberSummary {
 	status: string;
 }
 
+export interface MemberLoja {
+	field: string;
+	title: string;
+	id: number;
+	status: string;
+	pending: boolean;
+	url: string;
+}
+
 export interface MemberDetail {
 	id: number;
 	nome: string;
@@ -38,6 +47,7 @@ export interface MemberDetail {
 	loja2: string;
 	loja3: string;
 	loja4: string;
+	lojas?: MemberLoja[];
 }
 
 export interface SelectOption {

@@ -14,10 +14,16 @@
 .wp-block-axell-fieldset.is-layout-flex {
   gap: 0;
   margin-inline: calc(-.5 * var(--wp-block-axell-fieldset-gutter-x));
+  align-items: unset;
 
   > * {
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 auto;
     width: 100%;
+    max-width: 100%;
     box-sizing: border-box;
     padding-inline: calc(var(--wp-block-axell-fieldset-gutter-x) * .5);
+    justify-content: flex-start;
   }
 }

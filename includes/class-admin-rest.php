@@ -365,9 +365,26 @@ final class Admin_Rest {
 		}
 
 		// Partner stores are shown by their text, not their ID.
+		$lojas = array();
 		foreach ( Members::LOJA_FIELDS as $field ) {
 			$data[ $field ] = (string) get_post_meta( $post->ID, '_aac_' . $field . '_titulo', true );
+
+			$loja_id = (int) get_post_meta( $post->ID, '_aac_' . $field, true );
+			if ( '' === $data[ $field ] && ! $loja_id ) {
+				continue;
+			}
+			// A store linked to an assistencia shows its status: "pending" needs curation.
+			$status  = $loja_id ? (string) get_post_status( $loja_id ) : '';
+			$lojas[] = array(
+				'field'   => $field,
+				'title'   => $data[ $field ],
+				'id'      => $loja_id,
+				'status'  => $status,
+				'pending' => 'pending' === $status,
+				'url'     => $loja_id ? (string) get_edit_post_link( $loja_id, 'raw' ) : '',
+			);
 		}
+		$data['lojas'] = $lojas;
 
 		return $data;
 	}

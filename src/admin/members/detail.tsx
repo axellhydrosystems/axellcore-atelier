@@ -4,7 +4,7 @@ import { DataForm } from '@wordpress/dataviews';
 import type { Field, Form, FormField } from '@wordpress/dataviews';
 import { Notice } from '@wordpress/components';
 import { fetchCities, fetchMember, saveMember } from './api';
-import type { MemberDetail, SelectOption } from './types';
+import type { MemberDetail, MemberLoja, SelectOption } from './types';
 
 type Draft = Record< string, string >;
 
@@ -64,6 +64,7 @@ export default function MemberDetailView( {
 }: Props ) {
 	const [ draft, setDraft ] = useState< Draft | null >( null );
 	const [ cities, setCities ] = useState< SelectOption[] >( [] );
+	const [ lojas, setLojas ] = useState< MemberLoja[] >( [] );
 	const [ isSaving, setIsSaving ] = useState( false );
 	const [ notice, setNotice ] = useState< {
 		status: 'success' | 'error';
@@ -72,7 +73,10 @@ export default function MemberDetailView( {
 
 	useEffect( () => {
 		fetchMember( id )
-			.then( ( member ) => setDraft( toDraft( member ) ) )
+			.then( ( member ) => {
+				setDraft( toDraft( member ) );
+				setLojas( member.lojas ?? [] );
+			} )
 			.catch( ( err: { message?: string } ) =>
 				setNotice( {
 					status: 'error',
@@ -304,7 +308,6 @@ export default function MemberDetailView( {
 				row( 'endereco-2', [ 'bairro', 'referencia' ] ),
 				row( 'endereco-3', [ 'cidade', 'uf', 'cep' ] ),
 			] ),
-			card( 'lojas', __( 'Lojas parceiras', 'axellcore-atelierclub' ), [ 'loja1', 'loja2', 'loja3', 'loja4' ] ),
 		],
 	};
 
@@ -355,6 +358,68 @@ export default function MemberDetailView( {
 				form={ form }
 				onChange={ onChange }
 			/>
+			<LojasParceiras lojas={ lojas } />
 		</>
+	);
+}
+
+/**
+ * Warning sign shown next to a store whose assistencia is still pending.
+ */
+function WarningIcon() {
+	return (
+		<svg
+			xmlns="http://www.w3.org/2000/svg"
+			viewBox="0 0 24 24"
+			width="18"
+			height="18"
+			fill="currentColor"
+			aria-hidden="true"
+			focusable="false"
+		>
+			<path d="M12 2 1 21h22L12 2Zm0 5.5 7.5 13h-15L12 7.5Zm-1 4h2v5h-2v-5Zm0 6h2v2h-2v-2Z" />
+		</svg>
+	);
+}
+
+/**
+ * The partner stores of the member. A store linked to an assistencia that is
+ * still pending shows a warning and a link to open it for curation.
+ * @param root0
+ * @param root0.lojas
+ */
+function LojasParceiras( { lojas }: { lojas: MemberLoja[] } ) {
+	if ( ! lojas.length ) {
+		return null;
+	}
+	return (
+		<section className="aac-lojas-parceiras">
+			<h3>{ __( 'Lojas parceiras', 'axellcore-atelierclub' ) }</h3>
+			<ul>
+				{ lojas.map( ( loja ) => (
+					<li key={ loja.field }>
+						<span>{ loja.title }</span>
+						{ loja.pending && (
+							<>
+								{ ' ' }
+								<span
+									className="aac-loja-pendente"
+									role="img"
+									aria-label={ __( 'Pendente de curadoria', 'axellcore-atelierclub' ) }
+									title={ __( 'Pendente de curadoria', 'axellcore-atelierclub' ) }
+								>
+									<WarningIcon />
+								</span>{ ' ' }
+								{ loja.url && (
+									<a href={ loja.url }>
+										{ __( 'Abrir loja', 'axellcore-atelierclub' ) }
+									</a>
+								) }
+							</>
+						) }
+					</li>
+				) ) }
+			</ul>
+		</section>
 	);
 }
