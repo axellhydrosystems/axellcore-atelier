@@ -605,7 +605,7 @@ def footer_section():
     group('aac-footer', inner)
 
 # ============================================================
-# APPLY FORM (axell/form, axell/form-fieldset, axell/form-label,
+# APPLY FORM (axell/form, axell/fieldset, axell/form-label,
 # axell/form-control, axell/form-submission-notification)
 # ============================================================
 # axellcore/form-input (the old fused block) is deprecated — kept
@@ -768,11 +768,11 @@ def consent_field(name, label, required=False):
 def form_row(className, fields_fn):
     """A core/group wrapping a row of `field()` groups — unchanged from
     before (still `.aac-form-row`/`.aac-cols-*`, still a real block-tree
-    child of axell/form-fieldset's InnerBlocks)."""
+    child of axell/fieldset's InnerBlocks)."""
     group('aac-form-row ' + className, fields_fn)
 
 def fieldset(legend_text, fields_fn):
-    """axell/form-fieldset — a real `<fieldset>`/`<legend>` pair, replacing
+    """axell/fieldset — a real `<fieldset>`/`<legend>` pair, replacing
     the old `core/group.aac-form-row` + separate `.aac-form-legend`-styled
     paragraph. `.aac-apply-form fieldset`/`.aac-apply-form legend` in
     sections.css already target plain element selectors (ported from the
@@ -786,11 +786,11 @@ def fieldset(legend_text, fields_fn):
     a repeat of the escaped-quote block-comment parser bug already found
     and fixed once this session."""
     legend_html = f'<legend class="aac-form-legend-text">{legend_text}</legend>' if legend_text else ''
-    OUT.append('<!-- wp:axell/form-fieldset {} -->')
-    OUT.append('<fieldset class="wp-block-axell-form-fieldset">' + legend_html)
+    OUT.append('<!-- wp:axell/fieldset {} -->')
+    OUT.append('<fieldset class="wp-block-axell-fieldset">' + legend_html)
     fields_fn()
     OUT.append('</fieldset>')
-    OUT.append('<!-- /wp:axell/form-fieldset -->')
+    OUT.append('<!-- /wp:axell/fieldset -->')
 
 def form_notification(type_, paragraphs_html):
     """axell/form-submission-notification — starts hidden

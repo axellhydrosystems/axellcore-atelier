@@ -4,7 +4,7 @@
 	"name": "axellcore/form-input",
 	"title": "Atelier Form Field",
 	"category": "text",
-	"ancestor": [ "axell/form-fieldset" ],
+	"ancestor": [ "axell/fieldset" ],
 	"description": "Deprecated — superseded by axell/form-label + axell/form-control (see this plugin's CLAUDE.md). Kept registered, hidden from the inserter, so any pre-existing content using it keeps rendering/editing correctly.",
 	"keywords": [ "input", "field", "form" ],
 	"textdomain": "axellcore-atelierclub",
@@ -37,5 +37,6 @@
 		"inserter": false
 	},
 	"editorScript": [ "file:./index.js", "file:./variations.js" ],
-	"style": "file:./style.scss"
+	"style": "file:./style-index.css",
+	"editorStyle": "file:./style-index.css"
 }

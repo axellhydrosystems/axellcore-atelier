@@ -47,7 +47,7 @@ same license as this plugin) is vendored at
   in `docs/ARCHITECTURE.md` for the project's standing pixel-parity
   commitment.
   **Superseded** — see "`axell/form-label` + `axell/form-control` +
-  `axell/form-fieldset`" below: full native color/border/typography/spacing
+  `axell/fieldset`" below: full native color/border/typography/spacing
   supports were added after all, once the field markup was split into
   separate label/control blocks. The pixel-parity risk this bullet warned
   about turned out to be avoidable — the generator's own default content
@@ -196,7 +196,7 @@ an inline `style` attribute rather than a stylesheet rule, specifically to
 avoid needing to solve that broader gap just for one field state. The broader
 gap itself remains open.
 
-## `axell/form-label` + `axell/form-control` + `axell/form-fieldset` — the field split
+## `axell/form-label` + `axell/form-control` + `axell/fieldset` — the field split
 
 `axellcore/form-input` (the fused type/label/variant/hint/mask block) was
 replaced by three composable blocks, and the whole form family's namespace
@@ -232,7 +232,7 @@ ambiguous in one block).
   `axell/form-input`, the reference — this is genuinely *more* than the
   reference itself offers, since the user asked for parity with "os demais
   blocos" generally, not with the reference's own narrower choice).
-- **`axell/form-fieldset`** (`includes/blocks/form/form-fieldset/`) — a
+- **`axell/fieldset`** (`includes/blocks/form/form-fieldset/`) — a
   real `<fieldset>`/`<legend>` pair (`legend` rich-text, empty → no
   `<legend>` element at all, genuine semantic optionality — not just an
   empty tag). Own native `layout` support too, though the generator doesn't
@@ -303,11 +303,11 @@ label`, `.aac-field input`) — they don't care which block renders the
 Similarly, `.aac-apply-form fieldset`/`.aac-apply-form legend` in
 `sections.css` (ported from the original mockup's own CSS, unused until
 now since the generator never emitted real `<fieldset>` elements before)
-apply automatically to `axell/form-fieldset`'s real `<fieldset>`/`<legend>`
+apply automatically to `axell/fieldset`'s real `<fieldset>`/`<legend>`
 output — **zero CSS changes were needed** for any of this. The row-level
 grouping (`core/group.aac-form-row.aac-cols-2/3/addr/city`, wrapping 2-3
 field-groups side by side) is also completely unchanged, nested one level
-inside the new `axell/form-fieldset` instead of directly inside the old
+inside the new `axell/fieldset` instead of directly inside the old
 flat `axellcore/form`.
 
 Net effect: the native Style panels (Typography/Color/Border/Dimensions)
@@ -338,3 +338,7 @@ derived from reading the JS source, specifically to avoid guessing at
 WordPress's exact attribute-serialization order (confirmed non-obvious:
 e.g. `type="…"` serializes *last* even when logically it reads first in
 the JS).
+
+## Content files (what activation reads)
+
+`Activator` creates `/atelier` from `content/atelier-page.html`, its child pages from `content/pages/{slug}.html`, and the header/footer template parts from `content/header-part.html` / `content/footer-part.html`. The database is the source of truth: after editing those pages in the editor, run `bin/export-content.sh` to copy them back into `content/`. `bin/generate-content.py` no longer reproduces the live landing (it writes only `content/seed-content.html`, which nothing reads).

@@ -6,7 +6,6 @@ import icon from './icon';
 import { v1Save } from './deprecated';
 import type { BlockDeprecation } from '@wordpress/blocks';
 import type { FormAttributes } from './types';
-import './group-variations';
 
 registerBlockType< FormAttributes >( metadata.name, {
 	...metadata,

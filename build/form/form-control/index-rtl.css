@@ -1,0 +1,27 @@
+/*!**********************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[5].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[5].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[5].use[3]!./src/form/form-control/editor.scss ***!
+  \**********************************************************************************************************************************************************************************************************************************************************/
+/*
+ * axell/form-control: editor styles, the same rules as the frontend (style.scss).
+ */
+/*
+ * axell/form-control: minimal structure, loaded everywhere. Zero specificity
+ * (:where), so the brand design (sections.css, /atelier) always wins.
+ * Checkboxes are excluded: text-input sizing would make them huge.
+ */
+:where(.wp-block-axell-form-control):not([type=checkbox]) {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  line-height: inherit;
+  border-width: 1px;
+  border-style: solid;
+  padding: 0.375rem 0.75rem;
+  font-size: inherit;
+  font-family: inherit;
+}
+
+:where(textarea.wp-block-axell-form-control) {
+  min-height: 10em;
+  padding: 0.5em;
+}

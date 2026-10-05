@@ -7,6 +7,9 @@ function classesFor( attributes: FormLabelAttributes ): string {
 	if ( attributes.visuallyHidden ) {
 		classes.push( 'is-visually-hidden' );
 	}
+	if ( attributes.required ) {
+		classes.push( 'is-required' );
+	}
 	return classes.join( ' ' );
 }
 

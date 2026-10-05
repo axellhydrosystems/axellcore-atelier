@@ -1,0 +1,51 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "axell/form-check",
+  "title": "Form Check",
+  "category": "text",
+  "ancestor": [
+    "axell/form"
+  ],
+  "description": "A checkbox with its own label text (links allowed), such as a consent or terms acceptance. Stands alone: it does not sit in an axell/form-group.",
+  "keywords": [
+    "checkbox",
+    "consent",
+    "check",
+    "form"
+  ],
+  "textdomain": "axellcore-atelierclub",
+  "attributes": {
+    "id": {
+      "type": "string",
+      "default": ""
+    },
+    "name": {
+      "type": "string",
+      "default": ""
+    },
+    "required": {
+      "type": "boolean",
+      "default": false
+    },
+    "checked": {
+      "type": "boolean",
+      "default": false
+    },
+    "text": {
+      "type": "rich-text",
+      "source": "rich-text",
+      "selector": "label",
+      "default": ""
+    }
+  },
+  "supports": {
+    "html": false,
+    "className": true,
+    "customClassName": true,
+    "anchor": true
+  },
+  "editorScript": "file:./index.js",
+  "style": "file:./style-index.css",
+  "editorStyle": "file:./index.css"
+}

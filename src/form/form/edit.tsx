@@ -18,7 +18,8 @@ const ALLOWED_BLOCKS = [
 	'core/list-item',
 	'core/buttons',
 	'core/button',
-	'axell/form-fieldset',
+	'axell/fieldset',
+	'axell/form-group',
 	'axell/form-submission-notification',
 ];
 
@@ -34,14 +35,7 @@ type TemplateArray = ReadonlyArray< Template >;
 // "Fieldset"/"Legend" core/group variations registered in
 // group-variations.ts).
 const TEMPLATE: TemplateArray = [
-	[
-		'core/group',
-		{ layout: { type: 'constrained' } },
-		[
-			[ 'axell/form-label', {} ],
-			[ 'axell/form-control', {} ],
-		],
-	],
+	[ 'axell/form-group', {} ],
 ];
 
 function formProps(

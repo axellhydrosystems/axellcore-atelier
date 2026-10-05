@@ -729,3 +729,7 @@ msgstr ""
 #: build/form/form-submission-notification/index.js
 msgid "There was an error submitting your form."
 msgstr ""
+
+#: build/form/form-group/index.js
+msgid "Settings"
+msgstr "Configurações"

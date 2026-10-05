@@ -56,7 +56,7 @@ function field(
 	controlExtra?: Record< string, unknown >
 ): BlockTemplate {
 	return [
-		'core/group',
+		'axell/form-group',
 		{ className: 'aac-field' },
 		[
 			label( id, text, required ),
@@ -87,7 +87,7 @@ function row( colsClass: string, fields: BlockTemplate[] ): BlockTemplate {
 }
 
 function fieldset( legendText: string, rows: BlockTemplate[] ): BlockTemplate {
-	return [ 'axell/form-fieldset', { legend: legendText }, rows ];
+	return [ 'axell/fieldset', { legend: legendText }, rows ];
 }
 
 const UF_OPTIONS = [
@@ -144,7 +144,7 @@ const TEMPLATE: BlockTemplate[] = [
 		] ),
 		row( 'aac-cols-2', [
 			[
-				'core/group',
+				'axell/form-group',
 				{ className: 'aac-field' },
 				[
 					label( 'atuacao', 'Atuação principal', true ),
@@ -174,7 +174,7 @@ const TEMPLATE: BlockTemplate[] = [
 				],
 			],
 			[
-				'core/group',
+				'axell/form-group',
 				{ className: 'aac-field' },
 				[
 					label( 'portfolio', 'Portfólio (URL)', false ),
@@ -187,7 +187,7 @@ const TEMPLATE: BlockTemplate[] = [
 	fieldset( '02 — Documento', [
 		row( 'aac-cols-2', [
 			[
-				'core/group',
+				'axell/form-group',
 				{ className: 'aac-field' },
 				[
 					label( 'tipoDoc', 'Tipo de cadastro', true ),
@@ -202,7 +202,7 @@ const TEMPLATE: BlockTemplate[] = [
 				],
 			],
 			[
-				'core/group',
+				'axell/form-group',
 				{ className: 'aac-field' },
 				[
 					label( 'documento', 'CPF ou CNPJ', true ),
@@ -254,7 +254,7 @@ const TEMPLATE: BlockTemplate[] = [
 	] ),
 	fieldset( '04 — Lojas parceiras', [
 		[
-			'core/group',
+			'axell/form-group',
 			{ className: 'aac-field' },
 			[
 				[
@@ -285,16 +285,14 @@ const TEMPLATE: BlockTemplate[] = [
 		],
 	] ),
 	[
-		'core/group',
-		{ className: 'aac-consent' },
-		[
-			control( 'checkbox', 'regulamento', { required: true } ),
-			label(
-				'regulamento',
-				'Li e concordo com o <a href="#">regulamento do Atelier Axell Club</a> e com o tratamento dos meus dados conforme a Política de Privacidade e a LGPD.',
-				false
-			),
-		],
+		'axell/form-check',
+		{
+			id: 'regulamento',
+			name: 'regulamento',
+			required: true,
+			className: 'aac-consent',
+			text: 'Li e concordo com o <a href="#">regulamento do Atelier Axell Club</a> e com o tratamento dos meus dados conforme a Política de Privacidade e a LGPD.',
+		},
 	],
 	[
 		'axell/form-submission-notification',

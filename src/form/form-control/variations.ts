@@ -22,7 +22,7 @@ const VARIATIONS: Array< BlockVariation< Partial< FormControlAttributes > > > =
 	[
 		{
 			name: 'text',
-			title: __( 'Text Control', 'axellcore-atelierclub' ),
+			title: __( 'Form Control (text)', 'axellcore-atelierclub' ),
 			description: __( 'A generic text input.', 'axellcore-atelierclub' ),
 			attributes: { type: 'text' },
 			isDefault: true,
@@ -31,7 +31,7 @@ const VARIATIONS: Array< BlockVariation< Partial< FormControlAttributes > > > =
 		},
 		{
 			name: 'email',
-			title: __( 'Email Control', 'axellcore-atelierclub' ),
+			title: __( 'Form Control (email)', 'axellcore-atelierclub' ),
 			description: __(
 				'Used for email addresses.',
 				'axellcore-atelierclub'
@@ -43,7 +43,7 @@ const VARIATIONS: Array< BlockVariation< Partial< FormControlAttributes > > > =
 		},
 		{
 			name: 'url',
-			title: __( 'URL Control', 'axellcore-atelierclub' ),
+			title: __( 'Form Control (url)', 'axellcore-atelierclub' ),
 			description: __( 'Used for URLs.', 'axellcore-atelierclub' ),
 			attributes: { type: 'url' },
 			isDefault: true,
@@ -52,7 +52,7 @@ const VARIATIONS: Array< BlockVariation< Partial< FormControlAttributes > > > =
 		},
 		{
 			name: 'tel',
-			title: __( 'Phone Control', 'axellcore-atelierclub' ),
+			title: __( 'Form Control (tel)', 'axellcore-atelierclub' ),
 			description: __(
 				'Used for phone numbers.',
 				'axellcore-atelierclub'
@@ -64,7 +64,7 @@ const VARIATIONS: Array< BlockVariation< Partial< FormControlAttributes > > > =
 		},
 		{
 			name: 'number',
-			title: __( 'Number Control', 'axellcore-atelierclub' ),
+			title: __( 'Form Control (number)', 'axellcore-atelierclub' ),
 			description: __( 'A numeric input.', 'axellcore-atelierclub' ),
 			attributes: { type: 'number' },
 			isDefault: true,
@@ -73,7 +73,7 @@ const VARIATIONS: Array< BlockVariation< Partial< FormControlAttributes > > > =
 		},
 		{
 			name: 'textarea',
-			title: __( 'Textarea Control', 'axellcore-atelierclub' ),
+			title: __( 'Form Control (textarea)', 'axellcore-atelierclub' ),
 			description: __(
 				'A textarea input for multiple lines of text.',
 				'axellcore-atelierclub'
@@ -85,7 +85,7 @@ const VARIATIONS: Array< BlockVariation< Partial< FormControlAttributes > > > =
 		},
 		{
 			name: 'select',
-			title: __( 'Select Control', 'axellcore-atelierclub' ),
+			title: __( 'Form Control (select)', 'axellcore-atelierclub' ),
 			description: __(
 				'A dropdown with a fixed or dynamically-sourced list of options.',
 				'axellcore-atelierclub'
@@ -96,26 +96,24 @@ const VARIATIONS: Array< BlockVariation< Partial< FormControlAttributes > > > =
 			isActive: isType( 'select' ),
 		},
 		{
-			name: 'checkbox',
-			title: __( 'Checkbox Control', 'axellcore-atelierclub' ),
-			description: __(
-				'A simple checkbox input.',
-				'axellcore-atelierclub'
-			),
-			attributes: { type: 'checkbox' },
-			isDefault: true,
-			scope: [ 'inserter', 'transform' ],
-			isActive: isType( 'checkbox' ),
-		},
-		{
 			name: 'hidden',
-			title: __( 'Hidden Control', 'axellcore-atelierclub' ),
+			title: __( 'Form Control (hidden)', 'axellcore-atelierclub' ),
 			description: __( 'A hidden input field.', 'axellcore-atelierclub' ),
 			icon: 'visibility',
 			attributes: { type: 'hidden' },
 			isDefault: true,
 			scope: [ 'inserter', 'transform' ],
 			isActive: isType( 'hidden' ),
+		},
+		{
+			name: 'autocomplete',
+			title: __( 'Form Control (autocomplete)', 'axellcore-atelierclub' ),
+			description: __( 'A text field that suggests posts as you type.', 'axellcore-atelierclub' ),
+			icon: 'search',
+			attributes: { type: 'autocomplete' },
+			isDefault: false,
+			scope: [ 'inserter', 'transform' ],
+			isActive: isType( 'autocomplete' ),
 		},
 	];
 

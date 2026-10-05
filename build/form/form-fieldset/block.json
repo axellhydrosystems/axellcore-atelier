@@ -1,7 +1,7 @@
 {
   "$schema": "https://schemas.wp.org/trunk/block.json",
   "apiVersion": 3,
-  "name": "axell/form-fieldset",
+  "name": "axell/fieldset",
   "title": "Fieldset",
   "category": "text",
   "ancestor": [
@@ -24,33 +24,46 @@
     }
   },
   "supports": {
-    "html": false,
     "anchor": true,
-    "className": true,
-    "customClassName": true,
-    "spacing": {
-      "margin": true,
-      "padding": true,
-      "blockGap": true,
+    "html": false,
+    "background": {
+      "backgroundImage": true,
+      "backgroundSize": true,
+      "gradient": true,
       "__experimentalDefaultControls": {
-        "blockGap": true
-      }
-    },
-    "typography": {
-      "fontSize": true,
-      "__experimentalFontFamily": true,
-      "__experimentalDefaultControls": {
-        "fontSize": false
+        "backgroundImage": true,
+        "gradient": true
       }
     },
     "color": {
-      "text": true,
-      "background": true,
       "gradients": true,
+      "heading": true,
+      "button": true,
+      "link": true,
       "__experimentalDefaultControls": {
-        "text": false,
-        "background": false
+        "background": true,
+        "text": true
       }
+    },
+    "shadow": true,
+    "spacing": {
+      "margin": [
+        "top",
+        "bottom"
+      ],
+      "padding": true,
+      "blockGap": [
+        "horizontal",
+        "vertical"
+      ],
+      "__experimentalDefaultControls": {
+        "padding": true,
+        "blockGap": true
+      }
+    },
+    "dimensions": {
+      "minHeight": true,
+      "minWidth": true
     },
     "__experimentalBorder": {
       "color": true,
@@ -58,21 +71,39 @@
       "style": true,
       "width": true,
       "__experimentalDefaultControls": {
-        "color": false,
-        "radius": false,
-        "style": false,
-        "width": false
+        "color": true,
+        "radius": true,
+        "style": true,
+        "width": true
+      }
+    },
+    "position": {
+      "sticky": true
+    },
+    "typography": {
+      "fontSize": true,
+      "lineHeight": true,
+      "__experimentalFontFamily": true,
+      "__experimentalFontWeight": true,
+      "__experimentalFontStyle": true,
+      "__experimentalTextTransform": true,
+      "__experimentalTextDecoration": true,
+      "__experimentalLetterSpacing": true,
+      "__experimentalDefaultControls": {
+        "fontSize": true
       }
     },
     "layout": {
-      "allowSwitching": true,
-      "allowInheriting": false,
+      "allowSizingOnChildren": true,
       "default": {
         "type": "flex",
         "flexWrap": "wrap"
       }
-    }
+    },
+    "className": true,
+    "customClassName": true
   },
   "editorScript": "file:./index.js",
-  "style": "file:./style.scss"
+  "style": "file:./style-index.css",
+  "editorStyle": "file:./style-index.css"
 }

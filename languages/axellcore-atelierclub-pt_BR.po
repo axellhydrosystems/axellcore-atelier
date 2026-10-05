@@ -729,3 +729,7 @@ msgstr "Seu formulário está sendo enviado."
 #: build/form/form-submission-notification/index.js
 msgid "There was an error submitting your form."
 msgstr "Houve um erro ao enviar seu formulário."
+
+#: build/form/form-group/index.js
+msgid "Settings"
+msgstr "Configurações"

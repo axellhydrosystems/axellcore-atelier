@@ -1,0 +1,15 @@
+/*
+ * axell/form-select: minimal structure, same rules as axell/form-control
+ * (zero specificity via :where, so the brand design always wins).
+ */
+:where(.wp-block-axell-form-select) {
+	display: block;
+	width: 100%;
+	box-sizing: border-box;
+	min-height: 2em;
+	line-height: 2;
+	border-width: 1px;
+	border-style: solid;
+	padding: 0 0.5em;
+	font-size: 1em;
+}

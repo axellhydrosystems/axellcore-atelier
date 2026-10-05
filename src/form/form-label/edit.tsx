@@ -19,6 +19,9 @@ function classesFor(
 	if ( attributes.visuallyHidden ) {
 		classes.push( 'is-visually-hidden' );
 	}
+	if ( attributes.required ) {
+		classes.push( 'is-required' );
+	}
 	return classes.join( ' ' );
 }
 
@@ -53,6 +56,17 @@ export default function Edit( {
 					title={ __( 'Label', 'axellcore-atelierclub' ) }
 					initialOpen
 				>
+					<TextControl
+					label={ __( 'For', 'axellcore-atelierclub' ) }
+					value={ attributes.for }
+					help={ __(
+						'The id of the axell/form-control this label belongs to.',
+						'axellcore-atelierclub'
+					) }
+					onChange={ ( value: string ) =>
+						setAttributes( { for: value } )
+					}
+				/>
 					<ToggleControl
 						label={ __(
 							'Visually hidden',
@@ -67,20 +81,15 @@ export default function Edit( {
 							setAttributes( { visuallyHidden: value } )
 						}
 					/>
+					<ToggleControl
+						label={ __( 'Obrigatório', 'axellcore-atelierclub' ) }
+						help={ __( 'Exibe indicação que o input relacionado é required.', 'axellcore-atelierclub' ) }
+						checked={ !! attributes.required }
+						onChange={ ( value: boolean ) =>
+							setAttributes( { required: value } )
+						}
+					/>
 				</PanelBody>
-			</InspectorControls>
-			<InspectorControls group="advanced">
-				<TextControl
-					label={ __( 'For', 'axellcore-atelierclub' ) }
-					value={ attributes.for }
-					help={ __(
-						'The id of the axell/form-control this label belongs to.',
-						'axellcore-atelierclub'
-					) }
-					onChange={ ( value: string ) =>
-						setAttributes( { for: value } )
-					}
-				/>
 			</InspectorControls>
 			<RichText
 				{ ...blockProps }

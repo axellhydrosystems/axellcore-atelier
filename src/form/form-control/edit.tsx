@@ -10,25 +10,7 @@ import {
 import type { BlockEditProps } from '@wordpress/blocks';
 import type { FormControlAttributes, FormControlOption } from './types';
 import ControlElement from './control-element';
-
-const TYPE_OPTIONS = [
-	{ label: __( 'Text', 'axellcore-atelierclub' ), value: 'text' },
-	{ label: __( 'Email', 'axellcore-atelierclub' ), value: 'email' },
-	{ label: __( 'URL', 'axellcore-atelierclub' ), value: 'url' },
-	{ label: __( 'Number', 'axellcore-atelierclub' ), value: 'number' },
-	{ label: __( 'Phone', 'axellcore-atelierclub' ), value: 'tel' },
-	{ label: __( 'Textarea', 'axellcore-atelierclub' ), value: 'textarea' },
-	{
-		label: __( 'Select (options)', 'axellcore-atelierclub' ),
-		value: 'select',
-	},
-	{ label: __( 'Checkbox', 'axellcore-atelierclub' ), value: 'checkbox' },
-	{ label: __( 'Hidden', 'axellcore-atelierclub' ), value: 'hidden' },
-	{
-		label: __( 'Autocomplete (posts)', 'axellcore-atelierclub' ),
-		value: 'autocomplete',
-	},
-];
+import './editor.scss';
 
 const MASK_OPTIONS = [
 	{ label: __( '— none —', 'axellcore-atelierclub' ), value: '' },
@@ -73,14 +55,29 @@ export default function Edit( {
 					title={ __( 'Control', 'axellcore-atelierclub' ) }
 					initialOpen
 				>
-					<SelectControl
-						label={ __( 'Type', 'axellcore-atelierclub' ) }
-						value={ attributes.type }
-						options={ TYPE_OPTIONS }
+					<TextControl
+						label={ __( 'ID', 'axellcore-atelierclub' ) }
+						value={ attributes.id }
+						help={ __(
+							'Matches the paired label block’s "For" field. Also used as the fallback name attribute when Name is left empty.',
+							'axellcore-atelierclub'
+						) }
 						onChange={ ( value: string ) =>
-							setAttributes( {
-								type: value as FormControlAttributes[ 'type' ],
-							} )
+							setAttributes( { id: value } )
+						}
+					/>
+					<TextControl
+						label={ __(
+							'Name (name attribute)',
+							'axellcore-atelierclub'
+						) }
+						value={ attributes.name }
+						help={ __(
+							'Leave empty to reuse the ID.',
+							'axellcore-atelierclub'
+						) }
+						onChange={ ( value: string ) =>
+							setAttributes( { name: value } )
 						}
 					/>
 					{ attributes.type === 'hidden' && (
@@ -92,20 +89,30 @@ export default function Edit( {
 							}
 						/>
 					) }
-					{ attributes.type === 'checkbox' && (
-						<ToggleControl
-							label={ __(
-								'Checked by default',
-								'axellcore-atelierclub'
-							) }
-							checked={ !! attributes.checked }
-							onChange={ ( value: boolean ) =>
-								setAttributes( { checked: value } )
-							}
+					{ attributes.type !== 'hidden' && attributes.type !== 'autocomplete' && (
+						<SelectControl
+							label={ __( 'Autocomplete (navegador)', 'axellcore-atelierclub' ) }
+							help={ __( 'Atributo autocomplete do HTML: o navegador sugere dados salvos.', 'axellcore-atelierclub' ) }
+							value={ attributes.autofill }
+							options={ [
+								{ label: __( '— none —', 'axellcore-atelierclub' ), value: '' },
+								{ label: 'name', value: 'name' },
+								{ label: 'given-name', value: 'given-name' },
+								{ label: 'family-name', value: 'family-name' },
+								{ label: 'email', value: 'email' },
+								{ label: 'tel', value: 'tel' },
+								{ label: 'organization', value: 'organization' },
+								{ label: 'street-address', value: 'street-address' },
+								{ label: 'postal-code', value: 'postal-code' },
+								{ label: 'address-level2 (cidade)', value: 'address-level2' },
+								{ label: 'address-level1 (estado)', value: 'address-level1' },
+								{ label: 'url', value: 'url' },
+								{ label: 'off', value: 'off' },
+							] as { label: string; value: string }[] }
+							onChange={ ( value: string ) => setAttributes( { autofill: value } ) }
 						/>
 					) }
-					{ attributes.type !== 'hidden' &&
-						attributes.type !== 'checkbox' && (
+					{ attributes.type !== 'hidden' && (
 							<ToggleControl
 								label={ __(
 									'Required',
@@ -216,33 +223,6 @@ export default function Edit( {
 						/>
 					) }
 				</PanelBody>
-			</InspectorControls>
-			<InspectorControls group="advanced">
-				<TextControl
-					label={ __( 'ID', 'axellcore-atelierclub' ) }
-					value={ attributes.id }
-					help={ __(
-						'Matches the paired form-label block’s "For" field. Also used as the fallback name attribute when Name is left empty.',
-						'axellcore-atelierclub'
-					) }
-					onChange={ ( value: string ) =>
-						setAttributes( { id: value } )
-					}
-				/>
-				<TextControl
-					label={ __(
-						'Name (name attribute)',
-						'axellcore-atelierclub'
-					) }
-					value={ attributes.name }
-					help={ __(
-						'Leave empty to reuse the ID.',
-						'axellcore-atelierclub'
-					) }
-					onChange={ ( value: string ) =>
-						setAttributes( { name: value } )
-					}
-				/>
 			</InspectorControls>
 			{ ControlElement( attributes, false, setAttributes, blockProps ) }
 		</>

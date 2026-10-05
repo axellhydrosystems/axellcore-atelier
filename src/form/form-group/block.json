@@ -1,0 +1,56 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "axell/form-group",
+	"title": "Form Group",
+	"category": "text",
+	"ancestor": [
+		"axell/form"
+	],
+	"description": "A form field: an axell/form-label and an axell/form-control (or axell/form-select), inserted together, with an optional axell/form-text. Other blocks can't be inserted inside it.",
+	"keywords": [
+		"group",
+		"field",
+		"label",
+		"control",
+		"form"
+	],
+	"textdomain": "axellcore-atelierclub",
+	"supports": {
+		"anchor": true,
+		"html": false,
+		"className": true,
+		"customClassName": true,
+		"spacing": {
+			"margin": [
+				"top",
+				"bottom"
+			],
+			"padding": true,
+			"blockGap": true,
+			"__experimentalDefaultControls": {
+				"padding": true
+			}
+		},
+		"typography": {
+			"fontSize": true,
+			"lineHeight": true,
+			"__experimentalFontFamily": true,
+			"__experimentalFontWeight": true,
+			"__experimentalFontStyle": true,
+			"__experimentalLetterSpacing": true,
+			"__experimentalTextTransform": true,
+			"__experimentalDefaultControls": {
+				"fontSize": true
+			}
+		}
+	},
+	"editorScript": "file:./index.js",
+	"style": "file:./style-index.css",
+	"attributes": {
+		"fieldWidth": {
+			"type": "string",
+			"default": ""
+		}
+	}
+}

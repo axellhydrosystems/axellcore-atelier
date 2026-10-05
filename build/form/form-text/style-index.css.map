@@ -1,0 +1,1 @@
+{"version":3,"file":"form/form-text/style-index.css","mappings":";;;AAAA;EACE;EACA;EACA;AACF,C","sources":["webpack://axellcore-atelierclub/./src/form/form-text/style.scss"],"sourcesContent":[":where(.wp-block-axell-form-text) {\n  margin-block-start: .25rem;\n  margin-block-end: 0;\n  font-size: .875em;\n}\n"],"names":[],"sourceRoot":""}

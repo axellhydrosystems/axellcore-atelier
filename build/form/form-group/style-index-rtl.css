@@ -1,0 +1,25 @@
+/*!*******************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[5].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[5].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[5].use[3]!./src/form/form-group/style.scss ***!
+  \*******************************************************************************************************************************************************************************************************************************************************/
+.wp-block-axell-form-group {
+  margin-block: 1em;
+}
+
+.wp-block-axell-form-group.is-width-25 {
+  width: 25%;
+}
+.wp-block-axell-form-group.is-width-33 {
+  width: 33.333%;
+}
+.wp-block-axell-form-group.is-width-50 {
+  width: 50%;
+}
+.wp-block-axell-form-group.is-width-66 {
+  width: 66.666%;
+}
+.wp-block-axell-form-group.is-width-75 {
+  width: 75%;
+}
+.wp-block-axell-form-group.is-width-100 {
+  width: 100%;
+}

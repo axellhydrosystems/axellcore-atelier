@@ -1,0 +1,65 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "axell/form-text",
+	"title": "Form Text",
+	"category": "text",
+	"parent": [
+		"axell/form-group"
+	],
+	"description": "Help text for a form field: a paragraph (rich text, links allowed) placed inside an axell/form-group.",
+	"keywords": [
+		"text",
+		"help",
+		"hint",
+		"paragraph",
+		"form"
+	],
+	"textdomain": "axellcore-atelierclub",
+	"attributes": {
+		"content": {
+			"type": "rich-text",
+			"source": "rich-text",
+			"selector": "p",
+			"default": ""
+		}
+	},
+	"supports": {
+		"anchor": true,
+		"html": false,
+		"className": true,
+		"customClassName": true,
+		"color": {
+			"text": true,
+			"background": true,
+			"link": true,
+			"__experimentalDefaultControls": {
+				"text": true
+			}
+		},
+		"typography": {
+			"fontSize": true,
+			"lineHeight": true,
+			"__experimentalFontFamily": true,
+			"__experimentalFontWeight": true,
+			"__experimentalFontStyle": true,
+			"__experimentalLetterSpacing": true,
+			"__experimentalTextTransform": true,
+			"__experimentalDefaultControls": {
+				"fontSize": true
+			}
+		},
+		"spacing": {
+			"margin": [
+				"top",
+				"bottom"
+			],
+			"padding": true,
+			"__experimentalDefaultControls": {
+				"margin": false
+			}
+		}
+	},
+	"editorScript": "file:./index.js",
+	"style": "file:./style-index.css"
+}

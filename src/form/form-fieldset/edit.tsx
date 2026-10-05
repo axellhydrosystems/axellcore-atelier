@@ -11,8 +11,7 @@ import type { BlockEditProps } from '@wordpress/blocks';
 import type { FormFieldsetAttributes } from './types';
 
 const ALLOWED_BLOCKS = [
-	'axell/form-label',
-	'axell/form-control',
+	'axell/form-group',
 	'core/paragraph',
 	'core/heading',
 	'core/group',
@@ -20,13 +19,8 @@ const ALLOWED_BLOCKS = [
 	'core/html',
 ];
 
-const TEMPLATE: Array< [ string, Record< string, unknown > ] > = [
-	[ 'axell/form-label', {} ],
-	[ 'axell/form-control', {} ],
-];
-
 /**
- * axell/form-fieldset — groups a set of related form fields inside a real
+ * axell/fieldset — groups a set of related form fields inside a real
  * `<fieldset>`/`<legend>` pair. The legend is a toolbar toggle — "Add
  * legend"/"Remove legend" — mirroring core/image's own "Add caption"/
  * "Remove caption" pattern exactly (local `showLegend` state, clearing the
@@ -47,8 +41,6 @@ export default function Edit( {
 	const blockProps = useBlockProps();
 	const innerBlocksProps = useInnerBlocksProps( blockProps, {
 		allowedBlocks: ALLOWED_BLOCKS,
-		template: TEMPLATE,
-		templateInsertUpdatesSelection: false,
 	} );
 
 	const [ showLegend, setShowLegend ] = useState< boolean >(

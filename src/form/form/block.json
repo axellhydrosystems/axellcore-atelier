@@ -23,7 +23,19 @@
 		"align": false,
 		"className": true,
 		"customClassName": true,
-		"interactivity": true
+		"interactivity": true,
+		"typography": {
+			"fontSize": true,
+			"lineHeight": true,
+			"__experimentalFontFamily": true,
+			"__experimentalFontWeight": true,
+			"__experimentalFontStyle": true,
+			"__experimentalLetterSpacing": true,
+			"__experimentalTextTransform": true,
+			"__experimentalDefaultControls": {
+				"fontSize": true
+			}
+		}
 	},
 	"editorScript": [
 		"file:./index.js",

@@ -1,6 +1,7 @@
 /* axell/form-label. Loaded in the editor and on the frontend (block style). */
 :where(.wp-block-axell-form-label) {
 	display: block;
+  margin-block-end: 0.34375rem;
 
 	&.is-visually-hidden {
 		position: absolute !important;
@@ -13,4 +14,8 @@
 		white-space: nowrap !important;
 		border: 0 !important;
 	}
+}
+
+.is-required::after {
+	content: ' *';
 }

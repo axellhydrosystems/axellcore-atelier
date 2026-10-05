@@ -61,6 +61,7 @@ export default function ControlElement(
 		name,
 		required: required || undefined,
 		'aria-required': required || undefined,
+		autoComplete: attributes.autofill || undefined,
 	};
 
 	if ( isSave ) {
@@ -207,17 +208,6 @@ export default function ControlElement(
 					</option>
 				) ) }
 			</select>
-		);
-	}
-
-	if ( type === 'checkbox' ) {
-		return (
-			<input
-				{ ...common }
-				type="checkbox"
-				checked={ isSave ? undefined : !! attributes.checked }
-				defaultChecked={ isSave ? !! attributes.checked : undefined }
-			/>
 		);
 	}
 

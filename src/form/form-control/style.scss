@@ -3,21 +3,19 @@
  * (:where), so the brand design (sections.css, /atelier) always wins.
  * Checkboxes are excluded: text-input sizing would make them huge.
  */
-:where(.wp-block-axell-form-control) {
-	&:not([type='checkbox']) {
-		display: block;
-		width: 100%;
-		box-sizing: border-box;
-		min-height: 2em;
-		line-height: 2;
-		border-width: 1px;
-		border-style: solid;
-		padding: 0 0.5em;
-		font-size: 1em;
-	}
+:where(.wp-block-axell-form-control):not([type="checkbox"]) {
+	display: block;
+	width: 100%;
+	box-sizing: border-box;
+	line-height: inherit;
+	border-width: 1px;
+	border-style: solid;
+	padding: 0.375rem 0.75rem;
+	font-size: inherit;
+  font-family: inherit;
+}
 
-	&:where(textarea) {
-		min-height: 10em;
-		padding: 0.5em;
-	}
+:where(textarea.wp-block-axell-form-control) {
+	min-height: 10em;
+	padding: 0.5em;
 }

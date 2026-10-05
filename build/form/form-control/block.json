@@ -4,10 +4,10 @@
   "name": "axell/form-control",
   "title": "Form Control",
   "category": "text",
-  "ancestor": [
-    "axell/form"
+  "parent": [
+    "axell/form-group"
   ],
-  "description": "The actual input/select/textarea of a form field — text, email, tel, number, textarea, select, checkbox, or hidden, with optional input masking (CPF/CNPJ, CEP, phone). Pair with an axell/form-label sibling (same id/for) for the visible label — see this plugin's CLAUDE.md.",
+  "description": "The actual input/select/textarea of a form field — text, email, tel, number, textarea, select, or hidden, with optional input masking (CPF/CNPJ, CEP, phone). Pair with an axell/form-label sibling (same id/for) for the visible label — see this plugin's CLAUDE.md.",
   "keywords": [
     "input",
     "control",
@@ -25,6 +25,10 @@
       "default": ""
     },
     "name": {
+      "type": "string",
+      "default": ""
+    },
+    "autofill": {
       "type": "string",
       "default": ""
     },
@@ -124,6 +128,7 @@
     "file:./index.js",
     "file:./variations.js"
   ],
-  "style": "file:./style.scss",
+  "style": "file:./style-index.css",
+  "editorStyle": "file:./index.css",
   "viewScriptModule": "file:./view.js"
 }

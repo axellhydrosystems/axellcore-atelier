@@ -1,11 +1,23 @@
-/* axell/form-fieldset. Zero specificity, so the brand design wins. */
-:where(.wp-block-axell-form-fieldset) {
-	border: 0;
-	padding: 0;
-	margin: 0;
-	min-width: 0;
+/* axell/fieldset. Zero specificity, so the brand design wins. */
+:where(.wp-block-axell-fieldset) {
+  --wp-block-axell-fieldset-gutter-x: 1rem;
+  min-width: 0;
+  padding: 0;
+  margin: 0;
+  border: 0;
 
-	.aac-form-legend-text {
+	legend {
 		padding: 0;
 	}
+}
+
+.wp-block-axell-fieldset.is-layout-flex {
+  gap: 0;
+  margin-inline: calc(-.5 * var(--wp-block-axell-fieldset-gutter-x));
+
+  > * {
+    width: 100%;
+    box-sizing: border-box;
+    padding-inline: calc(var(--wp-block-axell-fieldset-gutter-x) * .5);
+  }
 }

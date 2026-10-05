@@ -11,7 +11,6 @@ export type FormControlType =
 	| 'tel'
 	| 'textarea'
 	| 'select'
-	| 'checkbox'
 	| 'hidden'
 	| 'autocomplete';
 
@@ -27,6 +26,7 @@ export interface FormControlAttributes {
 	mask: string;
 	maskSourceName: string;
 	citiesSourceName: string;
+	autofill: string;
 	sourcePostType: string;
 	labelTemplate: string;
 	allowNotFound: boolean;
