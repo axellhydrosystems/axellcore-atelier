@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR" data-bs-theme="dark">
+<html lang="pt-BR" data-bs-theme="light">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -47,7 +47,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet" integrity="sha384-XGjxtQfXaH2tnPFa9x+ruJTuLE3Aa6LhHSWRr1XeTyhezb4abCG4ccI5AkVDxqC+" crossorigin="anonymous">
 <style>
 /* Numeração por contador: o markup não leva i., ii. nem 01 */
-.list-lines-roman { counter-reset: lines; list-style: none; padding-left: 0; }
+/* .list-lines-roman { counter-reset: lines; list-style: none; padding-left: 0; }
 .list-lines-roman-item { counter-increment: lines; display: flex; gap: .5rem; }
 .list-lines-roman-item::before { content: counter(lines, lower-roman) "."; font-style: italic; flex: 0 0 auto; min-width: 1rem; }
 
@@ -57,13 +57,14 @@
 .list-roman { counter-reset: roman; }
 .list-roman-item { counter-increment: roman; position: relative; }
 .list-roman-item::before { content: counter(roman, lower-roman) "."; position: absolute; left: .5rem; top: 50%; transform: translateY(-50%); font-style: italic; pointer-events: none; z-index: 1; padding-inline: .5rem; min-width: 2rem; text-align: center; }
-.list-roman-item .form-control { padding-left: 2rem; }
+.list-roman-item .form-control { padding-left: 2rem; } */
 
 /* Eyebrow: só o traço antes; o resto vem de utilidades do Bootstrap no markup */
-.eyebrow::before { content: ""; width: 1.5rem; height: 1px; background: currentColor; display: inline-block; }
+/* .eyebrow::before { content: ""; width: 1.5rem; height: 1px; background: currentColor; display: inline-block; } */
 </style>
 </head>
 <body>
+<button type="button" class="btn btn-outline-secondary rounded-circle shadow position-fixed bottom-0 end-0 m-4 p-2 lh-1" id="themeToggle" aria-label="Alternar tema claro e escuro" title="Alternar tema" aria-pressed="false"><i class="bi bi-sun fs-5" aria-hidden="true"></i></button>
 <main>
 <section class="apply py-5 section" id="adesao" aria-labelledby="adesao-title">
   <div class="container">
@@ -73,7 +74,7 @@
         <p class="h2" id="adesao-title">Sua autoria tem <em>nome e forma</em>.</p>
         <p class="lead">O convite está aberto. Preencha seu cadastro — a curadoria Axell responde com atenção a cada profissional. Após a aprovação, seu acesso ao clube é liberado e a placa começa a ser gravada.</p>
 
-        <ul class="list-group list-lines-roman">
+        <ul class="list-group list-lines-roman mb-3">
           <li class="list-group-item list-lines-roman-item">Cadastro sujeito à aprovação da curadoria Axell.</li>
           <li class="list-group-item list-lines-roman-item">Área exclusiva liberada após validação do perfil profissional.</li>
           <li class="list-group-item list-lines-roman-item">Benefícios, bônus e campanhas seguem as regras vigentes do programa.</li>
@@ -334,6 +335,27 @@
     alert('Sua solicitação foi enviada.\n\nA curadoria Axell entrará em contato em breve com o próximo passo.\n\nBem-vindo(a) ao Atelier.');
   }
 
+</script>
+<script>
+(function () {
+  var root = document.documentElement;
+  var button = document.getElementById('themeToggle');
+  var KEY = 'aac-theme';
+  function read() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
+  function write(mode) { try { localStorage.setItem(KEY, mode); } catch (e) { /* private mode */ } }
+  function apply(mode) {
+    root.setAttribute('data-bs-theme', mode);
+    // The icon shows the mode the button will switch to.
+    button.firstElementChild.className = mode === 'dark' ? 'bi bi-sun fs-5' : 'bi bi-moon-stars fs-5';
+    button.setAttribute('aria-pressed', mode === 'light' ? 'true' : 'false');
+  }
+  apply(read() === 'light' ? 'light' : 'dark');
+  button.addEventListener('click', function () {
+    var next = root.getAttribute('data-bs-theme') === 'dark' ? 'light' : 'dark';
+    write(next);
+    apply(next);
+  });
+})();
 </script>
 </body>
 </html>

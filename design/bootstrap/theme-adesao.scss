@@ -1,9 +1,9 @@
 // Theme of the adesão block. Only variables are set here (scss/_variables.scss);
 // the components come from Bootstrap, compiled locally, no CDN.
 @import "node_modules/bootstrap/scss/functions";
-@import "scss/variables";
+// @import "scss/variables";
 @import "node_modules/bootstrap/scss/variables";
-@import "scss/variables-dark";
+// @import "scss/variables-dark";
 @import "node_modules/bootstrap/scss/variables-dark";
 @import "node_modules/bootstrap/scss/maps";
 @import "node_modules/bootstrap/scss/mixins";
@@ -25,155 +25,159 @@
 @import "node_modules/bootstrap/scss/utilities/api";
 @import "node_modules/bootstrap/scss/helpers/visually-hidden";
 
-.apply {
-    --#{$prefix}border-radius: 0.25rem;
+// .apply {
+//     --#{$prefix}border-radius: 0.25rem;
 
-    &.py-5 {
-        padding-top: clamp(90px, 13vw, 180px) !important;
-        padding-bottom: clamp(90px, 13vw, 180px) !important;
-    }
+//     &.py-5 {
+//         padding-top: clamp(90px, 13vw, 180px) !important;
+//         padding-bottom: clamp(90px, 13vw, 180px) !important;
+//     }
 
-    @include media-breakpoint-up(lg) {
-        .col-lg-5 {
-            width: 43.731%;
-        }
-        .col-lg-7 {
-            width: 56.269%;
-        }
-    }
-    h2,
-    legend {
-        font-family: "Inter", -apple-system, "Segoe UI", system-ui, sans-serif; // $font-family-base
-        font-weight: 500;
-        font-size: 0.65625rem;
-        letter-spacing: 0.32em;
-        line-height: 1.6;
-        color: $primary;
-    }
-    legend {
-        padding-bottom: 1.25rem;
-        margin-bottom: 1.25rem !important;
-    }
-    .h2 {
-        font-family: "Cormorant Garamond", "Times New Roman", Georgia, serif; // $headings-font-family
-        font-weight: $h2-font-weight;
-        font-size: $h2-font-size;
-        letter-spacing: -0.015em;
-        line-height: $headings-line-height;
-        margin-bottom: 1.5rem;
-        color: $white;
+//     @include media-breakpoint-up(lg) {
+//         .col-lg-5 {
+//             width: 43.731%;
+//         }
+//         .col-lg-7 {
+//             width: 56.269%;
+//         }
+//     }
+//     h2,
+//     legend {
+//         font-family: "Inter", -apple-system, "Segoe UI", system-ui, sans-serif; // $font-family-base
+//         font-weight: 500;
+//         font-size: 0.65625rem;
+//         letter-spacing: 0.32em;
+//         line-height: 1.6;
+//         color: $primary;
+//     }
+//     legend {
+//         padding-bottom: 1.25rem;
+//         margin-bottom: 1.25rem !important;
+//     }
+//     .h2 {
+//         font-family: "Cormorant Garamond", "Times New Roman", Georgia, serif; // $headings-font-family
+//         font-weight: $h2-font-weight;
+//         font-size: $h2-font-size;
+//         letter-spacing: -0.015em;
+//         line-height: $headings-line-height;
+//         margin-bottom: 1.5rem;
+//         color: $headings-color;
 
-        em {
-            color: $primary;
-        }
-    }
-    .lead {
-        font-family: "Cormorant Garamond", "Times New Roman", Georgia, serif; // $headings-font-family
-        font-style: italic;
-        line-height: 1.4;
-        margin-bottom: 2.5rem;
-    }
-    .list-group {
-        --#{$prefix}list-group-border-radius: 0;
-        --#{$prefix}list-group-item-padding-x: 0;
-    }
-    .list-group-item {
-        color: inherit;
-        border-inline-width: 0;
-        font-size: 0.875rem;
-        line-height: 1.54964286;
-        display: flex;
-        align-items: center;
-        padding-block: 1.125rem;
-        gap: 1.25rem;
-        &::before {
-            font-family: "Cormorant Garamond", "Times New Roman", Georgia, serif; // $headings-font-family
-            color: $primary;
-            font-size: 1.0625rem;
-            line-height: 1.54964706;
-            min-width: 2.125rem;
-        }
-    }
-    .gx-4 {
-        --#{$prefix}gutter-x: 6.25rem;
-    }
-    .card {
-        --#{$prefix}card-spacer-y: 2.75rem;
-        --#{$prefix}card-spacer-x: 2.75rem;
-        padding: calc(var(--#{$prefix}card-spacer-y) + 0.25rem) var(--#{$prefix}card-spacer-x) calc(var(--#{$prefix}card-spacer-y) - 0.25rem);
-    }
-    .eyebrow {
-        &.gap-2 {
-            gap: 0.875rem !important;
-        }
-        &::before {
-            width: 2rem;
-        }
-        &.mb-3 {
-            margin-bottom: 2rem !important;
-        }
-    }
-    .list-roman-item {
-        &::before {
-            font-family: "Cormorant Garamond", "Times New Roman", Georgia, serif; // $headings-font-family
-            font-size: 1.25rem;
-            font-style: italic;
-        }
-    }
-    footer {
-        &.g-3 {
-            --aa-gutter-x: 3.573rem;
-        }
-    }
-    .form-label {
-        text-transform: uppercase;
-        letter-spacing: 0.26em;
-    }
-    .form-control {
-        position: relative;
-        z-index: 0;
-    }
-    .btn {
-        border-radius: 50rem;
-        font-weight: 500;
-        letter-spacing: 0.26em;
-        text-transform: uppercase;
-    }
-    .btn-lg {
-        padding: 1.5rem 2.375rem;
-        font-size: 0.75rem;
-        min-width: 220px;
-    }
-}
+//         em {
+//             color: $primary;
+//         }
+//     }
+//     .lead {
+//         font-family: "Cormorant Garamond", "Times New Roman", Georgia, serif; // $headings-font-family
+//         font-style: italic;
+//         line-height: 1.4;
+//         margin-bottom: 2.5rem;
+//     }
+//     .list-group {
+//         --#{$prefix}list-group-border-radius: 0;
+//         --#{$prefix}list-group-item-padding-x: 0;
+//     }
+//     .list-group-item {
+//         color: inherit;
+//         border-inline-width: 0;
+//         font-size: 0.875rem;
+//         line-height: 1.54964286;
+//         display: flex;
+//         align-items: center;
+//         padding-block: 1.125rem;
+//         gap: 1.25rem;
+//         &::before {
+//             font-family: "Cormorant Garamond", "Times New Roman", Georgia, serif; // $headings-font-family
+//             color: $primary;
+//             font-size: 1.0625rem;
+//             line-height: 1.54964706;
+//             min-width: 2.125rem;
+//         }
+//     }
+//     .gx-4 {
+//         --#{$prefix}gutter-x: 6.25rem;
+//     }
+//     .card {
+//         --#{$prefix}card-spacer-y: 2.75rem;
+//         --#{$prefix}card-spacer-x: 2.75rem;
+//         padding: calc(var(--#{$prefix}card-spacer-y) + 0.25rem) var(--#{$prefix}card-spacer-x) calc(var(--#{$prefix}card-spacer-y) - 0.25rem);
+//     }
+//     .eyebrow {
+//         &.gap-2 {
+//             gap: 0.875rem !important;
+//         }
+//         &::before {
+//             width: 2rem;
+//         }
+//         &.mb-3 {
+//             margin-bottom: 2rem !important;
+//         }
+//     }
+//     .list-roman-item {
+//         &::before {
+//             font-family: "Cormorant Garamond", "Times New Roman", Georgia, serif; // $headings-font-family
+//             font-size: 1.25rem;
+//             font-style: italic;
+//         }
+//     }
+//     footer {
+//         &.g-3 {
+//             --aa-gutter-x: 3.573rem;
+//         }
+//     }
+//     .form-label {
+//         text-transform: uppercase;
+//         letter-spacing: 0.26em;
+//     }
+//     .form-control {
+//         position: relative;
+//         z-index: 0;
+//     }
+//     .form-control,
+//     .form-select {
+//         border-width: 0 0 $input-border-width;
+//     }
+//     .btn {
+//         border-radius: 50rem;
+//         font-weight: 500;
+//         letter-spacing: 0.26em;
+//         text-transform: uppercase;
+//     }
+//     .btn-lg {
+//         padding: 1.5rem 2.375rem;
+//         font-size: 0.75rem;
+//         min-width: 220px;
+//     }
+// }
 
-[data-bs-theme="dark"] {
-    .apply {
-        --#{$prefix}tertiary-bg-rgb: 239, 236, 228;
-        --#{$prefix}border-color-translucent: rgba(239,236,228,0.18);
-        color: rgba($ivory, .75);
-        legend {
-            border-bottom: 1px solid $line-dk;
-        }
-        h2,
-        legend {
-            color: $bronze-2;
-        }
-        .h2 {
-            color: $ivory;
-            em {
-                color: $bronze-2;
-            }
-        }
-        .list-group {
-            --#{$prefix}list-group-border-color: #{$line-dk};
-        }
-        .list-lines-roman-item {
-            &::before {
-                color: $bronze-2;
-            }
-        }
-        .bg-body-tertiary {
-            --#{$prefix}bg-opacity: 0.03;
-        }
-    }
-}
+// [data-bs-theme="dark"] {
+//     .apply {
+//         --#{$prefix}tertiary-bg-rgb: #{$ivory-rgb};
+//         --#{$prefix}border-color-translucent: #{$line-dk-2};
+//         color: rgba($ivory, .75);
+//         legend {
+//             border-bottom: 1px solid $line-dk;
+//         }
+//         h2,
+//         legend {
+//             color: $bronze-2;
+//         }
+//         .h2 {
+//             color: $ivory;
+//             em {
+//                 color: $bronze-2;
+//             }
+//         }
+//         .list-group {
+//             --#{$prefix}list-group-border-color: #{$line-dk};
+//         }
+//         .list-lines-roman-item {
+//             &::before {
+//                 color: $bronze-2;
+//             }
+//         }
+//         .bg-body-tertiary {
+//             --#{$prefix}bg-opacity: 0.03;
+//         }
+//     }
+// }

@@ -3,74 +3,72 @@ $prefix: aa- !default; // Axell Atelier
 // Breakpoints of the approved mockup (2 columns from 561px, 4 from 901px).
 $grid-breakpoints: (
   xs: 0,
-  sm: 561px,
-  md: 901px,
-  lg: 1201px,
-  xl: 1401px,
-  xxl: 1601px
+  sm: 480px,
+  md: 782px,
+  lg: 782px,
+  xl: 782px,
+  xxl: 782px
 ) !default;
 
 // Mockup tokens (source/index.html :root). Everything the Bootstrap
 // components need is set here, before Bootstrap's own variables are imported.
-$ink: #0B0E12;
-$ivory: #EFECE4;
-$ivory-rgb: 239,236,228;
-$bronze: #B4996A;
-$bronze-2: #C6AC7E;
-$line-dk: rgba($ivory, .10);
-$line-dk-2: rgba($ivory, .18);
+$ink: #0B0E12 !default;
+$ivory: #EFECE4 !default;
+$ivory-rgb: to-rgb($ivory) !default;
+$bronze: #B4996A !default;
+$bronze-2: #C6AC7E !default;
+$line-dk: rgba($ivory, .10) !default;
+$line-dk-2: rgba($ivory, .18) !default;
 
+// $primary: $bronze !default;
+
+// Light mode (default): ivory page, ink text. Dark mode uses the *-dark values below.
+$body-bg: $ivory !default;
+$body-color: $ink !default;
 $primary: $bronze !default;
-
-// Dark color mode (data-bs-theme="dark") is the mockup's only mode.
-// $body-color: $ivory;
-// $body-bg-dark: $ink;
-// $body-color-dark: $ivory;
-// $border-color-dark: $line-dk-2;
-// $link-color-dark: $bronze-2;
-// $primary: $bronze;
-$container-max-widths: (sm: 100%, md: 100%, lg: 100%, xl: 1280px, xxl: 1280px);
-$grid-gutter-width: 7.2rem; // clamp(20px, 4vw, 60px)
+$container-max-widths: (sm: 100%, md: 100%, lg: 100%, xl: 1280px, xxl: 1280px) !default;
+$grid-gutter-width: 7.2rem !default; // clamp(20px, 4vw, 60px)
 
 // Inputs: only a bottom rule (inset shadow), no box, as in the mockup.
-$input-bg: transparent;
+$input-bg: transparent !default;
 // $input-color: $ivory;
-$input-border-width: 0;
-$input-border-radius: 0;
-// $input-box-shadow: inset 0 -1px 0 $line-dk-2;
-// $input-focus-box-shadow: inset 0 -1px 0 $bronze-2;
-$input-focus-border-color: transparent;
-// $input-placeholder-color: rgba($ivory, .35);
-$input-padding-x: 0;
-$input-padding-y: 12px;
-$input-font-size: 15px;
-$input-font-weight: 300;
-$input-line-height: 1.6;
+$input-border-radius: 0 !default;
+// $input-box-shadow: inset 0 -1px 0 $line-dk-2 !default;
+// $input-focus-box-shadow: inset 0 -1px 0 $bronze-2 !default;
+$input-focus-border-color: transparent !default;
+// $input-placeholder-color: rgba($ivory, .35) !default;
+$input-focus-border-color: $bronze-2 !default;
+$input-padding-x: 0 !default;
+$input-padding-y: 12px !default;
+$input-font-size: 15px !default;
+$input-font-weight: 300 !default;
+$input-line-height: 1.6 !default;
+$input-btn-focus-box-shadow: none !default;
 
-$form-label-margin-bottom: 10px;
-$form-label-font-size: 10px;
-$form-label-font-weight: 500;
+$form-label-margin-bottom: 10px !default;
+$form-label-font-size: 10px !default;
+$form-label-font-weight: 500 !default;
 $form-label-color: $bronze-2 !default;
-$form-text-margin-top: 6px;
-$form-text-font-size: 11.5px;
-$form-text-font-style: italic;
+$form-text-margin-top: 6px !default;
+$form-text-font-size: 11.5px !default;
+$form-text-font-style: italic !default;
 // $form-text-color: rgba($ivory, .45);
 
-$form-check-input-width: 1em;
-$form-check-input-bg: transparent;
+$form-check-input-width: 1em !default;
+$form-check-input-bg: transparent !default;
 // $form-check-input-border: 1px solid rgba($ivory, .40);
-$form-check-input-border-radius: 2px;
+$form-check-input-border-radius: 2px !default;
 // $form-check-input-checked-bg-color: $bronze;
 // $form-check-input-checked-border-color: $bronze;
 // $form-check-input-checked-color: $ink;
 // $form-check-input-focus-border: $bronze-2;
 
-$btn-border-radius: 999px;
-$btn-font-size: 11.5px;
-$btn-font-weight: 500;
-$btn-padding-x: 32px;
-$btn-padding-y: 20px;
-$btn-line-height: 1.6;
+$btn-border-radius: 999px !default;
+$btn-font-size: 11.5px !default;
+$btn-font-weight: 500 !default;
+$btn-padding-x: 32px !default;
+$btn-padding-y: 20px !default;
+$btn-line-height: 1.6 !default;
 
 // Typography of the mockup: Inter for text, Cormorant Garamond for headings.
 $font-family-sans-serif: "Inter", -apple-system, "Segoe UI", system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !default;
@@ -79,8 +77,8 @@ $font-family-base: $font-family-sans-serif !default;
 $headings-font-family: $font-family-serif !default;
 
 // Headings and lead of the section, as in the mockup (section-title, lede).
-$h2-font-size: clamp(36px, 5vw, 68px);
-$h2-font-weight: 300;
-$headings-line-height: 1.05;
-$lead-font-size: clamp(20px, 2vw, 26px);
-$lead-font-weight: 300;
+$h2-font-size: clamp(36px, 5vw, 68px) !default;
+$h2-font-weight: 300 !default;
+$headings-line-height: 1.05 !default;
+$lead-font-size: clamp(20px, 2vw, 26px) !default;
+$lead-font-weight: 300 !default;

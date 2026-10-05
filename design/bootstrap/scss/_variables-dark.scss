@@ -1,2 +1,7 @@
-// $body-bg-dark: $ink !default;
-$body-bg-dark: #f00 !default;
+// Dark color mode (data-bs-theme="dark") is the mockup's only mode. These must
+// be set here, before Bootstrap's variables: its variables.scss already imports
+// variables-dark with !default, so later values are ignored.
+$body-bg-dark: $ink;
+$body-color-dark: $ivory;
+$border-color-dark: $line-dk-2;
+$link-color-dark: $bronze-2;
