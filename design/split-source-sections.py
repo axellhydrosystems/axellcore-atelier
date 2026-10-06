@@ -69,8 +69,23 @@ def fix_anchors(text):
     return re.sub(r'href="#([\w-]+)"', swap, text)
 
 
+# Faces a block shows first on its own page that the source loads late (in
+# assets/fonts/fonts-rest.css, below the fold on the full page): preloaded on
+# that block's page so its LCP text doesn't wait for them (Lighthouse 100).
+PRELOADS = {
+    'footer': ['cormorant-garamond-italic-400', 'inter-normal-300', 'inter-normal-500'],
+}
+LAST_PRELOAD = '<link rel="preload" href="assets/fonts/inter-normal-400-latin.woff2" as="font" type="font/woff2" crossorigin>'
+assert LAST_PRELOAD in head
+
+
 def page(name, body_html, script=''):
     html = head.replace('{title}', LABELS[name])
+    extra = ''.join(
+        f'\n<link rel="preload" href="assets/fonts/{face}-latin.woff2" as="font" type="font/woff2" crossorigin>'
+        for face in PRELOADS.get(name, [])
+    )
+    html = html.replace(LAST_PRELOAD, LAST_PRELOAD + extra)
     out = f'{html}<body>\n{body_html}\n'
     if script:
         out += f'<script>\n{script}</script>\n'
@@ -85,8 +100,11 @@ def write(name, html):
     print(f'source/{name}/index.html')
 
 
-write('header', page('header', header, nav_script))
+# Every block page has one <main> (Lighthouse landmark-one-main): sections go
+# inside it; header and footer get an empty one after/before them (no height,
+# so their captures don't change).
+write('header', page('header', f'{header}\n<main></main>', nav_script))
 for name, section in zip(SECTION_NAMES, sections):
     script = form_script if name == 'adesao' else ''
-    write(name, page(name, section, script))
-write('footer', page('footer', footer))
+    write(name, page(name, f'<main>\n{section}\n</main>', script))
+write('footer', page('footer', f'<main></main>\n{footer}'))

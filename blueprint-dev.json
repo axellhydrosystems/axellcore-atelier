@@ -7,6 +7,14 @@
 		{ "step": "login", "username": "admin", "password": "password" },
 		{
 			"step": "installPlugin",
+			"pluginData": {
+				"resource": "url",
+				"url": "https://github.com/camaleaun/wp-kses-svg/releases/download/0.1.0/wp-kses-svg.0.1.0.zip"
+			},
+			"options": { "activate": true }
+		},
+		{
+			"step": "installPlugin",
 			"pluginZipFile": {
 				"resource": "github.com",
 				"owner": "axellhydrosystems",

@@ -85,4 +85,4 @@ wp --require=bin/release.php axc language
 
 ### WordPress Playground
 
-`blueprint.json` installs the latest tagged GitHub Release; `blueprint-dev.json` installs the latest `main` build via the `PR Preview - Build` workflow's `plugin-zip` artifact. Every pull request also gets its own live preview link posted by `PR Preview - Publish`.
+`blueprint.json` installs the latest tagged GitHub Release; `blueprint-dev.json` installs the latest `main` build via the `PR Preview - Build` workflow's `plugin-zip` artifact. Every pull request also gets its own live preview link posted by `PR Preview - Publish`. Both install [WP KSES SVG](https://github.com/camaleaun/wp-kses-svg) first (SVG uploads, sanitized), since the Atelier logo is an SVG.
