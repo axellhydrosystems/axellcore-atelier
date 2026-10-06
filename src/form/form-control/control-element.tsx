@@ -8,7 +8,7 @@ import { autocompleteMarkup } from './autocomplete-markup';
  * `.is-input-hidden` treatment. Inline styles, not a stylesheet rule —
  * self-contained regardless of which page this block ends up on.
  */
-function HiddenFieldPlaceholder() {
+export function HiddenFieldPlaceholder( { label }: { label?: string } = {} ) {
 	return (
 		<span
 			className="aac-field-hidden-placeholder"
@@ -24,7 +24,7 @@ function HiddenFieldPlaceholder() {
 				border: '1px dashed currentColor',
 			} }
 		>
-			{ __( 'Hidden field', 'axellcore-atelierclub' ) }
+			{ label || __( 'Hidden field', 'axellcore-atelierclub' ) }
 		</span>
 	);
 }

@@ -1,8 +1,8 @@
 import { registerBlockType } from '@wordpress/blocks';
 import metadata from './block.json';
 import Edit from './edit';
-import save from './save';
-import icon from '../form-control/icon';
+import save from '../form/save';
+import icon from '../form/icon';
 
 registerBlockType( metadata.name, {
 	...( metadata as unknown as Record< string, unknown > ),

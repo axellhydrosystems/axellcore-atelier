@@ -120,6 +120,22 @@ final class Members {
 	public function register_hooks() {
 		add_action( 'admin_post_nopriv_' . self::ADMIN_ACTION, array( $this, 'handle_form_post' ) );
 		add_action( 'admin_post_' . self::ADMIN_ACTION, array( $this, 'handle_form_post' ) );
+
+		// A form that stores into members uses the member validation and storage.
+		add_filter(
+			'axellcore_form_store_handler',
+			static function ( $handler, $post_type ) {
+				if ( Member::POST_TYPE !== $post_type ) {
+					return $handler;
+				}
+				return static function ( array $fields ) {
+					$result = Members::instance()->create_from_params( $fields );
+					return is_wp_error( $result ) ? $result : (int) $result['id'];
+				};
+			},
+			10,
+			2
+		);
 	}
 
 	/**
@@ -249,7 +265,7 @@ final class Members {
 	 * @param string $ip Client address.
 	 * @return true|\WP_Error
 	 */
-	private function check_rate_limit( $ip ) {
+	public function check_rate_limit( $ip ) {
 		$key   = 'axell_members_' . md5( (string) $ip );
 		$count = (int) get_transient( $key );
 

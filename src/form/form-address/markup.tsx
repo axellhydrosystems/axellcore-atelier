@@ -1,4 +1,5 @@
 import { BR_STATES } from './states';
+import { HiddenFieldPlaceholder } from '../form-control/control-element';
 
 export interface AddressArgs {
 	blockProps: Record< string, unknown >;
@@ -10,62 +11,72 @@ export interface AddressArgs {
 	countryField?: string;
 	/** Name of the state field this control follows (city). */
 	stateField?: string;
-	/** City: search the cities of the UF instead of a plain list. */
+	/** City: search the cities of the state instead of a plain list. */
 	searchable?: boolean;
-	/** Country: a fixed country code, sent as a hidden field (no select). */
+	/** Country: the default country code (preselected, or sent when hidden). */
 	fixed?: string;
-	/** Editor preview (the fixed country shows a note instead of nothing). */
+	/** Country: sent as a hidden field instead of a select. */
+	hiddenField?: boolean;
+	/** Editor preview (the hidden country shows a placeholder). */
 	isEditor?: boolean;
-}
-
-/*
- * Address fields, driven by the axell/address store (view.ts). Each control
- * names the fields it follows (countryField, stateField) in its own context;
- * the store keeps the values by field name, so the links are explicit and do
- * not depend on block order. Each case has its own element (a select and a
- * text field): the one that does not apply is hidden and disabled, so only the
- * active one is submitted.
- */
-
-function linked( a: AddressArgs, links: Record< string, unknown > ) {
-	return { ...a.blockProps, 'data-wp-context': JSON.stringify( links ) };
 }
 
 export const COUNTRY_NAMES: Record< string, string > = { BR: 'Brasil', US: 'Estados Unidos' };
 
+/** Field look of the form controls (src/form/form-control/style.scss). */
+const FIELD = 'wp-block-axell-form-control';
+
+/*
+ * Address controls. Each one is its own region of the axell/address store
+ * (view.ts) and names, in its context, the fields it follows (countryField,
+ * stateField). The values live in the store state by form and field name, so
+ * the controls only need to be in the same form, in any form group. Each case
+ * has its own element (a select and a text field): the one that does not apply
+ * is hidden and disabled, so only the active one is submitted.
+ */
+function region( a: AddressArgs, context: Record< string, unknown > ): Record< string, unknown > {
+	return {
+		...a.blockProps,
+		'data-wp-interactive': 'axell/address',
+		// form: the id of the form this control belongs to, set on load.
+		'data-wp-context': JSON.stringify( { form: '', ...context } ),
+		'data-wp-init--region': 'callbacks.initRegion',
+	};
+}
+
 export function countryMarkup( a: AddressArgs ) {
-	if ( a.fixed ) {
-		// Fixed country: a hidden field the store reads on load (data-wp-init).
+	if ( a.hiddenField ) {
+		if ( a.isEditor ) {
+			return (
+				<div { ...a.blockProps }>
+					<HiddenFieldPlaceholder
+						label={ `Campo oculto: País = ${ COUNTRY_NAMES[ a.fixed || '' ] || a.fixed || '—' }` }
+					/>
+				</div>
+			);
+		}
 		return (
-			<div { ...a.blockProps }>
-				<input
-					type="hidden"
-					name={ a.name }
-					value={ a.fixed }
-					data-wp-init="callbacks.initCountry"
-				/>
-				{ a.isEditor && (
-					<em className="aac-fixed-country">
-						{ `País fixo: ${ COUNTRY_NAMES[ a.fixed ] || a.fixed }` }
-					</em>
-				) }
+			<div { ...region( a, {} ) }>
+				<input type="hidden" name={ a.name } value={ a.fixed || '' } data-wp-init="callbacks.initCountry" />
 			</div>
 		);
 	}
 
 	return (
-		<div { ...a.blockProps }>
+		<div { ...region( a, {} ) }>
 			<select
 				id={ a.id }
 				name={ a.name }
+				className={ FIELD }
+				defaultValue={ a.fixed || '' }
 				data-wp-init="callbacks.initCountry"
 				data-wp-on--change="actions.onField"
 				required={ a.required || undefined }
 				aria-required={ a.required || undefined }
 			>
-				<option value="">—</option>
 				<option value="BR">Brasil</option>
 				<option value="US">Estados Unidos</option>
+				{ /* Outro: no country code (sent empty, state and city as free text). */ }
 				<option value="">Outro</option>
 			</select>
 		</div>
@@ -74,10 +85,11 @@ export function countryMarkup( a: AddressArgs ) {
 
 export function stateMarkup( a: AddressArgs ) {
 	return (
-		<div { ...linked( a, { countryField: a.countryField || 'pais' } ) }>
+		<div { ...region( a, { countryField: a.countryField || 'pais' } ) }>
 			<select
 				id={ a.id }
 				name={ a.name }
+				className={ FIELD }
 				hidden
 				disabled
 				data-wp-bind--hidden="!state.hasStateList"
@@ -97,6 +109,7 @@ export function stateMarkup( a: AddressArgs ) {
 				type="text"
 				id={ a.id }
 				name={ a.name }
+				className={ FIELD }
 				placeholder={ a.placeholder || undefined }
 				data-wp-bind--hidden="state.hasStateList"
 				data-wp-bind--disabled="state.hasStateList"
@@ -114,6 +127,7 @@ export function cityMarkup( a: AddressArgs ) {
 			type="text"
 			id={ a.searchable ? undefined : a.id }
 			name={ a.name }
+			className={ FIELD }
 			placeholder={ a.placeholder || undefined }
 			data-wp-bind--hidden="state.hasCityList"
 			data-wp-bind--disabled="state.hasCityList"
@@ -123,18 +137,20 @@ export function cityMarkup( a: AddressArgs ) {
 	);
 
 	if ( a.searchable ) {
-		// Search over the cities of the UF: the visible input has no name, the
+		// Search over the cities of the state: the visible input has no name, the
 		// hidden one carries the IBGE code of the chosen city.
 		const listId = `${ a.name }-cities`;
+		const props = region( a, { ...links, query: '', code: '', open: false, active: -1 } );
 		return (
 			<div
-				{ ...linked( a, { ...links, query: '', code: '', open: false, active: -1 } ) }
-				className={ `${ ( a.blockProps.className as string ) || '' } aac-city-search`.trim() }
+				{ ...props }
+				className={ `${ ( props.className as string ) || '' } aac-city-search`.trim() }
 				data-wp-on--focusout="actions.onCityFocusOut"
 			>
 				<input
 					type="text"
 					id={ a.id }
+					className={ FIELD }
 					role="combobox"
 					autoComplete="off"
 					aria-autocomplete="list"
@@ -172,9 +188,10 @@ export function cityMarkup( a: AddressArgs ) {
 	}
 
 	return (
-		<div { ...linked( a, links ) }>
+		<div { ...region( a, links ) }>
 			<select
 				name={ a.name }
+				className={ FIELD }
 				hidden
 				disabled
 				data-wp-bind--hidden="!state.hasCityList"
@@ -192,11 +209,12 @@ export function cityMarkup( a: AddressArgs ) {
 
 export function postalMarkup( a: AddressArgs ) {
 	return (
-		<div { ...linked( a, { countryField: a.countryField || 'pais' } ) }>
+		<div { ...region( a, { countryField: a.countryField || 'pais' } ) }>
 			<input
 				type="text"
 				id={ a.id }
 				name={ a.name }
+				className={ FIELD }
 				inputMode="numeric"
 				placeholder={ a.placeholder || undefined }
 				data-wp-on--input="actions.onPostalInput"

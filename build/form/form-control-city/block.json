@@ -50,8 +50,10 @@
   "supports": {
     "html": false,
     "className": true,
-    "customClassName": true
+    "customClassName": true,
+    "interactivity": true
   },
   "editorScript": "file:./index.js",
-  "style": "file:./style-index.css"
+  "style": "file:./style-index.css",
+  "viewScriptModule": "axell-form-control-country-view-script-module"
 }

@@ -5,7 +5,8 @@
   "title": "Fieldset",
   "category": "text",
   "ancestor": [
-    "axell/form"
+    "axell/form",
+    "axell/form-atelier"
   ],
   "description": "Groups a set of related form fields inside a real <fieldset>, with an optional <legend>.",
   "keywords": [

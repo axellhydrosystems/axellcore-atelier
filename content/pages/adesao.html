@@ -36,8 +36,8 @@
 <!-- /wp:column -->
 
 <!-- wp:column -->
-<div class="wp-block-column"><!-- wp:axell/form {"submitsToRest":true,"anchor":"adesao"} -->
-<form novalidate data-wp-interactive="axell/form" data-wp-context="{&quot;status&quot;:&quot;idle&quot;}" data-wp-on--submit="actions.submit" id="adesao" class="wp-block-axell-form"><input type="hidden" name="action" value="axellcore_member_submit"/><div hidden><input type="text" name="website" tabindex="-1" autocomplete="off" aria-label="Leave this field empty"/></div><!-- wp:axell/fieldset {"layout":{"type":"flex","flexWrap":"wrap"},"metadata":{"name":"Fieldset"}} -->
+<div class="wp-block-column"><!-- wp:axell/form-atelier {"formId":"a5cacnk0","anchor":"adesao"} -->
+<form novalidate data-wp-interactive="axell/form" data-wp-context="{&quot;status&quot;:&quot;idle&quot;}" data-wp-on--submit="actions.submit" data-form-id="a5cacnk0" id="adesao" class="wp-block-axell-form-atelier"><!-- wp:axell/fieldset {"layout":{"type":"flex","flexWrap":"wrap"},"metadata":{"name":"Fieldset"}} -->
 <fieldset class="wp-block-axell-fieldset"><legend class="aac-form-legend-text">Autoria</legend><!-- wp:axell/form-group {"fieldWidth":"50%"} -->
 <div style="width:50%" class="wp-block-axell-form-group"><!-- wp:axell/form-label {"for":"nome"} -->
 <label class="wp-block-axell-form-label" for="nome">Nome completo *</label>
@@ -190,14 +190,9 @@
 <!-- /wp:axell/form-control --></div>
 <!-- /wp:axell/form-group -->
 
-<!-- wp:axell/form-address {"className":"aac-form-row aac-cols-address"} -->
-<div data-wp-interactive="axell/address" data-wp-context="{&quot;values&quot;:{},&quot;cities&quot;:{}}" class="wp-block-axell-form-address aac-form-row aac-cols-address"><!-- wp:axell/form-group -->
-<div class="wp-block-axell-form-group"><!-- wp:axell/form-label {"for":"pais","required":true} -->
-<label class="wp-block-axell-form-label is-required" for="pais">País</label>
-<!-- /wp:axell/form-label -->
-
-<!-- wp:axell/form-control-country {"id":"pais","required":true} -->
-<div class="wp-block-axell-form-control-country"><select id="pais" name="pais" data-wp-init="callbacks.initCountry" data-wp-on--change="actions.onField" required aria-required="true"><option value="">—</option><option value="BR">Brasil</option><option value="US">Estados Unidos</option><option value="">Outro</option></select></div>
+<!-- wp:axell/form-group -->
+<div class="wp-block-axell-form-group"><!-- wp:axell/form-control-country {"id":"pais","required":true,"fixed":"BR","hiddenField":true} -->
+<div class="wp-block-axell-form-control-country" data-wp-interactive="axell/address" data-wp-context="{&quot;form&quot;:&quot;&quot;}" data-wp-init--region="callbacks.initRegion"><input type="hidden" name="pais" value="BR" data-wp-init="callbacks.initCountry"/></div>
 <!-- /wp:axell/form-control-country --></div>
 <!-- /wp:axell/form-group -->
 
@@ -207,7 +202,7 @@
 <!-- /wp:axell/form-label -->
 
 <!-- wp:axell/form-control-state {"id":"uf","name":"uf","required":true} -->
-<div class="wp-block-axell-form-control-state" data-wp-context="{&quot;countryField&quot;:&quot;pais&quot;}"><select id="uf" name="uf" hidden disabled data-wp-bind--hidden="!state.hasStateList" data-wp-bind--disabled="!state.hasStateList" data-wp-on--change="actions.onState" data-wp-watch="callbacks.renderStates" required><option value="">—</option><option value="AC">AC</option><option value="AL">AL</option><option value="AP">AP</option><option value="AM">AM</option><option value="BA">BA</option><option value="CE">CE</option><option value="DF">DF</option><option value="ES">ES</option><option value="GO">GO</option><option value="MA">MA</option><option value="MT">MT</option><option value="MS">MS</option><option value="MG">MG</option><option value="PA">PA</option><option value="PB">PB</option><option value="PR">PR</option><option value="PE">PE</option><option value="PI">PI</option><option value="RJ">RJ</option><option value="RN">RN</option><option value="RS">RS</option><option value="RO">RO</option><option value="RR">RR</option><option value="SC">SC</option><option value="SP">SP</option><option value="SE">SE</option><option value="TO">TO</option></select><input type="text" id="uf" name="uf" data-wp-bind--hidden="state.hasStateList" data-wp-bind--disabled="state.hasStateList" data-wp-on--input="actions.onField" required/></div>
+<div class="wp-block-axell-form-control-state" data-wp-interactive="axell/address" data-wp-context="{&quot;form&quot;:&quot;&quot;,&quot;countryField&quot;:&quot;pais&quot;}" data-wp-init--region="callbacks.initRegion"><select id="uf" name="uf" class="wp-block-axell-form-control" hidden disabled data-wp-bind--hidden="!state.hasStateList" data-wp-bind--disabled="!state.hasStateList" data-wp-on--change="actions.onState" data-wp-watch="callbacks.renderStates" required><option value="">—</option><option value="AC">AC</option><option value="AL">AL</option><option value="AP">AP</option><option value="AM">AM</option><option value="BA">BA</option><option value="CE">CE</option><option value="DF">DF</option><option value="ES">ES</option><option value="GO">GO</option><option value="MA">MA</option><option value="MT">MT</option><option value="MS">MS</option><option value="MG">MG</option><option value="PA">PA</option><option value="PB">PB</option><option value="PR">PR</option><option value="PE">PE</option><option value="PI">PI</option><option value="RJ">RJ</option><option value="RN">RN</option><option value="RS">RS</option><option value="RO">RO</option><option value="RR">RR</option><option value="SC">SC</option><option value="SP">SP</option><option value="SE">SE</option><option value="TO">TO</option></select><input type="text" id="uf" name="uf" class="wp-block-axell-form-control" data-wp-bind--hidden="state.hasStateList" data-wp-bind--disabled="state.hasStateList" data-wp-on--input="actions.onField" required/></div>
 <!-- /wp:axell/form-control-state --></div>
 <!-- /wp:axell/form-group -->
 
@@ -217,7 +212,7 @@
 <!-- /wp:axell/form-label -->
 
 <!-- wp:axell/form-control-city {"id":"cidade","placeholder":"Digite a cidade","required":true,"searchable":true} -->
-<div class="wp-block-axell-form-control-city aac-city-search" data-wp-context="{&quot;countryField&quot;:&quot;pais&quot;,&quot;stateField&quot;:&quot;uf&quot;,&quot;query&quot;:&quot;&quot;,&quot;code&quot;:&quot;&quot;,&quot;open&quot;:false,&quot;active&quot;:-1}" data-wp-on--focusout="actions.onCityFocusOut"><input type="text" id="cidade" role="combobox" autocomplete="off" aria-autocomplete="list" aria-controls="cidade-cities" placeholder="Digite a cidade" hidden disabled data-wp-bind--hidden="!state.hasCityList" data-wp-bind--disabled="!state.hasCityList" data-wp-bind--value="context.query" data-wp-bind--aria-expanded="context.open" data-wp-on--input="actions.onCitySearch" data-wp-on--keydown="actions.onCityKeydown" required/><input type="hidden" name="cidade" disabled data-wp-bind--disabled="!state.hasCityList" data-wp-bind--value="context.code"/><input type="text" name="cidade" placeholder="Digite a cidade" data-wp-bind--hidden="state.hasCityList" data-wp-bind--disabled="state.hasCityList" data-wp-on--input="actions.onField" required/><ul id="cidade-cities" role="listbox" hidden data-wp-bind--hidden="!state.cityListOpen" data-wp-on--click="actions.pickCity" data-wp-on--mousedown="actions.keepFocus" data-wp-watch="callbacks.renderCitySearch"></ul></div>
+<div class="wp-block-axell-form-control-city aac-city-search" data-wp-interactive="axell/address" data-wp-context="{&quot;form&quot;:&quot;&quot;,&quot;countryField&quot;:&quot;pais&quot;,&quot;stateField&quot;:&quot;uf&quot;,&quot;query&quot;:&quot;&quot;,&quot;code&quot;:&quot;&quot;,&quot;open&quot;:false,&quot;active&quot;:-1}" data-wp-init--region="callbacks.initRegion" data-wp-on--focusout="actions.onCityFocusOut"><input type="text" id="cidade" class="wp-block-axell-form-control" role="combobox" autocomplete="off" aria-autocomplete="list" aria-controls="cidade-cities" placeholder="Digite a cidade" hidden disabled data-wp-bind--hidden="!state.hasCityList" data-wp-bind--disabled="!state.hasCityList" data-wp-bind--value="context.query" data-wp-bind--aria-expanded="context.open" data-wp-on--input="actions.onCitySearch" data-wp-on--keydown="actions.onCityKeydown" required/><input type="hidden" name="cidade" disabled data-wp-bind--disabled="!state.hasCityList" data-wp-bind--value="context.code"/><input type="text" name="cidade" class="wp-block-axell-form-control" placeholder="Digite a cidade" data-wp-bind--hidden="state.hasCityList" data-wp-bind--disabled="state.hasCityList" data-wp-on--input="actions.onField" required/><ul id="cidade-cities" role="listbox" hidden data-wp-bind--hidden="!state.cityListOpen" data-wp-on--click="actions.pickCity" data-wp-on--mousedown="actions.keepFocus" data-wp-watch="callbacks.renderCitySearch"></ul></div>
 <!-- /wp:axell/form-control-city --></div>
 <!-- /wp:axell/form-group -->
 
@@ -227,10 +222,9 @@
 <!-- /wp:axell/form-label -->
 
 <!-- wp:axell/form-control-postal {"id":"cep","required":true} -->
-<div class="wp-block-axell-form-control-postal" data-wp-context="{&quot;countryField&quot;:&quot;pais&quot;}"><input type="text" id="cep" name="cep" inputmode="numeric" placeholder="00000-000" data-wp-on--input="actions.onPostalInput" required/></div>
+<div class="wp-block-axell-form-control-postal" data-wp-interactive="axell/address" data-wp-context="{&quot;form&quot;:&quot;&quot;,&quot;countryField&quot;:&quot;pais&quot;}" data-wp-init--region="callbacks.initRegion"><input type="text" id="cep" name="cep" class="wp-block-axell-form-control" inputmode="numeric" placeholder="00000-000" data-wp-on--input="actions.onPostalInput" required/></div>
 <!-- /wp:axell/form-control-postal --></div>
-<!-- /wp:axell/form-group --></div>
-<!-- /wp:axell/form-address --></fieldset>
+<!-- /wp:axell/form-group --></fieldset>
 <!-- /wp:axell/fieldset -->
 
 <!-- wp:axell/fieldset {"layout":{"type":"flex","flexWrap":"wrap"}} -->
@@ -330,6 +324,6 @@
 <!-- /wp:paragraph --></div>
 <!-- /wp:group --></div>
 <!-- /wp:axell/form-submission-notification --></form>
-<!-- /wp:axell/form --></div>
+<!-- /wp:axell/form-atelier --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns -->

@@ -12,7 +12,6 @@ import type { FormFieldsetAttributes } from './types';
 
 const ALLOWED_BLOCKS = [
 	'axell/form-group',
-	'axell/form-address',
 	'core/paragraph',
 	'core/heading',
 	'core/group',

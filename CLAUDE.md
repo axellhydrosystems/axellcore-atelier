@@ -342,3 +342,9 @@ the JS).
 ## Content files (what activation reads)
 
 `Activator` creates `/atelier` from `content/atelier-page.html`, its child pages from `content/pages/{slug}.html`, and the header/footer template parts from `content/header-part.html` / `content/footer-part.html`. The database is the source of truth: after editing those pages in the editor, run `bin/export-content.sh` to copy them back into `content/`. `bin/generate-content.py` no longer reproduces the live landing (it writes only `content/seed-content.html`, which nothing reads).
+
+## `axell/form` (generic) and `axell/form-atelier`
+
+`axell/form` is a generic form with optional submission actions, set in its "Ações de envio" panel: **Gravar em** (any post type with `show_ui`, or none; status and the field used as title) and **Enviar e-mail** (Para, Assunto, Mensagem with `{field}` and `{all_fields}` tags). `axell/form-atelier` reuses the same editor (`src/form/form/form-edit.tsx`) and save, stores into `aac_member` (fixed) and inserts the full application template (`src/form/form-atelier/template.ts`, serialized from `/atelier/adesao`).
+
+Every submission goes through `includes/class-form-submission.php`: REST `POST /submit` with JavaScript, `admin-post.php?action=axellcore_form_submit` without it. The request only identifies the form (`post_id`, `form_id`, added on render by `Form_Block`); the settings are read from the saved block (`parse_blocks`), and only fields whose `name` is in the form's rendered markup are kept. A post type can have its own store handler (`axellcore_form_store_handler`); members use `Members::create_from_params`. Content saved with the old `submitsToRest` switch migrates through the block deprecations to `storePostType: aac_member`.

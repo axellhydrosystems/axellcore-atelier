@@ -5,7 +5,8 @@
   "title": "Form Group",
   "category": "text",
   "ancestor": [
-    "axell/form"
+    "axell/form",
+    "axell/form-atelier"
   ],
   "description": "A form field: an axell/form-label and an axell/form-control (or axell/form-select), inserted together, with an optional axell/form-text. Other blocks can't be inserted inside it.",
   "keywords": [

@@ -6,95 +6,95 @@ interface Option {
 	value: string;
 }
 
-interface AddressContext {
-	/** Field values by name (pais, uf, cidade…), shared by the whole region. */
-	values: Record< string, string >;
-	/** Cities loaded for each state field, by its name. */
-	cities: Record< string, Option[] >;
-	/** Links of the current control (child context). */
+/**
+ * Context of one address control (its own region). The links name the fields
+ * it follows; the values themselves live in the store state, shared by every
+ * control of the same form.
+ */
+interface ControlContext {
+	/** Id of the form the control belongs to (data-form-id), set on load. */
+	form: string;
 	countryField?: string;
 	stateField?: string;
-	/** City search (child context): typed text, list open, active option. */
+	/** City search: typed text, picked IBGE code, list open, active option. */
 	query?: string;
-	/** IBGE code of the city picked in the search (its hidden input). */
 	code?: string;
 	open?: boolean;
 	active?: number;
 }
 
-const MAX_CITIES = 20;
-
-/** Lower case, no accents, for matching typed city names. */
-const fold = ( text: string ) =>
-	text.normalize( 'NFD' ).replace( /[\u0300-\u036f]/g, '' ).toLowerCase();
-
-/** Cities of the linked state that match the typed text (start of word first). */
-function matches( context: AddressContext ): Option[] {
-	const cities = context.cities[ context.stateField || 'uf' ] || [];
-	const q = fold( ( context.query || '' ).trim() );
-	if ( ! q ) {
-		return [];
-	}
-	const starts = cities.filter( ( c ) => fold( c.label ).startsWith( q ) );
-	const inner = cities.filter( ( c ) => ! fold( c.label ).startsWith( q ) && fold( c.label ).includes( q ) );
-	return [ ...starts, ...inner ].slice( 0, MAX_CITIES );
-}
-
-/** Field name of the city control in the current context (its hidden input). */
-const cityName = ( element: HTMLElement ) =>
-	element.closest( '.aac-city-search' )?.querySelector< HTMLInputElement >( 'input[type="hidden"]' )?.name || 'cidade';
-
-const countryOf = ( context: AddressContext ) =>
-	context.values[ context.countryField || 'pais' ] || '';
-
-interface ServerState {
+interface AddressState {
 	citiesUrl: string;
 	/** Countries whose cities come from the cities endpoint (filterable in PHP). */
 	cityCountries: string[];
+	/** Field values, by "form|name". */
+	values: Record< string, string >;
+	/** Cities loaded for each state field, by "form|name". */
+	cities: Record< string, Option[] >;
 }
 
-const server = () => state as unknown as ServerState;
+const MAX_CITIES = 20;
 
-/** The country has a city list (from the cities endpoint). */
-const hasCities = ( country: string ) =>
-	!! country && ( server().cityCountries || [] ).includes( country );
+/** Key of a field: its form (data-form-id) and its name. */
+const keyOf = ( el: Element | null, name: string ) => {
+	const form = el?.closest( 'form' );
+	return `${ form?.getAttribute( 'data-form-id' ) || '' }|${ name }`;
+};
+
+/** Element of the directive being evaluated. */
+const here = () => getElement().ref as HTMLElement | null;
+
+/** Lower case, no accents, for matching typed city names. */
+const fold = ( text: string ) =>
+	text.normalize( 'NFD' ).replace( /[̀-ͯ]/g, '' ).toLowerCase();
 
 const { state } = store( 'axell/address', {
 	state: {
-		/** The state control shows a list (Brazil or United States). */
-		get hasStateList(): boolean {
-			return !! STATES_BY_COUNTRY[ countryOf( getContext< AddressContext >() ) ];
+		values: {},
+		cities: {},
+		/** Country of the control being evaluated (its countryField). */
+		get country(): string {
+			const context = getContext< ControlContext >();
+			const s = state as unknown as AddressState;
+			return s.values[ `${ context.form }|${ context.countryField || 'pais' }` ] || '';
 		},
-		/** The city control shows a list (or search) when its country has cities. */
+		/** The state control shows a list (the country has one). */
+		get hasStateList(): boolean {
+			return !! STATES_BY_COUNTRY[ ( state as unknown as { country: string } ).country ];
+		},
+		/** The city control shows a list or a search (the country has cities). */
 		get hasCityList(): boolean {
-			return hasCities( countryOf( getContext< AddressContext >() ) );
+			const s = state as unknown as AddressState & { country: string };
+			return !! s.country && ( s.cityCountries || [] ).includes( s.country );
 		},
 		get cityListOpen(): boolean {
-			const context = getContext< AddressContext >();
+			const context = getContext< ControlContext >();
 			return !! context.open && ( context.query || '' ).trim() !== '';
 		},
 	},
 	actions: {
-		/** Keep the value of any linked field (country, free-text state or city). */
+		/** Keep the value of a linked field (country, free-text state or city). */
 		onField( event: Event ) {
-			const context = getContext< AddressContext >();
 			const field = event.target as HTMLInputElement | HTMLSelectElement;
-			context.values[ field.name ] = field.value;
+			( state as unknown as AddressState ).values[ keyOf( field, field.name ) ] = field.value;
 		},
 
 		*onState( event: Event ): Generator< unknown, void, unknown > {
-			const context = getContext< AddressContext >();
+			const s = state as unknown as AddressState;
 			const select = event.target as HTMLSelectElement;
+			const key = keyOf( select, select.name );
 			const uf = select.value;
-			context.values[ select.name ] = uf;
-			context.cities[ select.name ] = [];
-			const country = countryOf( context );
-			if ( ! hasCities( country ) || ! uf ) {
+			s.values[ key ] = uf;
+			s.cities[ key ] = [];
+
+			const context = getContext< ControlContext >();
+			const country = s.values[ keyOf( select, context.countryField || 'pais' ) ] || '';
+			if ( ! uf || ! ( s.cityCountries || [] ).includes( country ) ) {
 				return;
 			}
 
 			// Cities of the state: the same REST route the form already uses.
-			const url = new URL( server().citiesUrl );
+			const url = new URL( s.citiesUrl );
 			url.searchParams.set( 'uf', uf );
 			url.searchParams.set( 'country', country );
 			try {
@@ -103,23 +103,22 @@ const { state } = store( 'axell/address', {
 					throw new Error( response.statusText );
 				}
 				const cities = ( yield response.json() ) as Option[];
-				if ( context.values[ select.name ] === uf ) {
-					context.cities[ select.name ] = cities;
+				if ( s.values[ key ] === uf ) {
+					s.cities[ key ] = cities;
 				}
 			} catch {
-				context.cities[ select.name ] = [];
+				s.cities[ key ] = [];
 			}
 		},
 
 		onCitySearch( event: Event ) {
-			const context = getContext< AddressContext >();
+			const context = getContext< ControlContext >();
 			const input = event.target as HTMLInputElement;
 			context.query = input.value;
 			context.open = true;
 			context.active = -1;
 			// Typing again drops the previous choice until a city is picked.
 			context.code = '';
-			context.values[ cityName( input ) ] = '';
 		},
 
 		pickCity( event: MouseEvent ) {
@@ -127,18 +126,16 @@ const { state } = store( 'axell/address', {
 			if ( ! item ) {
 				return;
 			}
-			const context = getContext< AddressContext >();
+			const context = getContext< ControlContext >();
 			context.code = item.dataset.value || '';
-			context.values[ cityName( item ) ] = context.code;
 			context.query = item.dataset.label || '';
 			context.open = false;
 			context.active = -1;
 		},
 
 		onCityKeydown( event: KeyboardEvent ) {
-			const context = getContext< AddressContext >();
-			const list = matches( context );
-			const input = event.target as HTMLInputElement;
+			const context = getContext< ControlContext >();
+			const list = matches( context, event.target as HTMLElement );
 			switch ( event.key ) {
 				case 'ArrowDown':
 					event.preventDefault();
@@ -158,7 +155,6 @@ const { state } = store( 'axell/address', {
 					if ( context.open && chosen ) {
 						event.preventDefault();
 						context.code = chosen.value;
-						context.values[ cityName( input ) ] = chosen.value;
 						context.query = chosen.label;
 						context.open = false;
 						context.active = -1;
@@ -182,7 +178,7 @@ const { state } = store( 'axell/address', {
 			if ( next && wrapper.contains( next ) ) {
 				return;
 			}
-			const context = getContext< AddressContext >();
+			const context = getContext< ControlContext >();
 			// Leaving without picking a city clears the text.
 			if ( ! context.code ) {
 				context.query = '';
@@ -192,8 +188,9 @@ const { state } = store( 'axell/address', {
 		},
 
 		onPostalInput( event: Event ) {
-			const country = countryOf( getContext< AddressContext >() );
+			const context = getContext< ControlContext >();
 			const input = event.target as HTMLInputElement;
+			const country = ( state as unknown as AddressState ).values[ keyOf( input, context.countryField || 'pais' ) ] || '';
 			const digits = input.value.replace( /\D/g, '' );
 			if ( country === 'BR' ) {
 				const cep = digits.slice( 0, 8 );
@@ -205,33 +202,46 @@ const { state } = store( 'axell/address', {
 		},
 	},
 	callbacks: {
-		/** The country already set on load (a fixed hidden field or a preselected option). */
+		/** Remember the form of this control (getters cannot read the DOM yet). */
+		initRegion() {
+			const context = getContext< ControlContext >();
+			context.form = here()?.closest( 'form' )?.getAttribute( 'data-form-id' ) || '';
+		},
+
+		/** The country already set on load (a hidden field or a preselected option). */
 		initCountry() {
-			const context = getContext< AddressContext >();
-			const field = getElement().ref as HTMLInputElement | HTMLSelectElement;
-			context.values[ field.name ] = field.value;
+			const field = here() as HTMLInputElement | HTMLSelectElement;
+			( state as unknown as AddressState ).values[ keyOf( field, field.name ) ] = field.value;
 		},
 
 		renderStates() {
-			const context = getContext< AddressContext >();
-			const select = getElement().ref as HTMLSelectElement;
-			const country = countryOf( context );
+			const s = state as unknown as AddressState & { country: string };
+			const select = here() as HTMLSelectElement;
+			const country = s.country;
 			const list = STATES_BY_COUNTRY[ country ] || [];
 			// A state of the previous country never carries over (SC is also South Carolina).
 			const current = select.dataset.country === country ? select.value : '';
 			select.dataset.country = country;
-			select.replaceChildren(
-				new Option( '—', '' ),
-				...list.map( ( uf ) => new Option( uf, uf ) )
-			);
+			select.replaceChildren( new Option( '—', '' ), ...list.map( ( uf ) => new Option( uf, uf ) ) );
 			select.value = list.includes( current ) ? current : '';
-			context.values[ select.name ] = select.value;
+			s.values[ keyOf( select, select.name ) ] = select.value;
+		},
+
+		renderCities() {
+			const s = state as unknown as AddressState;
+			const context = getContext< ControlContext >();
+			const select = here() as HTMLSelectElement;
+			const cities = s.cities[ keyOf( select, context.stateField || 'uf' ) ] || [];
+			const current = select.value;
+			// The value is the IBGE code of the city, as the form has always sent it.
+			select.replaceChildren( new Option( '—', '' ), ...cities.map( ( city ) => new Option( city.label, city.value ) ) );
+			select.value = current;
 		},
 
 		renderCitySearch() {
-			const context = getContext< AddressContext >();
-			const list = getElement().ref as HTMLElement;
-			const items = matches( context ).map( ( city, index ) => {
+			const context = getContext< ControlContext >();
+			const list = here() as HTMLElement;
+			const items = matches( context, list ).map( ( city, index ) => {
 				const li = document.createElement( 'li' );
 				li.setAttribute( 'role', 'option' );
 				li.dataset.value = city.value;
@@ -242,17 +252,23 @@ const { state } = store( 'axell/address', {
 			} );
 			list.replaceChildren( ...items );
 		},
-
-		renderCities() {
-			const context = getContext< AddressContext >();
-			const select = getElement().ref as HTMLSelectElement;
-			const cities = context.cities[ context.stateField || 'uf' ] || [];
-			// The value is the IBGE code of the city, as the form has always sent it.
-			select.replaceChildren(
-				new Option( '—', '' ),
-				...cities.map( ( city ) => new Option( city.label, city.value ) )
-			);
-			select.value = context.values[ select.name ] || '';
-		},
 	},
 } );
+
+/**
+ * Cities of the linked state that match the typed text (start of name first).
+ *
+ * @param context Control context.
+ * @param el      An element of the control (to find its form).
+ */
+function matches( context: ControlContext, el: Element ): Option[] {
+	const s = state as unknown as AddressState;
+	const cities = s.cities[ keyOf( el, context.stateField || 'uf' ) ] || [];
+	const q = fold( ( context.query || '' ).trim() );
+	if ( ! q ) {
+		return [];
+	}
+	const starts = cities.filter( ( c ) => fold( c.label ).startsWith( q ) );
+	const inner = cities.filter( ( c ) => ! fold( c.label ).startsWith( q ) && fold( c.label ).includes( q ) );
+	return [ ...starts, ...inner ].slice( 0, MAX_CITIES );
+}

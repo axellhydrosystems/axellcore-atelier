@@ -7,5 +7,6 @@ export interface AddressAttributes {
 	stateField?: string;
 	searchable?: boolean;
 	fixed?: string;
+	hiddenField?: boolean;
 	[ key: string ]: unknown;
 }

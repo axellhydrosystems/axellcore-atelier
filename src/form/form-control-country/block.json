@@ -37,12 +37,18 @@
 		"fixed": {
 			"type": "string",
 			"default": ""
+		},
+		"hiddenField": {
+			"type": "boolean",
+			"default": false
 		}
 	},
 	"supports": {
 		"html": false,
 		"className": true,
-		"customClassName": true
+		"customClassName": true,
+		"interactivity": true
 	},
-	"editorScript": "file:./index.js"
+	"editorScript": "file:./index.js",
+	"viewScriptModule": "file:./view.ts"
 }

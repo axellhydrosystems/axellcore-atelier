@@ -28,15 +28,29 @@ export default function Edit( { attributes, setAttributes }: BlockEditProps< Add
 						onChange={ ( value: string ) => setAttributes( { placeholder: value } ) }
 					/>
 					<SelectControl
-						label={ __( 'País fixo', 'axellcore-atelierclub' ) }
-						help={ __( 'Com um país fixo, o campo é enviado oculto e o select não aparece.', 'axellcore-atelierclub' ) }
+						label={ __( 'País', 'axellcore-atelierclub' ) }
+						help={
+							attributes.hiddenField
+								? __( 'Valor enviado no campo oculto.', 'axellcore-atelierclub' )
+								: __( 'País já selecionado ao abrir o formulário.', 'axellcore-atelierclub' )
+						}
 						value={ ( attributes.fixed as string ) || '' }
 						options={ [
-							{ label: __( 'Nenhum (o visitante escolhe)', 'axellcore-atelierclub' ), value: '' },
+							{ label: __( 'Nenhum', 'axellcore-atelierclub' ), value: '' },
 							{ label: 'Brasil', value: 'BR' },
 							{ label: 'Estados Unidos', value: 'US' },
 						] as { label: string; value: string }[] }
 						onChange={ ( value: string ) => setAttributes( { fixed: value } ) }
+					/>
+					<ToggleControl
+						label={ __( 'Oculto', 'axellcore-atelierclub' ) }
+						help={
+							attributes.hiddenField && ! attributes.fixed
+								? __( 'Escolha um país para o campo oculto.', 'axellcore-atelierclub' )
+								: __( 'Envia o país num campo oculto, sem o select.', 'axellcore-atelierclub' )
+						}
+						checked={ !! attributes.hiddenField }
+						onChange={ ( value: boolean ) => setAttributes( { hiddenField: value } ) }
 					/>
 					<ToggleControl
 						label={ __( 'Required', 'axellcore-atelierclub' ) }
@@ -45,7 +59,7 @@ export default function Edit( { attributes, setAttributes }: BlockEditProps< Add
 					/>
 				</PanelBody>
 			</InspectorControls>
-			{ countryMarkup( { blockProps, id: attributes.id || undefined, name: attributes.name, placeholder: attributes.placeholder, required: attributes.required, fixed: attributes.fixed as string, isEditor: true } ) }
+			{ countryMarkup( { blockProps, id: attributes.id || undefined, name: attributes.name, placeholder: attributes.placeholder, required: attributes.required, fixed: attributes.fixed as string, hiddenField: !! attributes.hiddenField, isEditor: true } ) }
 		</>
 	);
 }

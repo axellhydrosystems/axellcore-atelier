@@ -131,7 +131,7 @@ final class Assets {
 			// Theme-styled pages with an application form (the adesão child
 			// page) keep their own look, but still need the input masks and
 			// the cities cascade from frontend.js.
-			if ( is_singular() && has_block( 'axell/form', get_post() ) ) {
+			if ( is_singular() && ( has_block( 'axell/form', get_post() ) || has_block( 'axell/form-atelier', get_post() ) ) ) {
 				$this->enqueue_frontend_script();
 			}
 			return;
@@ -193,7 +193,7 @@ final class Assets {
 		if ( ! $post instanceof \WP_Post ) {
 			return;
 		}
-		if ( ! has_block( 'axell/form', $post ) && ! has_block( 'axell/form-control', $post ) && ! has_block( 'axell/form-control-reseller', $post ) && ! has_block( 'axell/form-address', $post ) && ! has_block( 'axell/form-label', $post ) ) {
+		if ( ! has_block( 'axell/form', $post ) && ! has_block( 'axell/form-atelier', $post ) && ! has_block( 'axell/form-control', $post ) && ! has_block( 'axell/form-control-reseller', $post ) && ! has_block( 'axell/form-control-country', $post ) && ! has_block( 'axell/form-control-state', $post ) && ! has_block( 'axell/form-control-city', $post ) && ! has_block( 'axell/form-control-postal', $post ) && ! has_block( 'axell/form-label', $post ) ) {
 			return;
 		}
 		wp_enqueue_style( 'axellcore-form-structure', AXELLCORE_ATELIERCLUB_URL . 'assets/css/form-structure.css', array(), AXELLCORE_ATELIERCLUB_VERSION );

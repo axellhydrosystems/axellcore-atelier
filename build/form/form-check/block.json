@@ -5,7 +5,8 @@
   "title": "Form Check",
   "category": "text",
   "ancestor": [
-    "axell/form"
+    "axell/form",
+    "axell/form-atelier"
   ],
   "description": "A checkbox with its own label text (links allowed), such as a consent or terms acceptance. Stands alone: it does not sit in an axell/form-group.",
   "keywords": [

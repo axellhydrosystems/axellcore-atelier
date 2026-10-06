@@ -1,14 +1,15 @@
 {
 	"$schema": "https://schemas.wp.org/trunk/block.json",
 	"apiVersion": 3,
-	"name": "axell/form",
-	"title": "Form",
+	"name": "axell/form-atelier",
+	"title": "Form Atelier",
 	"category": "text",
-	"description": "Formulário de blocos com ações de envio opcionais: gravar como post de um tipo escolhido e enviar e-mail.",
+	"description": "Formulário de adesão do Atelier Axell Club: grava cada envio como cadastro de membro e já vem com todos os campos e textos.",
 	"keywords": [
 		"form",
-		"formulário",
-		"contato"
+		"atelier",
+		"adesão",
+		"membro"
 	],
 	"textdomain": "axellcore-atelierclub",
 	"attributes": {
@@ -18,7 +19,7 @@
 		},
 		"storePostType": {
 			"type": "string",
-			"default": ""
+			"default": "aac_member"
 		},
 		"storeStatus": {
 			"type": "string",
@@ -26,7 +27,7 @@
 		},
 		"titleField": {
 			"type": "string",
-			"default": ""
+			"default": "nome"
 		},
 		"sendEmail": {
 			"type": "boolean",

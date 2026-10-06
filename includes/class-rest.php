@@ -81,6 +81,18 @@ final class Rest {
 
 		register_rest_route(
 			self::NAMESPACE,
+			'/submit',
+			array(
+				'methods'             => 'POST',
+				'callback'            => array( $this, 'submit_form' ),
+				// Public: any visitor submits a form; the form's own settings are
+				// read from the saved post, never from the request.
+				'permission_callback' => '__return_true',
+			)
+		);
+
+		register_rest_route(
+			self::NAMESPACE,
 			'/members',
 			array(
 				'methods'             => 'POST',
@@ -120,6 +132,22 @@ final class Rest {
 		);
 
 		return rest_ensure_response( $items );
+	}
+
+	/**
+	 * POST /submit — run a form's actions (store, email) for a submission.
+	 *
+	 * @param \WP_REST_Request $request Request.
+	 * @return \WP_REST_Response|\WP_Error
+	 */
+	public function submit_form( \WP_REST_Request $request ) {
+		$params = $request->get_json_params();
+		if ( ! is_array( $params ) || empty( $params ) ) {
+			$params = $request->get_body_params();
+		}
+
+		$result = Form_Submission::instance()->handle( (array) $params, Members::client_ip() );
+		return is_wp_error( $result ) ? $result : rest_ensure_response( $result );
 	}
 
 	/**

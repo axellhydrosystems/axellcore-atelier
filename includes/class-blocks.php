@@ -67,6 +67,7 @@ final class Blocks {
 	 */
 	public function register_blocks() {
 		register_block_type_from_metadata( AXELLCORE_ATELIERCLUB_PATH . 'build/form/form' );
+		register_block_type_from_metadata( AXELLCORE_ATELIERCLUB_PATH . 'build/form/form-atelier' );
 		register_block_type_from_metadata( AXELLCORE_ATELIERCLUB_PATH . 'build/form/form-input' ); // Deprecated, see its own header comment.
 		register_block_type_from_metadata( AXELLCORE_ATELIERCLUB_PATH . 'build/form/form-group' );
 		register_block_type_from_metadata( AXELLCORE_ATELIERCLUB_PATH . 'build/form/form-select' );
@@ -78,7 +79,6 @@ final class Blocks {
 		register_block_type_from_metadata( AXELLCORE_ATELIERCLUB_PATH . 'build/form/form-control-br-revenue-id' );
 		register_block_type_from_metadata( AXELLCORE_ATELIERCLUB_PATH . 'build/form/form-control-br-revenue-id-person' );
 		register_block_type_from_metadata( AXELLCORE_ATELIERCLUB_PATH . 'build/form/form-control-br-revenue-id-legal' );
-		register_block_type_from_metadata( AXELLCORE_ATELIERCLUB_PATH . 'build/form/form-address' );
 		register_block_type_from_metadata( AXELLCORE_ATELIERCLUB_PATH . 'build/form/form-control-country' );
 		register_block_type_from_metadata( AXELLCORE_ATELIERCLUB_PATH . 'build/form/form-control-state' );
 		register_block_type_from_metadata( AXELLCORE_ATELIERCLUB_PATH . 'build/form/form-control-city' );
