@@ -5,5 +5,12 @@
         "url": "http://localhost:8906/wp-content/uploads/2026/10/atelier-axell.svg",
         "title": "Atelier Axell",
         "alt": "Atelier Axell - The Axell World"
+    },
+    {
+        "file": "atelier-hero.webp",
+        "id": 819,
+        "url": "http://localhost:8906/wp-content/uploads/2026/10/atelier-hero.webp",
+        "title": "Atelier Hero",
+        "alt": "Suíte spa com banheira freestanding em pedra e vista noturna"
     }
 ]

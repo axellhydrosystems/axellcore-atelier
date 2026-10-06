@@ -776,6 +776,7 @@ msgstr "Checkbox"
 msgid "Hidden Control"
 msgstr "Campo oculto"
 
+#: includes/class-design-tokens.php:151
 #: build/form/form-label/index.js:1
 #: includes/blocks/form/form-label/index.js:63
 msgid "Visually hidden"
@@ -890,15 +891,15 @@ msgstr ""
 msgid "Member not found."
 msgstr ""
 
-#: includes/class-design-tokens.php:146
+#: includes/class-design-tokens.php:148
 msgid "Primary"
 msgstr "Primário"
 
-#: includes/class-design-tokens.php:147
+#: includes/class-design-tokens.php:149
 msgid "Bronze hover"
 msgstr "Bronze ao passar o mouse"
 
-#: includes/class-design-tokens.php:148
+#: includes/class-design-tokens.php:150
 msgid "Ivory"
 msgstr "Marfim"
 

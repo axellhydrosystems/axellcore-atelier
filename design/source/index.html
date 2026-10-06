@@ -134,6 +134,18 @@ button{ font: inherit; cursor: pointer; }
   font-size: clamp(48px, 8vw, 116px);
   margin: 0;
 }
+.display strong{ font-weight: inherit; }
+
+/* Hidden on screen, still read by screen readers (the page h1). */
+.visually-hidden{
+  position: absolute !important;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
 .display em{ font-style: italic; font-weight: 300; color: var(--bronze-2); }
 
 h2.section-title{
@@ -368,8 +380,9 @@ section{ position: relative; }
 .hero-photo{
   position: absolute;
   inset: 0;
-  background-size: cover;
-  background-position: center;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
   z-index: -2;
 }
 .hero-overlay{
@@ -1659,16 +1672,21 @@ section{ position: relative; }
 
 <!-- =================== HERO =================== -->
 <section class="hero" id="top">
-  <div class="hero-photo" role="img" aria-label="Suíte spa com banheira freestanding em pedra e vista noturna"></div>
+  <img class="hero-photo" src="assets/atelier-hero.webp" srcset="assets/atelier-hero.webp 1410w, assets/atelier-hero-300x237.webp 300w, assets/atelier-hero-1024x810.webp 1024w, assets/atelier-hero-768x607.webp 768w" sizes="(max-width: 1410px) 100vw, 1410px" width="1410" height="1115" alt="Suíte spa com banheira freestanding em pedra e vista noturna">
   <div class="hero-overlay"></div>
+
+  <header class="hero-header visually-hidden">
+    <h1>Atelier Axell</h1>
+    <p>The Axell World</p>
+  </header>
 
   <div class="container hero-inner">
     <div>
       <div class="hero-cap">Edição Lumière · 2026</div>
-      <h1 class="display">
+      <p class="display"><strong>
         O atelier é o lugar onde criar<br/>
         encontra <em>morar</em>.
-      </h1>
+      </strong></p>
       <p class="hero-quote">
         Um clube <em>por convite</em>. Para arquitetos e designers que transformam o banho em obra, o spa em poesia e o projeto em memória.
       </p>
@@ -1681,7 +1699,7 @@ section{ position: relative; }
     </div>
 
     <aside class="hero-meta">
-      <div class="stamp">"Você não entra.<br/>Você é recebido."</div>
+      <div class="stamp">“Você não entra.<br/>Você é recebido.”</div>
       <div class="kv">
         <div class="k">Programa</div>
         <div class="v">Atelier Axell Club</div>

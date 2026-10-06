@@ -1,7 +1,8 @@
 {
 	"about": "Suggested presets for the Atelier pages, collected section by section from the values the styled sections use (block attributes). Not applied: presets can clash with the active theme. Once every section is done, the values used in more than one place become presets (font sizes with fluid: false, spacing sizes) registered by the plugin, and the blocks switch to var:preset references. Colors are already presets (includes/class-design-tokens.php).",
 	"sections": [
-		"header"
+		"header",
+		"hero"
 	],
 	"fontSizes": [
 		{
@@ -19,6 +20,42 @@
 			"usedIn": [
 				"header: primary button"
 			]
+		},
+		{
+			"value": "0.75rem",
+			"px": 12,
+			"usedIn": [
+				"hero: large buttons"
+			]
+		},
+		{
+			"value": "0.625rem",
+			"px": 10,
+			"usedIn": [
+				"hero: summary labels",
+				"hero: footer"
+			]
+		},
+		{
+			"value": "1.25rem",
+			"px": 20,
+			"usedIn": [
+				"hero: stamp and summary values (block CSS: fixed size, theme fluid typography would shrink it)"
+			]
+		},
+		{
+			"value": "clamp(3rem, 8vw, 7.25rem)",
+			"px": "48–116",
+			"usedIn": [
+				"hero: display title"
+			]
+		},
+		{
+			"value": "clamp(1.25rem, 1.9vw, 1.625rem)",
+			"px": "20–26",
+			"usedIn": [
+				"hero: lead paragraph"
+			]
 		}
 	],
 	"letterSpacing": [
@@ -27,6 +64,36 @@
 			"usedIn": [
 				"header: navigation links",
 				"header: primary button"
+			]
+		},
+		{
+			"value": "0.42em",
+			"usedIn": [
+				"hero: eyebrow"
+			]
+		},
+		{
+			"value": "0.26em",
+			"usedIn": [
+				"hero: large buttons"
+			]
+		},
+		{
+			"value": "0.32em",
+			"usedIn": [
+				"hero: summary labels"
+			]
+		},
+		{
+			"value": "0.36em",
+			"usedIn": [
+				"hero: footer"
+			]
+		},
+		{
+			"value": "-0.015em",
+			"usedIn": [
+				"hero: display title"
 			]
 		}
 	],
@@ -79,6 +146,42 @@
 				"header: Menu e CTA gap"
 			],
 			"note": "Not a preset: core drops a clamp() typed in a block gap, so the value is in the blocks' CSS attribute (Advanced). A spacing preset would let it live in the gap control."
+		},
+		{
+			"value": "10rem",
+			"px": 160,
+			"usedIn": [
+				"hero: padding top"
+			]
+		},
+		{
+			"value": "clamp(5rem, 10vw, 8.75rem)",
+			"px": "80–140",
+			"usedIn": [
+				"hero: padding bottom"
+			]
+		},
+		{
+			"value": "1.5rem 2.375rem",
+			"px": "24 38",
+			"usedIn": [
+				"hero: large button padding"
+			]
+		},
+		{
+			"value": "0.875rem",
+			"px": 14,
+			"usedIn": [
+				"hero: gap between buttons",
+				"header/hero: arrow gap (Primary style)"
+			]
+		},
+		{
+			"value": "2.75rem / 3.75rem",
+			"px": "44 / 60",
+			"usedIn": [
+				"hero: columns gap (row / column)"
+			]
 		}
 	],
 	"radius": [
@@ -114,6 +217,36 @@
 			"note": "ivory at 68% (source rgba(239,236,228,0.68)); pixel-identical",
 			"usedIn": [
 				"header: navigation links"
+			]
+		},
+		{
+			"slug": "bronze-3",
+			"usedIn": [
+				"hero: eyebrow, stamp"
+			]
+		},
+		{
+			"slug": "line-dk-2",
+			"usedIn": [
+				"hero: summary border (rgba in @tablet/@mobile states is dropped by core; the preset keeps it)"
+			]
+		},
+		{
+			"value": "rgba(239,236,228,0.86)",
+			"usedIn": [
+				"hero: lead paragraph"
+			]
+		},
+		{
+			"value": "rgba(239,236,228,0.30)",
+			"usedIn": [
+				"hero: outline button border"
+			]
+		},
+		{
+			"value": "rgba(239,236,228,0.5)",
+			"usedIn": [
+				"hero: footer"
 			]
 		}
 	]

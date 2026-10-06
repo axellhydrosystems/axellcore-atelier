@@ -95,6 +95,16 @@ final class Icons {
 			)
 		);
 
+		// The same arrow at the large buttons' stroke (design/source .btn-lg
+		// .arrow: stroke-width 1.4), outlined the same way.
+		wp_register_icon(
+			self::COLLECTION . '/arrow-large',
+			array(
+				'label'   => __( 'Arrow (large)', 'axellcore-atelierclub' ),
+				'content' => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 10" width="18" height="10" fill="currentColor"><path d="M0 5.7 L16 5.7 L16 4.3 L0 4.3ZM16.494975 4.505025 L12.494975 0.505025 L11.505025 1.494975 L15.505025 5.494975ZM15.505025 4.505025 L11.505025 8.505025 L12.494975 9.494975 L16.494975 5.494975Z"/></svg>',
+			)
+		);
+
 		wp_register_icon(
 			self::COLLECTION . '/lock',
 			array(

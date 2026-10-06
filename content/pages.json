@@ -23,5 +23,10 @@
         "path": "pure/hero",
         "title": "Hero",
         "template": "page-no-title"
+    },
+    {
+        "path": "hero",
+        "title": "Hero",
+        "template": "atelier-section"
     }
 ]

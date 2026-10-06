@@ -135,7 +135,9 @@ final class Design_Tokens {
 	 * - "Bronze hover" on navigations: links turn bronze-2 on hover, no
 	 *   underline, like .nav-links a;
 	 * - "Ivory" on images: the dark logo rendered ivory, like .nav-logo img
-	 *   (a duotone filter gets within 1 level, not equal).
+	 *   (a duotone filter gets within 1 level, not equal);
+	 * - "Visually hidden" on groups: off screen but read by screen readers
+	 *   (the hero's page h1), like .visually-hidden.
 	 */
 	public function register_block_styles() {
 		$file = 'build/block-styles/style-frontend.css';
@@ -146,6 +148,8 @@ final class Design_Tokens {
 			'core/button'     => array( 'primary', __( 'Primary', 'axellcore-atelierclub' ) ),
 			'core/navigation' => array( 'bronze-hover', __( 'Bronze hover', 'axellcore-atelierclub' ) ),
 			'core/image'      => array( 'ivory', __( 'Ivory', 'axellcore-atelierclub' ) ),
+			'core/group'      => array( 'visually-hidden', __( 'Visually hidden', 'axellcore-atelierclub' ) ),
+			'core/paragraph'  => array( 'eyebrow', __( 'Eyebrow', 'axellcore-atelierclub' ) ),
 		);
 		foreach ( $styles as $block => list( $name, $label ) ) {
 			register_block_style(

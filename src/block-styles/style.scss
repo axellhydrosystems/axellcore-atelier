@@ -6,12 +6,12 @@
  */
 
 // "Primary" button: label and inline icon (the arrow) side by side, 14px
-// apart at the 10.5px label, and the .btn-primary hover (bronze-2, the
-// arrow 5px to the right).
+// apart (.btn gap), and the .btn-primary hover (bronze-2, the arrow 5px to
+// the right).
 .wp-block-button.is-style-primary .wp-block-button__link {
 	display: inline-flex;
 	align-items: center;
-	gap: 1.3333333333em;
+	gap: 0.875rem;
 	white-space: nowrap;
 	transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease;
 
@@ -48,4 +48,52 @@
 // "Ivory" image: the dark logo rendered ivory (.nav-logo img).
 .wp-block-image.is-style-ivory img {
 	filter: brightness(0) saturate(100%) invert(92%) sepia(5%) saturate(597%) hue-rotate(332deg) brightness(108%) contrast(87%);
+}
+
+// "Visually hidden" group: off screen, still read by screen readers (the
+// hero's page h1), like design/source .visually-hidden.
+.wp-block-group.is-style-visually-hidden {
+	position: absolute !important;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	white-space: nowrap;
+	border: 0;
+}
+
+// "Eyebrow" paragraph: the small caps line with a 40px rule on each side
+// (.hero-cap and its ::before / ::after), 20px apart, in the text color at
+// 50%.
+p.is-style-eyebrow {
+	display: inline-flex;
+	align-items: center;
+	gap: 1.25rem;
+
+	&::before,
+	&::after {
+		content: "";
+		display: inline-block;
+		width: 2.5rem;
+		height: 1px;
+		// The text color at 50% (.hero-cap rules: bronze-3 at 0.5).
+		background: currentcolor;
+		opacity: 0.5;
+	}
+}
+
+// Core "Outline" buttons on the Atelier pages: the .btn-ghost hover (border
+// and text bronze-2) and the .btn transition. Scoped to the Atelier page
+// templates so the theme's own outline buttons elsewhere keep their look.
+:is(.page-template-atelier-section, .page-template-atelier-club) .wp-block-button.is-style-outline .wp-block-button__link {
+	transition: all 0.4s ease;
+
+	&:hover {
+		border-color: var(--wp--preset--color--bronze-2) !important;
+		color: var(--wp--preset--color--bronze-2) !important;
+		// The theme tints outline buttons on hover; .btn-ghost stays clear.
+		background-color: transparent !important;
+	}
 }
