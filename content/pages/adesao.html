@@ -287,22 +287,6 @@
 <div class="wp-block-axell-form-check"><input type="checkbox" id="regulamento" name="regulamento" required aria-required="true"/><label for="regulamento" class="wp-block-axell-form-label">Li e concordo com o <a href="#">regulamento do Atelier Axell Club</a> e com o tratamento dos meus dados conforme a Política de Privacidade e a LGPD.</label></div>
 <!-- /wp:axell/form-check -->
 
-<!-- wp:axell/form-submission-notification -->
-<div hidden data-axell-notice-type="success" data-wp-bind--hidden="!state.isSuccess" class="wp-block-axell-form-submission-notification"><!-- wp:paragraph -->
-<p>Sua solicitação foi enviada.</p>
-<!-- /wp:paragraph -->
-
-<!-- wp:paragraph -->
-<p>A curadoria Axell entrará em contato em breve com o próximo passo. Bem-vindo(a) ao Atelier.</p>
-<!-- /wp:paragraph --></div>
-<!-- /wp:axell/form-submission-notification -->
-
-<!-- wp:axell/form-submission-notification {"type":"error"} -->
-<div hidden data-axell-notice-type="error" data-wp-bind--hidden="!state.isError" class="wp-block-axell-form-submission-notification"><!-- wp:paragraph -->
-<p>Não foi possível enviar sua solicitação. Tente novamente em instantes.</p>
-<!-- /wp:paragraph --></div>
-<!-- /wp:axell/form-submission-notification -->
-
 <!-- wp:group -->
 <div class="wp-block-group"><!-- wp:buttons -->
 <div class="wp-block-buttons"><!-- wp:button {"tagName":"button","type":"submit"} -->
@@ -313,7 +297,27 @@
 <!-- wp:paragraph -->
 <p>Ao enviar, você concorda em receber comunicações do Atelier Axell Club. Cadastro sujeito à aprovação da curadoria Axell.</p>
 <!-- /wp:paragraph --></div>
-<!-- /wp:group --></form>
+<!-- /wp:group -->
+
+<!-- wp:axell/form-submission-notification -->
+<div hidden data-axell-notice-type="success" data-wp-bind--hidden="!state.isSuccess" class="wp-block-axell-form-submission-notification"><!-- wp:group {"style":{"color":{"background":"#00d084","text":"#000000"},"elements":{"link":{"color":{"text":"#000000"}}},"spacing":{"padding":{"top":"1.25em","bottom":"1.25em","left":"2.375em","right":"2.375em"}}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group has-text-color has-background has-link-color" style="color:#000000;background-color:#00d084;padding-top:1.25em;padding-right:2.375em;padding-bottom:1.25em;padding-left:2.375em"><!-- wp:paragraph -->
+<p>Sua solicitação foi enviada.</p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph -->
+<p>A curadoria Axell entrará em contato em breve com o próximo passo. Bem-vindo(a) ao Atelier.</p>
+<!-- /wp:paragraph --></div>
+<!-- /wp:group --></div>
+<!-- /wp:axell/form-submission-notification -->
+
+<!-- wp:axell/form-submission-notification {"type":"error"} -->
+<div hidden data-axell-notice-type="error" data-wp-bind--hidden="!state.isError" class="wp-block-axell-form-submission-notification"><!-- wp:group {"style":{"color":{"background":"#cf2e2e","text":"#ffffff"},"elements":{"link":{"color":{"text":"#ffffff"}}},"spacing":{"padding":{"top":"1.25em","bottom":"1.25em","left":"2.375em","right":"2.375em"}}},"layout":{"type":"constrained"}} -->
+<div class="wp-block-group has-text-color has-background has-link-color" style="color:#ffffff;background-color:#cf2e2e;padding-top:1.25em;padding-right:2.375em;padding-bottom:1.25em;padding-left:2.375em"><!-- wp:paragraph -->
+<p>Não foi possível enviar sua solicitação. Tente novamente em instantes.</p>
+<!-- /wp:paragraph --></div>
+<!-- /wp:group --></div>
+<!-- /wp:axell/form-submission-notification --></form>
 <!-- /wp:axell/form --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns -->
