@@ -78,12 +78,13 @@ export function FormEdit(
 				.getClientIdsWithDescendants()
 				.filter( ( id ) => id !== clientId )
 				.some( ( id ) => be.getBlockAttributes( id )?.formId === attributes.formId );
+			// core/block-editor only keeps a fixed list of setting keys; the
+			// editor settings keep the custom ones (added in PHP).
+			const editorSettings = ( select( 'core/editor' ) as unknown as {
+				getEditorSettings: () => Record< string, unknown >;
+			} ).getEditorSettings();
 			return {
-				// core/block-editor only keeps a fixed list of setting keys; the
-				// editor settings keep the custom one (added in PHP).
-				postTypes: ( ( select( 'core/editor' ) as unknown as {
-					getEditorSettings: () => Record< string, unknown >;
-				} ).getEditorSettings().axellFormPostTypes || [] ) as { label: string; value: string }[],
+				postTypes: ( editorSettings.axellFormPostTypes || [] ) as { label: string; value: string }[],
 				duplicated: !! attributes.formId && others,
 				hasInner: be.getBlockCount( clientId ) > 0,
 			};

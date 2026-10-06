@@ -2,3 +2,14 @@
  * axell/form-control: editor styles, the same rules as the frontend (style.scss).
  */
 @use './style';
+
+/*
+ * In the editor a select is a preview: a click selects the block (to change its
+ * settings) instead of opening the list of options.
+ */
+.block-editor-block-list__layout {
+	// Selects inside a block wrapper (address, document): the click reaches the wrapper.
+	select.wp-block-axell-form-control:not(.block-editor-block-list__block) {
+		pointer-events: none;
+	}
+}

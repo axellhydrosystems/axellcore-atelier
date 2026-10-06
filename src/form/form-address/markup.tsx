@@ -9,6 +9,10 @@ export interface AddressArgs {
 	required?: boolean;
 	/** Name of the country field this control follows. */
 	countryField?: string;
+	/** Where the country comes from: a field of the form, or the settings. */
+	countrySource?: string;
+	/** Country chosen in the settings (countrySource "select"; '' = Outro). */
+	country?: string;
 	/** Name of the state field this control follows (city). */
 	stateField?: string;
 	/** City: search the cities of the state instead of a plain list. */
@@ -34,6 +38,13 @@ const FIELD = 'wp-block-axell-form-control';
  * has its own element (a select and a text field): the one that does not apply
  * is hidden and disabled, so only the active one is submitted.
  */
+/** How a control finds its country: the chosen one, or the linked field. */
+function countryLink( a: AddressArgs ): Record< string, unknown > {
+	return a.countrySource === 'select'
+		? { fixedCountry: a.country || '' }
+		: { countryField: a.countryField || 'pais' };
+}
+
 function region( a: AddressArgs, context: Record< string, unknown > ): Record< string, unknown > {
 	return {
 		...a.blockProps,
@@ -85,7 +96,7 @@ export function countryMarkup( a: AddressArgs ) {
 
 export function stateMarkup( a: AddressArgs ) {
 	return (
-		<div { ...region( a, { countryField: a.countryField || 'pais' } ) }>
+		<div { ...region( a, countryLink( a ) ) }>
 			<select
 				id={ a.id }
 				name={ a.name }
@@ -121,7 +132,7 @@ export function stateMarkup( a: AddressArgs ) {
 }
 
 export function cityMarkup( a: AddressArgs ) {
-	const links = { countryField: a.countryField || 'pais', stateField: a.stateField || 'uf' };
+	const links = { ...countryLink( a ), stateField: a.stateField || 'uf' };
 	const freeText = (
 		<input
 			type="text"
@@ -209,7 +220,7 @@ export function cityMarkup( a: AddressArgs ) {
 
 export function postalMarkup( a: AddressArgs ) {
 	return (
-		<div { ...region( a, { countryField: a.countryField || 'pais' } ) }>
+		<div { ...region( a, countryLink( a ) ) }>
 			<input
 				type="text"
 				id={ a.id }
@@ -219,6 +230,24 @@ export function postalMarkup( a: AddressArgs ) {
 				placeholder={ a.placeholder || undefined }
 				data-wp-on--input="actions.onPostalInput"
 				required={ a.required || undefined }
+			/>
+		</div>
+	);
+}
+
+export function phoneMarkup( a: AddressArgs ) {
+	return (
+		<div { ...region( a, countryLink( a ) ) }>
+			<input
+				type="tel"
+				id={ a.id }
+				name={ a.name }
+				className={ FIELD }
+				autoComplete="tel"
+				placeholder={ a.placeholder || undefined }
+				data-wp-on--input="actions.onPhoneInput"
+				required={ a.required || undefined }
+				aria-required={ a.required || undefined }
 			/>
 		</div>
 	);

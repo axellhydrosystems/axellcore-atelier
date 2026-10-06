@@ -83,6 +83,7 @@ final class Blocks {
 		register_block_type_from_metadata( AXELLCORE_ATELIERCLUB_PATH . 'build/form/form-control-state' );
 		register_block_type_from_metadata( AXELLCORE_ATELIERCLUB_PATH . 'build/form/form-control-city' );
 		register_block_type_from_metadata( AXELLCORE_ATELIERCLUB_PATH . 'build/form/form-control-postal' );
+		register_block_type_from_metadata( AXELLCORE_ATELIERCLUB_PATH . 'build/form/form-control-phone' );
 		register_block_type_from_metadata( AXELLCORE_ATELIERCLUB_PATH . 'build/form/form-fieldset' );
 		register_block_type_from_metadata( AXELLCORE_ATELIERCLUB_PATH . 'build/form/form-submission-notification' );
 		register_block_type_from_metadata( AXELLCORE_ATELIERCLUB_PATH . 'build/sticky-header' );

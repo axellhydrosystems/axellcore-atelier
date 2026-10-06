@@ -9,6 +9,7 @@ import {
 import type { BlockEditProps } from '@wordpress/blocks';
 import type { FormSelectAttributes, FormSelectOption } from './types';
 import SelectElement from './element';
+import { useSelectPreview } from '../form-control/select-preview';
 
 function optionsToText( options: FormSelectOption[] ): string {
 	return ( options || [] )
@@ -33,8 +34,9 @@ function textToOptions( text: string ): FormSelectOption[] {
 export default function Edit( {
 	attributes,
 	setAttributes,
+	clientId,
 }: BlockEditProps< FormSelectAttributes > ) {
-	const blockProps = useBlockProps();
+	const blockProps = useBlockProps( useSelectPreview( clientId, true ) );
 
 	return (
 		<>

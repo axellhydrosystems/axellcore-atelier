@@ -1,6 +1,6 @@
 import { __ } from '@wordpress/i18n';
 import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
-import { PanelBody, TextControl, ToggleControl } from '@wordpress/components';
+import { PanelBody, SelectControl, TextControl, ToggleControl } from '@wordpress/components';
 import type { BlockEditProps } from '@wordpress/blocks';
 import { cityMarkup } from '../form-address/markup';
 import type { AddressAttributes } from '../form-address/attributes';
@@ -32,11 +32,33 @@ export default function Edit( { attributes, setAttributes }: BlockEditProps< Add
 						value={ ( attributes.stateField as string ) || '' }
 						onChange={ ( value: string ) => setAttributes( { stateField: value } ) }
 					/>
-					<TextControl
-						label={ __( 'Campo do país (name)', 'axellcore-atelierclub' ) }
-						value={ ( attributes.countryField as string ) || '' }
-						onChange={ ( value: string ) => setAttributes( { countryField: value } ) }
+					<SelectControl
+						label={ __( 'País definido por', 'axellcore-atelierclub' ) }
+						value={ ( attributes.countrySource as string ) || 'field' }
+						options={ [
+							{ label: __( 'Campo', 'axellcore-atelierclub' ), value: 'field' },
+							{ label: __( 'Seleção', 'axellcore-atelierclub' ), value: 'select' },
+						] as { label: string; value: string }[] }
+						onChange={ ( value: string ) => setAttributes( { countrySource: value } ) }
 					/>
+					{ ( attributes.countrySource || 'field' ) === 'field' ? (
+						<TextControl
+							label={ __( 'Campo do país (name)', 'axellcore-atelierclub' ) }
+							value={ ( attributes.countryField as string ) || '' }
+							onChange={ ( value: string ) => setAttributes( { countryField: value } ) }
+						/>
+					) : (
+						<SelectControl
+							label={ __( 'País', 'axellcore-atelierclub' ) }
+							value={ ( attributes.country as string ) || '' }
+							options={ [
+								{ label: 'Brasil', value: 'BR' },
+								{ label: 'Estados Unidos', value: 'US' },
+								{ label: __( 'Outro', 'axellcore-atelierclub' ), value: '' },
+							] as { label: string; value: string }[] }
+							onChange={ ( value: string ) => setAttributes( { country: value } ) }
+						/>
+					) }
 					<ToggleControl
 						label={ __( 'Busca com autocomplete', 'axellcore-atelierclub' ) }
 						help={ __( 'No Brasil, digita-se o nome e escolhe-se a cidade da UF numa lista filtrada, em vez de um select.', 'axellcore-atelierclub' ) }
@@ -50,7 +72,7 @@ export default function Edit( { attributes, setAttributes }: BlockEditProps< Add
 					/>
 				</PanelBody>
 			</InspectorControls>
-			{ cityMarkup( { blockProps, id: attributes.id || undefined, name: attributes.name, placeholder: attributes.placeholder, required: attributes.required, stateField: attributes.stateField as string, searchable: !! attributes.searchable, countryField: attributes.countryField as string } ) }
+			{ cityMarkup( { blockProps, id: attributes.id || undefined, name: attributes.name, placeholder: attributes.placeholder, required: attributes.required, stateField: attributes.stateField as string, searchable: !! attributes.searchable, countryField: attributes.countryField as string, countrySource: attributes.countrySource as string, country: attributes.country as string } ) }
 		</>
 	);
 }

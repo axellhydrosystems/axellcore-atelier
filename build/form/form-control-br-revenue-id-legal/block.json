@@ -36,7 +36,9 @@
   "supports": {
     "html": false,
     "className": true,
-    "customClassName": true
+    "customClassName": true,
+    "interactivity": true
   },
-  "editorScript": "file:./index.js"
+  "editorScript": "file:./index.js",
+  "viewScriptModule": "axell-form-control-br-revenue-id-view-script-module"
 }

@@ -864,7 +864,7 @@ def apply_section():
                         {"label": "Pessoa Jurídica · CNPJ", "value": "cnpj"},
                     ])
                     field('text', 'documento', 'CPF ou CNPJ', True, '000.000.000-00 / 12.ABC.345/01DE-35',
-                                hint='Utilizado para emissão de bônus e nota fiscal. CNPJ alfanumérico é aceito.', mask='cpf-cnpj', mask_source='tipoDoc')
+                                hint='Utilizado para emissão de bônus e nota fiscal.', mask='cpf-cnpj', mask_source='tipoDoc')
                 form_row('aac-cols-2', row2)
             fieldset('02 — Documento', section2)
 

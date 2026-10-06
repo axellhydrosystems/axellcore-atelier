@@ -31,12 +31,18 @@
 		"required": {
 			"type": "boolean",
 			"default": false
+		},
+		"typeField": {
+			"type": "string",
+			"default": ""
 		}
 	},
 	"supports": {
 		"html": false,
 		"className": true,
-		"customClassName": true
+		"customClassName": true,
+		"interactivity": true
 	},
-	"editorScript": "file:./index.js"
+	"editorScript": "file:./index.js",
+	"viewScriptModule": "file:./view.ts"
 }

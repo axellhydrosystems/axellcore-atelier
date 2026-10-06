@@ -4,7 +4,8 @@
 		'wp-block-editor',
 		'wp-blocks',
 		'wp-components',
+		'wp-data',
 		'wp-i18n'
 	),
-	'version' => '0fa7d91b40a0331c7bd6'
+	'version' => 'a72f29855708d083333f'
 );

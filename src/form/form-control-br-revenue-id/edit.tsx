@@ -2,8 +2,7 @@ import { __ } from '@wordpress/i18n';
 import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
 import { PanelBody, TextControl, ToggleControl } from '@wordpress/components';
 import type { BlockEditProps } from '@wordpress/blocks';
-import ControlElement from '../form-control/control-element';
-import { controlAttributes, type BrDocumentAttributes } from './control';
+import { documentMarkup, type BrDocumentAttributes } from './markup';
 
 export default function Edit( { attributes, setAttributes }: BlockEditProps< BrDocumentAttributes > ) {
 	const blockProps = useBlockProps();
@@ -33,9 +32,15 @@ export default function Edit( { attributes, setAttributes }: BlockEditProps< BrD
 						checked={ !! attributes.required }
 						onChange={ ( value: boolean ) => setAttributes( { required: value } ) }
 					/>
+					<TextControl
+						label={ __( 'Campo do tipo (name)', 'axellcore-atelierclub' ) }
+						help={ __( 'Name do campo que define CPF ou CNPJ (valores cpf ou cnpj), por exemplo tipoDoc. Em branco, o tipo sai pelo tamanho do número.', 'axellcore-atelierclub' ) }
+						value={ attributes.typeField || '' }
+						onChange={ ( value: string ) => setAttributes( { typeField: value } ) }
+					/>
 				</PanelBody>
 			</InspectorControls>
-			{ ControlElement( controlAttributes( attributes ), false, setAttributes as never, blockProps ) }
+			{ documentMarkup( attributes, blockProps, '', true ) }
 		</>
 	);
 }

@@ -1,0 +1,56 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "axell/form-control-phone",
+  "title": "Form Control (Telefone)",
+  "category": "text",
+  "parent": [
+    "axell/form-group"
+  ],
+  "description": "Telefone com máscara conforme o país (Brasil, EUA ou outro).",
+  "keywords": [
+    "telefone",
+    "phone",
+    "tel",
+    "form"
+  ],
+  "textdomain": "axellcore-atelierclub",
+  "attributes": {
+    "id": {
+      "type": "string",
+      "default": ""
+    },
+    "name": {
+      "type": "string",
+      "default": "telefone"
+    },
+    "placeholder": {
+      "type": "string",
+      "default": "(11) 90000-0000"
+    },
+    "required": {
+      "type": "boolean",
+      "default": false
+    },
+    "countryField": {
+      "type": "string",
+      "default": "pais"
+    },
+    "countrySource": {
+      "type": "string",
+      "default": "field"
+    },
+    "country": {
+      "type": "string",
+      "default": "BR"
+    }
+  },
+  "supports": {
+    "html": false,
+    "className": true,
+    "customClassName": true,
+    "interactivity": true
+  },
+  "editorScript": "file:./index.js",
+  "viewScriptModule": "axell-form-control-country-view-script-module"
+}

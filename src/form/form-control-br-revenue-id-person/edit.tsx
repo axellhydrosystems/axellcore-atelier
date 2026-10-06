@@ -2,8 +2,7 @@ import { __ } from '@wordpress/i18n';
 import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
 import { PanelBody, TextControl, ToggleControl } from '@wordpress/components';
 import type { BlockEditProps } from '@wordpress/blocks';
-import ControlElement from '../form-control/control-element';
-import { controlAttributes, type BrDocumentAttributes } from '../form-control-br-revenue-id/control';
+import { documentMarkup, type BrDocumentAttributes } from '../form-control-br-revenue-id/markup';
 
 export default function Edit( { attributes, setAttributes }: BlockEditProps< BrDocumentAttributes > ) {
 	const blockProps = useBlockProps();
@@ -35,7 +34,7 @@ export default function Edit( { attributes, setAttributes }: BlockEditProps< BrD
 					/>
 				</PanelBody>
 			</InspectorControls>
-			{ ControlElement( controlAttributes( attributes, 'cpf' ), false, setAttributes as never, blockProps ) }
+			{ documentMarkup( attributes, blockProps, 'cpf', true ) }
 		</>
 	);
 }

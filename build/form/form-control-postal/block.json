@@ -37,6 +37,14 @@
     "countryField": {
       "type": "string",
       "default": "pais"
+    },
+    "countrySource": {
+      "type": "string",
+      "default": "field"
+    },
+    "country": {
+      "type": "string",
+      "default": "BR"
     }
   },
   "supports": {

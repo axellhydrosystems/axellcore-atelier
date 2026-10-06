@@ -10,6 +10,7 @@ import {
 import type { BlockEditProps } from '@wordpress/blocks';
 import type { FormControlAttributes, FormControlOption } from './types';
 import ControlElement from './control-element';
+import { useSelectPreview } from './select-preview';
 import './editor.scss';
 
 const MASK_OPTIONS = [
@@ -45,8 +46,9 @@ function textToOptions( text: string ): FormControlOption[] {
 export default function Edit( {
 	attributes,
 	setAttributes,
+	clientId,
 }: BlockEditProps< FormControlAttributes > ) {
-	const blockProps = useBlockProps();
+	const blockProps = useBlockProps( useSelectPreview( clientId, attributes.type === 'select' ) );
 
 	return (
 		<>

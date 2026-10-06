@@ -4,6 +4,8 @@ export interface AddressAttributes {
 	placeholder: string;
 	required: boolean;
 	countryField?: string;
+	countrySource?: string;
+	country?: string;
 	stateField?: string;
 	searchable?: boolean;
 	fixed?: string;

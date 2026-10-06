@@ -28,6 +28,11 @@ const ALLOWED_BLOCKS = [
 	'axell/form-control-state',
 	'axell/form-control-city',
 	'axell/form-control-postal',
+	'axell/form-control-phone',
+	'axell/form-control-reseller',
+	'axell/form-control-br-revenue-id',
+	'axell/form-control-br-revenue-id-person',
+	'axell/form-control-br-revenue-id-legal',
 ];
 
 const TEMPLATE: Array< [ string, Record< string, unknown > ] > = [

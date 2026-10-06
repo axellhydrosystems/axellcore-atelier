@@ -14,6 +14,8 @@ interface Option {
 interface ControlContext {
 	/** Id of the form the control belongs to (data-form-id), set on load. */
 	form: string;
+	/** Country chosen in the block settings ("Seleção"); empty = from the field. */
+	fixedCountry?: string;
 	countryField?: string;
 	stateField?: string;
 	/** City search: typed text, picked IBGE code, list open, active option. */
@@ -48,15 +50,22 @@ const here = () => getElement().ref as HTMLElement | null;
 const fold = ( text: string ) =>
 	text.normalize( 'NFD' ).replace( /[̀-ͯ]/g, '' ).toLowerCase();
 
+/** Country of a control: chosen in its settings, or the value of its country field. */
+function countryOf( context: ControlContext ): string {
+	if ( context.fixedCountry !== undefined ) {
+		return context.fixedCountry;
+	}
+	const s = state as unknown as AddressState;
+	return s.values[ `${ context.form }|${ context.countryField || 'pais' }` ] || '';
+}
+
 const { state } = store( 'axell/address', {
 	state: {
 		values: {},
 		cities: {},
 		/** Country of the control being evaluated (its countryField). */
 		get country(): string {
-			const context = getContext< ControlContext >();
-			const s = state as unknown as AddressState;
-			return s.values[ `${ context.form }|${ context.countryField || 'pais' }` ] || '';
+			return countryOf( getContext< ControlContext >() );
 		},
 		/** The state control shows a list (the country has one). */
 		get hasStateList(): boolean {
@@ -87,8 +96,7 @@ const { state } = store( 'axell/address', {
 			s.values[ key ] = uf;
 			s.cities[ key ] = [];
 
-			const context = getContext< ControlContext >();
-			const country = s.values[ keyOf( select, context.countryField || 'pais' ) ] || '';
+			const country = countryOf( getContext< ControlContext >() );
 			if ( ! uf || ! ( s.cityCountries || [] ).includes( country ) ) {
 				return;
 			}
@@ -187,10 +195,31 @@ const { state } = store( 'axell/address', {
 			context.active = -1;
 		},
 
+		/** Phone mask by country: (11) 90000-0000, (555) 555-5555, or as typed. */
+		onPhoneInput( event: Event ) {
+			const country = countryOf( getContext< ControlContext >() );
+			const input = event.target as HTMLInputElement;
+			const digits = input.value.replace( /\D/g, '' );
+			if ( country === 'BR' ) {
+				const v = digits.slice( 0, 11 );
+				input.value =
+					v.length > 10 ? v.replace( /^(\d{2})(\d{5})(\d{4}).*/, '($1) $2-$3' )
+					: v.length > 6 ? v.replace( /^(\d{2})(\d{4})(\d{0,4}).*/, '($1) $2-$3' )
+					: v.length > 2 ? v.replace( /^(\d{2})(\d{0,5}).*/, '($1) $2' )
+					: v.replace( /^(\d*)/, v ? '($1' : '' );
+			} else if ( country === 'US' ) {
+				const v = digits.slice( 0, 10 );
+				input.value =
+					v.length > 6 ? v.replace( /^(\d{3})(\d{3})(\d{0,4}).*/, '($1) $2-$3' )
+					: v.length > 3 ? v.replace( /^(\d{3})(\d{0,3}).*/, '($1) $2' )
+					: v.replace( /^(\d*)/, v ? '($1' : '' );
+			}
+		},
+
 		onPostalInput( event: Event ) {
 			const context = getContext< ControlContext >();
 			const input = event.target as HTMLInputElement;
-			const country = ( state as unknown as AddressState ).values[ keyOf( input, context.countryField || 'pais' ) ] || '';
+			const country = countryOf( context );
 			const digits = input.value.replace( /\D/g, '' );
 			if ( country === 'BR' ) {
 				const cep = digits.slice( 0, 8 );
