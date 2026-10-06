@@ -3,11 +3,11 @@
   "sections": {
     "header": {
       "phase": 2,
-      "note": "pure aprovado (post 754, menu 763); no-class aprovado em /atelier/header/ (post 772, mesmo menu 763, template atelier-section) a 0,00% em 1440/768/390 (2026-10-06)"
+      "note": "no-class aprovado em 2026-10-06: /atelier/header/ (post 772, template atelier-section) a 0,00% em 1440/768/390; pure /atelier/pure/header/ (post 754); menu wp_navigation 763 so com links; CTA Aderir fora do menu"
     },
     "hero": {
       "phase": 0,
-      "note": ""
+      "note": "pure em /atelier/pure/hero/ (post 816), aguardando aprovacao"
     },
     "convite": {
       "phase": 0,

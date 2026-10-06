@@ -18,5 +18,10 @@
         "path": "pure/header",
         "title": "Header",
         "template": "page-no-title"
+    },
+    {
+        "path": "pure/hero",
+        "title": "Hero",
+        "template": "page-no-title"
     }
 ]
