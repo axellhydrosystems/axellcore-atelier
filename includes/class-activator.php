@@ -42,6 +42,8 @@ final class Activator {
 	 * without creating duplicates.
 	 */
 	public static function activate() {
+		self::import_media();
+
 		self::create_template_part(
 			self::HEADER_SLUG,
 			__( 'Atelier — Header', 'axellcore-atelierclub' ),
@@ -145,7 +147,7 @@ final class Activator {
 		$contents = array();
 		$parts    = array();
 		foreach ( self::descendants() as $page ) {
-			$contents[ $page['path'] ] = self::read_content_file( self::page_file( $page['path'] ), '' );
+			$contents[ $page['path'] ] = self::read_raw_file( self::page_file( $page['path'] ) );
 			$parts[]                   = $page['path'] . ':' . md5( $contents[ $page['path'] ] );
 		}
 		$hash = md5( implode( '|', $parts ) );
@@ -155,7 +157,7 @@ final class Activator {
 		}
 
 		foreach ( $contents as $path => $content ) {
-			self::sync_page( $path, $content );
+			self::sync_page( $path, '' === $content ? '' : self::localize_media( $content ) );
 		}
 
 		update_option( self::PAGES_SYNC_OPTION, $hash, false );
@@ -298,13 +300,192 @@ final class Activator {
 	 * @return string
 	 */
 	private static function read_content_file( string $path, string $fallback ): string {
+		$content = self::read_raw_file( $path );
+		return '' !== $content ? self::localize_media( $content ) : $fallback;
+	}
+
+	/**
+	 * A bundled content file as it is on disk, or '' if missing/empty.
+	 *
+	 * @param string $path Absolute file path.
+	 * @return string
+	 */
+	private static function read_raw_file( string $path ): string {
 		if ( file_exists( $path ) ) {
 			$content = file_get_contents( $path ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
 			if ( false !== $content && '' !== trim( $content ) ) {
 				return $content;
 			}
 		}
-		return $fallback;
+		return '';
 	}
 
+	/**
+	 * Post meta marking an attachment imported from content/media/ (value:
+	 * the file name), so it is found again instead of imported twice.
+	 */
+	const MEDIA_META = '_axellcore_atelierclub_media';
+
+	/**
+	 * Map of exported attachment id => array{id:int,url:string,old_url:string}
+	 * for this site, or null until built.
+	 *
+	 * @var array<int,array{id:int,url:string,old_url:string}>|null
+	 */
+	private static $media_map = null;
+
+	/**
+	 * Media the content uses, from content/media.json (written by
+	 * bin/export-content.sh): file name, the attachment id and URL on the
+	 * site that exported it, title and alt text.
+	 *
+	 * @return array<int,array{file:string,id:int,url:string,title:string,alt:string}>
+	 */
+	private static function media_entries() {
+		$file = AXELLCORE_ATELIERCLUB_PATH . 'content/media.json';
+		if ( ! file_exists( $file ) ) {
+			return array();
+		}
+		$entries = json_decode( (string) file_get_contents( $file ), true ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+		if ( ! is_array( $entries ) ) {
+			return array();
+		}
+		$valid = array();
+		foreach ( $entries as $entry ) {
+			if ( is_array( $entry ) && ! empty( $entry['file'] ) && ! empty( $entry['id'] ) ) {
+				$valid[] = array(
+					'file'  => basename( (string) $entry['file'] ),
+					'id'    => (int) $entry['id'],
+					'url'   => (string) ( $entry['url'] ?? '' ),
+					'title' => (string) ( $entry['title'] ?? '' ),
+					'alt'   => (string) ( $entry['alt'] ?? '' ),
+				);
+			}
+		}
+		return $valid;
+	}
+
+	/**
+	 * Attachment previously imported for a media file, if any.
+	 *
+	 * @param string $file File name in content/media/.
+	 * @return int Attachment id, or 0.
+	 */
+	private static function find_media( $file ) {
+		$ids = get_posts(
+			array(
+				'post_type'      => 'attachment',
+				'post_status'    => 'inherit',
+				'meta_key'       => self::MEDIA_META, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
+				'meta_value'     => $file, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value
+				'fields'         => 'ids',
+				'posts_per_page' => 1,
+				'no_found_rows'  => true,
+			)
+		);
+		return $ids ? (int) $ids[0] : 0;
+	}
+
+	/**
+	 * Import the media files the content uses into the media library, unless
+	 * already there. The files are copied into uploads directly (not through
+	 * the upload checks): they are our own bundled files, and a type such as
+	 * SVG may not be allowed for uploads on the site.
+	 */
+	private static function import_media() {
+		foreach ( self::media_entries() as $entry ) {
+			$source = AXELLCORE_ATELIERCLUB_PATH . 'content/media/' . $entry['file'];
+			if ( self::find_media( $entry['file'] ) || ! file_exists( $source ) ) {
+				continue;
+			}
+
+			$type = wp_check_filetype( $entry['file'], wp_get_mime_types() + array( 'svg' => 'image/svg+xml' ) );
+			if ( empty( $type['type'] ) ) {
+				continue;
+			}
+
+			$uploads = wp_upload_dir();
+			if ( ! empty( $uploads['error'] ) || ! wp_mkdir_p( $uploads['path'] ) ) {
+				continue;
+			}
+			$name = wp_unique_filename( $uploads['path'], $entry['file'] );
+			$path = trailingslashit( $uploads['path'] ) . $name;
+			if ( ! copy( $source, $path ) ) {
+				continue;
+			}
+
+			$id = wp_insert_attachment(
+				array(
+					'post_mime_type' => $type['type'],
+					'post_title'     => '' !== $entry['title'] ? $entry['title'] : pathinfo( $entry['file'], PATHINFO_FILENAME ),
+					'post_status'    => 'inherit',
+				),
+				$path,
+				0,
+				true
+			);
+			if ( is_wp_error( $id ) || ! $id ) {
+				continue;
+			}
+
+			require_once ABSPATH . 'wp-admin/includes/image.php';
+			wp_update_attachment_metadata( $id, wp_generate_attachment_metadata( $id, $path ) );
+			update_post_meta( $id, self::MEDIA_META, $entry['file'] );
+			if ( '' !== $entry['alt'] ) {
+				update_post_meta( $id, '_wp_attachment_image_alt', $entry['alt'] );
+			}
+		}
+		self::$media_map = null;
+	}
+
+	/**
+	 * Point the content at this site's attachments: the exported URL becomes
+	 * the attachment URL here, and the exported id becomes the local one in
+	 * the image class (wp-image-{id}) and in the image block's "id".
+	 *
+	 * @param string $content Block markup from content/.
+	 * @return string
+	 */
+	private static function localize_media( $content ) {
+		if ( null === self::$media_map ) {
+			self::$media_map = array();
+			foreach ( self::media_entries() as $entry ) {
+				$id = self::find_media( $entry['file'] );
+				if ( $id ) {
+					self::$media_map[ $entry['id'] ] = array(
+						'id'      => $id,
+						'url'     => (string) wp_get_attachment_url( $id ),
+						'old_url' => $entry['url'],
+					);
+				}
+			}
+		}
+
+		$map = self::$media_map;
+		foreach ( $map as $media ) {
+			if ( '' !== $media['old_url'] && '' !== $media['url'] ) {
+				$content = str_replace( $media['old_url'], $media['url'], $content );
+			}
+		}
+
+		$content = preg_replace_callback(
+			'/\bwp-image-(\d+)\b/',
+			function ( $m ) use ( $map ) {
+				return isset( $map[ (int) $m[1] ] ) ? 'wp-image-' . $map[ (int) $m[1] ]['id'] : $m[0];
+			},
+			$content
+		);
+
+		return (string) preg_replace_callback(
+			'/<!-- wp:image (\{.*?\}) (\/)?-->/',
+			function ( $m ) use ( $map ) {
+				$attrs = json_decode( $m[1], true );
+				if ( ! is_array( $attrs ) || ! isset( $attrs['id'], $map[ (int) $attrs['id'] ] ) ) {
+					return $m[0];
+				}
+				return (string) preg_replace( '/"id":' . (int) $attrs['id'] . '(?=[,}])/', '"id":' . $map[ (int) $attrs['id'] ]['id'], $m[0], 1 );
+			},
+			$content
+		);
+	}
 }

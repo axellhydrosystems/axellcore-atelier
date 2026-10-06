@@ -3,7 +3,7 @@
 # Activator reads on activation: atelier-page.html (landing), pages.json (every
 # page under /atelier: path, title, template, parents first) with
 # pages/{path}.html (e.g. pages/pure/adesao.html), and header-part.html /
-# footer-part.html. Also regenerates the axell/form-atelier template.ts. Run
+# footer-part.html, plus media/ + media.json (images the content uses). Also regenerates the axell/form-atelier template.ts. Run
 # from anywhere while the Studio site is running. The database is the source of
 # truth; this only copies it into the repository.
 set -euo pipefail
@@ -79,6 +79,43 @@ foreach ( $parts as $slug => $file ) {
 		echo $file . "\n";
 	}
 }
+
+// Media used by the exported content (images with a wp-image-{id} class):
+// the files go to media/ and media.json keeps the id and URL they had here,
+// so Activator can import them on a clean install and point the content at
+// the new attachments.
+$exported = '';
+foreach ( glob( $dir . '{*.html,pages/*.html,pages/*/*.html,pages/*/*/*.html}', GLOB_BRACE ) as $html ) {
+	$exported .= file_get_contents( $html );
+}
+preg_match_all( '/\bwp-image-(\d+)\b/', $exported, $found );
+$media_dir = $dir . 'media/';
+if ( ! is_dir( $media_dir ) ) {
+	mkdir( $media_dir, 0755, true );
+}
+foreach ( glob( $media_dir . '*' ) as $stale ) {
+	unlink( $stale );
+}
+$media = array();
+foreach ( array_unique( array_map( 'intval', $found[1] ) ) as $id ) {
+	$file = get_attached_file( $id );
+	if ( ! $file || ! file_exists( $file ) ) {
+		echo "media {$id} missing\n";
+		continue;
+	}
+	copy( $file, $media_dir . basename( $file ) );
+	update_post_meta( $id, '_axellcore_atelierclub_media', basename( $file ) );
+	$media[] = array(
+		'file'  => basename( $file ),
+		'id'    => $id,
+		'url'   => wp_get_attachment_url( $id ),
+		'title' => get_the_title( $id ),
+		'alt'   => (string) get_post_meta( $id, '_wp_attachment_image_alt', true ),
+	);
+	echo 'media/' . basename( $file ) . "\n";
+}
+file_put_contents( $dir . 'media.json', wp_json_encode( $media, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES ) . "\n" );
+echo "media.json\n";
 PHP
 )"
 
