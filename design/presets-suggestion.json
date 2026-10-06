@@ -1,0 +1,120 @@
+{
+	"about": "Suggested presets for the Atelier pages, collected section by section from the values the styled sections use (block attributes). Not applied: presets can clash with the active theme. Once every section is done, the values used in more than one place become presets (font sizes with fluid: false, spacing sizes) registered by the plugin, and the blocks switch to var:preset references. Colors are already presets (includes/class-design-tokens.php).",
+	"sections": [
+		"header"
+	],
+	"fontSizes": [
+		{
+			"value": "0.6875rem",
+			"px": 11,
+			"slug": "x-small",
+			"usedIn": [
+				"header: navigation links"
+			]
+		},
+		{
+			"value": "0.65625rem",
+			"px": 10.5,
+			"slug": "xx-small",
+			"usedIn": [
+				"header: primary button"
+			]
+		}
+	],
+	"letterSpacing": [
+		{
+			"value": "0.24em",
+			"usedIn": [
+				"header: navigation links",
+				"header: primary button"
+			]
+		}
+	],
+	"lineHeight": [
+		{
+			"value": "1.6",
+			"usedIn": [
+				"header: navigation",
+				"header: primary button",
+				"source body"
+			]
+		}
+	],
+	"spacing": [
+		{
+			"value": "1.5rem",
+			"px": 24,
+			"usedIn": [
+				"header: padding top and bottom"
+			]
+		},
+		{
+			"value": "clamp(1.25rem, 4vw, 3.75rem)",
+			"px": "20–60",
+			"slug": "gutter",
+			"usedIn": [
+				"header: padding left and right (source --gutter)"
+			]
+		},
+		{
+			"value": "0.875rem 1.375rem",
+			"px": "14 22",
+			"usedIn": [
+				"header: primary button padding (nav size)"
+			]
+		},
+		{
+			"value": "0.5rem",
+			"px": 8,
+			"usedIn": [
+				"header: navigation link padding (Bronze hover style)"
+			]
+		},
+		{
+			"value": "clamp(0px, 0.8vw, 1.25rem)",
+			"px": "0–20 (11.52 at 1440, 20 from 2500)",
+			"slug": "gap-x",
+			"usedIn": [
+				"header: navigation gap",
+				"header: Menu e CTA gap"
+			],
+			"note": "Not a preset: core drops a clamp() typed in a block gap, so the value is in the blocks' CSS attribute (Advanced). A spacing preset would let it live in the gap control."
+		}
+	],
+	"radius": [
+		{
+			"value": "50rem",
+			"usedIn": [
+				"header: primary button (pill)"
+			]
+		}
+	],
+	"colors": [
+		{
+			"slug": "ink",
+			"usedIn": [
+				"section template background",
+				"header: primary button text"
+			]
+		},
+		{
+			"slug": "bronze",
+			"usedIn": [
+				"header: primary button background and border"
+			]
+		},
+		{
+			"slug": "bronze-2",
+			"usedIn": [
+				"header: hover of links and button (block styles)"
+			]
+		},
+		{
+			"value": "#EFECE4AD",
+			"note": "ivory at 68% (source rgba(239,236,228,0.68)); pixel-identical",
+			"usedIn": [
+				"header: navigation links"
+			]
+		}
+	]
+}

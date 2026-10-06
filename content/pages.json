@@ -1,5 +1,10 @@
 [
     {
+        "path": "header",
+        "title": "Header",
+        "template": "atelier-section"
+    },
+    {
         "path": "pure",
         "title": "Pure",
         "template": "page-no-title"

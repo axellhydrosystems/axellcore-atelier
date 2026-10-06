@@ -84,6 +84,17 @@ final class Icons {
 		// library is fill/path-based for the same reason; matching that
 		// shape (single filled path, no stroke) is the correct fix, not an
 		// override of core CSS.
+		// The design's button arrow (design/source .btn .arrow: an 18x10 path
+		// stroked at 1.3), as the outline of that stroke so it is fill-only;
+		// renders pixel-identical to the stroked original.
+		wp_register_icon(
+			self::COLLECTION . '/arrow',
+			array(
+				'label'   => __( 'Arrow', 'axellcore-atelierclub' ),
+				'content' => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 10" width="18" height="10" fill="currentColor"><path d="M0 5.65 L16 5.65 L16 4.35 L0 4.35ZM16.459619 4.540381 L12.459619 0.540381 L11.540381 1.459619 L15.540381 5.459619ZM15.540381 4.540381 L11.540381 8.540381 L12.459619 9.459619 L16.459619 5.459619Z"/></svg>',
+			)
+		);
+
 		wp_register_icon(
 			self::COLLECTION . '/lock',
 			array(

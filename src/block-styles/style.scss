@@ -1,0 +1,51 @@
+/**
+ * Block style variations of the Atelier (registered in
+ * includes/class-design-tokens.php), for what has no block attribute:
+ * states, transitions and filters of design/source. Colors, sizes and
+ * spacing stay in the blocks' own attributes.
+ */
+
+// "Primary" button: label and inline icon (the arrow) side by side, 14px
+// apart at the 10.5px label, and the .btn-primary hover (bronze-2, the
+// arrow 5px to the right).
+.wp-block-button.is-style-primary .wp-block-button__link {
+	display: inline-flex;
+	align-items: center;
+	gap: 1.3333333333em;
+	white-space: nowrap;
+	transition: background-color 0.4s ease, border-color 0.4s ease, color 0.4s ease;
+
+	.aa-inline-icon {
+		flex: none;
+		width: 18px;
+		height: 10px;
+		transition: transform 0.4s ease;
+	}
+
+	&:hover {
+		background-color: var(--wp--preset--color--bronze-2) !important;
+		border-color: var(--wp--preset--color--bronze-2) !important;
+
+		.aa-inline-icon {
+			transform: translateX(5px);
+		}
+	}
+}
+
+// "Bronze hover" navigation: links turn bronze-2 on hover, no underline,
+// with a .5rem padding as hover and touch area (.nav-links a). The
+// navigation's gap is 1.25rem, so texts stay 36px apart.
+.wp-block-navigation.is-style-bronze-hover .wp-block-navigation-item__content {
+	padding: 0.5rem;
+	transition: color 0.3s ease;
+
+	&:hover {
+		color: var(--wp--preset--color--bronze-2);
+		text-decoration: none;
+	}
+}
+
+// "Ivory" image: the dark logo rendered ivory (.nav-logo img).
+.wp-block-image.is-style-ivory img {
+	filter: brightness(0) saturate(100%) invert(92%) sepia(5%) saturate(597%) hue-rotate(332deg) brightness(108%) contrast(87%);
+}

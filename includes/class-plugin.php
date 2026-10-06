@@ -68,6 +68,8 @@ final class Plugin {
 		Assets::instance()->register_hooks();
 		Blocks::instance()->register_hooks();
 		Icons::instance()->register_hooks();
+		Inline_Icon::register_hooks();
+		Design_Tokens::instance()->register_hooks();
 		Member::instance()->register_hooks();
 		Locations::instance()->register_hooks();
 		Members::instance()->register_hooks();

@@ -53,6 +53,39 @@ final class Template_Loader {
 		add_action( 'init', array( $this, 'register_template' ) );
 		add_filter( 'get_block_templates', array( $this, 'reindex_block_templates' ) );
 		add_filter( 'wp_theme_json_data_theme', array( $this, 'enable_position_sticky' ) );
+		add_filter( 'block_editor_settings_all', array( $this, 'show_section_template_in_editor' ), 10, 2 );
+	}
+
+	/**
+	 * Editor only: open section pages with their template shown (dark
+	 * background, no title, full width), as they render: in the post-only
+	 * mode the styled section sits on the white editor canvas. A rendering
+	 * mode the user picked in the editor still wins (a user preference).
+	 * Also keeps fixed blocks in the flow while editing.
+	 *
+	 * @param array                    $settings Editor settings.
+	 * @param \WP_Block_Editor_Context $context  Editor context.
+	 * @return array
+	 */
+	public function show_section_template_in_editor( $settings, $context ) {
+		if ( ! empty( $context->post ) && 'atelier-section' === get_page_template_slug( $context->post ) ) {
+			$settings['defaultRenderingMode'] = 'template-locked';
+		}
+		if ( ! empty( $context->post ) && Design_Tokens::is_atelier_page( $context->post ) ) {
+			$settings['styles']   = $settings['styles'] ?? array();
+			$settings['styles'][] = array(
+				'css'            => Design_Tokens::TEXT_RENDERING_CSS,
+				'__unstableType' => 'plugin',
+			);
+		}
+		// A fixed block (the Atelier header) stays in the flow in the editor,
+		// so it doesn't cover the blocks below it; it is fixed on the site.
+		$settings['styles']   = $settings['styles'] ?? array();
+		$settings['styles'][] = array(
+			'css'            => '.is-position-fixed{position:relative!important;top:auto!important;left:auto!important;right:auto!important}',
+			'__unstableType' => 'plugin',
+		);
+		return $settings;
 	}
 
 	/**
@@ -75,6 +108,18 @@ final class Template_Loader {
 				'title'       => __( 'Atelier — Blank Canvas', 'axellcore-atelierclub' ),
 				'description' => __( 'Self-contained canvas for the Atelier Axell Club landing page. No header/footer template parts — the page content renders alone.', 'axellcore-atelierclub' ),
 				'content'     => file_get_contents( $template_path ), // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+				'post_types'  => array( 'page' ),
+			)
+		);
+
+		// Pages of one styled section (/atelier/<section>/): only the page
+		// content, on the page background of the design (body in the source).
+		register_block_template(
+			'axellcore-atelierclub//atelier-section',
+			array(
+				'title'       => __( 'Atelier — Section', 'axellcore-atelierclub' ),
+				'description' => __( 'One styled section of the Atelier landing page on its own: the page content on the design background, without header or footer.', 'axellcore-atelierclub' ),
+				'content'     => file_get_contents( AXELLCORE_ATELIERCLUB_PATH . 'templates/atelier-section.html' ), // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
 				'post_types'  => array( 'page' ),
 			)
 		);
@@ -104,6 +149,7 @@ final class Template_Loader {
 				'settings' => array(
 					'position' => array(
 						'sticky' => true,
+						'fixed'  => true,
 					),
 				),
 			)
