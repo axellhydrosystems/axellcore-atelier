@@ -2,8 +2,8 @@
   "_phases": "0 none, 1 pure approved, 2 no-class approved (0.00%), 3 in /atelier, 4 in template parts",
   "sections": {
     "header": {
-      "phase": 0,
-      "note": "pure em /atelier/pure/header/ (post 754), aguardando aprovação"
+      "phase": 1,
+      "note": "pure aprovado em 2026-10-06 (/atelier/pure/header/, post 754, menu wp_navigation 763); logo -> /atelier/pure/ (sera /atelier/ no final); links por ancora"
     },
     "hero": {
       "phase": 0,

@@ -43,6 +43,7 @@ final class Activator {
 	 */
 	public static function activate() {
 		self::import_media();
+		self::import_navigation();
 
 		self::create_template_part(
 			self::HEADER_SLUG,
@@ -136,6 +137,32 @@ final class Activator {
 	 */
 	public static function register_hooks() {
 		add_action( 'init', array( __CLASS__, 'maybe_sync_pages' ), 25 );
+		add_filter( 'block_core_navigation_render_fallback', array( __CLASS__, 'skip_own_navigation_fallback' ) );
+	}
+
+	/**
+	 * A navigation block without a menu (e.g. the theme header's) falls back
+	 * to the most recently published wp_navigation post, which would be a menu
+	 * this plugin created for its own pages. Use the core page list instead
+	 * in that case.
+	 *
+	 * @param array[] $fallback_blocks Fallback blocks chosen by core.
+	 * @return array[]
+	 */
+	public static function skip_own_navigation_fallback( $fallback_blocks ) {
+		$navigation = \WP_Navigation_Fallback::get_fallback();
+		if ( ! $navigation instanceof \WP_Post || ! get_post_meta( $navigation->ID, self::NAVIGATION_META, true ) ) {
+			return $fallback_blocks;
+		}
+		return array(
+			array(
+				'blockName'    => 'core/page-list',
+				'attrs'        => array(),
+				'innerBlocks'  => array(),
+				'innerHTML'    => '',
+				'innerContent' => array(),
+			),
+		);
 	}
 
 	/**
@@ -150,6 +177,11 @@ final class Activator {
 			$contents[ $page['path'] ] = self::read_raw_file( self::page_file( $page['path'] ) );
 			$parts[]                   = $page['path'] . ':' . md5( $contents[ $page['path'] ] );
 		}
+		$navigation = array();
+		foreach ( self::navigation_entries() as $entry ) {
+			$navigation[ $entry['file'] ] = self::read_raw_file( self::navigation_file( $entry['file'] ) );
+			$parts[]                      = 'navigation/' . $entry['file'] . ':' . md5( $navigation[ $entry['file'] ] );
+		}
 		$hash = md5( implode( '|', $parts ) );
 
 		if ( get_option( self::PAGES_SYNC_OPTION ) === $hash ) {
@@ -157,7 +189,24 @@ final class Activator {
 		}
 
 		foreach ( $contents as $path => $content ) {
-			self::sync_page( $path, '' === $content ? '' : self::localize_media( $content ) );
+			self::sync_page( $path, '' === $content ? '' : self::localize( $content ) );
+		}
+
+		foreach ( $navigation as $file => $content ) {
+			$id = self::find_navigation( $file );
+			if ( $id && '' !== $content ) {
+				$content = self::localize( $content );
+				if ( get_post_field( 'post_content', $id ) !== $content ) {
+					kses_remove_filters();
+					wp_update_post(
+						array(
+							'ID'           => $id,
+							'post_content' => wp_slash( $content ),
+						)
+					);
+					kses_init_filters();
+				}
+			}
 		}
 
 		update_option( self::PAGES_SYNC_OPTION, $hash, false );
@@ -301,7 +350,7 @@ final class Activator {
 	 */
 	private static function read_content_file( string $path, string $fallback ): string {
 		$content = self::read_raw_file( $path );
-		return '' !== $content ? self::localize_media( $content ) : $fallback;
+		return '' !== $content ? self::localize( $content ) : $fallback;
 	}
 
 	/**
@@ -484,6 +533,137 @@ final class Activator {
 					return $m[0];
 				}
 				return (string) preg_replace( '/"id":' . (int) $attrs['id'] . '(?=[,}])/', '"id":' . $map[ (int) $attrs['id'] ]['id'], $m[0], 1 );
+			},
+			$content
+		);
+	}
+
+	/**
+	 * Content with this site's attachments and navigation menus.
+	 *
+	 * @param string $content Block markup from content/.
+	 * @return string
+	 */
+	private static function localize( $content ) {
+		return self::localize_navigation( self::localize_media( $content ) );
+	}
+
+	/**
+	 * Post meta marking a wp_navigation post created from content/navigation/
+	 * (value: the file name).
+	 */
+	const NAVIGATION_META = '_axellcore_atelierclub_navigation';
+
+	/**
+	 * Navigation menus the content uses, from content/navigation.json (written
+	 * by bin/export-content.sh): file in content/navigation/, the menu's id on
+	 * the site that exported it, and its title.
+	 *
+	 * @return array<int,array{file:string,id:int,title:string}>
+	 */
+	private static function navigation_entries() {
+		$file = AXELLCORE_ATELIERCLUB_PATH . 'content/navigation.json';
+		if ( ! file_exists( $file ) ) {
+			return array();
+		}
+		$entries = json_decode( (string) file_get_contents( $file ), true ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+		if ( ! is_array( $entries ) ) {
+			return array();
+		}
+		$valid = array();
+		foreach ( $entries as $entry ) {
+			if ( is_array( $entry ) && ! empty( $entry['file'] ) && ! empty( $entry['id'] ) ) {
+				$valid[] = array(
+					'file'  => basename( (string) $entry['file'] ),
+					'id'    => (int) $entry['id'],
+					'title' => (string) ( $entry['title'] ?? '' ),
+				);
+			}
+		}
+		return $valid;
+	}
+
+	/**
+	 * Path of a navigation menu's content file.
+	 *
+	 * @param string $file File name in content/navigation/.
+	 * @return string
+	 */
+	private static function navigation_file( $file ) {
+		return AXELLCORE_ATELIERCLUB_PATH . 'content/navigation/' . $file;
+	}
+
+	/**
+	 * Navigation menu previously created for a content file, if any.
+	 *
+	 * @param string $file File name in content/navigation/.
+	 * @return int Post id, or 0.
+	 */
+	private static function find_navigation( $file ) {
+		$ids = get_posts(
+			array(
+				'post_type'      => 'wp_navigation',
+				'post_status'    => array( 'publish', 'draft' ),
+				'meta_key'       => self::NAVIGATION_META, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key
+				'meta_value'     => $file, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value
+				'fields'         => 'ids',
+				'posts_per_page' => 1,
+				'no_found_rows'  => true,
+			)
+		);
+		return $ids ? (int) $ids[0] : 0;
+	}
+
+	/**
+	 * Create the navigation menus the content uses, unless already there.
+	 */
+	private static function import_navigation() {
+		foreach ( self::navigation_entries() as $entry ) {
+			$content = self::read_raw_file( self::navigation_file( $entry['file'] ) );
+			if ( self::find_navigation( $entry['file'] ) || '' === $content ) {
+				continue;
+			}
+			$id = self::insert_trusted_content(
+				array(
+					'post_type'    => 'wp_navigation',
+					'post_title'   => '' !== $entry['title'] ? $entry['title'] : pathinfo( $entry['file'], PATHINFO_FILENAME ),
+					'post_status'  => 'publish',
+					'post_content' => self::localize_media( $content ),
+				)
+			);
+			if ( ! is_wp_error( $id ) && $id ) {
+				update_post_meta( $id, self::NAVIGATION_META, $entry['file'] );
+			}
+		}
+	}
+
+	/**
+	 * Point navigation blocks at this site's menus: the exported "ref"
+	 * becomes the id of the menu created from the same file.
+	 *
+	 * @param string $content Block markup from content/.
+	 * @return string
+	 */
+	private static function localize_navigation( $content ) {
+		$map = array();
+		foreach ( self::navigation_entries() as $entry ) {
+			$id = self::find_navigation( $entry['file'] );
+			if ( $id ) {
+				$map[ $entry['id'] ] = $id;
+			}
+		}
+		if ( ! $map ) {
+			return $content;
+		}
+
+		return (string) preg_replace_callback(
+			'/<!-- wp:navigation (\{.*?\}) (\/)?-->/',
+			function ( $m ) use ( $map ) {
+				$attrs = json_decode( $m[1], true );
+				if ( ! is_array( $attrs ) || ! isset( $attrs['ref'], $map[ (int) $attrs['ref'] ] ) ) {
+					return $m[0];
+				}
+				return (string) preg_replace( '/"ref":' . (int) $attrs['ref'] . '(?=[,}])/', '"ref":' . $map[ (int) $attrs['ref'] ], $m[0], 1 );
 			},
 			$content
 		);

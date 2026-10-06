@@ -2,9 +2,10 @@
 # Exports the live site's pages and template parts into content/, the files
 # Activator reads on activation: atelier-page.html (landing), pages.json (every
 # page under /atelier: path, title, template, parents first) with
-# pages/{path}.html (e.g. pages/pure/adesao.html), and header-part.html /
-# footer-part.html, plus media/ + media.json (images the content uses). Also regenerates the axell/form-atelier template.ts. Run
-# from anywhere while the Studio site is running. The database is the source of
+# pages/{path}.html (e.g. pages/pure/adesao.html), header-part.html /
+# footer-part.html, media/ + media.json (images the content uses) and
+# navigation/ + navigation.json (menus its navigation blocks reference). Also
+# regenerates the axell/form-atelier template.ts. Run from anywhere while the Studio site is running. The database is the source of
 # truth; this only copies it into the repository.
 set -euo pipefail
 
@@ -114,6 +115,37 @@ foreach ( array_unique( array_map( 'intval', $found[1] ) ) as $id ) {
 	);
 	echo 'media/' . basename( $file ) . "\n";
 }
+// Navigation menus the content references ("ref" of a navigation block): the
+// menu content goes to navigation/{slug}.html and navigation.json keeps the id
+// it had here, so Activator can create it and fix the "ref".
+preg_match_all( '/<!-- wp:navigation (\{.*?\}) \/?-->/', $exported, $navs );
+$nav_dir = $dir . 'navigation/';
+if ( ! is_dir( $nav_dir ) ) {
+	mkdir( $nav_dir, 0755, true );
+}
+foreach ( glob( $nav_dir . '*' ) as $stale ) {
+	unlink( $stale );
+}
+$navigation = array();
+foreach ( $navs[1] as $json ) {
+	$attrs = json_decode( $json, true );
+	$menu  = ! empty( $attrs['ref'] ) ? get_post( (int) $attrs['ref'] ) : null;
+	if ( ! $menu || 'wp_navigation' !== $menu->post_type || isset( $navigation[ $menu->ID ] ) ) {
+		continue;
+	}
+	$file = $menu->post_name . '.html';
+	file_put_contents( $nav_dir . $file, $menu->post_content );
+	update_post_meta( $menu->ID, '_axellcore_atelierclub_navigation', $file );
+	$navigation[ $menu->ID ] = array(
+		'file'  => $file,
+		'id'    => $menu->ID,
+		'title' => $menu->post_title,
+	);
+	echo 'navigation/' . $file . "\n";
+}
+file_put_contents( $dir . 'navigation.json', wp_json_encode( array_values( $navigation ), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES ) . "\n" );
+echo "navigation.json\n";
+
 file_put_contents( $dir . 'media.json', wp_json_encode( $media, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES ) . "\n" );
 echo "media.json\n";
 PHP
