@@ -373,7 +373,7 @@ final class Admin_Rest {
 			if ( '' === $data[ $field ] && ! $loja_id ) {
 				continue;
 			}
-			// A store linked to an assistencia shows its status: "pending" needs curation.
+			// A store linked to an revenda shows its status: "pending" needs curation.
 			$status  = $loja_id ? (string) get_post_status( $loja_id ) : '';
 			$lojas[] = array(
 				'field'   => $field,

@@ -131,7 +131,7 @@ export default function Edit( {
 								value={ attributes.sourcePostType }
 								options={ [
 									{ label: __( 'Choose…', 'axellcore-atelierclub' ), value: '' },
-									{ label: __( 'Assistências', 'axellcore-atelierclub' ), value: 'aas_assistencia' },
+									{ label: __( 'Revendas', 'axellcore-atelierclub' ), value: 'revendas' },
 								] as { label: string; value: string }[] }
 								onChange={ ( value: string ) =>
 									setAttributes( { sourcePostType: value } )
@@ -139,7 +139,7 @@ export default function Edit( {
 							/>
 							<TextControl
 								label={ __( 'Label template', 'axellcore-atelierclub' ) }
-								help={ __( 'Tokens: [post_title], [tax:cidade], [tax:estado], [meta:key]', 'axellcore-atelierclub' ) }
+								help={ __( 'Tokens: [post_title], [tax:cidades], [tax:estados:uf], [meta:key]', 'axellcore-atelierclub' ) }
 								value={ attributes.labelTemplate }
 								onChange={ ( value: string ) =>
 									setAttributes( { labelTemplate: value } )

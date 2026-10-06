@@ -58,7 +58,7 @@ final class Options_Rest {
 	 * @return string[]
 	 */
 	public static function allowed_post_types() {
-		return (array) apply_filters( 'axellcore_atelierclub_option_post_types', array( 'aas_assistencia' ) );
+		return (array) apply_filters( 'axellcore_atelierclub_option_post_types', array( 'revendas' ) );
 	}
 
 	/**

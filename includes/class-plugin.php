@@ -87,10 +87,10 @@ final class Plugin {
 		Members::instance()->register_hooks();
 		Form_Block::instance()->register_hooks();
 		Activator::register_hooks();
-		// City names per UF for the assistencias plugin, which only creates a
+		// City names per UF for the revendas plugin, which only creates a
 		// city term for a city in this list.
 		add_filter(
-			'axellcore_assistencias_city_names',
+			'axellcore_revendas_city_names',
 			static function ( $names, $uf ) {
 				$cities = include AXELLCORE_ATELIERCLUB_PATH . 'includes/data/br-cities.php';
 				return array_merge( (array) $names, array_values( $cities[ strtoupper( (string) $uf ) ] ?? array() ) );

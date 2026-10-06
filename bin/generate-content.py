@@ -896,15 +896,15 @@ def apply_section():
                 def partners():
                     paragraph('Onde você costuma especificar Axell?', 'aac-field-label-text')
                     paragraph('Liste até <strong style="color:var(--bronze-3);font-weight:500">cinco</strong> revendas ou showrooms parceiros com quem você trabalha. Preencha apenas o que fizer sentido — os campos vazios podem ficar em branco.', 'aac-hint')
-                    # Five autocomplete fields over the assistencia post type. The label
-                    # shows "[post_title] - [tax:estado] [tax:cidade]"; the form submits
+                    # Five autocomplete fields over the revenda post type. The label
+                    # shows "[post_title] - [tax:estados:uf] [tax:cidades]"; the form submits
                     # the ID (lojaN) and the shown text (lojaN_titulo). "Não encontrada"
                     # accepts free text.
                     for i in range(1, 6):
                         field('autocomplete', f'loja{i}', f'Loja parceira {i}', False,
                               placeholder='Nome da loja · cidade', visually_hidden=True,
-                              autocomplete={'postType': 'aas_assistencia',
-                                            'template': '[post_title] - [tax:estado] [tax:cidade]',
+                              autocomplete={'postType': 'revenda',
+                                            'template': '[post_title] - [tax:estados:uf] [tax:cidades]',
                                             'allowNotFound': True})
                 group('aac-partner-slots', partners)
             fieldset('04 — Lojas parceiras', section4)

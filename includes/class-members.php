@@ -210,7 +210,7 @@ final class Members {
 				continue;
 			}
 			// Custom store: a text "Nome - UF Cidade" that matches becomes a
-			// pending assistencia (see axellcore-assistencias), and its ID is kept.
+			// pending revenda (see axellcore-revendas), and its ID is kept.
 			if ( 0 === $id ) {
 				$id = (int) apply_filters( 'axellcore_atelierclub_loja_text', 0, $title );
 			}

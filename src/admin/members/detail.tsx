@@ -364,7 +364,7 @@ export default function MemberDetailView( {
 }
 
 /**
- * Warning sign shown next to a store whose assistencia is still pending.
+ * Warning sign shown next to a store whose revenda is still pending.
  */
 function WarningIcon() {
 	return (
@@ -383,7 +383,7 @@ function WarningIcon() {
 }
 
 /**
- * The partner stores of the member. A store linked to an assistencia that is
+ * The partner stores of the member. A store linked to an revenda that is
  * still pending shows a warning and a link to open it for curation.
  * @param root0
  * @param root0.lojas
