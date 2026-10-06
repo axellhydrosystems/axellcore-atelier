@@ -1,0 +1,49 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "axell/form-control-reseller",
+  "title": "Form Control (revenda)",
+  "category": "text",
+  "parent": [
+    "axell/form-group"
+  ],
+  "description": "Campo de busca de revendas: escolhe uma revenda cadastrada ou adiciona uma nova (Nome, UF e Cidade).",
+  "keywords": [
+    "revenda",
+    "revendas",
+    "loja",
+    "autocomplete",
+    "form"
+  ],
+  "textdomain": "axellcore-atelierclub",
+  "attributes": {
+    "id": {
+      "type": "string",
+      "default": ""
+    },
+    "name": {
+      "type": "string",
+      "default": ""
+    },
+    "placeholder": {
+      "type": "string",
+      "default": ""
+    },
+    "required": {
+      "type": "boolean",
+      "default": false
+    },
+    "allowNotFound": {
+      "type": "boolean",
+      "default": true
+    }
+  },
+  "supports": {
+    "html": false,
+    "className": true,
+    "customClassName": true,
+    "interactivity": true
+  },
+  "editorScript": "file:./index.js",
+  "viewScriptModule": "file:./view.js"
+}

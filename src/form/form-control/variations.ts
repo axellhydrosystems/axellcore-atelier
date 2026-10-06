@@ -106,16 +106,6 @@ const VARIATIONS: Array< BlockVariation< Partial< FormControlAttributes > > > =
 			scope: [ 'inserter', 'transform' ],
 			isActive: isType( 'hidden' ),
 		},
-		{
-			name: 'autocomplete',
-			title: __( 'Form Control (autocomplete)', 'axellcore-atelierclub' ),
-			description: __( 'A text field that suggests posts as you type.', 'axellcore-atelierclub' ),
-			icon: controlIcon,
-			attributes: { type: 'autocomplete' },
-			isDefault: false,
-			scope: [ 'inserter', 'transform' ],
-			isActive: isType( 'autocomplete' ),
-		},
 	];
 
 VARIATIONS.forEach( ( variation ) => {
