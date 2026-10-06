@@ -111,7 +111,7 @@ final class Form_Submission {
 
 		$form = self::find_form( absint( $params['post_id'] ?? 0 ), sanitize_key( $params['form_id'] ?? '' ) );
 		if ( null === $form ) {
-			return new \WP_Error( 'aac_form_not_found', __( 'Form not found.', 'axellcore-atelierclub' ), array( 'status' => 400 ) );
+			return new \WP_Error( 'aa_form_not_found', __( 'Form not found.', 'axellcore-atelierclub' ), array( 'status' => 400 ) );
 		}
 
 		$limited = Members::instance()->check_rate_limit( $ip );

@@ -20,7 +20,7 @@ Ships the "Atelier Axell Club" landing page at `/atelier` as a **plugin-owned
 FSE template** (`register_block_template()`, WP 6.7+), fully isolated from
 the active theme (no theme header/footer/global-styles CSS loads on this
 page). Content is authored as **WordPress core blocks** (Group, Columns,
-Heading, Paragraph, List, Buttons) styled via `aac-`-prefixed CSS classes —
+Heading, Paragraph, List, Buttons) styled via `aa-`-prefixed CSS classes —
 custom blocks exist only where core blocks can't do the job (the
 application form, and now the chapter-numbering wrapper).
 
@@ -71,8 +71,8 @@ block" warnings, no console errors) at every stage this session.
 - On `template_redirect`, unhooks the theme's own stylesheet, WP's
   `wp_enqueue_global_styles`, and `wp_common_block_scripts_and_styles` — all
   confirmed via direct `curl` of this install's `<head>` output.
-- Enqueues `aac-google-fonts`, `aac-tokens`, `aac-sections`,
-  `aac-blocks-bridge` (CSS) + `aac-frontend` (JS), gated to
+- Enqueues `aa-google-fonts`, `aa-tokens`, `aa-sections`,
+  `aa-blocks-bridge` (CSS) + `aa-frontend` (JS), gated to
   `is_page_template( Plugin::TEMPLATE_SLUG )`.
 
 **Known gap, not yet fixed:** there is **no `enqueue_block_editor_assets`
@@ -142,8 +142,8 @@ this fragility was real, not hypothetical).
 `axellcore/chapter` has a plain-string `label` attribute (e.g. "Manifesto")
 and its own `InnerBlocks` for that section's actual content. **Nothing about
 the visible "Capítulo NN" text is stored:**
-- the **number** is a CSS counter (`.aac-chapters{counter-reset:aac-chapter}`
-  / `.aac-chapter{counter-increment:aac-chapter}`) — reordering, adding, or
+- the **number** is a CSS counter (`.aa-chapters{counter-reset:aa-chapter}`
+  / `.aa-chapter{counter-increment:aa-chapter}`) — reordering, adding, or
   removing a chapter in the editor renumbers every chapter automatically.
 - the **word** ("Capítulo"/"Chapter") is a real, runtime-translated gettext
   string, injected as a `data-chapter="…"` HTML attribute — server-side via
@@ -152,7 +152,7 @@ the visible "Capítulo NN" text is stored:**
   freezing the word into `post_content`) and client-side via `wp.i18n.__()`
   in `edit()` (so the editor canvas matches — a block with its own `save()`
   never calls `render_callback` for its own canvas preview). CSS reads it
-  back with `content: attr(data-chapter) " " counter(aac-chapter,
+  back with `content: attr(data-chapter) " " counter(aa-chapter,
   decimal-leading-zero) " · "`.
 - All 10 sections (Convite, Manifesto, A Placa, Protagonistas, Proposta, O
   Nome, Como Entrar, Níveis, Benefícios, Editorial) are wrapped by
@@ -305,7 +305,7 @@ actual page copy).
 `/atelier-noclass` (`bin/generate-noclass-content.py`,
 `templates/atelier-club-noclass.html`, `content/noclass-full.html`) proved
 that this design is achievable almost entirely via native block style
-attributes instead of `aac-` CSS classes — see the
+attributes instead of `aa-` CSS classes — see the
 `wp-native-block-styling` global skill (`~/.claude/skills/`) for the full,
 reusable writeup of what was learned (which block supports process
 server-side vs. purely in the editor, the `position:sticky`/`layout`
@@ -317,7 +317,7 @@ scouting exercise, not a permanent second page. The next step is to:
    don't ship — no reason to maintain two parallel content pipelines).
 2. Apply the same native-attribute-first approach directly to the
    *production* `/atelier` page/generator (`bin/generate-content.py`),
-   replacing `aac-` classes wherever a native attribute genuinely covers
+   replacing `aa-` classes wherever a native attribute genuinely covers
    it, and keeping `assets/css/sections.css` only for the confirmed hard
    limits (CSS counters/pseudo-elements/backdrop-filter/transitions/
    multi-layer gradients — see the skill for the exact list).

@@ -18,7 +18,7 @@ export function v1Save( { attributes }: BlockSaveProps< LegacyAttributes > ) {
 	const blockProps = useBlockProps.save();
 	const innerBlocksProps = useInnerBlocksProps.save(
 		attributes.submitsToRest
-			? { ...blockProps, 'data-aac-club-form': '', noValidate: true }
+			? { ...blockProps, 'data-aa-club-form': '', noValidate: true }
 			: blockProps
 	);
 	return <form { ...innerBlocksProps } />;
@@ -69,7 +69,7 @@ export function v2Save( { attributes }: BlockSaveProps< LegacyAttributes > ) {
 /** "Membro (REST)" becomes "store into members". */
 export function migrateLegacy( attributes: LegacyAttributes ) {
 	const { submitsToRest, ...rest } = attributes;
-	return { ...rest, storePostType: submitsToRest ? 'aac_member' : '' };
+	return { ...rest, storePostType: submitsToRest ? 'aa_member' : '' };
 }
 
 export const LEGACY_ATTRIBUTES = {

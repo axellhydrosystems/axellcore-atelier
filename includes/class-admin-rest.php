@@ -1,6 +1,6 @@
 <?php
 /**
- * Admin-only REST endpoints backing the aac_member dashboard (DataViews list
+ * Admin-only REST endpoints backing the aa_member dashboard (DataViews list
  * + DataForms detail, see src/admin/members/):
  *  - GET  /axellcore-atelierclub/v1/admin/members       — paginated, filterable list.
  *  - GET  /axellcore-atelierclub/v1/admin/members/{id}  — full record.
@@ -182,7 +182,7 @@ final class Admin_Rest {
 		if ( 'title' === $request['orderby'] ) {
 			$args['orderby'] = 'title';
 		} elseif ( 'uf' === $request['orderby'] ) {
-			$args['meta_key'] = '_aac_uf'; // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key -- admin-only list, small dataset.
+			$args['meta_key'] = '_aa_uf'; // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key -- admin-only list, small dataset.
 			$args['orderby']  = 'meta_value';
 		} else {
 			$args['orderby'] = 'date';
@@ -231,7 +231,7 @@ final class Admin_Rest {
 		if ( isset( $params['nome'] ) ) {
 			$nome = $this->param_string( $params, 'nome' );
 			if ( '' === $nome ) {
-				return new \WP_Error( 'aac_missing_field', __( 'Name cannot be empty.', 'axellcore-atelierclub' ), array( 'status' => 400 ) );
+				return new \WP_Error( 'aa_missing_field', __( 'Name cannot be empty.', 'axellcore-atelierclub' ), array( 'status' => 400 ) );
 			}
 			$updated = wp_update_post(
 				array(
@@ -248,31 +248,31 @@ final class Admin_Rest {
 		if ( isset( $params['email'] ) ) {
 			$email = sanitize_email( $this->param_string( $params, 'email' ) );
 			if ( '' === $email || ! is_email( $email ) ) {
-				return new \WP_Error( 'aac_invalid_email', __( 'Invalid email address.', 'axellcore-atelierclub' ), array( 'status' => 400 ) );
+				return new \WP_Error( 'aa_invalid_email', __( 'Invalid email address.', 'axellcore-atelierclub' ), array( 'status' => 400 ) );
 			}
-			update_post_meta( $post->ID, '_aac_email', $email );
+			update_post_meta( $post->ID, '_aa_email', $email );
 		}
 
 		if ( isset( $params['portfolio'] ) ) {
-			$this->store_meta( $post->ID, '_aac_portfolio', esc_url_raw( $this->param_string( $params, 'portfolio' ) ) );
+			$this->store_meta( $post->ID, '_aa_portfolio', esc_url_raw( $this->param_string( $params, 'portfolio' ) ) );
 		}
 
 		if ( isset( $params['uf'] ) || isset( $params['cidade'] ) ) {
-			$uf   = strtoupper( sanitize_text_field( isset( $params['uf'] ) ? $this->param_string( $params, 'uf' ) : (string) get_post_meta( $post->ID, '_aac_uf', true ) ) );
+			$uf   = strtoupper( sanitize_text_field( isset( $params['uf'] ) ? $this->param_string( $params, 'uf' ) : (string) get_post_meta( $post->ID, '_aa_uf', true ) ) );
 			$code = isset( $params['cidade'] ) ? absint( $this->param_string( $params, 'cidade' ) ) : ( $this->city_code( $post->ID, $uf ) ?? 0 );
 
 			$term = Locations::instance()->resolve_city_term( $uf, $code );
 			if ( null === $term ) {
-				return new \WP_Error( 'aac_invalid_location', __( 'Invalid state/city.', 'axellcore-atelierclub' ), array( 'status' => 400 ) );
+				return new \WP_Error( 'aa_invalid_location', __( 'Invalid state/city.', 'axellcore-atelierclub' ), array( 'status' => 400 ) );
 			}
 
 			wp_set_object_terms( $post->ID, array( $term ), Locations::TAXONOMY );
-			update_post_meta( $post->ID, '_aac_uf', $uf );
+			update_post_meta( $post->ID, '_aa_uf', $uf );
 		}
 
 		foreach ( Members::TEXT_META_FIELDS as $field ) {
 			if ( isset( $params[ $field ] ) ) {
-				$this->store_meta( $post->ID, '_aac_' . $field, sanitize_text_field( $this->param_string( $params, $field ) ) );
+				$this->store_meta( $post->ID, '_aa_' . $field, sanitize_text_field( $this->param_string( $params, $field ) ) );
 			}
 		}
 
@@ -280,7 +280,7 @@ final class Admin_Rest {
 	}
 
 	/**
-	 * Fetch an aac_member post, or a 404 WP_Error.
+	 * Fetch an aa_member post, or a 404 WP_Error.
 	 *
 	 * @param int $id Post ID.
 	 * @return \WP_Post|\WP_Error
@@ -288,7 +288,7 @@ final class Admin_Rest {
 	private function member_post( int $id ) {
 		$post = get_post( $id );
 		if ( ! $post || Member::POST_TYPE !== $post->post_type ) {
-			return new \WP_Error( 'aac_not_found', __( 'Member not found.', 'axellcore-atelierclub' ), array( 'status' => 404 ) );
+			return new \WP_Error( 'aa_not_found', __( 'Member not found.', 'axellcore-atelierclub' ), array( 'status' => 404 ) );
 		}
 		return $post;
 	}
@@ -304,13 +304,13 @@ final class Admin_Rest {
 
 		if ( '' !== $request['uf'] ) {
 			$clauses[] = array(
-				'key'   => '_aac_uf',
+				'key'   => '_aa_uf',
 				'value' => strtoupper( $request['uf'] ),
 			);
 		}
 		if ( '' !== $request['atuacao'] ) {
 			$clauses[] = array(
-				'key'   => '_aac_atuacao',
+				'key'   => '_aa_atuacao',
 				'value' => $request['atuacao'],
 			);
 		}
@@ -328,13 +328,13 @@ final class Admin_Rest {
 		return array(
 			'id'                  => $post->ID,
 			'nome'                => $post->post_title,
-			'escritorio'          => (string) get_post_meta( $post->ID, '_aac_escritorio', true ),
-			'email'               => (string) get_post_meta( $post->ID, '_aac_email', true ),
-			'telefone'            => (string) get_post_meta( $post->ID, '_aac_telefone', true ),
-			'atuacao'             => (string) get_post_meta( $post->ID, '_aac_atuacao', true ),
-			'uf'                  => (string) get_post_meta( $post->ID, '_aac_uf', true ),
+			'escritorio'          => (string) get_post_meta( $post->ID, '_aa_escritorio', true ),
+			'email'               => (string) get_post_meta( $post->ID, '_aa_email', true ),
+			'telefone'            => (string) get_post_meta( $post->ID, '_aa_telefone', true ),
+			'atuacao'             => (string) get_post_meta( $post->ID, '_aa_atuacao', true ),
+			'uf'                  => (string) get_post_meta( $post->ID, '_aa_uf', true ),
 			'cidade'              => $this->city_name( $post->ID ),
-			'documento' => (string) get_post_meta( $post->ID, '_aac_documento', true ),
+			'documento' => (string) get_post_meta( $post->ID, '_aa_documento', true ),
 			'data'                => $post->post_date,
 			'status'              => $post->post_status,
 		);
@@ -347,12 +347,12 @@ final class Admin_Rest {
 	 * @return array
 	 */
 	private function detail( \WP_Post $post ) {
-		$uf   = (string) get_post_meta( $post->ID, '_aac_uf', true );
+		$uf   = (string) get_post_meta( $post->ID, '_aa_uf', true );
 		$data = array(
 			'id'          => $post->ID,
 			'nome'        => $post->post_title,
-			'email'       => (string) get_post_meta( $post->ID, '_aac_email', true ),
-			'portfolio'   => (string) get_post_meta( $post->ID, '_aac_portfolio', true ),
+			'email'       => (string) get_post_meta( $post->ID, '_aa_email', true ),
+			'portfolio'   => (string) get_post_meta( $post->ID, '_aa_portfolio', true ),
 			'uf'          => $uf,
 			'cidade'      => $this->city_code( $post->ID, $uf ),
 			'cidade_nome' => $this->city_name( $post->ID ),
@@ -361,15 +361,15 @@ final class Admin_Rest {
 		);
 
 		foreach ( Members::TEXT_META_FIELDS as $field ) {
-			$data[ $field ] = (string) get_post_meta( $post->ID, '_aac_' . $field, true );
+			$data[ $field ] = (string) get_post_meta( $post->ID, '_aa_' . $field, true );
 		}
 
 		// Partner stores are shown by their text, not their ID.
 		$lojas = array();
 		foreach ( Members::LOJA_FIELDS as $field ) {
-			$data[ $field ] = (string) get_post_meta( $post->ID, '_aac_' . $field . '_titulo', true );
+			$data[ $field ] = (string) get_post_meta( $post->ID, '_aa_' . $field . '_titulo', true );
 
-			$loja_id = (int) get_post_meta( $post->ID, '_aac_' . $field, true );
+			$loja_id = (int) get_post_meta( $post->ID, '_aa_' . $field, true );
 			if ( '' === $data[ $field ] && ! $loja_id ) {
 				continue;
 			}

@@ -45,7 +45,7 @@ async function scenario(name, width, mock) {
 
 for (const width of [ 1440, 390 ]) {
 	await scenario('success', width, { status: 200, contentType: 'application/json', body: JSON.stringify({ success: true, id: 1 }) });
-	await scenario('error', width, { status: 400, contentType: 'application/json', body: JSON.stringify({ code: 'aac_invalid_email', message: 'x' }) });
+	await scenario('error', width, { status: 400, contentType: 'application/json', body: JSON.stringify({ code: 'aa_invalid_email', message: 'x' }) });
 }
 await scenario('live', 1440, null);
 await browser.close();

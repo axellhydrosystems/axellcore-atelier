@@ -37,9 +37,9 @@ same license as this plugin) is vendored at
   always POST JSON to `/wp-json/axellcore-atelierclub/v1/members`
   (`includes/class-rest.php`). The reference's email-vs-custom split doesn't
   apply here.
-- **Fixed dark visual design via `aac-` CSS classes**, not the reference's
+- **Fixed dark visual design via `aa-` CSS classes**, not the reference's
   native `color`/`border` block supports on the input field. The mockup's
-  field chrome (`assets/css/sections.css`'s `.aac-field`/`.aac-consent`
+  field chrome (`assets/css/sections.css`'s `.aa-field`/`.aa-consent`
   rules) is fixed brand design ported 1:1 from the approved
   `source/index.html` mockup, not meant to be per-field-themeable by an
   editor — adding color/border supports would let someone accidentally break
@@ -51,7 +51,7 @@ same license as this plugin) is vendored at
   supports were added after all, once the field markup was split into
   separate label/control blocks. The pixel-parity risk this bullet warned
   about turned out to be avoidable — the generator's own default content
-  still reaches the branded look via the *same* `.aac-field`/`.aac-consent`
+  still reaches the branded look via the *same* `.aa-field`/`.aa-consent`
   CSS classes as before (see below for how), the native supports are just
   *additionally available* for anyone who wants to override them.
 - **Notification visibility via JS class toggling**, not the reference's
@@ -60,7 +60,7 @@ same license as this plugin) is vendored at
   never navigates away, so there's no page reload to carry a GET param across
   — `axellcore/form-submission-notification` instead starts hidden
   (`display:none`) and gets `.is-active` toggled on the matching
-  `[data-aac-notice-type="success"|"error"]` element after the fetch
+  `[data-aa-notice-type="success"|"error"]` element after the fetch
   resolves.
 
 ### What was ported from the reference, and what's intentionally skipped
@@ -136,7 +136,7 @@ fixed visual design):
   in `:where(...)` — the exact same technique the reference's own
   `style.scss` uses (`:where(.wp-block-form-input__input)`) — which
   contributes **zero specificity**, so `sections.css`'s normal-specificity
-  `.aac-field input`/`.aac-field label`/`.aac-consent` rules always win on
+  `.aa-field input`/`.aa-field label`/`.aa-consent` rules always win on
   the isolated `/atelier` template regardless of stylesheet load order.
   Verified three ways: (1) `getComputedStyle()` diffed against the live
   reference block in the editor — border/padding/font-size/min-height/
@@ -180,8 +180,8 @@ for what these looked like, if reconsidering later):
 - Native `color`/`border` block supports on the input field — would risk
   pixel-parity with the fixed mockup design (see deviations above).
 - A dedicated `axellcore/form-submit-button` wrapper block — a plain
-  `core/buttons > core/button[type=submit]` styled via `.aac-submit-row`/
-  `.aac-btn` already gets the same visual result; the reference's wrapper is
+  `core/buttons > core/button[type=submit]` styled via `.aa-submit-row`/
+  `.aa-btn` already gets the same visual result; the reference's wrapper is
   only a thin styling `<div>`, not worth a whole extra block registration
   here.
 - Auto-focus-on-insert (`ref.current.focus()`) — minor nicety, not
@@ -201,7 +201,7 @@ gap itself remains open.
 `axellcore/form-input` (the fused type/label/variant/hint/mask block) was
 replaced by three composable blocks, and the whole form family's namespace
 was renamed `axellcore/*` → `axell/*` (block names only — the plugin slug,
-PHP namespace, textdomain, and `aac-` CSS prefix are all unchanged; scoped
+PHP namespace, textdomain, and `aa-` CSS prefix are all unchanged; scoped
 to the form family, not `axellcore/chapters`/`axellcore/chapter`). Explicit
 user request, for a concrete reason: **"quero ter os mesmos controles de
 espaçamento, tipografia, cores, bordas etc que os demais blocos"** — native
@@ -294,18 +294,18 @@ done, because getting WordPress's exact class/style *serialization order*
 byte-right by hand (needed for `parse_blocks()` validity) is real,
 verifiable risk for no real benefit here. Instead: `bin/generate-content.py`
 wraps each label+control pair in a plain `core/group` with `className:
-"aac-field"` (or `"aac-consent"` for the checkbox) — reusing
-`assets/css/sections.css`'s **existing, unmodified** `.aac-field label`/
-`.aac-field input,select,textarea`/`.aac-req`/`.aac-hint`/`.aac-consent`
-rules completely as-is. These are plain descendant selectors (`.aac-field
-label`, `.aac-field input`) — they don't care which block renders the
+"aa-field"` (or `"aa-consent"` for the checkbox) — reusing
+`assets/css/sections.css`'s **existing, unmodified** `.aa-field label`/
+`.aa-field input,select,textarea`/`.aa-req`/`.aa-hint`/`.aa-consent`
+rules completely as-is. These are plain descendant selectors (`.aa-field
+label`, `.aa-field input`) — they don't care which block renders the
 `<label>`/`<input>`, only that the DOM shape matches, which it still does.
-Similarly, `.aac-apply-form fieldset`/`.aac-apply-form legend` in
+Similarly, `.aa-apply-form fieldset`/`.aa-apply-form legend` in
 `sections.css` (ported from the original mockup's own CSS, unused until
 now since the generator never emitted real `<fieldset>` elements before)
 apply automatically to `axell/fieldset`'s real `<fieldset>`/`<legend>`
 output — **zero CSS changes were needed** for any of this. The row-level
-grouping (`core/group.aac-form-row.aac-cols-2/3/addr/city`, wrapping 2-3
+grouping (`core/group.aa-form-row.aa-cols-2/3/addr/city`, wrapping 2-3
 field-groups side by side) is also completely unchanged, nested one level
 inside the new `axell/fieldset` instead of directly inside the old
 flat `axellcore/form`.
@@ -320,12 +320,12 @@ native-attribute serialization.
 ### Consent checkbox and hint text — no longer special cases
 
 The old `variant="consent"` attribute is gone. The consent checkbox is now
-just ordinary composition: `core/group.aac-consent` containing
+just ordinary composition: `core/group.aa-consent` containing
 `axell/form-control` (checkbox) *then* `axell/form-label` (its `text`
 RichText already supports an embedded `<a>`, same as before) — checkbox-
 first, label-after, matching the old visual order purely through block
 order, no attribute needed. Hint text (the small helper line under a
-field) is now just a plain `core/paragraph` (`aac-hint` className) placed
+field) is now just a plain `core/paragraph` (`aa-hint` className) placed
 after the control inside the field group — no dedicated attribute either.
 
 ### Vendored reference used for ground-truth verification
@@ -345,6 +345,6 @@ the JS).
 
 ## `axell/form` (generic) and `axell/form-atelier`
 
-`axell/form` is a generic form with optional submission actions, set in its "Ações de envio" panel: **Gravar em** (any post type with `show_ui`, or none; status and the field used as title) and **Enviar e-mail** (Para, Assunto, Mensagem with `{field}` and `{all_fields}` tags). `axell/form-atelier` reuses the same editor (`src/form/form/form-edit.tsx`) and save, stores into `aac_member` (fixed) and inserts the full application template (`src/form/form-atelier/template.ts`, serialized from `/atelier/adesao`).
+`axell/form` is a generic form with optional submission actions, set in its "Ações de envio" panel: **Gravar em** (any post type with `show_ui`, or none; status and the field used as title) and **Enviar e-mail** (Para, Assunto, Mensagem with `{field}` and `{all_fields}` tags). `axell/form-atelier` reuses the same editor (`src/form/form/form-edit.tsx`) and save, stores into `aa_member` (fixed) and inserts the full application template (`src/form/form-atelier/template.ts`, serialized from `/atelier/adesao`).
 
-Every submission goes through `includes/class-form-submission.php`: REST `POST /submit` with JavaScript, `admin-post.php?action=axellcore_form_submit` without it. The request only identifies the form (`post_id`, `form_id`, added on render by `Form_Block`); the settings are read from the saved block (`parse_blocks`), and only fields whose `name` is in the form's rendered markup are kept. A post type can have its own store handler (`axellcore_form_store_handler`); members use `Members::create_from_params`. Content saved with the old `submitsToRest` switch migrates through the block deprecations to `storePostType: aac_member`.
+Every submission goes through `includes/class-form-submission.php`: REST `POST /submit` with JavaScript, `admin-post.php?action=axellcore_form_submit` without it. The request only identifies the form (`post_id`, `form_id`, added on render by `Form_Block`); the settings are read from the saved block (`parse_blocks`), and only fields whose `name` is in the form's rendered markup are kept. A post type can have its own store handler (`axellcore_form_store_handler`); members use `Members::create_from_params`. Content saved with the old `submitsToRest` switch migrates through the block deprecations to `storePostType: aa_member`.

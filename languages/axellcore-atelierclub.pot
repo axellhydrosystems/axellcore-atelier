@@ -152,7 +152,7 @@ msgid "Atelier — No Class (experimental)"
 msgstr ""
 
 #: includes/class-template-loader.php:102
-msgid "Same design, zero aac- CSS classes — styled entirely via native block attributes (color/typography/spacing/border/position). Exists to find the real limit of that approach; not a production page."
+msgid "Same design, zero aa- CSS classes — styled entirely via native block attributes (color/typography/spacing/border/position). Exists to find the real limit of that approach; not a production page."
 msgstr ""
 
 #: includes/blocks/chapters/chapter/index.js:78
@@ -681,7 +681,7 @@ msgstr ""
 
 #: includes/blocks/form/form/block.json
 msgctxt "block description"
-msgid "Self-contained <form> wrapper for the Atelier Axell Club application form. Submits to the plugin's REST endpoint, which creates an aac_member post and resolves its Country/State/City taxonomy term."
+msgid "Self-contained <form> wrapper for the Atelier Axell Club application form. Submits to the plugin's REST endpoint, which creates an aa_member post and resolves its Country/State/City taxonomy term."
 msgstr ""
 
 #: includes/blocks/form/form/block.json

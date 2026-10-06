@@ -64,6 +64,6 @@ export interface MembersConfig {
 
 declare global {
 	interface Window {
-		aacMembers?: MembersConfig;
+		aaMembers?: MembersConfig;
 	}
 }

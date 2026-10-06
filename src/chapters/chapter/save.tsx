@@ -9,17 +9,17 @@ import type { ChapterAttributes } from './types';
 export default function save( {
 	attributes,
 }: BlockSaveProps< ChapterAttributes > ) {
-	const blockProps = useBlockProps.save( { className: 'aac-chapter' } );
+	const blockProps = useBlockProps.save( { className: 'aa-chapter' } );
 	const innerBlocksProps = useInnerBlocksProps.save( {
-		className: 'aac-chapter-body',
+		className: 'aa-chapter-body',
 	} );
 
 	return (
 		<div { ...blockProps }>
-			<p className="aac-chapter-tag">
+			<p className="aa-chapter-tag">
 				<RichText.Content
 					tagName="span"
-					className="aac-chapter-label"
+					className="aa-chapter-label"
 					value={ attributes.label }
 				/>
 			</p>

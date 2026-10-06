@@ -7,7 +7,7 @@ import './style.scss';
 import MembersList from './list';
 import MemberDetailView from './detail';
 
-const APP_ID = 'aac-members-app';
+const APP_ID = 'aa-members-app';
 
 function mount( anchor: Element, element: JSX.Element ) {
 	const container = document.createElement( 'div' );
@@ -16,11 +16,11 @@ function mount( anchor: Element, element: JSX.Element ) {
 	createRoot( container ).render( element );
 }
 
-const config = window.aacMembers;
+const config = window.aaMembers;
 const heading = document.querySelector( '#wpbody-content .wrap > h1' );
 
 if ( config && heading ) {
-	if ( document.body.classList.contains( 'aac-members-list' ) ) {
+	if ( document.body.classList.contains( 'aa-members-list' ) ) {
 		mount(
 			heading,
 			<MembersList
@@ -29,7 +29,7 @@ if ( config && heading ) {
 				editUrl={ config.editUrl }
 			/>
 		);
-	} else if ( document.body.classList.contains( 'aac-members-edit' ) ) {
+	} else if ( document.body.classList.contains( 'aa-members-edit' ) ) {
 		const id = Number(
 			new URLSearchParams( window.location.search ).get( 'post' )
 		);

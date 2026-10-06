@@ -15,7 +15,7 @@ Self-contained landing page (FSE template + core blocks + a custom application-f
 
 ## Description
 
-Ships the Atelier Axell Club landing page as a plugin-owned FSE template (registered via `register_block_template()`, editable in the Site Editor, no theme header/footer) plus two small custom blocks (`axellcore/form`, `axellcore/form-input`) for the application form — every other section is composed from core WordPress blocks styled with the plugin's own `aac-`-prefixed stylesheet. On activation, the plugin provisions the `/atelier` page automatically if it doesn't already exist.
+Ships the Atelier Axell Club landing page as a plugin-owned FSE template (registered via `register_block_template()`, editable in the Site Editor, no theme header/footer) plus two small custom blocks (`axellcore/form`, `axellcore/form-input`) for the application form — every other section is composed from core WordPress blocks styled with the plugin's own `aa-`-prefixed stylesheet. On activation, the plugin provisions the `/atelier` page automatically if it doesn't already exist.
 
 ## Changelog
 
@@ -54,7 +54,7 @@ axellcore-atelierclub.php     # bootstrap: header, constants, requires, activati
 includes/
 ├── class-plugin.php          # loader — wires the other classes' hooks on boot()
 ├── class-template-loader.php # registers the "Atelier — Blank Canvas" FSE template
-├── class-assets.php          # enqueues aac-tokens/aac-sections/aac-frontend; strips theme/core CSS
+├── class-assets.php          # enqueues aa-tokens/aa-sections/aa-frontend; strips theme/core CSS
 ├── class-blocks.php          # registers axellcore/form + axellcore/form-input
 ├── class-activator.php       # creates the /atelier page + header/footer template parts on activation (idempotent)
 └── blocks/form/
@@ -63,7 +63,7 @@ includes/
 templates/
 └── atelier-club.html         # FSE template content: just <!-- wp:post-content /-->
 assets/
-├── css/{tokens,sections}.css # design tokens + component CSS, ported from the approved mockup, aac-* prefixed
+├── css/{tokens,sections}.css # design tokens + component CSS, ported from the approved mockup, aa-* prefixed
 └── js/frontend.js            # nav scroll state, scroll-reveal, CPF/CNPJ/CEP/phone input masks
 ```
 

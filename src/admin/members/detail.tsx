@@ -393,7 +393,7 @@ function LojasParceiras( { lojas }: { lojas: MemberLoja[] } ) {
 		return null;
 	}
 	return (
-		<section className="aac-lojas-parceiras">
+		<section className="aa-lojas-parceiras">
 			<h3>{ __( 'Lojas parceiras', 'axellcore-atelierclub' ) }</h3>
 			<ul>
 				{ lojas.map( ( loja ) => (
@@ -403,7 +403,7 @@ function LojasParceiras( { lojas }: { lojas: MemberLoja[] } ) {
 							<>
 								{ ' ' }
 								<span
-									className="aac-loja-pendente"
+									className="aa-loja-pendente"
 									role="img"
 									aria-label={ __( 'Pendente de curadoria', 'axellcore-atelierclub' ) }
 									title={ __( 'Pendente de curadoria', 'axellcore-atelierclub' ) }

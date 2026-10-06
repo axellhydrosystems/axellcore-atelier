@@ -64,24 +64,13 @@ final class Assets {
 	}
 
 	/**
-	 * Whether the current request is rendering the /atelier-noclass
-	 * experimental template.
-	 *
-	 * @return bool
-	 */
-	private function is_noclass_template() {
-		return is_page_template( Plugin::NOCLASS_TEMPLATE_SLUG );
-	}
-
-	/**
-	 * Either of the two isolated templates — used for theme/core CSS
-	 * stripping and the Google Fonts preconnect hint, which both templates
-	 * need regardless of which one's own asset bundle (if any) is enqueued.
+	 * The isolated atelier template: theme/core CSS stripping and the Google
+	 * Fonts preconnect hint apply there.
 	 *
 	 * @return bool
 	 */
 	private function is_isolated_template() {
-		return $this->is_our_template() || $this->is_noclass_template();
+		return $this->is_our_template();
 	}
 
 	/**
@@ -116,17 +105,10 @@ final class Assets {
 	}
 
 	/**
-	 * Enqueue our own design tokens, section CSS, and frontend JS — the
-	 * production template only. /atelier-noclass deliberately gets NO
-	 * custom stylesheet and no frontend.js at all (see enqueue_noclass_fonts())
-	 * — that's the whole point of the experiment.
+	 * Enqueue our own design tokens, section CSS, and frontend JS on the
+	 * atelier template.
 	 */
 	public function enqueue_frontend_assets() {
-		if ( $this->is_noclass_template() ) {
-			$this->enqueue_noclass_fonts();
-			return;
-		}
-
 		if ( ! $this->is_our_template() ) {
 			// Theme-styled pages with an application form (the adesão child
 			// page) keep their own look, but still need the input masks and
@@ -138,15 +120,15 @@ final class Assets {
 		}
 
 		wp_enqueue_style(
-			'aac-google-fonts',
+			'aa-google-fonts',
 			'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap',
 			array(),
 			null // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion -- external URL, WP doesn't own its versioning.
 		);
 
-		wp_enqueue_style( 'aac-tokens', AXELLCORE_ATELIERCLUB_URL . 'assets/css/tokens.css', array(), AXELLCORE_ATELIERCLUB_VERSION );
-		wp_enqueue_style( 'aac-sections', AXELLCORE_ATELIERCLUB_URL . 'assets/css/sections.css', array( 'aac-tokens' ), AXELLCORE_ATELIERCLUB_VERSION );
-		wp_enqueue_style( 'aac-blocks-bridge', AXELLCORE_ATELIERCLUB_URL . 'assets/css/blocks-bridge.css', array( 'aac-sections' ), AXELLCORE_ATELIERCLUB_VERSION );
+		wp_enqueue_style( 'aa-tokens', AXELLCORE_ATELIERCLUB_URL . 'assets/css/tokens.css', array(), AXELLCORE_ATELIERCLUB_VERSION );
+		wp_enqueue_style( 'aa-sections', AXELLCORE_ATELIERCLUB_URL . 'assets/css/sections.css', array( 'aa-tokens' ), AXELLCORE_ATELIERCLUB_VERSION );
+		wp_enqueue_style( 'aa-blocks-bridge', AXELLCORE_ATELIERCLUB_URL . 'assets/css/blocks-bridge.css', array( 'aa-sections' ), AXELLCORE_ATELIERCLUB_VERSION );
 
 		$this->enqueue_frontend_script();
 	}
@@ -157,7 +139,7 @@ final class Assets {
 	 */
 	private function enqueue_frontend_script() {
 		wp_enqueue_script(
-			'aac-frontend',
+			'aa-frontend',
 			AXELLCORE_ATELIERCLUB_URL . 'assets/js/frontend.js',
 			array(),
 			AXELLCORE_ATELIERCLUB_VERSION,
@@ -168,18 +150,12 @@ final class Assets {
 		);
 
 		wp_localize_script(
-			'aac-frontend',
-			'aacRest',
+			'aa-frontend',
+			'aaRest',
 			array( 'root' => esc_url_raw( trailingslashit( rest_url( Rest::NAMESPACE ) ) ) )
 		);
 	}
 
-	/**
-	 * /atelier-noclass still needs the two webfonts (Cormorant Garamond,
-	 * Inter) — loading a font isn't "styling via a CSS class", it's a
-	 * resource every block's native fontFamily attribute references — but
-	 * nothing else: no aac-*.css, no frontend.js.
-	 */
 	/**
 	 * Structural CSS of the application form, on any singular page that has
 	 * one of the axell/form blocks. Block-registered styles are not printed on
@@ -204,15 +180,6 @@ final class Assets {
 	 */
 	public function enqueue_form_editor() {
 		wp_enqueue_style( 'axellcore-form-structure', AXELLCORE_ATELIERCLUB_URL . 'assets/css/form-structure.css', array(), AXELLCORE_ATELIERCLUB_VERSION );
-	}
-
-	private function enqueue_noclass_fonts() {
-		wp_enqueue_style(
-			'aac-google-fonts',
-			'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap',
-			array(),
-			null // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion -- external URL, WP doesn't own its versioning.
-		);
 	}
 
 	/**

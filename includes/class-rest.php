@@ -4,7 +4,7 @@
  *  - GET  /axellcore-atelierclub/v1/cities?uf=SP  — cities for the state/
  *    city cascading select (assets/js/frontend.js), public/read-only.
  *  - POST /axellcore-atelierclub/v1/members        — the real form
- *    submission handler: creates an `aac_member` post, resolves/assigns
+ *    submission handler: creates an `aa_member` post, resolves/assigns
  *    its Country > State > City term, and stores every other field as
  *    post meta.
  *
@@ -151,7 +151,7 @@ final class Rest {
 	}
 
 	/**
-	 * POST /members — create an aac_member post from a form submission.
+	 * POST /members — create an aa_member post from a form submission.
 	 *
 	 * @param \WP_REST_Request $request Request.
 	 * @return \WP_REST_Response|\WP_Error

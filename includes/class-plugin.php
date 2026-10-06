@@ -35,20 +35,6 @@ final class Plugin {
 	 */
 	const TEMPLATE_SLUG = 'atelier-club';
 
-	/**
-	 * Experimental sibling template at /atelier-noclass: the same design,
-	 * rebuilt with zero `aac-` CSS classes — every visual property expressed
-	 * as native core-block style attributes (color/typography/spacing/
-	 * border/position) instead. Exists to find the real limit of that
-	 * approach against this specific design, not as a production page.
-	 */
-	const NOCLASS_TEMPLATE_NAME = 'axellcore-atelierclub//atelier-club-noclass';
-
-	/**
-	 * Bare slug half of NOCLASS_TEMPLATE_NAME — see TEMPLATE_SLUG's docblock
-	 * for why this distinction matters.
-	 */
-	const NOCLASS_TEMPLATE_SLUG = 'atelier-club-noclass';
 
 	/**
 	 * Singleton instance.

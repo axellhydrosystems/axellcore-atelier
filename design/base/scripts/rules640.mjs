@@ -9,10 +9,10 @@ await page.goto(process.argv[2], { waitUntil: 'load' });
 const out = await page.evaluate(() => {
   const hits = [];
   for (const sh of document.styleSheets) { let rules; try { rules = sh.cssRules; } catch (e) { continue; }
-    const walk = (list, media) => { for (const r of list) { if (r.cssRules && r.media) walk(r.cssRules, r.media.mediaText); else if (r.selectorText && r.selectorText.includes('aac-pillar-row') && r.selectorText.includes('> .wp-block-column')) hits.push([media || '', r.selectorText, r.style.cssText]); } };
+    const walk = (list, media) => { for (const r of list) { if (r.cssRules && r.media) walk(r.cssRules, r.media.mediaText); else if (r.selectorText && r.selectorText.includes('aa-pillar-row') && r.selectorText.includes('> .wp-block-column')) hits.push([media || '', r.selectorText, r.style.cssText]); } };
     walk(rules, ''); }
-  const el = document.querySelector('.aac-pillar-row > .wp-block-column');
-  return { hits, matchesSelector: el ? el.matches('.aac-pillar-row.wp-block-columns.aac-pillar-row > .wp-block-column') : null, colClass: el ? el.className : null, parentClass: el ? el.parentElement.className : null };
+  const el = document.querySelector('.aa-pillar-row > .wp-block-column');
+  return { hits, matchesSelector: el ? el.matches('.aa-pillar-row.wp-block-columns.aa-pillar-row > .wp-block-column') : null, colClass: el ? el.className : null, parentClass: el ? el.parentElement.className : null };
 });
 console.log(JSON.stringify(out, null, 1));
 await browser.close();

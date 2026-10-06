@@ -32,6 +32,6 @@ const saved = await page.evaluate(async () => {
 });
 const fs = await import('node:fs');
 fs.writeFileSync(process.env.TMPDIR + '/post6-resaved.html', saved.content);
-console.log('aac-notice left:', (saved.content.match(/aac-notice/g) || []).length, 'data-aac-club-form left:', (saved.content.match(/data-aac-club-form/g) || []).length, 'bytes:', saved.content.length);
+console.log('aa-notice left:', (saved.content.match(/aa-notice/g) || []).length, 'data-aa-club-form left:', (saved.content.match(/data-aa-club-form/g) || []).length, 'bytes:', saved.content.length);
 console.log('pageErrors:', errors.slice(0, 3));
 await browser.close();

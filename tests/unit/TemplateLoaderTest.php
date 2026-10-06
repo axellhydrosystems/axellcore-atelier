@@ -58,26 +58,6 @@ final class TemplateLoaderTest extends TestCase {
 		$this->addToAssertionCount( 1 );
 	}
 
-	public function test_register_noclass_template_registers_with_the_noclass_template_name(): void {
-		Functions\when( 'file_exists' )->justReturn( true );
-		Functions\when( 'file_get_contents' )->justReturn( "<!-- wp:post-content /-->\n" );
-		Functions\when( '__' )->returnArg( 1 );
-
-		Functions\expect( 'register_block_template' )
-			->once()
-			->with(
-				Plugin::NOCLASS_TEMPLATE_NAME,
-				\Mockery::on(
-					function ( $args ) {
-						return array( 'page' ) === $args['post_types'];
-					}
-				)
-			);
-
-		Template_Loader::instance()->register_noclass_template();
-
-		$this->addToAssertionCount( 1 );
-	}
 
 	public function test_enable_position_sticky_merges_position_sticky_setting(): void {
 		$theme_json = \Mockery::mock( 'WP_Theme_JSON_Data' );

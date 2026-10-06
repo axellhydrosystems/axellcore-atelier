@@ -90,13 +90,13 @@ export function FieldControl(
 	if ( isSave ) {
 		common.placeholder = placeholder || undefined;
 		if ( attributes.mask ) {
-			common[ 'data-aac-mask' ] = attributes.mask;
+			common[ 'data-aa-mask' ] = attributes.mask;
 		}
 		if ( attributes.maskSourceName ) {
-			common[ 'data-aac-mask-source' ] = attributes.maskSourceName;
+			common[ 'data-aa-mask-source' ] = attributes.maskSourceName;
 		}
 		if ( attributes.citiesSourceName ) {
-			common[ 'data-aac-cities-source' ] = attributes.citiesSourceName;
+			common[ 'data-aa-cities-source' ] = attributes.citiesSourceName;
 			// Starts empty (populated by frontend.js once the source
 			// field has a value) — disabled until then, same as the
 			// real page markup this generates.
@@ -185,7 +185,7 @@ export function FieldControl(
 export function HiddenFieldPlaceholder() {
 	return (
 		<span
-			className="aac-field-hidden-placeholder"
+			className="aa-field-hidden-placeholder"
 			style={ {
 				display: 'flex',
 				alignItems: 'center',
@@ -206,8 +206,8 @@ export function HiddenFieldPlaceholder() {
 /**
  * Merge a base className into a wrapperProps object (as produced by
  * useBlockProps()/useBlockProps.save()), so the block's own root element
- * IS `.aac-field`/`.aac-consent` — no extra wrapping div, which would
- * otherwise break `.aac-form-row`'s CSS grid (it expects `.aac-field` as
+ * IS `.aa-field`/`.aa-consent` — no extra wrapping div, which would
+ * otherwise break `.aa-form-row`'s CSS grid (it expects `.aa-field` as
  * a direct child).
  * @param wrapperProps
  * @param base
@@ -252,7 +252,7 @@ export function FieldWrapper(
 	if ( 'consent' === attributes.variant ) {
 		return (
 			// eslint-disable-next-line jsx-a11y/label-has-associated-control -- frozen legacy markup: implicit <label>{ control }{ text }</label> nesting is the association (superseded by axell/form-label's explicit for/id pairing; this deprecated block's rendering is intentionally left unchanged).
-			<label { ...withBase( wrapperProps, 'aac-consent' ) }>
+			<label { ...withBase( wrapperProps, 'aa-consent' ) }>
 				{ fieldElement }
 				{ labelElement }
 			</label>
@@ -260,17 +260,17 @@ export function FieldWrapper(
 	}
 
 	return (
-		<div { ...withBase( wrapperProps, 'aac-field' ) }>
+		<div { ...withBase( wrapperProps, 'aa-field' ) }>
 			{ /* eslint-disable-next-line jsx-a11y/label-has-associated-control -- same frozen legacy pattern as the consent branch above. */ }
 			<label>
 				{ labelElement }
 				{ attributes.required ? (
-					<span className="aac-req"> *</span>
+					<span className="aa-req"> *</span>
 				) : null }
 			</label>
 			{ fieldElement }
 			{ attributes.hint ? (
-				<div className="aac-hint">{ attributes.hint }</div>
+				<div className="aa-hint">{ attributes.hint }</div>
 			) : null }
 		</div>
 	);

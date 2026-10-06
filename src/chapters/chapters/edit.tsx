@@ -7,12 +7,12 @@ const TEMPLATE: Array< [ string, Record< string, unknown > ] > = [
 
 /**
  * axellcore/chapters — wraps the page's numbered chapters (axellcore/chapter)
- * and establishes the CSS counter scope (.aac-chapters { counter-reset:
- * aac-chapter }) each child increments. Purely structural: no attributes,
+ * and establishes the CSS counter scope (.aa-chapters { counter-reset:
+ * aa-chapter }) each child increments. Purely structural: no attributes,
  * no PHP render — same static-block pattern as axell/form.
  */
 export default function Edit() {
-	const blockProps = useBlockProps( { className: 'aac-chapters' } );
+	const blockProps = useBlockProps( { className: 'aa-chapters' } );
 	const innerBlocksProps = useInnerBlocksProps( blockProps, {
 		allowedBlocks: ALLOWED_BLOCKS,
 		template: TEMPLATE,

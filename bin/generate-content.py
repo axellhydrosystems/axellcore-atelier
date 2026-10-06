@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-"""Generates the Atelier Club's page/header/footer Gutenberg block markup.
+"""LEGACY: no longer used to build pages (see bin/export-content.sh and the
+section-by-section flow in .claude/skills). Generates the Atelier Club's page/header/footer Gutenberg block markup.
 
 Source of truth for content/seed-content.html, content/header-part.html,
 and content/footer-part.html — those files are BUILD OUTPUT, not hand-edited
@@ -145,7 +146,7 @@ def icon_block(icon_name):
     OUT.append(f'<!-- wp:icon {esc_attrs({"icon": icon_name})} /-->')
 
 def notice_pill(icon_name, text, extra_cls=""):
-    cls = f'aac-notice-pill aac-icon-{icon_name}' + (f' {extra_cls}' if extra_cls else '')
+    cls = f'aa-notice-pill aa-icon-{icon_name}' + (f' {extra_cls}' if extra_cls else '')
     def inner():
         icon_block(f'axellcore/{icon_name}')
         paragraph(text)
@@ -155,7 +156,7 @@ def chapters_block(chapters_fn):
     """axellcore/chapters — wraps the page's numbered chapters and
     establishes the CSS counter scope each axellcore/chapter increments."""
     OUT.append('<!-- wp:axellcore/chapters -->')
-    OUT.append('<div class="wp-block-axellcore-chapters aac-chapters">')
+    OUT.append('<div class="wp-block-axellcore-chapters aa-chapters">')
     chapters_fn()
     OUT.append('</div>')
     OUT.append('<!-- /wp:axellcore/chapters -->')
@@ -163,14 +164,14 @@ def chapters_block(chapters_fn):
 def chapter_block(label, content_fn):
     """axellcore/chapter — one numbered chapter. `label` is the part after
     "Capítulo NN · " (e.g. "Manifesto"); the number itself is never stored
-    here — it's CSS counter-generated (see .aac-chapter-tag::before in
+    here — it's CSS counter-generated (see .aa-chapter-tag::before in
     sections.css), so reordering chapters in the editor renumbers them
     automatically."""
     attrs = {"label": label}
     OUT.append(f'<!-- wp:axellcore/chapter {esc_attrs(attrs)} -->')
-    OUT.append('<div class="wp-block-axellcore-chapter aac-chapter">')
-    OUT.append(f'<p class="aac-chapter-tag"><span class="aac-chapter-label">{label}</span></p>')
-    OUT.append('<div class="aac-chapter-body">')
+    OUT.append('<div class="wp-block-axellcore-chapter aa-chapter">')
+    OUT.append(f'<p class="aa-chapter-tag"><span class="aa-chapter-label">{label}</span></p>')
+    OUT.append('<div class="aa-chapter-body">')
     content_fn()
     OUT.append('</div>')
     OUT.append('</div>')
@@ -178,7 +179,7 @@ def chapter_block(label, content_fn):
 
 def cta_link(text, href, className=""):
     """A plain inline link with the CSS ::after trailing-arrow treatment
-    (assets/css/blocks-bridge.css's .aac-tier-cta::after) — for CTAs that
+    (assets/css/blocks-bridge.css's .aa-tier-cta::after) — for CTAs that
     are NOT pill-styled buttons (e.g. the tier card's text link)."""
     cls = f' class="{className}"' if className else ''
     return f'<a href="{href}"{cls}>{text}</a>'
@@ -189,9 +190,9 @@ def cta_link(text, href, className=""):
 def nav_section():
     def inner():
         def logo():
-            paragraph('Atelier Axell', 'aac-n1')
-            paragraph('The Axell World', 'aac-n2')
-        group('aac-nav-logo', logo, layout={"type": "flex", "orientation": "vertical", "flexWrap": "nowrap"})
+            paragraph('Atelier Axell', 'aa-n1')
+            paragraph('The Axell World', 'aa-n2')
+        group('aa-nav-logo', logo, layout={"type": "flex", "orientation": "vertical", "flexWrap": "nowrap"})
 
         def links():
             for href, label in [
@@ -200,10 +201,10 @@ def nav_section():
             ]:
                 paragraph(f'<a href="{href}">{label}</a>')
             def cta():
-                button('Solicitar adesão', 'aac-nav-cta aac-btn-primary', url='#adesao')
+                button('Solicitar adesão', 'aa-nav-cta aa-btn-primary', url='#adesao')
             buttons_block('', cta)
-        group('aac-nav-links', links, layout={"type": "flex", "alignItems": "center"})
-    group('aac-nav', inner, layout={"type": "flex", "justifyContent": "space-between", "alignItems": "center"})
+        group('aa-nav-links', links, layout={"type": "flex", "alignItems": "center"})
+    group('aa-nav', inner, layout={"type": "flex", "justifyContent": "space-between", "alignItems": "center"})
 
 # ============================================================
 # HERO
@@ -213,40 +214,40 @@ def hero_section():
         # Purely decorative, zero content (CSS background-image/gradient
         # layers) — an empty core/group shows a confusing "pick a layout"
         # placeholder in the editor for no benefit, so these three stay
-        # minimal core/html (see also aac-placa-stone below).
-        html_block('<div class="aac-hero-photo" role="img" aria-label="Suíte spa com banheira freestanding em pedra e vista noturna"></div>')
-        html_block('<div class="aac-hero-overlay"></div>')
+        # minimal core/html (see also aa-placa-stone below).
+        html_block('<div class="aa-hero-photo" role="img" aria-label="Suíte spa com banheira freestanding em pedra e vista noturna"></div>')
+        html_block('<div class="aa-hero-overlay"></div>')
 
         def hero_inner_cols():
             def left():
-                paragraph('Edição Lumière · 2026', 'aac-hero-cap')
-                heading(1, 'O atelier é o lugar onde criar<br/>encontra <em>morar</em>.', 'aac-display')
-                paragraph('Um clube <em>por convite</em>. Para arquitetos e designers que transformam o banho em obra, o spa em poesia e o projeto em memória.', 'aac-hero-quote')
+                paragraph('Edição Lumière · 2026', 'aa-hero-cap')
+                heading(1, 'O atelier é o lugar onde criar<br/>encontra <em>morar</em>.', 'aa-display')
+                paragraph('Um clube <em>por convite</em>. Para arquitetos e designers que transformam o banho em obra, o spa em poesia e o projeto em memória.', 'aa-hero-quote')
                 def ctas():
-                    button('Solicitar adesão', 'aac-btn-primary aac-btn-lg', url='#adesao')
-                    button('Ler o convite', 'aac-btn-ghost aac-btn-lg', url='#convite')
-                buttons_block('aac-hero-ctas', ctas, layout={"type": "flex", "flexWrap": "wrap"})
+                    button('Solicitar adesão', 'aa-btn-primary aa-btn-lg', url='#adesao')
+                    button('Ler o convite', 'aa-btn-ghost aa-btn-lg', url='#convite')
+                buttons_block('aa-hero-ctas', ctas, layout={"type": "flex", "flexWrap": "wrap"})
             def right():
                 def meta():
-                    paragraph('"Você não entra.<br/>Você é recebido."', 'aac-stamp')
+                    paragraph('"Você não entra.<br/>Você é recebido."', 'aa-stamp')
                     def kv(k, v):
                         def row():
-                            paragraph(k, 'aac-k')
-                            paragraph(v, 'aac-v')
-                        group('aac-kv', row)
+                            paragraph(k, 'aa-k')
+                            paragraph(v, 'aa-v')
+                        group('aa-kv', row)
                     kv('Programa', 'Atelier Axell Club')
                     kv('Convite', 'Por seleção — apenas profissionais aprovados.')
                     kv('Três níveis', 'Signature · Alliance · Ambassador')
-                group('aac-hero-meta', meta, tag_name='aside')
+                group('aa-hero-meta', meta, tag_name='aside')
             column(None, left)
             column(None, right)
-        columns('aac-hero-inner aac-container', hero_inner_cols)
+        columns('aa-hero-inner aa-container', hero_inner_cols)
 
         def footer_row():
             paragraph('The Axell World')
             paragraph('Um clube por curadoria')
-        group('aac-hero-footer', footer_row, layout={"type": "flex", "justifyContent": "space-between"})
-    group('aac-hero aac-reveal', inner)
+        group('aa-hero-footer', footer_row, layout={"type": "flex", "justifyContent": "space-between"})
+    group('aa-hero aa-reveal', inner)
 
 # ============================================================
 # CONVITE / MANIFESTO
@@ -259,10 +260,10 @@ def manifesto_section():
             paragraph('Há gestos no banho que merecem ser desenhados por <em>mãos especiais</em>.<br>Há projetos que pedem <em>cuidado de autor</em>.<br>E há profissionais que a Axell <em>reconhece por assinatura</em>.')
             paragraph('É preciso escolher como se escolhesse uma obra de arte para a própria casa — porque cada banheira, cada spa, cada detalhe carrega o gesto de quem escolheu. Arquitetos e designers escolhem por convicção. E reconhecemos isso.')
             paragraph('O Atelier Axell Club é um clube por seleção. Discreto. Curado. Feito para os poucos profissionais que desenham projetos extraordinários com peças Axell — e transformam o produto em memória.')
-            paragraph('— Curadoria &amp; Assinatura Axell', 'aac-sig')
-        column(None, side, className='aac-manifesto-side')
-        column(None, copy, className='aac-manifesto-copy')
-    columns('aac-manifesto-block', cols)
+            paragraph('— Curadoria &amp; Assinatura Axell', 'aa-sig')
+        column(None, side, className='aa-manifesto-side')
+        column(None, copy, className='aa-manifesto-copy')
+    columns('aa-manifesto-block', cols)
 
 # ============================================================
 # 4 PILARES
@@ -277,27 +278,27 @@ PILLARS = [
 def section_head(title, body):
     def inner():
         def left():
-            heading(2, title, 'aac-section-title')
+            heading(2, title, 'aa-section-title')
         def right():
-            paragraph(body, 'aac-body')
-        column(None, left, className='aac-head-left')
-        column(None, right, className='aac-head-right')
-    columns('aac-section-head aac-reveal', inner)
+            paragraph(body, 'aa-body')
+        column(None, left, className='aa-head-left')
+        column(None, right, className='aa-head-right')
+    columns('aa-section-head aa-reveal', inner)
 
 def pillars_section():
     def head_wrap():
         section_head('Quatro pilares. Uma <em>assinatura</em>.',
                       'Arquitetos e designers escolhem por convicção — e o clube foi construído sobre quatro pilares que devolvem essa convicção em forma de <em>reconhecimento</em>, <em>recompensa</em>, <em>experiência</em> e <em>visibilidade</em>.')
     def outer():
-        group('aac-container', head_wrap)
+        group('aa-container', head_wrap)
         # A genuine <ol type="i"> — the browser numbers each <li> natively
         # (no hand-typed numeral, no CSS counter needed); the heading/body
         # pair becomes inline <strong>/<span> content inside the single
         # rich-text <li>, since core/list-item only allows a nested core/list
         # as a block child, not arbitrary blocks like core/heading.
         items = [f'<strong>{title}</strong><br><span>{body}</span>' for title, body in PILLARS]
-        list_block(items, className='aac-pillars', ordered=True, list_type='i')
-    group('aac-on-ink', outer)
+        list_block(items, className='aa-pillars', ordered=True, list_type='i')
+    group('aa-on-ink', outer)
 
 # ============================================================
 # A PLACA
@@ -305,28 +306,28 @@ def pillars_section():
 def placa_section():
     def cols():
         def copy():
-            heading(2, 'A placa do <em>membro</em>.', 'aac-section-title')
+            heading(2, 'A placa do <em>membro</em>.', 'aa-section-title')
             notice_pill('lock', 'Concedida por categorização')
-            paragraph('A entrega da placa depende do estágio de categorização alcançado pelo profissional dentro do clube. Ela é conquistada, não distribuída — nasce quando a curadoria Axell reconhece a maturidade da parceria.', 'aac-notice-caption')
-            paragraph('Uma peça <em>única</em>, uma obra de arte em pedra. Gravada com o nome do profissional e o selo ATELIER AXELL em letras finas e delgadas — à altura do detalhe.', 'aac-lede')
+            paragraph('A entrega da placa depende do estágio de categorização alcançado pelo profissional dentro do clube. Ela é conquistada, não distribuída — nasce quando a curadoria Axell reconhece a maturidade da parceria.', 'aa-notice-caption')
+            paragraph('Uma peça <em>única</em>, uma obra de arte em pedra. Gravada com o nome do profissional e o selo ATELIER AXELL em letras finas e delgadas — à altura do detalhe.', 'aa-lede')
             list_block([
-                '<span class="aac-k">Abstratismo</span><span class="aac-v">Cada peça traz um desenho abstrato único, criado pela curadoria Axell. Nenhum motivo se repete.</span>',
-                '<span class="aac-k">Exclusividade</span><span class="aac-v">Nenhum membro recebe o mesmo desenho. Cada placa nasce com o nome do arquiteto — não é fabricada, é dedicada.</span>',
-                '<span class="aac-k">Entrega</span><span class="aac-v">Após aprovação do cadastro, em até 30 dias, em embalagem premium do clube.</span>',
-            ], className='aac-placa-specs')
+                '<span class="aa-k">Abstratismo</span><span class="aa-v">Cada peça traz um desenho abstrato único, criado pela curadoria Axell. Nenhum motivo se repete.</span>',
+                '<span class="aa-k">Exclusividade</span><span class="aa-v">Nenhum membro recebe o mesmo desenho. Cada placa nasce com o nome do arquiteto — não é fabricada, é dedicada.</span>',
+                '<span class="aa-k">Entrega</span><span class="aa-v">Após aprovação do cadastro, em até 30 dias, em embalagem premium do clube.</span>',
+            ], className='aa-placa-specs')
         def visual():
-            html_block('<div class="aac-placa-stone"></div>')
+            html_block('<div class="aa-placa-stone"></div>')
             def plate():
-                paragraph('Atelier · Axell', 'aac-pp-top')
-                paragraph('[Seu nome]<span>Membro Atelê</span>', 'aac-pp-name')
+                paragraph('Atelier · Axell', 'aa-pp-top')
+                paragraph('[Seu nome]<span>Membro Atelê</span>', 'aa-pp-name')
                 def bottom():
                     paragraph('Nº única')
                     paragraph('MMXXVI')
-                group('aac-pp-bottom', bottom, layout={"type": "flex", "justifyContent": "space-between"})
-            group('aac-placa-plate', plate)
-        column(None, copy, className='aac-placa-copy aac-reveal')
-        column(None, visual, className='aac-placa-visual aac-reveal')
-    columns('aac-placa aac-section', cols)
+                group('aa-pp-bottom', bottom, layout={"type": "flex", "justifyContent": "space-between"})
+            group('aa-placa-plate', plate)
+        column(None, copy, className='aa-placa-copy aa-reveal')
+        column(None, visual, className='aa-placa-visual aa-reveal')
+    columns('aa-placa aa-section', cols)
 
 # ============================================================
 # PROTAGONISTAS
@@ -342,10 +343,10 @@ def protagonists_section():
         def head_wrap():
             section_head('O arquiteto e o <em>designer</em>.',
                           'A Axell reconhece os profissionais que transformam banheiras e spas em <em>momentos extraordinários</em>. Antes da venda, existe o olhar que escolhe. Antes do gesto, existe a mão que desenha.')
-        group('aac-container', head_wrap)
+        group('aa-container', head_wrap)
         items = [f'<strong>{title}</strong><br><span>{body}</span>' for title, body in PROTAGONISTS]
-        list_block(items, className='aac-prota-grid', ordered=True, list_type='i')
-    group('aac-protagonists aac-on-ivory aac-section', outer)
+        list_block(items, className='aa-prota-grid', ordered=True, list_type='i')
+    group('aa-protagonists aa-on-ivory aa-section', outer)
 
 # ============================================================
 # 4 PROMESSAS
@@ -362,10 +363,10 @@ def promises_section():
         def head_wrap():
             section_head('Quatro promessas. Uma <em>assinatura</em>: Axell.',
                           'Ser membro do Atelier Axell é ocupar um lugar seleto entre os profissionais que desenham o bem-estar brasileiro — uma comunidade discreta, curada pela Axell.')
-        group('aac-container', head_wrap)
+        group('aa-container', head_wrap)
         items = [f'<strong>{title}</strong><br><span>{body}</span>' for title, body in PROMISES]
-        list_block(items, className='aac-promises-grid', ordered=True, list_type='i')
-    group('aac-promises aac-section-sm', outer)
+        list_block(items, className='aa-promises-grid', ordered=True, list_type='i')
+    group('aa-promises aa-section-sm', outer)
 
 # ============================================================
 # O NOME / CONCEITO
@@ -382,20 +383,20 @@ CONCEPT_ROWS = [
 def concept_section():
     def cols():
         def left():
-            heading(2, 'Um espaço <em>exclusivo</em>.', 'aac-section-title')
-            paragraph('"O atelier é o lugar onde <em>criar</em> encontra <em>morar</em>. É oficina de começar, é o altar de arquitetar. Não é prédio nem morada — é gesto, é sonho, é criar."', 'aac-verse')
+            heading(2, 'Um espaço <em>exclusivo</em>.', 'aa-section-title')
+            paragraph('"O atelier é o lugar onde <em>criar</em> encontra <em>morar</em>. É oficina de começar, é o altar de arquitetar. Não é prédio nem morada — é gesto, é sonho, é criar."', 'aa-verse')
         def right():
-            paragraph('Por que Atelier', 'aac-chapter-tag')
+            paragraph('Por que Atelier', 'aa-chapter-tag')
             def rows():
                 for k, v in CONCEPT_ROWS:
                     def row(k=k, v=v):
-                        paragraph(k, 'aac-k')
-                        paragraph(v, 'aac-v')
-                    group('aac-row', row)
-            group('aac-concept-table', rows)
-        column(None, left, className='aac-reveal')
-        column(None, right, className='aac-reveal')
-    columns('aac-concept aac-section aac-on-ivory', cols)
+                        paragraph(k, 'aa-k')
+                        paragraph(v, 'aa-v')
+                    group('aa-row', row)
+            group('aa-concept-table', rows)
+        column(None, left, className='aa-reveal')
+        column(None, right, className='aa-reveal')
+    columns('aa-concept aa-section aa-on-ivory', cols)
 
 # ============================================================
 # JORNADA
@@ -416,13 +417,13 @@ def journey_section():
         def steps():
             for cap, title, body in JOURNEY:
                 def item(cap=cap, title=title, body=body):
-                    paragraph(cap, 'aac-cap')
+                    paragraph(cap, 'aa-cap')
                     heading(4, title)
                     paragraph(body)
-                group('aac-jstep aac-reveal', item)
-        group('aac-journey-steps', steps)
-        paragraph('"Você não entra. <em>Você é recebido</em>."', 'aac-journey-quote')
-    group('aac-journey aac-section aac-container', inner)
+                group('aa-jstep aa-reveal', item)
+        group('aa-journey-steps', steps)
+        paragraph('"Você não entra. <em>Você é recebido</em>."', 'aa-journey-quote')
+    group('aa-journey aa-section aa-container', inner)
 
 # ============================================================
 # NIVEIS (TIERS)
@@ -436,9 +437,9 @@ def tiers_section():
 
         def grid():
             def signature():
-                paragraph('Entrada no clube', 'aac-tier-cap')
-                heading(3, 'Signature', 'aac-tier-name')
-                paragraph('o primeiro convite', 'aac-tier-italic')
+                paragraph('Entrada no clube', 'aa-tier-cap')
+                heading(3, 'Signature', 'aa-tier-name')
+                paragraph('o primeiro convite', 'aa-tier-italic')
                 list_block([
                     'Área exclusiva do clube',
                     'Cadastro de projetos',
@@ -447,23 +448,23 @@ def tiers_section():
                     'Newsletter editorial',
                     'Bônus financeiro por cada especificação de produto Axell revertida em venda',
                 ])
-                paragraph(cta_link('Começar por aqui', '#adesao', 'aac-tier-cta'))
-            group('aac-tier aac-reveal', signature)
+                paragraph(cta_link('Começar por aqui', '#adesao', 'aa-tier-cta'))
+            group('aa-tier aa-reveal', signature)
 
             def mystery(cap, name, italic, line, hint):
                 def content():
-                    paragraph(cap, 'aac-tier-cap')
-                    heading(3, name, 'aac-tier-name')
-                    paragraph(italic, 'aac-tier-italic')
+                    paragraph(cap, 'aa-tier-cap')
+                    heading(3, name, 'aa-tier-name')
+                    paragraph(italic, 'aa-tier-italic')
                     def lock_mark():
                         icon_block('axellcore/lock')
                         paragraph('Revelado após conquista')
-                    group('aac-lock-mark', lock_mark, layout={"type": "flex", "alignItems": "center"})
+                    group('aa-lock-mark', lock_mark, layout={"type": "flex", "alignItems": "center"})
                     def body():
-                        paragraph(line, 'aac-mystery-line')
-                    group('aac-mystery-body', body)
-                    paragraph(hint, 'aac-mystery-hint')
-                group('aac-tier aac-mystery aac-reveal', content)
+                        paragraph(line, 'aa-mystery-line')
+                    group('aa-mystery-body', body)
+                    paragraph(hint, 'aa-mystery-hint')
+                group('aa-tier aa-mystery aa-reveal', content)
 
             mystery('Segundo estágio', 'Alliance', 'a ser conquistado',
                     'Há um <em>segundo capítulo</em> reservado a quem transforma o hábito em consistência. Seus benefícios são desvelados quando o membro alcança o estágio.',
@@ -471,8 +472,8 @@ def tiers_section():
             mystery('Terceiro estágio', 'Ambassador', 'o círculo mais estreito',
                     'O <em>topo entre prescritores</em>. Um convite reservado, com benefícios que só se descobrem ao chegar. A curadoria Axell guarda o silêncio até lá.',
                     'Um capítulo por vez')
-        group('aac-tiers-grid', grid)
-    group('aac-tiers aac-section aac-on-ivory aac-container', outer)
+        group('aa-tiers-grid', grid)
+    group('aa-tiers aa-section aa-on-ivory aa-container', outer)
 
 # ============================================================
 # BENEFICIOS
@@ -495,27 +496,27 @@ def benefits_section():
         def head_wrap():
             section_head('Recompensas à altura do <em>talento</em>.',
                           'Do bônus financeiro à placa em pedra, dos lançamentos antecipados às viagens internacionais — cada benefício foi desenhado para respeitar o ofício, o tempo e a influência do autor.')
-        group('aac-container', head_wrap)
+        group('aa-container', head_wrap)
 
         # Zero-padded (01, 02…) isn't a native <ol type> value, but the
         # marker is still browser-generated, not hand-typed: ::marker{content:
         # counter(list-item, decimal-leading-zero)} in sections.css overrides
         # the displayed digits while the numbering itself stays native.
         items = [f'<strong>{title}</strong><br><span>{body}</span>' for title, body in BENEFITS]
-        list_block(items, className='aac-benefits-grid', ordered=True)
+        list_block(items, className='aa-benefits-grid', ordered=True)
 
         def prizes_wrap():
             def prizes_inner():
-                paragraph('Premiações do clube', 'aac-eyebrow')
+                paragraph('Premiações do clube', 'aa-eyebrow')
                 def chips():
                     for p in PRIZES:
-                        paragraph(p, 'aac-prize-chip')
-                group('aac-prizes-list', chips, layout={"type": "flex", "flexWrap": "wrap"})
+                        paragraph(p, 'aa-prize-chip')
+                group('aa-prizes-list', chips, layout={"type": "flex", "flexWrap": "wrap"})
                 notice_pill('clock', 'Concedidas por categorização')
-                paragraph('As recompensas do clube são liberadas de acordo com o estágio de categorização alcançado pelo profissional. Cada nível abre um novo repertório de benefícios — e mantém os anteriores como base permanente.', 'aac-notice-caption')
-            group('aac-container', prizes_inner)
-        group('aac-benefits-prizes', prizes_wrap)
-    group('aac-benefits', outer)
+                paragraph('As recompensas do clube são liberadas de acordo com o estágio de categorização alcançado pelo profissional. Cada nível abre um novo repertório de benefícios — e mantém os anteriores como base permanente.', 'aa-notice-caption')
+            group('aa-container', prizes_inner)
+        group('aa-benefits-prizes', prizes_wrap)
+    group('aa-benefits', outer)
 
 # ============================================================
 # EDITORIAL
@@ -537,24 +538,24 @@ CHANNELS = [
 def editorial_section():
     def cols():
         def left():
-            heading(2, 'Seu projeto, com a voz <em>Axell</em>.', 'aac-section-title')
-            paragraph('A Axell transforma o seu case em conteúdo editorial premium. Ganho duplo: a marca ganha prova social, e o parceiro ganha autoridade técnica e visibilidade qualificada.', 'aac-body')
-            paragraph('Percurso editorial', 'aac-chapter-tag')
-            list_block(EDIT_PATH, className='aac-edit-path', ordered=True, list_type='i')
+            heading(2, 'Seu projeto, com a voz <em>Axell</em>.', 'aa-section-title')
+            paragraph('A Axell transforma o seu case em conteúdo editorial premium. Ganho duplo: a marca ganha prova social, e o parceiro ganha autoridade técnica e visibilidade qualificada.', 'aa-body')
+            paragraph('Percurso editorial', 'aa-chapter-tag')
+            list_block(EDIT_PATH, className='aa-edit-path', ordered=True, list_type='i')
         def right():
-            paragraph('Onde os cases aparecem', 'aac-chapter-tag')
+            paragraph('Onde os cases aparecem', 'aa-chapter-tag')
             def grid():
                 for name, kind in CHANNELS:
                     def card(name=name, kind=kind):
-                        paragraph(name, 'aac-name')
-                        paragraph(kind, 'aac-kind')
-                    group('aac-channel', card, layout={"type": "flex", "justifyContent": "space-between"})
-            group('aac-channels-grid', grid)
-        column(None, left, className='aac-reveal')
-        column(None, right, className='aac-channels aac-reveal')
-    columns('aac-editorial aac-section', cols)
+                        paragraph(name, 'aa-name')
+                        paragraph(kind, 'aa-kind')
+                    group('aa-channel', card, layout={"type": "flex", "justifyContent": "space-between"})
+            group('aa-channels-grid', grid)
+        column(None, left, className='aa-reveal')
+        column(None, right, className='aa-channels aa-reveal')
+    columns('aa-editorial aa-section', cols)
     def quote():
-        paragraph('"Cada projeto é um <em>capítulo de conteúdo</em>. Cada assinatura, um capítulo da marca."', 'aac-editorial-quote')
+        paragraph('"Cada projeto é um <em>capítulo de conteúdo</em>. Cada assinatura, um capítulo da marca."', 'aa-editorial-quote')
     group('', quote)
 
 # ============================================================
@@ -564,9 +565,9 @@ def cta_strip_section():
     def inner():
         heading(2, 'Há profissionais que transformam o banho em <em>obra</em>, o spa em <em>poesia</em>, e o projeto em <em>memória</em>. Solicite sua adesão.')
         def cta():
-            button('Quero fazer parte', 'aac-btn-primary aac-btn-lg', url='#adesao')
+            button('Quero fazer parte', 'aa-btn-primary aa-btn-lg', url='#adesao')
         buttons_block('', cta)
-    group('aac-cta-strip-inner aac-container', inner)
+    group('aa-cta-strip-inner aa-container', inner)
 
 # ============================================================
 # FOOTER
@@ -582,11 +583,11 @@ def footer_section():
         def grid():
             def brand():
                 def logo():
-                    paragraph('Atelier Axell', 'aac-n1')
-                    paragraph('The Axell World', 'aac-n2')
-                group('aac-nav-logo', logo, layout={"type": "flex", "orientation": "vertical", "flexWrap": "nowrap"})
+                    paragraph('Atelier Axell', 'aa-n1')
+                    paragraph('The Axell World', 'aa-n2')
+                group('aa-nav-logo', logo, layout={"type": "flex", "orientation": "vertical", "flexWrap": "nowrap"})
                 paragraph('O atelier é o lugar onde criar encontra morar. Um clube por convite para arquitetos e designers que assinam o bem-estar brasileiro.')
-            group('aac-footer-brand', brand)
+            group('aa-footer-brand', brand)
 
             for title, links in FOOTER_COLUMNS:
                 def col(title=title, links=links):
@@ -594,15 +595,15 @@ def footer_section():
                     items = [f'<a href="{href}">{label}</a>' if href else label for href, label in links]
                     list_block(items)
                 group('', col)
-        group('aac-footer-grid', grid, layout={"type": "grid", "columnCount": 4})
+        group('aa-footer-grid', grid, layout={"type": "grid", "columnCount": 4})
 
         def bottom():
             paragraph('© 2026 Axell. Todos os direitos reservados.')
-            paragraph('Atelier Axell Club · Edição Lumière · 2026', 'aac-edition')
-        group('aac-footer-bottom', bottom, layout={"type": "flex", "justifyContent": "space-between"})
+            paragraph('Atelier Axell Club · Edição Lumière · 2026', 'aa-edition')
+        group('aa-footer-bottom', bottom, layout={"type": "flex", "justifyContent": "space-between"})
     def inner():
-        group('aac-container', container)
-    group('aac-footer', inner)
+        group('aa-container', container)
+    group('aa-footer', inner)
 
 # ============================================================
 # APPLY FORM (axell/form, axell/fieldset, axell/form-label,
@@ -635,13 +636,13 @@ def _control_html(type_, id_, name, required, placeholder, mask, mask_source, op
     if placeholder:
         common += f' placeholder="{placeholder}"'
     if mask:
-        common += f' data-aac-mask="{mask}"'
+        common += f' data-aa-mask="{mask}"'
     if mask_source:
-        common += f' data-aac-mask-source="{mask_source}"'
+        common += f' data-aa-mask-source="{mask_source}"'
     if cities_source:
         # Starts empty (frontend.js populates it once the source field has
         # a value) — disabled until then.
-        common += f' data-aac-cities-source="{cities_source}" disabled'
+        common += f' data-aa-cities-source="{cities_source}" disabled'
 
     if type_ == 'textarea':
         return f'<textarea{common}></textarea>'
@@ -734,47 +735,47 @@ def form_label(for_, text, required=False, visually_hidden=False):
         attrs["visuallyHidden"] = True
 
     cls = 'wp-block-axell-form-label' + ( ' is-visually-hidden' if visually_hidden else '' )
-    req_span = '<span class="aac-req"> *</span>' if required else ''
-    html = f'<label class="{cls}" for="{for_}"><span class="aac-field-label-text">{text}</span>{req_span}</label>'
+    req_span = '<span class="aa-req"> *</span>' if required else ''
+    html = f'<label class="{cls}" for="{for_}"><span class="aa-field-label-text">{text}</span>{req_span}</label>'
 
     OUT.append(f'<!-- wp:axell/form-label {esc_attrs(attrs)} -->')
     OUT.append(html)
     OUT.append('<!-- /wp:axell/form-label -->')
 
 def field(type_, name, label, required=False, placeholder="", hint="", options=None, mask="", mask_source="", value="", checked=False, cities_source="", visually_hidden=False, autocomplete=None):
-    """The atomic 'field' unit: a core/group.aac-field wrapping a
+    """The atomic 'field' unit: a core/group.aa-field wrapping a
     axell/form-label + axell/form-control pair (`id`/`name` both = `name`,
     already unique across the whole form — verified). Reuses
-    assets/css/sections.css's existing `.aac-field`/`.aac-req`/`.aac-hint`
-    rules completely unchanged — they're descendant selectors (`.aac-field
-    label`, `.aac-field input`), indifferent to which block renders the
+    assets/css/sections.css's existing `.aa-field`/`.aa-req`/`.aa-hint`
+    rules completely unchanged — they're descendant selectors (`.aa-field
+    label`, `.aa-field input`), indifferent to which block renders the
     actual `<label>`/`<input>`, as long as the DOM shape stays the same."""
     def inner():
         form_label(name, label, required, visually_hidden)
         form_control(type_, name, required=required, placeholder=placeholder, mask=mask, mask_source=mask_source, options=options, checked=checked, value=value, cities_source=cities_source, autocomplete=autocomplete)
         if hint:
-            paragraph(hint, 'aac-hint')
-    group('aac-field', inner)
+            paragraph(hint, 'aa-hint')
+    group('aa-field', inner)
 
 def consent_field(name, label, required=False):
     """The consent checkbox — control-then-label composition (checkbox
     first, then the label with its embedded link), replacing the old
-    `variant="consent"` special case. Reuses `.aac-consent` unchanged."""
+    `variant="consent"` special case. Reuses `.aa-consent` unchanged."""
     def inner():
         form_control('checkbox', name, required=required)
         form_label(name, label, required=False)
-    group('aac-consent', inner)
+    group('aa-consent', inner)
 
 def form_row(className, fields_fn):
     """A core/group wrapping a row of `field()` groups — unchanged from
-    before (still `.aac-form-row`/`.aac-cols-*`, still a real block-tree
+    before (still `.aa-form-row`/`.aa-cols-*`, still a real block-tree
     child of axell/fieldset's InnerBlocks)."""
-    group('aac-form-row ' + className, fields_fn)
+    group('aa-form-row ' + className, fields_fn)
 
 def fieldset(legend_text, fields_fn):
     """axell/fieldset — a real `<fieldset>`/`<legend>` pair, replacing
-    the old `core/group.aac-form-row` + separate `.aac-form-legend`-styled
-    paragraph. `.aac-apply-form fieldset`/`.aac-apply-form legend` in
+    the old `core/group.aa-form-row` + separate `.aa-form-legend`-styled
+    paragraph. `.aa-apply-form fieldset`/`.aa-apply-form legend` in
     sections.css already target plain element selectors (ported from the
     original mockup, unused until now) — no new CSS needed.
 
@@ -785,7 +786,7 @@ def fieldset(legend_text, fields_fn):
     redundant and, for any future legend containing a quote/embedded HTML,
     a repeat of the escaped-quote block-comment parser bug already found
     and fixed once this session."""
-    legend_html = f'<legend class="aac-form-legend-text">{legend_text}</legend>' if legend_text else ''
+    legend_html = f'<legend class="aa-form-legend-text">{legend_text}</legend>' if legend_text else ''
     OUT.append('<!-- wp:axell/fieldset {} -->')
     OUT.append('<fieldset class="wp-block-axell-fieldset">' + legend_html)
     fields_fn()
@@ -794,7 +795,7 @@ def fieldset(legend_text, fields_fn):
 
 def form_notification(type_, paragraphs_html):
     """axell/form-submission-notification — starts hidden
-    (assets/css/sections.css's .aac-notice), toggled visible by
+    (assets/css/sections.css's .aa-notice), toggled visible by
     assets/js/frontend.js's showFormNotice() once the REST fetch() resolves.
     Replaces the old window.alert()-based feedback; see
     includes/blocks/form/form-submission-notification/index.js's header
@@ -802,9 +803,9 @@ def form_notification(type_, paragraphs_html):
     core/form-submission-notification block, adapted for this form's
     no-page-reload submission)."""
     attrs = {"type": type_}
-    cls = f'wp-block-axell-form-submission-notification aac-notice aac-notice-{type_}'
+    cls = f'wp-block-axell-form-submission-notification aa-notice aa-notice-{type_}'
     OUT.append(f'<!-- wp:axell/form-submission-notification {esc_attrs(attrs)} -->')
-    OUT.append(f'<div class="{cls}" data-aac-notice-type="{type_}">')
+    OUT.append(f'<div class="{cls}" data-aa-notice-type="{type_}">')
     for html in paragraphs_html:
         paragraph(html)
     OUT.append('</div>')
@@ -813,17 +814,17 @@ def form_notification(type_, paragraphs_html):
 def apply_section():
     def cols():
         def side():
-            paragraph('Solicitar adesão', 'aac-eyebrow')
-            heading(2, 'Sua autoria tem <em>nome e forma</em>.', 'aac-section-title')
-            paragraph('O convite está aberto. Preencha seu cadastro — a curadoria Axell responde com atenção a cada profissional. Após a aprovação, seu acesso ao clube é liberado e a placa começa a ser gravada.', 'aac-lede')
+            paragraph('Solicitar adesão', 'aa-eyebrow')
+            heading(2, 'Sua autoria tem <em>nome e forma</em>.', 'aa-section-title')
+            paragraph('O convite está aberto. Preencha seu cadastro — a curadoria Axell responde com atenção a cada profissional. Após a aprovação, seu acesso ao clube é liberado e a placa começa a ser gravada.', 'aa-lede')
             list_block([
                 'Cadastro sujeito à aprovação da curadoria Axell.',
                 'Área exclusiva liberada após validação do perfil profissional.',
                 'Benefícios, bônus e campanhas seguem as regras vigentes do programa.',
                 'A placa é entregue em até 30 dias após aprovação.',
                 'Seus dados são tratados conforme a LGPD.',
-            ], className='aac-apply-terms', ordered=True, list_type='i')
-        column(None, side, className='aac-apply-side aac-reveal')
+            ], className='aa-apply-terms', ordered=True, list_type='i')
+        column(None, side, className='aa-apply-side aa-reveal')
 
         def form_col():
             # axell/form's save() renders `<form>{innerBlocks}</form>` from
@@ -832,19 +833,19 @@ def apply_section():
             # or the editor's save()-recomputation would mismatch the
             # hand-seeded HTML and flag the block as invalid the moment
             # someone opens this page.
-            OUT.append(f'<!-- wp:axell/form {esc_attrs({"submitsToRest": True, "className": "aac-apply-form"})} -->')
-            OUT.append('<form class="wp-block-axell-form aac-apply-form" data-aac-club-form novalidate="">')
+            OUT.append(f'<!-- wp:axell/form {esc_attrs({"submitsToRest": True, "className": "aa-apply-form"})} -->')
+            OUT.append('<form class="wp-block-axell-form aa-apply-form" data-aa-club-form novalidate="">')
 
             def section1():
                 def row1a():
                     field('text', 'nome', 'Nome completo', True, 'Como devemos chamá-lo(a)?')
                     field('text', 'escritorio', 'Escritório / Atelê', True, 'Nome do escritório')
-                form_row('aac-cols-2', row1a)
+                form_row('aa-cols-2', row1a)
                 def row1b():
                     field('email', 'email', 'E-mail profissional', True, 'voce@escritorio.com.br')
                     field('tel', 'telefone', 'Telefone', True, '(11) 90000-0000', mask='phone')
                     field('text', 'registro', 'Registro (CAU / CREA / ABD)', False, 'A00000-0')
-                form_row('aac-cols-3', row1b)
+                form_row('aa-cols-3', row1b)
                 def row1c():
                     field('select', 'atuacao', 'Atuação principal', True, placeholder='Selecione uma opção', options=[
                         {"label": "Arquitetura residencial de alto padrão", "value": "Arquitetura residencial de alto padrão"},
@@ -854,7 +855,7 @@ def apply_section():
                         {"label": "Outros", "value": "Outros"},
                     ])
                     field('url', 'portfolio', 'Portfólio (URL)', False, 'https://…', hint='Site, Instagram, Behance ou drive com projetos.')
-                form_row('aac-cols-2', row1c)
+                form_row('aa-cols-2', row1c)
             fieldset('01 — Autoria', section1)
 
             def section2():
@@ -865,7 +866,7 @@ def apply_section():
                     ])
                     field('text', 'documento', 'CPF ou CNPJ', True, '000.000.000-00 / 12.ABC.345/01DE-35',
                                 hint='Utilizado para emissão de bônus e nota fiscal.', mask='cpf-cnpj', mask_source='tipoDoc')
-                form_row('aac-cols-2', row2)
+                form_row('aa-cols-2', row2)
             fieldset('02 — Documento', section2)
 
             def section3():
@@ -873,11 +874,11 @@ def apply_section():
                     field('text', 'rua', 'Logradouro', True, 'Rua, Avenida, Alameda…')
                     field('text', 'numero', 'Número', True, '000')
                     field('text', 'complemento', 'Complemento', False, 'Sala, andar, conjunto')
-                form_row('aac-cols-addr', row3a)
+                form_row('aa-cols-addr', row3a)
                 def row3b():
                     field('text', 'bairro', 'Bairro', True, 'Bairro')
                     field('text', 'referencia', 'Referência', False, 'Próximo a…')
-                form_row('aac-cols-2', row3b)
+                form_row('aa-cols-2', row3b)
                 def row3c():
                     # UF drives the Cidade select: choosing a state fetches
                     # and populates that state's cities (assets/js/frontend.js,
@@ -889,13 +890,13 @@ def apply_section():
                     field('select', 'uf', 'UF', True, placeholder='—', options=uf_options)
                     field('select', 'cidade', 'Cidade', True, placeholder='Selecione o estado', cities_source='uf')
                     field('text', 'cep', 'CEP', True, '00000-000', mask='cep')
-                form_row('aac-cols-city', row3c)
+                form_row('aa-cols-city', row3c)
             fieldset('03 — Endereço do escritório', section3)
 
             def section4():
                 def partners():
-                    paragraph('Onde você costuma especificar Axell?', 'aac-field-label-text')
-                    paragraph('Liste até <strong style="color:var(--bronze-3);font-weight:500">cinco</strong> revendas ou showrooms parceiros com quem você trabalha. Preencha apenas o que fizer sentido — os campos vazios podem ficar em branco.', 'aac-hint')
+                    paragraph('Onde você costuma especificar Axell?', 'aa-field-label-text')
+                    paragraph('Liste até <strong style="color:var(--bronze-3);font-weight:500">cinco</strong> revendas ou showrooms parceiros com quem você trabalha. Preencha apenas o que fizer sentido — os campos vazios podem ficar em branco.', 'aa-hint')
                     # Five autocomplete fields over the revenda post type. The label
                     # shows "[post_title] - [tax:estados:uf] [tax:cidades]"; the form submits
                     # the ID (lojaN) and the shown text (lojaN_titulo). "Não encontrada"
@@ -906,7 +907,7 @@ def apply_section():
                               autocomplete={'postType': 'revenda',
                                             'template': '[post_title] - [tax:estados:uf] [tax:cidades]',
                                             'allowNotFound': True})
-                group('aac-partner-slots', partners)
+                group('aa-partner-slots', partners)
             fieldset('04 — Lojas parceiras', section4)
 
             consent_field('regulamento', 'Li e concordo com o <a href="#">regulamento do Atelier Axell Club</a> e com o tratamento dos meus dados conforme a Política de Privacidade e a LGPD.', required=True)
@@ -924,15 +925,15 @@ def apply_section():
                 # tagName="a" would never fire a native 'submit' event, which
                 # assets/js/frontend.js relies on to intercept the form.
                 def submit_btn():
-                    button('Enviar solicitação', 'aac-btn-primary aac-btn-lg', tag_name='button', btn_type='submit')
+                    button('Enviar solicitação', 'aa-btn-primary aa-btn-lg', tag_name='button', btn_type='submit')
                 buttons_block('', submit_btn)
-                paragraph('Ao enviar, você concorda em receber comunicações do Atelier Axell Club. Cadastro sujeito à aprovação da curadoria Axell.', 'aac-fine')
-            group('aac-submit-row', submit_row)
+                paragraph('Ao enviar, você concorda em receber comunicações do Atelier Axell Club. Cadastro sujeito à aprovação da curadoria Axell.', 'aa-fine')
+            group('aa-submit-row', submit_row)
 
             OUT.append('</form>')
             OUT.append('<!-- /wp:axell/form -->')
         column(None, form_col)
-    columns('aac-apply aac-section aac-container', cols)
+    columns('aa-apply aa-section aa-container', cols)
 
 # ============================================================
 # ASSEMBLE — nav/footer go to their own FSE Template Parts (editable via

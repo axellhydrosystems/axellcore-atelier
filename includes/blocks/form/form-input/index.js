@@ -13,8 +13,8 @@
  * Static (no PHP render), no build step (plain browser JS against wp.*
  * globals). Renders text/email/url/number/tel/textarea/select/checkbox/
  * hidden, matching the markup the plugin's assets/css/sections.css (ported
- * from source/index.html) expects: `.aac-field` wrapper (or
- * `.aac-consent` for the consent variant).
+ * from source/index.html) expects: `.aa-field` wrapper (or
+ * `.aa-consent` for the consent variant).
  *
  * Source strings are English; translations live in languages/*.po (see
  * bin/release.sh + `wp i18n make-pot`).
@@ -168,13 +168,13 @@
 		if ( isSave ) {
 			common.placeholder = placeholder || undefined;
 			if ( attributes.mask ) {
-				common[ 'data-aac-mask' ] = attributes.mask;
+				common[ 'data-aa-mask' ] = attributes.mask;
 			}
 			if ( attributes.maskSourceName ) {
-				common[ 'data-aac-mask-source' ] = attributes.maskSourceName;
+				common[ 'data-aa-mask-source' ] = attributes.maskSourceName;
 			}
 			if ( attributes.citiesSourceName ) {
-				common[ 'data-aac-cities-source' ] = attributes.citiesSourceName;
+				common[ 'data-aa-cities-source' ] = attributes.citiesSourceName;
 				// Starts empty (populated by frontend.js once the source
 				// field has a value) — disabled until then, same as the
 				// real page markup this generates.
@@ -239,7 +239,7 @@
 		return el(
 			'span',
 			{
-				className: 'aac-field-hidden-placeholder',
+				className: 'aa-field-hidden-placeholder',
 				style: {
 					display: 'flex',
 					alignItems: 'center',
@@ -259,8 +259,8 @@
 	/**
 	 * Merge a base className into a wrapperProps object (as produced by
 	 * useBlockProps()/useBlockProps.save()), so the block's own root element
-	 * IS `.aac-field`/`.aac-consent` — no extra wrapping div, which would
-	 * otherwise break `.aac-form-row`'s CSS grid (it expects `.aac-field` as
+	 * IS `.aa-field`/`.aa-consent` — no extra wrapping div, which would
+	 * otherwise break `.aa-form-row`'s CSS grid (it expects `.aa-field` as
 	 * a direct child).
 	 */
 	function withBase( wrapperProps, base ) {
@@ -284,7 +284,7 @@
 		if ( 'consent' === attributes.variant ) {
 			return el(
 				'label',
-				withBase( wrapperProps, 'aac-consent' ),
+				withBase( wrapperProps, 'aa-consent' ),
 				fieldElement,
 				labelElement
 			);
@@ -292,15 +292,15 @@
 
 		return el(
 			'div',
-			withBase( wrapperProps, 'aac-field' ),
+			withBase( wrapperProps, 'aa-field' ),
 			el(
 				'label',
 				null,
 				labelElement,
-				attributes.required ? el( 'span', { className: 'aac-req' }, ' *' ) : null
+				attributes.required ? el( 'span', { className: 'aa-req' }, ' *' ) : null
 			),
 			fieldElement,
-			attributes.hint ? el( 'div', { className: 'aac-hint' }, attributes.hint ) : null
+			attributes.hint ? el( 'div', { className: 'aa-hint' }, attributes.hint ) : null
 		);
 	}
 
@@ -313,7 +313,7 @@
 
 			var labelEl = el( RichText, {
 				tagName: 'span',
-				className: 'aac-field-label-text',
+				className: 'aa-field-label-text',
 				value: attributes.label,
 				onChange: function ( v ) {
 					setAttributes( { label: v } );
@@ -463,7 +463,7 @@
 			var blockProps = useBlockProps.save();
 			var labelEl = el( RichText.Content, {
 				tagName: 'span',
-				className: 'aac-field-label-text',
+				className: 'aa-field-label-text',
 				value: attributes.label,
 			} );
 			return FieldWrapper( attributes, labelEl, FieldControl( attributes, true ), blockProps, true );

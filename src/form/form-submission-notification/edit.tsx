@@ -13,8 +13,8 @@ function classesFor(
 	attributes: FormSubmissionNotificationAttributes
 ): string {
 	return [
-		'aac-notice',
-		`aac-notice-${ attributes.type }`,
+		'aa-notice',
+		`aa-notice-${ attributes.type }`,
 		`form-notification-type-${ attributes.type }`,
 	].join( ' ' );
 }
@@ -27,9 +27,9 @@ function classesFor(
  * core/form-submission-notification, adapted for our fetch()-based,
  * no-page-reload submission) are documented in this plugin's own CLAUDE.md.
  *
- * Frontend visibility: `.aac-notice` starts hidden (assets/css/sections.css)
+ * Frontend visibility: `.aa-notice` starts hidden (assets/css/sections.css)
  * and frontend.js adds `.is-active` to the matching
- * `[data-aac-notice-type="success"|"error"]` element once its form's fetch()
+ * `[data-aa-notice-type="success"|"error"]` element once its form's fetch()
  * resolves. In the editor, this hiding rule doesn't apply (no plugin CSS
  * loads inside the editor iframe — a separately tracked gap, see
  * CLAUDE.md), so both notifications render fully visible/editable here
@@ -46,7 +46,7 @@ export default function Edit( {
 	const innerBlocksProps = useInnerBlocksProps(
 		{
 			...blockProps,
-			'data-aac-notice-type': attributes.type,
+			'data-aa-notice-type': attributes.type,
 			// Shown by the editor-only ::after overlay (form-editor.css), as in core.
 			'data-message-success': __( 'Submission success notification', 'axellcore-atelierclub' ),
 			'data-message-error': __( 'Submission error notification', 'axellcore-atelierclub' ),

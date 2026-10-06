@@ -1,0 +1,12 @@
+[
+    {
+        "path": "pure",
+        "title": "Pure",
+        "template": "page-no-title"
+    },
+    {
+        "path": "pure/adesao",
+        "title": "Adesão",
+        "template": "page-no-title"
+    }
+]

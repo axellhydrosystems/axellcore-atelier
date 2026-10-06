@@ -2,7 +2,7 @@
 /**
  * Brazilian state/city reference data (adapted from fervidum/f9brcities —
  * see includes/data/br-states.php and includes/data/br-cities.php) and the
- * `aac_location` hierarchical taxonomy (Country > State > City) it feeds.
+ * `aa_location` hierarchical taxonomy (Country > State > City) it feeds.
  *
  * Terms are created lazily, on first use, by resolve_city_term() — not
  * pre-seeded on activation. Pre-seeding all 27 states + 5,570 cities would
@@ -26,7 +26,7 @@ final class Locations {
 	/**
 	 * Taxonomy slug.
 	 */
-	const TAXONOMY = 'aac_location';
+	const TAXONOMY = 'aa_location';
 
 	/**
 	 * The one country this taxonomy supports right now — ISO 3166-1 alpha-2,
@@ -80,7 +80,7 @@ final class Locations {
 	}
 
 	/**
-	 * Register the `aac_location` taxonomy on the `aac_member` post type.
+	 * Register the `aa_location` taxonomy on the `aa_member` post type.
 	 *
 	 * Deliberately locked down in wp-admin — the same restriction the
 	 * frontend form already has (a fixed Estado/Cidade select, never free

@@ -14,10 +14,10 @@ use Axellcore_Atelierclub\Classic_Template;
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<?php wp_head(); ?>
 </head>
-<body <?php body_class( 'aac-classic' ); ?>>
+<body <?php body_class( 'aa-classic' ); ?>>
 <?php wp_body_open(); ?>
 <?php load_template( Classic_Template::locate( 'header-atelier.php' ), false ); ?>
-<main class="aac-page">
+<main class="aa-page">
 	<?php
 	while ( have_posts() ) {
 		the_post();

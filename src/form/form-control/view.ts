@@ -285,7 +285,7 @@ const { state } = store( 'axell/autocomplete', {
 
 			if ( context.loading ) {
 				const searching = document.createElement( 'li' );
-				searching.className = 'aac-ac-loading';
+				searching.className = 'aa-ac-loading';
 				searching.textContent = 'Procurando…';
 				list.replaceChildren( searching );
 				return;
@@ -307,7 +307,7 @@ const { state } = store( 'axell/autocomplete', {
 				// The typed text itself, with the add action at its end.
 				const li = document.createElement( 'li' );
 				li.setAttribute( 'role', 'option' );
-				li.className = 'aac-ac-notfound';
+				li.className = 'aa-ac-notfound';
 				li.dataset.index = String( entries.length );
 				li.setAttribute( 'aria-selected', String( entries.length === context.activeIndex ) );
 
@@ -316,7 +316,7 @@ const { state } = store( 'axell/autocomplete', {
 
 				const add = document.createElement( 'button' );
 				add.type = 'button';
-				add.className = 'aac-ac-add';
+				add.className = 'aa-ac-add';
 				add.textContent = NOT_FOUND_LABEL;
 
 				li.append( typed, add );

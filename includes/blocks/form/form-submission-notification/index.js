@@ -7,9 +7,9 @@
  * based, no-page-reload submission) are documented in this plugin's own
  * CLAUDE.md.
  *
- * Frontend visibility: `.aac-notice` starts hidden (assets/css/sections.css)
+ * Frontend visibility: `.aa-notice` starts hidden (assets/css/sections.css)
  * and frontend.js adds `.is-active` to the matching
- * `[data-aac-notice-type="success"|"error"]` element once its form's fetch()
+ * `[data-aa-notice-type="success"|"error"]` element once its form's fetch()
  * resolves. In the editor, this hiding rule doesn't apply (no plugin CSS
  * loads inside the editor iframe yet — a separately tracked gap, see
  * CLAUDE.md), so both notifications render fully visible/editable here
@@ -30,12 +30,12 @@
 	var TEMPLATE = [ [ 'core/paragraph', {} ] ];
 
 	function classesFor( attributes ) {
-		return [ 'aac-notice', 'aac-notice-' + attributes.type ].join( ' ' );
+		return [ 'aa-notice', 'aa-notice-' + attributes.type ].join( ' ' );
 	}
 
 	function noticeProps( attributes, extra ) {
 		return Object.assign(
-			{ 'data-aac-notice-type': attributes.type },
+			{ 'data-aa-notice-type': attributes.type },
 			extra || {}
 		);
 	}

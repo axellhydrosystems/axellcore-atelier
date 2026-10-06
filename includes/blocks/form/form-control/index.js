@@ -7,7 +7,7 @@
  * "consent" variant is now just ordinary block composition — see this
  * plugin's CLAUDE.md for the full reasoning).
  *
- * Unlike axellcore/form-input (a wrapping `<div class="aac-field">` around
+ * Unlike axellcore/form-input (a wrapping `<div class="aa-field">` around
  * a `<label>` and the control), this block's OWN root element IS the
  * control itself — `useBlockProps()`/`useBlockProps.save()` applied
  * directly onto the `<input>`/`<select>`/`<textarea>`, so the block's
@@ -95,7 +95,7 @@
 		return el(
 			'span',
 			{
-				className: 'aac-field-hidden-placeholder',
+				className: 'aa-field-hidden-placeholder',
 				style: {
 					display: 'flex',
 					alignItems: 'center',
@@ -135,13 +135,13 @@
 		if ( isSave ) {
 			common.placeholder = placeholder || undefined;
 			if ( attributes.mask ) {
-				common[ 'data-aac-mask' ] = attributes.mask;
+				common[ 'data-aa-mask' ] = attributes.mask;
 			}
 			if ( attributes.maskSourceName ) {
-				common[ 'data-aac-mask-source' ] = attributes.maskSourceName;
+				common[ 'data-aa-mask-source' ] = attributes.maskSourceName;
 			}
 			if ( attributes.citiesSourceName ) {
-				common[ 'data-aac-cities-source' ] = attributes.citiesSourceName;
+				common[ 'data-aa-cities-source' ] = attributes.citiesSourceName;
 				// Starts empty (populated by frontend.js once the source
 				// field has a value) — disabled until then, same as the
 				// real page markup this generates.

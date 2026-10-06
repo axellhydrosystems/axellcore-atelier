@@ -36,7 +36,7 @@ final class LocationsTest extends TestCase {
 		return trim( preg_replace( '/[^a-z0-9]+/', '-', $ascii ), '-' );
 	}
 
-	public function test_register_taxonomy_registers_aac_location_as_hierarchical(): void {
+	public function test_register_taxonomy_registers_aa_location_as_hierarchical(): void {
 		Functions\when( '__' )->returnArg( 1 );
 
 		Functions\expect( 'register_taxonomy' )

@@ -30,7 +30,7 @@
     "label": {
       "type": "rich-text",
       "source": "rich-text",
-      "selector": ".aac-field-label-text",
+      "selector": ".aa-field-label-text",
       "default": "Label"
     },
     "required": {

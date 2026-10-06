@@ -1,9 +1,9 @@
 /**
  * axell/form — <form> wrapper block. Static (no PHP render). Clean/generic
  * by default (`<form class="wp-block-axell-form">`, nothing else baked
- * in) — the REST-submission wiring (`data-aac-club-form`/`noValidate`,
+ * in) — the REST-submission wiring (`data-aa-club-form`/`noValidate`,
  * used by assets/js/frontend.js) is opt-in via the `submitsToRest`
- * attribute, and the branded look (`aac-apply-form`) comes from the
+ * attribute, and the branded look (`aa-apply-form`) comes from the
  * block's own `customClassName` support, same as any other block's
  * "Additional CSS class(es)" field — not hardcoded. This plugin's own
  * content (bin/generate-content.py) sets both explicitly; a fresh,
@@ -58,7 +58,7 @@
 	function formProps( attributes, extra ) {
 		return Object.assign(
 			{},
-			attributes.submitsToRest ? { 'data-aac-club-form': '', noValidate: true } : {},
+			attributes.submitsToRest ? { 'data-aa-club-form': '', noValidate: true } : {},
 			extra || {}
 		);
 	}

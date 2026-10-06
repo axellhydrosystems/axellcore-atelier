@@ -13,17 +13,17 @@
  * Every rule here is wrapped in `:where(...)` — same technique the
  * reference block's own style.scss uses (`:where(.wp-block-form-input__
  * input)`) — which contributes ZERO specificity. That means
- * assets/css/sections.css's own `.aac-field input`/`.aac-field label`/
- * `.aac-consent` rules (normal specificity, loaded only on the isolated
+ * assets/css/sections.css's own `.aa-field input`/`.aa-field label`/
+ * `.aa-consent` rules (normal specificity, loaded only on the isolated
  * /atelier template) always win, regardless of stylesheet load order. This
  * file is a bare-minimum fallback for everywhere else, never a competitor
  * to the branded design — the page's pixel-parity commitment stays intact.
  */
-:where(.aac-field label) {
+:where(.aa-field label) {
 	display: block;
 	margin-bottom: 0.4em;
 }
-:where(.aac-field input, .aac-field select, .aac-field textarea) {
+:where(.aa-field input, .aa-field select, .aa-field textarea) {
 	display: block;
 	width: 100%;
 	box-sizing: border-box;
@@ -35,11 +35,11 @@
 	font-size: 1em;
 	margin-bottom: 0.5em;
 }
-:where(.aac-field textarea) {
+:where(.aa-field textarea) {
 	min-height: 10em;
 	padding: 0.5em;
 }
-:where(.aac-consent) {
+:where(.aa-consent) {
 	display: flex;
 	align-items: flex-start;
 	gap: 0.6em;

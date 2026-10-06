@@ -155,7 +155,7 @@ export function cityMarkup( a: AddressArgs ) {
 		return (
 			<div
 				{ ...props }
-				className={ `${ ( props.className as string ) || '' } aac-city-search`.trim() }
+				className={ `${ ( props.className as string ) || '' } aa-city-search`.trim() }
 				data-wp-on--focusout="actions.onCityFocusOut"
 			>
 				<input

@@ -1,5 +1,5 @@
-/* Form field structure (.aac-field, .aac-consent). Zero specificity. */
-:where(.aac-field) {
+/* Form field structure (.aa-field, .aa-consent). Zero specificity. */
+:where(.aa-field) {
 	label {
 		display: block;
 		margin-bottom: 0.4em;
@@ -26,7 +26,7 @@
 	}
 }
 
-:where(.aac-consent) {
+:where(.aa-consent) {
 	display: flex;
 	align-items: flex-start;
 	gap: 0.6em;

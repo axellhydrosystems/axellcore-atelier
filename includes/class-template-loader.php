@@ -51,7 +51,6 @@ final class Template_Loader {
 	 */
 	public function register_hooks() {
 		add_action( 'init', array( $this, 'register_template' ) );
-		add_action( 'init', array( $this, 'register_noclass_template' ) );
 		add_filter( 'get_block_templates', array( $this, 'reindex_block_templates' ) );
 		add_filter( 'wp_theme_json_data_theme', array( $this, 'enable_position_sticky' ) );
 	}
@@ -82,31 +81,6 @@ final class Template_Loader {
 	}
 
 	/**
-	 * Register the "Atelier — No Class" experimental block template.
-	 */
-	public function register_noclass_template() {
-		if ( ! function_exists( 'register_block_template' ) ) {
-			return;
-		}
-
-		$template_path = AXELLCORE_ATELIERCLUB_PATH . 'templates/atelier-club-noclass.html';
-
-		if ( ! file_exists( $template_path ) ) {
-			return;
-		}
-
-		register_block_template(
-			Plugin::NOCLASS_TEMPLATE_NAME,
-			array(
-				'title'       => __( 'Atelier — No Class (experimental)', 'axellcore-atelierclub' ),
-				'description' => __( 'Same design, zero aac- CSS classes — styled entirely via native block attributes (color/typography/spacing/border/position). Exists to find the real limit of that approach; not a production page.', 'axellcore-atelierclub' ),
-				'content'     => file_get_contents( $template_path ), // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
-				'post_types'  => array( 'page' ),
-			)
-		);
-	}
-
-	/**
 	 * Native `position: sticky` (Group block's "Position" style panel) only
 	 * renders its CSS when the active theme.json declares
 	 * `settings.position.sticky: true` — otherwise
@@ -114,8 +88,8 @@ final class Template_Loader {
 	 * silently drops the style at render time, even if the attribute is set.
 	 * twentytwentyfive doesn't opt into this. Enabling it via
 	 * `wp_theme_json_data_theme` (a normal, documented filter) lets the
-	 * /atelier-noclass experiment use a real native block attribute for the
-	 * fixed-feeling nav instead of a custom CSS class — without editing the
+	 * styled sections use a real native block attribute for a fixed-feeling
+	 * header instead of a custom CSS class — without editing the
 	 * theme's own theme.json file. Site-wide, not scoped to our template:
 	 * enabling this setting has no visible effect on blocks that don't set
 	 * position.sticky themselves, so it's safe to leave broadly enabled.

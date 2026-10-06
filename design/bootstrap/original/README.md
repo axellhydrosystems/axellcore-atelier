@@ -9,7 +9,7 @@ The prototype (`../index.html`, `../style.min.css`) is the source going forward.
 
 | Change | Where | Why | Effect |
 |---|---|---|---|
-| Chapter label on ivory: `#B4996A` → `#7D6138` | `.aac-on-ivory .aac-chapter-tag`, `.aac-chapter.aac-ivory .aac-chapter-tag` (WordPress) | Lighthouse contrast: 2.3:1 → 4.9:1 (AA) | Visible colour change on the chapter labels |
-| Footer copyright: alpha 0.4 → 0.55 | `.aac-footer-bottom` (WordPress) | Lighthouse contrast: 3.4:1 → 5.4:1 (AA) | Visible colour change on the footer line |
+| Chapter label on ivory: `#B4996A` → `#7D6138` | `.aa-on-ivory .aa-chapter-tag`, `.aa-chapter.aa-ivory .aa-chapter-tag` (WordPress) | Lighthouse contrast: 2.3:1 → 4.9:1 (AA) | Visible colour change on the chapter labels |
+| Footer copyright: alpha 0.4 → 0.55 | `.aa-footer-bottom` (WordPress) | Lighthouse contrast: 3.4:1 → 5.4:1 (AA) | Visible colour change on the footer line |
 
 None of these is applied to the prototype yet. When one is applied there, the base must be re-recorded from the prototype with that change, and the row above must say so.

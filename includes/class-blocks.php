@@ -59,9 +59,9 @@ final class Blocks {
 	 * Register the two custom blocks from their block.json metadata.
 	 *
 	 * Every other section uses plain core blocks with the original (now
-	 * `aac-`-prefixed) classes applied via "Additional CSS class(es)" —
-	 * including core/button, which gets `aac-btn aac-btn-primary`/`aac-btn-ghost`
-	 * directly, reusing assets/css/sections.css's already-ported `.aac-btn*`
+	 * `aa-`-prefixed) classes applied via "Additional CSS class(es)" —
+	 * including core/button, which gets `aa-btn aa-btn-primary`/`aa-btn-ghost`
+	 * directly, reusing assets/css/sections.css's already-ported `.aa-btn*`
 	 * rules verbatim instead of duplicating them under new block-style-variation
 	 * selectors.
 	 */
@@ -117,7 +117,7 @@ final class Blocks {
 	 */
 	public function render_chapter( $attributes, $content ) {
 		$processor = new \WP_HTML_Tag_Processor( $content );
-		if ( $processor->next_tag( array( 'class_name' => 'aac-chapter-tag' ) ) ) {
+		if ( $processor->next_tag( array( 'class_name' => 'aa-chapter-tag' ) ) ) {
 			$processor->set_attribute( 'data-chapter', __( 'Chapter', 'axellcore-atelierclub' ) );
 			return $processor->get_updated_html();
 		}

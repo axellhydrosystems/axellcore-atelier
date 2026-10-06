@@ -24,7 +24,7 @@ final class MemberTest extends TestCase {
 		parent::tearDown();
 	}
 
-	public function test_register_post_type_registers_aac_member_as_non_public(): void {
+	public function test_register_post_type_registers_aa_member_as_non_public(): void {
 		Functions\when( '__' )->returnArg( 1 );
 
 		Functions\expect( 'register_post_type' )

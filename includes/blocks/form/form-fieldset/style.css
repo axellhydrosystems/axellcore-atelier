@@ -16,6 +16,6 @@
 	margin: 0;
 	min-width: 0;
 }
-:where(.wp-block-axell-form-fieldset .aac-form-legend-text) {
+:where(.wp-block-axell-form-fieldset .aa-form-legend-text) {
 	padding: 0;
 }

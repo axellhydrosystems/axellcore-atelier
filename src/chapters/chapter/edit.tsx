@@ -26,9 +26,9 @@ const ALLOWED_BLOCKS = [
  * axellcore/chapter — one numbered chapter within axellcore/chapters.
  *
  * The visible "Capítulo NN" prefix is NEVER stored as text: the number is a
- * CSS counter (.aac-chapters{counter-reset:aac-chapter} /
- * .aac-chapter{counter-increment:aac-chapter} / .aac-chapter-tag::before{
- * content: attr(data-chapter) " " counter(aac-chapter, decimal-leading-zero)
+ * CSS counter (.aa-chapters{counter-reset:aa-chapter} /
+ * .aa-chapter{counter-increment:aa-chapter} / .aa-chapter-tag::before{
+ * content: attr(data-chapter) " " counter(aa-chapter, decimal-leading-zero)
  * " · "} — see assets/css/sections.css), and the word itself ("Chapter" /
  * "Capítulo") is a real, runtime-translated gettext string, never frozen
  * into saved content:
@@ -55,21 +55,21 @@ export default function Edit( {
 	attributes,
 	setAttributes,
 }: BlockEditProps< ChapterAttributes > ) {
-	const blockProps = useBlockProps( { className: 'aac-chapter' } );
+	const blockProps = useBlockProps( { className: 'aa-chapter' } );
 	const innerBlocksProps = useInnerBlocksProps(
-		{ className: 'aac-chapter-body' },
+		{ className: 'aa-chapter-body' },
 		{ allowedBlocks: ALLOWED_BLOCKS, templateLock: false }
 	);
 
 	return (
 		<div { ...blockProps }>
 			<p
-				className="aac-chapter-tag"
+				className="aa-chapter-tag"
 				data-chapter={ __( 'Chapter', 'axellcore-atelierclub' ) }
 			>
 				<RichText
 					tagName="span"
-					className="aac-chapter-label"
+					className="aa-chapter-label"
 					value={ attributes.label }
 					onChange={ ( label: string ) => setAttributes( { label } ) }
 					allowedFormats={ [] }

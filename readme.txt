@@ -14,7 +14,7 @@ Self-contained landing page (FSE template + core blocks + a custom application-f
 
 == Description ==
 
-Ships the Atelier Axell Club landing page as a plugin-owned FSE template (registered via `register_block_template()`, editable in the Site Editor, no theme header/footer) plus two small custom blocks (`axellcore/form`, `axellcore/form-input`) for the application form — every other section is composed from core WordPress blocks styled with the plugin's own `aac-`-prefixed stylesheet. On activation, the plugin provisions the `/atelier` page automatically if it doesn't already exist.
+Ships the Atelier Axell Club landing page as a plugin-owned FSE template (registered via `register_block_template()`, editable in the Site Editor, no theme header/footer) plus two small custom blocks (`axellcore/form`, `axellcore/form-input`) for the application form — every other section is composed from core WordPress blocks styled with the plugin's own `aa-`-prefixed stylesheet. On activation, the plugin provisions the `/atelier` page automatically if it doesn't already exist.
 
 == Changelog ==
 
@@ -26,7 +26,7 @@ Ships the Atelier Axell Club landing page as a plugin-owned FSE template (regist
 * Replaced almost all Custom HTML blocks in the seeded content with real core-block composition (Group/Columns/Paragraph/Heading/List/Buttons) — nav, hero, "A Placa" visual, tier lock-marks, benefit prize chips, editorial rows/cards, CTA strip, and the footer are now genuinely WYSIWYG-editable, verified live in the block editor (no "invalid block" warnings). Only 4 tiny, structurally-justified Custom HTML blocks remain (3 purely-decorative empty layers, plus the 5 partner-store inputs).
 * Registers a small icon set via WordPress 7.1's Icons API (`wp_register_icon_collection()`/`wp_register_icon()`) and renders the lock/clock glyphs with the native `core/icon` block instead of inline SVG.
 * The form's submit control is now a real `core/button` with `tagName:"button"`/`type:"submit"` (confirmed via the block editor's Code editor round-trip) — native form-submit semantics instead of an `<a>` styled as a button.
-* CTA arrow icons moved from inline SVG to a CSS `mask-image` pseudo-element on `.aac-btn`/`.aac-tier-cta` (see assets/css/blocks-bridge.css), so `core/button` needs only its "Additional CSS class(es)" field, no per-instance markup.
+* CTA arrow icons moved from inline SVG to a CSS `mask-image` pseudo-element on `.aa-btn`/`.aa-tier-cta` (see assets/css/blocks-bridge.css), so `core/button` needs only its "Additional CSS class(es)" field, no per-instance markup.
 
 = 0.1.0 =
 * FSE blank-canvas template registration, theme/core asset suppression, design tokens + section CSS ported from the approved static mockup, shared frontend behavior (nav scroll state, scroll-reveal, CPF/CNPJ/CEP/phone input masks), and the `axellcore/form` / `axellcore/form-input` blocks.

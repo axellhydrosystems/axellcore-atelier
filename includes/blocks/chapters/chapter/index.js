@@ -2,9 +2,9 @@
  * axellcore/chapter — one numbered chapter within axellcore/chapters.
  *
  * The visible "Capítulo NN" prefix is NEVER stored as text: the number is a
- * CSS counter (.aac-chapters{counter-reset:aac-chapter} /
- * .aac-chapter{counter-increment:aac-chapter} / .aac-chapter-tag::before{
- * content: attr(data-chapter) " " counter(aac-chapter, decimal-leading-zero)
+ * CSS counter (.aa-chapters{counter-reset:aa-chapter} /
+ * .aa-chapter{counter-increment:aa-chapter} / .aa-chapter-tag::before{
+ * content: attr(data-chapter) " " counter(aa-chapter, decimal-leading-zero)
  * " · "} — see assets/css/sections.css), and the word itself ("Chapter" /
  * "Capítulo") is a real, runtime-translated gettext string, never frozen
  * into saved content:
@@ -55,9 +55,9 @@
 		edit: function ( props ) {
 			var attributes = props.attributes;
 			var setAttributes = props.setAttributes;
-			var blockProps = useBlockProps( { className: 'aac-chapter' } );
+			var blockProps = useBlockProps( { className: 'aa-chapter' } );
 			var innerBlocksProps = useInnerBlocksProps(
-				{ className: 'aac-chapter-body' },
+				{ className: 'aa-chapter-body' },
 				{ allowedBlocks: ALLOWED_BLOCKS, templateLock: false }
 			);
 
@@ -66,10 +66,10 @@
 				blockProps,
 				el(
 					'p',
-					{ className: 'aac-chapter-tag', 'data-chapter': __( 'Chapter', 'axellcore-atelierclub' ) },
+					{ className: 'aa-chapter-tag', 'data-chapter': __( 'Chapter', 'axellcore-atelierclub' ) },
 					el( RichText, {
 						tagName: 'span',
-						className: 'aac-chapter-label',
+						className: 'aa-chapter-label',
 						value: attributes.label,
 						onChange: function ( label ) {
 							setAttributes( { label: label } );
@@ -83,18 +83,18 @@
 		},
 		save: function ( props ) {
 			var attributes = props.attributes;
-			var blockProps = useBlockProps.save( { className: 'aac-chapter' } );
-			var innerBlocksProps = useInnerBlocksProps.save( { className: 'aac-chapter-body' } );
+			var blockProps = useBlockProps.save( { className: 'aa-chapter' } );
+			var innerBlocksProps = useInnerBlocksProps.save( { className: 'aa-chapter-body' } );
 
 			return el(
 				'div',
 				blockProps,
 				el(
 					'p',
-					{ className: 'aac-chapter-tag' },
+					{ className: 'aa-chapter-tag' },
 					el( RichText.Content, {
 						tagName: 'span',
-						className: 'aac-chapter-label',
+						className: 'aa-chapter-label',
 						value: attributes.label,
 					} )
 				),

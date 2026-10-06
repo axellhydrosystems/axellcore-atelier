@@ -72,7 +72,7 @@ export default function Edit( {
 				{ showLegend && (
 					<RichText
 						tagName="legend"
-						className="aac-form-legend-text"
+						className="aa-form-legend-text"
 						value={ attributes.legend }
 						onChange={ ( value: string ) =>
 							setAttributes( { legend: value } )

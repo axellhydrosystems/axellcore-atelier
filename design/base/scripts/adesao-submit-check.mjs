@@ -44,5 +44,5 @@ async function run(label, mock) {
 }
 
 await run('success', { status: 200, contentType: 'application/json', body: JSON.stringify({ success: true, id: 1 }) });
-await run('error', { status: 400, contentType: 'application/json', body: JSON.stringify({ code: 'aac_invalid_email', message: 'x' }) });
+await run('error', { status: 400, contentType: 'application/json', body: JSON.stringify({ code: 'aa_invalid_email', message: 'x' }) });
 await browser.close();

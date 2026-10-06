@@ -11,7 +11,7 @@ await page.goto('http://localhost:8906/studio-auto-login?redirect_to=%2Fwp-admin
 await page.waitForFunction(() => window.wp && wp.data && wp.data.select('core/block-editor') && wp.data.select('core/block-editor').getBlocks().length > 0, null, { timeout: 120000 });
 const changed = await page.evaluate(async () => {
 	const be = wp.data.select('core/block-editor');
-	const target = be.getBlocks().find((b) => b.name === 'core/columns' && (b.attributes.className || '').includes('aac-apply'));
+	const target = be.getBlocks().find((b) => b.name === 'core/columns' && (b.attributes.className || '').includes('aa-apply'));
 	if (!target) return 'not found';
 	wp.data.dispatch('core/block-editor').updateBlockAttributes(target.clientId, { anchor: 'adesao' });
 	await wp.data.dispatch('core/editor').savePost();

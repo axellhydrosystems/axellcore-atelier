@@ -80,7 +80,7 @@ export default function Edit( {
 	const labelEl = (
 		<RichText
 			tagName="span"
-			className="aac-field-label-text"
+			className="aa-field-label-text"
 			value={ attributes.label }
 			onChange={ ( v: string ) => setAttributes( { label: v } ) }
 			aria-label={

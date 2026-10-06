@@ -10,7 +10,7 @@ export default function save( {
 	const labelEl = (
 		<RichText.Content
 			tagName="span"
-			className="aac-field-label-text"
+			className="aa-field-label-text"
 			value={ attributes.label }
 		/>
 	);

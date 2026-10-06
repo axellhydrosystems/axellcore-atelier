@@ -1,7 +1,7 @@
 /**
  * axell/form-fieldset — groups a set of related form fields. Static (no PHP
  * render), no build step (plain browser JS against wp.* globals). Replaces
- * the old `core/group.aac-form-row` + separate `.aac-form-legend`-styled
+ * the old `core/group.aa-form-row` + separate `.aa-form-legend`-styled
  * paragraph pattern with a real `<fieldset>`/`<legend>` pair.
  *
  * The legend is a toolbar toggle — "Add legend"/"Remove legend" — mirroring
@@ -66,7 +66,7 @@
 			var legendEl = showLegend
 				? el( RichText, {
 					tagName: 'legend',
-					className: 'aac-form-legend-text',
+					className: 'aa-form-legend-text',
 					value: attributes.legend,
 					onChange: function ( v ) {
 						setAttributes( { legend: v } );
@@ -98,7 +98,7 @@
 			var innerBlocksProps = useInnerBlocksProps.save( blockProps );
 			var hasLegend = attributes.legend && attributes.legend.replace( /<[^>]+>/g, '' ).trim();
 			var legendEl = hasLegend
-				? el( RichText.Content, { tagName: 'legend', className: 'aac-form-legend-text', value: attributes.legend } )
+				? el( RichText.Content, { tagName: 'legend', className: 'aa-form-legend-text', value: attributes.legend } )
 				: null;
 
 			return el(

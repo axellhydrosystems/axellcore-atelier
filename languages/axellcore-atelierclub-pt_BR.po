@@ -395,15 +395,15 @@ msgstr "Deixe vazio para uma lista estática. Se definido, este select começa v
 
 #: includes/blocks/form/form/block.json
 msgctxt "block description"
-msgid "Self-contained <form> wrapper for the Atelier Axell Club application form. Submits to the plugin's REST endpoint, which creates an aac_member post and resolves its Country/State/City taxonomy term."
-msgstr "Wrapper <form> autocontido para o formulário de adesão do Atelier Axell Club. Envia para o endpoint REST do plugin, que cria um post aac_member e resolve sua taxonomy de País/Estado/Cidade."
+msgid "Self-contained <form> wrapper for the Atelier Axell Club application form. Submits to the plugin's REST endpoint, which creates an aa_member post and resolves its Country/State/City taxonomy term."
+msgstr "Wrapper <form> autocontido para o formulário de adesão do Atelier Axell Club. Envia para o endpoint REST do plugin, que cria um post aa_member e resolve sua taxonomy de País/Estado/Cidade."
 
 #: includes/class-template-loader.php:101
 msgid "Atelier — No Class (experimental)"
 msgstr ""
 
 #: includes/class-template-loader.php:102
-msgid "Same design, zero aac- CSS classes — styled entirely via native block attributes (color/typography/spacing/border/position). Exists to find the real limit of that approach; not a production page."
+msgid "Same design, zero aa- CSS classes — styled entirely via native block attributes (color/typography/spacing/border/position). Exists to find the real limit of that approach; not a production page."
 msgstr ""
 
 #: includes/blocks/form/form-control/index.js:111

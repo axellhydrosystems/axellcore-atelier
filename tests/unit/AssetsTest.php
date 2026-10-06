@@ -68,6 +68,8 @@ final class AssetsTest extends TestCase {
 
 	public function test_enqueue_frontend_assets_does_nothing_off_our_template(): void {
 		Functions\when( 'is_page_template' )->justReturn( false );
+		// Not a singular page, so no form page either (frontend.js only loads there).
+		Functions\when( 'is_singular' )->justReturn( false );
 		Functions\expect( 'wp_enqueue_style' )->never();
 		Functions\expect( 'wp_enqueue_script' )->never();
 
@@ -84,26 +86,26 @@ final class AssetsTest extends TestCase {
 		);
 
 		Functions\expect( 'wp_enqueue_style' )
-			->with( 'aac-google-fonts', \Mockery::type( 'string' ), array(), null )
+			->with( 'aa-google-fonts', \Mockery::type( 'string' ), array(), null )
 			->once();
 		Functions\expect( 'wp_enqueue_style' )
-			->with( 'aac-tokens', \Mockery::type( 'string' ), array(), AXELLCORE_ATELIERCLUB_VERSION )
+			->with( 'aa-tokens', \Mockery::type( 'string' ), array(), AXELLCORE_ATELIERCLUB_VERSION )
 			->once();
 		Functions\expect( 'wp_enqueue_style' )
-			->with( 'aac-sections', \Mockery::type( 'string' ), array( 'aac-tokens' ), AXELLCORE_ATELIERCLUB_VERSION )
+			->with( 'aa-sections', \Mockery::type( 'string' ), array( 'aa-tokens' ), AXELLCORE_ATELIERCLUB_VERSION )
 			->once();
 		Functions\expect( 'wp_enqueue_style' )
-			->with( 'aac-blocks-bridge', \Mockery::type( 'string' ), array( 'aac-sections' ), AXELLCORE_ATELIERCLUB_VERSION )
+			->with( 'aa-blocks-bridge', \Mockery::type( 'string' ), array( 'aa-sections' ), AXELLCORE_ATELIERCLUB_VERSION )
 			->once();
 		Functions\expect( 'wp_enqueue_script' )
-			->with( 'aac-frontend', \Mockery::type( 'string' ), array(), AXELLCORE_ATELIERCLUB_VERSION, \Mockery::type( 'array' ) )
+			->with( 'aa-frontend', \Mockery::type( 'string' ), array(), AXELLCORE_ATELIERCLUB_VERSION, \Mockery::type( 'array' ) )
 			->once();
 
 		Functions\when( 'rest_url' )->justReturn( 'https://example.com/wp-json/axellcore-atelierclub/v1' );
 		Functions\when( 'trailingslashit' )->justReturn( 'https://example.com/wp-json/axellcore-atelierclub/v1/' );
 		Functions\when( 'esc_url_raw' )->returnArg( 1 );
 		Functions\expect( 'wp_localize_script' )
-			->with( 'aac-frontend', 'aacRest', array( 'root' => 'https://example.com/wp-json/axellcore-atelierclub/v1/' ) )
+			->with( 'aa-frontend', 'aaRest', array( 'root' => 'https://example.com/wp-json/axellcore-atelierclub/v1/' ) )
 			->once();
 
 		Assets::instance()->enqueue_frontend_assets();
@@ -111,21 +113,4 @@ final class AssetsTest extends TestCase {
 		$this->addToAssertionCount( 1 );
 	}
 
-	public function test_enqueue_frontend_assets_on_noclass_template_enqueues_only_fonts(): void {
-		Functions\when( 'is_page_template' )->alias(
-			function ( $slug ) {
-				return Plugin::NOCLASS_TEMPLATE_SLUG === $slug;
-			}
-		);
-
-		Functions\expect( 'wp_enqueue_style' )
-			->with( 'aac-google-fonts', \Mockery::type( 'string' ), array(), null )
-			->once();
-		Functions\expect( 'wp_enqueue_script' )->never();
-		Functions\expect( 'wp_localize_script' )->never();
-
-		Assets::instance()->enqueue_frontend_assets();
-
-		$this->addToAssertionCount( 1 );
-	}
 }

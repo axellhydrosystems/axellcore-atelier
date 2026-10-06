@@ -8,9 +8,9 @@
 	'use strict';
 
 	/* ---------------------------------------------------------------------
-	 * Input masks — driven by data-aac-mask="cpf-cnpj|cep|phone" on the
+	 * Input masks — driven by data-aa-mask="cpf-cnpj|cep|phone" on the
 	 * <input>. A cpf-cnpj field additionally reads a sibling <select> named
-	 * via data-aac-mask-source="<field name>" within the same <form> to
+	 * via data-aa-mask-source="<field name>" within the same <form> to
 	 * decide which format to apply (mirrors the source's handleDocTypeChange()
 	 * cross-field behavior).
 	 * ------------------------------------------------------------------- */
@@ -121,9 +121,9 @@
 		return { placeholder: '000.000.000-00 / 00.000.000/0000-00', maxlength: null };
 	}
 
-	document.querySelectorAll( '[data-aac-mask="cpf-cnpj"]' ).forEach( function ( input ) {
+	document.querySelectorAll( '[data-aa-mask="cpf-cnpj"]' ).forEach( function ( input ) {
 		var form = input.closest( 'form' );
-		var sourceName = input.getAttribute( 'data-aac-mask-source' );
+		var sourceName = input.getAttribute( 'data-aa-mask-source' );
 		var source = sourceName && form ? form.elements.namedItem( sourceName ) : null;
 
 		var applyDocType = function () {
@@ -164,31 +164,31 @@
 		input.addEventListener( 'blur', validate );
 	} );
 
-	document.querySelectorAll( '[data-aac-mask="cep"]' ).forEach( function ( input ) {
+	document.querySelectorAll( '[data-aa-mask="cep"]' ).forEach( function ( input ) {
 		input.addEventListener( 'input', function () {
 			maskCep( input );
 		} );
 	} );
 
-	document.querySelectorAll( '[data-aac-mask="phone"]' ).forEach( function ( input ) {
+	document.querySelectorAll( '[data-aa-mask="phone"]' ).forEach( function ( input ) {
 		input.addEventListener( 'input', function () {
 			maskPhone( input );
 		} );
 	} );
 
 	/* ---------------------------------------------------------------------
-	 * State → city cascading select — driven by data-aac-cities-source="…"
+	 * State → city cascading select — driven by data-aa-cities-source="…"
 	 * (the name of the sibling <select> whose value is a 2-letter UF) on a
-	 * <select data-aac-cities-source>, fetching from the REST cities
+	 * <select data-aa-cities-source>, fetching from the REST cities
 	 * endpoint (includes/class-rest.php; data adapted from
 	 * fervidum/f9brcities — see includes/data/br-*.php). Starts disabled;
 	 * enabled once populated.
 	 * ------------------------------------------------------------------- */
-	document.querySelectorAll( '[data-aac-cities-source]' ).forEach( function ( citySelect ) {
+	document.querySelectorAll( '[data-aa-cities-source]' ).forEach( function ( citySelect ) {
 		var form = citySelect.closest( 'form' );
-		var sourceName = citySelect.getAttribute( 'data-aac-cities-source' );
+		var sourceName = citySelect.getAttribute( 'data-aa-cities-source' );
 		var source = sourceName && form ? form.elements.namedItem( sourceName ) : null;
-		if ( ! source || ! window.aacRest || ! window.aacRest.root ) {
+		if ( ! source || ! window.aaRest || ! window.aaRest.root ) {
 			return;
 		}
 
@@ -207,7 +207,7 @@
 
 			citySelect.appendChild( new Option( 'Carregando cidades…', '' ) );
 
-			fetch( window.aacRest.root + 'cities?uf=' + encodeURIComponent( uf ) )
+			fetch( window.aaRest.root + 'cities?uf=' + encodeURIComponent( uf ) )
 				.then( function ( response ) {
 					return response.ok ? response.json() : Promise.reject( response );
 				} )

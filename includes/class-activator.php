@@ -57,72 +57,74 @@ final class Activator {
 		);
 
 		self::create_page();
-		foreach ( self::child_pages() as $slug => $title ) {
-			self::create_child_page( self::PAGE_SLUG, $slug, $title, self::child_file( $slug ) );
+		foreach ( self::descendants() as $page ) {
+			self::create_descendant( $page );
 		}
 	}
 
 	/**
-	 * Child pages of PAGE_SLUG: slug => title. One unstyled page per section
-	 * of the landing (same copy, anchors on the landing still point to #),
-	 * plus the apply form. Content files live in content/pages/{slug}.html.
+	 * Pages under PAGE_SLUG, from content/pages.json: each entry has the
+	 * page path below /atelier (e.g. "pure/adesao"), its title and its page
+	 * template. Content lives in content/pages/{path}.html. Parents come
+	 * before their children (bin/export-content.sh writes them that way).
 	 *
-	 * @return array<string,string>
+	 * @return array<int,array{path:string,title:string,template:string}>
 	 */
-	private static function child_pages() {
-		return array(
-			'inicio'        => __( 'Início', 'axellcore-atelierclub' ),
-			'convite'       => __( 'Convite', 'axellcore-atelierclub' ),
-			'manifesto'     => __( 'Manifesto', 'axellcore-atelierclub' ),
-			'a-placa'       => __( 'A Placa', 'axellcore-atelierclub' ),
-			'protagonistas' => __( 'Protagonistas', 'axellcore-atelierclub' ),
-			'proposta'      => __( 'Proposta', 'axellcore-atelierclub' ),
-			'o-nome'        => __( 'O Nome', 'axellcore-atelierclub' ),
-			'como-entrar'   => __( 'Como Entrar', 'axellcore-atelierclub' ),
-			'niveis'        => __( 'Níveis', 'axellcore-atelierclub' ),
-			'beneficios'    => __( 'Benefícios', 'axellcore-atelierclub' ),
-			'editorial'     => __( 'Editorial', 'axellcore-atelierclub' ),
-			'chamada'       => __( 'Chamada para adesão', 'axellcore-atelierclub' ),
-			'adesao'        => __( 'Adesão', 'axellcore-atelierclub' ),
-		);
+	private static function descendants() {
+		$file = AXELLCORE_ATELIERCLUB_PATH . 'content/pages.json';
+		if ( ! file_exists( $file ) ) {
+			return array();
+		}
+		$pages = json_decode( (string) file_get_contents( $file ), true ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+		if ( ! is_array( $pages ) ) {
+			return array();
+		}
+		$valid = array();
+		foreach ( $pages as $page ) {
+			if ( is_array( $page ) && ! empty( $page['path'] ) ) {
+				$valid[] = array(
+					'path'     => trim( (string) $page['path'], '/' ),
+					'title'    => (string) ( $page['title'] ?? '' ),
+					'template' => (string) ( $page['template'] ?? '' ),
+				);
+			}
+		}
+		return $valid;
 	}
 
 	/**
-	 * Create a child page under $parent_slug if it doesn't already exist.
+	 * Create one page under PAGE_SLUG if it doesn't already exist. Its parent
+	 * (the path without the last segment) must exist already.
 	 *
-	 * Uses the default page template on purpose: the content is plain block
-	 * markup with no styling, and the page should show the theme's defaults.
-	 *
-	 * @param string $parent_slug   Slug of the parent page (must exist).
-	 * @param string $slug          Slug of the child page.
-	 * @param string $title         Title of the child page.
-	 * @param string $content_file  Absolute path to the block-markup content file.
+	 * @param array{path:string,title:string,template:string} $page Page entry.
 	 */
-	private static function create_child_page( string $parent_slug, string $slug, string $title, string $content_file ) {
-		$parent = get_page_by_path( $parent_slug, OBJECT, 'page' );
+	private static function create_descendant( array $page ) {
+		$full = self::PAGE_SLUG . '/' . $page['path'];
+		if ( get_page_by_path( $full, OBJECT, 'page' ) instanceof \WP_Post ) {
+			return;
+		}
+		$parent = get_page_by_path( dirname( $full ), OBJECT, 'page' );
 		if ( ! $parent instanceof \WP_Post ) {
 			return;
 		}
 
-		// Full path, so a same-named page elsewhere doesn't count as existing.
-		if ( get_page_by_path( $parent_slug . '/' . $slug, OBJECT, 'page' ) instanceof \WP_Post ) {
-			return;
-		}
-
-		self::insert_trusted_content(
+		$page_id = self::insert_trusted_content(
 			array(
 				'post_type'    => 'page',
-				'post_title'   => $title,
-				'post_name'    => $slug,
+				'post_title'   => '' !== $page['title'] ? $page['title'] : basename( $full ),
+				'post_name'    => basename( $full ),
 				'post_status'  => 'publish',
 				'post_parent'  => $parent->ID,
-				'post_content' => self::read_content_file( $content_file, '' ),
+				'post_content' => self::read_content_file( self::page_file( $page['path'] ), '' ),
 			)
 		);
+		if ( ! is_wp_error( $page_id ) && $page_id && '' !== $page['template'] ) {
+			update_post_meta( $page_id, '_wp_page_template', $page['template'] );
+		}
 	}
 
 	/**
-	 * Option holding the hash of the child page content files last synced.
+	 * Option holding the hash of the page content files last synced.
 	 */
 	const PAGES_SYNC_OPTION = 'axellcore_atelierclub_pages_hash';
 
@@ -135,18 +137,16 @@ final class Activator {
 	}
 
 	/**
-	 * Update the child pages that already exist when their content file changed.
-	 * Pages are never created here (activate() does that), and the landing page
-	 * itself is never touched: its content is edited in the database.
+	 * Update the pages under /atelier that already exist when their content
+	 * file changed. Pages are never created here (activate() does that), and
+	 * the landing itself is never touched: its content is edited in the database.
 	 */
 	public static function maybe_sync_pages() {
-		$pages = self::child_pages();
-
 		$contents = array();
 		$parts    = array();
-		foreach ( $pages as $slug => $title ) {
-			$contents[ $slug ] = self::read_content_file( self::child_file( $slug ), '' );
-			$parts[]           = $slug . ':' . md5( $contents[ $slug ] );
+		foreach ( self::descendants() as $page ) {
+			$contents[ $page['path'] ] = self::read_content_file( self::page_file( $page['path'] ), '' );
+			$parts[]                   = $page['path'] . ':' . md5( $contents[ $page['path'] ] );
 		}
 		$hash = md5( implode( '|', $parts ) );
 
@@ -154,21 +154,21 @@ final class Activator {
 			return;
 		}
 
-		foreach ( $contents as $slug => $content ) {
-			self::sync_child_page( $slug, $content );
+		foreach ( $contents as $path => $content ) {
+			self::sync_page( $path, $content );
 		}
 
 		update_option( self::PAGES_SYNC_OPTION, $hash, false );
 	}
 
 	/**
-	 * Write one child page's content when it differs from its file.
+	 * Write one page's content when it differs from its file.
 	 *
-	 * @param string $slug    Child page slug (under PAGE_SLUG).
-	 * @param string $content Block markup from content/pages/{slug}.html.
+	 * @param string $path    Page path below PAGE_SLUG.
+	 * @param string $content Block markup from content/pages/{path}.html.
 	 */
-	private static function sync_child_page( $slug, $content ) {
-		$page = get_page_by_path( self::PAGE_SLUG . '/' . $slug, OBJECT, 'page' );
+	private static function sync_page( $path, $content ) {
+		$page = get_page_by_path( self::PAGE_SLUG . '/' . $path, OBJECT, 'page' );
 		if ( ! $page instanceof \WP_Post || '' === $content || $content === $page->post_content ) {
 			return;
 		}
@@ -184,13 +184,13 @@ final class Activator {
 	}
 
 	/**
-	 * Content file of one child page.
+	 * Content file of a page below PAGE_SLUG.
 	 *
-	 * @param string $slug Child page slug.
+	 * @param string $path Page path (e.g. "pure/adesao").
 	 * @return string
 	 */
-	private static function child_file( $slug ) {
-		return AXELLCORE_ATELIERCLUB_PATH . 'content/pages/' . $slug . '.html';
+	private static function page_file( $path ) {
+		return AXELLCORE_ATELIERCLUB_PATH . 'content/pages/' . $path . '.html';
 	}
 
 	/**
@@ -208,10 +208,7 @@ final class Activator {
 				'post_title'   => __( 'Atelier Axell Club', 'axellcore-atelierclub' ),
 				'post_name'    => self::PAGE_SLUG,
 				'post_status'  => 'publish',
-				'post_content' => self::read_content_file(
-					AXELLCORE_ATELIERCLUB_PATH . 'content/atelier-page.html',
-					self::placeholder_content()
-				),
+				'post_content' => self::read_content_file( AXELLCORE_ATELIERCLUB_PATH . 'content/atelier-page.html', '' ),
 			)
 		);
 
@@ -310,23 +307,4 @@ final class Activator {
 		return $fallback;
 	}
 
-	/**
-	 * Minimal placeholder content shown until the full landing-page sections
-	 * are authored in the block editor. Deliberately plain core blocks.
-	 *
-	 * @return string Serialized block markup.
-	 */
-	private static function placeholder_content(): string {
-		return implode(
-			"\n",
-			array(
-				'<!-- wp:heading {"level":1,"className":"aac-display"} -->',
-				'<h1 class="wp-block-heading aac-display">' . esc_html__( 'Atelier Axell Club', 'axellcore-atelierclub' ) . '</h1>',
-				'<!-- /wp:heading -->',
-				'<!-- wp:paragraph -->',
-				'<p>' . esc_html__( 'This page is provisioned by the axellcore-atelierclub plugin. Replace this placeholder with the full landing-page sections in the block editor.', 'axellcore-atelierclub' ) . '</p>',
-				'<!-- /wp:paragraph -->',
-			)
-		);
-	}
 }

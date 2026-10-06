@@ -1,6 +1,6 @@
 <?php
 /**
- * Registers the `aac_member` post type — one record per submitted Atelier
+ * Registers the `aa_member` post type — one record per submitted Atelier
  * Club application (created by Members::create_from_params() on form submission).
  * Internal record-keeping only (not a public post type): admins review
  * submissions in wp-admin, nothing here is ever queried on the frontend.
@@ -15,14 +15,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * `aac_member` post type registration.
+ * `aa_member` post type registration.
  */
 final class Member {
 
 	/**
 	 * Post type slug.
 	 */
-	const POST_TYPE = 'aac_member';
+	const POST_TYPE = 'aa_member';
 
 	/**
 	 * Singleton instance.
@@ -64,8 +64,8 @@ final class Member {
 	 * @var array<string,string> Screen ID => body class.
 	 */
 	const ADMIN_SCREENS = array(
-		'edit-aac_member' => 'aac-members-list',
-		'aac_member'      => 'aac-members-edit',
+		'edit-aa_member' => 'aa-members-list',
+		'aa_member'      => 'aa-members-edit',
 	);
 
 	/**
@@ -86,7 +86,7 @@ final class Member {
 		$handle = 'axellcore-atelierclub-admin-members';
 		wp_add_inline_script(
 			'wp-api-fetch',
-			'window.aacMembers = ' . wp_json_encode( $this->admin_config() ) . ';',
+			'window.aaMembers = ' . wp_json_encode( $this->admin_config() ) . ';',
 			'before'
 		);
 		wp_enqueue_script(
@@ -105,7 +105,7 @@ final class Member {
 	}
 
 	/**
-	 * Config the admin app reads from window.aacMembers.
+	 * Config the admin app reads from window.aaMembers.
 	 *
 	 * @return array
 	 */

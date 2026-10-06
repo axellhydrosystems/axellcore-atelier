@@ -93,8 +93,8 @@ export function autocompleteMarkup( args: AutocompleteMarkupArgs ) {
 				name={ `${ name }_titulo` }
 				data-wp-bind--value="context.titulo"
 			/>
-			<div className="aac-ac-custom" hidden data-wp-bind--hidden="!context.custom">
-				<div className="aac-ac-name">
+			<div className="aa-ac-custom" hidden data-wp-bind--hidden="!context.custom">
+				<div className="aa-ac-name">
 					<input
 						type="text"
 						data-field="name"
@@ -105,7 +105,7 @@ export function autocompleteMarkup( args: AutocompleteMarkupArgs ) {
 					/>
 					<button
 						type="button"
-						className="aac-ac-back"
+						className="aa-ac-back"
 						aria-label={ __( 'Voltar à busca', 'axellcore-atelierclub' ) }
 						data-wp-on--click="actions.backToSearch"
 					>

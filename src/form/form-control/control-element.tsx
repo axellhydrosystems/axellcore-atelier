@@ -11,7 +11,7 @@ import { autocompleteMarkup } from './autocomplete-markup';
 export function HiddenFieldPlaceholder( { label }: { label?: string } = {} ) {
 	return (
 		<span
-			className="aac-field-hidden-placeholder"
+			className="aa-field-hidden-placeholder"
 			style={ {
 				display: 'flex',
 				alignItems: 'center',
@@ -68,13 +68,13 @@ export default function ControlElement(
 	if ( isSave ) {
 		common.placeholder = placeholder || undefined;
 		if ( attributes.mask ) {
-			common[ 'data-aac-mask' ] = attributes.mask;
+			common[ 'data-aa-mask' ] = attributes.mask;
 		}
 		if ( attributes.maskSourceName ) {
-			common[ 'data-aac-mask-source' ] = attributes.maskSourceName;
+			common[ 'data-aa-mask-source' ] = attributes.maskSourceName;
 		}
 		if ( attributes.citiesSourceName ) {
-			common[ 'data-aac-cities-source' ] = attributes.citiesSourceName;
+			common[ 'data-aa-cities-source' ] = attributes.citiesSourceName;
 			// Starts empty (populated by frontend.js once the source
 			// field has a value) — disabled until then, same as the
 			// real page markup this generates.

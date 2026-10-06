@@ -6,6 +6,6 @@ const { launchOptions } = await import(pathToFileURL(S + '/browser.mjs').href);
 const browser = await chromium.launch({ ...launchOptions(), args: [ '--disable-gpu' ] });
 const page = await browser.newPage({ viewport: { width: 640, height: 900 } });
 await page.goto(process.argv[2], { waitUntil: 'load' });
-const out = await page.evaluate(() => [...document.styleSheets].map(s => { let n = -1, has = {}; try { n = s.cssRules.length; const txt = [...s.cssRules].map(r => r.cssText).join('\n'); for (const k of ['aac-placa-stone', 'aac-pillar-row', 'aac-ivory', 'aac-section-pad']) has[k] = txt.includes(k); } catch (e) { has.err = String(e).slice(0, 60); } return { href: (s.href || 'inline').slice(-50), n, has }; }));
+const out = await page.evaluate(() => [...document.styleSheets].map(s => { let n = -1, has = {}; try { n = s.cssRules.length; const txt = [...s.cssRules].map(r => r.cssText).join('\n'); for (const k of ['aa-placa-stone', 'aa-pillar-row', 'aa-ivory', 'aa-section-pad']) has[k] = txt.includes(k); } catch (e) { has.err = String(e).slice(0, 60); } return { href: (s.href || 'inline').slice(-50), n, has }; }));
 console.log(JSON.stringify(out, null, 1));
 await browser.close();

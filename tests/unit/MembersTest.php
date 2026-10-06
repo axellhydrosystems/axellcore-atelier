@@ -41,7 +41,7 @@ final class MembersTest extends TestCase {
 		$result = Members::instance()->submit( array(), '203.0.113.8' );
 
 		$this->assertInstanceOf( \WP_Error::class, $result );
-		$this->assertSame( 'aac_missing_field', $result->get_error_code() );
+		$this->assertSame( 'aa_missing_field', $result->get_error_code() );
 		$this->assertSame( array( 'status' => 400 ), $result->get_error_data() );
 	}
 
@@ -55,7 +55,7 @@ final class MembersTest extends TestCase {
 		$result = Members::instance()->create_from_params( $params );
 
 		$this->assertInstanceOf( \WP_Error::class, $result );
-		$this->assertSame( 'aac_invalid_email', $result->get_error_code() );
+		$this->assertSame( 'aa_invalid_email', $result->get_error_code() );
 	}
 
 	public function test_sixth_submission_within_the_window_is_rate_limited(): void {
@@ -75,12 +75,12 @@ final class MembersTest extends TestCase {
 
 		for ( $i = 0; $i < Members::RATE_LIMIT; $i++ ) {
 			$result = Members::instance()->submit( array(), '203.0.113.9' );
-			$this->assertSame( 'aac_missing_field', $result->get_error_code() );
+			$this->assertSame( 'aa_missing_field', $result->get_error_code() );
 		}
 
 		$limited = Members::instance()->submit( array(), '203.0.113.9' );
 
-		$this->assertSame( 'aac_rate_limited', $limited->get_error_code() );
+		$this->assertSame( 'aa_rate_limited', $limited->get_error_code() );
 		$this->assertSame( array( 'status' => 429 ), $limited->get_error_data() );
 	}
 }

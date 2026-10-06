@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Creates aac_member posts from a form submission.
+ * Creates aa_member posts from a form submission.
  */
 final class Members {
 
@@ -61,7 +61,7 @@ final class Members {
 
 	/**
 	 * Optional text-meta fields, stored verbatim (sanitize_text_field) under
-	 * `_aac_{field}`. `email` and `portfolio` are handled separately (their
+	 * `_aa_{field}`. `email` and `portfolio` are handled separately (their
 	 * own sanitizers); `uf`/`cidade` are handled by the location-resolution
 	 * step, not stored as plain meta.
 	 *
@@ -83,8 +83,8 @@ final class Members {
 	);
 
 	/**
-	 * Partner store slots. Each slot stores its ID (`_aac_lojaN`, empty for free
-	 * text) and the text shown to the user (`_aac_lojaN_titulo`).
+	 * Partner store slots. Each slot stores its ID (`_aa_lojaN`, empty for free
+	 * text) and the text shown to the user (`_aa_lojaN_titulo`).
 	 *
 	 * @var string[]
 	 */
@@ -172,7 +172,7 @@ final class Members {
 		foreach ( self::REQUIRED_FIELDS as $field ) {
 			if ( empty( $params[ $field ] ) ) {
 				return new \WP_Error(
-					'aac_missing_field',
+					'aa_missing_field',
 					/* translators: %s: form field name. */
 					sprintf( __( 'Missing required field: %s', 'axellcore-atelierclub' ), $field ),
 					array( 'status' => 400 )
@@ -182,14 +182,14 @@ final class Members {
 
 		$email = sanitize_email( $params['email'] );
 		if ( '' === $email || ! is_email( $email ) ) {
-			return new \WP_Error( 'aac_invalid_email', __( 'Invalid email address.', 'axellcore-atelierclub' ), array( 'status' => 400 ) );
+			return new \WP_Error( 'aa_invalid_email', __( 'Invalid email address.', 'axellcore-atelierclub' ), array( 'status' => 400 ) );
 		}
 
 		$uf        = strtoupper( sanitize_text_field( $params['uf'] ) );
 		$city_code = absint( $params['cidade'] );
 		$city_term = Locations::instance()->resolve_city_term( $uf, $city_code );
 		if ( null === $city_term ) {
-			return new \WP_Error( 'aac_invalid_location', __( 'Invalid state/city.', 'axellcore-atelierclub' ), array( 'status' => 400 ) );
+			return new \WP_Error( 'aa_invalid_location', __( 'Invalid state/city.', 'axellcore-atelierclub' ), array( 'status' => 400 ) );
 		}
 
 		$post_id = wp_insert_post(
@@ -202,20 +202,20 @@ final class Members {
 		);
 
 		if ( is_wp_error( $post_id ) ) {
-			return new \WP_Error( 'aac_insert_failed', __( 'Could not save your application.', 'axellcore-atelierclub' ), array( 'status' => 500 ) );
+			return new \WP_Error( 'aa_insert_failed', __( 'Could not save your application.', 'axellcore-atelierclub' ), array( 'status' => 500 ) );
 		}
 
 		wp_set_object_terms( $post_id, array( $city_term ), Locations::TAXONOMY );
 
-		update_post_meta( $post_id, '_aac_email', $email );
+		update_post_meta( $post_id, '_aa_email', $email );
 		if ( ! empty( $params['portfolio'] ) ) {
-			update_post_meta( $post_id, '_aac_portfolio', esc_url_raw( $params['portfolio'] ) );
+			update_post_meta( $post_id, '_aa_portfolio', esc_url_raw( $params['portfolio'] ) );
 		}
-		update_post_meta( $post_id, '_aac_uf', $uf );
+		update_post_meta( $post_id, '_aa_uf', $uf );
 
 		foreach ( self::TEXT_META_FIELDS as $field ) {
 			if ( ! empty( $params[ $field ] ) ) {
-				update_post_meta( $post_id, '_aac_' . $field, sanitize_text_field( $params[ $field ] ) );
+				update_post_meta( $post_id, '_aa_' . $field, sanitize_text_field( $params[ $field ] ) );
 			}
 		}
 
@@ -230,8 +230,8 @@ final class Members {
 			if ( 0 === $id ) {
 				$id = (int) apply_filters( 'axellcore_atelierclub_loja_text', 0, $title );
 			}
-			update_post_meta( $post_id, '_aac_' . $field, $id > 0 ? $id : '' );
-			update_post_meta( $post_id, '_aac_' . $field . '_titulo', $title );
+			update_post_meta( $post_id, '_aa_' . $field, $id > 0 ? $id : '' );
+			update_post_meta( $post_id, '_aa_' . $field . '_titulo', $title );
 		}
 
 		return array(
@@ -271,7 +271,7 @@ final class Members {
 
 		if ( $count >= self::RATE_LIMIT ) {
 			return new \WP_Error(
-				'aac_rate_limited',
+				'aa_rate_limited',
 				__( 'Too many attempts. Try again in a few minutes.', 'axellcore-atelierclub' ),
 				array( 'status' => 429 )
 			);

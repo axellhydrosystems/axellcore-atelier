@@ -19,7 +19,7 @@
     },
     "storePostType": {
       "type": "string",
-      "default": "aac_member"
+      "default": "aa_member"
     },
     "storeStatus": {
       "type": "string",

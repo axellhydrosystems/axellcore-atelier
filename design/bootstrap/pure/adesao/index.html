@@ -340,7 +340,7 @@
 (function () {
   var root = document.documentElement;
   var button = document.getElementById('themeToggle');
-  var KEY = 'aac-theme';
+  var KEY = 'aa-theme';
   function read() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
   function write(mode) { try { localStorage.setItem(KEY, mode); } catch (e) { /* private mode */ } }
   function apply(mode) {

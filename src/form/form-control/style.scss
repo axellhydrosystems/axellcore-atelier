@@ -55,14 +55,14 @@
 }
 
 /* Not-found row: the typed text, with a small bold link at its end. */
-:where([data-wp-interactive='axell/autocomplete'] .aac-ac-notfound) {
+:where([data-wp-interactive='axell/autocomplete'] .aa-ac-notfound) {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 	gap: 1em;
 }
 
-:where(.aac-ac-add) {
+:where(.aa-ac-add) {
 	margin: 0;
 	padding: 0;
 	border: 0;
@@ -77,7 +77,7 @@
 }
 
 /* Custom store fields: Nome, UF and Cidade on one row, under the search input. */
-:where([data-wp-interactive='axell/autocomplete'] .aac-ac-custom) {
+:where([data-wp-interactive='axell/autocomplete'] .aa-ac-custom) {
 	position: relative;
 	display: grid;
 	grid-template-columns: repeat(12, minmax(0, 1fr));
@@ -86,23 +86,23 @@
 }
 
 /* 12 columns, as in Bootstrap: name 6, UF 2, city 4. */
-:where([data-wp-interactive='axell/autocomplete'] .aac-ac-name) {
+:where([data-wp-interactive='axell/autocomplete'] .aa-ac-name) {
 	grid-column: span 6;
 }
 
-:where([data-wp-interactive='axell/autocomplete'] .aac-ac-custom select:not([data-field='city'])) {
+:where([data-wp-interactive='axell/autocomplete'] .aa-ac-custom select:not([data-field='city'])) {
 	grid-column: span 2;
 }
 
-:where([data-wp-interactive='axell/autocomplete'] .aac-ac-custom select[data-field='city']) {
+:where([data-wp-interactive='axell/autocomplete'] .aa-ac-custom select[data-field='city']) {
 	grid-column: span 4;
 }
 
-:where([data-wp-interactive='axell/autocomplete'] .aac-ac-custom[hidden]) {
+:where([data-wp-interactive='axell/autocomplete'] .aa-ac-custom[hidden]) {
 	display: none;
 }
 
-:where([data-wp-interactive='axell/autocomplete'] .aac-ac-custom input) {
+:where([data-wp-interactive='axell/autocomplete'] .aa-ac-custom input) {
 	width: 100%;
 	min-width: 0;
 	box-sizing: border-box;
@@ -114,7 +114,7 @@
 	border-radius: 2px;
 }
 
-:where([data-wp-interactive='axell/autocomplete'] .aac-ac-custom select) {
+:where([data-wp-interactive='axell/autocomplete'] .aa-ac-custom select) {
 	box-sizing: border-box;
 	justify-self: stretch;
 	width: 100%;
@@ -128,7 +128,7 @@
 }
 
 /* Search in progress: no suggestion or add action yet. */
-:where([data-wp-interactive='axell/autocomplete'] .aac-ac-loading) {
+:where([data-wp-interactive='axell/autocomplete'] .aa-ac-loading) {
 	padding: 0.5em 0.75em;
 	opacity: 0.6;
 }
@@ -139,7 +139,7 @@
 }
 
 /* Icon button at the end of the custom panel: back to the search. */
-:where([data-wp-interactive='axell/autocomplete'] .aac-ac-back) {
+:where([data-wp-interactive='axell/autocomplete'] .aa-ac-back) {
 	position: absolute;
 	top: 50%;
 	right: 0.5em;
@@ -155,12 +155,12 @@
 }
 
 /* The name field carries the icon button at its end. */
-:where([data-wp-interactive='axell/autocomplete'] .aac-ac-name) {
+:where([data-wp-interactive='axell/autocomplete'] .aa-ac-name) {
 	position: relative;
 	min-width: 0;
 }
 
-:where([data-wp-interactive='axell/autocomplete'] .aac-ac-name input) {
+:where([data-wp-interactive='axell/autocomplete'] .aa-ac-name input) {
 	width: 100%;
 	padding-right: 2.5em;
 }

@@ -16,7 +16,7 @@
  *
  * The old "consent" variant (checkbox-first, label-with-embedded-link
  * after, boxed row) is no longer a special case here either — it's just
- * ordinary composition: a core/group (className aac-consent, reusing
+ * ordinary composition: a core/group (className aa-consent, reusing
  * assets/css/sections.css's existing rule verbatim) containing an
  * axell/form-control (checkbox) *then* this block.
  *
