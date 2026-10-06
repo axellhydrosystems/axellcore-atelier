@@ -126,6 +126,29 @@ button{ font: inherit; cursor: pointer; }
 }
 .eyebrow.solo::before{ display:none; }
 
+/* Section names are the h2; the "Capítulo NN ·" prefix comes from CSS
+   (::before), by the section's chapterNN class. An h2.eyebrow is an
+   inline-block: the rule is an absolute ::after (46px = 32px rule + 14px
+   gap, as padding), the space after the prefix is a margin in em, and
+   vertical-align keeps the label where it was when it was an inline-flex
+   whose first item was the rule (that item set the baseline). */
+h2.eyebrow, h2.chapter-tag{ margin: 0; }
+.chapter01 h2.chapter-tag::before{ content: "Capítulo 01 · "; }
+.chapter03 h2.chapter-tag::before{ content: "Capítulo 03 · "; }
+h2.eyebrow{ display: inline-block; position: relative; vertical-align: -0.2008928571em; padding-left: 46px; }
+h2.eyebrow::before{ width: auto; height: auto; background: none; opacity: 1; margin-right: 0.5848214286em; }
+h2.eyebrow::after{ content: ""; position: absolute; left: 0; top: calc(50% - .5px); width: 32px; height: 1px; background: currentColor; opacity: .7; }
+.chapter02 h2.eyebrow::before{ content: "Capítulo 02 ·"; }
+.chapter04 h2.eyebrow::before{ content: "Capítulo 04 ·"; }
+.chapter05 h2.eyebrow::before{ content: "Capítulo 05 ·"; }
+.chapter06 h2.eyebrow::before{ content: "Capítulo 06 ·"; }
+.chapter07 h2.eyebrow::before{ content: "Capítulo 07 ·"; }
+.chapter08 h2.eyebrow::before{ content: "Capítulo 08 ·"; }
+.chapter09 h2.eyebrow::before{ content: "Capítulo 09 ·"; }
+.chapter11 h2.eyebrow::before{ content: "Capítulo 11 ·"; }
+.section-title strong, .manifesto-title strong{ font-weight: inherit; }
+.manifesto-copy{ margin: 0; }
+
 .display{
   font-family: var(--serif);
   font-weight: 300;
@@ -148,7 +171,7 @@ button{ font: inherit; cursor: pointer; }
 }
 .display em{ font-style: italic; font-weight: 300; color: var(--bronze-2); }
 
-h2.section-title{
+.section-title{
   font-family: var(--serif);
   font-weight: 300;
   font-size: clamp(36px, 5vw, 68px);
@@ -157,9 +180,9 @@ h2.section-title{
   margin: 0 0 24px;
   color: var(--ivory);
 }
-.on-ivory h2.section-title{ color: var(--ink); }
-h2.section-title em{ font-style: italic; color: var(--bronze-2); font-weight: 300; }
-.on-ivory h2.section-title em{ color: var(--bronze); }
+.on-ivory .section-title{ color: var(--ink); }
+.section-title em{ font-style: italic; color: var(--bronze-2); font-weight: 300; }
+.on-ivory .section-title em{ color: var(--bronze); }
 
 .lede{
   font-family: var(--serif);
@@ -228,7 +251,7 @@ section{ position: relative; }
   align-items: end;
   margin-bottom: 88px;
 }
-.section-head .head-left .eyebrow{ margin-bottom: 28px; display: inline-flex; }
+.section-head .head-left .eyebrow{ margin-bottom: 28px; }
 .section-head .head-right{ padding-bottom: 8px; }
 @media (max-width: 900px){
   .section-head{ grid-template-columns: 1fr; gap: 28px; margin-bottom: 56px; }
@@ -550,7 +573,7 @@ section{ position: relative; }
 }
 .manifesto-side{ position: sticky; top: 120px; }
 .manifesto-side .chapter-tag{ margin-bottom: 40px; display: block; }
-.manifesto-side h2{
+.manifesto-side .manifesto-title{
   font-family: var(--serif);
   font-weight: 300;
   font-style: italic;
@@ -559,7 +582,7 @@ section{ position: relative; }
   color: var(--ivory);
   margin: 0;
 }
-.manifesto-side h2 em{ color: var(--bronze-2); font-style: normal; }
+.manifesto-side .manifesto-title em{ color: var(--bronze-2); font-style: normal; }
 
 .manifesto-copy{
   font-family: var(--serif);
@@ -573,6 +596,7 @@ section{ position: relative; }
 .manifesto-copy p:last-child{ margin-bottom: 0; }
 .manifesto-copy em{ font-style: italic; color: var(--bronze-2); }
 .manifesto-copy .sig{
+  display: block; font-style: normal;
   font-size: 14px; letter-spacing: 0.28em; text-transform: uppercase;
   color: var(--bronze-2); font-family: var(--sans);
   margin-top: 24px;
@@ -1722,13 +1746,13 @@ section{ position: relative; }
 </section>
 
 <!-- =================== CONVITE / MANIFESTO =================== -->
-<section class="manifesto-block" id="convite">
+<section class="chapter01 manifesto-block" id="convite">
   <div class="container">
     <div class="manifesto-side">
-      <div class="chapter-tag">Capítulo 01 · Convite</div>
-      <h2>Não basta especificar. É preciso <em>sentir</em>.</h2>
+      <h2 class="chapter-tag">Convite</h2>
+      <p class="manifesto-title"><strong>Não basta especificar. É preciso <em>sentir</em>.</strong></p>
     </div>
-    <div class="manifesto-copy">
+    <blockquote class="manifesto-copy">
       <p>Há gestos no banho que merecem ser desenhados por <em>mãos especiais</em>.<br/>
       Há projetos que pedem <em>cuidado de autor</em>.<br/>
       E há profissionais que a Axell <em>reconhece por assinatura</em>.</p>
@@ -1737,18 +1761,18 @@ section{ position: relative; }
 
       <p>O Atelier Axell Club é um clube por seleção. Discreto. Curado. Feito para os poucos profissionais que desenham projetos extraordinários com peças Axell — e transformam o produto em memória.</p>
 
-      <div class="sig">— Curadoria & Assinatura Axell</div>
-    </div>
+      <cite class="sig">— Curadoria & Assinatura Axell</cite>
+    </blockquote>
   </div>
 </section>
 
 <!-- =================== 4 PILARES =================== -->
-<section class="on-ink" style="padding-bottom: clamp(90px, 13vw, 160px);">
+<section class="chapter02 on-ink" style="padding-bottom: clamp(90px, 13vw, 160px);">
   <div class="container">
     <div class="section-head">
       <div class="head-left">
-        <div class="eyebrow">Capítulo 02 · Manifesto</div>
-        <h2 class="section-title">Quatro pilares. Uma <em>assinatura</em>.</h2>
+        <h2 class="eyebrow">Manifesto</h2>
+        <p class="section-title"><strong>Quatro pilares. Uma <em>assinatura</em>.</strong></p>
       </div>
       <div class="head-right">
         <p class="body">Arquitetos e designers escolhem por convicção — e o clube foi construído sobre quatro pilares que devolvem essa convicção em forma de <em>reconhecimento</em>, <em>recompensa</em>, <em>experiência</em> e <em>visibilidade</em>.</p>
@@ -1781,11 +1805,11 @@ section{ position: relative; }
 </section>
 
 <!-- =================== A PLACA =================== -->
-<section class="placa section" id="placa">
+<section class="chapter03 placa section" id="placa">
   <div class="container">
     <div class="placa-copy">
-      <div class="chapter-tag">Capítulo 03 · A Placa</div>
-      <h2 class="section-title" style="margin-top: 32px;">A placa do <em>membro</em>.</h2>
+      <h2 class="chapter-tag">A Placa</h2>
+      <p class="section-title" style="margin-top: 32px;"><strong>A placa do <em>membro</em>.</strong></p>
 
       <div class="notice-pill">
         <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4">
@@ -1832,12 +1856,12 @@ section{ position: relative; }
 </section>
 
 <!-- =================== PROTAGONISTAS =================== -->
-<section class="protagonists on-ivory section">
+<section class="chapter04 protagonists on-ivory section">
   <div class="container">
     <div class="section-head">
       <div class="head-left">
-        <div class="eyebrow on-ivory">Capítulo 04 · Protagonistas</div>
-        <h2 class="section-title">O arquiteto e o <em>designer</em>.</h2>
+        <h2 class="eyebrow on-ivory">Protagonistas</h2>
+        <p class="section-title"><strong>O arquiteto e o <em>designer</em>.</strong></p>
       </div>
       <div class="head-right">
         <p class="body">A Axell reconhece os profissionais que transformam banheiras e spas em <em>momentos extraordinários</em>. Antes da venda, existe o olhar que escolhe. Antes do gesto, existe a mão que desenha.</p>
@@ -1865,12 +1889,12 @@ section{ position: relative; }
 </section>
 
 <!-- =================== 4 PROMESSAS =================== -->
-<section class="promises section-sm" id="promessas">
+<section class="chapter05 promises section-sm" id="promessas">
   <div class="container">
     <div class="section-head">
       <div class="head-left">
-        <div class="eyebrow">Capítulo 05 · Proposta</div>
-        <h2 class="section-title">Quatro promessas. Uma <em>assinatura</em>: Axell.</h2>
+        <h2 class="eyebrow">Proposta</h2>
+        <p class="section-title"><strong>Quatro promessas. Uma <em>assinatura</em>: Axell.</strong></p>
       </div>
       <div class="head-right">
         <p class="body">Ser membro do Atelier Axell é ocupar um lugar seleto entre os profissionais que desenham o bem-estar brasileiro — uma comunidade discreta, curada pela Axell.</p>
@@ -1911,11 +1935,11 @@ section{ position: relative; }
 </section>
 
 <!-- =================== O NOME / CONCEITO =================== -->
-<section class="concept section on-ivory">
+<section class="chapter06 concept section on-ivory">
   <div class="container">
     <div>
-      <div class="eyebrow on-ivory">Capítulo 06 · O Nome</div>
-      <h2 class="section-title" style="margin-top: 32px;">Um espaço <em>exclusivo</em>.</h2>
+      <h2 class="eyebrow on-ivory">O Nome</h2>
+      <p class="section-title" style="margin-top: 32px;"><strong>Um espaço <em>exclusivo</em>.</strong></p>
       <div class="verse" style="margin-top: 24px;">
         "O atelier é o lugar onde <em>criar</em> encontra <em>morar</em>. É oficina de começar, é o altar de arquitetar. Não é prédio nem morada — é gesto, é sonho, é criar."
       </div>
@@ -1953,12 +1977,12 @@ section{ position: relative; }
 </section>
 
 <!-- =================== JORNADA / COMO ENTRAR =================== -->
-<section class="journey section" id="jornada">
+<section class="chapter07 journey section" id="jornada">
   <div class="container">
     <div class="section-head">
       <div class="head-left">
-        <div class="eyebrow">Capítulo 07 · Como Entrar</div>
-        <h2 class="section-title">Quatro passos <em>até o clube</em>.</h2>
+        <h2 class="eyebrow">Como Entrar</h2>
+        <p class="section-title"><strong>Quatro passos <em>até o clube</em>.</strong></p>
       </div>
       <div class="head-right">
         <p class="body">Uma jornada simples, elegante e respeitosa com seu tempo. Sem burocracia — apenas curadoria.</p>
@@ -1999,12 +2023,12 @@ section{ position: relative; }
 </section>
 
 <!-- =================== NÍVEIS =================== -->
-<section class="tiers section on-ivory" id="niveis">
+<section class="chapter08 tiers section on-ivory" id="niveis">
   <div class="container">
     <div class="section-head">
       <div class="head-left">
-        <div class="eyebrow on-ivory">Capítulo 08 · Níveis</div>
-        <h2 class="section-title">Três níveis. Uma <em>assinatura</em>.</h2>
+        <h2 class="eyebrow on-ivory">Níveis</h2>
+        <p class="section-title"><strong>Três níveis. Uma <em>assinatura</em>.</strong></p>
       </div>
       <div class="head-right">
         <p class="body">Todo membro começa no nível <em>Signature</em>. Os dois estágios seguintes — <em>Alliance</em> e <em>Ambassador</em> — são conquistas, não escolhas. Seus benefícios são revelados quando a curadoria Axell reconhece a maturidade da parceria. Cada capítulo, a seu tempo.</p>
@@ -2080,12 +2104,12 @@ section{ position: relative; }
 </section>
 
 <!-- =================== BENEFÍCIOS =================== -->
-<section class="benefits" id="beneficios">
+<section class="chapter09 benefits" id="beneficios">
   <div class="container" style="padding-top: clamp(90px, 13vw, 180px); padding-bottom: 0;">
     <div class="section-head">
       <div class="head-left">
-        <div class="eyebrow">Capítulo 09 · Benefícios</div>
-        <h2 class="section-title">Recompensas à altura do <em>talento</em>.</h2>
+        <h2 class="eyebrow">Benefícios</h2>
+        <p class="section-title"><strong>Recompensas à altura do <em>talento</em>.</strong></p>
       </div>
       <div class="head-right">
         <p class="body">Do bônus financeiro à placa em pedra, dos lançamentos antecipados às viagens internacionais — cada benefício foi desenhado para respeitar o ofício, o tempo e a influência do autor.</p>
@@ -2166,11 +2190,11 @@ section{ position: relative; }
 </section>
 
 <!-- =================== EDITORIAL =================== -->
-<section class="editorial section" id="editorial">
+<section class="chapter11 editorial section" id="editorial">
   <div class="container">
     <div>
-      <div class="eyebrow on-ivory">Capítulo 11 · Editorial</div>
-      <h2 class="section-title" style="margin-top: 32px;">Seu projeto, com a voz <em>Axell</em>.</h2>
+      <h2 class="eyebrow on-ivory">Editorial</h2>
+      <p class="section-title" style="margin-top: 32px;"><strong>Seu projeto, com a voz <em>Axell</em>.</strong></p>
       <p class="body">A Axell transforma o seu case em conteúdo editorial premium. Ganho duplo: a marca ganha prova social, e o parceiro ganha autoridade técnica e visibilidade qualificada.</p>
 
       <div class="chapter-tag" style="color: var(--bronze); margin-top: 40px;">Percurso editorial</div>

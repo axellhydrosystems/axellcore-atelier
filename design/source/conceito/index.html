@@ -126,6 +126,29 @@ button{ font: inherit; cursor: pointer; }
 }
 .eyebrow.solo::before{ display:none; }
 
+/* Section names are the h2; the "Capítulo NN ·" prefix comes from CSS
+   (::before), by the section's chapterNN class. An h2.eyebrow is an
+   inline-block: the rule is an absolute ::after (46px = 32px rule + 14px
+   gap, as padding), the space after the prefix is a margin in em, and
+   vertical-align keeps the label where it was when it was an inline-flex
+   whose first item was the rule (that item set the baseline). */
+h2.eyebrow, h2.chapter-tag{ margin: 0; }
+.chapter01 h2.chapter-tag::before{ content: "Capítulo 01 · "; }
+.chapter03 h2.chapter-tag::before{ content: "Capítulo 03 · "; }
+h2.eyebrow{ display: inline-block; position: relative; vertical-align: -0.2008928571em; padding-left: 46px; }
+h2.eyebrow::before{ width: auto; height: auto; background: none; opacity: 1; margin-right: 0.5848214286em; }
+h2.eyebrow::after{ content: ""; position: absolute; left: 0; top: calc(50% - .5px); width: 32px; height: 1px; background: currentColor; opacity: .7; }
+.chapter02 h2.eyebrow::before{ content: "Capítulo 02 ·"; }
+.chapter04 h2.eyebrow::before{ content: "Capítulo 04 ·"; }
+.chapter05 h2.eyebrow::before{ content: "Capítulo 05 ·"; }
+.chapter06 h2.eyebrow::before{ content: "Capítulo 06 ·"; }
+.chapter07 h2.eyebrow::before{ content: "Capítulo 07 ·"; }
+.chapter08 h2.eyebrow::before{ content: "Capítulo 08 ·"; }
+.chapter09 h2.eyebrow::before{ content: "Capítulo 09 ·"; }
+.chapter11 h2.eyebrow::before{ content: "Capítulo 11 ·"; }
+.section-title strong, .manifesto-title strong{ font-weight: inherit; }
+.manifesto-copy{ margin: 0; }
+
 .display{
   font-family: var(--serif);
   font-weight: 300;
@@ -148,7 +171,7 @@ button{ font: inherit; cursor: pointer; }
 }
 .display em{ font-style: italic; font-weight: 300; color: var(--bronze-2); }
 
-h2.section-title{
+.section-title{
   font-family: var(--serif);
   font-weight: 300;
   font-size: clamp(36px, 5vw, 68px);
@@ -157,9 +180,9 @@ h2.section-title{
   margin: 0 0 24px;
   color: var(--ivory);
 }
-.on-ivory h2.section-title{ color: var(--ink); }
-h2.section-title em{ font-style: italic; color: var(--bronze-2); font-weight: 300; }
-.on-ivory h2.section-title em{ color: var(--bronze); }
+.on-ivory .section-title{ color: var(--ink); }
+.section-title em{ font-style: italic; color: var(--bronze-2); font-weight: 300; }
+.on-ivory .section-title em{ color: var(--bronze); }
 
 .lede{
   font-family: var(--serif);
@@ -228,7 +251,7 @@ section{ position: relative; }
   align-items: end;
   margin-bottom: 88px;
 }
-.section-head .head-left .eyebrow{ margin-bottom: 28px; display: inline-flex; }
+.section-head .head-left .eyebrow{ margin-bottom: 28px; }
 .section-head .head-right{ padding-bottom: 8px; }
 @media (max-width: 900px){
   .section-head{ grid-template-columns: 1fr; gap: 28px; margin-bottom: 56px; }
@@ -550,7 +573,7 @@ section{ position: relative; }
 }
 .manifesto-side{ position: sticky; top: 120px; }
 .manifesto-side .chapter-tag{ margin-bottom: 40px; display: block; }
-.manifesto-side h2{
+.manifesto-side .manifesto-title{
   font-family: var(--serif);
   font-weight: 300;
   font-style: italic;
@@ -559,7 +582,7 @@ section{ position: relative; }
   color: var(--ivory);
   margin: 0;
 }
-.manifesto-side h2 em{ color: var(--bronze-2); font-style: normal; }
+.manifesto-side .manifesto-title em{ color: var(--bronze-2); font-style: normal; }
 
 .manifesto-copy{
   font-family: var(--serif);
@@ -573,6 +596,7 @@ section{ position: relative; }
 .manifesto-copy p:last-child{ margin-bottom: 0; }
 .manifesto-copy em{ font-style: italic; color: var(--bronze-2); }
 .manifesto-copy .sig{
+  display: block; font-style: normal;
   font-size: 14px; letter-spacing: 0.28em; text-transform: uppercase;
   color: var(--bronze-2); font-family: var(--sans);
   margin-top: 24px;
@@ -1651,11 +1675,11 @@ section{ position: relative; }
 </head>
 <body>
 <main>
-<section class="concept section on-ivory">
+<section class="chapter06 concept section on-ivory">
   <div class="container">
     <div>
-      <div class="eyebrow on-ivory">Capítulo 06 · O Nome</div>
-      <h2 class="section-title" style="margin-top: 32px;">Um espaço <em>exclusivo</em>.</h2>
+      <h2 class="eyebrow on-ivory">O Nome</h2>
+      <p class="section-title" style="margin-top: 32px;"><strong>Um espaço <em>exclusivo</em>.</strong></p>
       <div class="verse" style="margin-top: 24px;">
         "O atelier é o lugar onde <em>criar</em> encontra <em>morar</em>. É oficina de começar, é o altar de arquitetar. Não é prédio nem morada — é gesto, é sonho, é criar."
       </div>
