@@ -25,6 +25,66 @@
         "template": "page-no-title"
     },
     {
+        "path": "pure/convite",
+        "title": "Convite",
+        "template": "page-no-title"
+    },
+    {
+        "path": "pure/manifesto",
+        "title": "Manifesto",
+        "template": "page-no-title"
+    },
+    {
+        "path": "pure/placa",
+        "title": "A Placa",
+        "template": "page-no-title"
+    },
+    {
+        "path": "pure/protagonistas",
+        "title": "Protagonistas",
+        "template": "page-no-title"
+    },
+    {
+        "path": "pure/promessas",
+        "title": "Promessas",
+        "template": "page-no-title"
+    },
+    {
+        "path": "pure/conceito",
+        "title": "Conceito",
+        "template": "page-no-title"
+    },
+    {
+        "path": "pure/jornada",
+        "title": "Jornada",
+        "template": "page-no-title"
+    },
+    {
+        "path": "pure/niveis",
+        "title": "Níveis",
+        "template": "page-no-title"
+    },
+    {
+        "path": "pure/beneficios",
+        "title": "Benefícios",
+        "template": "page-no-title"
+    },
+    {
+        "path": "pure/editorial",
+        "title": "Editorial",
+        "template": "page-no-title"
+    },
+    {
+        "path": "pure/cta-strip",
+        "title": "Faixa de chamada",
+        "template": "page-no-title"
+    },
+    {
+        "path": "pure/footer",
+        "title": "Footer",
+        "template": "page-no-title"
+    },
+    {
         "path": "hero",
         "title": "Hero",
         "template": "atelier-section"
