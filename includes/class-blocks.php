@@ -75,6 +75,9 @@ final class Blocks {
 		register_block_type_from_metadata( AXELLCORE_ATELIERCLUB_PATH . 'build/form/form-label' );
 		register_block_type_from_metadata( AXELLCORE_ATELIERCLUB_PATH . 'build/form/form-control' );
 		register_block_type_from_metadata( AXELLCORE_ATELIERCLUB_PATH . 'build/form/form-control-reseller' );
+		register_block_type_from_metadata( AXELLCORE_ATELIERCLUB_PATH . 'build/form/form-control-br-revenue-id' );
+		register_block_type_from_metadata( AXELLCORE_ATELIERCLUB_PATH . 'build/form/form-control-br-revenue-id-person' );
+		register_block_type_from_metadata( AXELLCORE_ATELIERCLUB_PATH . 'build/form/form-control-br-revenue-id-legal' );
 		register_block_type_from_metadata( AXELLCORE_ATELIERCLUB_PATH . 'build/form/form-fieldset' );
 		register_block_type_from_metadata( AXELLCORE_ATELIERCLUB_PATH . 'build/form/form-submission-notification' );
 		register_block_type_from_metadata( AXELLCORE_ATELIERCLUB_PATH . 'build/sticky-header' );

@@ -1,0 +1,42 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "axell/form-control-br-revenue-id-legal",
+	"title": "Form Control (CNPJ)",
+	"category": "text",
+	"parent": [
+		"axell/form-group"
+	],
+	"description": "Campo de CNPJ (pessoa jurídica), com máscara de CNPJ.",
+	"keywords": [
+		"cpf",
+		"cnpj",
+		"documento",
+		"form"
+	],
+	"textdomain": "axellcore-atelierclub",
+	"attributes": {
+		"id": {
+			"type": "string",
+			"default": ""
+		},
+		"name": {
+			"type": "string",
+			"default": ""
+		},
+		"placeholder": {
+			"type": "string",
+			"default": "00.000.000/0000-00"
+		},
+		"required": {
+			"type": "boolean",
+			"default": false
+		}
+	},
+	"supports": {
+		"html": false,
+		"className": true,
+		"customClassName": true
+	},
+	"editorScript": "file:./index.js"
+}

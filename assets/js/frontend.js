@@ -164,6 +164,23 @@
 		input.addEventListener( 'blur', validate );
 	} );
 
+	/* Fixed document masks (no type select): data-aac-mask="cpf" or "cnpj". */
+	document.querySelectorAll( '[data-aac-mask="cpf"], [data-aac-mask="cnpj"]' ).forEach( function ( input ) {
+		var docType = input.getAttribute( 'data-aac-mask' );
+		input.addEventListener( 'input', function () {
+			maskCpfCnpj( input, docType );
+			input.setCustomValidity( '' );
+		} );
+		input.addEventListener( 'blur', function () {
+			if ( ! input.value.trim() ) {
+				input.setCustomValidity( '' );
+				return;
+			}
+			var valid = docType === 'cnpj' ? isValidCNPJ( input.value ) : isValidCPF( input.value );
+			input.setCustomValidity( valid ? '' : ( docType === 'cnpj' ? 'CNPJ inválido.' : 'CPF inválido.' ) );
+		} );
+	} );
+
 	document.querySelectorAll( '[data-aac-mask="cep"]' ).forEach( function ( input ) {
 		input.addEventListener( 'input', function () {
 			maskCep( input );
