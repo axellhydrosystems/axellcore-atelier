@@ -24,6 +24,10 @@ const ALLOWED_BLOCKS = [
 	'axell/form-control',
 	'axell/form-select',
 	'axell/form-text',
+	'axell/form-control-country',
+	'axell/form-control-state',
+	'axell/form-control-city',
+	'axell/form-control-postal',
 ];
 
 const TEMPLATE: Array< [ string, Record< string, unknown > ] > = [

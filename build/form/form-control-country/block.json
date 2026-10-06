@@ -1,0 +1,48 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "axell/form-control-country",
+  "title": "Form Control (País)",
+  "category": "text",
+  "parent": [
+    "axell/form-group"
+  ],
+  "description": "Seleção de país: Brasil (BR), Estados Unidos (US) ou Outro (sem definir).",
+  "keywords": [
+    "endereço",
+    "país",
+    "estado",
+    "cidade",
+    "cep",
+    "form"
+  ],
+  "textdomain": "axellcore-atelierclub",
+  "attributes": {
+    "id": {
+      "type": "string",
+      "default": ""
+    },
+    "name": {
+      "type": "string",
+      "default": "pais"
+    },
+    "placeholder": {
+      "type": "string",
+      "default": ""
+    },
+    "required": {
+      "type": "boolean",
+      "default": false
+    },
+    "fixed": {
+      "type": "string",
+      "default": ""
+    }
+  },
+  "supports": {
+    "html": false,
+    "className": true,
+    "customClassName": true
+  },
+  "editorScript": "file:./index.js"
+}

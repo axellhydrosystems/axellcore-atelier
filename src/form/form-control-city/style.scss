@@ -1,0 +1,33 @@
+/* City search (autocomplete over the cities of the UF), same look as the reseller search. */
+:where(.aac-city-search) {
+	position: relative;
+}
+
+:where(.aac-city-search [role='listbox']) {
+	position: absolute;
+	top: 100%;
+	left: 0;
+	right: 0;
+	z-index: 10;
+	max-height: 16em;
+	overflow-y: auto;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	border: 1px solid color-mix(in srgb, currentColor 35%, transparent);
+	background: Canvas;
+	color: CanvasText;
+}
+
+:where(.aac-city-search [role='option']) {
+	padding: 0.5em 0.75em;
+	cursor: pointer;
+
+	&[aria-selected='true'] {
+		background: color-mix(in srgb, currentColor 12%, transparent);
+	}
+}
+
+.aac-city-search [hidden] {
+	display: none !important;
+}

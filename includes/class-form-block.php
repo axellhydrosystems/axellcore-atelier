@@ -94,6 +94,21 @@ final class Form_Block {
 			)
 		);
 
+		// Cities of a UF, for the address block (country Brazil): same REST namespace.
+		wp_interactivity_state(
+			'axell/address',
+			array(
+				'citiesUrl'     => rest_url( Rest::NAMESPACE . '/cities' ),
+				/**
+				 * Countries whose cities come from the cities endpoint, so the city
+				 * control shows a list or a search for them.
+				 *
+				 * @param string[] $countries Country codes. Default: Brazil.
+				 */
+				'cityCountries' => (array) apply_filters( 'axellcore_atelierclub_city_countries', array( 'BR' ) ),
+			)
+		);
+
 		wp_interactivity_state(
 			self::STORE,
 			array(

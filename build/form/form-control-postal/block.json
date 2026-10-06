@@ -1,0 +1,48 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "axell/form-control-postal",
+  "title": "Form Control (CEP / ZIP)",
+  "category": "text",
+  "parent": [
+    "axell/form-group"
+  ],
+  "description": "CEP ou ZIP code: máscara conforme o país.",
+  "keywords": [
+    "endereço",
+    "país",
+    "estado",
+    "cidade",
+    "cep",
+    "form"
+  ],
+  "textdomain": "axellcore-atelierclub",
+  "attributes": {
+    "id": {
+      "type": "string",
+      "default": ""
+    },
+    "name": {
+      "type": "string",
+      "default": "cep"
+    },
+    "placeholder": {
+      "type": "string",
+      "default": "00000-000"
+    },
+    "required": {
+      "type": "boolean",
+      "default": false
+    },
+    "countryField": {
+      "type": "string",
+      "default": "pais"
+    }
+  },
+  "supports": {
+    "html": false,
+    "className": true,
+    "customClassName": true
+  },
+  "editorScript": "file:./index.js"
+}

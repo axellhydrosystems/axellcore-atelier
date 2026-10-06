@@ -1,0 +1,57 @@
+{
+  "$schema": "https://schemas.wp.org/trunk/block.json",
+  "apiVersion": 3,
+  "name": "axell/form-control-city",
+  "title": "Form Control (Cidade)",
+  "category": "text",
+  "parent": [
+    "axell/form-group"
+  ],
+  "description": "Cidade: lista pela UF no Brasil; texto livre nos EUA e em outros países.",
+  "keywords": [
+    "endereço",
+    "país",
+    "estado",
+    "cidade",
+    "cep",
+    "form"
+  ],
+  "textdomain": "axellcore-atelierclub",
+  "attributes": {
+    "id": {
+      "type": "string",
+      "default": ""
+    },
+    "name": {
+      "type": "string",
+      "default": "cidade"
+    },
+    "placeholder": {
+      "type": "string",
+      "default": ""
+    },
+    "required": {
+      "type": "boolean",
+      "default": false
+    },
+    "stateField": {
+      "type": "string",
+      "default": "uf"
+    },
+    "countryField": {
+      "type": "string",
+      "default": "pais"
+    },
+    "searchable": {
+      "type": "boolean",
+      "default": false
+    }
+  },
+  "supports": {
+    "html": false,
+    "className": true,
+    "customClassName": true
+  },
+  "editorScript": "file:./index.js",
+  "style": "file:./style-index.css"
+}

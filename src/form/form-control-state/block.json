@@ -1,0 +1,48 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "axell/form-control-state",
+	"title": "Form Control (Estado)",
+	"category": "text",
+	"parent": [
+		"axell/form-group"
+	],
+	"description": "Estado: lista de UFs no Brasil ou de estados nos EUA; texto livre para outro país.",
+	"keywords": [
+		"endereço",
+		"país",
+		"estado",
+		"cidade",
+		"cep",
+		"form"
+	],
+	"textdomain": "axellcore-atelierclub",
+	"attributes": {
+		"id": {
+			"type": "string",
+			"default": ""
+		},
+		"name": {
+			"type": "string",
+			"default": "estado"
+		},
+		"placeholder": {
+			"type": "string",
+			"default": ""
+		},
+		"required": {
+			"type": "boolean",
+			"default": false
+		},
+		"countryField": {
+			"type": "string",
+			"default": "pais"
+		}
+	},
+	"supports": {
+		"html": false,
+		"className": true,
+		"customClassName": true
+	},
+	"editorScript": "file:./index.js"
+}
