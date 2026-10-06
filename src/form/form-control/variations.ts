@@ -10,6 +10,7 @@ import { registerBlockVariation } from '@wordpress/blocks';
 import { __ } from '@wordpress/i18n';
 import type { BlockVariation } from '@wordpress/blocks';
 import type { FormControlAttributes, FormControlType } from './types';
+import controlIcon from './icon';
 
 function isType( type: FormControlType ) {
 	return ( blockAttributes: Partial< FormControlAttributes > ) => {
@@ -109,7 +110,7 @@ const VARIATIONS: Array< BlockVariation< Partial< FormControlAttributes > > > =
 			name: 'autocomplete',
 			title: __( 'Form Control (autocomplete)', 'axellcore-atelierclub' ),
 			description: __( 'A text field that suggests posts as you type.', 'axellcore-atelierclub' ),
-			icon: 'search',
+			icon: controlIcon,
 			attributes: { type: 'autocomplete' },
 			isDefault: false,
 			scope: [ 'inserter', 'transform' ],

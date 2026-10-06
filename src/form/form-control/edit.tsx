@@ -112,6 +112,15 @@ export default function Edit( {
 							onChange={ ( value: string ) => setAttributes( { autofill: value } ) }
 						/>
 					) }
+					{ attributes.type === 'autocomplete' && (
+						<TextControl
+							label={ __( 'Placeholder', 'axellcore-atelierclub' ) }
+							value={ attributes.placeholder }
+							onChange={ ( value: string ) =>
+								setAttributes( { placeholder: value } )
+							}
+						/>
+					) }
 					{ attributes.type !== 'hidden' && (
 							<ToggleControl
 								label={ __(

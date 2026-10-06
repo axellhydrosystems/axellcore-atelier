@@ -32,7 +32,7 @@ final class Label_Template {
 	 */
 	public static function render( \WP_Post $post, $template ) {
 		$label = preg_replace_callback(
-			'/\[(post_title|tax:[a-z0-9_-]+(?::uf)?|meta:[a-z0-9_-]+)\]/i',
+			'/\[(post_title|tax:[a-z0-9_-]+(?::[a-z]+)*|meta:[a-z0-9_-]+)\]/i',
 			static function ( $match ) use ( $post ) {
 				$token = $match[1];
 				if ( 'post_title' === $token ) {
@@ -40,7 +40,7 @@ final class Label_Template {
 				}
 				if ( 0 === strpos( $token, 'tax:' ) ) {
 					$parts = explode( ':', substr( $token, 4 ) );
-					return self::term_label( $post, $parts[0], isset( $parts[1] ) && 'uf' === $parts[1] );
+					return self::term_label( $post, array_shift( $parts ), $parts );
 				}
 				return (string) get_post_meta( $post->ID, substr( $token, 5 ), true );
 			},
@@ -53,18 +53,32 @@ final class Label_Template {
 	}
 
 	/**
-	 * Name (or upper-case slug, for uf) of the post's first term in a taxonomy.
+	 * Term label of the post's first term in a taxonomy.
 	 *
-	 * @param \WP_Post $post     Post.
-	 * @param string    $taxonomy Taxonomy slug, e.g. cidades.
-	 * @param bool      $uf       Return the slug in upper case instead of the name.
+	 * Taxonomy: the slug (estados) or its short name (estado, cidade, pais).
+	 * Modifiers: slug (the term slug instead of its name) and uppercase (or uf,
+	 * the same as slug:uppercase).
+	 *
+	 * @param \WP_Post $post      Post.
+	 * @param string    $taxonomy  Taxonomy or its short name.
+	 * @param string[]  $modifiers Modifiers after the taxonomy.
 	 * @return string Term label, or '' when the post has no term there.
 	 */
-	private static function term_label( \WP_Post $post, $taxonomy, $uf ) {
+	private static function term_label( \WP_Post $post, $taxonomy, array $modifiers ) {
+		$aliases  = array( 'estado' => 'estados', 'cidade' => 'cidades', 'pais' => 'paises' );
+		$taxonomy = $aliases[ $taxonomy ] ?? $taxonomy;
+
 		$terms = get_the_terms( $post->ID, $taxonomy );
 		if ( ! is_array( $terms ) || ! $terms ) {
 			return '';
 		}
-		return $uf ? strtoupper( $terms[0]->slug ) : $terms[0]->name;
+
+		// uf is the short form of slug:uppercase (the state code).
+		$slug  = in_array( 'slug', $modifiers, true ) || in_array( 'uf', $modifiers, true );
+		$label = $slug ? $terms[0]->slug : $terms[0]->name;
+		if ( in_array( 'uppercase', $modifiers, true ) || in_array( 'uf', $modifiers, true ) ) {
+			$label = strtoupper( $label );
+		}
+		return $label;
 	}
 }

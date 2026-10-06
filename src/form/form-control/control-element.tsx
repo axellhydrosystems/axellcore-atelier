@@ -106,15 +106,14 @@ export default function ControlElement(
 
 	if ( type === 'autocomplete' ) {
 		if ( ! isSave ) {
+			// Same field look as the other controls in the editor (read-only, so it does not grey out).
 			return (
 				<div { ...blockProps }>
 					<input
 						type="text"
-						disabled
-						placeholder={ __(
-							'Autocomplete (posts)',
-							'axellcore-atelierclub'
-						) }
+						className="wp-block-axell-form-control"
+						readOnly
+						placeholder={ placeholder || __( 'Autocomplete (posts)', 'axellcore-atelierclub' ) }
 					/>
 				</div>
 			);
