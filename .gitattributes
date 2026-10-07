@@ -22,4 +22,17 @@ Gruntfile.js           export-ignore
 README.md              export-ignore
 .editorconfig          export-ignore
 **/.DS_Store           export-ignore
-design/ export-ignore
+design/                export-ignore
+.gitmodules            export-ignore
+# Translations ship as language packs (language/<version> branch, Language workflow).
+languages/             export-ignore
+docs/                  export-ignore
+src/                   export-ignore
+CLAUDE.md              export-ignore
+blueprint.json         export-ignore
+blueprint-dev.json     export-ignore
+cssnano.config.js      export-ignore
+webpack.config.js      export-ignore
+tsconfig.json          export-ignore
+patchwork.json         export-ignore
+**/*.map               export-ignore

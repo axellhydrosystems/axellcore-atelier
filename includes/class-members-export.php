@@ -151,6 +151,8 @@ final class Members_Export {
 
 		wp_enqueue_style( self::HANDLE, AXELLCORE_ATELIERCLUB_URL . 'build/admin/members-export/style-index.css', array(), $asset['version'] );
 		wp_enqueue_script( self::HANDLE, AXELLCORE_ATELIERCLUB_URL . 'build/admin/members-export/index.js', $asset['dependencies'], $asset['version'], true );
+		// Translations of its __() strings: the plugin's languages/ or the installed language pack.
+		wp_set_script_translations( self::HANDLE, 'axellcore-atelierclub' );
 		wp_localize_script(
 			self::HANDLE,
 			'aaMembersExport',

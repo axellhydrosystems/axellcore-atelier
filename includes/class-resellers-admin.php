@@ -204,6 +204,8 @@ final class Resellers_Admin {
 			$asset['version'],
 			true
 		);
+		// Translations of its __() strings: the plugin's languages/ or the installed language pack.
+		wp_set_script_translations( $handle, 'axellcore-atelierclub' );
 		wp_enqueue_style(
 			$handle,
 			AXELLCORE_ATELIERCLUB_URL . 'build/admin/resellers/style-index.css',

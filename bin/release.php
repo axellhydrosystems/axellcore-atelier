@@ -216,6 +216,33 @@ function axellcore_atelierclub_po_missing( string $po_file ): array {
 	return $missing;
 }
 
+/**
+ * Point blueprint.json at a release: the plugin zip and the pt_BR language pack
+ * are versioned assets (axellcore-atelierclub.X.Y.Z.zip,
+ * axellcore-atelierclub.X.Y.Z-pt_BR.zip), so no "latest" URL can name them.
+ *
+ * @param string $file    Blueprint path.
+ * @param string $version Release version.
+ */
+function axellcore_atelierclub_point_blueprint( string $file, string $version ): void {
+	if ( ! is_readable( $file ) ) {
+		return;
+	}
+	$base     = 'https://github.com/axellhydrosystems/axellcore-atelierclub/releases/download/' . $version . '/';
+	$contents = (string) file_get_contents( $file ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+	$contents = preg_replace(
+		'#https://github\.com/axellhydrosystems/axellcore-atelierclub/releases/[^"]*?/axellcore-atelierclub(?:\.[0-9.]+)?-([a-z]{2,3}_[A-Z]{2,4})\.zip#',
+		$base . 'axellcore-atelierclub.' . $version . '-$1.zip',
+		$contents
+	);
+	$contents = preg_replace(
+		'#https://github\.com/axellhydrosystems/axellcore-atelierclub/releases/[^"]*?/axellcore-atelierclub(?:\.[0-9.]+)?\.zip#',
+		$base . 'axellcore-atelierclub.' . $version . '.zip',
+		$contents
+	);
+	file_put_contents( $file, $contents ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents
+}
+
 // ── WP-CLI command class ────────────────────────────────────────────────────
 
 /**
@@ -368,6 +395,20 @@ class Axellcore_Atelierclub_CLI_Command extends WP_CLI_Command {
 			$plugin_dir
 		);
 
+		// ── Every shipped locale fully translated (language packs are published from them) ──
+
+		foreach ( glob( $plugin_dir . '/languages/axellcore-atelierclub-*.po' ) ?: array() as $po_file ) {
+			$missing = axellcore_atelierclub_po_missing( $po_file );
+			if ( array() !== $missing ) {
+				WP_CLI::error( basename( $po_file ) . ' has ' . count( $missing ) . " untranslated strings:\n  " . implode( "\n  ", array_slice( $missing, 0, 20 ) ) );
+			}
+		}
+
+		// ── Blueprints point at this release's assets ────────────────────────────────
+
+		WP_CLI::log( '  → pointing blueprint.json at the ' . $version . ' release assets' );
+		axellcore_atelierclub_point_blueprint( $plugin_dir . '/blueprint.json', $version );
+
 		// ── Commit, tag, push ─────────────────────────────────────────────────────────
 
 		WP_CLI::log( '  → staging all changes' );
@@ -404,17 +445,24 @@ class Axellcore_Atelierclub_CLI_Command extends WP_CLI_Command {
 	}
 
 	/**
-	 * Merge the current POT into every languages/*.po and report
-	 * untranslated/fuzzy strings.
+	 * Merge the current POT into every languages/*.po, report
+	 * untranslated/fuzzy strings, and (when all are translated) push the
+	 * language/<version> branch the Language workflow packs.
+	 *
+	 * ## OPTIONS
+	 *
+	 * [--no-branch]
+	 * : Only merge and report; do not push the language branch.
 	 *
 	 * ## EXAMPLES
 	 *
 	 *   wp --require=bin/release.php axc language
+	 *   wp --require=bin/release.php axc language --no-branch
 	 *
 	 * @subcommand language
 	 * @when before_wp_load
 	 */
-	public function language(): void {
+	public function language( array $args = array(), array $assoc_args = array() ): void {
 		axellcore_atelierclub_require_cmd( 'msgmerge' );
 
 		$plugin_dir = axellcore_atelierclub_plugin_dir();
@@ -457,6 +505,52 @@ class Axellcore_Atelierclub_CLI_Command extends WP_CLI_Command {
 		}
 
 		WP_CLI::success( 'All languages fully translated.' );
+
+		// ── language/<version> orphan branch: .po + JS catalogs (.json) ──────────────
+		// Pushing it runs the Language workflow, which compiles the .mo and
+		// attaches axellcore-atelierclub.<version>-<locale>.zip to the release.
+
+		if ( ! empty( $assoc_args['no-branch'] ) ) {
+			return;
+		}
+
+		$current     = axellcore_atelierclub_current_version( $plugin_dir . '/axellcore-atelierclub.php' );
+		$lang_branch = "language/{$current}";
+		$lang_repo   = sys_get_temp_dir() . '/axellcore-atelierclub-lang-' . uniqid();
+		mkdir( $lang_repo, 0755, true );
+
+		$remote_url = trim( axellcore_atelierclub_run( 'git remote get-url origin', $plugin_dir, true ) );
+		$git_name   = trim( axellcore_atelierclub_run( 'git config user.name', $plugin_dir, true ) );
+		$git_email  = trim( axellcore_atelierclub_run( 'git config user.email', $plugin_dir, true ) );
+		$today_iso  = gmdate( 'Y-m-d\TH:i:s+00:00' );
+
+		foreach ( $po_files as $po_file ) {
+			$dest = $lang_repo . '/' . basename( $po_file );
+			$po   = (string) file_get_contents( $po_file ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+			// SelfDirectory compares the installed pack's Project-Id-Version with the release.
+			$po = preg_replace( '/^"Project-Id-Version:.*$/m', '"Project-Id-Version: axellcore-atelierclub ' . $current . '\\n"', $po );
+			$po = preg_replace( '/^"PO-Revision-Date:.*$/m', '"PO-Revision-Date: ' . $today_iso . '\\n"', $po );
+			file_put_contents( $dest, $po ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_file_put_contents
+		}
+		foreach ( glob( $plugin_dir . '/languages/axellcore-atelierclub-*.json' ) ?: array() as $json ) {
+			copy( $json, $lang_repo . '/' . basename( $json ) );
+		}
+
+		axellcore_atelierclub_run( 'git init --quiet', $lang_repo, true );
+		axellcore_atelierclub_run( 'git remote add origin ' . escapeshellarg( $remote_url ), $lang_repo, true );
+		axellcore_atelierclub_run( 'git checkout --orphan ' . escapeshellarg( $lang_branch ) . ' --quiet', $lang_repo, true );
+		axellcore_atelierclub_run( 'git add .', $lang_repo, true );
+		axellcore_atelierclub_run(
+			'git -c user.name=' . escapeshellarg( $git_name ) . ' -c user.email=' . escapeshellarg( $git_email )
+				. ' commit --quiet -m ' . escapeshellarg( "i18n: language packs for {$current}" ),
+			$lang_repo,
+			true
+		);
+		WP_CLI::log( "  → pushing {$lang_branch}" );
+		axellcore_atelierclub_run( 'git push origin ' . escapeshellarg( $lang_branch ) . ' --force --quiet', $lang_repo, true );
+		axellcore_atelierclub_run( 'rm -rf ' . escapeshellarg( $lang_repo ) );
+
+		WP_CLI::success( "Language branch {$lang_branch} pushed; the Language workflow attaches the packs to the {$current} release." );
 	}
 }
 

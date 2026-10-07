@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name:       Axellcore — Atelier Club
- * Plugin URI:        https://axell.com.br/
+ * Plugin URI:        https://github.com/axellhydrosystems/axellcore-atelierclub
  * Description:       Self-contained landing page (FSE template + core blocks + a custom application-form block) for the Atelier Axell Club invite program.
  * Version:           0.1.2
  * Requires at least: 6.7
@@ -68,5 +68,21 @@ require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-reveal.php';
 require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-activator.php';
 
 register_activation_hook( AXELLCORE_ATELIERCLUB_FILE, array( 'Axellcore_Atelierclub\\Activator', 'activate' ) );
+
+// SelfDirectory: updates from the GitHub releases of the Plugin URI repository,
+// in the Plugins screen, and their pt_BR language packs. A git submodule,
+// optional: without it (a clone without `git submodule update --init`) the
+// plugin works, only without updates. Release zips always include it.
+$axellcore_atelierclub_selfd = AXELLCORE_ATELIERCLUB_PATH . 'lib/selfdirectory/class-selfdirectory.php';
+if ( file_exists( $axellcore_atelierclub_selfd ) ) {
+	require_once $axellcore_atelierclub_selfd;
+	add_action(
+		'selfd_register',
+		static function () {
+			selfd( AXELLCORE_ATELIERCLUB_FILE );
+		}
+	);
+}
+unset( $axellcore_atelierclub_selfd );
 
 Axellcore_Atelierclub\Plugin::instance()->boot();

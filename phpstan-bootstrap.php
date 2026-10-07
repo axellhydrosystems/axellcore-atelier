@@ -36,3 +36,8 @@ if ( ! function_exists( 'wp_get_icon' ) ) {
 		return '';
 	}
 }
+
+// SelfDirectory (lib/selfdirectory, a git submodule absent from CI checkouts).
+if ( ! function_exists( 'selfd' ) ) {
+	function selfd( string $file ): void {} // phpcs:ignore
+}

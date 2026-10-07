@@ -1,0 +1,68 @@
+name: Language
+
+# Language packs for SelfDirectory: axellcore-atelierclub.<version>-<locale>.zip
+# on the <version> release, built from the language/<version> orphan branch
+# (made by `wp --require=bin/release.php axc language`). Each pack holds the
+# .po, the compiled .mo and the JS catalogs (.json) of its locale.
+
+on:
+  push:
+    branches: ['language/**']
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version tag to attach the language packs to (e.g. 0.2.0)'
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  language:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Resolve version
+        id: ctx
+        run: |
+          if [[ "$GITHUB_EVENT_NAME" == "workflow_dispatch" ]]; then
+            echo "tag=${{ github.event.inputs.version }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "tag=${GITHUB_REF_NAME#language/}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Checkout language branch
+        uses: actions/checkout@v4
+        with:
+          ref: language/${{ steps.ctx.outputs.tag }}
+
+      - name: Install gettext
+        run: sudo apt-get install -y gettext
+
+      - name: Compile and package language zips
+        id: build
+        run: |
+          tag="${{ steps.ctx.outputs.tag }}"
+          mkdir -p /tmp/langs
+          files=""
+          for po in axellcore-atelierclub-*.po; do
+            [ -f "$po" ] || continue
+            locale=$(basename "$po" .po | sed 's/^axellcore-atelierclub-//')
+            work="/tmp/langs/${locale}"
+            mkdir -p "$work"
+            cp "$po" "$work/"
+            msgfmt "$po" -o "$work/axellcore-atelierclub-${locale}.mo"
+            cp axellcore-atelierclub-${locale}-*.json "$work/" 2>/dev/null || true
+            zip="/tmp/langs/axellcore-atelierclub.${tag}-${locale}.zip"
+            (cd "$work" && zip -q "$zip" ./*)
+            files="${files:+$files,}$zip"
+          done
+          echo "paths=$files" >> "$GITHUB_OUTPUT"
+          [ -n "$files" ] && echo "has_files=true" >> "$GITHUB_OUTPUT" || echo "has_files=false" >> "$GITHUB_OUTPUT"
+
+      - name: Upload language zips to release
+        if: steps.build.outputs.has_files == 'true'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.ctx.outputs.tag }}
+          files: ${{ steps.build.outputs.paths }}
+          generate_release_notes: false

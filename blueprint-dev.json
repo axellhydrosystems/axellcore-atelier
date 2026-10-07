@@ -15,6 +15,7 @@
 				"start_of_week": "1"
 			}
 		},
+		{ "step": "setSiteLanguage", "language": "pt_BR" },
 		{
 			"step": "installPlugin",
 			"pluginData": {

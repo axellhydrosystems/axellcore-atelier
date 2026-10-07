@@ -501,3 +501,20 @@ With JetEngine active nothing of that is registered: no admin and no import. Onl
   - `items` on the numbered lists, the tier cards and the two halves of placa, conceito, editorial and adesão.
 - **Page rules (`Design_Tokens`):** smooth scrolling to anchors (off for reduced motion); the first-screen fonts preloaded (Cormorant 300 normal and italic, Inter), whose late swap moved the hero (CLS 0.14).
 - **Comparison captures** (`design/base/scripts/shot-file-*.mjs`): they force `.axell-reveal` visible and run with `reducedMotion: 'reduce'`. The reveal's animation leaves composited layers whose text antialiasing differs from the bases (+1.3k px on the selects).
+
+## Releases, updates and translations (SelfDirectory, as axellcore)
+
+- **Updates:** `lib/selfdirectory` (git submodule, `fervidum/selfdirectory`) updates the plugin from the GitHub releases of its `Plugin URI` in the Plugins screen, and installs its language packs. After cloning: `git submodule update --init`.
+- **Plugin zip:** `axellcore-atelierclub.X.Y.Z.zip`, built by `release.yml` on a `X.Y.Z` tag. It is `git archive` plus the SelfDirectory class; `.gitattributes` `export-ignore` drops the dev files, `design/`, `src/` and `languages/`.
+- **Language packs:** `axellcore-atelierclub.X.Y.Z-pt_BR.zip`, holding the `.po`, the `.mo` and the JS `.json` catalogs. `language.yml` builds them from the orphan branch `language/X.Y.Z` and attaches them to the release.
+- **Source strings are English;** Portuguese lives only in `languages/axellcore-atelierclub-pt_BR.po`.
+- **Script translations:** every enqueued script with `__()` calls `wp_set_script_translations( $handle, 'axellcore-atelierclub' )` with no path, so the plugin's `languages/` (development) and the installed pack (`wp-content/languages/plugins`) both work. Block scripts get it from `block.json`.
+- **Process (run from the Studio site, `studio wp`):**
+  1. Write the version's notes under `== Changelog ==` in `readme.txt`.
+  2. `studio wp --require=wp-content/plugins/axellcore-atelierclub/bin/release.php axc release X.Y.Z`. It:
+     - bumps the header, the constant and the `Stable tag`;
+     - regenerates the POT, PO, MO and JSON, and **stops on untranslated strings**;
+     - points `blueprint.json` at the `X.Y.Z` assets;
+     - commits, tags and pushes; the tag runs `release.yml`.
+  3. `studio wp --require=… axc language` pushes `language/X.Y.Z`; `language.yml` attaches `axellcore-atelierclub.X.Y.Z-pt_BR.zip`.
+- **Playground (`blueprint.json`):** `setSiteLanguage` pt_BR, then unzip the pt_BR pack into `/wordpress/wp-content/languages/plugins`, then install the release zip. The language comes before the install so the activation runs in pt_BR. `blueprint-dev.json` installs the preview build, which still carries `languages/`.

@@ -12,18 +12,28 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: recursive
 
+      # build/ is committed (the release ships it as is). The zip is the
+      # runtime files only: .gitattributes export-ignore drops the dev files
+      # and languages/ (translations ship as language packs, see language.yml),
+      # and SelfDirectory comes from its submodule.
       - name: Build plugin zip
+        id: build
         run: |
-          mkdir -p /tmp/build/axellcore-atelierclub
-          rsync -r --exclude='.git/' --exclude='.github/' --exclude='node_modules/' \
-            --exclude='vendor/' --exclude='tests/' --exclude='*.zip' \
-            . /tmp/build/axellcore-atelierclub/
-          cd /tmp/build
-          zip -r axellcore-atelierclub.zip axellcore-atelierclub
+          tag="${GITHUB_REF_NAME}"
+          mkdir -p /tmp/build
+          git archive HEAD --prefix=axellcore-atelierclub/ | tar xf - -C /tmp/build/
+          git -C lib/selfdirectory archive HEAD \
+            --prefix=axellcore-atelierclub/lib/selfdirectory/ \
+            -- class-selfdirectory.php \
+            | tar xf - -C /tmp/build/
+          cd /tmp/build && zip -qr "axellcore-atelierclub.${tag}.zip" axellcore-atelierclub
+          echo "zip=/tmp/build/axellcore-atelierclub.${tag}.zip" >> "$GITHUB_OUTPUT"
 
-      - name: Create GitHub Release
+      - name: Upload plugin zip to release
         uses: softprops/action-gh-release@v2
         with:
-          files: /tmp/build/axellcore-atelierclub.zip
+          files: ${{ steps.build.outputs.zip }}
           generate_release_notes: true

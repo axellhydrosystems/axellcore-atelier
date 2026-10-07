@@ -109,6 +109,8 @@ final class Reveal {
 			$asset['version'],
 			true
 		);
+		// Translations of its __() strings: the plugin's languages/ or the installed language pack.
+		wp_set_script_translations( self::HANDLE . '-editor', 'axellcore-atelierclub' );
 	}
 
 	/**

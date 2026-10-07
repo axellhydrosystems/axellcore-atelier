@@ -24,7 +24,8 @@ The Atelier Axell Club landing (`/atelier`) built from native WordPress blocks: 
 * Application form: members are users (pending until approved) with an admin (Atelier > Members) and a CSV export; address controls (country, state, city combobox), CPF/CNPJ, phone and postal masks; partner stores with search over revendas or a new store (name, UF, city), compacted on submission; the widgets reset after a successful submission.
 * Revendas: the post type, taxonomies and meta of production's JetEngine setup registered when JetEngine is not active, with a DataViews admin and a one-time import of the bundled CSV on activation. Replaces the axellcore-revendas plugin.
 * Blueprints set the São Paulo timezone and Brazilian date and time formats.
-* pt_BR translation updated for every new string.
+* Source strings in English, with the Portuguese in the pt_BR translation; scripts load their translations from the plugin or an installed language pack.
+* Updates from GitHub releases in the Plugins screen (SelfDirectory), with pt_BR language packs; the Playground blueprint installs the release in pt_BR.
 
 = 0.1.2 =
 * Fix: the consent-checkbox field (`axellcore/form-input`, "Li e concordo…") failed block validation in the editor ("Expected tag name `div`, instead saw `label`"). Root cause: its `label` attribute was redundantly duplicated into the block comment's JSON *and* the stored HTML — for this one field the label contains an embedded `<a href=\"#\">` with escaped quotes, which PHP's block-comment parser can't handle, silently returning `attrs = null` for the whole block (confirmed via `parse_blocks()` against the real stored content). `label` is `source:"rich-text"`, so WordPress already derives it from the HTML — it was never meant to be duplicated into the JSON attrs. No other field's label happened to contain embedded HTML, which is why only this one broke.
