@@ -293,9 +293,11 @@ export default function MemberDetailView( {
 				row( 'endereco-2', [ 'neighborhood', 'landmark' ] ),
 				row( 'endereco-3', [ 'city', 'state', 'postal' ] ),
 			] ),
-			...( resellers.length
-				? [ card( 'resellers', __( 'Lojas parceiras', 'axellcore-atelierclub' ), resellers.map( ( r ) => r.field ) ) ]
-				: [] ),
+			card(
+				'resellers',
+				__( 'Lojas parceiras', 'axellcore-atelierclub' ),
+				[ 'reseller1', 'reseller2', 'reseller3', 'reseller4', 'reseller5' ]
+			),
 		],
 	};
 
