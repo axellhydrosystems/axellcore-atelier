@@ -1,0 +1,14 @@
+/*
+ * axell/form-check: the checkbox and its label side by side, the label text
+ * wrapping next to the box. Zero specificity (:where), so the block's own
+ * attributes and the brand design win.
+ */
+:where(.wp-block-axell-form-check) {
+	display: flex;
+	align-items: flex-start;
+	gap: 0.875rem;
+}
+
+:where(.wp-block-axell-form-check .wp-block-axell-form-label) {
+	margin: 0;
+}

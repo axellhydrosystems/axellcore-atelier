@@ -1,5 +1,10 @@
 [
     {
+        "path": "adesao",
+        "title": "Adesão",
+        "template": "atelier-section"
+    },
+    {
         "path": "header",
         "title": "Header",
         "template": "atelier-section"

@@ -8,7 +8,12 @@
   margin-block: 1rem;
   border: 0;
 
+	// The legend spans the fieldset; with border-box its padding stays inside
+	// that width (a rule under it ends with the fieldset).
 	legend {
+		display: block;
+		box-sizing: border-box;
+		width: 100%;
 		padding: 0;
 		margin-block-end: 0.5rem;
 	}

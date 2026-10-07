@@ -1,6 +1,0 @@
-/*
- * Structural CSS of the application form blocks, loaded on any page that
- * contains them (see includes/class-assets.php). Matches the structure of
- * the core/form blocks (packages/block-library/src/form-input/style.scss).
- * Zero specificity (:where) so the brand design (sections.css, /atelier) wins.
- */

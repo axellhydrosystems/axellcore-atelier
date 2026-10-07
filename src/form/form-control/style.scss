@@ -8,10 +8,10 @@
 	display: block;
 	width: 100%;
 	box-sizing: border-box;
-	line-height: inherit;
+	line-height: 1.46666667;
 	border-width: 1px;
 	border-style: solid;
-	padding: 0.375rem 0.75rem;
+	padding: 0.625rem 0.6875rem;
 	font-size: inherit;
   font-family: inherit;
 }
@@ -57,17 +57,21 @@
 	list-style: none;
 	margin: 0;
 	padding: 0;
-	border: 1px solid color-mix(in srgb, currentColor 35%, transparent);
-	background: Canvas;
-	color: CanvasText;
+	border: 1px solid var(--aa-listbox-border, color-mix(in srgb, currentColor 35%, transparent));
+	background: var(--aa-listbox-bg, Canvas);
+	color: var(--aa-listbox-color, CanvasText);
+	font: var(--aa-listbox-font, inherit);
 }
 
 :where([data-wp-interactive='axell/autocomplete'] [role='option']) {
-	padding: 0.5em 0.75em;
+	padding: var(--aa-listbox-option-padding, 0.5em 0.75em);
 	cursor: pointer;
 
-	&[aria-selected='true'] {
-		background: color-mix(in srgb, currentColor 12%, transparent);
+	&[aria-selected='true'],
+
+	&:hover {
+		background: var(--aa-listbox-active-bg, color-mix(in srgb, currentColor 12%, transparent));
+		color: var(--aa-listbox-active-color, inherit);
 	}
 }
 

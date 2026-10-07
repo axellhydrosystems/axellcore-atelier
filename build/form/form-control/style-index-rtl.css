@@ -1,1 +1,186 @@
-:where(input.wp-block-axell-form-control,select.wp-block-axell-form-control,textarea.wp-block-axell-form-control,[data-wp-interactive="axell/autocomplete"] input[role=combobox]):not([type=checkbox]){border-style:solid;border-width:1px;box-sizing:border-box;display:block;font-family:inherit;font-size:inherit;line-height:inherit;padding:.375rem .75rem;width:100%}:where(input.wp-block-axell-form-control,select.wp-block-axell-form-control,textarea.wp-block-axell-form-control):disabled{background-color:Field;border-color:light-dark(#767676,#858585);color:FieldText;opacity:1}.wp-block-axell-form-control[hidden]{display:none!important}:where(textarea.wp-block-axell-form-control){min-height:10em;padding:.5em}:where([data-wp-interactive="axell/autocomplete"] input[role=combobox]){color:inherit;font:inherit}:where([data-wp-interactive="axell/autocomplete"]){position:relative}:where([data-wp-interactive="axell/autocomplete"] [role=listbox]){background:Canvas;border:1px solid color-mix(in srgb,currentColor 35%,transparent);color:CanvasText;right:0;list-style:none;margin:0;padding:0;position:absolute;left:0;top:100%;z-index:10}:where([data-wp-interactive="axell/autocomplete"] [role=option]){cursor:pointer;padding:.5em .75em}:where([data-wp-interactive="axell/autocomplete"] [role=option])[aria-selected=true]{background:color-mix(in srgb,currentColor 12%,transparent)}:where([data-wp-interactive="axell/autocomplete"] .aa-ac-notfound){align-items:center;display:flex;gap:1em;justify-content:space-between}:where(.aa-ac-add){background:none;border:0;color:inherit;cursor:pointer;font:inherit;font-size:.875em;font-weight:700;margin:0;padding:0;text-decoration:underline;white-space:nowrap}:where([data-wp-interactive="axell/autocomplete"] .aa-ac-custom){display:grid;gap:22px;grid-template-columns:repeat(12,minmax(0,1fr));margin-top:.5em;position:relative}:where([data-wp-interactive="axell/autocomplete"] .aa-ac-name){grid-column:span 6}:where([data-wp-interactive="axell/autocomplete"] .aa-ac-custom select:not([data-field=city])){grid-column:span 2}:where([data-wp-interactive="axell/autocomplete"] .aa-ac-custom select[data-field=city]){grid-column:span 4}:where([data-wp-interactive="axell/autocomplete"] .aa-ac-custom[hidden]){display:none}:where([data-wp-interactive="axell/autocomplete"] .aa-ac-custom input){background:rgba(0,0,0,0);border:1px solid color-mix(in srgb,currentColor 35%,transparent);border-radius:2px;box-sizing:border-box;color:inherit;font:inherit;min-width:0;padding:.5em .75em;width:100%}:where([data-wp-interactive="axell/autocomplete"] .aa-ac-custom select){background:rgba(0,0,0,0);border:1px solid color-mix(in srgb,currentColor 35%,transparent);border-radius:2px;box-sizing:border-box;color:inherit;font:inherit;justify-self:stretch;min-width:0;padding:.5em;width:100%}:where([data-wp-interactive="axell/autocomplete"] .aa-ac-loading){opacity:.6;padding:.5em .75em}[data-wp-interactive="axell/autocomplete"] input[role=combobox][hidden]{display:none!important}:where([data-wp-interactive="axell/autocomplete"] .aa-ac-back){align-items:center;background:none;border:0;color:inherit;cursor:pointer;display:inline-flex;margin:0;padding:.25em;position:absolute;left:.5em;top:50%;transform:translateY(-50%)}:where([data-wp-interactive="axell/autocomplete"] .aa-ac-name){min-width:0;position:relative}:where([data-wp-interactive="axell/autocomplete"] .aa-ac-name input){padding-left:2.5em;width:100%}
+/*!*********************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[5].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[5].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[5].use[3]!./src/form/form-control/style.scss ***!
+  \*********************************************************************************************************************************************************************************************************************************************************/
+/*
+ * axell/form-control: minimal structure, loaded everywhere. Zero specificity
+ * (:where), so the brand design (sections.css, /atelier) always wins.
+ * Checkboxes are excluded: text-input sizing would make them huge.
+ */
+/* Only the field elements take the box; the autocomplete wrapper is a plain div. */
+:where(input.wp-block-axell-form-control, select.wp-block-axell-form-control, textarea.wp-block-axell-form-control, [data-wp-interactive="axell/autocomplete"] input[role=combobox]):not([type=checkbox]) {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  line-height: 1.46666667;
+  border-width: 1px;
+  border-style: solid;
+  padding: 0.625rem 0.6875rem;
+  font-size: inherit;
+  font-family: inherit;
+}
+
+:where(input.wp-block-axell-form-control, select.wp-block-axell-form-control, textarea.wp-block-axell-form-control):disabled {
+  opacity: 1;
+  color: FieldText;
+  background-color: Field;
+  border-color: light-dark(#767676, #858585);
+}
+
+/*
+ * The address controls swap a select and a text field with [hidden]. The
+ * display above is an author rule, so it would beat the browser's
+ * [hidden] { display: none } and show both.
+ */
+.wp-block-axell-form-control[hidden] {
+  display: none !important;
+}
+
+:where(textarea.wp-block-axell-form-control) {
+  min-height: 10em;
+  padding: 0.5em;
+}
+
+/* Autocomplete: the search input matches the field, and the suggestions are a plain list. */
+:where([data-wp-interactive="axell/autocomplete"] input[role=combobox]) {
+  font: inherit;
+  color: inherit;
+}
+
+:where([data-wp-interactive="axell/autocomplete"]) {
+  position: relative;
+}
+
+:where([data-wp-interactive="axell/autocomplete"] [role=listbox]) {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  left: 0;
+  z-index: 10;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border: 1px solid var(--aa-listbox-border, color-mix(in srgb, currentColor 35%, transparent));
+  background: var(--aa-listbox-bg, Canvas);
+  color: var(--aa-listbox-color, CanvasText);
+  font: var(--aa-listbox-font, inherit);
+}
+
+:where([data-wp-interactive="axell/autocomplete"] [role=option]) {
+  padding: var(--aa-listbox-option-padding, 0.5em 0.75em);
+  cursor: pointer;
+}
+:where([data-wp-interactive="axell/autocomplete"] [role=option])[aria-selected=true], :where([data-wp-interactive="axell/autocomplete"] [role=option]):hover {
+  background: var(--aa-listbox-active-bg, color-mix(in srgb, currentColor 12%, transparent));
+  color: var(--aa-listbox-active-color, inherit);
+}
+
+/* Not-found row: the typed text, with a small bold link at its end. */
+:where([data-wp-interactive="axell/autocomplete"] .aa-ac-notfound) {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1em;
+}
+
+:where(.aa-ac-add) {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  font-size: 0.875em;
+  font-weight: 700;
+  text-decoration: underline;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+/* Custom store fields: Nome, UF and Cidade on one row, under the search input. */
+:where([data-wp-interactive="axell/autocomplete"] .aa-ac-custom) {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 22px;
+  margin-top: 0.5em;
+}
+
+/* 12 columns, as in Bootstrap: name 6, UF 2, city 4. */
+:where([data-wp-interactive="axell/autocomplete"] .aa-ac-name) {
+  grid-column: span 6;
+}
+
+:where([data-wp-interactive="axell/autocomplete"] .aa-ac-custom select:not([data-field=city])) {
+  grid-column: span 2;
+}
+
+:where([data-wp-interactive="axell/autocomplete"] .aa-ac-custom select[data-field=city]) {
+  grid-column: span 4;
+}
+
+:where([data-wp-interactive="axell/autocomplete"] .aa-ac-custom[hidden]) {
+  display: none;
+}
+
+:where([data-wp-interactive="axell/autocomplete"] .aa-ac-custom input) {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  padding: 0.5em 0.75em;
+  font: inherit;
+  color: inherit;
+  background: transparent;
+  border: 1px solid color-mix(in srgb, currentColor 35%, transparent);
+  border-radius: 2px;
+}
+
+:where([data-wp-interactive="axell/autocomplete"] .aa-ac-custom select) {
+  box-sizing: border-box;
+  justify-self: stretch;
+  width: 100%;
+  min-width: 0;
+  padding: 0.5em;
+  font: inherit;
+  color: inherit;
+  background: transparent;
+  border: 1px solid color-mix(in srgb, currentColor 35%, transparent);
+  border-radius: 2px;
+}
+
+/* Search in progress: no suggestion or add action yet. */
+:where([data-wp-interactive="axell/autocomplete"] .aa-ac-loading) {
+  padding: 0.5em 0.75em;
+  opacity: 0.6;
+}
+
+/* The search input steps aside while the custom store fields are shown. */
+[data-wp-interactive="axell/autocomplete"] input[role=combobox][hidden] {
+  display: none !important;
+}
+
+/* Icon button at the end of the custom panel: back to the search. */
+:where([data-wp-interactive="axell/autocomplete"] .aa-ac-back) {
+  position: absolute;
+  top: 50%;
+  left: 0.5em;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25em;
+  margin: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+/* The name field carries the icon button at its end. */
+:where([data-wp-interactive="axell/autocomplete"] .aa-ac-name) {
+  position: relative;
+  min-width: 0;
+}
+
+:where([data-wp-interactive="axell/autocomplete"] .aa-ac-name input) {
+  width: 100%;
+  padding-left: 2.5em;
+}

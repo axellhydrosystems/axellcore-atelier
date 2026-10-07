@@ -1,1 +1,1 @@
-:where(.wp-block-axell-fieldset){border:0;margin:0;margin-block:1rem;min-width:0;padding:0}:where(.wp-block-axell-fieldset) legend{margin-block-end:.5rem;padding:0}
+:where(.wp-block-axell-fieldset){border:0;margin:0;margin-block:1rem;min-width:0;padding:0}:where(.wp-block-axell-fieldset) legend{box-sizing:border-box;display:block;margin-block-end:.5rem;padding:0;width:100%}

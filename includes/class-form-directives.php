@@ -419,6 +419,19 @@ final class Form_Directives {
 	}
 
 	/**
+	 * The saved field's look (block class and inline style, from the block
+	 * supports) as attributes for the fields the render builds next to it.
+	 *
+	 * @param \WP_HTML_Tag_Processor $p Processor on the saved field.
+	 * @return string Escaped class (and style) attributes.
+	 */
+	private static function look( $p ) {
+		$style = (string) $p->get_attribute( 'style' );
+		return sprintf( ' class="%s"', esc_attr( (string) $p->get_attribute( 'class' ) ) )
+			. ( '' !== $style ? sprintf( ' style="%s"', esc_attr( $style ) ) : '' );
+	}
+
+	/**
 	 * Field name of a control: its name attribute, else its id.
 	 *
 	 * @param array<string,mixed> $attrs Block attributes.
@@ -442,7 +455,7 @@ final class Form_Directives {
 		$wrapper     = self::wrapper_class( $p );
 		$id          = (string) $p->get_attribute( 'id' );
 		$name        = self::field_name( $attrs );
-		$class       = (string) $p->get_attribute( 'class' );
+		$look        = self::look( $p );
 		$required    = null !== $p->get_attribute( 'required' ) ? ' required' : '';
 		$placeholder = (string) ( $attrs['placeholder'] ?? '' );
 
@@ -451,21 +464,31 @@ final class Form_Directives {
 			$options .= sprintf( '<option value="%1$s">%1$s</option>', esc_attr( $uf ) );
 		}
 
-		return self::region_open( $wrapper, $context )
+		// The id goes to the active field only (the select, or the text field
+		// for a country without a state list): no duplicate id in the form.
+		// The server knows the list from the chosen country (a linked country
+		// field starts as Brazil); callbacks.syncStateIds keeps it on change.
+		$has_list            = ! isset( $context['fixedCountry'] ) || in_array( $context['fixedCountry'], array( 'BR', 'US' ), true );
+		$context['fieldId']  = $id;
+		$context['selectId'] = $has_list ? $id : null;
+		$context['textId']   = $has_list ? null : $id;
+
+		return self::region_open( $wrapper, $context, ' data-wp-watch="callbacks.syncStateIds"' )
 			. sprintf(
-				'<select id="%1$s" name="%2$s" class="%3$s" autocomplete="address-level1" hidden disabled%4$s data-wp-bind--hidden="!state.hasStateList" data-wp-bind--disabled="!state.hasStateList" data-wp-on--change="actions.onState" data-wp-watch="callbacks.renderStates">%5$s</select>',
+				'<select id="%1$s" name="%2$s"%3$s autocomplete="address-level1" hidden disabled%4$s data-wp-bind--id="context.selectId" data-wp-bind--hidden="!state.hasStateList" data-wp-bind--disabled="!state.hasStateList" data-wp-on--change="actions.onState" data-wp-watch="callbacks.renderStates">%5$s</select>',
 				esc_attr( $id ),
 				esc_attr( $name ),
-				esc_attr( $class ),
+				$look,
 				$required,
 				$options
 			)
 			. sprintf(
-				'<input type="text" id="%1$s" name="%2$s" class="wp-block-axell-form-control" autocomplete="address-level1"%3$s%4$s data-wp-bind--hidden="state.hasStateList" data-wp-bind--disabled="state.hasStateList" data-wp-on--input="actions.onField"/>',
+				'<input type="text" name="%2$s"%5$s autocomplete="address-level1"%3$s%4$s data-wp-bind--id="context.textId" data-wp-bind--hidden="state.hasStateList" data-wp-bind--disabled="state.hasStateList" data-wp-on--input="actions.onField"/>',
 				esc_attr( $id ),
 				esc_attr( $name ),
 				'' !== $placeholder ? ' placeholder="' . esc_attr( $placeholder ) . '"' : '',
-				$required
+				$required,
+				$look
 			)
 			. '</div>';
 	}
@@ -487,6 +510,7 @@ final class Form_Directives {
 		$name        = self::field_name( $attrs );
 		$required    = null !== $p->get_attribute( 'required' ) ? ' required' : '';
 		$placeholder = (string) $p->get_attribute( 'placeholder' );
+		$look        = self::look( $p );
 		$free_text   = array(
 			'data-wp-bind--hidden'   => 'state.hasCityList',
 			'data-wp-bind--disabled' => 'state.hasCityList',
@@ -506,9 +530,10 @@ final class Form_Directives {
 			);
 			return self::region_open( $wrapper, $context )
 				. sprintf(
-					'<select name="%1$s" class="wp-block-axell-form-control" autocomplete="address-level2" hidden disabled%2$s data-wp-bind--hidden="!state.hasCityList" data-wp-bind--disabled="!state.hasCityList" data-wp-on--change="actions.onField" data-wp-watch="callbacks.renderCities"><option value="">—</option></select>',
+					'<select name="%1$s"%3$s autocomplete="address-level2" hidden disabled%2$s data-wp-bind--hidden="!state.hasCityList" data-wp-bind--disabled="!state.hasCityList" data-wp-on--change="actions.onField" data-wp-watch="callbacks.renderCities"><option value="">—</option></select>',
 					esc_attr( $name ),
-					$required
+					$required,
+					$look
 				)
 				. trim( $p->get_updated_html() )
 				. '</div>';
@@ -536,10 +561,11 @@ final class Form_Directives {
 			. trim( $p->get_updated_html() )
 			. sprintf( '<input type="hidden" name="%s" disabled data-wp-bind--disabled="!state.hasCityList" data-wp-bind--value="context.code"/>', esc_attr( $name ) )
 			. sprintf(
-				'<input type="text" name="%1$s" class="wp-block-axell-form-control" autocomplete="address-level2"%2$s%3$s data-wp-bind--hidden="state.hasCityList" data-wp-bind--disabled="state.hasCityList" data-wp-on--input="actions.onField"/>',
+				'<input type="text" name="%1$s"%4$s autocomplete="address-level2"%2$s%3$s data-wp-bind--hidden="state.hasCityList" data-wp-bind--disabled="state.hasCityList" data-wp-on--input="actions.onField"/>',
 				esc_attr( $name ),
 				'' !== $placeholder ? ' placeholder="' . esc_attr( $placeholder ) . '"' : '',
-				$required
+				$required,
+				$look
 			)
 			. sprintf(
 				'<ul id="%s" role="listbox" hidden tabindex="-1" data-wp-bind--hidden="!state.cityListOpen" data-wp-on--click="actions.pickCity" data-wp-on--mousedown="actions.keepFocus" data-wp-watch="callbacks.renderCitySearch"></ul>',
@@ -769,10 +795,10 @@ final class Form_Directives {
 				. '<input type="hidden" name="%4$s" data-wp-bind--value="context.selectedId"/>'
 				. '<input type="hidden" name="%4$s_title" data-wp-bind--value="context.title"/>'
 				. '<div class="aa-ac-custom" hidden data-wp-bind--hidden="!context.custom">'
-				. '<div class="aa-ac-name"><input type="text" data-field="name" aria-label="%5$s" placeholder="%5$s" data-wp-bind--value="context.customName" data-wp-on--input="actions.onCustomInput"/>'
+				. '<div class="aa-ac-name"><input type="text" id="%4$s-custom-name" data-field="name" aria-label="%5$s" placeholder="%5$s" data-wp-bind--value="context.customName" data-wp-on--input="actions.onCustomInput"/>'
 				. '<button type="button" class="aa-ac-back" aria-label="%6$s" data-wp-on--click="actions.backToSearch">%7$s</button></div>'
-				. '<select aria-label="%8$s" data-wp-bind--value="context.customUf" data-wp-on--change="actions.onCustomUf">%9$s</select>'
-				. '<select aria-label="%10$s" data-field="city" disabled data-wp-bind--disabled="!context.customUf" data-wp-on--change="actions.onCustomCity" data-wp-watch="callbacks.renderCities"><option value="">%11$s</option></select>'
+				. '<select id="%4$s-custom-uf" aria-label="%8$s" data-wp-bind--value="context.customUf" data-wp-on--change="actions.onCustomUf">%9$s</select>'
+				. '<select id="%4$s-custom-city" aria-label="%10$s" data-field="city" disabled data-wp-bind--disabled="!context.customUf" data-wp-on--change="actions.onCustomCity" data-wp-watch="callbacks.renderCities"><option value="">%11$s</option></select>'
 				. '</div>'
 				. '<ul id="%12$s" role="listbox" hidden tabindex="-1" data-wp-bind--hidden="!context.open" data-wp-on--click="actions.pick" data-wp-on--mousedown="actions.keepFocus" data-wp-watch="callbacks.renderList"></ul>'
 				. '</div>',

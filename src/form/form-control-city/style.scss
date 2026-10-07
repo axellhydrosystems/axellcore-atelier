@@ -14,17 +14,21 @@
 	margin: 0;
 	padding: 0;
 	list-style: none;
-	border: 1px solid color-mix(in srgb, currentColor 35%, transparent);
-	background: Canvas;
-	color: CanvasText;
+	border: 1px solid var(--aa-listbox-border, color-mix(in srgb, currentColor 35%, transparent));
+	background: var(--aa-listbox-bg, Canvas);
+	color: var(--aa-listbox-color, CanvasText);
+	font: var(--aa-listbox-font, inherit);
 }
 
 :where(.aa-city-search [role='option']) {
-	padding: 0.5em 0.75em;
+	padding: var(--aa-listbox-option-padding, 0.5em 0.75em);
 	cursor: pointer;
 
-	&[aria-selected='true'] {
-		background: color-mix(in srgb, currentColor 12%, transparent);
+	&[aria-selected='true'],
+
+	&:hover {
+		background: var(--aa-listbox-active-bg, color-mix(in srgb, currentColor 12%, transparent));
+		color: var(--aa-listbox-active-color, inherit);
 	}
 }
 

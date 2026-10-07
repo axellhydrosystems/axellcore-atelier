@@ -292,6 +292,30 @@ CPF/CNPJ); the partner stores are one "Lojas parceiras" cell joined with
 `join_values()`). By default ID, Enviado em, Login and País are left out
 (`default_columns()`); they can still be picked.
 
+### Styled form (/atelier/adesao/, post 1049)
+
+Styled by attributes on each form block (the controls, `form-check`,
+`form-group` and `form-atelier` have color, border, typography and spacing
+supports), with block custom CSS only for what has no attribute:
+placeholder, focus (`!important`, the attribute's inline border and the
+core `has-*-color` classes would win), select options, the legend
+`NN — ` prefix (fieldset CSS), the stores' roman index and line
+(`counter(slot, roman-period)`, `:focus-within` line in bronze-2) and the
+checkbox. Font sizes of 14px and up go in the block CSS, not in
+`typography.fontSize`, so the theme's fluid typography does not shrink
+them. Fields stack under 782px by `style['@tablet'|'@mobile'].layout.columnSpan: 12`;
+the stacked submit button is full width by `@tablet|@mobile dimensions.width`.
+Block CSS takes no selector lists (`& a:hover, & a:focus` breaks the rule):
+one rule per selector.
+
+The suggestion lists (reseller and city) read `--aa-listbox-bg`, `-color`,
+`-border`, `-font`, `-option-padding`, `-active-bg`, `-active-color`
+(system colors otherwise); the Atelier form sets them in its block CSS.
+The UF id is bound to the active field (`context.selectId` / `textId`,
+computed on the server, kept by `callbacks.syncStateIds`), and the
+reseller custom-store fields have ids (`{name}-custom-name|uf|city`), so
+the form has no duplicate id and no field without id or name.
+
 ### Field layout: a core/group grid inside the fieldset
 
 `axell/form-group` is a plain `display: block` field (label, control, help

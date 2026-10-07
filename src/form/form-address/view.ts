@@ -18,6 +18,10 @@ interface ControlContext {
 	fixedCountry?: string;
 	countryField?: string;
 	stateField?: string;
+	/** UF: the control's id, bound to its active field (select or text). */
+	fieldId?: string;
+	selectId?: string | null;
+	textId?: string | null;
 	/** Phone: line type (Brazil only): mobile or landline; absent = both. */
 	lineType?: string;
 	/** City search: typed text, picked city name, list open, active option. */
@@ -283,6 +287,14 @@ const { state } = store( 'axell/address', {
 		initCountry() {
 			const field = here() as HTMLInputElement | HTMLSelectElement;
 			( state as unknown as AddressState ).values[ keyOf( field, field.name ) ] = field.value;
+		},
+
+		/** UF: the id goes to the active field only (one id in the form). */
+		syncStateIds() {
+			const context = getContext< ControlContext >();
+			const list = ( state as unknown as { hasStateList: boolean } ).hasStateList;
+			context.selectId = list ? context.fieldId || null : null;
+			context.textId = list ? null : context.fieldId || null;
 		},
 
 		renderStates() {

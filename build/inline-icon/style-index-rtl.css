@@ -1,1 +1,26 @@
-.aa-inline-icon{display:inline-block;height:1em;vertical-align:-.125em;width:1em}svg.aa-inline-icon{fill:currentcolor}img.aa-inline-icon{background-color:currentcolor;mask:var(--aa-inline-icon) center/contain no-repeat;object-position:right -100em top 0}
+/*!***************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[5].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[5].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[5].use[3]!./src/inline-icon/style.scss ***!
+  \***************************************************************************************************************************************************************************************************************************************************/
+/**
+ * Inline icon: 1em, in the text color, on the text baseline. On the front end
+ * it is the icon's <svg class="aa-inline-icon"> (fill: currentColor); in the
+ * editor it is the saved <img> placeholder (its src a transparent pixel),
+ * painted in the text color through the generated mask (--aa-inline-icon, see
+ * includes/class-inline-icon.php).
+ */
+.aa-inline-icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.125em;
+}
+
+svg.aa-inline-icon {
+  fill: currentcolor;
+}
+
+img.aa-inline-icon {
+  background-color: currentcolor;
+  mask: var(--aa-inline-icon) center/contain no-repeat;
+  object-position: right -100em top 0;
+}
