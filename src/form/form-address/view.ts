@@ -293,7 +293,11 @@ const { state } = store( 'axell/address', {
 			// A state of the previous country never carries over (SC is also South Carolina).
 			const current = select.dataset.country === country ? select.value : '';
 			select.dataset.country = country;
-			select.replaceChildren( new Option( '—', '' ), ...list.map( ( uf ) => new Option( uf, uf ) ) );
+			// The empty option keeps the text it was rendered with (the placeholder).
+			if ( select.dataset.empty === undefined ) {
+				select.dataset.empty = select.options[ 0 ]?.value === '' ? select.options[ 0 ].text : '—';
+			}
+			select.replaceChildren( new Option( select.dataset.empty, '' ), ...list.map( ( uf ) => new Option( uf, uf ) ) );
 			select.value = list.includes( current ) ? current : '';
 			s.values[ keyOf( select, select.name ) ] = select.value;
 		},

@@ -174,8 +174,18 @@ final class Form_Directives {
 	 * @return string
 	 */
 	public function state( $content, $block ) {
+		$attrs   = $block['attrs'] ?? array();
+		$context = self::country_link( $attrs );
+
+		// Saved as the field only: build the widget around it.
+		$field = new \WP_HTML_Tag_Processor( $content );
+		if ( $field->next_tag() && 'SELECT' === $field->get_tag() ) {
+			return self::state_widget( $field, $attrs, $context );
+		}
+
+		// Content saved with the whole widget: only the directives are added.
 		$p = new \WP_HTML_Tag_Processor( $content );
-		if ( ! self::address_region( $p, self::country_link( $block['attrs'] ?? array() ) ) ) {
+		if ( ! self::address_region( $p, $context ) ) {
 			return $content;
 		}
 		while ( $p->next_tag() ) {
@@ -231,6 +241,13 @@ final class Form_Directives {
 			);
 		}
 
+		// Saved as the field only: build the search (or the list) around it.
+		$field = new \WP_HTML_Tag_Processor( $content );
+		if ( $field->next_tag() && 'INPUT' === $field->get_tag() ) {
+			return self::city_widget( $field, $attrs, $context, $searchable );
+		}
+
+		// Content saved with the whole widget: only the directives are added.
 		$p = new \WP_HTML_Tag_Processor( $content );
 		if ( ! self::address_region( $p, $context ) ) {
 			return $content;
@@ -367,6 +384,155 @@ final class Form_Directives {
 			}
 		}
 		return $p->get_updated_html();
+	}
+
+	/**
+	 * Attributes of an address region wrapper (the axell/address store).
+	 *
+	 * @param string              $classes Wrapper classes.
+	 * @param array<string,mixed> $context Context besides the form id.
+	 * @param string              $extra   More attributes (already escaped).
+	 * @return string Opening tag.
+	 */
+	private static function region_open( $classes, $context, $extra = '' ) {
+		return sprintf(
+			'<div class="%1$s" data-wp-interactive="axell/address" data-wp-context="%2$s" data-wp-init--region="callbacks.initRegion"%3$s>',
+			esc_attr( $classes ),
+			esc_attr( self::json( array_merge( array( 'form' => '' ), $context ) ) ),
+			$extra
+		);
+	}
+
+	/**
+	 * Wrapper class of a field-only save: the field's block class + -wrapper.
+	 *
+	 * @param \WP_HTML_Tag_Processor $p Processor on the saved field.
+	 * @return string
+	 */
+	private static function wrapper_class( $p ) {
+		$classes = preg_split( '/\s+/', trim( (string) $p->get_attribute( 'class' ) ) );
+		return ( $classes[0] ?? 'wp-block-axell-form-control' ) . '-wrapper';
+	}
+
+	/**
+	 * Field name of a control: its name attribute, else its id.
+	 *
+	 * @param array<string,mixed> $attrs Block attributes.
+	 * @return string
+	 */
+	private static function field_name( $attrs ) {
+		$name = (string) ( $attrs['name'] ?? '' );
+		return '' !== $name ? $name : (string) ( $attrs['id'] ?? '' );
+	}
+
+	/**
+	 * UF widget around the saved select: the select (states of the country,
+	 * shown when it has a list) and a free-text input for other countries.
+	 *
+	 * @param \WP_HTML_Tag_Processor $p       Processor on the saved <select>.
+	 * @param array<string,mixed>    $attrs   Block attributes.
+	 * @param array<string,mixed>    $context Region context.
+	 * @return string
+	 */
+	private static function state_widget( $p, $attrs, $context ) {
+		$wrapper     = self::wrapper_class( $p );
+		$id          = (string) $p->get_attribute( 'id' );
+		$name        = self::field_name( $attrs );
+		$class       = (string) $p->get_attribute( 'class' );
+		$required    = null !== $p->get_attribute( 'required' ) ? ' required' : '';
+		$placeholder = (string) ( $attrs['placeholder'] ?? '' );
+
+		$options = sprintf( '<option value="">%s</option>', esc_html( '' !== $placeholder ? $placeholder : '—' ) );
+		foreach ( self::UF_CODES as $uf ) {
+			$options .= sprintf( '<option value="%1$s">%1$s</option>', esc_attr( $uf ) );
+		}
+
+		return self::region_open( $wrapper, $context )
+			. sprintf(
+				'<select id="%1$s" name="%2$s" class="%3$s" hidden disabled%4$s data-wp-bind--hidden="!state.hasStateList" data-wp-bind--disabled="!state.hasStateList" data-wp-on--change="actions.onState" data-wp-watch="callbacks.renderStates">%5$s</select>',
+				esc_attr( $id ),
+				esc_attr( $name ),
+				esc_attr( $class ),
+				$required,
+				$options
+			)
+			. sprintf(
+				'<input type="text" id="%1$s" name="%2$s" class="wp-block-axell-form-control"%3$s%4$s data-wp-bind--hidden="state.hasStateList" data-wp-bind--disabled="state.hasStateList" data-wp-on--input="actions.onField"/>',
+				esc_attr( $id ),
+				esc_attr( $name ),
+				'' !== $placeholder ? ' placeholder="' . esc_attr( $placeholder ) . '"' : '',
+				$required
+			)
+			. '</div>';
+	}
+
+	/**
+	 * Cidade widget around the saved input. Searchable: the input becomes the
+	 * combobox over the cities of the state, with the hidden field that is
+	 * sent, a free-text input for countries without cities and the list.
+	 * Otherwise: a select of the cities, and the input as the free text.
+	 *
+	 * @param \WP_HTML_Tag_Processor $p          Processor on the saved <input>.
+	 * @param array<string,mixed>    $attrs      Block attributes.
+	 * @param array<string,mixed>    $context    Region context.
+	 * @param bool                   $searchable Search instead of a list.
+	 * @return string
+	 */
+	private static function city_widget( $p, $attrs, $context, $searchable ) {
+		$wrapper     = self::wrapper_class( $p );
+		$name        = self::field_name( $attrs );
+		$required    = null !== $p->get_attribute( 'required' ) ? ' required' : '';
+		$placeholder = (string) $p->get_attribute( 'placeholder' );
+		$free_text   = array(
+			'data-wp-bind--hidden'   => 'state.hasCityList',
+			'data-wp-bind--disabled' => 'state.hasCityList',
+			'data-wp-on--input'      => 'actions.onField',
+		);
+
+		if ( ! $searchable ) {
+			self::set( $p, array_merge( array( 'name' => $name ), $free_text ) );
+			return self::region_open( $wrapper, $context )
+				. sprintf(
+					'<select name="%1$s" class="wp-block-axell-form-control" hidden disabled%2$s data-wp-bind--hidden="!state.hasCityList" data-wp-bind--disabled="!state.hasCityList" data-wp-on--change="actions.onField" data-wp-watch="callbacks.renderCities"><option value="">—</option></select>',
+					esc_attr( $name ),
+					$required
+				)
+				. trim( $p->get_updated_html() )
+				. '</div>';
+		}
+
+		$list_id = $name . '-cities';
+		self::set(
+			$p,
+			array(
+				'role'                        => 'combobox',
+				'aria-autocomplete'           => 'list',
+				'aria-controls'               => $list_id,
+				'hidden'                      => true,
+				'disabled'                    => true,
+				'data-wp-bind--hidden'        => '!state.hasCityList',
+				'data-wp-bind--disabled'      => '!state.hasCityList',
+				'data-wp-bind--value'         => 'context.query',
+				'data-wp-bind--aria-expanded' => 'context.open',
+				'data-wp-on--input'           => 'actions.onCitySearch',
+				'data-wp-on--keydown'         => 'actions.onCityKeydown',
+			)
+		);
+
+		return self::region_open( $wrapper . ' aa-city-search', $context, ' data-wp-on--focusout="actions.onCityFocusOut"' )
+			. trim( $p->get_updated_html() )
+			. sprintf( '<input type="hidden" name="%s" disabled data-wp-bind--disabled="!state.hasCityList" data-wp-bind--value="context.code"/>', esc_attr( $name ) )
+			. sprintf(
+				'<input type="text" name="%1$s" class="wp-block-axell-form-control"%2$s%3$s data-wp-bind--hidden="state.hasCityList" data-wp-bind--disabled="state.hasCityList" data-wp-on--input="actions.onField"/>',
+				esc_attr( $name ),
+				'' !== $placeholder ? ' placeholder="' . esc_attr( $placeholder ) . '"' : '',
+				$required
+			)
+			. sprintf(
+				'<ul id="%s" role="listbox" hidden tabindex="-1" data-wp-bind--hidden="!state.cityListOpen" data-wp-on--click="actions.pickCity" data-wp-on--mousedown="actions.keepFocus" data-wp-watch="callbacks.renderCitySearch"></ul>',
+				esc_attr( $list_id )
+			)
+			. '</div>';
 	}
 
 	/**

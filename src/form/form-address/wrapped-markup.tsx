@@ -5,6 +5,7 @@
  */
 import { HiddenFieldPlaceholder } from '../form-control/control-element';
 import { COUNTRY_NAMES, type AddressArgs } from './markup';
+import { BR_STATES } from './states';
 
 const FIELD = 'wp-block-axell-form-control';
 
@@ -82,3 +83,98 @@ export function wrappedPhoneMarkup( a: AddressArgs ) {
 	);
 }
 
+export function wrappedStateMarkup( a: AddressArgs ) {
+	return (
+		<div { ...region( a ) }>
+			<select
+				id={ a.id }
+				name={ a.name }
+				className={ FIELD }
+				hidden
+				disabled
+				required={ a.required || undefined }
+			>
+				<option value="">—</option>
+				{ BR_STATES.map( ( uf ) => (
+					<option key={ uf } value={ uf }>
+						{ uf }
+					</option>
+				) ) }
+			</select>
+			<input
+				type="text"
+				id={ a.id }
+				name={ a.name }
+				className={ FIELD }
+				placeholder={ a.placeholder || undefined }
+				required={ a.required || undefined }
+			/>
+		</div>
+	);
+}
+
+export function wrappedCityMarkup( a: AddressArgs ) {
+	const freeText = (
+		<input
+			type="text"
+			id={ a.searchable ? undefined : a.id }
+			name={ a.name }
+			className={ FIELD }
+			placeholder={ a.placeholder || undefined }
+			required={ a.required || undefined }
+		/>
+	);
+
+	if ( a.searchable ) {
+		// Search over the cities of the state: the visible input has no name, the
+		// hidden one carries the IBGE code of the chosen city.
+		const listId = `${ a.name }-cities`;
+		const props = region( a );
+		return (
+			<div
+				{ ...props }
+				className={ `${ ( props.className as string ) || '' } aa-city-search`.trim() }
+			>
+				<input
+					type="text"
+					id={ a.id }
+					className={ FIELD }
+					role="combobox"
+					autoComplete="off"
+					aria-autocomplete="list"
+					aria-controls={ listId }
+					placeholder={ a.placeholder || undefined }
+					hidden
+					disabled
+					required={ a.required || undefined }
+				/>
+				<input
+					type="hidden"
+					name={ a.name }
+					disabled
+				/>
+				{ freeText }
+				<ul
+					id={ listId }
+					role="listbox"
+					hidden
+				/>
+			</div>
+		);
+	}
+
+	return (
+		<div { ...region( a ) }>
+			<select
+				name={ a.name }
+				className={ FIELD }
+				hidden
+				disabled
+				required={ a.required || undefined }
+			>
+				<option value="">—</option>
+			</select>
+			{ freeText }
+		</div>
+	);
+}

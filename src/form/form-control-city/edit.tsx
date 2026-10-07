@@ -83,7 +83,7 @@ export default function Edit( { attributes, setAttributes }: BlockEditProps< Add
 					/>
 				</PanelBody>
 			</InspectorControls>
-			{ cityMarkup( { blockProps, id: attributes.id || undefined, name: attributes.name, placeholder: attributes.placeholder, required: attributes.required, stateField: attributes.stateField as string, searchable: !! attributes.searchable, countryField: attributes.countryField as string, countrySource: attributes.countrySource as string, country: attributes.country as string } ) }
+			{ cityMarkup( { blockProps, id: attributes.id || undefined, name: attributes.name, placeholder: attributes.placeholder, required: attributes.required, stateField: attributes.stateField as string, searchable: !! attributes.searchable, countryField: attributes.countryField as string, countrySource: attributes.countrySource as string, country: attributes.country as string, isEditor: true } ) }
 		</>
 	);
 }
