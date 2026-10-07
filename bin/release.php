@@ -202,11 +202,27 @@ function axellcore_atelierclub_po_missing( string $po_file ): array {
 
 		$is_fuzzy = in_array( '#, fuzzy', $lines, true );
 
-		preg_match_all( '/^msgid\s+"(.*)"$/m', $block, $id_m );
-		$msgid_val = implode( '', $id_m[1] );
-
-		preg_match_all( '/^msgstr(?:\[\d+\])?\s+"(.*)"$/m', $block, $str_m );
-		$msgstr_val = implode( '', $str_m[1] );
+		// A value may continue on the following "…" lines (long strings wrap).
+		$msgid_val  = '';
+		$msgstr_val = '';
+		$current    = null;
+		foreach ( $lines as $line ) {
+			if ( preg_match( '/^msgid\s+"(.*)"$/', $line, $m ) ) {
+				$current    = 'id';
+				$msgid_val .= $m[1];
+			} elseif ( preg_match( '/^msgstr(?:\[\d+\])?\s+"(.*)"$/', $line, $m ) ) {
+				$current     = 'str';
+				$msgstr_val .= $m[1];
+			} elseif ( preg_match( '/^"(.*)"$/', $line, $m ) ) {
+				if ( 'id' === $current ) {
+					$msgid_val .= $m[1];
+				} elseif ( 'str' === $current ) {
+					$msgstr_val .= $m[1];
+				}
+			} else {
+				$current = null;
+			}
+		}
 
 		if ( '' !== $msgid_val && ( $is_fuzzy || '' === trim( $msgstr_val ) ) ) {
 			$missing[] = $msgid_val;
@@ -451,8 +467,9 @@ class Axellcore_Atelierclub_CLI_Command extends WP_CLI_Command {
 	 *
 	 * ## OPTIONS
 	 *
-	 * [--no-branch]
-	 * : Only merge and report; do not push the language branch.
+	 * [--branch]
+	 * : Push the language/<version> branch. Default true — pass --no-branch
+	 * to only merge and report.
 	 *
 	 * ## EXAMPLES
 	 *
@@ -463,7 +480,7 @@ class Axellcore_Atelierclub_CLI_Command extends WP_CLI_Command {
 	 * @when before_wp_load
 	 */
 	public function language( array $args = array(), array $assoc_args = array() ): void {
-		axellcore_atelierclub_require_cmd( 'msgmerge' );
+		axellcore_atelierclub_require_cmd( 'wp' );
 
 		$plugin_dir = axellcore_atelierclub_plugin_dir();
 		$pot_file   = $plugin_dir . '/languages/axellcore-atelierclub.pot';
@@ -480,8 +497,9 @@ class Axellcore_Atelierclub_CLI_Command extends WP_CLI_Command {
 		foreach ( $po_files as $po_file ) {
 			$locale = preg_replace( '/^axellcore-atelierclub-/', '', basename( $po_file, '.po' ) );
 			WP_CLI::log( "  → merging pot into {$locale}" );
+			// Same merge as the release (wp i18n), so the .po keeps its formatting.
 			axellcore_atelierclub_run(
-				'msgmerge --update --backup=none --quiet ' . escapeshellarg( $po_file ) . ' ' . escapeshellarg( $pot_file ),
+				'wp i18n update-po ' . escapeshellarg( $pot_file ) . ' ' . escapeshellarg( $po_file ) . ' --quiet',
 				$plugin_dir,
 				true
 			);
@@ -510,7 +528,7 @@ class Axellcore_Atelierclub_CLI_Command extends WP_CLI_Command {
 		// Pushing it runs the Language workflow, which compiles the .mo and
 		// attaches axellcore-atelierclub.<version>-<locale>.zip to the release.
 
-		if ( ! empty( $assoc_args['no-branch'] ) ) {
+		if ( false === ( $assoc_args['branch'] ?? true ) ) {
 			return;
 		}
 
