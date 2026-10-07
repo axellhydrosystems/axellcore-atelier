@@ -1,42 +1,7 @@
 [
     {
-        "path": "placa",
-        "title": "A Placa",
-        "template": "atelier-section"
-    },
-    {
-        "path": "beneficios",
-        "title": "Benefícios",
-        "template": "atelier-section"
-    },
-    {
-        "path": "conceito",
-        "title": "Conceito",
-        "template": "atelier-section"
-    },
-    {
         "path": "header",
         "title": "Header",
-        "template": "atelier-section"
-    },
-    {
-        "path": "jornada",
-        "title": "Jornada",
-        "template": "atelier-section"
-    },
-    {
-        "path": "niveis",
-        "title": "Níveis",
-        "template": "atelier-section"
-    },
-    {
-        "path": "promessas",
-        "title": "Promessas",
-        "template": "atelier-section"
-    },
-    {
-        "path": "protagonistas",
-        "title": "Protagonistas",
         "template": "atelier-section"
     },
     {
@@ -132,6 +97,46 @@
     {
         "path": "manifesto",
         "title": "Manifesto",
+        "template": "atelier-section"
+    },
+    {
+        "path": "placa",
+        "title": "A Placa",
+        "template": "atelier-section"
+    },
+    {
+        "path": "protagonistas",
+        "title": "Protagonistas",
+        "template": "atelier-section"
+    },
+    {
+        "path": "promessas",
+        "title": "Promessas",
+        "template": "atelier-section"
+    },
+    {
+        "path": "conceito",
+        "title": "Conceito",
+        "template": "atelier-section"
+    },
+    {
+        "path": "jornada",
+        "title": "Jornada",
+        "template": "atelier-section"
+    },
+    {
+        "path": "niveis",
+        "title": "Níveis",
+        "template": "atelier-section"
+    },
+    {
+        "path": "beneficios",
+        "title": "Benefícios",
+        "template": "atelier-section"
+    },
+    {
+        "path": "editorial",
+        "title": "Editorial",
         "template": "atelier-section"
     }
 ]

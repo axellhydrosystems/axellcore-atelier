@@ -73,7 +73,9 @@ final class Seo {
 		if ( $page->ID === $landing->ID ) {
 			$description = self::LANDING_DESCRIPTION;
 		} elseif ( (int) $page->post_parent === (int) $landing->ID ) {
-			$description = has_excerpt( $page ) ? get_the_excerpt( $page ) : get_bloginfo( 'description' );
+			// A section page: its excerpt, else the landing's copy (the
+			// site tagline may be empty, which Lighthouse counts as missing).
+			$description = has_excerpt( $page ) ? get_the_excerpt( $page ) : self::LANDING_DESCRIPTION;
 		} else {
 			return;
 		}

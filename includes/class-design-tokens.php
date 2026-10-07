@@ -36,6 +36,7 @@ final class Design_Tokens {
 		'bronze'    => array( 'Bronze', '#B4996A' ),
 		'bronze-2'  => array( 'Bronze 2', '#C6AC7E' ),
 		'bronze-3'  => array( 'Bronze 3', '#D9C199' ),
+		'bronze-dk' => array( 'Bronze dark', '#7D6138' ),
 		'amber'     => array( 'Amber', '#E6B27A' ),
 		'line-dk'   => array( 'Line dark', 'rgba(239,236,228,0.10)' ),
 		'line-dk-2' => array( 'Line dark 2', 'rgba(239,236,228,0.18)' ),
@@ -143,7 +144,8 @@ final class Design_Tokens {
 	 * - "Pillars", "Protagonists", "Promises" and "Benefits" on lists:
 	 *   numbered grids (manifesto, protagonistas, promessas, beneficios),
 	 *   sharing one SCSS mixin; "Steps" on lists: the jornada steps joined
-	 *   by a line, numbered in circles;
+	 *   by a line, numbered in circles; "Channels" on lists: the editorial
+	 *   channels in bordered rows;
 	 * - "Tier" and "Tier (locked)" on groups: the niveis cards (number, hover
 	 *   lift; the locked one adds the veil).
 	 *
@@ -169,6 +171,7 @@ final class Design_Tokens {
 			array( 'core/list', 'promises', __( 'Promises', 'axellcore-atelierclub' ) ),
 			array( 'core/list', 'benefits', __( 'Benefits', 'axellcore-atelierclub' ) ),
 			array( 'core/list', 'steps', __( 'Steps', 'axellcore-atelierclub' ) ),
+			array( 'core/list', 'channels', __( 'Channels', 'axellcore-atelierclub' ) ),
 			array( 'core/cover', 'stone', __( 'Stone', 'axellcore-atelierclub' ) ),
 		);
 		foreach ( $styles as list( $block, $name, $label ) ) {

@@ -11,7 +11,8 @@
 		"conceito",
 		"jornada",
 		"niveis",
-		"beneficios"
+		"beneficios",
+		"editorial"
 	],
 	"fontSizes": [
 		{
@@ -36,7 +37,8 @@
 				"conceito: chapter label (h2), Por que Atelier (h3), list keys",
 				"jornada: chapter label (h2), step labels",
 				"niveis: chapter label, card labels",
-				"beneficios: chapter label, prizes h3"
+				"beneficios: chapter label, prizes h3",
+				"editorial: chapter label, h3 tags"
 			]
 		},
 		{
@@ -52,7 +54,8 @@
 			"usedIn": [
 				"hero: summary labels",
 				"hero: footer",
-				"niveis: lock notice"
+				"niveis: lock notice",
+				"editorial: channel kinds"
 			]
 		},
 		{
@@ -60,7 +63,8 @@
 			"px": 20,
 			"usedIn": [
 				"hero: stamp and summary values (block CSS: fixed size, theme fluid typography would shrink it)",
-				"conceito: list values (block CSS)"
+				"conceito: list values (block CSS)",
+				"editorial: path steps (block CSS)"
 			]
 		},
 		{
@@ -118,7 +122,8 @@
 				"conceito: title",
 				"jornada: title",
 				"niveis: title",
-				"beneficios: title"
+				"beneficios: title",
+				"editorial: title"
 			]
 		},
 		{
@@ -128,7 +133,8 @@
 				"manifesto: body text (source p.body; block CSS, theme fluid typography)",
 				"protagonistas: body (block CSS)",
 				"promessas: body (block CSS)",
-				"jornada: body (block CSS)"
+				"jornada: body (block CSS)",
+				"editorial: body (block CSS)"
 			]
 		},
 		{
@@ -251,7 +257,8 @@
 			"value": "1.5rem",
 			"px": 24,
 			"usedIn": [
-				"jornada: step title (block style)"
+				"jornada: step title (block style)",
+				"editorial: path numbers (block CSS)"
 			]
 		},
 		{
@@ -295,6 +302,20 @@
 			"px": 13,
 			"usedIn": [
 				"beneficios: prize chips"
+			]
+		},
+		{
+			"value": "1.0625rem",
+			"px": 17,
+			"usedIn": [
+				"editorial: channel names (block style)"
+			]
+		},
+		{
+			"value": "clamp(1.5rem, 3vw, 2.125rem)",
+			"px": "24–34",
+			"usedIn": [
+				"editorial: quote (block CSS)"
 			]
 		}
 	],
@@ -532,7 +553,8 @@
 			"px": 14,
 			"usedIn": [
 				"hero: gap between buttons",
-				"header/hero: arrow gap (Primary style)"
+				"header/hero: arrow gap (Primary style)",
+				"editorial: channels gap"
 			]
 		},
 		{
@@ -570,7 +592,8 @@
 				"promessas: number to text gap",
 				"conceito: title margin top, key to value gap",
 				"jornada: steps gap",
-				"niveis: list and notice margin bottom, locked subtitle"
+				"niveis: list and notice margin bottom, locked subtitle",
+				"editorial: path margin top"
 			]
 		},
 		{
@@ -591,7 +614,8 @@
 			"value": "5rem",
 			"px": 80,
 			"usedIn": [
-				"placa: columns gap"
+				"placa: columns gap",
+				"editorial: columns gap"
 			]
 		},
 		{
@@ -601,7 +625,8 @@
 				"placa: stacked columns gap",
 				"promessas: item padding sides",
 				"niveis: card padding top",
-				"beneficios: item padding top"
+				"beneficios: item padding top",
+				"editorial: stacked columns gap"
 			]
 		},
 		{
@@ -609,7 +634,8 @@
 			"px": 20,
 			"usedIn": [
 				"placa: notice margin top, plate name margin",
-				"niveis: cards gap"
+				"niveis: cards gap",
+				"editorial: path step padding"
 			]
 		},
 		{
@@ -657,7 +683,8 @@
 				"conceito: stacked columns gap, list margin top",
 				"jornada: step padding top, stacked steps gap",
 				"niveis: card padding sides",
-				"beneficios: prizes padding sides"
+				"beneficios: prizes padding sides",
+				"editorial: h3 margin top, quote padding top"
 			]
 		},
 		{
@@ -748,6 +775,20 @@
 			"px": 52,
 			"usedIn": [
 				"beneficios: item padding bottom"
+			]
+		},
+		{
+			"value": "8.75rem",
+			"px": 140,
+			"usedIn": [
+				"editorial: quote margin top (row gap + margin)"
+			]
+		},
+		{
+			"value": "6.75rem",
+			"px": 108,
+			"usedIn": [
+				"editorial: quote margin top on tablet and mobile"
 			]
 		}
 	],
@@ -905,6 +946,13 @@
 			"value": "#F4F0E5",
 			"usedIn": [
 				"niveis: locked card background"
+			]
+		},
+		{
+			"slug": "bronze-dk",
+			"value": "#7D6138",
+			"usedIn": [
+				"light sections: labels, numbers, em (contrast 4.9:1)"
 			]
 		}
 	]

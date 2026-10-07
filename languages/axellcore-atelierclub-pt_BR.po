@@ -1959,3 +1959,6 @@ msgstr "Relógio (contorno)"
 
 msgid "Benefits"
 msgstr "Benefícios"
+
+msgid "Channels"
+msgstr "Canais"

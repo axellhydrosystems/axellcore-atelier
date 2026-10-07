@@ -72,10 +72,8 @@ def fix_anchors(text):
 # Faces a block shows first on its own page that the source loads late (in
 # assets/fonts/fonts-rest.css, below the fold on the full page): preloaded on
 # that block's page so its LCP text doesn't wait for them (Lighthouse 100).
-PRELOADS = {
-    'footer': ['cormorant-garamond-italic-400', 'inter-normal-300', 'inter-normal-500'],
-}
-LAST_PRELOAD = '<link rel="preload" href="assets/fonts/inter-normal-400-latin.woff2" as="font" type="font/woff2" crossorigin>'
+PRELOADS = {}  # the variable faces cover every weight (no late faces left)
+LAST_PRELOAD = '<link rel="preload" href="assets/fonts/inter-normal-300-latin.woff2" as="font" type="font/woff2" crossorigin>'
 assert LAST_PRELOAD in head
 
 

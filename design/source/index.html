@@ -9,39 +9,17 @@
 <link rel="icon" href="data:,">
 <link rel="preload" href="assets/fonts/cormorant-garamond-normal-300-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/cormorant-garamond-italic-300-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="assets/fonts/inter-normal-400-latin.woff2" as="font" type="font/woff2" crossorigin>
-<script>
-(function () {
-  var root = document.documentElement;
-  var types = ['scroll', 'pointerdown', 'keydown', 'touchstart'];
-  function loadRest() {
-    var link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = 'assets/fonts/fonts-rest.css';
-    document.head.appendChild(link);
-  }
-  // No class (default): all faces at once.
-  // <html class="fonts-rest-lazy">: all faces on the first interaction.
-  // <html class="fonts-above-only">: only the above-the-fold faces (inline).
-  if (root.classList.contains('fonts-above-only')) return;
-  if (!root.classList.contains('fonts-rest-lazy')) { loadRest(); return; }
-  var done = false;
-  function once() {
-    if (done) return;
-    done = true;
-    loadRest();
-    types.forEach(function (type) { window.removeEventListener(type, once); });
-  }
-  types.forEach(function (type) { window.addEventListener(type, once, { once: true, passive: true }); });
-})();
-</script>
+<link rel="preload" href="assets/fonts/inter-normal-300-latin.woff2" as="font" type="font/woff2" crossorigin>
 <style>
-@font-face { font-family: 'Cormorant Garamond'; font-style: italic; font-weight: 300; font-display: swap; src: url(assets/fonts/cormorant-garamond-italic-300-latin-ext.woff2) format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
-@font-face { font-family: 'Cormorant Garamond'; font-style: italic; font-weight: 300; font-display: swap; src: url(assets/fonts/cormorant-garamond-italic-300-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
-@font-face { font-family: 'Cormorant Garamond'; font-style: normal; font-weight: 300; font-display: swap; src: url(assets/fonts/cormorant-garamond-normal-300-latin-ext.woff2) format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
-@font-face { font-family: 'Cormorant Garamond'; font-style: normal; font-weight: 300; font-display: swap; src: url(assets/fonts/cormorant-garamond-normal-300-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
-@font-face { font-family: 'Inter'; font-style: normal; font-weight: 400; font-display: swap; src: url(assets/fonts/inter-normal-400-latin-ext.woff2) format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
-@font-face { font-family: 'Inter'; font-style: normal; font-weight: 400; font-display: swap; src: url(assets/fonts/inter-normal-400-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+/* The fonts are variable (one file per family, style and subset, every
+   weight): one face each with its weight range, all loaded up front, so
+   no face arrives late and shifts the layout (Lighthouse CLS). */
+@font-face { font-family: 'Cormorant Garamond'; font-style: italic; font-weight: 300 500; font-display: swap; src: url(assets/fonts/cormorant-garamond-italic-300-latin-ext.woff2) format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: 'Cormorant Garamond'; font-style: italic; font-weight: 300 500; font-display: swap; src: url(assets/fonts/cormorant-garamond-italic-300-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Cormorant Garamond'; font-style: normal; font-weight: 300 600; font-display: swap; src: url(assets/fonts/cormorant-garamond-normal-300-latin-ext.woff2) format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: 'Cormorant Garamond'; font-style: normal; font-weight: 300 600; font-display: swap; src: url(assets/fonts/cormorant-garamond-normal-300-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 300 600; font-display: swap; src: url(assets/fonts/inter-normal-300-latin-ext.woff2) format('woff2'); unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF; }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 300 600; font-display: swap; src: url(assets/fonts/inter-normal-300-latin.woff2) format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
 </style>
 
 <style>
@@ -71,6 +49,7 @@
   --bronze:     #B4996A;     /* accent principal */
   --bronze-2:   #C6AC7E;     /* highlight sobre dark */
   --bronze-3:   #D9C199;     /* soft/glow */
+  --bronze-dk:  #7D6138;     /* bronze text on ivory: 4.9:1 (WCAG AA) */
   --amber:      #E6B27A;     /* âmbar (iluminação da foto hero) */
 
   /* Type */
@@ -116,7 +95,7 @@ button{ font: inherit; cursor: pointer; }
   align-items: center;
   gap: 14px;
 }
-.eyebrow.on-ivory{ color: var(--bronze); }
+.eyebrow.on-ivory{ color: var(--bronze-dk); }
 .eyebrow::before{
   content:"";
   width: 32px; height: 1px;
@@ -182,7 +161,7 @@ h2.eyebrow::after{ content: ""; position: absolute; left: 0; top: calc(50% - .5p
 }
 .on-ivory .section-title{ color: var(--ink); }
 .section-title em{ font-style: italic; color: var(--bronze-2); font-weight: 300; }
-.on-ivory .section-title em{ color: var(--bronze); }
+.on-ivory .section-title em{ color: var(--bronze-dk); }
 
 .lede{
   font-family: var(--serif);
@@ -817,7 +796,7 @@ ol.prota-grid{ list-style: none; margin: 0; padding: 0; }
   font-weight: 300;
   font-size: 60px;
   line-height: 1;
-  color: var(--bronze);
+  color: var(--bronze-dk);
   margin-bottom: 44px;
   display: block;
 }
@@ -913,7 +892,7 @@ ol.promises-grid{ list-style: none; margin: 0; padding: 0; }
   color: var(--ink);
   text-wrap: pretty;
 }
-.concept .verse em{ font-style: normal; color: var(--bronze); }
+.concept .verse em{ font-style: normal; color: var(--bronze-dk); }
 .concept-table{
   border-top: 1px solid var(--line-iv);
   margin-top: 40px;
@@ -937,7 +916,7 @@ ul.concept-table{ list-style: none; padding: 0; margin-bottom: 0; }
   font-family: var(--sans);
   font-size: 10.5px; letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: var(--stone);
+  color: var(--stone-dk);
   font-weight: 500;
   line-height: 1.6;
   display: inline-block;
@@ -945,7 +924,7 @@ ul.concept-table{ list-style: none; padding: 0; margin-bottom: 0; }
   margin: 0 32px 0 -222px;
 }
 .concept-table br{ display: none; }
-.concept-table li em{ color: var(--bronze); font-style: italic; }
+.concept-table li em{ color: var(--bronze-dk); font-style: italic; }
 /* The verse is a quote; the chapter tag over the table is a heading. */
 blockquote.verse, blockquote.verse p{ margin: 0; }
 h3.chapter-tag{ margin-top: 0; }
@@ -1053,14 +1032,14 @@ blockquote.journey-quote p{ margin: 0; }
   font-style: italic;
   font-weight: 300;
   font-size: 44px;
-  color: var(--bronze);
+  color: var(--bronze-dk);
   line-height: 1;
   margin-bottom: 36px;
 }
 .tier .tier-cap{
   font-size: 10.5px; letter-spacing: 0.32em;
   text-transform: uppercase;
-  color: var(--stone);
+  color: var(--stone-dk);
   margin-bottom: 10px;
 }
 .tier .tier-name{
@@ -1073,7 +1052,7 @@ blockquote.journey-quote p{ margin: 0; }
 }
 .tier .tier-italic{
   font-family: var(--serif); font-style: italic;
-  color: var(--bronze);
+  color: var(--bronze-dk);
   font-size: 16px;
   margin-bottom: 28px;
 }
@@ -1090,7 +1069,7 @@ blockquote.journey-quote p{ margin: 0; }
 }
 .tier ul li::before{
   content: "—";
-  color: var(--bronze);
+  color: var(--bronze-dk);
   font-family: var(--serif); font-size: 14px;
   flex-shrink: 0;
 }
@@ -1202,6 +1181,10 @@ h3.eyebrow{ margin-top: 0; }
    PERCURSO EDITORIAL
    ============================================ */
 .editorial{ background: var(--ivory); color: var(--ink); }
+/* The section is light but not .on-ivory: its title needs the ink color. */
+.editorial .section-title{ color: var(--ink); }
+.editorial .section-title em{ color: var(--bronze-dk); }
+.editorial p.body{ color: var(--stone-dk); }
 .editorial .container{
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -1211,21 +1194,25 @@ h3.eyebrow{ margin-top: 0; }
   border-top: 1px solid var(--line-iv);
   margin-top: 32px;
 }
-.edit-path .row{
+/* An ol: the number is the list counter in the first column (a grid li is
+   not a list-item, so it counts by hand), the li's own text the step. */
+ol.edit-path{ list-style: none; padding: 0; margin-bottom: 0; }
+.edit-path li{
   padding: 20px 0;
   border-bottom: 1px solid var(--line-iv);
   display: grid;
   grid-template-columns: 40px 1fr;
   gap: 22px;
   align-items: baseline;
-}
-.edit-path .n{
-  font-family: var(--serif); font-style: italic; font-weight: 400;
-  font-size: 24px; color: var(--bronze);
-}
-.edit-path .t{
+  counter-increment: list-item;
   font-family: var(--serif); font-weight: 400;
   font-size: 20px; color: var(--ink); line-height: 1.35;
+}
+.edit-path li::before{
+  content: counter(list-item, roman-period);
+  font-family: var(--serif); font-style: italic; font-weight: 400;
+  font-size: 24px; color: var(--bronze-dk);
+  line-height: 1.6;
 }
 .channels{ display: block; }
 .channels .eyebrow{ margin-bottom: 28px; }
@@ -1238,18 +1225,26 @@ h3.eyebrow{ margin-top: 0; }
   padding: 18px 22px;
   border: 1px solid var(--line-iv);
   border-radius: var(--radius);
-  display: flex; justify-content: space-between; align-items: baseline;
+  /* The same two columns (45/55) in every channel: the kinds line up,
+     12px apart, and no channel wraps on mobile. */
+  display: grid; grid-template-columns: 9fr 11fr; align-items: baseline;
+  column-gap: 12px;
   transition: border-color .3s ease, background .3s ease;
 }
 .channel:hover{ border-color: var(--bronze); background: rgba(180,153,106,0.05); }
+/* A list: the strong is the channel, the br is for reading without
+   styles, the li's own text is the kind. */
+ul.channels-grid{ list-style: none; margin: 0; padding: 0; }
 .channel .name{
   font-family: var(--serif); font-weight: 400; font-size: 17px;
   color: var(--ink);
+  letter-spacing: normal; text-transform: none;
 }
-.channel .kind{
+.channel br{ display: none; }
+.channel{
   font-family: var(--sans); font-size: 10px;
   letter-spacing: 0.24em; text-transform: uppercase;
-  color: var(--stone);
+  color: var(--stone-dk);
 }
 .editorial-quote{
   grid-column: 1 / -1;
@@ -1264,6 +1259,8 @@ h3.eyebrow{ margin-top: 0; }
   text-align: center;
   text-wrap: balance;
 }
+blockquote.editorial-quote{ margin-left: 0; margin-right: 0; margin-bottom: 0; }
+blockquote.editorial-quote p{ margin: 0; }
 .editorial-quote em{ font-style: normal; color: #7D6138; } /* contrast: 4.9:1 on ivory (was 2.3:1) */
 @media (max-width: 900px){
   .editorial .container{ grid-template-columns: 1fr; gap: 48px; }
@@ -1592,11 +1589,11 @@ h3.eyebrow{ margin-top: 0; }
   pointer-events: none;
 }
 .tier.mystery > *, .tier.mystery::before{ position: relative; z-index: 1; }
-.tier.mystery::before{ color: var(--bronze); opacity: 0.75; }
-.tier.mystery .tier-cap{ color: var(--stone); }
+.tier.mystery::before{ color: var(--bronze-dk); opacity: 0.75; }
+.tier.mystery .tier-cap{ color: var(--stone-dk); }
 .tier.mystery .tier-name{ color: var(--ink); }
 .tier.mystery .tier-italic{
-  color: var(--bronze);
+  color: var(--bronze-dk);
   font-style: italic;
   margin-bottom: 32px;
 }
@@ -1611,7 +1608,7 @@ h3.eyebrow{ margin-top: 0; }
   font-size: 10px;
   letter-spacing: 0.32em;
   text-transform: uppercase;
-  color: var(--bronze);
+  color: var(--bronze-dk);
   margin-bottom: 32px;
   font-weight: 500;
   background: rgba(180,153,106,0.06);
@@ -1639,7 +1636,7 @@ h3.eyebrow{ margin-top: 0; }
 }
 .tier.mystery .mystery-line em{
   font-style: normal;
-  color: var(--bronze);
+  color: var(--bronze-dk);
 }
 p.tier-cap, p.tier-italic, p.lock-mark{ margin-top: 0; }
 p.mystery-hint{ margin-bottom: 0; }
@@ -1648,7 +1645,7 @@ p.mystery-hint{ margin-bottom: 0; }
   font-size: 11px;
   letter-spacing: 0.24em;
   text-transform: uppercase;
-  color: var(--stone);
+  color: var(--stone-dk);
   margin-top: auto;
   padding-top: 8px;
 }
@@ -1694,7 +1691,7 @@ p.mystery-hint{ margin-bottom: 0; }
   margin: 12px 0 0;
   max-width: 52ch;
 }
-.on-ink .notice-caption{ color: rgba(239,236,228,0.68); }
+.on-ink .notice-caption, .placa .notice-caption{ color: rgba(239,236,228,0.68); }
 
 /* ============================================
    PARTNER STORES — 5 slots
@@ -1942,7 +1939,7 @@ p.mystery-hint{ margin-bottom: 0; }
       <blockquote class="verse" style="margin-top: 24px;"><p>“O atelier é o lugar onde <em>criar</em> encontra <em>morar</em>. É oficina de começar, é o altar de arquitetar. Não é prédio nem morada — é gesto, é sonho, é criar.”</p></blockquote>
     </div>
     <div>
-      <h3 class="chapter-tag" style="color: var(--bronze); margin-bottom: 24px;">Por que Atelier</h3>
+      <h3 class="chapter-tag" style="color: var(--bronze-dk); margin-bottom: 24px;">Por que Atelier</h3>
       <ul class="concept-table">
         <li><strong class="k">Espaço</strong><br>Espaço de <em>criação</em> — não sala de exposição.</li>
         <li><strong class="k">Postura</strong><br>Você não é <em>cliente</em>. É autor.</li>
@@ -2110,33 +2107,31 @@ p.mystery-hint{ margin-bottom: 0; }
       <p class="section-title" style="margin-top: 32px;"><strong>Seu projeto, com a voz <em>Axell</em>.</strong></p>
       <p class="body">A Axell transforma o seu case em conteúdo editorial premium. Ganho duplo: a marca ganha prova social, e o parceiro ganha autoridade técnica e visibilidade qualificada.</p>
 
-      <div class="chapter-tag" style="color: var(--bronze); margin-top: 40px;">Percurso editorial</div>
-      <div class="edit-path">
-        <div class="row"><span class="n">i.</span><span class="t">Cadastro do projeto na sua conta</span></div>
-        <div class="row"><span class="n">ii.</span><span class="t">Curadoria editorial Axell</span></div>
-        <div class="row"><span class="n">iii.</span><span class="t">Fotografia ambientada e entrevista</span></div>
-        <div class="row"><span class="n">iv.</span><span class="t">Publicação multicanal Axell</span></div>
-        <div class="row"><span class="n">v.</span><span class="t">Destaque em campanhas institucionais</span></div>
-      </div>
+      <h3 class="chapter-tag" style="color: var(--bronze-dk); margin-top: 40px;">Percurso editorial</h3>
+      <ol class="edit-path">
+        <li>Cadastro do projeto na sua conta</li>
+        <li>Curadoria editorial Axell</li>
+        <li>Fotografia ambientada e entrevista</li>
+        <li>Publicação multicanal Axell</li>
+        <li>Destaque em campanhas institucionais</li>
+      </ol>
     </div>
 
     <div class="channels">
-      <div class="chapter-tag" style="color: var(--bronze); margin-bottom: 24px;">Onde os cases aparecem</div>
-      <div class="channels-grid">
-        <div class="channel"><span class="name">Instagram Axell</span><span class="kind">Feed principal</span></div>
-        <div class="channel"><span class="name">Instagram Atelier</span><span class="kind">Canal do clube</span></div>
-        <div class="channel"><span class="name">Reels &amp; vídeo</span><span class="kind">Motion editorial</span></div>
-        <div class="channel"><span class="name">Pinterest</span><span class="kind">Curadoria visual</span></div>
-        <div class="channel"><span class="name">Site editorial</span><span class="kind">Portfolio membros</span></div>
-        <div class="channel"><span class="name">Newsletter</span><span class="kind">Mensal</span></div>
-        <div class="channel"><span class="name">Catálogo impresso</span><span class="kind">Anual</span></div>
-        <div class="channel"><span class="name">Imprensa parceira</span><span class="kind">Curadoria PR</span></div>
-      </div>
+      <h3 class="chapter-tag" style="color: var(--bronze-dk); margin-bottom: 24px;">Onde os cases aparecem</h3>
+      <ul class="channels-grid">
+        <li class="channel"><strong class="name">Instagram Axell</strong><br>Feed principal</li>
+        <li class="channel"><strong class="name">Instagram Atelier</strong><br>Canal do clube</li>
+        <li class="channel"><strong class="name">Reels &amp; vídeo</strong><br>Motion editorial</li>
+        <li class="channel"><strong class="name">Pinterest</strong><br>Curadoria visual</li>
+        <li class="channel"><strong class="name">Site editorial</strong><br>Portfolio membros</li>
+        <li class="channel"><strong class="name">Newsletter</strong><br>Mensal</li>
+        <li class="channel"><strong class="name">Catálogo impresso</strong><br>Anual</li>
+        <li class="channel"><strong class="name">Imprensa parceira</strong><br>Curadoria PR</li>
+      </ul>
     </div>
 
-    <div class="editorial-quote">
-      "Cada projeto é um <em>capítulo de conteúdo</em>. Cada assinatura, um capítulo da marca."
-    </div>
+    <blockquote class="editorial-quote"><p>“Cada projeto é um <em>capítulo de conteúdo</em>. Cada assinatura, um capítulo da marca.”</p></blockquote>
   </div>
 </section>
 
