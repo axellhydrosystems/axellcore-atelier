@@ -2,7 +2,8 @@
 	"about": "Suggested presets for the Atelier pages, collected section by section from the values the styled sections use (block attributes). Not applied: presets can clash with the active theme. Once every section is done, the values used in more than one place become presets (font sizes with fluid: false, spacing sizes) registered by the plugin, and the blocks switch to var:preset references. Colors are already presets (includes/class-design-tokens.php).",
 	"sections": [
 		"header",
-		"hero"
+		"hero",
+		"convite"
 	],
 	"fontSizes": [
 		{
@@ -56,6 +57,34 @@
 			"usedIn": [
 				"hero: lead paragraph"
 			]
+		},
+		{
+			"value": "0.65625rem",
+			"px": 10.5,
+			"usedIn": [
+				"convite: chapter label (h2)"
+			]
+		},
+		{
+			"value": "clamp(1.875rem, 3.6vw, 2.75rem)",
+			"px": "30–44",
+			"usedIn": [
+				"convite: title"
+			]
+		},
+		{
+			"value": "clamp(1.375rem, 2.3vw, 1.875rem)",
+			"px": "22–30",
+			"usedIn": [
+				"convite: quote"
+			]
+		},
+		{
+			"value": "0.875rem",
+			"px": 14,
+			"usedIn": [
+				"convite: signature"
+			]
 		}
 	],
 	"letterSpacing": [
@@ -94,6 +123,24 @@
 			"value": "-0.015em",
 			"usedIn": [
 				"hero: display title"
+			]
+		},
+		{
+			"value": "0.36em",
+			"usedIn": [
+				"convite: chapter label"
+			]
+		},
+		{
+			"value": "0.28em",
+			"usedIn": [
+				"convite: signature"
+			]
+		},
+		{
+			"value": "-0.005em",
+			"usedIn": [
+				"convite: quote"
 			]
 		}
 	],
@@ -182,6 +229,27 @@
 			"usedIn": [
 				"hero: columns gap (row / column)"
 			]
+		},
+		{
+			"value": "clamp(5.625rem, 13vw, 11.25rem)",
+			"px": "90–180",
+			"usedIn": [
+				"convite: section padding (source .section)"
+			]
+		},
+		{
+			"value": "6.25rem / 2.5rem",
+			"px": "100 / 40",
+			"usedIn": [
+				"convite: columns gap (column / stacked)"
+			]
+		},
+		{
+			"value": "2rem",
+			"px": 32,
+			"usedIn": [
+				"convite: paragraphs in the quote"
+			]
 		}
 	],
 	"radius": [
@@ -247,6 +315,18 @@
 			"value": "rgba(239,236,228,0.5)",
 			"usedIn": [
 				"hero: footer"
+			]
+		},
+		{
+			"value": "rgba(239,236,228,0.82)",
+			"usedIn": [
+				"convite: quote text"
+			]
+		},
+		{
+			"slug": "line-dk",
+			"usedIn": [
+				"convite: signature rule"
 			]
 		}
 	]

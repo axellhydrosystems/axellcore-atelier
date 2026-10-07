@@ -97,3 +97,12 @@ p.is-style-eyebrow {
 		background-color: transparent !important;
 	}
 }
+
+// "Sticky on desktop" column: stays in view while the other column scrolls,
+// above 900px, like design/source .manifesto-side (static when stacked).
+.wp-block-column.is-style-sticky-desktop {
+	@media (min-width: 56.3125rem) {
+		position: sticky;
+		top: 7.5rem;
+	}
+}

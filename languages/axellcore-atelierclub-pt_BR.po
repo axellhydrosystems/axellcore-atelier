@@ -1911,3 +1911,15 @@ msgstr ""
 msgctxt "block keyword"
 msgid "nav"
 msgstr ""
+
+#: includes/class-design-tokens.php
+msgid "Sticky on desktop"
+msgstr "Fixa ao rolar (desktop)"
+
+#: includes/class-design-tokens.php
+msgid "Eyebrow"
+msgstr "Sobretítulo"
+
+#: includes/class-design-tokens.php
+msgid "Arrow (large)"
+msgstr "Seta (grande)"

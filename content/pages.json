@@ -88,5 +88,10 @@
         "path": "hero",
         "title": "Hero",
         "template": "atelier-section"
+    },
+    {
+        "path": "convite",
+        "title": "Convite",
+        "template": "atelier-section"
     }
 ]

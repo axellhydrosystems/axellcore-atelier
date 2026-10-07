@@ -150,6 +150,7 @@ final class Design_Tokens {
 			'core/image'      => array( 'ivory', __( 'Ivory', 'axellcore-atelierclub' ) ),
 			'core/group'      => array( 'visually-hidden', __( 'Visually hidden', 'axellcore-atelierclub' ) ),
 			'core/paragraph'  => array( 'eyebrow', __( 'Eyebrow', 'axellcore-atelierclub' ) ),
+			'core/column'     => array( 'sticky-desktop', __( 'Sticky on desktop', 'axellcore-atelierclub' ) ),
 		);
 		foreach ( $styles as $block => list( $name, $label ) ) {
 			register_block_style(
