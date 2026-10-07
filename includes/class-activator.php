@@ -63,6 +63,9 @@ final class Activator {
 		foreach ( self::descendants() as $page ) {
 			self::create_descendant( $page );
 		}
+
+		// Revendas from content/revendas.csv, once, without JetEngine.
+		Resellers_Import::maybe_run();
 	}
 
 	/**

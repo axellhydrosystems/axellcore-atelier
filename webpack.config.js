@@ -18,6 +18,7 @@ const extraEntriesByConfig = [
 	{
 		'admin/members/index': src( 'admin/members/index.tsx' ),
 		'admin/members-export/index': src( 'admin/members-export/index.ts' ),
+		'admin/resellers/index': src( 'admin/resellers/index.tsx' ),
 		'reveal/index': src( 'reveal/index.tsx' ),
 		'reveal/frontend': src( 'reveal/style.scss' ),
 		'inline-icon/index': src( 'inline-icon/index.tsx' ),

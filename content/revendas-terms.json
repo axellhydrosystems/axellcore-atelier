@@ -1,0 +1,984 @@
+{
+    "paises": [
+        {
+            "name": "Brasil",
+            "slug": "brasil"
+        },
+        {
+            "name": "Panamá",
+            "slug": "panama"
+        },
+        {
+            "name": "Costa Rica",
+            "slug": "costa-rica"
+        },
+        {
+            "name": "Chile",
+            "slug": "chile"
+        },
+        {
+            "name": "Paraguai",
+            "slug": "paraguai"
+        },
+        {
+            "name": "Bolívia",
+            "slug": "bolivia"
+        },
+        {
+            "name": "Guatemala",
+            "slug": "guatemala"
+        },
+        {
+            "name": "Honduras",
+            "slug": "honduras"
+        },
+        {
+            "name": "El Salvador",
+            "slug": "el-salvador"
+        }
+    ],
+    "estados": [
+        {
+            "name": "Rio Grande do sul",
+            "slug": "rs"
+        },
+        {
+            "name": "Paraná",
+            "slug": "pr"
+        },
+        {
+            "name": "São Paulo",
+            "slug": "sp"
+        },
+        {
+            "name": "Minas Gerais",
+            "slug": "minas-gerais"
+        },
+        {
+            "name": "Rio de Janeiro",
+            "slug": "rio-de-janeiro"
+        },
+        {
+            "name": "Paraíba",
+            "slug": "paraiba"
+        },
+        {
+            "name": "Santa Catarina",
+            "slug": "santa-catarina"
+        },
+        {
+            "name": "Amazonas",
+            "slug": "amazonas"
+        },
+        {
+            "name": "Mato Grosso",
+            "slug": "mato-grosso"
+        },
+        {
+            "name": "Pernambuco",
+            "slug": "pernambuco"
+        },
+        {
+            "name": "Sergipe",
+            "slug": "sergipe"
+        },
+        {
+            "name": "Goiás",
+            "slug": "goias"
+        },
+        {
+            "name": "Espírito Santo",
+            "slug": "espirito-santo"
+        },
+        {
+            "name": "Alagoas",
+            "slug": "alagoas"
+        },
+        {
+            "name": "Rio Grande do Norte",
+            "slug": "rio-grande-do-norte"
+        },
+        {
+            "name": "Distrito Federal",
+            "slug": "distrito-federal"
+        },
+        {
+            "name": "Panamá",
+            "slug": "panama"
+        },
+        {
+            "name": "Panamá Oeste",
+            "slug": "panama-oeste"
+        },
+        {
+            "name": "Chiriquí",
+            "slug": "chiriqui"
+        },
+        {
+            "name": "San José",
+            "slug": "san-jose"
+        },
+        {
+            "name": "Región Metropolitana",
+            "slug": "region-metropolitana"
+        },
+        {
+            "name": "Antofagasta",
+            "slug": "antofagasta"
+        },
+        {
+            "name": "Tarapacá",
+            "slug": "tarapaca"
+        },
+        {
+            "name": "Coquimbo",
+            "slug": "coquimbo"
+        },
+        {
+            "name": "Araucanía",
+            "slug": "araucania"
+        },
+        {
+            "name": "Valparaíso",
+            "slug": "valparaiso"
+        },
+        {
+            "name": "Bío Bío",
+            "slug": "bio-bio"
+        },
+        {
+            "name": "Los Lagos",
+            "slug": "los-lagos"
+        },
+        {
+            "name": "O'Higgins",
+            "slug": "ohiggins"
+        },
+        {
+            "name": "Maule",
+            "slug": "maule"
+        },
+        {
+            "name": "Distrito Capital",
+            "slug": "distrito-capital"
+        },
+        {
+            "name": "Santa Cruz de la Sierra",
+            "slug": "santa-cruz-de-la-sierra"
+        },
+        {
+            "name": "La Paz",
+            "slug": "la-paz"
+        },
+        {
+            "name": "Guatemala",
+            "slug": "guatemala"
+        },
+        {
+            "name": "Distrito Central",
+            "slug": "distrito-central"
+        },
+        {
+            "name": "San Salvador",
+            "slug": "san-salvador"
+        },
+        {
+            "name": "Ceará",
+            "slug": "ceara"
+        },
+        {
+            "name": "Acre",
+            "slug": "acre"
+        },
+        {
+            "name": "Rondônia",
+            "slug": "rondonia"
+        },
+        {
+            "name": "Mato Grosso do Sul",
+            "slug": "mato-grosso-do-sul"
+        },
+        {
+            "name": "Bahia",
+            "slug": "bahia"
+        }
+    ],
+    "cidades": [
+        {
+            "name": "Porto Alegre",
+            "slug": "poa"
+        },
+        {
+            "name": "Novo Hamburgo",
+            "slug": "nh"
+        },
+        {
+            "name": "Curitiba",
+            "slug": "cb"
+        },
+        {
+            "name": "Maringá",
+            "slug": "ma"
+        },
+        {
+            "name": "São Paulo",
+            "slug": "sp"
+        },
+        {
+            "name": "Cuiabá",
+            "slug": "cu"
+        },
+        {
+            "name": "Guarapuava",
+            "slug": "guarapuava"
+        },
+        {
+            "name": "Gramado",
+            "slug": "gramado"
+        },
+        {
+            "name": "Carazinho",
+            "slug": "carazinho"
+        },
+        {
+            "name": "Canoas",
+            "slug": "canoas"
+        },
+        {
+            "name": "Alegrete",
+            "slug": "alegrete"
+        },
+        {
+            "name": "Santos",
+            "slug": "santos"
+        },
+        {
+            "name": "Montes Claros",
+            "slug": "montes-claros"
+        },
+        {
+            "name": "Janaúba",
+            "slug": "janauba"
+        },
+        {
+            "name": "Viamão",
+            "slug": "viamao"
+        },
+        {
+            "name": "Venâncio Aires",
+            "slug": "venancio-aires"
+        },
+        {
+            "name": "Uruguaiana",
+            "slug": "uruguaiana"
+        },
+        {
+            "name": "Três Cachoeiras",
+            "slug": "tres-cachoeiras"
+        },
+        {
+            "name": "Tramandaí",
+            "slug": "tramandai"
+        },
+        {
+            "name": "Sapucaia do Sul",
+            "slug": "sapucaia-do-sul"
+        },
+        {
+            "name": "Santiago",
+            "slug": "santiago"
+        },
+        {
+            "name": "Sant'Ana do Livramento",
+            "slug": "santana-do-livramento"
+        },
+        {
+            "name": "Santa Rosa",
+            "slug": "santa-rosa"
+        },
+        {
+            "name": "Santa Maria",
+            "slug": "santa-maria"
+        },
+        {
+            "name": "Teresópolis",
+            "slug": "teresopolis"
+        },
+        {
+            "name": "Pelotas",
+            "slug": "pelotas"
+        },
+        {
+            "name": "Passo Fundo",
+            "slug": "passo-fundo"
+        },
+        {
+            "name": "Osório",
+            "slug": "osorio"
+        },
+        {
+            "name": "Montenegro",
+            "slug": "montenegro"
+        },
+        {
+            "name": "Encantado",
+            "slug": "encantado"
+        },
+        {
+            "name": "Caxias do Sul",
+            "slug": "caxias-do-sul"
+        },
+        {
+            "name": "Campina Grande",
+            "slug": "campina-grande"
+        },
+        {
+            "name": "Rio de Janeiro",
+            "slug": "rio-de-janeiro"
+        },
+        {
+            "name": "Niterói",
+            "slug": "niteroi"
+        },
+        {
+            "name": "Belo Horizonte",
+            "slug": "belo-horizonte"
+        },
+        {
+            "name": "Rio das Ostras",
+            "slug": "rio-das-ostras"
+        },
+        {
+            "name": "Macaé",
+            "slug": "macae"
+        },
+        {
+            "name": "Campos dos Goytacazes",
+            "slug": "campos-dos-goytacazes"
+        },
+        {
+            "name": "Cabo Frio",
+            "slug": "cabo-frio"
+        },
+        {
+            "name": "Campinas",
+            "slug": "campinas"
+        },
+        {
+            "name": "Araruama",
+            "slug": "araruama"
+        },
+        {
+            "name": "Criciúma",
+            "slug": "criciuma"
+        },
+        {
+            "name": "Manaus",
+            "slug": "manaus"
+        },
+        {
+            "name": "Sorriso",
+            "slug": "sorriso"
+        },
+        {
+            "name": "Sinop",
+            "slug": "sinop"
+        },
+        {
+            "name": "Nova Mutum",
+            "slug": "nova-mutum"
+        },
+        {
+            "name": "Lucas do Rio Verde",
+            "slug": "lucas-do-rio-verde"
+        },
+        {
+            "name": "São Bernardo do Campo",
+            "slug": "sao-bernardo-do-campo"
+        },
+        {
+            "name": "Jaraguá do Sul",
+            "slug": "jaragua-do-sul"
+        },
+        {
+            "name": "Santo André",
+            "slug": "santo-andre"
+        },
+        {
+            "name": "Mafra",
+            "slug": "mafra"
+        },
+        {
+            "name": "Chapecó",
+            "slug": "chapeco"
+        },
+        {
+            "name": "Francisco Beltrão",
+            "slug": "francisco-beltrao"
+        },
+        {
+            "name": "Dois Vizinhos",
+            "slug": "dois-vizinhos"
+        },
+        {
+            "name": "Cascavel",
+            "slug": "cascavel"
+        },
+        {
+            "name": "Cabedelo",
+            "slug": "cabedelo"
+        },
+        {
+            "name": "Concórdia",
+            "slug": "concordia"
+        },
+        {
+            "name": "Taubaté",
+            "slug": "taubate"
+        },
+        {
+            "name": "Joaçaba",
+            "slug": "joacaba"
+        },
+        {
+            "name": "Joinville",
+            "slug": "joinville"
+        },
+        {
+            "name": "Balneário Camboriú",
+            "slug": "balneario-camboriu"
+        },
+        {
+            "name": "Recife",
+            "slug": "recife"
+        },
+        {
+            "name": "Mogi das Cruzes",
+            "slug": "mogi-das-cruzes"
+        },
+        {
+            "name": "Rondonópolis",
+            "slug": "rondonopolis"
+        },
+        {
+            "name": "Aracaju",
+            "slug": "aracaju"
+        },
+        {
+            "name": "Cotia",
+            "slug": "cotia"
+        },
+        {
+            "name": "Barueri",
+            "slug": "barueri"
+        },
+        {
+            "name": "Ponta Grossa",
+            "slug": "ponta-grossa"
+        },
+        {
+            "name": "Goiânia",
+            "slug": "goiania"
+        },
+        {
+            "name": "Jataí",
+            "slug": "jatai"
+        },
+        {
+            "name": "Lagoa Santa",
+            "slug": "lagoa-santa"
+        },
+        {
+            "name": "Contagem",
+            "slug": "contagem"
+        },
+        {
+            "name": "Limeira",
+            "slug": "limeira"
+        },
+        {
+            "name": "Nova Petrópolis",
+            "slug": "nova-petropolis"
+        },
+        {
+            "name": "Araras",
+            "slug": "araras"
+        },
+        {
+            "name": "Vitória",
+            "slug": "vitoria"
+        },
+        {
+            "name": "Armação dos Búzios",
+            "slug": "armacao-dos-buzios"
+        },
+        {
+            "name": "São Fidélis",
+            "slug": "sao-fidelis"
+        },
+        {
+            "name": "Torres",
+            "slug": "torres"
+        },
+        {
+            "name": "Cruz Alta",
+            "slug": "cruz-alta"
+        },
+        {
+            "name": "Florianópolis",
+            "slug": "florianopolis"
+        },
+        {
+            "name": "Maceió",
+            "slug": "maceio"
+        },
+        {
+            "name": "Xangri-lá",
+            "slug": "xangri-la"
+        },
+        {
+            "name": "Blumenau",
+            "slug": "blumenau"
+        },
+        {
+            "name": "São Lourenço do Sul",
+            "slug": "sao-lourenco-do-sul"
+        },
+        {
+            "name": "Canguçu",
+            "slug": "cangucu"
+        },
+        {
+            "name": "São Leopoldo",
+            "slug": "sao-leopoldo"
+        },
+        {
+            "name": "Lajeado",
+            "slug": "lajeado"
+        },
+        {
+            "name": "Londrina",
+            "slug": "londrina"
+        },
+        {
+            "name": "Umuarama",
+            "slug": "umuarama"
+        },
+        {
+            "name": "Natal",
+            "slug": "natal"
+        },
+        {
+            "name": "Bagé",
+            "slug": "bage"
+        },
+        {
+            "name": "Bento Gonçalves",
+            "slug": "bento-goncalves"
+        },
+        {
+            "name": "Cachoeira do Sul",
+            "slug": "cachoeira-do-sul"
+        },
+        {
+            "name": "Camaquã",
+            "slug": "camaqua"
+        },
+        {
+            "name": "Brasília",
+            "slug": "brasilia"
+        },
+        {
+            "name": "Ribeirão Preto",
+            "slug": "ribeirao-preto"
+        },
+        {
+            "name": "Porto União",
+            "slug": "porto-uniao"
+        },
+        {
+            "name": "Paranavaí",
+            "slug": "paranavai"
+        },
+        {
+            "name": "Porto Rico",
+            "slug": "porto-rico"
+        },
+        {
+            "name": "Esteio",
+            "slug": "esteio"
+        },
+        {
+            "name": "Guaporé",
+            "slug": "guapore"
+        },
+        {
+            "name": "Ijuí",
+            "slug": "ijui"
+        },
+        {
+            "name": "Nova Hartz",
+            "slug": "nova-hartz"
+        },
+        {
+            "name": "Bebedouro",
+            "slug": "bebedouro"
+        },
+        {
+            "name": "Nova Prata",
+            "slug": "nova-prata"
+        },
+        {
+            "name": "Sobradinho",
+            "slug": "sobradinho"
+        },
+        {
+            "name": "Picada Café",
+            "slug": "picada-cafe"
+        },
+        {
+            "name": "Rio Grande",
+            "slug": "rio-grande"
+        },
+        {
+            "name": "Antônio Prado",
+            "slug": "antonio-prado"
+        },
+        {
+            "name": "Capão da Canoa",
+            "slug": "capao-da-canoa"
+        },
+        {
+            "name": "Dois Irmãos",
+            "slug": "dois-irmaos"
+        },
+        {
+            "name": "Erechim",
+            "slug": "erechim"
+        },
+        {
+            "name": "Farroupilha",
+            "slug": "farroupilha"
+        },
+        {
+            "name": "Garibaldi",
+            "slug": "garibaldi"
+        },
+        {
+            "name": "Igrejinha",
+            "slug": "igrejinha"
+        },
+        {
+            "name": "Ivoti",
+            "slug": "ivoti"
+        },
+        {
+            "name": "Lagoa Vermelha",
+            "slug": "lagoa-vermelha"
+        },
+        {
+            "name": "Panambi",
+            "slug": "panambi"
+        },
+        {
+            "name": "Santa Cruz do Sul",
+            "slug": "santa-cruz-do-sul"
+        },
+        {
+            "name": "Santo Ângelo",
+            "slug": "santo-angelo"
+        },
+        {
+            "name": "São Marcos",
+            "slug": "sao-marcos"
+        },
+        {
+            "name": "Soledade",
+            "slug": "soledade"
+        },
+        {
+            "name": "Vacaria",
+            "slug": "vacaria"
+        },
+        {
+            "name": "Barbacena",
+            "slug": "barbacena"
+        },
+        {
+            "name": "Juiz de Fora",
+            "slug": "juiz-de-fora"
+        },
+        {
+            "name": "Ubá",
+            "slug": "uba"
+        },
+        {
+            "name": "Viçosa",
+            "slug": "vicosa"
+        },
+        {
+            "name": "Ponte Nova",
+            "slug": "ponte-nova"
+        },
+        {
+            "name": "Muriaé",
+            "slug": "muriae"
+        },
+        {
+            "name": "Primavera do Leste",
+            "slug": "primavera-do-leste"
+        },
+        {
+            "name": "União da Vitória",
+            "slug": "uniao-da-vitoria"
+        },
+        {
+            "name": "Brusque",
+            "slug": "brusque"
+        },
+        {
+            "name": "Garopaba",
+            "slug": "garopaba"
+        },
+        {
+            "name": "Indaial",
+            "slug": "indaial"
+        },
+        {
+            "name": "Americana",
+            "slug": "americana"
+        },
+        {
+            "name": "Marília",
+            "slug": "marilia"
+        },
+        {
+            "name": "Cachoeirinha",
+            "slug": "cachoeirinha"
+        },
+        {
+            "name": "Gravataí",
+            "slug": "gravatai"
+        },
+        {
+            "name": "Guaíba",
+            "slug": "guaiba"
+        },
+        {
+            "name": "São José",
+            "slug": "sao-jose"
+        },
+        {
+            "name": "Itajaí",
+            "slug": "itajai"
+        },
+        {
+            "name": "Cidade do Panamá",
+            "slug": "cidade-do-panama"
+        },
+        {
+            "name": "La Chorrera",
+            "slug": "la-chorrera"
+        },
+        {
+            "name": "Las Lajas",
+            "slug": "las-lajas"
+        },
+        {
+            "name": "David",
+            "slug": "david"
+        },
+        {
+            "name": "San José",
+            "slug": "san-jose"
+        },
+        {
+            "name": "Santiago del Chile",
+            "slug": "santiago-del-chile"
+        },
+        {
+            "name": "Antofagasta",
+            "slug": "antofagasta"
+        },
+        {
+            "name": "Iquique",
+            "slug": "iquique"
+        },
+        {
+            "name": "Coquimbo",
+            "slug": "coquimbo"
+        },
+        {
+            "name": "Temuco",
+            "slug": "temuco"
+        },
+        {
+            "name": "Viña del Mar",
+            "slug": "vina-del-mar"
+        },
+        {
+            "name": "Concepción",
+            "slug": "concepcion"
+        },
+        {
+            "name": "Chillán",
+            "slug": "chillan"
+        },
+        {
+            "name": "Osorno",
+            "slug": "osorno"
+        },
+        {
+            "name": "Puerto Montt",
+            "slug": "puerto-montt"
+        },
+        {
+            "name": "Rancagua",
+            "slug": "rancagua"
+        },
+        {
+            "name": "Talca",
+            "slug": "talca"
+        },
+        {
+            "name": "Asunción",
+            "slug": "asuncion"
+        },
+        {
+            "name": "Santa Cruz de la Sierra",
+            "slug": "santa-cruz-de-la-sierra"
+        },
+        {
+            "name": "La Paz",
+            "slug": "la-paz"
+        },
+        {
+            "name": "Ciudad de Guatemala",
+            "slug": "ciudad-de-guatemala"
+        },
+        {
+            "name": "Tegucigalpa",
+            "slug": "tegucigalpa"
+        },
+        {
+            "name": "San Salvador",
+            "slug": "san-salvador"
+        },
+        {
+            "name": "Caruaru",
+            "slug": "caruaru"
+        },
+        {
+            "name": "Arujá",
+            "slug": "aruja"
+        },
+        {
+            "name": "Sete Lagoas",
+            "slug": "sete-lagoas"
+        },
+        {
+            "name": "Horizonte",
+            "slug": "horizonte"
+        },
+        {
+            "name": "Aparecida de Goiania",
+            "slug": "aparecida-de-goiania"
+        },
+        {
+            "name": "Caicó",
+            "slug": "caico"
+        },
+        {
+            "name": "Rio Branco",
+            "slug": "rio-branco"
+        },
+        {
+            "name": "Vilhena",
+            "slug": "vilhena"
+        },
+        {
+            "name": "Pimenta Bueno",
+            "slug": "pimenta-bueno"
+        },
+        {
+            "name": "Campo Grande",
+            "slug": "campo-grande"
+        },
+        {
+            "name": "Dourados",
+            "slug": "dourados"
+        },
+        {
+            "name": "São Gabriel do Oeste",
+            "slug": "sao-gabriel-do-oeste"
+        },
+        {
+            "name": "Salvador",
+            "slug": "salvador"
+        },
+        {
+            "name": "Feira de Santana",
+            "slug": "feira-de-santana"
+        },
+        {
+            "name": "Lauro Freitas",
+            "slug": "lauro-freitas"
+        },
+        {
+            "name": "Bela Vista",
+            "slug": "bela-vista"
+        },
+        {
+            "name": "Luis Eduardo Magalhães",
+            "slug": "luis-eduardo-magalhaes"
+        },
+        {
+            "name": "Ilhéus",
+            "slug": "ilheus"
+        },
+        {
+            "name": "Marau",
+            "slug": "marau"
+        },
+        {
+            "name": "Taquara",
+            "slug": "taquara"
+        },
+        {
+            "name": "Sarandi",
+            "slug": "sarandi"
+        },
+        {
+            "name": "Fortaleza",
+            "slug": "fortaleza"
+        },
+        {
+            "name": "Turvo",
+            "slug": "turvo"
+        },
+        {
+            "name": "Araranguá",
+            "slug": "ararangua"
+        },
+        {
+            "name": "Braço do Norte",
+            "slug": "braco-do-norte"
+        },
+        {
+            "name": "Sapiranga",
+            "slug": "sapiranga"
+        },
+        {
+            "name": "Palhoça",
+            "slug": "palhoca"
+        },
+        {
+            "name": "Santana de Parnaíba",
+            "slug": "santana-de-parnaiba"
+        },
+        {
+            "name": "Praia Grande",
+            "slug": "praia-grande"
+        }
+    ]
+}

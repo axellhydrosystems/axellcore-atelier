@@ -77,17 +77,10 @@ final class Plugin {
 		Form_Directives::instance()->register_hooks();
 		Form_Submission::instance()->register_hooks();
 		Activator::register_hooks();
-		// City names per UF for the revendas plugin, which only creates a
-		// city term for a city in this list.
-		add_filter(
-			'axellcore_revendas_city_names',
-			static function ( $names, $uf ) {
-				$cities = include AXELLCORE_ATELIERCLUB_PATH . 'includes/data/br-cities.php';
-				return array_merge( (array) $names, array_values( $cities[ strtoupper( (string) $uf ) ] ?? array() ) );
-			},
-			10,
-			2
-		);
+		Resellers::instance()->register_hooks();
+		Reseller_Store::register_hooks();
+		Resellers_Rest::instance()->register_hooks();
+		Resellers_Admin::instance()->register_hooks();
 		Seo::instance()->register_hooks();
 		Rest::instance()->register_hooks();
 		Options_Rest::instance()->register_hooks();

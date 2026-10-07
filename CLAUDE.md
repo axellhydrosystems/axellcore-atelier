@@ -454,3 +454,22 @@ The interactive form blocks save plain HTML (elements, ids, names, `hidden`/`dis
 ## Footer (/atelier/footer/, post 1078)
 
 One `core/navigation` (aria-label "Rodapé") whose submenus are the columns: the titles are the submenu items (no headings), kept open by the nav's block CSS. The four-column grid is the `core/columns` block style **"Footer"** (`src/block-styles/style.scss`): grid `1.6fr 1fr 1fr 1fr`, with `display: contents` on the nav column, the nav and its container so the submenus become grid items (the a11y tree keeps the nav and lists); two columns under 900px. The theme's `li` margin (`0 0 3px`) and the submenu gap need `!important` zeroes in the nav CSS; hover is color only (`text-decoration: none !important`). Submenu titles and the hours item have `pointer-events: none` in their own block CSS. "Rodapé final" stacks centered by `@tablet|@mobile layout: { orientation: 'vertical', justifyContent: 'center' }`.
+
+## Revendas (post type `revendas`), in place of JetEngine
+
+Production registers the revendas with JetEngine. Without JetEngine (`Resellers::jet_engine_active()`, `class_exists( 'Jet_Engine' )`) this plugin registers the same signature (`includes/class-resellers.php`), so a production database shows everything:
+- **Post type:** `revendas`, public, archive, rewrite `revendas`, title only.
+- **Taxonomies:** `paises`, `estados` (rewrite `estado`) and `cidades` (rewrite `cidade`), hierarchical but with flat terms.
+- **Meta:** the "Assistencia_Revendas" text fields `endereco`, `telefone-1`, `telefone-2`, `site`, `e-mail`, as plain strings.
+
+With JetEngine active nothing of that is registered: no admin and no import. Only the form's custom store stays on.
+
+- **Form store (`Reseller_Store`, always on):** a store text "Nome - UF Cidade" in the adesão form creates a pending revenda.
+  - **State and city terms:** reuses the existing ones by an equivalent name. "Rio Grande do Sul" finds production's "Rio Grande do sul", slug `rs`: production slugs mix UF and full names, so never derive a slug.
+  - **New terms:** named with the full state name and the IBGE city name.
+- **Activation import (`Resellers_Import`):** runs once, when there is no revenda. It first creates `content/revendas-terms.json` (production names and slugs), then the posts of `content/revendas.csv` (no ID: new IDs).
+  - **Values:** stored exactly as exported, with no trim, sanitising or kses ("&" stays "&"). Only the formula escape `'@` is undone.
+  - **Regenerating both files** from the production copy: `OUT=<plugin>/content studio wp eval-file <plugin>/bin/export-resellers.php`.
+  - **Also reads** the axellcore export layout ("Localização", "Telefone").
+- **Admin (`Resellers_Admin`, `Resellers_Rest`, `src/admin/resellers/`):** DataViews list and DataForm detail, like members, under the post type menu (`admin.php?page=resellers`, `&reseller=<id|new>`). The core list, new and edit screens redirect there; the trash and the taxonomy screens stay core. REST `admin/resellers` (list, create, read, update, trash) uses the post type caps.
+- **Verified against production:** an import on a clean site matches production field by field for 354 of 355 revendas. That covers the title, the 5 meta and the term name, slug and parent. The one difference is a draft that has no meta rows at all in production.

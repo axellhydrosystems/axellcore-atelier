@@ -249,7 +249,7 @@ final class Members {
 				continue;
 			}
 			// Custom store: a text "Nome - UF Cidade" that matches becomes a
-			// pending revenda (see axellcore-revendas), and its ID is kept.
+			// pending revenda (Reseller_Store), and its ID is kept.
 			if ( 0 === $id ) {
 				$id = (int) apply_filters( 'axellcore_atelierclub_reseller_text', 0, $title );
 			}
