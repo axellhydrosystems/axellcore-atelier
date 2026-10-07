@@ -1,4 +1,9 @@
-import { store, getContext, getElement } from '@wordpress/interactivity';
+import {
+	store,
+	getContext,
+	getElement,
+	withScope,
+} from '@wordpress/interactivity';
 
 interface Option {
 	id: number;
@@ -488,6 +493,45 @@ const { state } = store( 'axell/autocomplete', {
 	},
 
 	callbacks: {
+		/**
+		 * After the form is reset (a successful submission), back to an empty
+		 * search: the hidden ID and title and the custom store too.
+		 */
+		watchReset() {
+			const form = ( getElement().ref as HTMLElement | null )?.closest(
+				'form'
+			);
+			if ( ! form ) {
+				return;
+			}
+			const onReset = withScope( () => {
+				const context = getContext< AutocompleteContext >();
+				Object.assign( context, {
+					query: '',
+					text: '',
+					selectedId: '',
+					title: '',
+					open: false,
+					notFound: false,
+					loading: false,
+					custom: false,
+					customName: '',
+					customUf: '',
+					customCity: '',
+					cityOptions: [],
+					cityQuery: '',
+					cityTyped: '',
+					cityOpen: false,
+					cityActive: -1,
+					cityHint: 'Selecione UF',
+					activeIndex: -1,
+					options: [],
+				} );
+			} );
+			form.addEventListener( 'reset', onReset );
+			return () => form.removeEventListener( 'reset', onReset );
+		},
+
 		// The city select lists the cities of the chosen UF.
 		renderCities() {
 			const context = getContext< AutocompleteContext >();

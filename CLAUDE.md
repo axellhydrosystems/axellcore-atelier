@@ -456,6 +456,9 @@ The interactive form blocks save plain HTML (elements, ids, names, `hidden`/`dis
   - **City:** a combobox over the UF's cities, as the address city (`cityQuery`/`cityTyped`/`cityOpen`/`cityActive` in the context). Its placeholder and open state are context values, not `state` getters, which the server directive processor cannot evaluate.
   - **Keys:** the widget's `onKeydown` only handles the search combobox (no `data-field`), so the arrows in the panel never open the search list.
   - **Legacy markup:** content saved in the wrapped form keeps the city `<select>` (`renderCities`).
+- **After a successful submission:** `form.reset()` resets only the DOM, not the Interactivity contexts. The autocomplete (`callbacks.watchReset`, `data-wp-init--reset`) and each address region (`callbacks.initRegion`) listen to the form's `reset` event, wrapped in `withScope`, and go back to their initial state:
+  - **Stores:** an empty search, no ID or title, the custom panel closed.
+  - **Address:** the city search is empty, and the linked values are read from the fields again on the next tick (the event comes before the defaults are restored).
 - **Partner stores on submission:** `Members::submitted_resellers()` drops the empty positions and keeps the order. Stores 2 and 4 are saved as `reseller1` and `reseller2`.
 - **Styled slots (/atelier/adesao/):**
   - **Layout:** each field spans the whole slot from its left edge, at full height (the slot's 0.5rem vertical padding moved into the fields: 18px).

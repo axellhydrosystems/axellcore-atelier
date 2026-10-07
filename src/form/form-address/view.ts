@@ -1,4 +1,9 @@
-import { store, getContext, getElement } from '@wordpress/interactivity';
+import {
+	store,
+	getContext,
+	getElement,
+	withScope,
+} from '@wordpress/interactivity';
 import { STATES_BY_COUNTRY } from './states';
 
 interface Option {
@@ -299,7 +304,35 @@ const { state } = store( 'axell/address', {
 		/** Remember the form of this control (getters cannot read the DOM yet). */
 		initRegion() {
 			const context = getContext< ControlContext >();
-			context.form = here()?.closest( 'form' )?.getAttribute( 'data-form-id' ) || '';
+			const region = here();
+			const form = region?.closest( 'form' );
+			context.form = form?.getAttribute( 'data-form-id' ) || '';
+			if ( ! form || ! region ) {
+				return;
+			}
+			// After the form is reset (a successful submission): the city search
+			// starts empty and the linked values follow the fields again (the
+			// reset event comes before the fields get their defaults back).
+			const onReset = withScope( () => {
+				const ctx = getContext< ControlContext >();
+				ctx.code = '';
+				ctx.query = '';
+				ctx.typed = '';
+				ctx.open = false;
+				ctx.active = -1;
+				setTimeout( () => {
+					const s = state as unknown as AddressState;
+					region
+						.querySelectorAll< HTMLInputElement | HTMLSelectElement >(
+							'input[name], select[name]'
+						)
+						.forEach( ( field ) => {
+							s.values[ keyOf( field, field.name ) ] = field.value;
+						} );
+				}, 0 );
+			} );
+			form.addEventListener( 'reset', onReset );
+			return () => form.removeEventListener( 'reset', onReset );
 		},
 
 		/** The country already set on load (a hidden field or a preselected option). */

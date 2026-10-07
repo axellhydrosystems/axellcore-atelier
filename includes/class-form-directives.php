@@ -703,6 +703,7 @@ final class Form_Directives {
 				'data-wp-context'      => self::json( $context ),
 				'data-wp-on--keydown'  => 'actions.onKeydown',
 				'data-wp-on--focusout' => 'actions.onFocusOut',
+				'data-wp-init--reset'  => 'callbacks.watchReset',
 			)
 		);
 
@@ -805,7 +806,7 @@ final class Form_Directives {
 		$search_icon = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg>';
 
 		return sprintf(
-			'<div class="%1$s" data-wp-interactive="axell/autocomplete" data-wp-context="%2$s" data-wp-on--keydown="actions.onKeydown" data-wp-on--focusout="actions.onFocusOut">'
+			'<div class="%1$s" data-wp-interactive="axell/autocomplete" data-wp-context="%2$s" data-wp-on--keydown="actions.onKeydown" data-wp-on--focusout="actions.onFocusOut" data-wp-init--reset="callbacks.watchReset">'
 				. '%3$s'
 				. '<input type="hidden" name="%4$s" data-wp-bind--value="context.selectedId"/>'
 				. '<input type="hidden" name="%4$s_title" data-wp-bind--value="context.title"/>'
