@@ -173,6 +173,7 @@ final class Design_Tokens {
 			array( 'core/list', 'steps', __( 'Steps', 'axellcore-atelierclub' ) ),
 			array( 'core/list', 'channels', __( 'Channels', 'axellcore-atelierclub' ) ),
 			array( 'core/cover', 'stone', __( 'Stone', 'axellcore-atelierclub' ) ),
+			array( 'core/columns', 'footer', __( 'Footer', 'axellcore-atelierclub' ) ),
 		);
 		foreach ( $styles as list( $block, $name, $label ) ) {
 			register_block_style(

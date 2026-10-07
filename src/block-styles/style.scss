@@ -610,3 +610,29 @@ p.is-style-eyebrow {
 		align-self: stretch;
 	}
 }
+
+// "Footer" columns: the footer grid of design/source (.footer-grid: 1.6fr
+// 1fr 1fr 1fr, two columns under 900px). The brand is the first column; the
+// navigation column, the <nav> and its list are display: contents, so each
+// submenu (O Clube, Contato, Institucional) is a cell of the grid, and under
+// 900px the brand shares a row with the first submenu, as in the source.
+// The gap comes from the block's blockGap.
+.wp-block-columns.is-style-footer {
+	display: grid;
+	grid-template-columns: 1.6fr 1fr 1fr 1fr;
+	align-items: start;
+
+	> .wp-block-column {
+		min-width: 0;
+	}
+
+	> .wp-block-column:has(> .wp-block-navigation),
+	> .wp-block-column > .wp-block-navigation,
+	> .wp-block-column > .wp-block-navigation > .wp-block-navigation__container {
+		display: contents;
+	}
+
+	@media (max-width: 900px) {
+		grid-template-columns: 1fr 1fr;
+	}
+}

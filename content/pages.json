@@ -5,6 +5,11 @@
         "template": "atelier-section"
     },
     {
+        "path": "footer",
+        "title": "Footer",
+        "template": "atelier-section"
+    },
+    {
         "path": "header",
         "title": "Header",
         "template": "atelier-section"

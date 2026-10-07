@@ -58,8 +58,8 @@
       "note": "no-class aprovado em 2026-10-07: /atelier/adesao/ (post 1049, template atelier-section) a 0,00% em 1440/768 e 0,01% em 390 (20/88/86 px de subpixel: asterisco do Numero ::after vs span e antialias do \"—\" da UF); pure /atelier/pure/adesao/ (post 81). Source: linhas do form em 12 colunas (5/3/4, 2/6/4), campos com line-height 1.46666667 e padding 0.625rem 0.6875rem; bases regenerados pelo elemento da secao."
     },
     "footer": {
-      "phase": 1,
-      "note": "pure aprovado em 2026-10-07: /atelier/pure/footer/ (post 849): footer constrained sem padding, Conteudo wide 80rem; colunas Marca 1.6fr + Navegacao; um core/navigation aria-label \"Rodape\" (overlay never, sem icone de submenu) com submenus O Clube / Contato / Institucional sempre abertos por CSS do bloco; titulos e horario com pointer-events none (CSS no proprio item); sem headings; mailto e tel. Proximo: no-class /atelier/footer/."
+      "phase": 2,
+      "note": "no-class aprovado em 2026-10-07: /atelier/footer/ (post 1078, template atelier-section) a 0,00% em 1440/768/390; pure /atelier/pure/footer/ (post 849). Grid das colunas pelo estilo de bloco \"Footer\" de core/columns (1.6fr 1fr 1fr 1fr, display: contents na coluna/nav/lista, 2 colunas abaixo de 900px); titulos e itens do nav por CSS do bloco (margin 0 !important nos itens, hover so cor); Rodape final empilhado e centralizado em @tablet/@mobile. Lighthouse WP 100 exceto mobile Performance 95 (FCP 2,4 s; cta-strip aprovado deu 94 na mesma hora)."
     }
   }
 }
