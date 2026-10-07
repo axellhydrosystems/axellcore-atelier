@@ -140,8 +140,8 @@ final class Design_Tokens {
 	 *   (a duotone filter gets within 1 level, not equal);
 	 * - "Visually hidden" on groups: off screen but read by screen readers
 	 *   (the hero's page h1), like .visually-hidden;
-	 * - "Pillars", "Protagonists" and "Promises" on lists: numbered grids
-	 *   (the manifesto pillars, the protagonistas and the promessas items),
+	 * - "Pillars", "Protagonists", "Promises" and "Benefits" on lists:
+	 *   numbered grids (manifesto, protagonistas, promessas, beneficios),
 	 *   sharing one SCSS mixin; "Steps" on lists: the jornada steps joined
 	 *   by a line, numbered in circles;
 	 * - "Tier" and "Tier (locked)" on groups: the niveis cards (number, hover
@@ -167,6 +167,7 @@ final class Design_Tokens {
 			array( 'core/list', 'pillars', __( 'Pillars', 'axellcore-atelierclub' ) ),
 			array( 'core/list', 'protagonists', __( 'Protagonists', 'axellcore-atelierclub' ) ),
 			array( 'core/list', 'promises', __( 'Promises', 'axellcore-atelierclub' ) ),
+			array( 'core/list', 'benefits', __( 'Benefits', 'axellcore-atelierclub' ) ),
 			array( 'core/list', 'steps', __( 'Steps', 'axellcore-atelierclub' ) ),
 			array( 'core/cover', 'stone', __( 'Stone', 'axellcore-atelierclub' ) ),
 		);

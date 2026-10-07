@@ -5,6 +5,11 @@
         "template": "atelier-section"
     },
     {
+        "path": "beneficios",
+        "title": "Benefícios",
+        "template": "atelier-section"
+    },
+    {
         "path": "conceito",
         "title": "Conceito",
         "template": "atelier-section"

@@ -134,6 +134,18 @@ final class Icons {
 			)
 		);
 
+		// The design's outline clock (design/source .benefits-prizes
+		// .notice-pill: a circle and a hand stroked at 1.4 on a 14 grid), as
+		// the outline of that stroke (Inkscape stroke-to-path) so it is
+		// fill-only.
+		wp_register_icon(
+			self::COLLECTION . '/clock-outline',
+			array(
+				'label'   => __( 'Clock (outline)', 'axellcore-atelierclub' ),
+				'content' => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14" width="14" height="14" fill="currentColor"><path d="M7 0.80078125C3.5841258 0.80078125 0.80078125 3.5841258 0.80078125 7C0.80078125 10.415874 3.5841258 13.199219 7 13.199219C10.415874 13.199219 13.199219 10.415874 13.199219 7C13.199219 3.5841258 10.415874 0.80078125 7 0.80078125ZM7 2.1992188C9.659258 2.1992188 11.800781 4.340742 11.800781 7C11.800781 9.659258 9.659258 11.800781 7 11.800781C4.340742 11.800781 2.1992188 9.659258 2.1992188 7C2.1992188 4.340742 4.340742 2.1992188 7 2.1992188ZM6.3007812 4L6.3007812 7.3496094L8.5800781 9.0605469L9.4199219 7.9394531L7.6992188 6.6503906L7.6992188 4Z"/></svg>',
+			)
+		);
+
 		wp_register_icon(
 			self::COLLECTION . '/clock',
 			array(

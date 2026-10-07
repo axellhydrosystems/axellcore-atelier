@@ -1144,23 +1144,29 @@ blockquote.journey-quote p{ margin: 0; }
 }
 .benefit:nth-child(3n){ border-right: none; }
 .benefit:hover{ background: rgba(180,153,106,0.04); }
-.benefit .num{
+/* An ol: the number is the list counter (::before, zero-padded), the
+   strong is the title, the br is for reading without styles, and the li's
+   own text is the description. */
+ol.benefits-grid{ list-style: none; margin: 0; padding: 0; }
+.benefit::before{
+  content: counter(list-item, decimal-leading-zero);
   font-family: var(--serif); font-style: italic; font-weight: 300;
   font-size: 32px; color: var(--bronze-2);
   margin-bottom: 28px; display: block; line-height: 1;
 }
-.benefit h3{
+.benefit strong{
+  display: block;
   font-family: var(--serif);
   font-weight: 400;
   font-size: 22px; line-height: 1.2;
   color: var(--ivory);
   margin: 0 0 12px;
 }
-.benefit p{
+.benefit br{ display: none; }
+.benefit{
   font-family: var(--sans); font-weight: 300;
   font-size: 14px; line-height: 1.65;
   color: rgba(239,236,228,0.66);
-  margin: 0;
 }
 .benefits-prizes{
   padding: 56px 40px 60px;
@@ -1171,6 +1177,8 @@ blockquote.journey-quote p{ margin: 0; }
 .prizes-list{
   display: flex; flex-wrap: wrap; gap: 12px;
 }
+ul.prizes-list{ list-style: none; margin: 0; padding: 0; }
+h3.eyebrow{ margin-top: 0; }
 .prize-chip{
   padding: 12px 22px;
   border: 1px solid rgba(180,153,106,0.35);
@@ -2061,73 +2069,34 @@ p.mystery-hint{ margin-bottom: 0; }
     </div>
   </div>
 
-  <div class="benefits-grid">
-    <div class="benefit">
-      <span class="num">01</span>
-      <h3>Área exclusiva</h3>
-      <p>Histórico de reconhecimento, projetos cadastrados e campanhas ativas em painel privado.</p>
-    </div>
-    <div class="benefit">
-      <span class="num">02</span>
-      <h3>Materiais premium</h3>
-      <p>Catálogos, blocos CAD, manuais técnicos e biblioteca completa de especificações.</p>
-    </div>
-    <div class="benefit">
-      <span class="num">03</span>
-      <h3>Apoio prioritário</h3>
-      <p>Atendimento com consultor Axell dedicado ao seu escritório, canal direto.</p>
-    </div>
-    <div class="benefit">
-      <span class="num">04</span>
-      <h3>Consultoria de produto</h3>
-      <p>Suporte técnico especializado para banheiras, spas e linhas completas.</p>
-    </div>
-    <div class="benefit">
-      <span class="num">05</span>
-      <h3>Lançamentos antecipados</h3>
-      <p>Conhecimento de novidades antes do mercado, com pré-venda e amostras.</p>
-    </div>
-    <div class="benefit">
-      <span class="num">06</span>
-      <h3>Treinamentos exclusivos</h3>
-      <p>Convites para workshops, aulas técnicas e imersões de produto na fábrica.</p>
-    </div>
-    <div class="benefit">
-      <span class="num">07</span>
-      <h3>Selo digital de membro</h3>
-      <p>Selo oficial Atelier Axell Club para site, redes sociais e materiais do escritório.</p>
-    </div>
-    <div class="benefit">
-      <span class="num">08</span>
-      <h3>Diretório de parceiros</h3>
-      <p>Destaque em diretório público Axell com link direto para o seu portfólio.</p>
-    </div>
-    <div class="benefit">
-      <span class="num">09</span>
-      <h3>Placa de membro</h3>
-      <p>Peça única, uma obra de arte em pedra, gravada com o nome do arquiteto.</p>
-    </div>
-  </div>
+  <ol class="benefits-grid">
+    <li class="benefit"><strong>Área exclusiva</strong><br>Histórico de reconhecimento, projetos cadastrados e campanhas ativas em painel privado.</li>
+    <li class="benefit"><strong>Materiais premium</strong><br>Catálogos, blocos CAD, manuais técnicos e biblioteca completa de especificações.</li>
+    <li class="benefit"><strong>Apoio prioritário</strong><br>Atendimento com consultor Axell dedicado ao seu escritório, canal direto.</li>
+    <li class="benefit"><strong>Consultoria de produto</strong><br>Suporte técnico especializado para banheiras, spas e linhas completas.</li>
+    <li class="benefit"><strong>Lançamentos antecipados</strong><br>Conhecimento de novidades antes do mercado, com pré-venda e amostras.</li>
+    <li class="benefit"><strong>Treinamentos exclusivos</strong><br>Convites para workshops, aulas técnicas e imersões de produto na fábrica.</li>
+    <li class="benefit"><strong>Selo digital de membro</strong><br>Selo oficial Atelier Axell Club para site, redes sociais e materiais do escritório.</li>
+    <li class="benefit"><strong>Diretório de parceiros</strong><br>Destaque em diretório público Axell com link direto para o seu portfólio.</li>
+    <li class="benefit"><strong>Placa de membro</strong><br>Peça única, uma obra de arte em pedra, gravada com o nome do arquiteto.</li>
+  </ol>
 
   <div class="benefits-prizes">
     <div class="container" style="padding: 0;">
-      <div class="eyebrow">Premiações do clube</div>
-      <div class="prizes-list">
-        <span class="prize-chip">Vouchers &amp; gift cards</span>
-        <span class="prize-chip">Produtos Axell</span>
-        <span class="prize-chip">Experiências gastronômicas</span>
-        <span class="prize-chip">Hospedagens premium</span>
-        <span class="prize-chip">Viagens &amp; upgrades</span>
-        <span class="prize-chip">Feiras &amp; eventos</span>
-      </div>
+      <h3 class="eyebrow">Premiações do clube</h3>
+      <ul class="prizes-list">
+        <li class="prize-chip">Vouchers &amp; gift cards</li>
+        <li class="prize-chip">Produtos Axell</li>
+        <li class="prize-chip">Experiências gastronômicas</li>
+        <li class="prize-chip">Hospedagens premium</li>
+        <li class="prize-chip">Viagens &amp; upgrades</li>
+        <li class="prize-chip">Feiras &amp; eventos</li>
+      </ul>
 
-      <div class="notice-pill" style="margin-top: 32px;">
-        <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4">
-          <circle cx="7" cy="7" r="5.5"/>
-          <path d="M7 4 v3 l2 1.5"/>
-        </svg>
+      <p class="notice-pill" style="margin-top: 32px;">
+        <svg viewBox="0 0 14 14" fill="currentColor"><path d="M7 0.80078125C3.5841258 0.80078125 0.80078125 3.5841258 0.80078125 7C0.80078125 10.415874 3.5841258 13.199219 7 13.199219C10.415874 13.199219 13.199219 10.415874 13.199219 7C13.199219 3.5841258 10.415874 0.80078125 7 0.80078125ZM7 2.1992188C9.659258 2.1992188 11.800781 4.340742 11.800781 7C11.800781 9.659258 9.659258 11.800781 7 11.800781C4.340742 11.800781 2.1992188 9.659258 2.1992188 7C2.1992188 4.340742 4.340742 2.1992188 7 2.1992188ZM6.3007812 4L6.3007812 7.3496094L8.5800781 9.0605469L9.4199219 7.9394531L7.6992188 6.6503906L7.6992188 4Z"/></svg>
         Concedidas por categorização
-      </div>
+      </p>
       <p class="notice-caption" style="color: rgba(239,236,228,0.68);">As recompensas do clube são liberadas de acordo com o estágio de categorização alcançado pelo profissional. Cada nível abre um novo repertório de benefícios — e mantém os anteriores como base permanente.</p>
     </div>
   </div>

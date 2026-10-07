@@ -1953,3 +1953,9 @@ msgstr "Nível"
 
 msgid "Tier (locked)"
 msgstr "Nível (bloqueado)"
+
+msgid "Clock (outline)"
+msgstr "Relógio (contorno)"
+
+msgid "Benefits"
+msgstr "Benefícios"

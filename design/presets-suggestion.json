@@ -10,7 +10,8 @@
 		"promessas",
 		"conceito",
 		"jornada",
-		"niveis"
+		"niveis",
+		"beneficios"
 	],
 	"fontSizes": [
 		{
@@ -20,7 +21,8 @@
 			"usedIn": [
 				"header: navigation links",
 				"jornada: step number (block style)",
-				"niveis: link, hints"
+				"niveis: link, hints",
+				"beneficios: notice"
 			]
 		},
 		{
@@ -33,7 +35,8 @@
 				"promessas: chapter label (h2)",
 				"conceito: chapter label (h2), Por que Atelier (h3), list keys",
 				"jornada: chapter label (h2), step labels",
-				"niveis: chapter label, card labels"
+				"niveis: chapter label, card labels",
+				"beneficios: chapter label, prizes h3"
 			]
 		},
 		{
@@ -101,7 +104,8 @@
 			"usedIn": [
 				"convite: signature",
 				"jornada: step text",
-				"niveis: list items"
+				"niveis: list items",
+				"beneficios: item text"
 			]
 		},
 		{
@@ -113,7 +117,8 @@
 				"promessas: title",
 				"conceito: title",
 				"jornada: title",
-				"niveis: title"
+				"niveis: title",
+				"beneficios: title"
 			]
 		},
 		{
@@ -158,7 +163,8 @@
 			"value": "0.9375rem",
 			"px": 15,
 			"usedIn": [
-				"placa: notice caption (block CSS)"
+				"placa: notice caption (block CSS)",
+				"beneficios: notice caption"
 			]
 		},
 		{
@@ -273,7 +279,22 @@
 			"value": "1.375rem",
 			"px": 22,
 			"usedIn": [
-				"niveis: mystery text (block CSS)"
+				"niveis: mystery text (block CSS)",
+				"beneficios: item title (block style)"
+			]
+		},
+		{
+			"value": "2rem",
+			"px": 32,
+			"usedIn": [
+				"beneficios: item number (block style)"
+			]
+		},
+		{
+			"value": "0.8125rem",
+			"px": 13,
+			"usedIn": [
+				"beneficios: prize chips"
 			]
 		}
 	],
@@ -529,7 +550,8 @@
 				"placa: section padding top and bottom",
 				"protagonistas: section padding top and bottom",
 				"conceito: section padding top and bottom",
-				"jornada: section padding top and bottom"
+				"jornada: section padding top and bottom",
+				"beneficios: section padding top"
 			]
 		},
 		{
@@ -578,7 +600,8 @@
 			"usedIn": [
 				"placa: stacked columns gap",
 				"promessas: item padding sides",
-				"niveis: card padding top"
+				"niveis: card padding top",
+				"beneficios: item padding top"
 			]
 		},
 		{
@@ -594,7 +617,8 @@
 			"px": 12,
 			"usedIn": [
 				"placa: notice padding and gap, caption margin top",
-				"promessas: title margin bottom"
+				"promessas: title margin bottom",
+				"beneficios: chips gap, title margin"
 			]
 		},
 		{
@@ -602,7 +626,8 @@
 			"px": 28,
 			"usedIn": [
 				"placa: lede margin top",
-				"niveis: subtitle margin bottom"
+				"niveis: subtitle margin bottom",
+				"beneficios: number margin, prizes h3 margin"
 			]
 		},
 		{
@@ -611,7 +636,8 @@
 			"usedIn": [
 				"placa: lede margin bottom",
 				"jornada: number margin bottom",
-				"niveis: number margin bottom"
+				"niveis: number margin bottom",
+				"beneficios: item padding sides"
 			]
 		},
 		{
@@ -630,7 +656,8 @@
 				"protagonistas: item padding sides",
 				"conceito: stacked columns gap, list margin top",
 				"jornada: step padding top, stacked steps gap",
-				"niveis: card padding sides"
+				"niveis: card padding sides",
+				"beneficios: prizes padding sides"
 			]
 		},
 		{
@@ -645,7 +672,8 @@
 			"value": "3.5rem",
 			"px": 56,
 			"usedIn": [
-				"protagonistas: head margin bottom (tablet, mobile), item padding top"
+				"protagonistas: head margin bottom (tablet, mobile), item padding top",
+				"beneficios: prizes padding top"
 			]
 		},
 		{
@@ -654,7 +682,8 @@
 			"usedIn": [
 				"protagonistas: item padding bottom",
 				"promessas: item padding top, number column",
-				"jornada: quote padding top"
+				"jornada: quote padding top",
+				"beneficios: prizes padding bottom"
 			]
 		},
 		{
@@ -712,6 +741,13 @@
 			"px": 460,
 			"usedIn": [
 				"niveis: locked card min-height"
+			]
+		},
+		{
+			"value": "3.25rem",
+			"px": 52,
+			"usedIn": [
+				"beneficios: item padding bottom"
 			]
 		}
 	],

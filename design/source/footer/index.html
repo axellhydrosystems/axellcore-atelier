@@ -1147,23 +1147,29 @@ blockquote.journey-quote p{ margin: 0; }
 }
 .benefit:nth-child(3n){ border-right: none; }
 .benefit:hover{ background: rgba(180,153,106,0.04); }
-.benefit .num{
+/* An ol: the number is the list counter (::before, zero-padded), the
+   strong is the title, the br is for reading without styles, and the li's
+   own text is the description. */
+ol.benefits-grid{ list-style: none; margin: 0; padding: 0; }
+.benefit::before{
+  content: counter(list-item, decimal-leading-zero);
   font-family: var(--serif); font-style: italic; font-weight: 300;
   font-size: 32px; color: var(--bronze-2);
   margin-bottom: 28px; display: block; line-height: 1;
 }
-.benefit h3{
+.benefit strong{
+  display: block;
   font-family: var(--serif);
   font-weight: 400;
   font-size: 22px; line-height: 1.2;
   color: var(--ivory);
   margin: 0 0 12px;
 }
-.benefit p{
+.benefit br{ display: none; }
+.benefit{
   font-family: var(--sans); font-weight: 300;
   font-size: 14px; line-height: 1.65;
   color: rgba(239,236,228,0.66);
-  margin: 0;
 }
 .benefits-prizes{
   padding: 56px 40px 60px;
@@ -1174,6 +1180,8 @@ blockquote.journey-quote p{ margin: 0; }
 .prizes-list{
   display: flex; flex-wrap: wrap; gap: 12px;
 }
+ul.prizes-list{ list-style: none; margin: 0; padding: 0; }
+h3.eyebrow{ margin-top: 0; }
 .prize-chip{
   padding: 12px 22px;
   border: 1px solid rgba(180,153,106,0.35);
