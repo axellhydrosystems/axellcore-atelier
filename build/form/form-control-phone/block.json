@@ -2,11 +2,11 @@
   "$schema": "https://schemas.wp.org/trunk/block.json",
   "apiVersion": 3,
   "name": "axell/form-control-phone",
-  "title": "Form Control (Telefone)",
+  "title": "Form Control (Phone)",
   "category": "text",
-  "description": "Telefone com máscara conforme o país (Brasil, EUA ou outro).",
+  "description": "Phone with the mask of its country (Brazil, US or other).",
   "keywords": [
-    "telefone",
+    "telephone",
     "phone",
     "tel",
     "form"

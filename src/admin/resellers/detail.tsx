@@ -67,7 +67,7 @@ export default function ResellerDetailView( {
 					message:
 						err?.message ??
 						__(
-							'Não foi possível carregar a revenda.',
+							'Could not load the reseller.',
 							'axellcore-atelierclub'
 						),
 				} )
@@ -80,7 +80,7 @@ export default function ResellerDetailView( {
 		() => [
 			{
 				id: 'title',
-				label: __( 'Nome', 'axellcore-atelierclub' ),
+				label: __( 'Name', 'axellcore-atelierclub' ),
 				type: 'text',
 				isValid: { required: true },
 			},
@@ -93,32 +93,32 @@ export default function ResellerDetailView( {
 			},
 			{
 				id: 'address',
-				label: __( 'Endereço', 'axellcore-atelierclub' ),
+				label: __( 'Address', 'axellcore-atelierclub' ),
 				type: 'text',
 			},
 			{
 				id: 'phone_1',
-				label: __( 'Telefone 1', 'axellcore-atelierclub' ),
+				label: __( 'Phone 1', 'axellcore-atelierclub' ),
 				type: 'telephone',
 			},
 			{
 				id: 'phone_2',
-				label: __( 'Telefone 2', 'axellcore-atelierclub' ),
+				label: __( 'Phone 2', 'axellcore-atelierclub' ),
 				type: 'telephone',
 			},
 			{
 				id: 'website',
-				label: __( 'Site', 'axellcore-atelierclub' ),
+				label: __( 'Website', 'axellcore-atelierclub' ),
 				type: 'url',
 			},
 			{
 				id: 'email',
-				label: __( 'E-mail', 'axellcore-atelierclub' ),
+				label: __( 'Email', 'axellcore-atelierclub' ),
 				type: 'email',
 			},
 			{
 				id: 'country',
-				label: __( 'País', 'axellcore-atelierclub' ),
+				label: __( 'Country', 'axellcore-atelierclub' ),
 				type: 'text',
 				Edit: 'select',
 				elements: asOptions( countries ),
@@ -127,19 +127,19 @@ export default function ResellerDetailView( {
 			isBrazil
 				? {
 						id: 'state',
-						label: __( 'Estado', 'axellcore-atelierclub' ),
+						label: __( 'State', 'axellcore-atelierclub' ),
 						type: 'text',
 						Edit: 'select',
 						elements: asOptions( states ),
 					}
 				: {
 						id: 'state',
-						label: __( 'Estado', 'axellcore-atelierclub' ),
+						label: __( 'State', 'axellcore-atelierclub' ),
 						type: 'text',
 					},
 			{
 				id: 'city',
-				label: __( 'Cidade', 'axellcore-atelierclub' ),
+				label: __( 'City', 'axellcore-atelierclub' ),
 				type: 'text',
 			},
 		],
@@ -165,14 +165,14 @@ export default function ResellerDetailView( {
 
 	const form: Form = {
 		fields: [
-			card( 'revenda', __( 'Revenda', 'axellcore-atelierclub' ), [
+			card( 'revenda', __( 'Reseller', 'axellcore-atelierclub' ), [
 				row( 'revenda-1', [ 'title', 'status' ] ),
 			] ),
-			card( 'contato', __( 'Contato', 'axellcore-atelierclub' ), [
+			card( 'contato', __( 'Contact', 'axellcore-atelierclub' ), [
 				row( 'contato-1', [ 'phone_1', 'phone_2' ] ),
 				row( 'contato-2', [ 'email', 'website' ] ),
 			] ),
-			card( 'local', __( 'Localização', 'axellcore-atelierclub' ), [
+			card( 'local', __( 'Location', 'axellcore-atelierclub' ), [
 				'address',
 				row( 'local-1', [ 'country', 'state', 'city' ] ),
 			] ),
@@ -226,8 +226,8 @@ export default function ResellerDetailView( {
 				setNotice( {
 					status: 'success',
 					message: id
-						? __( 'Revenda atualizada.', 'axellcore-atelierclub' )
-						: __( 'Revenda criada.', 'axellcore-atelierclub' ),
+						? __( 'Reseller updated.', 'axellcore-atelierclub' )
+						: __( 'Reseller created.', 'axellcore-atelierclub' ),
 				} );
 			} )
 			.catch( ( err: { message?: string } ) =>
@@ -236,7 +236,7 @@ export default function ResellerDetailView( {
 					message:
 						err?.message ||
 						__(
-							'Não foi possível salvar.',
+							'Could not save.',
 							'axellcore-atelierclub'
 						),
 				} )
@@ -263,7 +263,7 @@ export default function ResellerDetailView( {
 		<>
 			<p>
 				<a href={ listUrl }>
-					{ __( '← Todas as revendas', 'axellcore-atelierclub' ) }
+					{ __( '← All resellers', 'axellcore-atelierclub' ) }
 				</a>
 			</p>
 			{ notice && (
@@ -292,8 +292,8 @@ export default function ResellerDetailView( {
 					__next40pxDefaultSize
 				>
 					{ id
-						? __( 'Salvar', 'axellcore-atelierclub' )
-						: __( 'Criar revenda', 'axellcore-atelierclub' ) }
+						? __( 'Save', 'axellcore-atelierclub' )
+						: __( 'Create reseller', 'axellcore-atelierclub' ) }
 				</Button>
 				{ id > 0 && (
 					<Button
@@ -304,7 +304,7 @@ export default function ResellerDetailView( {
 						__next40pxDefaultSize
 					>
 						{ __(
-							'Mover para a lixeira',
+							'Move to trash',
 							'axellcore-atelierclub'
 						) }
 					</Button>

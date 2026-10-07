@@ -21,7 +21,7 @@ export default function Edit( {
 					/>
 					<TextControl
 						label={ __( 'Name', 'axellcore-atelierclub' ) }
-						help={ __( 'Em branco usa o ID.', 'axellcore-atelierclub' ) }
+						help={ __( 'Empty uses the ID.', 'axellcore-atelierclub' ) }
 						value={ attributes.name }
 						onChange={ ( value: string ) => setAttributes( { name: value } ) }
 					/>
@@ -43,7 +43,7 @@ export default function Edit( {
 					tagName="label"
 					value={ attributes.text }
 					onChange={ ( value: string ) => setAttributes( { text: value } ) }
-					placeholder={ __( 'Texto do aceite…', 'axellcore-atelierclub' ) }
+					placeholder={ __( 'Consent text…', 'axellcore-atelierclub' ) }
 					allowedFormats={ [ 'core/link', 'core/bold', 'core/italic' ] }
 				/>
 			</div>

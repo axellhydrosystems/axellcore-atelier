@@ -18,7 +18,7 @@ export default function Edit( { attributes, setAttributes }: BlockEditProps< Add
 	return (
 		<>
 			<InspectorControls>
-				<PanelBody title={ __( 'Campo', 'axellcore-atelierclub' ) } initialOpen>
+				<PanelBody title={ __( 'Field', 'axellcore-atelierclub' ) } initialOpen>
 					<TextControl
 						label={ __( 'ID', 'axellcore-atelierclub' ) }
 						value={ attributes.id }
@@ -35,11 +35,11 @@ export default function Edit( { attributes, setAttributes }: BlockEditProps< Add
 						onChange={ ( value: string ) => setAttributes( { placeholder: value } ) }
 					/>
 					<SelectControl
-						label={ __( 'País definido por', 'axellcore-atelierclub' ) }
+						label={ __( 'Country set by', 'axellcore-atelierclub' ) }
 						value={ ( attributes.countrySource as string ) || 'field' }
 						options={ [
-							{ label: __( 'Campo', 'axellcore-atelierclub' ), value: 'field' },
-							{ label: __( 'Seleção', 'axellcore-atelierclub' ), value: 'select' },
+							{ label: __( 'Field', 'axellcore-atelierclub' ), value: 'field' },
+							{ label: __( 'Selection', 'axellcore-atelierclub' ), value: 'select' },
 						] as { label: string; value: string }[] }
 						onChange={ ( value: string ) =>
 							setAttributes( value === 'select'
@@ -49,18 +49,18 @@ export default function Edit( { attributes, setAttributes }: BlockEditProps< Add
 					/>
 					{ ( attributes.countrySource || 'field' ) === 'field' ? (
 						<TextControl
-							label={ __( 'Campo do país (name)', 'axellcore-atelierclub' ) }
+							label={ __( 'Country field (name)', 'axellcore-atelierclub' ) }
 							value={ ( attributes.countryField as string ) || '' }
 							onChange={ ( value: string ) => setAttributes( { countryField: value } ) }
 						/>
 					) : (
 						<SelectControl
-							label={ __( 'País', 'axellcore-atelierclub' ) }
+							label={ __( 'Country', 'axellcore-atelierclub' ) }
 							value={ chosenCountry( attributes.country as string | undefined ) }
 							options={ [
 								{ label: 'Brasil', value: 'BR' },
 								{ label: 'Estados Unidos', value: 'US' },
-								{ label: __( 'Outro', 'axellcore-atelierclub' ), value: '' },
+								{ label: __( 'Other', 'axellcore-atelierclub' ), value: '' },
 							] as { label: string; value: string }[] }
 							onChange={ ( value: string ) => setAttributes( { country: value } ) }
 						/>

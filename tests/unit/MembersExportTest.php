@@ -51,7 +51,7 @@ final class MembersExportTest extends TestCase {
 		$row = Members_Export::row_for( $user, array( 'id', 'status', 'fullname', 'company', 'primary_focus', 'profile_type', 'br_revenue_id', 'city', 'resellers' ) );
 
 		$this->assertSame(
-			array( '4', 'Membro', 'Beatriz Lima', "'=HYPERLINK(\"x\")", 'Design de interiores', 'Pessoa Jurídica · CNPJ', '11.222.333/0001-81', 'Belo Horizonte', 'Loja · MG BH, Casa\\, Banho · SP' ),
+			array( '4', 'Member', 'Beatriz Lima', "'=HYPERLINK(\"x\")", 'Design de interiores', 'Company · CNPJ', '11.222.333/0001-81', 'Belo Horizonte', 'Loja · MG BH, Casa\\, Banho · SP' ),
 			$row
 		);
 	}

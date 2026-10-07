@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-06T19:32:34+00:00\n"
+"POT-Creation-Date: 2026-10-07T15:06:59+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: axellcore-atelierclub\n"
@@ -42,51 +42,111 @@ msgstr ""
 msgid "Atelier — Footer"
 msgstr ""
 
-#: includes/class-activator.php:259
+#: includes/class-activator.php:262
 #: includes/class-icons.php:73
 msgid "Atelier Axell Club"
 msgstr ""
 
-#: includes/class-admin-rest.php:234
+#: includes/class-admin-rest.php:240
 msgid "Name cannot be empty."
 msgstr ""
 
-#: includes/class-admin-rest.php:251
-#: includes/class-members.php:185
+#: includes/class-admin-rest.php:248
+#: includes/class-members.php:199
+#: includes/class-resellers-rest.php:374
 msgid "Invalid email address."
 msgstr ""
 
-#: includes/class-admin-rest.php:266
-#: includes/class-members.php:192
-msgid "Invalid state/city."
+#: includes/class-admin-rest.php:252
+#: includes/class-members.php:209
+msgid "This e-mail is already registered."
 msgstr ""
 
-#: includes/class-admin-rest.php:291
+#: includes/class-admin-rest.php:269
+#: includes/class-members.php:214
+msgid "This CPF/CNPJ is already registered."
+msgstr ""
+
+#: includes/class-admin-rest.php:297
+#: includes/class-resellers-rest.php:321
+msgid "Invalid status."
+msgstr ""
+
+#: includes/class-admin-rest.php:316
 msgid "Member not found."
 msgstr ""
 
 #: includes/class-blocks.php:121
+#: includes/class-design-tokens.php:202
 #: build/chapters/chapter/index.js:1
 #: includes/blocks/chapters/chapter/index.js:69
 msgid "Chapter"
 msgstr ""
 
-#: includes/class-design-tokens.php:148
+#: includes/class-design-tokens.php:194
 msgid "Primary"
 msgstr ""
 
-#: includes/class-design-tokens.php:149
+#: includes/class-design-tokens.php:195
 msgid "Bronze hover"
 msgstr ""
 
-#: includes/class-design-tokens.php:150
+#: includes/class-design-tokens.php:196
 msgid "Ivory"
 msgstr ""
 
-#: includes/class-design-tokens.php:151
+#: includes/class-design-tokens.php:197
 #: build/form/form-label/index.js:1
 #: includes/blocks/form/form-label/index.js:63
 msgid "Visually hidden"
+msgstr ""
+
+#: includes/class-design-tokens.php:198
+msgid "Tier"
+msgstr ""
+
+#: includes/class-design-tokens.php:199
+msgid "Tier (locked)"
+msgstr ""
+
+#: includes/class-design-tokens.php:200
+msgid "Eyebrow"
+msgstr ""
+
+#: includes/class-design-tokens.php:201
+msgid "Sticky on desktop"
+msgstr ""
+
+#: includes/class-design-tokens.php:203
+msgid "Pillars"
+msgstr ""
+
+#: includes/class-design-tokens.php:204
+msgid "Protagonists"
+msgstr ""
+
+#: includes/class-design-tokens.php:205
+msgid "Promises"
+msgstr ""
+
+#: includes/class-design-tokens.php:206
+msgid "Benefits"
+msgstr ""
+
+#: includes/class-design-tokens.php:207
+msgid "Steps"
+msgstr ""
+
+#: includes/class-design-tokens.php:208
+msgid "Channels"
+msgstr ""
+
+#: includes/class-design-tokens.php:209
+msgid "Stone"
+msgstr ""
+
+#: includes/class-design-tokens.php:210
+msgid "Footer"
 msgstr ""
 
 #: includes/class-form-block.php:153
@@ -94,18 +154,61 @@ msgstr ""
 msgid "Leave this field empty"
 msgstr ""
 
-#: includes/class-form-submission.php:114
+#: includes/class-form-directives.php:682
+#: includes/class-form-directives.php:840
+#: build/form/form-control-reseller/index.js:1
+#: build/form/form-control/index.js:1
+msgid "Select state"
+msgstr ""
+
+#: includes/class-form-directives.php:802
+#: includes/class-form-directives.php:837
+#: includes/class-members-export.php:88
+#: build/admin/members/index.js:175
+#: build/admin/members/index.js:184
+#: build/form/form-control-reseller/index.js:1
+#: build/form/form-control/index.js:1
+msgid "State code"
+msgstr ""
+
+#: includes/class-form-directives.php:834
+msgid "Store name"
+msgstr ""
+
+#: includes/class-form-directives.php:835
+#: build/form/form-control-reseller/index.js:1
+#: build/form/form-control/index.js:1
+msgid "Back to search"
+msgstr ""
+
+#: includes/class-form-directives.php:839
+#: includes/class-members-export.php:89
+#: includes/class-resellers.php:131
+#: build/admin/members/index.js:175
+#: build/admin/members/index.js:184
+#: build/admin/resellers/index.js:175
+#: build/admin/resellers/index.js:184
+#: build/form/form-control-reseller/index.js:1
+#: build/form/form-control/index.js:1
+msgid "City"
+msgstr ""
+
+#: includes/class-form-submission.php:85
+msgid "Member (user)"
+msgstr ""
+
+#: includes/class-form-submission.php:119
 msgid "Form not found."
 msgstr ""
 
 #. translators: %s: date and time of the submission.
-#: includes/class-form-submission.php:279
+#: includes/class-form-submission.php:289
 #, php-format
-msgid "Envio de formulário %s"
+msgid "Form submission %s"
 msgstr ""
 
-#: includes/class-form-submission.php:326
-msgid "Novo envio de formulário"
+#: includes/class-form-submission.php:336
+msgid "New form submission"
 msgstr ""
 
 #: includes/class-icons.php:74
@@ -116,75 +219,390 @@ msgstr ""
 msgid "Arrow"
 msgstr ""
 
-#: includes/class-icons.php:101
+#: includes/class-icons.php:103
+msgid "Arrow (large)"
+msgstr ""
+
+#: includes/class-icons.php:113
+msgid "Arrow (small)"
+msgstr ""
+
+#: includes/class-icons.php:124
+msgid "Lock (outline)"
+msgstr ""
+
+#: includes/class-icons.php:132
 msgid "Lock"
 msgstr ""
 
-#: includes/class-icons.php:109
+#: includes/class-icons.php:144
+msgid "Clock (outline)"
+msgstr ""
+
+#: includes/class-icons.php:152
 msgid "Clock"
 msgstr ""
 
-#: includes/class-locations.php:106
+#: includes/class-locations.php:107
 msgid "Locations"
 msgstr ""
 
-#: includes/class-locations.php:107
+#: includes/class-locations.php:108
+#: build/admin/resellers/index.js:184
 msgid "Location"
 msgstr ""
 
-#: includes/class-locations.php:175
+#: includes/class-locations.php:176
 msgid "Brazil"
 msgstr ""
 
-#: includes/class-member.php:151
-msgid "Members"
+#: includes/class-member.php:79
+#: includes/class-resellers-rest.php:53
+#: build/form/form-atelier/index.js:1
+#: build/form/form/index.js:1
+msgid "Pending"
 msgstr ""
 
-#: includes/class-member.php:152
+#: includes/class-member.php:80
+#: includes/class-member.php:91
 msgid "Member"
 msgstr ""
 
-#: includes/class-member.php:153
-msgid "Add New Member"
+#: includes/class-member.php:90
+msgid "Pending Member"
 msgstr ""
 
-#: includes/class-member.php:154
-#: includes/class-member.php:155
-msgid "View Member"
+#: includes/class-member.php:113
+#: includes/class-member.php:123
+#: includes/class-member.php:124
+#: includes/class-member.php:135
+msgid "Members"
 msgstr ""
 
-#: includes/class-member.php:156
-msgid "Search Members"
+#: includes/class-member.php:114
+msgid "Atelier"
 msgstr ""
 
-#: includes/class-member.php:157
-msgid "No members found."
+#: includes/class-member.php:140
+#: includes/class-members-export.php:130
+msgid "Export"
 msgstr ""
 
-#: includes/class-member.php:158
-msgid "No members found in Trash."
+#: includes/class-members-export.php:75
+#: build/admin/members/index.js:175
+#: build/admin/members/index.js:184
+#: build/admin/resellers/index.js:175
+#: build/admin/resellers/index.js:184
+msgid "Status"
 msgstr ""
 
-#: includes/class-member.php:159
-msgid "All Members"
+#: includes/class-members-export.php:76
+#: build/admin/members/index.js:175
+#: build/admin/members/index.js:184
+msgid "Submitted on"
 msgstr ""
 
-#: includes/class-member.php:161
-msgid "A submitted Atelier Axell Club application."
+#: includes/class-members-export.php:77
+msgid "Login"
+msgstr ""
+
+#: includes/class-members-export.php:78
+#: build/admin/members/index.js:184
+msgid "Full name"
+msgstr ""
+
+#: includes/class-members-export.php:79
+#: build/admin/members/index.js:175
+#: build/admin/resellers/index.js:175
+#: build/admin/resellers/index.js:184
+#: build/form/form-input/index.js:1
+#: includes/blocks/form/form-control/index.js:47
+#: includes/blocks/form/form-input/index.js:56
+msgid "Email"
+msgstr ""
+
+#: includes/class-members-export.php:80
+#: build/admin/members/index.js:184
+msgid "Office / Studio"
+msgstr ""
+
+#: includes/class-members-export.php:81
+#: build/admin/members/index.js:175
+#: build/admin/members/index.js:184
+#: build/admin/resellers/index.js:175
+#: build/form/form-control/index.js:1
+#: build/form/form-input/index.js:1
+#: includes/blocks/form/form-control/index.js:50
+#: includes/blocks/form/form-control/index.js:61
+#: includes/blocks/form/form-input/index.js:59
+#: includes/blocks/form/form-input/index.js:70
+msgid "Phone"
+msgstr ""
+
+#: includes/class-members-export.php:82
+#: build/admin/members/index.js:184
+msgid "Registration (CAU / CREA / ABD)"
+msgstr ""
+
+#: includes/class-members-export.php:83
+#: build/admin/members/index.js:184
+msgid "Main practice"
+msgstr ""
+
+#: includes/class-members-export.php:84
+#: build/admin/members/index.js:184
+msgid "Portfolio (URL)"
+msgstr ""
+
+#: includes/class-members-export.php:85
+#: build/admin/members/index.js:184
+msgid "Registration type"
+msgstr ""
+
+#: includes/class-members-export.php:86
+#: build/admin/members/index.js:175
+#: build/form/form-control/index.js:1
+#: build/form/form-input/index.js:1
+#: includes/blocks/form/form-control/index.js:59
+#: includes/blocks/form/form-input/index.js:68
+msgid "CPF / CNPJ"
+msgstr ""
+
+#: includes/class-members-export.php:87
+#: includes/class-resellers.php:140
+#: build/admin/resellers/index.js:175
+#: build/admin/resellers/index.js:184
+#: build/form/form-control-city/index.js:1
+#: build/form/form-control-country/index.js:1
+#: build/form/form-control-phone/index.js:1
+#: build/form/form-control-postal/index.js:1
+#: build/form/form-control-state/index.js:1
+msgid "Country"
+msgstr ""
+
+#: includes/class-members-export.php:90
+#: build/admin/members/index.js:184
+msgid "Street"
+msgstr ""
+
+#: includes/class-members-export.php:91
+#: build/admin/members/index.js:184
+#: build/form/form-input/index.js:1
+#: includes/blocks/form/form-control/index.js:49
+#: includes/blocks/form/form-input/index.js:58
+msgid "Number"
+msgstr ""
+
+#: includes/class-members-export.php:92
+#: build/admin/members/index.js:184
+msgid "Address line 2"
+msgstr ""
+
+#: includes/class-members-export.php:93
+#: build/admin/members/index.js:184
+msgid "Neighborhood"
+msgstr ""
+
+#: includes/class-members-export.php:94
+#: build/admin/members/index.js:184
+msgid "Landmark"
+msgstr ""
+
+#: includes/class-members-export.php:95
+#: build/admin/members/index.js:184
+msgid "Postal code"
+msgstr ""
+
+#: includes/class-members-export.php:97
+#: build/admin/members/index.js:184
+msgid "Partner stores"
+msgstr ""
+
+#: includes/class-members-export.php:118
+#: build/admin/members/index.js:184
+msgid "Individual · CPF"
+msgstr ""
+
+#: includes/class-members-export.php:119
+#: build/admin/members/index.js:184
+msgid "Company · CNPJ"
+msgstr ""
+
+#: includes/class-members-export.php:129
+#: includes/class-members-export.php:176
+msgid "Export members"
+msgstr ""
+
+#: includes/class-members-export.php:162
+msgid "Something went wrong. Please try again."
+msgstr ""
+
+#: includes/class-members-export.php:173
+msgid "You do not have permission to access this page."
+msgstr ""
+
+#: includes/class-members-export.php:178
+msgid "Export members to a CSV file"
+msgstr ""
+
+#: includes/class-members-export.php:179
+msgid "Generates and downloads a CSV file with the list of members."
+msgstr ""
+
+#: includes/class-members-export.php:186
+msgid "Which columns to export?"
+msgstr ""
+
+#: includes/class-members-export.php:186
+msgid "Export the default columns"
+msgstr ""
+
+#: includes/class-members-export.php:187
+msgid "Which statuses to export?"
+msgstr ""
+
+#: includes/class-members-export.php:187
+msgid "Export all statuses"
+msgstr ""
+
+#: includes/class-members-export.php:188
+msgid "Registered since"
+msgstr ""
+
+#: includes/class-members-export.php:190
+msgid "Includes the chosen day. Empty exports from the first registration. To export only the new ones, choose the day of the last export (registrations of that day may repeat)."
+msgstr ""
+
+#: includes/class-members-export.php:192
+msgid "Which states to export?"
+msgstr ""
+
+#: includes/class-members-export.php:192
+msgid "Export all states"
+msgstr ""
+
+#: includes/class-members-export.php:193
+msgid "Which cities to export?"
+msgstr ""
+
+#: includes/class-members-export.php:193
+msgid "Export all cities"
+msgstr ""
+
+#: includes/class-members-export.php:195
+msgid "Which practices to export?"
+msgstr ""
+
+#: includes/class-members-export.php:195
+msgid "Export all practices"
+msgstr ""
+
+#: includes/class-members-export.php:199
+msgid "Generate CSV"
+msgstr ""
+
+#: includes/class-members-export.php:263
+#: includes/class-members-export.php:548
+msgid "You do not have permission to do this."
+msgstr ""
+
+#: includes/class-members-export.php:273
+msgid "The export expired. Start again."
+msgstr ""
+
+#: includes/class-members-export.php:554
+msgid "The export file is no longer available."
 msgstr ""
 
 #. translators: %s: form field name.
-#: includes/class-members.php:177
+#: includes/class-members.php:191
 #, php-format
 msgid "Missing required field: %s"
 msgstr ""
 
-#: includes/class-members.php:205
+#: includes/class-members.php:231
 msgid "Could not save your application."
 msgstr ""
 
-#: includes/class-members.php:275
+#: includes/class-members.php:284
+msgid "Invalid state/city."
+msgstr ""
+
+#: includes/class-members.php:402
 msgid "Too many attempts. Try again in a few minutes."
+msgstr ""
+
+#: includes/class-resellers-admin.php:100
+#: includes/class-resellers-admin.php:149
+#: includes/class-resellers.php:95
+#: build/form/form-control/index.js:1
+msgid "Resellers"
+msgstr ""
+
+#: includes/class-resellers-admin.php:101
+#: includes/class-resellers.php:97
+msgid "All resellers"
+msgstr ""
+
+#: includes/class-resellers-admin.php:109
+#: includes/class-resellers-admin.php:110
+#: includes/class-resellers-admin.php:149
+#: includes/class-resellers-admin.php:155
+#: includes/class-resellers.php:98
+msgid "Add reseller"
+msgstr ""
+
+#: includes/class-resellers-rest.php:52
+msgctxt "reseller status"
+msgid "Published"
+msgstr ""
+
+#: includes/class-resellers-rest.php:54
+#: build/form/form-atelier/index.js:1
+#: build/form/form/index.js:1
+msgid "Draft"
+msgstr ""
+
+#: includes/class-resellers-rest.php:273
+#: includes/class-resellers-rest.php:314
+msgid "The name is required."
+msgstr ""
+
+#: includes/class-resellers-rest.php:351
+msgid "Could not move to the trash."
+msgstr ""
+
+#: includes/class-resellers-rest.php:405
+msgid "Reseller not found."
+msgstr ""
+
+#: includes/class-resellers.php:96
+#: build/admin/resellers/index.js:184
+msgid "Reseller"
+msgstr ""
+
+#: includes/class-resellers.php:99
+msgid "Edit reseller"
+msgstr ""
+
+#: includes/class-resellers.php:124
+msgid "States"
+msgstr ""
+
+#: includes/class-resellers.php:130
+msgid "Cities"
+msgstr ""
+
+#: includes/class-resellers.php:132
+msgid "All cities"
+msgstr ""
+
+#: includes/class-resellers.php:139
+msgid "Countries"
+msgstr ""
+
+#: includes/class-resellers.php:141
+msgid "All countries"
 msgstr ""
 
 #: includes/class-template-loader.php:108
@@ -209,66 +627,28 @@ msgid "Could not load members."
 msgstr ""
 
 #: build/admin/members/index.js:175
+#: build/admin/resellers/index.js:175
+#: build/admin/resellers/index.js:184
+#: build/form/form-check/index.js:1
 #: build/form/form-control-reseller/index.js:1
 #: build/form/form-control/index.js:1
-msgid "Nome"
+msgid "Name"
 msgstr ""
 
 #: build/admin/members/index.js:175
-msgid "Escritório"
+msgid "Office"
 msgstr ""
 
 #: build/admin/members/index.js:175
-#: build/admin/members/index.js:184
-#: build/form/form-control-reseller/index.js:1
-#: build/form/form-control/index.js:1
-msgid "Cidade"
+msgid "Practice"
 msgstr ""
 
 #: build/admin/members/index.js:175
-#: build/admin/members/index.js:184
-#: build/form/form-control-reseller/index.js:1
-#: build/form/form-control/index.js:1
-msgid "UF"
+msgid "View"
 msgstr ""
 
 #: build/admin/members/index.js:175
-msgid "Atuação"
-msgstr ""
-
-#: build/admin/members/index.js:175
-msgid "E-mail"
-msgstr ""
-
-#: build/admin/members/index.js:175
-#: build/admin/members/index.js:184
-msgid "Telefone"
-msgstr ""
-
-#: build/admin/members/index.js:175
-#: build/form/form-control/index.js:1
-#: build/form/form-input/index.js:1
-#: includes/blocks/form/form-control/index.js:59
-#: includes/blocks/form/form-input/index.js:68
-msgid "CPF / CNPJ"
-msgstr ""
-
-#: build/admin/members/index.js:175
-#: build/admin/members/index.js:184
-msgid "Enviado em"
-msgstr ""
-
-#: build/admin/members/index.js:175
-#: build/admin/members/index.js:184
-msgid "Status"
-msgstr ""
-
-#: build/admin/members/index.js:175
-msgid "Ver"
-msgstr ""
-
-#: build/admin/members/index.js:175
-msgid "Nenhum cadastro encontrado."
+msgid "No registrations found."
 msgstr ""
 
 #. translators: %d: Number of fields that need attention
@@ -277,111 +657,141 @@ msgid "Could not load this member."
 msgstr ""
 
 #: build/admin/members/index.js:184
-msgid "Nome completo"
+msgid "Professional email"
 msgstr ""
 
 #: build/admin/members/index.js:184
-msgid "E-mail profissional"
+msgid "CPF or CNPJ"
 msgstr ""
 
 #: build/admin/members/index.js:184
-msgid "Escritório / Atelê"
+msgid "Partner store 1"
 msgstr ""
 
 #: build/admin/members/index.js:184
-msgid "Registro (CAU / CREA / ABD)"
+msgid "Partner store 2"
 msgstr ""
 
 #: build/admin/members/index.js:184
-msgid "Atuação principal"
+msgid "Partner store 3"
 msgstr ""
 
 #: build/admin/members/index.js:184
-msgid "Portfólio (URL)"
+msgid "Partner store 4"
 msgstr ""
 
 #: build/admin/members/index.js:184
-msgid "Tipo de cadastro"
+msgid "Partner store 5"
 msgstr ""
 
 #: build/admin/members/index.js:184
-msgid "Pessoa Física · CPF"
+msgid "Registration"
 msgstr ""
 
 #: build/admin/members/index.js:184
-msgid "Pessoa Jurídica · CNPJ"
+msgid "Authorship"
 msgstr ""
 
 #: build/admin/members/index.js:184
-msgid "CPF ou CNPJ"
+msgid "Document"
 msgstr ""
 
 #: build/admin/members/index.js:184
-msgid "Logradouro"
+msgid "Office address"
 msgstr ""
 
 #: build/admin/members/index.js:184
-msgid "Número"
+msgid "← All registrations"
 msgstr ""
 
 #: build/admin/members/index.js:184
-msgid "Complemento"
+msgid "Status updated."
 msgstr ""
 
 #: build/admin/members/index.js:184
-msgid "Bairro"
+#: build/admin/resellers/index.js:184
+msgid "Could not save."
 msgstr ""
 
 #: build/admin/members/index.js:184
-msgid "Referência"
+msgid "Pending curation"
 msgstr ""
 
 #: build/admin/members/index.js:184
-msgid "CEP"
+msgid "Open store"
 msgstr ""
 
-#: build/admin/members/index.js:184
-msgid "Loja parceira 1"
+#. translators: %s: timezone detail, e.g. "(CEST) Europe/Madrid" or "UTC+3".
+#: build/admin/resellers/index.js:175
+msgid "Could not load the resellers."
 msgstr ""
 
-#: build/admin/members/index.js:184
-msgid "Loja parceira 2"
+#: build/admin/resellers/index.js:175
+#: build/admin/resellers/index.js:184
+msgid "State"
 msgstr ""
 
-#: build/admin/members/index.js:184
-msgid "Loja parceira 3"
+#: build/admin/resellers/index.js:175
+#: build/admin/resellers/index.js:184
+msgid "Website"
 msgstr ""
 
-#: build/admin/members/index.js:184
-msgid "Loja parceira 4"
+#: build/admin/resellers/index.js:175
+msgid "Date"
 msgstr ""
 
-#: build/admin/members/index.js:184
-msgid "Autoria"
+#: build/admin/resellers/index.js:175
+msgid "Edit"
 msgstr ""
 
-#: build/admin/members/index.js:184
-msgid "Documento"
+#: build/admin/resellers/index.js:175
+#: build/admin/resellers/index.js:184
+msgid "Move to trash"
 msgstr ""
 
-#: build/admin/members/index.js:184
-msgid "Endereço do escritório"
+#: build/admin/resellers/index.js:175
+msgid "No resellers found."
 msgstr ""
 
-#: build/admin/members/index.js:184
-msgid "← Todos os cadastros"
+#. translators: %d: Number of fields that need attention
+#: build/admin/resellers/index.js:184
+msgid "Could not load the reseller."
 msgstr ""
 
-#: build/admin/members/index.js:184
-msgid "Lojas parceiras"
+#: build/admin/resellers/index.js:184
+msgid "Address"
 msgstr ""
 
-#: build/admin/members/index.js:184
-msgid "Pendente de curadoria"
+#: build/admin/resellers/index.js:184
+msgid "Phone 1"
 msgstr ""
 
-#: build/admin/members/index.js:184
-msgid "Abrir loja"
+#: build/admin/resellers/index.js:184
+msgid "Phone 2"
+msgstr ""
+
+#: build/admin/resellers/index.js:184
+msgid "Contact"
+msgstr ""
+
+#: build/admin/resellers/index.js:184
+msgid "← All resellers"
+msgstr ""
+
+#: build/admin/resellers/index.js:184
+msgid "Reseller updated."
+msgstr ""
+
+#: build/admin/resellers/index.js:184
+msgid "Reseller created."
+msgstr ""
+
+#: build/admin/resellers/index.js:184
+msgid "Save"
+msgstr ""
+
+#: build/admin/resellers/index.js:184
+msgid "Create reseller"
 msgstr ""
 
 #: build/chapters/chapter/index.js:1
@@ -391,93 +801,84 @@ msgstr ""
 
 #: build/form/form-atelier/index.js:1
 #: build/form/form/index.js:1
-msgid "Pendente"
+msgid "Published"
 msgstr ""
 
 #: build/form/form-atelier/index.js:1
 #: build/form/form/index.js:1
-msgid "Rascunho"
+msgid "Private"
 msgstr ""
 
 #: build/form/form-atelier/index.js:1
 #: build/form/form/index.js:1
-msgid "Publicado"
+msgid "Submission actions"
 msgstr ""
 
 #: build/form/form-atelier/index.js:1
 #: build/form/form/index.js:1
-msgid "Privado"
+msgid "Save to"
 msgstr ""
 
 #: build/form/form-atelier/index.js:1
 #: build/form/form/index.js:1
-msgid "Ações de envio"
+msgid "Set by this block: each submission becomes a registration."
 msgstr ""
 
 #: build/form/form-atelier/index.js:1
 #: build/form/form/index.js:1
-msgid "Gravar em"
-msgstr ""
-
-#: build/form/form-atelier/index.js:1
-#: build/form/form/index.js:1
-msgid "Definido por este bloco: cada envio vira um cadastro."
-msgstr ""
-
-#: build/form/form-atelier/index.js:1
-#: build/form/form/index.js:1
-msgid "Cada envio vira um post deste tipo. Nenhum: não grava."
+msgid "Each submission becomes a post of this type. None: nothing is saved."
 msgstr ""
 
 #: build/form/form-atelier/index.js:1
 #: build/form/form-control-country/index.js:1
 #: build/form/form/index.js:1
-msgid "Nenhum"
+#: build/reveal/index.js:1
+msgid "None"
 msgstr ""
 
 #: build/form/form-atelier/index.js:1
 #: build/form/form/index.js:1
-msgid "Status do post"
+msgid "Post status"
 msgstr ""
 
 #: build/form/form-atelier/index.js:1
 #: build/form/form/index.js:1
-msgid "Campo do título (name)"
+msgid "Title field (name)"
 msgstr ""
 
 #: build/form/form-atelier/index.js:1
 #: build/form/form/index.js:1
-msgid "Name do campo cujo valor vira o título do post."
+msgid "Name of the field whose value becomes the post title."
 msgstr ""
 
 #: build/form/form-atelier/index.js:1
 #: build/form/form/index.js:1
-msgid "Enviar e-mail"
+msgid "Send email"
 msgstr ""
 
 #: build/form/form-atelier/index.js:1
 #: build/form/form/index.js:1
-msgid "Para"
+msgid "To"
 msgstr ""
 
 #: build/form/form-atelier/index.js:1
 #: build/form/form/index.js:1
-msgid "Separe vários e-mails por vírgula. Em branco: e-mail do administrador."
+msgid "Separate several emails with commas. Empty: the administrator's email."
 msgstr ""
 
 #: build/form/form-atelier/index.js:1
 #: build/form/form/index.js:1
-msgid "Assunto"
+msgid "Subject"
 msgstr ""
 
 #: build/form/form-atelier/index.js:1
 #: build/form/form/index.js:1
-msgid "Mensagem"
+msgid "Message"
 msgstr ""
 
 #: build/form/form-atelier/index.js:1
 #: build/form/form/index.js:1
-msgid "Tags: {name de um campo}, por exemplo {nome}, e {all_fields} com todos os campos."
+msgid "Tags: {a field's name}, for example {nome}, and {all_fields} with every field."
 msgstr ""
 
 #: build/form/form-check/index.js:1
@@ -503,15 +904,11 @@ msgid "ID"
 msgstr ""
 
 #: build/form/form-check/index.js:1
-msgid "Name"
-msgstr ""
-
-#: build/form/form-check/index.js:1
 #: build/form/form-control-br-revenue-id-legal/index.js:1
 #: build/form/form-control-br-revenue-id-person/index.js:1
 #: build/form/form-control-br-revenue-id/index.js:1
 #: build/form/form-control-reseller/index.js:1
-msgid "Em branco usa o ID."
+msgid "Empty uses the ID."
 msgstr ""
 
 #: build/form/form-check/index.js:1
@@ -526,6 +923,7 @@ msgstr ""
 #: build/form/form-control-state/index.js:1
 #: build/form/form-control/index.js:1
 #: build/form/form-input/index.js:1
+#: build/form/form-label/index.js:1
 #: build/form/form-select/index.js:1
 #: includes/blocks/form/form-control/index.js:241
 #: includes/blocks/form/form-input/index.js:385
@@ -540,7 +938,7 @@ msgid "Checked by default"
 msgstr ""
 
 #: build/form/form-check/index.js:1
-msgid "Texto do aceite…"
+msgid "Consent text…"
 msgstr ""
 
 #: build/form/form-control-br-revenue-id-legal/index.js:1
@@ -552,7 +950,9 @@ msgstr ""
 #: build/form/form-control-postal/index.js:1
 #: build/form/form-control-reseller/index.js:1
 #: build/form/form-control-state/index.js:1
-msgid "Campo"
+#: build/form/form-input/index.js:1
+#: includes/blocks/form/form-input/index.js:335
+msgid "Field"
 msgstr ""
 
 #: build/form/form-control-br-revenue-id-legal/index.js:1
@@ -586,59 +986,51 @@ msgid "Placeholder"
 msgstr ""
 
 #: build/form/form-control-br-revenue-id/index.js:1
-msgid "Campo do tipo (name)"
+msgid "Type field (name)"
 msgstr ""
 
 #: build/form/form-control-br-revenue-id/index.js:1
-msgid "Name do campo que define CPF ou CNPJ (valores cpf ou cnpj), por exemplo tipoDoc. Em branco, o tipo sai pelo tamanho do número."
+msgid "Name of the field that sets CPF or CNPJ (values cpf or cnpj), for example tipoDoc. Empty: the type comes from the number's length."
 msgstr ""
 
 #: build/form/form-control-city/index.js:1
-msgid "Campo do estado (name)"
-msgstr ""
-
-#: build/form/form-control-city/index.js:1
-#: build/form/form-control-phone/index.js:1
-#: build/form/form-control-postal/index.js:1
-#: build/form/form-control-state/index.js:1
-msgid "País definido por"
+msgid "State field (name)"
 msgstr ""
 
 #: build/form/form-control-city/index.js:1
 #: build/form/form-control-phone/index.js:1
 #: build/form/form-control-postal/index.js:1
 #: build/form/form-control-state/index.js:1
-msgid "Seleção"
+msgid "Country set by"
 msgstr ""
 
 #: build/form/form-control-city/index.js:1
 #: build/form/form-control-phone/index.js:1
 #: build/form/form-control-postal/index.js:1
 #: build/form/form-control-state/index.js:1
-msgid "Campo do país (name)"
-msgstr ""
-
-#: build/form/form-control-city/index.js:1
-#: build/form/form-control-country/index.js:1
-#: build/form/form-control-phone/index.js:1
-#: build/form/form-control-postal/index.js:1
-#: build/form/form-control-state/index.js:1
-msgid "País"
+msgid "Selection"
 msgstr ""
 
 #: build/form/form-control-city/index.js:1
 #: build/form/form-control-phone/index.js:1
 #: build/form/form-control-postal/index.js:1
 #: build/form/form-control-state/index.js:1
-msgid "Outro"
+msgid "Country field (name)"
 msgstr ""
 
 #: build/form/form-control-city/index.js:1
-msgid "Busca com autocomplete"
+#: build/form/form-control-phone/index.js:1
+#: build/form/form-control-postal/index.js:1
+#: build/form/form-control-state/index.js:1
+msgid "Other"
 msgstr ""
 
 #: build/form/form-control-city/index.js:1
-msgid "No Brasil, digita-se o nome e escolhe-se a cidade da UF numa lista filtrada, em vez de um select."
+msgid "Autocomplete search"
+msgstr ""
+
+#: build/form/form-control-city/index.js:1
+msgid "In Brazil, the name is typed and the city is picked from a filtered list of the state's cities, instead of a select."
 msgstr ""
 
 #: build/form/form-control-country/index.js:1
@@ -650,23 +1042,46 @@ msgid "Hidden field"
 msgstr ""
 
 #: build/form/form-control-country/index.js:1
-msgid "Valor enviado no campo oculto."
+msgid "Value sent in the hidden field."
 msgstr ""
 
 #: build/form/form-control-country/index.js:1
-msgid "País já selecionado ao abrir o formulário."
+msgid "Country already selected when the form opens."
 msgstr ""
 
 #: build/form/form-control-country/index.js:1
-msgid "Oculto"
+#: build/form/form-input/index.js:1
+#: includes/blocks/form/form-control/index.js:54
+#: includes/blocks/form/form-input/index.js:63
+msgid "Hidden"
 msgstr ""
 
 #: build/form/form-control-country/index.js:1
-msgid "Escolha um país para o campo oculto."
+msgid "Choose a country for the hidden field."
 msgstr ""
 
 #: build/form/form-control-country/index.js:1
-msgid "Envia o país num campo oculto, sem o select."
+msgid "Sends the country in a hidden field, without the select."
+msgstr ""
+
+#: build/form/form-control-phone/index.js:1
+msgid "Phone type"
+msgstr ""
+
+#: build/form/form-control-phone/index.js:1
+msgid "Both"
+msgstr ""
+
+#: build/form/form-control-phone/index.js:1
+msgid "Mobile"
+msgstr ""
+
+#: build/form/form-control-phone/index.js:1
+msgid "Landline"
+msgstr ""
+
+#: build/form/form-control-phone/index.js:1
+msgid "Only for Brazilian numbers: a mobile has 11 digits and starts with 9 after the area code; a landline has 10 and starts with 2 to 5. In the US the number does not tell the type."
 msgstr ""
 
 #: build/form/form-control-reseller/index.js:1
@@ -675,21 +1090,11 @@ msgid "Autocomplete (posts)"
 msgstr ""
 
 #: build/form/form-control-reseller/index.js:1
-#: build/form/form-control/index.js:1
-msgid "Voltar à busca"
+msgid "Allow \"Add not found\""
 msgstr ""
 
 #: build/form/form-control-reseller/index.js:1
-#: build/form/form-control/index.js:1
-msgid "Selecione UF"
-msgstr ""
-
-#: build/form/form-control-reseller/index.js:1
-msgid "Aceitar \"Adicionar não encontrada\""
-msgstr ""
-
-#: build/form/form-control-reseller/index.js:1
-msgid "Mostra a opção e os campos Nome, UF e Cidade para cadastrar uma revenda nova."
+msgid "Shows the option and the Name, State and City fields to register a new reseller."
 msgstr ""
 
 #: build/form/form-control/index.js:1
@@ -729,15 +1134,6 @@ msgid "CEP (postal code)"
 msgstr ""
 
 #: build/form/form-control/index.js:1
-#: build/form/form-input/index.js:1
-#: includes/blocks/form/form-control/index.js:50
-#: includes/blocks/form/form-control/index.js:61
-#: includes/blocks/form/form-input/index.js:59
-#: includes/blocks/form/form-input/index.js:70
-msgid "Phone"
-msgstr ""
-
-#: build/form/form-control/index.js:1
 #: includes/blocks/form/form-control/index.js:213
 msgid "Control"
 msgstr ""
@@ -759,11 +1155,11 @@ msgid "Value"
 msgstr ""
 
 #: build/form/form-control/index.js:1
-msgid "Autocomplete (navegador)"
+msgid "Autocomplete (browser)"
 msgstr ""
 
 #: build/form/form-control/index.js:1
-msgid "Atributo autocomplete do HTML: o navegador sugere dados salvos."
+msgid "HTML autocomplete attribute: the browser suggests saved data."
 msgstr ""
 
 #: build/form/form-control/index.js:1
@@ -775,10 +1171,6 @@ msgid "Choose…"
 msgstr ""
 
 #: build/form/form-control/index.js:1
-msgid "Revendas"
-msgstr ""
-
-#: build/form/form-control/index.js:1
 msgid "Label template"
 msgstr ""
 
@@ -787,11 +1179,11 @@ msgid "Tokens: [post_title], [tax:cidades], [tax:estados:uf], [meta:key]"
 msgstr ""
 
 #: build/form/form-control/index.js:1
-msgid "Aceitar \"Não encontrada\""
+msgid "Allow \"Not found\""
 msgstr ""
 
 #: build/form/form-control/index.js:1
-msgid "Mostra a opção e um campo de texto livre para quem não encontrar."
+msgid "Shows the option and a free text field for whoever does not find it."
 msgstr ""
 
 #: build/form/form-control/index.js:1
@@ -939,38 +1331,6 @@ msgid "A hidden input field."
 msgstr ""
 
 #: build/form/form-fieldset/index.js:1
-msgid "Simples"
-msgstr ""
-
-#: build/form/form-fieldset/index.js:1
-msgid "Campos em um bloco simples, sem layout definido."
-msgstr ""
-
-#: build/form/form-fieldset/index.js:1
-msgid "Linha"
-msgstr ""
-
-#: build/form/form-fieldset/index.js:1
-msgid "Campos lado a lado, em uma linha."
-msgstr ""
-
-#: build/form/form-fieldset/index.js:1
-msgid "Coluna"
-msgstr ""
-
-#: build/form/form-fieldset/index.js:1
-msgid "Campos empilhados, em uma coluna."
-msgstr ""
-
-#: build/form/form-fieldset/index.js:1
-msgid "Grade"
-msgstr ""
-
-#: build/form/form-fieldset/index.js:1
-msgid "Campos em uma grade."
-msgstr ""
-
-#: build/form/form-fieldset/index.js:1
 #: includes/blocks/form/form-fieldset/index.js:87
 msgid "Remove legend"
 msgstr ""
@@ -985,18 +1345,6 @@ msgstr ""
 msgid "Legend…"
 msgstr ""
 
-#: build/form/form-group/index.js:1
-msgid "Settings"
-msgstr ""
-
-#: build/form/form-group/index.js:1
-msgid "Largura"
-msgstr ""
-
-#: build/form/form-group/index.js:1
-msgid "Definir valor personalizado"
-msgstr ""
-
 #: build/form/form-input/index.js:1
 #: includes/blocks/form/form-control/index.js:46
 #: includes/blocks/form/form-input/index.js:55
@@ -1004,21 +1352,9 @@ msgid "Text"
 msgstr ""
 
 #: build/form/form-input/index.js:1
-#: includes/blocks/form/form-control/index.js:47
-#: includes/blocks/form/form-input/index.js:56
-msgid "Email"
-msgstr ""
-
-#: build/form/form-input/index.js:1
 #: includes/blocks/form/form-control/index.js:48
 #: includes/blocks/form/form-input/index.js:57
 msgid "URL"
-msgstr ""
-
-#: build/form/form-input/index.js:1
-#: includes/blocks/form/form-control/index.js:49
-#: includes/blocks/form/form-input/index.js:58
-msgid "Number"
 msgstr ""
 
 #: build/form/form-input/index.js:1
@@ -1031,12 +1367,6 @@ msgstr ""
 #: includes/blocks/form/form-control/index.js:52
 #: includes/blocks/form/form-input/index.js:61
 msgid "Select (options)"
-msgstr ""
-
-#: build/form/form-input/index.js:1
-#: includes/blocks/form/form-control/index.js:54
-#: includes/blocks/form/form-input/index.js:63
-msgid "Hidden"
 msgstr ""
 
 #: build/form/form-input/index.js:1
@@ -1059,11 +1389,6 @@ msgstr ""
 #: includes/blocks/form/form-input/index.js:323
 #: includes/blocks/form/form-label/index.js:93
 msgid "Field label…"
-msgstr ""
-
-#: build/form/form-input/index.js:1
-#: includes/blocks/form/form-input/index.js:335
-msgid "Field"
 msgstr ""
 
 #: build/form/form-input/index.js:1
@@ -1170,11 +1495,7 @@ msgid "Keeps the label readable by screen readers while hiding it visually — u
 msgstr ""
 
 #: build/form/form-label/index.js:1
-msgid "Obrigatório"
-msgstr ""
-
-#: build/form/form-label/index.js:1
-msgid "Exibe indicação que o input relacionado é required."
+msgid "Shows that the related input is required."
 msgstr ""
 
 #: build/form/form-select/index.js:1
@@ -1186,7 +1507,7 @@ msgid "Options"
 msgstr ""
 
 #: build/form/form-select/index.js:1
-msgid "Uma por linha: rótulo|valor (sem | usa o rótulo como valor)."
+msgid "One per line: label|value (without |, the label is the value)."
 msgstr ""
 
 #: build/form/form-submission-notification/index.js:1
@@ -1206,7 +1527,7 @@ msgid "Submission error notification"
 msgstr ""
 
 #: build/form/form-text/index.js:1
-msgid "Texto de ajuda…"
+msgid "Help text…"
 msgstr ""
 
 #: build/inline-icon/index.js:1
@@ -1227,10 +1548,6 @@ msgstr ""
 
 #: build/inline-icon/index.js:1
 msgid "Inline icon"
-msgstr ""
-
-#: build/reveal/index.js:1
-msgid "None"
 msgstr ""
 
 #: build/reveal/index.js:1
@@ -1323,12 +1640,14 @@ msgstr ""
 
 #: build/chapters/chapter/block.json
 #: includes/blocks/chapters/chapter/block.json
+#: src/chapters/chapter/block.json
 msgctxt "block title"
 msgid "Atelier Chapter"
 msgstr ""
 
 #: build/chapters/chapter/block.json
 #: includes/blocks/chapters/chapter/block.json
+#: src/chapters/chapter/block.json
 msgctxt "block description"
 msgid "One numbered chapter. The 'Capítulo NN' prefix is generated automatically (CSS counter, not stored text) — reordering chapters in the editor renumbers them without editing any content. Only the label after the number, and the chapter's own content, are stored."
 msgstr ""
@@ -1337,44 +1656,43 @@ msgstr ""
 #: build/chapters/chapters/block.json
 #: includes/blocks/chapters/chapter/block.json
 #: includes/blocks/chapters/chapters/block.json
+#: src/chapters/chapter/block.json
+#: src/chapters/chapters/block.json
 msgctxt "block keyword"
 msgid "chapter"
 msgstr ""
 
-#: build/chapters/chapter/block.json
-#: build/chapters/chapters/block.json
-#: includes/blocks/chapters/chapter/block.json
-#: includes/blocks/chapters/chapters/block.json
-msgctxt "block keyword"
-msgid "capítulo"
-msgstr ""
-
 #: build/chapters/chapters/block.json
 #: includes/blocks/chapters/chapters/block.json
+#: src/chapters/chapters/block.json
 msgctxt "block title"
 msgid "Atelier Chapters"
 msgstr ""
 
 #: build/chapters/chapters/block.json
 #: includes/blocks/chapters/chapters/block.json
+#: src/chapters/chapters/block.json
 msgctxt "block description"
 msgid "Groups the page's numbered chapters (axellcore/chapter) and establishes the auto-numbering scope — reordering, adding, or removing a chapter renumbers the rest automatically (CSS counter, not stored text)."
 msgstr ""
 
 #: build/chapters/chapters/block.json
 #: includes/blocks/chapters/chapters/block.json
+#: src/chapters/chapters/block.json
 msgctxt "block keyword"
 msgid "numbering"
 msgstr ""
 
 #: build/form/form-atelier/block.json
+#: src/form/form-atelier/block.json
 msgctxt "block title"
 msgid "Form Atelier"
 msgstr ""
 
 #: build/form/form-atelier/block.json
+#: src/form/form-atelier/block.json
 msgctxt "block description"
-msgid "Formulário de adesão do Atelier Axell Club: grava cada envio como cadastro de membro e já vem com todos os campos e textos."
+msgid "Atelier Axell Club application form: saves each submission as a member registration and comes with every field and text."
 msgstr ""
 
 #: build/form/form-atelier/block.json
@@ -1403,64 +1721,97 @@ msgstr ""
 #: includes/blocks/form/form-label/block.json
 #: includes/blocks/form/form-submission-notification/block.json
 #: includes/blocks/form/form/block.json
+#: src/form/form-atelier/block.json
+#: src/form/form-check/block.json
+#: src/form/form-control-br-revenue-id-legal/block.json
+#: src/form/form-control-br-revenue-id-person/block.json
+#: src/form/form-control-br-revenue-id/block.json
+#: src/form/form-control-city/block.json
+#: src/form/form-control-country/block.json
+#: src/form/form-control-phone/block.json
+#: src/form/form-control-postal/block.json
+#: src/form/form-control-reseller/block.json
+#: src/form/form-control-state/block.json
+#: src/form/form-control/block.json
+#: src/form/form-fieldset/block.json
+#: src/form/form-group/block.json
+#: src/form/form-input/block.json
+#: src/form/form-label/block.json
+#: src/form/form-select/block.json
+#: src/form/form-submission-notification/block.json
+#: src/form/form-text/block.json
+#: src/form/form/block.json
 msgctxt "block keyword"
 msgid "form"
 msgstr ""
 
 #: build/form/form-atelier/block.json
+#: src/form/form-atelier/block.json
 msgctxt "block keyword"
 msgid "atelier"
 msgstr ""
 
 #: build/form/form-atelier/block.json
 #: includes/blocks/form/form/block.json
+#: src/form/form-atelier/block.json
 msgctxt "block keyword"
-msgid "adesão"
+msgid "application"
 msgstr ""
 
 #: build/form/form-atelier/block.json
+#: src/form/form-atelier/block.json
 msgctxt "block keyword"
-msgid "membro"
+msgid "member"
 msgstr ""
 
 #: build/form/form-check/block.json
+#: src/form/form-check/block.json
 msgctxt "block title"
 msgid "Form Check"
 msgstr ""
 
 #: build/form/form-check/block.json
+#: src/form/form-check/block.json
 msgctxt "block description"
 msgid "A checkbox with its own label text (links allowed), such as a consent or terms acceptance. Stands alone: it does not sit in an axell/form-group."
 msgstr ""
 
 #: build/form/form-check/block.json
+#: src/form/form-check/block.json
 msgctxt "block keyword"
 msgid "checkbox"
 msgstr ""
 
 #: build/form/form-check/block.json
+#: src/form/form-check/block.json
 msgctxt "block keyword"
 msgid "consent"
 msgstr ""
 
 #: build/form/form-check/block.json
+#: src/form/form-check/block.json
 msgctxt "block keyword"
 msgid "check"
 msgstr ""
 
 #: build/form/form-control-br-revenue-id-legal/block.json
+#: src/form/form-control-br-revenue-id-legal/block.json
 msgctxt "block title"
 msgid "Form Control (CNPJ)"
 msgstr ""
 
 #: build/form/form-control-br-revenue-id-legal/block.json
+#: src/form/form-control-br-revenue-id-legal/block.json
 msgctxt "block description"
-msgid "Campo de CNPJ (pessoa jurídica), com máscara de CNPJ."
+msgid "CNPJ field (company), with the CNPJ mask."
 msgstr ""
 
 #: build/form/form-control-br-revenue-id-legal/block.json
 #: build/form/form-control-br-revenue-id-person/block.json
 #: build/form/form-control-br-revenue-id/block.json
+#: src/form/form-control-br-revenue-id-legal/block.json
+#: src/form/form-control-br-revenue-id-person/block.json
+#: src/form/form-control-br-revenue-id/block.json
 msgctxt "block keyword"
 msgid "cpf"
 msgstr ""
@@ -1468,6 +1819,9 @@ msgstr ""
 #: build/form/form-control-br-revenue-id-legal/block.json
 #: build/form/form-control-br-revenue-id-person/block.json
 #: build/form/form-control-br-revenue-id/block.json
+#: src/form/form-control-br-revenue-id-legal/block.json
+#: src/form/form-control-br-revenue-id-person/block.json
+#: src/form/form-control-br-revenue-id/block.json
 msgctxt "block keyword"
 msgid "cnpj"
 msgstr ""
@@ -1475,172 +1829,220 @@ msgstr ""
 #: build/form/form-control-br-revenue-id-legal/block.json
 #: build/form/form-control-br-revenue-id-person/block.json
 #: build/form/form-control-br-revenue-id/block.json
+#: src/form/form-control-br-revenue-id-legal/block.json
+#: src/form/form-control-br-revenue-id-person/block.json
+#: src/form/form-control-br-revenue-id/block.json
 msgctxt "block keyword"
-msgid "documento"
+msgid "document"
 msgstr ""
 
 #: build/form/form-control-br-revenue-id-person/block.json
+#: src/form/form-control-br-revenue-id-person/block.json
 msgctxt "block title"
 msgid "Form Control (CPF)"
 msgstr ""
 
 #: build/form/form-control-br-revenue-id-person/block.json
+#: src/form/form-control-br-revenue-id-person/block.json
 msgctxt "block description"
-msgid "Campo de CPF (pessoa física), com máscara de CPF."
+msgid "CPF field (individual), with the CPF mask."
 msgstr ""
 
 #: build/form/form-control-br-revenue-id/block.json
+#: src/form/form-control-br-revenue-id/block.json
 msgctxt "block title"
-msgid "Form Control (CPF ou CNPJ)"
+msgid "Form Control (CPF or CNPJ)"
 msgstr ""
 
 #: build/form/form-control-br-revenue-id/block.json
+#: src/form/form-control-br-revenue-id/block.json
 msgctxt "block description"
-msgid "Campo de CPF ou CNPJ, com máscara brasileira."
+msgid "CPF or CNPJ field, with the Brazilian mask."
 msgstr ""
 
 #: build/form/form-control-city/block.json
+#: src/form/form-control-city/block.json
 msgctxt "block title"
-msgid "Form Control (Cidade)"
+msgid "Form Control (City)"
 msgstr ""
 
 #: build/form/form-control-city/block.json
+#: src/form/form-control-city/block.json
 msgctxt "block description"
-msgid "Cidade: lista pela UF no Brasil; texto livre nos EUA e em outros países."
+msgid "City: a list by state in Brazil; free text in the US and other countries."
 msgstr ""
 
 #: build/form/form-control-city/block.json
 #: build/form/form-control-country/block.json
 #: build/form/form-control-postal/block.json
 #: build/form/form-control-state/block.json
+#: src/form/form-control-city/block.json
+#: src/form/form-control-country/block.json
+#: src/form/form-control-postal/block.json
+#: src/form/form-control-state/block.json
 msgctxt "block keyword"
-msgid "endereço"
+msgid "address"
 msgstr ""
 
 #: build/form/form-control-city/block.json
 #: build/form/form-control-country/block.json
 #: build/form/form-control-postal/block.json
 #: build/form/form-control-state/block.json
+#: src/form/form-control-city/block.json
+#: src/form/form-control-country/block.json
+#: src/form/form-control-postal/block.json
+#: src/form/form-control-state/block.json
 msgctxt "block keyword"
-msgid "país"
+msgid "country"
 msgstr ""
 
 #: build/form/form-control-city/block.json
 #: build/form/form-control-country/block.json
 #: build/form/form-control-postal/block.json
 #: build/form/form-control-state/block.json
+#: src/form/form-control-city/block.json
+#: src/form/form-control-country/block.json
+#: src/form/form-control-postal/block.json
+#: src/form/form-control-state/block.json
 msgctxt "block keyword"
-msgid "estado"
+msgid "state"
 msgstr ""
 
 #: build/form/form-control-city/block.json
 #: build/form/form-control-country/block.json
 #: build/form/form-control-postal/block.json
 #: build/form/form-control-state/block.json
+#: src/form/form-control-city/block.json
+#: src/form/form-control-country/block.json
+#: src/form/form-control-postal/block.json
+#: src/form/form-control-state/block.json
 msgctxt "block keyword"
-msgid "cidade"
+msgid "city"
 msgstr ""
 
 #: build/form/form-control-city/block.json
 #: build/form/form-control-country/block.json
 #: build/form/form-control-postal/block.json
 #: build/form/form-control-state/block.json
+#: src/form/form-control-city/block.json
+#: src/form/form-control-country/block.json
+#: src/form/form-control-postal/block.json
+#: src/form/form-control-state/block.json
 msgctxt "block keyword"
-msgid "cep"
+msgid "zip"
 msgstr ""
 
 #: build/form/form-control-country/block.json
+#: src/form/form-control-country/block.json
 msgctxt "block title"
-msgid "Form Control (País)"
+msgid "Form Control (Country)"
 msgstr ""
 
 #: build/form/form-control-country/block.json
+#: src/form/form-control-country/block.json
 msgctxt "block description"
-msgid "Seleção de país: Brasil (BR), Estados Unidos (US) ou Outro (sem definir)."
+msgid "Country select: Brazil (BR), United States (US) or Other (unset)."
 msgstr ""
 
 #: build/form/form-control-phone/block.json
+#: src/form/form-control-phone/block.json
 msgctxt "block title"
-msgid "Form Control (Telefone)"
+msgid "Form Control (Phone)"
 msgstr ""
 
 #: build/form/form-control-phone/block.json
+#: src/form/form-control-phone/block.json
 msgctxt "block description"
-msgid "Telefone com máscara conforme o país (Brasil, EUA ou outro)."
+msgid "Phone with the mask of its country (Brazil, US or other)."
 msgstr ""
 
 #: build/form/form-control-phone/block.json
+#: src/form/form-control-phone/block.json
 msgctxt "block keyword"
-msgid "telefone"
+msgid "telephone"
 msgstr ""
 
 #: build/form/form-control-phone/block.json
+#: src/form/form-control-phone/block.json
 msgctxt "block keyword"
 msgid "phone"
 msgstr ""
 
 #: build/form/form-control-phone/block.json
+#: src/form/form-control-phone/block.json
 msgctxt "block keyword"
 msgid "tel"
 msgstr ""
 
 #: build/form/form-control-postal/block.json
+#: src/form/form-control-postal/block.json
 msgctxt "block title"
-msgid "Form Control (CEP / ZIP)"
+msgid "Form Control (Postal code / ZIP)"
 msgstr ""
 
 #: build/form/form-control-postal/block.json
+#: src/form/form-control-postal/block.json
 msgctxt "block description"
-msgid "CEP ou ZIP code: máscara conforme o país."
+msgid "Postal or ZIP code: the mask of its country."
 msgstr ""
 
 #: build/form/form-control-reseller/block.json
+#: src/form/form-control-reseller/block.json
 msgctxt "block title"
-msgid "Form Control (revenda)"
+msgid "Form Control (Reseller)"
 msgstr ""
 
 #: build/form/form-control-reseller/block.json
+#: src/form/form-control-reseller/block.json
 msgctxt "block description"
-msgid "Campo de busca de revendas: escolhe uma revenda cadastrada ou adiciona uma nova (Nome, UF e Cidade)."
+msgid "Reseller search field: picks a registered reseller or adds a new one (Name, State and City)."
 msgstr ""
 
 #: build/form/form-control-reseller/block.json
+#: src/form/form-control-reseller/block.json
 msgctxt "block keyword"
-msgid "revenda"
+msgid "reseller"
 msgstr ""
 
 #: build/form/form-control-reseller/block.json
+#: src/form/form-control-reseller/block.json
 msgctxt "block keyword"
-msgid "revendas"
+msgid "resellers"
 msgstr ""
 
 #: build/form/form-control-reseller/block.json
+#: src/form/form-control-reseller/block.json
 msgctxt "block keyword"
-msgid "loja"
+msgid "store"
 msgstr ""
 
 #: build/form/form-control-reseller/block.json
+#: src/form/form-control-reseller/block.json
 msgctxt "block keyword"
 msgid "autocomplete"
 msgstr ""
 
 #: build/form/form-control-state/block.json
+#: src/form/form-control-state/block.json
 msgctxt "block title"
-msgid "Form Control (Estado)"
+msgid "Form Control (State)"
 msgstr ""
 
 #: build/form/form-control-state/block.json
+#: src/form/form-control-state/block.json
 msgctxt "block description"
-msgid "Estado: lista de UFs no Brasil ou de estados nos EUA; texto livre para outro país."
+msgid "State: a list of states in Brazil or the US; free text for another country."
 msgstr ""
 
 #: build/form/form-control/block.json
 #: includes/blocks/form/form-control/block.json
+#: src/form/form-control/block.json
 msgctxt "block title"
 msgid "Form Control"
 msgstr ""
 
 #: build/form/form-control/block.json
+#: src/form/form-control/block.json
 msgctxt "block description"
 msgid "The actual input/select/textarea of a form field — text, email, tel, number, textarea, select, or hidden, with optional input masking (CPF/CNPJ, CEP, phone). Pair with an axell/form-label sibling (same id/for) for the visible label — see this plugin's CLAUDE.md."
 msgstr ""
@@ -1649,6 +2051,8 @@ msgstr ""
 #: build/form/form-input/block.json
 #: includes/blocks/form/form-control/block.json
 #: includes/blocks/form/form-input/block.json
+#: src/form/form-control/block.json
+#: src/form/form-input/block.json
 msgctxt "block keyword"
 msgid "input"
 msgstr ""
@@ -1656,6 +2060,8 @@ msgstr ""
 #: build/form/form-control/block.json
 #: build/form/form-group/block.json
 #: includes/blocks/form/form-control/block.json
+#: src/form/form-control/block.json
+#: src/form/form-group/block.json
 msgctxt "block keyword"
 msgid "control"
 msgstr ""
@@ -1668,29 +2074,38 @@ msgstr ""
 #: includes/blocks/form/form-control/block.json
 #: includes/blocks/form/form-input/block.json
 #: includes/blocks/form/form-label/block.json
+#: src/form/form-control/block.json
+#: src/form/form-group/block.json
+#: src/form/form-input/block.json
+#: src/form/form-label/block.json
+#: src/form/form-select/block.json
 msgctxt "block keyword"
 msgid "field"
 msgstr ""
 
 #: build/form/form-fieldset/block.json
+#: src/form/form-fieldset/block.json
 msgctxt "block title"
 msgid "Fieldset"
 msgstr ""
 
 #: build/form/form-fieldset/block.json
 #: includes/blocks/form/form-fieldset/block.json
+#: src/form/form-fieldset/block.json
 msgctxt "block description"
 msgid "Groups a set of related form fields inside a real <fieldset>, with an optional <legend>."
 msgstr ""
 
 #: build/form/form-fieldset/block.json
 #: includes/blocks/form/form-fieldset/block.json
+#: src/form/form-fieldset/block.json
 msgctxt "block keyword"
 msgid "fieldset"
 msgstr ""
 
 #: build/form/form-fieldset/block.json
 #: includes/blocks/form/form-fieldset/block.json
+#: src/form/form-fieldset/block.json
 msgctxt "block keyword"
 msgid "legend"
 msgstr ""
@@ -1698,186 +2113,217 @@ msgstr ""
 #: build/form/form-fieldset/block.json
 #: build/form/form-group/block.json
 #: includes/blocks/form/form-fieldset/block.json
+#: src/form/form-fieldset/block.json
+#: src/form/form-group/block.json
 msgctxt "block keyword"
 msgid "group"
 msgstr ""
 
 #: build/form/form-group/block.json
+#: src/form/form-group/block.json
 msgctxt "block title"
 msgid "Form Group"
 msgstr ""
 
 #: build/form/form-group/block.json
+#: src/form/form-group/block.json
 msgctxt "block description"
-msgid "A form field: an axell/form-label and an axell/form-control (or axell/form-select), inserted together, with an optional axell/form-text. Other blocks can't be inserted inside it."
+msgid "A form field: an axell/form-label and an axell/form-control (or axell/form-select), inserted together, with an optional axell/form-text. A plain block: its width comes from the layout around it (a core/group grid in the fieldset)."
 msgstr ""
 
 #: build/form/form-group/block.json
 #: build/form/form-label/block.json
 #: includes/blocks/form/form-label/block.json
+#: src/form/form-group/block.json
+#: src/form/form-label/block.json
 msgctxt "block keyword"
 msgid "label"
 msgstr ""
 
 #: build/form/form-input/block.json
 #: includes/blocks/form/form-input/block.json
+#: src/form/form-input/block.json
 msgctxt "block title"
 msgid "Atelier Form Field"
 msgstr ""
 
 #: build/form/form-input/block.json
 #: includes/blocks/form/form-input/block.json
+#: src/form/form-input/block.json
 msgctxt "block description"
 msgid "Deprecated — superseded by axell/form-label + axell/form-control (see this plugin's CLAUDE.md). Kept registered, hidden from the inserter, so any pre-existing content using it keeps rendering/editing correctly."
 msgstr ""
 
 #: build/form/form-label/block.json
+#: src/form/form-label/block.json
 msgctxt "block title"
 msgid "Label"
 msgstr ""
 
 #: build/form/form-label/block.json
 #: includes/blocks/form/form-label/block.json
+#: src/form/form-label/block.json
 msgctxt "block description"
 msgid "A form field's label, associated with its axell/form-control sibling via a matching id/for pair. Can be visually hidden (still read by screen readers) via the \"Visually hidden\" toggle. A required-field asterisk, if wanted, is just part of the label's own text content (e.g. embed a styled span directly) — not a separate attribute."
 msgstr ""
 
 #: build/form/form-select/block.json
+#: src/form/form-select/block.json
 msgctxt "block title"
 msgid "Form Select"
 msgstr ""
 
 #: build/form/form-select/block.json
+#: src/form/form-select/block.json
 msgctxt "block description"
 msgid "A select field with a list of options, placed inside an axell/form-group next to its axell/form-label."
 msgstr ""
 
 #: build/form/form-select/block.json
+#: src/form/form-select/block.json
 msgctxt "block keyword"
 msgid "select"
 msgstr ""
 
 #: build/form/form-select/block.json
+#: src/form/form-select/block.json
 msgctxt "block keyword"
 msgid "dropdown"
 msgstr ""
 
 #: build/form/form-select/block.json
+#: src/form/form-select/block.json
 msgctxt "block keyword"
 msgid "options"
 msgstr ""
 
 #: build/form/form-submission-notification/block.json
 #: includes/blocks/form/form-submission-notification/block.json
+#: src/form/form-submission-notification/block.json
 msgctxt "block title"
 msgid "Atelier Form Notification"
 msgstr ""
 
 #: build/form/form-submission-notification/block.json
 #: includes/blocks/form/form-submission-notification/block.json
+#: src/form/form-submission-notification/block.json
 msgctxt "block description"
 msgid "A success or error message shown after the application form is submitted via REST. Starts hidden; assets/js/frontend.js toggles it visible based on the fetch() result — see this plugin's CLAUDE.md for why this differs from Gutenberg's removed core/form-submission-notification block (which relied on a full-page reload + ?wp-form-result= GET param)."
 msgstr ""
 
 #: build/form/form-submission-notification/block.json
 #: includes/blocks/form/form-submission-notification/block.json
+#: src/form/form-submission-notification/block.json
 msgctxt "block keyword"
 msgid "notification"
 msgstr ""
 
 #: build/form/form-submission-notification/block.json
 #: includes/blocks/form/form-submission-notification/block.json
+#: src/form/form-submission-notification/block.json
 msgctxt "block keyword"
 msgid "feedback"
 msgstr ""
 
 #: build/form/form-submission-notification/block.json
 #: includes/blocks/form/form-submission-notification/block.json
+#: src/form/form-submission-notification/block.json
 msgctxt "block keyword"
 msgid "message"
 msgstr ""
 
 #: build/form/form-text/block.json
+#: src/form/form-text/block.json
 msgctxt "block title"
 msgid "Form Text"
 msgstr ""
 
 #: build/form/form-text/block.json
+#: src/form/form-text/block.json
 msgctxt "block description"
 msgid "Help text for a form field: a paragraph (rich text, links allowed) placed inside an axell/form-group."
 msgstr ""
 
 #: build/form/form-text/block.json
+#: src/form/form-text/block.json
 msgctxt "block keyword"
 msgid "text"
 msgstr ""
 
 #: build/form/form-text/block.json
+#: src/form/form-text/block.json
 msgctxt "block keyword"
 msgid "help"
 msgstr ""
 
 #: build/form/form-text/block.json
+#: src/form/form-text/block.json
 msgctxt "block keyword"
 msgid "hint"
 msgstr ""
 
 #: build/form/form-text/block.json
+#: src/form/form-text/block.json
 msgctxt "block keyword"
 msgid "paragraph"
 msgstr ""
 
 #: build/form/form/block.json
+#: src/form/form/block.json
 msgctxt "block title"
 msgid "Form"
 msgstr ""
 
 #: build/form/form/block.json
+#: src/form/form/block.json
 msgctxt "block description"
-msgid "Formulário de blocos com ações de envio opcionais: gravar como post de um tipo escolhido e enviar e-mail."
+msgid "Block form with optional submission actions: save as a post of a chosen type and send an email."
 msgstr ""
 
 #: build/form/form/block.json
+#: src/form/form/block.json
 msgctxt "block keyword"
-msgid "formulário"
-msgstr ""
-
-#: build/form/form/block.json
-msgctxt "block keyword"
-msgid "contato"
+msgid "contact"
 msgstr ""
 
 #: build/sticky-header/block.json
+#: src/sticky-header/block.json
 msgctxt "block title"
 msgid "Sticky Header"
 msgstr ""
 
 #: build/sticky-header/block.json
+#: src/sticky-header/block.json
 msgctxt "block description"
 msgid "A group that stays fixed at the top of the viewport and changes its padding and background once the page scrolls past 40px. Its inner blocks are the header content."
 msgstr ""
 
 #: build/sticky-header/block.json
+#: src/sticky-header/block.json
 msgctxt "block keyword"
 msgid "header"
 msgstr ""
 
 #: build/sticky-header/block.json
+#: src/sticky-header/block.json
 msgctxt "block keyword"
 msgid "sticky"
 msgstr ""
 
 #: build/sticky-header/block.json
+#: src/sticky-header/block.json
 msgctxt "block keyword"
 msgid "fixed"
 msgstr ""
 
 #: build/sticky-header/block.json
+#: src/sticky-header/block.json
 msgctxt "block keyword"
 msgid "navigation"
 msgstr ""
 
 #: build/sticky-header/block.json
+#: src/sticky-header/block.json
 msgctxt "block keyword"
 msgid "nav"
 msgstr ""
@@ -1905,9 +2351,4 @@ msgstr ""
 #: includes/blocks/form/form/block.json
 msgctxt "block description"
 msgid "Self-contained <form> wrapper for the Atelier Axell Club application form. Submits to the plugin's REST endpoint, which creates an aa_member post and resolves its Country/State/City taxonomy term."
-msgstr ""
-
-#: includes/blocks/form/form/block.json
-msgctxt "block keyword"
-msgid "application"
 msgstr ""

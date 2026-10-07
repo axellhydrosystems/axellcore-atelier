@@ -18,7 +18,7 @@ export default function Edit( { attributes, setAttributes }: BlockEditProps< Add
 	return (
 		<>
 			<InspectorControls>
-				<PanelBody title={ __( 'Campo', 'axellcore-atelierclub' ) } initialOpen>
+				<PanelBody title={ __( 'Field', 'axellcore-atelierclub' ) } initialOpen>
 					<TextControl
 						label={ __( 'ID', 'axellcore-atelierclub' ) }
 						value={ attributes.id }
@@ -35,16 +35,16 @@ export default function Edit( { attributes, setAttributes }: BlockEditProps< Add
 						onChange={ ( value: string ) => setAttributes( { placeholder: value } ) }
 					/>
 					<TextControl
-						label={ __( 'Campo do estado (name)', 'axellcore-atelierclub' ) }
+						label={ __( 'State field (name)', 'axellcore-atelierclub' ) }
 						value={ ( attributes.stateField as string ) || '' }
 						onChange={ ( value: string ) => setAttributes( { stateField: value } ) }
 					/>
 					<SelectControl
-						label={ __( 'País definido por', 'axellcore-atelierclub' ) }
+						label={ __( 'Country set by', 'axellcore-atelierclub' ) }
 						value={ ( attributes.countrySource as string ) || 'field' }
 						options={ [
-							{ label: __( 'Campo', 'axellcore-atelierclub' ), value: 'field' },
-							{ label: __( 'Seleção', 'axellcore-atelierclub' ), value: 'select' },
+							{ label: __( 'Field', 'axellcore-atelierclub' ), value: 'field' },
+							{ label: __( 'Selection', 'axellcore-atelierclub' ), value: 'select' },
 						] as { label: string; value: string }[] }
 						onChange={ ( value: string ) =>
 							setAttributes( value === 'select'
@@ -54,25 +54,25 @@ export default function Edit( { attributes, setAttributes }: BlockEditProps< Add
 					/>
 					{ ( attributes.countrySource || 'field' ) === 'field' ? (
 						<TextControl
-							label={ __( 'Campo do país (name)', 'axellcore-atelierclub' ) }
+							label={ __( 'Country field (name)', 'axellcore-atelierclub' ) }
 							value={ ( attributes.countryField as string ) || '' }
 							onChange={ ( value: string ) => setAttributes( { countryField: value } ) }
 						/>
 					) : (
 						<SelectControl
-							label={ __( 'País', 'axellcore-atelierclub' ) }
+							label={ __( 'Country', 'axellcore-atelierclub' ) }
 							value={ chosenCountry( attributes.country as string | undefined ) }
 							options={ [
 								{ label: 'Brasil', value: 'BR' },
 								{ label: 'Estados Unidos', value: 'US' },
-								{ label: __( 'Outro', 'axellcore-atelierclub' ), value: '' },
+								{ label: __( 'Other', 'axellcore-atelierclub' ), value: '' },
 							] as { label: string; value: string }[] }
 							onChange={ ( value: string ) => setAttributes( { country: value } ) }
 						/>
 					) }
 					<ToggleControl
-						label={ __( 'Busca com autocomplete', 'axellcore-atelierclub' ) }
-						help={ __( 'No Brasil, digita-se o nome e escolhe-se a cidade da UF numa lista filtrada, em vez de um select.', 'axellcore-atelierclub' ) }
+						label={ __( 'Autocomplete search', 'axellcore-atelierclub' ) }
+						help={ __( 'In Brazil, the name is typed and the city is picked from a filtered list of the state\'s cities, instead of a select.', 'axellcore-atelierclub' ) }
 						checked={ !! attributes.searchable }
 						onChange={ ( value: boolean ) => setAttributes( { searchable: value } ) }
 					/>

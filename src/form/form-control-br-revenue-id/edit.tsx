@@ -10,7 +10,7 @@ export default function Edit( { attributes, setAttributes }: BlockEditProps< BrD
 	return (
 		<>
 			<InspectorControls>
-				<PanelBody title={ __( 'Campo', 'axellcore-atelierclub' ) } initialOpen>
+				<PanelBody title={ __( 'Field', 'axellcore-atelierclub' ) } initialOpen>
 					<TextControl
 						label={ __( 'ID', 'axellcore-atelierclub' ) }
 						value={ attributes.id }
@@ -18,7 +18,7 @@ export default function Edit( { attributes, setAttributes }: BlockEditProps< BrD
 					/>
 					<TextControl
 						label={ __( 'Name (name attribute)', 'axellcore-atelierclub' ) }
-						help={ __( 'Em branco usa o ID.', 'axellcore-atelierclub' ) }
+						help={ __( 'Empty uses the ID.', 'axellcore-atelierclub' ) }
 						value={ attributes.name }
 						onChange={ ( value: string ) => setAttributes( { name: value } ) }
 					/>
@@ -33,8 +33,8 @@ export default function Edit( { attributes, setAttributes }: BlockEditProps< BrD
 						onChange={ ( value: boolean ) => setAttributes( { required: value } ) }
 					/>
 					<TextControl
-						label={ __( 'Campo do tipo (name)', 'axellcore-atelierclub' ) }
-						help={ __( 'Name do campo que define CPF ou CNPJ (valores cpf ou cnpj), por exemplo tipoDoc. Em branco, o tipo sai pelo tamanho do número.', 'axellcore-atelierclub' ) }
+						label={ __( 'Type field (name)', 'axellcore-atelierclub' ) }
+						help={ __( 'Name of the field that sets CPF or CNPJ (values cpf or cnpj), for example tipoDoc. Empty: the type comes from the number\'s length.', 'axellcore-atelierclub' ) }
 						value={ attributes.typeField || '' }
 						onChange={ ( value: string ) => setAttributes( { typeField: value } ) }
 					/>

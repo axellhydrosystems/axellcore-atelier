@@ -2,13 +2,13 @@
   "$schema": "https://schemas.wp.org/trunk/block.json",
   "apiVersion": 3,
   "name": "axell/form-control-br-revenue-id",
-  "title": "Form Control (CPF ou CNPJ)",
+  "title": "Form Control (CPF or CNPJ)",
   "category": "text",
-  "description": "Campo de CPF ou CNPJ, com máscara brasileira.",
+  "description": "CPF or CNPJ field, with the Brazilian mask.",
   "keywords": [
     "cpf",
     "cnpj",
-    "documento",
+    "document",
     "form"
   ],
   "textdomain": "axellcore-atelierclub",

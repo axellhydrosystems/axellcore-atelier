@@ -2,13 +2,13 @@
   "$schema": "https://schemas.wp.org/trunk/block.json",
   "apiVersion": 3,
   "name": "axell/form-control-reseller",
-  "title": "Form Control (revenda)",
+  "title": "Form Control (Reseller)",
   "category": "text",
-  "description": "Campo de busca de revendas: escolhe uma revenda cadastrada ou adiciona uma nova (Nome, UF e Cidade).",
+  "description": "Reseller search field: picks a registered reseller or adds a new one (Name, State and City).",
   "keywords": [
-    "revenda",
-    "revendas",
-    "loja",
+    "reseller",
+    "resellers",
+    "store",
     "autocomplete",
     "form"
   ],

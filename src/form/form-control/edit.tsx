@@ -95,8 +95,8 @@ export default function Edit( {
 					) }
 					{ attributes.type !== 'hidden' && attributes.type !== 'autocomplete' && (
 						<SelectControl
-							label={ __( 'Autocomplete (navegador)', 'axellcore-atelierclub' ) }
-							help={ __( 'Atributo autocomplete do HTML: o navegador sugere dados salvos.', 'axellcore-atelierclub' ) }
+							label={ __( 'Autocomplete (browser)', 'axellcore-atelierclub' ) }
+							help={ __( 'HTML autocomplete attribute: the browser suggests saved data.', 'axellcore-atelierclub' ) }
 							value={ attributes.autofill }
 							options={ [
 								{ label: __( '— none —', 'axellcore-atelierclub' ), value: '' },
@@ -144,7 +144,7 @@ export default function Edit( {
 								value={ attributes.sourcePostType }
 								options={ [
 									{ label: __( 'Choose…', 'axellcore-atelierclub' ), value: '' },
-									{ label: __( 'Revendas', 'axellcore-atelierclub' ), value: 'revendas' },
+									{ label: __( 'Resellers', 'axellcore-atelierclub' ), value: 'revendas' },
 								] as { label: string; value: string }[] }
 								onChange={ ( value: string ) =>
 									setAttributes( { sourcePostType: value } )
@@ -159,8 +159,8 @@ export default function Edit( {
 								}
 							/>
 							<ToggleControl
-								label={ __( 'Aceitar "Não encontrada"', 'axellcore-atelierclub' ) }
-								help={ __( 'Mostra a opção e um campo de texto livre para quem não encontrar.', 'axellcore-atelierclub' ) }
+								label={ __( 'Allow "Not found"', 'axellcore-atelierclub' ) }
+								help={ __( 'Shows the option and a free text field for whoever does not find it.', 'axellcore-atelierclub' ) }
 								checked={ attributes.allowNotFound }
 								onChange={ ( value: boolean ) =>
 									setAttributes( { allowNotFound: value } )

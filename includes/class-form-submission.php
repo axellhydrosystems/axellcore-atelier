@@ -82,7 +82,7 @@ final class Form_Submission {
 		$types = array(
 			array(
 				'value' => Members::STORE,
-				'label' => __( 'Membro (usuário)', 'axellcore-atelierclub' ),
+				'label' => __( 'Member (user)', 'axellcore-atelierclub' ),
 			),
 		);
 		foreach ( get_post_types( array( 'show_ui' => true ), 'objects' ) as $type ) {
@@ -286,7 +286,7 @@ final class Form_Submission {
 		$title = '' !== $settings['titleField'] && ! empty( $fields[ $settings['titleField'] ] )
 			? sanitize_text_field( $fields[ $settings['titleField'] ] )
 			/* translators: %s: date and time of the submission. */
-			: sprintf( __( 'Envio de formulário %s', 'axellcore-atelierclub' ), wp_date( 'Y-m-d H:i' ) );
+			: sprintf( __( 'Form submission %s', 'axellcore-atelierclub' ), wp_date( 'Y-m-d H:i' ) );
 
 		$post_id = wp_insert_post(
 			array(
@@ -333,7 +333,7 @@ final class Form_Submission {
 			);
 		};
 
-		$subject = $replace( '' !== $settings['emailSubject'] ? $settings['emailSubject'] : __( 'Novo envio de formulário', 'axellcore-atelierclub' ) );
+		$subject = $replace( '' !== $settings['emailSubject'] ? $settings['emailSubject'] : __( 'New form submission', 'axellcore-atelierclub' ) );
 		$body    = $replace( '' !== $settings['emailBody'] ? $settings['emailBody'] : '{all_fields}' );
 
 		$headers = array();

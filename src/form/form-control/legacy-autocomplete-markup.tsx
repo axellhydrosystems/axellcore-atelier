@@ -103,15 +103,15 @@ export function autocompleteMarkup( args: AutocompleteMarkupArgs ) {
 					<input
 						type="text"
 						data-field="name"
-						aria-label={ __( 'Nome', 'axellcore-atelierclub' ) }
-						placeholder={ __( 'Nome', 'axellcore-atelierclub' ) }
+						aria-label={ __( 'Name', 'axellcore-atelierclub' ) }
+						placeholder={ __( 'Name', 'axellcore-atelierclub' ) }
 						data-wp-bind--value="context.customName"
 						data-wp-on--input="actions.onCustomInput"
 					/>
 					<button
 						type="button"
 						className="aa-ac-back"
-						aria-label={ __( 'Voltar à busca', 'axellcore-atelierclub' ) }
+						aria-label={ __( 'Back to search', 'axellcore-atelierclub' ) }
 						data-wp-on--click="actions.backToSearch"
 					>
 						<svg
@@ -131,7 +131,7 @@ export function autocompleteMarkup( args: AutocompleteMarkupArgs ) {
 					</button>
 				</div>
 				<select
-					aria-label={ __( 'UF', 'axellcore-atelierclub' ) }
+					aria-label={ __( 'State code', 'axellcore-atelierclub' ) }
 					data-wp-bind--value="context.customUf"
 					data-wp-on--change="actions.onCustomUf"
 				>
@@ -143,14 +143,14 @@ export function autocompleteMarkup( args: AutocompleteMarkupArgs ) {
 					) ) }
 				</select>
 				<select
-					aria-label={ __( 'Cidade', 'axellcore-atelierclub' ) }
+					aria-label={ __( 'City', 'axellcore-atelierclub' ) }
 					data-field="city"
 					disabled
 					data-wp-bind--disabled="!context.customUf"
 					data-wp-on--change="actions.onCustomCity"
 					data-wp-watch="callbacks.renderCities"
 				>
-					<option value="">{ __( 'Selecione UF', 'axellcore-atelierclub' ) }</option>
+					<option value="">{ __( 'Select state', 'axellcore-atelierclub' ) }</option>
 				</select>
 			</div>
 			<ul

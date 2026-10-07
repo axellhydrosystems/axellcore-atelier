@@ -15,7 +15,7 @@ export default function Edit( {
 			tagName="p"
 			value={ attributes.content }
 			onChange={ ( value: string ) => setAttributes( { content: value } ) }
-			placeholder={ __( 'Texto de ajuda…', 'axellcore-atelierclub' ) }
+			placeholder={ __( 'Help text…', 'axellcore-atelierclub' ) }
 			allowedFormats={ [ 'core/bold', 'core/italic', 'core/link' ] }
 		/>
 	);

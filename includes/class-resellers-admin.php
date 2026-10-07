@@ -97,8 +97,8 @@ final class Resellers_Admin {
 
 		$this->hook = (string) add_submenu_page(
 			$parent,
-			__( 'Revendas', 'axellcore-atelierclub' ),
-			__( 'Todas as revendas', 'axellcore-atelierclub' ),
+			__( 'Resellers', 'axellcore-atelierclub' ),
+			__( 'All resellers', 'axellcore-atelierclub' ),
 			$type->cap->edit_posts,
 			self::ADMIN_PAGE,
 			array( $this, 'render_admin_page' ),
@@ -106,8 +106,8 @@ final class Resellers_Admin {
 		);
 		add_submenu_page(
 			$parent,
-			__( 'Adicionar revenda', 'axellcore-atelierclub' ),
-			__( 'Adicionar revenda', 'axellcore-atelierclub' ),
+			__( 'Add reseller', 'axellcore-atelierclub' ),
+			__( 'Add reseller', 'axellcore-atelierclub' ),
 			$type->cap->create_posts,
 			self::ADMIN_PAGE . '&reseller=new',
 			'__return_null',
@@ -146,13 +146,13 @@ final class Resellers_Admin {
 	 */
 	public function render_admin_page() {
 		$reseller = $this->current_reseller();
-		$title    = 'new' === $reseller ? __( 'Adicionar revenda', 'axellcore-atelierclub' ) : __( 'Revendas', 'axellcore-atelierclub' );
+		$title    = 'new' === $reseller ? __( 'Add reseller', 'axellcore-atelierclub' ) : __( 'Resellers', 'axellcore-atelierclub' );
 		echo '<div class="wrap"><h1 class="wp-heading-inline">' . esc_html( $title ) . '</h1>';
 		if ( ! $reseller ) {
 			printf(
 				' <a href="%s" class="page-title-action">%s</a>',
 				esc_url( self::url( 'new' ) ),
-				esc_html__( 'Adicionar revenda', 'axellcore-atelierclub' )
+				esc_html__( 'Add reseller', 'axellcore-atelierclub' )
 			);
 		}
 		echo '<hr class="wp-header-end"></div>';

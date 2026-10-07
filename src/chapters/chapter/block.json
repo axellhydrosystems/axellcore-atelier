@@ -7,7 +7,7 @@
 	"icon": "text-page",
 	"parent": [ "axellcore/chapters" ],
 	"description": "One numbered chapter. The 'Capítulo NN' prefix is generated automatically (CSS counter, not stored text) — reordering chapters in the editor renumbers them without editing any content. Only the label after the number, and the chapter's own content, are stored.",
-	"keywords": [ "chapter", "capítulo" ],
+	"keywords": [ "chapter" ],
 	"textdomain": "axellcore-atelierclub",
 	"attributes": {
 		"label": {

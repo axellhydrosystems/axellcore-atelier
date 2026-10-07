@@ -11,7 +11,7 @@ export default function Edit( { attributes, setAttributes }: BlockEditProps< Add
 	return (
 		<>
 			<InspectorControls>
-				<PanelBody title={ __( 'Campo', 'axellcore-atelierclub' ) } initialOpen>
+				<PanelBody title={ __( 'Field', 'axellcore-atelierclub' ) } initialOpen>
 					<TextControl
 						label={ __( 'ID', 'axellcore-atelierclub' ) }
 						value={ attributes.id }
@@ -28,26 +28,26 @@ export default function Edit( { attributes, setAttributes }: BlockEditProps< Add
 						onChange={ ( value: string ) => setAttributes( { placeholder: value } ) }
 					/>
 					<SelectControl
-						label={ __( 'País', 'axellcore-atelierclub' ) }
+						label={ __( 'Country', 'axellcore-atelierclub' ) }
 						help={
 							attributes.hiddenField
-								? __( 'Valor enviado no campo oculto.', 'axellcore-atelierclub' )
-								: __( 'País já selecionado ao abrir o formulário.', 'axellcore-atelierclub' )
+								? __( 'Value sent in the hidden field.', 'axellcore-atelierclub' )
+								: __( 'Country already selected when the form opens.', 'axellcore-atelierclub' )
 						}
 						value={ ( attributes.fixed as string ) || '' }
 						options={ [
-							{ label: __( 'Nenhum', 'axellcore-atelierclub' ), value: '' },
+							{ label: __( 'None', 'axellcore-atelierclub' ), value: '' },
 							{ label: 'Brasil', value: 'BR' },
 							{ label: 'Estados Unidos', value: 'US' },
 						] as { label: string; value: string }[] }
 						onChange={ ( value: string ) => setAttributes( { fixed: value } ) }
 					/>
 					<ToggleControl
-						label={ __( 'Oculto', 'axellcore-atelierclub' ) }
+						label={ __( 'Hidden', 'axellcore-atelierclub' ) }
 						help={
 							attributes.hiddenField && ! attributes.fixed
-								? __( 'Escolha um país para o campo oculto.', 'axellcore-atelierclub' )
-								: __( 'Envia o país num campo oculto, sem o select.', 'axellcore-atelierclub' )
+								? __( 'Choose a country for the hidden field.', 'axellcore-atelierclub' )
+								: __( 'Sends the country in a hidden field, without the select.', 'axellcore-atelierclub' )
 						}
 						checked={ !! attributes.hiddenField }
 						onChange={ ( value: boolean ) => setAttributes( { hiddenField: value } ) }

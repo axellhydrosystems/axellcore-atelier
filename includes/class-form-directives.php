@@ -679,7 +679,7 @@ final class Form_Directives {
 			'cityTyped'     => '',
 			'cityOpen'      => false,
 			'cityActive'    => -1,
-			'cityHint'      => __( 'Selecione UF', 'axellcore-atelierclub' ),
+			'cityHint'      => __( 'Select state', 'axellcore-atelierclub' ),
 			'activeIndex'   => -1,
 			'options'       => array(),
 		);
@@ -799,7 +799,7 @@ final class Form_Directives {
 		);
 		$field = trim( $p->get_updated_html() );
 
-		$uf_options = '<option value="">' . esc_html__( 'UF', 'axellcore-atelierclub' ) . '</option>';
+		$uf_options = '<option value="">' . esc_html__( 'State code', 'axellcore-atelierclub' ) . '</option>';
 		foreach ( self::UF_CODES as $uf ) {
 			$uf_options .= sprintf( '<option value="%1$s">%1$s</option>', esc_attr( $uf ) );
 		}
@@ -831,13 +831,13 @@ final class Form_Directives {
 			// "Nome da loja", and an id without "name": with a plain "Nome",
 			// Chrome takes it for the person's name and autofills it despite
 			// autocomplete="off".
-			esc_attr__( 'Nome da loja', 'axellcore-atelierclub' ),
-			esc_attr__( 'Voltar à busca', 'axellcore-atelierclub' ),
+			esc_attr__( 'Store name', 'axellcore-atelierclub' ),
+			esc_attr__( 'Back to search', 'axellcore-atelierclub' ),
 			$search_icon,
-			esc_attr__( 'UF', 'axellcore-atelierclub' ),
+			esc_attr__( 'State code', 'axellcore-atelierclub' ),
 			$uf_options,
-			esc_attr__( 'Cidade', 'axellcore-atelierclub' ),
-			esc_html__( 'Selecione UF', 'axellcore-atelierclub' ),
+			esc_attr__( 'City', 'axellcore-atelierclub' ),
+			esc_html__( 'Select state', 'axellcore-atelierclub' ),
 			esc_attr( $list_id ),
 			esc_attr( self::NO_AUTOFILL )
 		);

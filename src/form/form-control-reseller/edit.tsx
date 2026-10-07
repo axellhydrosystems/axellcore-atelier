@@ -12,7 +12,7 @@ export default function Edit( { attributes, setAttributes }: BlockEditProps< Res
 	return (
 		<>
 			<InspectorControls>
-				<PanelBody title={ __( 'Campo', 'axellcore-atelierclub' ) } initialOpen>
+				<PanelBody title={ __( 'Field', 'axellcore-atelierclub' ) } initialOpen>
 					<TextControl
 						label={ __( 'ID', 'axellcore-atelierclub' ) }
 						value={ attributes.id }
@@ -20,7 +20,7 @@ export default function Edit( { attributes, setAttributes }: BlockEditProps< Res
 					/>
 					<TextControl
 						label={ __( 'Name (name attribute)', 'axellcore-atelierclub' ) }
-						help={ __( 'Em branco usa o ID.', 'axellcore-atelierclub' ) }
+						help={ __( 'Empty uses the ID.', 'axellcore-atelierclub' ) }
 						value={ attributes.name }
 						onChange={ ( value: string ) => setAttributes( { name: value } ) }
 					/>
@@ -35,8 +35,8 @@ export default function Edit( { attributes, setAttributes }: BlockEditProps< Res
 						onChange={ ( value: boolean ) => setAttributes( { required: value } ) }
 					/>
 					<ToggleControl
-						label={ __( 'Aceitar "Adicionar não encontrada"', 'axellcore-atelierclub' ) }
-						help={ __( 'Mostra a opção e os campos Nome, UF e Cidade para cadastrar uma revenda nova.', 'axellcore-atelierclub' ) }
+						label={ __( 'Allow "Add not found"', 'axellcore-atelierclub' ) }
+						help={ __( 'Shows the option and the Name, State and City fields to register a new reseller.', 'axellcore-atelierclub' ) }
 						checked={ !! attributes.allowNotFound }
 						onChange={ ( value: boolean ) => setAttributes( { allowNotFound: value } ) }
 					/>

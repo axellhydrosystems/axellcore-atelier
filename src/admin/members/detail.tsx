@@ -78,32 +78,32 @@ export default function MemberDetailView( {
 			{
 				id: 'fullname',
 				readOnly: true,
-				label: __( 'Nome completo', 'axellcore-atelierclub' ),
+				label: __( 'Full name', 'axellcore-atelierclub' ),
 				type: 'text',
 			},
 			{
 				id: 'email',
 				readOnly: true,
-				label: __( 'E-mail profissional', 'axellcore-atelierclub' ),
+				label: __( 'Professional email', 'axellcore-atelierclub' ),
 				type: 'email',
 			},
 			{
 				id: 'phone',
 				readOnly: true,
-				label: __( 'Telefone', 'axellcore-atelierclub' ),
+				label: __( 'Phone', 'axellcore-atelierclub' ),
 				type: 'telephone',
 			},
 			{
 				id: 'company',
 				readOnly: true,
-				label: __( 'Escritório / Atelê', 'axellcore-atelierclub' ),
+				label: __( 'Office / Studio', 'axellcore-atelierclub' ),
 				type: 'text',
 			},
 			{
 				id: 'professional_registration',
 				readOnly: true,
 				label: __(
-					'Registro (CAU / CREA / ABD)',
+					'Registration (CAU / CREA / ABD)',
 					'axellcore-atelierclub'
 				),
 				type: 'text',
@@ -111,7 +111,7 @@ export default function MemberDetailView( {
 			{
 				id: 'primary_focus',
 				readOnly: true,
-				label: __( 'Atuação principal', 'axellcore-atelierclub' ),
+				label: __( 'Main practice', 'axellcore-atelierclub' ),
 				type: 'text',
 				Edit: 'select',
 				elements: primaryFocus,
@@ -119,27 +119,27 @@ export default function MemberDetailView( {
 			{
 				id: 'url',
 				readOnly: true,
-				label: __( 'Portfólio (URL)', 'axellcore-atelierclub' ),
+				label: __( 'Portfolio (URL)', 'axellcore-atelierclub' ),
 				type: 'url',
 			},
 			{
 				id: 'profile_type',
 				readOnly: true,
-				label: __( 'Tipo de cadastro', 'axellcore-atelierclub' ),
+				label: __( 'Registration type', 'axellcore-atelierclub' ),
 				type: 'text',
 				Edit: 'select',
 				elements: [
 					{
 						value: 'individual',
 						label: __(
-							'Pessoa Física · CPF',
+							'Individual · CPF',
 							'axellcore-atelierclub'
 						),
 					},
 					{
 						value: 'legal_entity',
 						label: __(
-							'Pessoa Jurídica · CNPJ',
+							'Company · CNPJ',
 							'axellcore-atelierclub'
 						),
 					},
@@ -148,14 +148,14 @@ export default function MemberDetailView( {
 			{
 				id: 'br_revenue_id',
 				readOnly: true,
-				label: __( 'CPF ou CNPJ', 'axellcore-atelierclub' ),
+				label: __( 'CPF or CNPJ', 'axellcore-atelierclub' ),
 				type: 'text',
 				getValue: ( { item } ) => formatDocument( item.br_revenue_id ?? '' ),
 			},
 			{
 				id: 'state',
 				readOnly: true,
-				label: __( 'UF', 'axellcore-atelierclub' ),
+				label: __( 'State code', 'axellcore-atelierclub' ),
 				type: 'text',
 				Edit: 'select',
 				// UF is shown by its code (PR), not the state name.
@@ -167,7 +167,7 @@ export default function MemberDetailView( {
 			{
 				id: 'city',
 				readOnly: true,
-				label: __( 'Cidade', 'axellcore-atelierclub' ),
+				label: __( 'City', 'axellcore-atelierclub' ),
 				type: 'text',
 				Edit: 'select',
 				elements: cities,
@@ -175,71 +175,71 @@ export default function MemberDetailView( {
 			{
 				id: 'address_street',
 				readOnly: true,
-				label: __( 'Logradouro', 'axellcore-atelierclub' ),
+				label: __( 'Street', 'axellcore-atelierclub' ),
 				type: 'text',
 			},
 			{
 				id: 'address_number',
 				readOnly: true,
-				label: __( 'Número', 'axellcore-atelierclub' ),
+				label: __( 'Number', 'axellcore-atelierclub' ),
 				type: 'text',
 			},
 			{
 				id: 'address_2',
 				readOnly: true,
-				label: __( 'Complemento', 'axellcore-atelierclub' ),
+				label: __( 'Address line 2', 'axellcore-atelierclub' ),
 				type: 'text',
 			},
 			{
 				id: 'neighborhood',
 				readOnly: true,
-				label: __( 'Bairro', 'axellcore-atelierclub' ),
+				label: __( 'Neighborhood', 'axellcore-atelierclub' ),
 				type: 'text',
 			},
 			{
 				id: 'landmark',
 				readOnly: true,
-				label: __( 'Referência', 'axellcore-atelierclub' ),
+				label: __( 'Landmark', 'axellcore-atelierclub' ),
 				type: 'text',
 			},
 			{
 				id: 'postal',
 				readOnly: true,
-				label: __( 'CEP', 'axellcore-atelierclub' ),
+				label: __( 'Postal code', 'axellcore-atelierclub' ),
 				type: 'text',
 			},
 			{
 				id: 'reseller1',
 				readOnly: true,
-				label: __( 'Loja parceira 1', 'axellcore-atelierclub' ),
+				label: __( 'Partner store 1', 'axellcore-atelierclub' ),
 				type: 'text',
 				render: () => <ResellerValue reseller={ resellers.find( ( r ) => r.field === 'reseller1' ) } />,
 			},
 			{
 				id: 'reseller2',
 				readOnly: true,
-				label: __( 'Loja parceira 2', 'axellcore-atelierclub' ),
+				label: __( 'Partner store 2', 'axellcore-atelierclub' ),
 				type: 'text',
 				render: () => <ResellerValue reseller={ resellers.find( ( r ) => r.field === 'reseller2' ) } />,
 			},
 			{
 				id: 'reseller3',
 				readOnly: true,
-				label: __( 'Loja parceira 3', 'axellcore-atelierclub' ),
+				label: __( 'Partner store 3', 'axellcore-atelierclub' ),
 				type: 'text',
 				render: () => <ResellerValue reseller={ resellers.find( ( r ) => r.field === 'reseller3' ) } />,
 			},
 			{
 				id: 'reseller4',
 				readOnly: true,
-				label: __( 'Loja parceira 4', 'axellcore-atelierclub' ),
+				label: __( 'Partner store 4', 'axellcore-atelierclub' ),
 				type: 'text',
 				render: () => <ResellerValue reseller={ resellers.find( ( r ) => r.field === 'reseller4' ) } />,
 			},
 			{
 				id: 'reseller5',
 				readOnly: true,
-				label: __( 'Loja parceira 5', 'axellcore-atelierclub' ),
+				label: __( 'Partner store 5', 'axellcore-atelierclub' ),
 				type: 'text',
 				render: () => <ResellerValue reseller={ resellers.find( ( r ) => r.field === 'reseller5' ) } />,
 			},
@@ -252,7 +252,7 @@ export default function MemberDetailView( {
 			},
 			{
 				id: 'data',
-				label: __( 'Enviado em', 'axellcore-atelierclub' ),
+				label: __( 'Submitted on', 'axellcore-atelierclub' ),
 				type: 'text',
 				readOnly: true,
 			},
@@ -277,25 +277,25 @@ export default function MemberDetailView( {
 
 	const form: Form = {
 		fields: [
-			card( 'status', __( 'Cadastro', 'axellcore-atelierclub' ), [
+			card( 'status', __( 'Registration', 'axellcore-atelierclub' ), [
 				row( 'status-1', [ 'status', 'data' ] ),
 			] ),
-			card( 'autoria', __( 'Autoria', 'axellcore-atelierclub' ), [
+			card( 'autoria', __( 'Authorship', 'axellcore-atelierclub' ), [
 				row( 'autoria-1', [ 'fullname', 'company' ] ),
 				row( 'autoria-2', [ 'email', 'phone', 'professional_registration' ] ),
 				row( 'autoria-3', [ 'primary_focus', 'url' ] ),
 			] ),
-			card( 'br_revenue_id', __( 'Documento', 'axellcore-atelierclub' ), [
+			card( 'br_revenue_id', __( 'Document', 'axellcore-atelierclub' ), [
 				row( 'documento-1', [ 'profile_type', 'br_revenue_id' ] ),
 			] ),
-			card( 'endereco', __( 'Endereço do escritório', 'axellcore-atelierclub' ), [
+			card( 'endereco', __( 'Office address', 'axellcore-atelierclub' ), [
 				row( 'endereco-1', [ 'address_street', 'address_number', 'address_2' ] ),
 				row( 'endereco-2', [ 'neighborhood', 'landmark' ] ),
 				row( 'endereco-3', [ 'city', 'state', 'postal' ] ),
 			] ),
 			card(
 				'resellers',
-				__( 'Lojas parceiras', 'axellcore-atelierclub' ),
+				__( 'Partner stores', 'axellcore-atelierclub' ),
 				[ 'reseller1', 'reseller2', 'reseller3', 'reseller4', 'reseller5' ]
 			),
 		],
@@ -319,13 +319,13 @@ export default function MemberDetailView( {
 					setDraft( toDraft( member ) );
 					setNotice( {
 						status: 'success',
-						message: __( 'Status atualizado.', 'axellcore-atelierclub' ),
+						message: __( 'Status updated.', 'axellcore-atelierclub' ),
 					} );
 				} )
 				.catch( ( error: { message?: string } ) =>
 					setNotice( {
 						status: 'error',
-						message: error.message || __( 'Não foi possível salvar.', 'axellcore-atelierclub' ),
+						message: error.message || __( 'Could not save.', 'axellcore-atelierclub' ),
 					} )
 				);
 		}
@@ -349,7 +349,7 @@ export default function MemberDetailView( {
 		<>
 			<p>
 				<a href={ listUrl }>
-					{ __( '← Todos os cadastros', 'axellcore-atelierclub' ) }
+					{ __( '← All registrations', 'axellcore-atelierclub' ) }
 				</a>
 			</p>
 			{ notice && (
@@ -409,14 +409,14 @@ function ResellerValue( { reseller }: { reseller?: MemberReseller } ) {
 					<span
 						className="aa-reseller-pending"
 						role="img"
-						aria-label={ __( 'Pendente de curadoria', 'axellcore-atelierclub' ) }
-						title={ __( 'Pendente de curadoria', 'axellcore-atelierclub' ) }
+						aria-label={ __( 'Pending curation', 'axellcore-atelierclub' ) }
+						title={ __( 'Pending curation', 'axellcore-atelierclub' ) }
 					>
 						<WarningIcon />
 					</span>{ ' ' }
 					{ reseller.url && (
 						<a href={ reseller.url }>
-							{ __( 'Abrir loja', 'axellcore-atelierclub' ) }
+							{ __( 'Open store', 'axellcore-atelierclub' ) }
 						</a>
 					) }
 				</>

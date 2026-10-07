@@ -8,7 +8,6 @@
   "description": "Groups the page's numbered chapters (axellcore/chapter) and establishes the auto-numbering scope — reordering, adding, or removing a chapter renumbers the rest automatically (CSS counter, not stored text).",
   "keywords": [
     "chapter",
-    "capítulo",
     "numbering"
   ],
   "textdomain": "axellcore-atelierclub",

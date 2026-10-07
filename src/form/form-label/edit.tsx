@@ -82,8 +82,8 @@ export default function Edit( {
 						}
 					/>
 					<ToggleControl
-						label={ __( 'Obrigatório', 'axellcore-atelierclub' ) }
-						help={ __( 'Exibe indicação que o input relacionado é required.', 'axellcore-atelierclub' ) }
+						label={ __( 'Required', 'axellcore-atelierclub' ) }
+						help={ __( 'Shows that the related input is required.', 'axellcore-atelierclub' ) }
 						checked={ !! attributes.required }
 						onChange={ ( value: boolean ) =>
 							setAttributes( { required: value } )

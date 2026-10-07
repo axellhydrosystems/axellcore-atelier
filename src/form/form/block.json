@@ -4,11 +4,10 @@
 	"name": "axell/form",
 	"title": "Form",
 	"category": "text",
-	"description": "Formulário de blocos com ações de envio opcionais: gravar como post de um tipo escolhido e enviar e-mail.",
+	"description": "Block form with optional submission actions: save as a post of a chosen type and send an email.",
 	"keywords": [
 		"form",
-		"formulário",
-		"contato"
+		"contact"
 	],
 	"textdomain": "axellcore-atelierclub",
 	"attributes": {

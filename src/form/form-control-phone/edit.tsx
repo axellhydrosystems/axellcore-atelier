@@ -18,7 +18,7 @@ export default function Edit( { attributes, setAttributes }: BlockEditProps< Add
 	return (
 		<>
 			<InspectorControls>
-				<PanelBody title={ __( 'Campo', 'axellcore-atelierclub' ) } initialOpen>
+				<PanelBody title={ __( 'Field', 'axellcore-atelierclub' ) } initialOpen>
 					<TextControl
 						label={ __( 'ID', 'axellcore-atelierclub' ) }
 						value={ attributes.id }
@@ -35,11 +35,11 @@ export default function Edit( { attributes, setAttributes }: BlockEditProps< Add
 						onChange={ ( value: string ) => setAttributes( { placeholder: value } ) }
 					/>
 					<SelectControl
-						label={ __( 'País definido por', 'axellcore-atelierclub' ) }
+						label={ __( 'Country set by', 'axellcore-atelierclub' ) }
 						value={ ( attributes.countrySource as string ) || 'field' }
 						options={ [
-							{ label: __( 'Campo', 'axellcore-atelierclub' ), value: 'field' },
-							{ label: __( 'Seleção', 'axellcore-atelierclub' ), value: 'select' },
+							{ label: __( 'Field', 'axellcore-atelierclub' ), value: 'field' },
+							{ label: __( 'Selection', 'axellcore-atelierclub' ), value: 'select' },
 						] as { label: string; value: string }[] }
 						onChange={ ( value: string ) =>
 							setAttributes( value === 'select'
@@ -49,31 +49,31 @@ export default function Edit( { attributes, setAttributes }: BlockEditProps< Add
 					/>
 					{ ( attributes.countrySource || 'field' ) === 'field' ? (
 						<TextControl
-							label={ __( 'Campo do país (name)', 'axellcore-atelierclub' ) }
+							label={ __( 'Country field (name)', 'axellcore-atelierclub' ) }
 							value={ ( attributes.countryField as string ) || '' }
 							onChange={ ( value: string ) => setAttributes( { countryField: value } ) }
 						/>
 					) : (
 						<SelectControl
-							label={ __( 'País', 'axellcore-atelierclub' ) }
+							label={ __( 'Country', 'axellcore-atelierclub' ) }
 							value={ chosenCountry( attributes.country as string | undefined ) }
 							options={ [
 								{ label: 'Brasil', value: 'BR' },
 								{ label: 'Estados Unidos', value: 'US' },
-								{ label: __( 'Outro', 'axellcore-atelierclub' ), value: '' },
+								{ label: __( 'Other', 'axellcore-atelierclub' ), value: '' },
 							] as { label: string; value: string }[] }
 							onChange={ ( value: string ) => setAttributes( { country: value } ) }
 						/>
 					) }
 					<SelectControl
-						label={ __( 'Tipo de telefone', 'axellcore-atelierclub' ) }
+						label={ __( 'Phone type', 'axellcore-atelierclub' ) }
 						value={ ( attributes.lineType as string ) || 'both' }
 						options={ [
-							{ label: __( 'Ambos', 'axellcore-atelierclub' ), value: 'both' },
-							{ label: __( 'Celular', 'axellcore-atelierclub' ), value: 'mobile' },
-							{ label: __( 'Fixo', 'axellcore-atelierclub' ), value: 'landline' },
+							{ label: __( 'Both', 'axellcore-atelierclub' ), value: 'both' },
+							{ label: __( 'Mobile', 'axellcore-atelierclub' ), value: 'mobile' },
+							{ label: __( 'Landline', 'axellcore-atelierclub' ), value: 'landline' },
 						] as { label: string; value: string }[] }
-						help={ __( 'Só vale para números do Brasil: celular tem 11 dígitos e começa com 9 depois do DDD; fixo tem 10 e começa de 2 a 5. Nos EUA o número não indica o tipo.', 'axellcore-atelierclub' ) }
+						help={ __( 'Only for Brazilian numbers: a mobile has 11 digits and starts with 9 after the area code; a landline has 10 and starts with 2 to 5. In the US the number does not tell the type.', 'axellcore-atelierclub' ) }
 						onChange={ ( value: string ) => setAttributes( { lineType: value } ) }
 					/>
 					<ToggleControl

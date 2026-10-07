@@ -115,25 +115,25 @@ export default function MembersList( {
 		() => [
 			{
 				id: 'fullname',
-				label: __( 'Nome', 'axellcore-atelierclub' ),
+				label: __( 'Name', 'axellcore-atelierclub' ),
 				type: 'text',
 				enableHiding: false,
 			},
 			{
 				id: 'company',
-				label: __( 'Escritório', 'axellcore-atelierclub' ),
+				label: __( 'Office', 'axellcore-atelierclub' ),
 				type: 'text',
 				enableSorting: false,
 			},
 			{
 				id: 'city',
-				label: __( 'Cidade', 'axellcore-atelierclub' ),
+				label: __( 'City', 'axellcore-atelierclub' ),
 				type: 'text',
 				enableSorting: false,
 			},
 			{
 				id: 'state',
-				label: __( 'UF', 'axellcore-atelierclub' ),
+				label: __( 'State code', 'axellcore-atelierclub' ),
 				type: 'text',
 				// UF is shown by its code (PR), not the state name.
 				elements: states.map( ( state ) => ( {
@@ -144,7 +144,7 @@ export default function MembersList( {
 			},
 			{
 				id: 'primary_focus',
-				label: __( 'Atuação', 'axellcore-atelierclub' ),
+				label: __( 'Practice', 'axellcore-atelierclub' ),
 				type: 'text',
 				enableSorting: false,
 				elements: primaryFocus,
@@ -152,13 +152,13 @@ export default function MembersList( {
 			},
 			{
 				id: 'email',
-				label: __( 'E-mail', 'axellcore-atelierclub' ),
+				label: __( 'Email', 'axellcore-atelierclub' ),
 				type: 'email',
 				enableSorting: false,
 			},
 			{
 				id: 'phone',
-				label: __( 'Telefone', 'axellcore-atelierclub' ),
+				label: __( 'Phone', 'axellcore-atelierclub' ),
 				type: 'telephone',
 				enableSorting: false,
 			},
@@ -171,7 +171,7 @@ export default function MembersList( {
 			},
 			{
 				id: 'data',
-				label: __( 'Enviado em', 'axellcore-atelierclub' ),
+				label: __( 'Submitted on', 'axellcore-atelierclub' ),
 				type: 'datetime',
 				enableHiding: false,
 			},
@@ -190,7 +190,7 @@ export default function MembersList( {
 		() => [
 			{
 				id: 'edit',
-				label: __( 'Ver', 'axellcore-atelierclub' ),
+				label: __( 'View', 'axellcore-atelierclub' ),
 				isPrimary: true,
 				callback: ( items ) => {
 					if ( items[ 0 ] ) {
@@ -227,7 +227,7 @@ export default function MembersList( {
 					window.location.href = `${ editUrl }${ item.id }`;
 				} }
 				empty={ __(
-					'Nenhum cadastro encontrado.',
+					'No registrations found.',
 					'axellcore-atelierclub'
 				) }
 			/>

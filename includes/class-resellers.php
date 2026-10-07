@@ -92,11 +92,11 @@ final class Resellers {
 			self::POST_TYPE,
 			array(
 				'labels'              => array(
-					'name'          => __( 'Revendas', 'axellcore-atelierclub' ),
-					'singular_name' => __( 'Revenda', 'axellcore-atelierclub' ),
-					'all_items'     => __( 'Todas as revendas', 'axellcore-atelierclub' ),
-					'add_new_item'  => __( 'Adicionar revenda', 'axellcore-atelierclub' ),
-					'edit_item'     => __( 'Editar revenda', 'axellcore-atelierclub' ),
+					'name'          => __( 'Resellers', 'axellcore-atelierclub' ),
+					'singular_name' => __( 'Reseller', 'axellcore-atelierclub' ),
+					'all_items'     => __( 'All resellers', 'axellcore-atelierclub' ),
+					'add_new_item'  => __( 'Add reseller', 'axellcore-atelierclub' ),
+					'edit_item'     => __( 'Edit reseller', 'axellcore-atelierclub' ),
 				),
 				'public'              => true,
 				'publicly_queryable'  => true,
@@ -121,24 +121,24 @@ final class Resellers {
 
 		$taxonomies = array(
 			self::TAX_STATE   => array(
-				'labels'    => array( 'name' => __( 'Estados', 'axellcore-atelierclub' ) ),
+				'labels'    => array( 'name' => __( 'States', 'axellcore-atelierclub' ) ),
 				'slug'      => 'estado',
 				'query_var' => false,
 			),
 			self::TAX_CITY    => array(
 				'labels'    => array(
-					'name'          => __( 'Cidades', 'axellcore-atelierclub' ),
-					'singular_name' => __( 'Cidade', 'axellcore-atelierclub' ),
-					'all_items'     => __( 'Todas as cidades', 'axellcore-atelierclub' ),
+					'name'          => __( 'Cities', 'axellcore-atelierclub' ),
+					'singular_name' => __( 'City', 'axellcore-atelierclub' ),
+					'all_items'     => __( 'All cities', 'axellcore-atelierclub' ),
 				),
 				'slug'      => 'cidade',
 				'query_var' => self::TAX_CITY,
 			),
 			self::TAX_COUNTRY => array(
 				'labels'    => array(
-					'name'          => __( 'Países', 'axellcore-atelierclub' ),
-					'singular_name' => __( 'País', 'axellcore-atelierclub' ),
-					'all_items'     => __( 'Todos os países', 'axellcore-atelierclub' ),
+					'name'          => __( 'Countries', 'axellcore-atelierclub' ),
+					'singular_name' => __( 'Country', 'axellcore-atelierclub' ),
+					'all_items'     => __( 'All countries', 'axellcore-atelierclub' ),
 				),
 				'slug'      => 'paises',
 				'query_var' => self::TAX_COUNTRY,

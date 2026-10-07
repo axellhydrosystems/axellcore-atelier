@@ -76,8 +76,8 @@ final class Member {
 	 */
 	public static function roles() {
 		return array(
-			self::ROLE_PENDING => __( 'Pendente', 'axellcore-atelierclub' ),
-			self::ROLE         => __( 'Membro', 'axellcore-atelierclub' ),
+			self::ROLE_PENDING => __( 'Pending', 'axellcore-atelierclub' ),
+			self::ROLE         => __( 'Member', 'axellcore-atelierclub' ),
 		);
 	}
 
@@ -87,8 +87,8 @@ final class Member {
 	 */
 	public function register_roles() {
 		$roles = array(
-			self::ROLE_PENDING => array( __( 'Membro Pendente', 'axellcore-atelierclub' ), array() ),
-			self::ROLE         => array( __( 'Membro', 'axellcore-atelierclub' ), array( 'read' => true ) ),
+			self::ROLE_PENDING => array( __( 'Pending Member', 'axellcore-atelierclub' ), array() ),
+			self::ROLE         => array( __( 'Member', 'axellcore-atelierclub' ), array( 'read' => true ) ),
 		);
 		foreach ( $roles as $role => list( $name, $caps ) ) {
 			$current = get_role( $role );
@@ -137,7 +137,7 @@ final class Member {
 			printf(
 				' <a href="%s" class="page-title-action">%s</a>',
 				esc_url( admin_url( 'admin.php?page=' . Members_Export::PAGE ) ),
-				esc_html__( 'Exportar', 'axellcore-atelierclub' )
+				esc_html__( 'Export', 'axellcore-atelierclub' )
 			);
 		}
 		echo '<hr class="wp-header-end"></div>';

@@ -4,11 +4,11 @@
   "name": "axell/form-control-br-revenue-id-person",
   "title": "Form Control (CPF)",
   "category": "text",
-  "description": "Campo de CPF (pessoa física), com máscara de CPF.",
+  "description": "CPF field (individual), with the CPF mask.",
   "keywords": [
     "cpf",
     "cnpj",
-    "documento",
+    "document",
     "form"
   ],
   "textdomain": "axellcore-atelierclub",

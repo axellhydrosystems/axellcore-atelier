@@ -14,9 +14,17 @@ Self-contained landing page (FSE template + core blocks + a custom application-f
 
 == Description ==
 
-Ships the Atelier Axell Club landing page as a plugin-owned FSE template (registered via `register_block_template()`, editable in the Site Editor, no theme header/footer) plus two small custom blocks (`axellcore/form`, `axellcore/form-input`) for the application form — every other section is composed from core WordPress blocks styled with the plugin's own `aa-`-prefixed stylesheet. On activation, the plugin provisions the `/atelier` page automatically if it doesn't already exist.
+The Atelier Axell Club landing (`/atelier`) built from native WordPress blocks: every section is core blocks styled with block attributes, presets, the plugin's block styles and per-block custom CSS, matched pixel for pixel to the approved mockup. The header and footer are template parts. The application form is a family of `axell/form*` blocks (labels, controls, address with state and city, CPF/CNPJ, partner stores) with Interactivity API behaviour; each submission creates a pending member (a user), reviewed in Atelier > Members. Without JetEngine the plugin also registers the `revendas` post type with production's signature and imports the bundled revendas on activation.
 
 == Changelog ==
+
+= 0.2.0 =
+* The /atelier landing rebuilt in native blocks, section by section (pure, then styled at 0.00% against the approved bases), assembled on one page; header and footer as template parts. The fixed header uses the Sticky Header block (scrolled state past 40px).
+* The page renders with the theme's global styles: the legacy isolated template, its stylesheets (sections.css, tokens.css, blocks-bridge.css) and Google Fonts are gone. Smooth scrolling to anchors, reveal on scroll per block, and the first-screen fonts preloaded.
+* Application form: members are users (pending until approved) with an admin (Atelier > Members) and a CSV export; address controls (country, state, city combobox), CPF/CNPJ, phone and postal masks; partner stores with search over revendas or a new store (name, UF, city), compacted on submission; the widgets reset after a successful submission.
+* Revendas: the post type, taxonomies and meta of production's JetEngine setup registered when JetEngine is not active, with a DataViews admin and a one-time import of the bundled CSV on activation. Replaces the axellcore-revendas plugin.
+* Blueprints set the São Paulo timezone and Brazilian date and time formats.
+* pt_BR translation updated for every new string.
 
 = 0.1.2 =
 * Fix: the consent-checkbox field (`axellcore/form-input`, "Li e concordo…") failed block validation in the editor ("Expected tag name `div`, instead saw `label`"). Root cause: its `label` attribute was redundantly duplicated into the block comment's JSON *and* the stored HTML — for this one field the label contains an embedded `<a href=\"#\">` with escaped quotes, which PHP's block-comment parser can't handle, silently returning `attrs = null` for the whole block (confirmed via `parse_blocks()` against the real stored content). `label` is `source:"rich-text"`, so WordPress already derives it from the HTML — it was never meant to be duplicated into the JSON attrs. No other field's label happened to contain embedded HTML, which is why only this one broke.

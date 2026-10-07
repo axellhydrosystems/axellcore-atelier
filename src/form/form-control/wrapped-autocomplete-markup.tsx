@@ -78,13 +78,13 @@ export function wrappedAutocompleteMarkup( args: AutocompleteMarkupArgs ) {
 					<input
 						type="text"
 						data-field="name"
-						aria-label={ __( 'Nome', 'axellcore-atelierclub' ) }
-						placeholder={ __( 'Nome', 'axellcore-atelierclub' ) }
+						aria-label={ __( 'Name', 'axellcore-atelierclub' ) }
+						placeholder={ __( 'Name', 'axellcore-atelierclub' ) }
 					/>
 					<button
 						type="button"
 						className="aa-ac-back"
-						aria-label={ __( 'Voltar à busca', 'axellcore-atelierclub' ) }
+						aria-label={ __( 'Back to search', 'axellcore-atelierclub' ) }
 					>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -103,7 +103,7 @@ export function wrappedAutocompleteMarkup( args: AutocompleteMarkupArgs ) {
 					</button>
 				</div>
 				<select
-					aria-label={ __( 'UF', 'axellcore-atelierclub' ) }
+					aria-label={ __( 'State code', 'axellcore-atelierclub' ) }
 				>
 					<option value="">UF</option>
 					{ UF_CODES.map( ( uf ) => (
@@ -113,11 +113,11 @@ export function wrappedAutocompleteMarkup( args: AutocompleteMarkupArgs ) {
 					) ) }
 				</select>
 				<select
-					aria-label={ __( 'Cidade', 'axellcore-atelierclub' ) }
+					aria-label={ __( 'City', 'axellcore-atelierclub' ) }
 					data-field="city"
 					disabled
 				>
-					<option value="">{ __( 'Selecione UF', 'axellcore-atelierclub' ) }</option>
+					<option value="">{ __( 'Select state', 'axellcore-atelierclub' ) }</option>
 				</select>
 			</div>
 			<ul

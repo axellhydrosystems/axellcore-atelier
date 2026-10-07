@@ -47,8 +47,8 @@ final class MemberTest extends TestCase {
 		Functions\when( 'wp_roles' )->justReturn(
 			(object) array(
 				'role_names' => array(
-					Member::ROLE_PENDING => 'Membro Pendente',
-					Member::ROLE         => 'Membro',
+					Member::ROLE_PENDING => 'Pending Member',
+					Member::ROLE         => 'Member',
 				),
 			)
 		);

@@ -4,11 +4,11 @@
 	"name": "axell/form-control-br-revenue-id-legal",
 	"title": "Form Control (CNPJ)",
 	"category": "text",
-	"description": "Campo de CNPJ (pessoa jurídica), com máscara de CNPJ.",
+	"description": "CNPJ field (company), with the CNPJ mask.",
 	"keywords": [
 		"cpf",
 		"cnpj",
-		"documento",
+		"document",
 		"form"
 	],
 	"textdomain": "axellcore-atelierclub",

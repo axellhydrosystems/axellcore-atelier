@@ -4,12 +4,12 @@
   "name": "axell/form-atelier",
   "title": "Form Atelier",
   "category": "text",
-  "description": "Formulário de adesão do Atelier Axell Club: grava cada envio como cadastro de membro e já vem com todos os campos e textos.",
+  "description": "Atelier Axell Club application form: saves each submission as a member registration and comes with every field and text.",
   "keywords": [
     "form",
     "atelier",
-    "adesão",
-    "membro"
+    "application",
+    "member"
   ],
   "textdomain": "axellcore-atelierclub",
   "attributes": {

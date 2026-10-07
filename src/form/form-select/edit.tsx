@@ -54,7 +54,7 @@ export default function Edit( {
 					/>
 					<TextareaControl
 						label={ __( 'Options', 'axellcore-atelierclub' ) }
-						help={ __( 'Uma por linha: rótulo|valor (sem | usa o rótulo como valor).', 'axellcore-atelierclub' ) }
+						help={ __( 'One per line: label|value (without |, the label is the value).', 'axellcore-atelierclub' ) }
 						value={ optionsToText( attributes.options ) }
 						onChange={ ( value: string ) => setAttributes( { options: textToOptions( value ) } ) }
 					/>
