@@ -326,6 +326,10 @@ final class Form_Directives {
 		}
 		if ( self::to_field( $p, 'INPUT' ) ) {
 			$p->set_attribute( 'data-wp-on--input', 'actions.onPostalInput' );
+			// Browser autofill of the address (the block has no setting for it).
+			if ( null === $p->get_attribute( 'autocomplete' ) ) {
+				$p->set_attribute( 'autocomplete', 'postal-code' );
+			}
 		}
 		return $p->get_updated_html();
 	}
@@ -449,7 +453,7 @@ final class Form_Directives {
 
 		return self::region_open( $wrapper, $context )
 			. sprintf(
-				'<select id="%1$s" name="%2$s" class="%3$s" hidden disabled%4$s data-wp-bind--hidden="!state.hasStateList" data-wp-bind--disabled="!state.hasStateList" data-wp-on--change="actions.onState" data-wp-watch="callbacks.renderStates">%5$s</select>',
+				'<select id="%1$s" name="%2$s" class="%3$s" autocomplete="address-level1" hidden disabled%4$s data-wp-bind--hidden="!state.hasStateList" data-wp-bind--disabled="!state.hasStateList" data-wp-on--change="actions.onState" data-wp-watch="callbacks.renderStates">%5$s</select>',
 				esc_attr( $id ),
 				esc_attr( $name ),
 				esc_attr( $class ),
@@ -457,7 +461,7 @@ final class Form_Directives {
 				$options
 			)
 			. sprintf(
-				'<input type="text" id="%1$s" name="%2$s" class="wp-block-axell-form-control"%3$s%4$s data-wp-bind--hidden="state.hasStateList" data-wp-bind--disabled="state.hasStateList" data-wp-on--input="actions.onField"/>',
+				'<input type="text" id="%1$s" name="%2$s" class="wp-block-axell-form-control" autocomplete="address-level1"%3$s%4$s data-wp-bind--hidden="state.hasStateList" data-wp-bind--disabled="state.hasStateList" data-wp-on--input="actions.onField"/>',
 				esc_attr( $id ),
 				esc_attr( $name ),
 				'' !== $placeholder ? ' placeholder="' . esc_attr( $placeholder ) . '"' : '',
@@ -490,10 +494,19 @@ final class Form_Directives {
 		);
 
 		if ( ! $searchable ) {
-			self::set( $p, array_merge( array( 'name' => $name ), $free_text ) );
+			self::set(
+				$p,
+				array_merge(
+					array(
+						'name'         => $name,
+						'autocomplete' => 'address-level2',
+					),
+					$free_text
+				)
+			);
 			return self::region_open( $wrapper, $context )
 				. sprintf(
-					'<select name="%1$s" class="wp-block-axell-form-control" hidden disabled%2$s data-wp-bind--hidden="!state.hasCityList" data-wp-bind--disabled="!state.hasCityList" data-wp-on--change="actions.onField" data-wp-watch="callbacks.renderCities"><option value="">—</option></select>',
+					'<select name="%1$s" class="wp-block-axell-form-control" autocomplete="address-level2" hidden disabled%2$s data-wp-bind--hidden="!state.hasCityList" data-wp-bind--disabled="!state.hasCityList" data-wp-on--change="actions.onField" data-wp-watch="callbacks.renderCities"><option value="">—</option></select>',
 					esc_attr( $name ),
 					$required
 				)
@@ -523,7 +536,7 @@ final class Form_Directives {
 			. trim( $p->get_updated_html() )
 			. sprintf( '<input type="hidden" name="%s" disabled data-wp-bind--disabled="!state.hasCityList" data-wp-bind--value="context.code"/>', esc_attr( $name ) )
 			. sprintf(
-				'<input type="text" name="%1$s" class="wp-block-axell-form-control"%2$s%3$s data-wp-bind--hidden="state.hasCityList" data-wp-bind--disabled="state.hasCityList" data-wp-on--input="actions.onField"/>',
+				'<input type="text" name="%1$s" class="wp-block-axell-form-control" autocomplete="address-level2"%2$s%3$s data-wp-bind--hidden="state.hasCityList" data-wp-bind--disabled="state.hasCityList" data-wp-on--input="actions.onField"/>',
 				esc_attr( $name ),
 				'' !== $placeholder ? ' placeholder="' . esc_attr( $placeholder ) . '"' : '',
 				$required

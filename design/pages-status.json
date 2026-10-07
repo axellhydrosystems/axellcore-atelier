@@ -54,8 +54,8 @@
       "note": "no-class aprovado em 2026-10-07: /atelier/cta-strip/ (post 969, template atelier-section) a 0,00% em 1440/768/390; pure /atelier/pure/cta-strip/ (post 848); colunas com a coluna do botao em max-content"
     },
     "adesao": {
-      "phase": 0,
-      "note": "pure exists: /atelier/pure/adesao (post 81, Form Atelier), not yet reviewed as phase 1; passada no pure em 2026-10-07 (secao + Conteudo, titulo strong, sem classes aa-*, rotulos obrigatorios pelo atributo, telefone axell/form-control-phone vinculado ao pais), aguardando aprovacao"
+      "phase": 1,
+      "note": "pure aprovado em 2026-10-07: /atelier/pure/adesao/ (post 81, Form Atelier): grid 12 colunas, campos so com o input no save (UF/Cidade/revenda montados no render), nomes em ingles, membros como usuarios; alinhado ao prototipo Bootstrap pure (botao Enviar + seta axellcore/arrow-large, Cidade placeholder Sao Paulo, UF \"—\", autocomplete address-*, section aria-label, aside). Proximo: no-class /atelier/adesao/."
     },
     "footer": {
       "phase": 0,

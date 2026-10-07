@@ -1,8 +1,9 @@
-<!-- wp:group {"tagName":"section","metadata":{"name":"Adesão"},"align":"full","layout":{"type":"constrained"},"anchor":"adesao"} -->
-<section class="wp-block-group alignfull" id="adesao"><!-- wp:group {"metadata":{"name":"Conteúdo"},"align":"wide","style":{"spacing":{"padding":{"left":"0","right":"0"}}},"layout":{"type":"constrained","contentSize":"80rem","justifyContent":"center"}} -->
+<!-- wp:group {"tagName":"section","metadata":{"name":"Adesão"},"align":"full","layout":{"type":"constrained"},"ariaLabel":"Sua autoria tem nome e forma","anchor":"adesao"} -->
+<section class="wp-block-group alignfull" id="adesao" aria-label="Sua autoria tem nome e forma"><!-- wp:group {"metadata":{"name":"Conteúdo"},"align":"wide","style":{"spacing":{"padding":{"left":"0","right":"0"}}},"layout":{"type":"constrained","contentSize":"80rem","justifyContent":"center"}} -->
 <div class="wp-block-group alignwide" style="padding-right:0;padding-left:0"><!-- wp:columns {"verticalAlignment":"top"} -->
 <div class="wp-block-columns are-vertically-aligned-top"><!-- wp:column {"verticalAlignment":"top"} -->
-<div class="wp-block-column is-vertically-aligned-top"><!-- wp:heading -->
+<div class="wp-block-column is-vertically-aligned-top"><!-- wp:group {"tagName":"aside","metadata":{"name":"Como solicitar"},"layout":{"type":"default"},"ariaLabel":"Como solicitar a adesão"} -->
+<aside aria-label="Como solicitar a adesão" class="wp-block-group"><!-- wp:heading -->
 <h2 class="wp-block-heading">Solicitar adesão</h2>
 <!-- /wp:heading -->
 
@@ -34,7 +35,8 @@
 <!-- wp:list-item -->
 <li>Seus dados são tratados conforme a LGPD.</li>
 <!-- /wp:list-item --></ol>
-<!-- /wp:list --></div>
+<!-- /wp:list --></aside>
+<!-- /wp:group --></div>
 <!-- /wp:column -->
 
 <!-- wp:column {"verticalAlignment":"top"} -->
@@ -158,8 +160,8 @@
 <label class="wp-block-axell-form-label is-required" for="address_street">Logradouro</label>
 <!-- /wp:axell/form-label -->
 
-<!-- wp:axell/form-control {"id":"address_street","name":"address_street","autofill":"street-address","required":true,"placeholder":"Rua, Avenida, Alameda…"} -->
-<input class="wp-block-axell-form-control" id="address_street" name="address_street" required aria-required="true" autocomplete="street-address" placeholder="Rua, Avenida, Alameda…" type="text"/>
+<!-- wp:axell/form-control {"id":"address_street","name":"address_street","autofill":"address-line1","required":true,"placeholder":"Rua, Avenida, Alameda…"} -->
+<input class="wp-block-axell-form-control" id="address_street" name="address_street" required aria-required="true" autocomplete="address-line1" placeholder="Rua, Avenida, Alameda…" type="text"/>
 <!-- /wp:axell/form-control --></div>
 <!-- /wp:axell/form-group -->
 
@@ -178,8 +180,8 @@
 <label class="wp-block-axell-form-label" for="address_2">Complemento</label>
 <!-- /wp:axell/form-label -->
 
-<!-- wp:axell/form-control {"id":"address_2","name":"address_2","autofill":"off","placeholder":"Sala, andar, conjunto"} -->
-<input class="wp-block-axell-form-control" id="address_2" name="address_2" autocomplete="off" placeholder="Sala, andar, conjunto" type="text"/>
+<!-- wp:axell/form-control {"id":"address_2","name":"address_2","autofill":"address-line2","placeholder":"Sala, andar, conjunto"} -->
+<input class="wp-block-axell-form-control" id="address_2" name="address_2" autocomplete="address-line2" placeholder="Sala, andar, conjunto" type="text"/>
 <!-- /wp:axell/form-control --></div>
 <!-- /wp:axell/form-group -->
 
@@ -208,8 +210,8 @@
 <label class="wp-block-axell-form-label is-required" for="state">UF</label>
 <!-- /wp:axell/form-label -->
 
-<!-- wp:axell/form-control-state {"id":"state","name":"state","placeholder":"Selecione","required":true,"countrySource":"select","country":"BR"} -->
-<select class="wp-block-axell-form-control-state wp-block-axell-form-control" id="state" name="state" disabled required><option value="">Selecione</option></select>
+<!-- wp:axell/form-control-state {"id":"state","name":"state","placeholder":"—","required":true,"countrySource":"select","country":"BR"} -->
+<select class="wp-block-axell-form-control-state wp-block-axell-form-control" id="state" name="state" disabled required><option value="">—</option></select>
 <!-- /wp:axell/form-control-state --></div>
 <!-- /wp:axell/form-group -->
 
@@ -218,8 +220,8 @@
 <label class="wp-block-axell-form-label is-required" for="city">Cidade</label>
 <!-- /wp:axell/form-label -->
 
-<!-- wp:axell/form-control-city {"id":"city","name":"city","placeholder":"Digite a cidade","required":true,"searchable":true,"countrySource":"select","country":"BR"} -->
-<input class="wp-block-axell-form-control-city wp-block-axell-form-control" type="text" id="city" autocomplete="off" placeholder="Digite a cidade" required/>
+<!-- wp:axell/form-control-city {"id":"city","name":"city","placeholder":"São Paulo","required":true,"searchable":true,"countrySource":"select","country":"BR"} -->
+<input class="wp-block-axell-form-control-city wp-block-axell-form-control" type="text" id="city" autocomplete="off" placeholder="São Paulo" required/>
 <!-- /wp:axell/form-control-city --></div>
 <!-- /wp:axell/form-group -->
 
@@ -301,7 +303,7 @@
 <div class="wp-block-group"><!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap"}} -->
 <div class="wp-block-group"><!-- wp:buttons {"style":{"layout":{"selfStretch":"fill","flexSize":null}}} -->
 <div class="wp-block-buttons"><!-- wp:button {"tagName":"button","type":"submit"} -->
-<div class="wp-block-button"><button type="submit" class="wp-block-button__link wp-element-button">Enviar solicitação</button></div>
+<div class="wp-block-button"><button type="submit" class="wp-block-button__link wp-element-button">Enviar <img data-icon="axellcore/arrow-large" alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" class="aa-inline-icon"></button></div>
 <!-- /wp:button --></div>
 <!-- /wp:buttons -->
 
