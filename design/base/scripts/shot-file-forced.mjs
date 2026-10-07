@@ -8,7 +8,7 @@ const { launchOptions } = await import(pathToFileURL(SK + '/browser.mjs').href);
 const [ file, width, out ] = process.argv.slice(2);
 const browser = await chromium.launch({ ...launchOptions(), args: [ '--disable-gpu' ] });
 const page = await browser.newPage({ viewport: { width: Number(width), height: 900 }, deviceScaleFactor: 1 });
-await page.goto(pathToFileURL(file).href, { waitUntil: 'load' });
+await page.goto(/^https?:/.test(file) ? file : pathToFileURL(file).href, { waitUntil: 'load' });
 await page.evaluate(() => document.fonts.ready);
 // Same procedure as the approved bases: reveals visible, no transitions (the approved bases were made this way).
 await page.addStyleTag({ content: '.reveal{opacity:1!important;transform:none!important;transition:none!important}' });
