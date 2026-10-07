@@ -33,8 +33,8 @@ final class Label_Template {
 	public static function render( \WP_Post $post, $template ) {
 		$label = preg_replace_callback(
 			'/\[(post_title|tax:[a-z0-9_-]+(?::[a-z]+)*|meta:[a-z0-9_-]+)\]/i',
-			static function ( $match ) use ( $post ) {
-				$token = $match[1];
+			static function ( $found ) use ( $post ) {
+				$token = $found[1];
 				if ( 'post_title' === $token ) {
 					return $post->post_title;
 				}
@@ -65,7 +65,11 @@ final class Label_Template {
 	 * @return string Term label, or '' when the post has no term there.
 	 */
 	private static function term_label( \WP_Post $post, $taxonomy, array $modifiers ) {
-		$aliases  = array( 'estado' => 'estados', 'cidade' => 'cidades', 'pais' => 'paises' );
+		$aliases  = array(
+			'estado' => 'estados',
+			'cidade' => 'cidades',
+			'pais'   => 'paises',
+		);
 		$taxonomy = $aliases[ $taxonomy ] ?? $taxonomy;
 
 		$terms = get_the_terms( $post->ID, $taxonomy );

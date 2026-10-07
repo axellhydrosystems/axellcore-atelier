@@ -79,7 +79,7 @@ final class Assets {
 	}
 
 	/**
-	 * frontend.js (input masks, cities cascade) and its REST root. The REST
+	 * The frontend.js script (input masks, cities cascade) and its REST root. The REST
 	 * endpoints are public and unauthenticated, so no nonce is localized here.
 	 */
 	private function enqueue_frontend_script() {

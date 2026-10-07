@@ -157,7 +157,7 @@ final class Options_Rest {
 				'no_found_rows'  => true,
 			)
 		);
-		$ids = array_map( 'intval', $by_title );
+		$ids      = array_map( 'intval', $by_title );
 
 		return array_slice( array_values( array_unique( $ids ) ), 0, self::LIMIT );
 	}

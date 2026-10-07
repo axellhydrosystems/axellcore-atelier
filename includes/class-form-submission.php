@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 final class Form_Submission {
 
 	/**
-	 * admin-post action of the no-JavaScript submission.
+	 * The admin-post action of the no-JavaScript submission.
 	 */
 	const ADMIN_ACTION = 'axellcore_form_submit';
 
@@ -172,7 +172,7 @@ final class Form_Submission {
 	 */
 	public static function find_form( $post_id, $form_id ) {
 		$post = $post_id ? get_post( $post_id ) : null;
-		if ( ! $post || '' === $form_id || 'publish' !== get_post_status( $post ) && ! current_user_can( 'edit_post', $post_id ) ) {
+		if ( ! $post || '' === $form_id || ( 'publish' !== get_post_status( $post ) && ! current_user_can( 'edit_post', $post_id ) ) ) {
 			return null;
 		}
 		return self::search( parse_blocks( $post->post_content ), $form_id );

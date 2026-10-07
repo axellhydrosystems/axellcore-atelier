@@ -62,27 +62,77 @@ final class Kses {
 		}
 
 		$common = array(
-			'id'       => true,
-			'class'    => true,
-			'style'    => true,
-			'hidden'   => true,
-			'role'     => true,
-			'data-*'   => true,
-			'aria-*'   => true,
+			'id'     => true,
+			'class'  => true,
+			'style'  => true,
+			'hidden' => true,
+			'role'   => true,
+			'data-*' => true,
+			'aria-*' => true,
 		);
 
-		$tags['form']     = array_merge( $common, array( 'novalidate' => true, 'method' => true, 'action' => true ) );
-		$tags['input']    = array_merge( $common, array( 'type' => true, 'name' => true, 'value' => true, 'placeholder' => true, 'required' => true, 'checked' => true, 'disabled' => true, 'autocomplete' => true, 'maxlength' => true ) );
-		$tags['select']   = array_merge( $common, array( 'name' => true, 'required' => true, 'disabled' => true, 'autocomplete' => true ) );
-		$tags['option']   = array_merge( $common, array( 'value' => true, 'selected' => true ) );
-		$tags['textarea'] = array_merge( $common, array( 'name' => true, 'placeholder' => true, 'required' => true, 'rows' => true ) );
+		$tags['form']     = array_merge(
+			$common,
+			array(
+				'novalidate' => true,
+				'method'     => true,
+				'action'     => true,
+			)
+		);
+		$tags['input']    = array_merge(
+			$common,
+			array(
+				'type'         => true,
+				'name'         => true,
+				'value'        => true,
+				'placeholder'  => true,
+				'required'     => true,
+				'checked'      => true,
+				'disabled'     => true,
+				'autocomplete' => true,
+				'maxlength'    => true,
+			)
+		);
+		$tags['select']   = array_merge(
+			$common,
+			array(
+				'name'         => true,
+				'required'     => true,
+				'disabled'     => true,
+				'autocomplete' => true,
+			)
+		);
+		$tags['option']   = array_merge(
+			$common,
+			array(
+				'value'    => true,
+				'selected' => true,
+			)
+		);
+		$tags['textarea'] = array_merge(
+			$common,
+			array(
+				'name'        => true,
+				'placeholder' => true,
+				'required'    => true,
+				'rows'        => true,
+			)
+		);
 		$tags['label']    = array_merge( $common, array( 'for' => true ) );
 		$tags['fieldset'] = $common;
 		$tags['legend']   = $common;
 		$tags['ul']       = $common;
 		$tags['ol']       = array_merge( $common, array( 'type' => true ) );
 		$tags['li']       = $common;
-		$tags['button']   = array_merge( $common, array( 'type' => true, 'name' => true, 'value' => true, 'disabled' => true ) );
+		$tags['button']   = array_merge(
+			$common,
+			array(
+				'type'     => true,
+				'name'     => true,
+				'value'    => true,
+				'disabled' => true,
+			)
+		);
 
 		return $tags;
 	}
