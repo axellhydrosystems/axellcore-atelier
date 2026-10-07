@@ -91,10 +91,12 @@ export default function Edit( {
 					/>
 				</PanelBody>
 			</InspectorControls>
+			{ /* No `for` here: in the editor a click on the label would move the
+			   focus to its control instead of editing the label text. The
+			   association lives in save.tsx (the front end). */ }
 			<RichText
 				{ ...blockProps }
 				tagName="label"
-				htmlFor={ attributes.for || undefined }
 				value={ attributes.text }
 				onChange={ ( value: string ) =>
 					setAttributes( { text: value } )

@@ -61,7 +61,7 @@ export default function Edit( { attributes, setAttributes }: BlockEditProps< Add
 					/>
 				</PanelBody>
 			</InspectorControls>
-			{ stateMarkup( { blockProps, id: attributes.id || undefined, name: attributes.name, placeholder: attributes.placeholder, required: attributes.required, countryField: attributes.countryField as string, countrySource: attributes.countrySource as string, country: attributes.country as string } ) }
+			{ stateMarkup( { blockProps, id: attributes.id || undefined, name: attributes.name, placeholder: attributes.placeholder, required: attributes.required, countryField: attributes.countryField as string, countrySource: attributes.countrySource as string, country: attributes.country as string, isEditor: true } ) }
 		</>
 	);
 }

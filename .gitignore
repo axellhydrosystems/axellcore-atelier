@@ -8,3 +8,6 @@ playwright-report/
 test-results/
 design/source/assets/
 design/.serve/certs/
+
+# Source maps from the dev watch (wp-scripts start); the committed build is production.
+*.map

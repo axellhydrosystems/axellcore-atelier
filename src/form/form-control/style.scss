@@ -16,6 +16,23 @@
   font-family: inherit;
 }
 
+:where(input.wp-block-axell-form-control, select.wp-block-axell-form-control, textarea.wp-block-axell-form-control):disabled {
+	// Same colours as an enabled field (the browser greys disabled ones).
+	opacity: 1;
+	color: FieldText;
+	background-color: Field;
+	border-color: light-dark(#767676, #858585); // the browser's field border
+}
+
+/*
+ * The address controls swap a select and a text field with [hidden]. The
+ * display above is an author rule, so it would beat the browser's
+ * [hidden] { display: none } and show both.
+ */
+.wp-block-axell-form-control[hidden] {
+	display: none !important;
+}
+
 :where(textarea.wp-block-axell-form-control) {
 	min-height: 10em;
 	padding: 0.5em;

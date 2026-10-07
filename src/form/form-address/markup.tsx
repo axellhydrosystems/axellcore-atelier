@@ -94,7 +94,34 @@ export function countryMarkup( a: AddressArgs ) {
 	);
 }
 
+/** Countries whose states the control lists in a select (states.ts). */
+const STATE_LISTS = [ 'BR', 'US' ];
+
 export function stateMarkup( a: AddressArgs ) {
+	if ( a.isEditor ) {
+		// The editor has no interactivity to switch the two elements: show the
+		// one the settings make active. A chosen country with a state list is
+		// a select whose first option is the placeholder; else a text field.
+		const list = a.countrySource === 'select' && STATE_LISTS.includes( a.country || '' );
+		return (
+			<div { ...a.blockProps }>
+				{ list ? (
+					<select id={ a.id } className={ FIELD } defaultValue="" tabIndex={ -1 }>
+						<option value="">{ a.placeholder || '—' }</option>
+					</select>
+				) : (
+					<input
+						type="text"
+						id={ a.id }
+						className={ FIELD }
+						placeholder={ a.placeholder || undefined }
+						readOnly
+						tabIndex={ -1 }
+					/>
+				) }
+			</div>
+		);
+	}
 	return (
 		<div { ...region( a, countryLink( a ) ) }>
 			<select

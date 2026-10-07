@@ -7,7 +7,7 @@ export default function Edit( {
 	attributes,
 	setAttributes,
 }: BlockEditProps< { content: string } > ) {
-	const blockProps = useBlockProps( { className: 'form-text' } );
+	const blockProps = useBlockProps();
 
 	return (
 		<RichText
