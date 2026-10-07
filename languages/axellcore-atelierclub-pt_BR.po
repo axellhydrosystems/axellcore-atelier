@@ -1941,3 +1941,6 @@ msgstr "Protagonistas"
 
 msgid "Promises"
 msgstr "Promessas"
+
+msgid "Steps"
+msgstr "Passos"

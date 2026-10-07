@@ -973,30 +973,39 @@ h3.chapter-tag{ margin-top: 0; }
 .jstep{
   padding-top: 40px; position: relative;
 }
-.jstep .marker{
+/* An ol: the marker is the list counter (::before), the em is the step's
+   label, the strong is its title, the br is for reading without styles,
+   and the li's own text is the description. */
+ol.journey-steps{ list-style: none; margin: 0; padding: 0; }
+.jstep::before{
+  content: counter(list-item, decimal-leading-zero);
   width: 24px; height: 24px; border-radius: 50%;
   background: var(--bronze); color: var(--ink);
   display: flex; align-items: center; justify-content: center;
-  font-family: var(--sans); font-weight: 600; font-size: 11px;
+  font-family: var(--sans); font-weight: 600; font-size: 11px; line-height: 1.6;
   margin-bottom: 36px;
   position: relative; z-index: 1;
 }
 .jstep .cap{
-  font-family: var(--sans); font-size: 10.5px;
+  display: block;
+  font-style: normal;
+  font-family: var(--sans); font-size: 10.5px; line-height: 1.6;
   letter-spacing: 0.28em; text-transform: uppercase;
   color: var(--bronze-2);
+  font-weight: 400;
   margin-bottom: 10px;
 }
-.jstep h3{
+.jstep strong{
+  display: block;
   font-family: var(--serif); font-weight: 400;
   font-size: 24px; line-height: 1.25;
   margin: 0 0 12px; color: var(--ivory);
 }
-.jstep p{
+.jstep br{ display: none; }
+.jstep{
   font-family: var(--sans); font-weight: 300;
   font-size: 14px; line-height: 1.65;
   color: rgba(239,236,228,0.66);
-  margin: 0;
 }
 .journey-quote{
   text-align: center;
@@ -1008,6 +1017,8 @@ h3.chapter-tag{ margin-top: 0; }
   padding-top: 60px;
   border-top: 1px solid var(--line-dk);
 }
+blockquote.journey-quote{ margin-left: 0; margin-right: 0; margin-bottom: 0; }
+blockquote.journey-quote p{ margin: 0; }
 @media (max-width: 900px){
   .journey-steps{ grid-template-columns: 1fr; gap: 40px; }
   .journey-steps::before{ display: none; }

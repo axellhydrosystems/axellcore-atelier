@@ -8,7 +8,8 @@
 		"placa",
 		"protagonistas",
 		"promessas",
-		"conceito"
+		"conceito",
+		"jornada"
 	],
 	"fontSizes": [
 		{
@@ -16,7 +17,8 @@
 			"px": 11,
 			"slug": "x-small",
 			"usedIn": [
-				"header: navigation links"
+				"header: navigation links",
+				"jornada: step number (block style)"
 			]
 		},
 		{
@@ -27,7 +29,8 @@
 				"header: primary button",
 				"protagonistas: chapter label (h2)",
 				"promessas: chapter label (h2)",
-				"conceito: chapter label (h2), Por que Atelier (h3), list keys"
+				"conceito: chapter label (h2), Por que Atelier (h3), list keys",
+				"jornada: chapter label (h2), step labels"
 			]
 		},
 		{
@@ -92,7 +95,8 @@
 			"value": "0.875rem",
 			"px": 14,
 			"usedIn": [
-				"convite: signature"
+				"convite: signature",
+				"jornada: step text"
 			]
 		},
 		{
@@ -102,7 +106,8 @@
 				"manifesto: section title (source .section-title, all section heads)",
 				"protagonistas: title",
 				"promessas: title",
-				"conceito: title"
+				"conceito: title",
+				"jornada: title"
 			]
 		},
 		{
@@ -111,7 +116,8 @@
 			"usedIn": [
 				"manifesto: body text (source p.body; block CSS, theme fluid typography)",
 				"protagonistas: body (block CSS)",
-				"promessas: body (block CSS)"
+				"promessas: body (block CSS)",
+				"jornada: body (block CSS)"
 			]
 		},
 		{
@@ -227,6 +233,20 @@
 			"usedIn": [
 				"conceito: verse (block CSS)"
 			]
+		},
+		{
+			"value": "1.5rem",
+			"px": 24,
+			"usedIn": [
+				"jornada: step title (block style)"
+			]
+		},
+		{
+			"value": "clamp(1.75rem, 3.6vw, 2.875rem)",
+			"px": "28–46",
+			"usedIn": [
+				"jornada: quote (block CSS)"
+			]
 		}
 	],
 	"letterSpacing": [
@@ -282,7 +302,8 @@
 			"value": "0.28em",
 			"usedIn": [
 				"convite: signature",
-				"conceito: list keys"
+				"conceito: list keys",
+				"jornada: step labels"
 			]
 		},
 		{
@@ -360,13 +381,26 @@
 		{
 			"value": "1.65",
 			"usedIn": [
-				"promessas: item text"
+				"promessas: item text",
+				"jornada: step text"
 			]
 		},
 		{
 			"value": "1.35",
 			"usedIn": [
 				"conceito: list values"
+			]
+		},
+		{
+			"value": "1.25",
+			"usedIn": [
+				"jornada: step title"
+			]
+		},
+		{
+			"value": "1.2",
+			"usedIn": [
+				"jornada: quote"
 			]
 		}
 	],
@@ -456,7 +490,8 @@
 				"convite: section padding (source .section)",
 				"placa: section padding top and bottom",
 				"protagonistas: section padding top and bottom",
-				"conceito: section padding top and bottom"
+				"conceito: section padding top and bottom",
+				"jornada: section padding top and bottom"
 			]
 		},
 		{
@@ -473,7 +508,8 @@
 				"convite: paragraphs in the quote",
 				"placa: title margin top, specs margin top, plate padding sides",
 				"promessas: number to text gap",
-				"conceito: title margin top, key to value gap"
+				"conceito: title margin top, key to value gap",
+				"jornada: steps gap"
 			]
 		},
 		{
@@ -531,7 +567,8 @@
 			"value": "2.25rem",
 			"px": 36,
 			"usedIn": [
-				"placa: lede margin bottom"
+				"placa: lede margin bottom",
+				"jornada: number margin bottom"
 			]
 		},
 		{
@@ -548,14 +585,16 @@
 			"usedIn": [
 				"placa: plate padding top and bottom",
 				"protagonistas: item padding sides",
-				"conceito: stacked columns gap, list margin top"
+				"conceito: stacked columns gap, list margin top",
+				"jornada: step padding top, stacked steps gap"
 			]
 		},
 		{
 			"value": "5.5rem",
 			"px": 88,
 			"usedIn": [
-				"protagonistas: head margin bottom"
+				"protagonistas: head margin bottom",
+				"jornada: head margin bottom, quote margin top"
 			]
 		},
 		{
@@ -570,7 +609,8 @@
 			"px": 60,
 			"usedIn": [
 				"protagonistas: item padding bottom",
-				"promessas: item padding top, number column"
+				"promessas: item padding top, number column",
+				"jornada: quote padding top"
 			]
 		},
 		{

@@ -15,6 +15,11 @@
         "template": "atelier-section"
     },
     {
+        "path": "jornada",
+        "title": "Jornada",
+        "template": "atelier-section"
+    },
+    {
         "path": "promessas",
         "title": "Promessas",
         "template": "atelier-section"

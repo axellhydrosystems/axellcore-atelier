@@ -970,30 +970,39 @@ h3.chapter-tag{ margin-top: 0; }
 .jstep{
   padding-top: 40px; position: relative;
 }
-.jstep .marker{
+/* An ol: the marker is the list counter (::before), the em is the step's
+   label, the strong is its title, the br is for reading without styles,
+   and the li's own text is the description. */
+ol.journey-steps{ list-style: none; margin: 0; padding: 0; }
+.jstep::before{
+  content: counter(list-item, decimal-leading-zero);
   width: 24px; height: 24px; border-radius: 50%;
   background: var(--bronze); color: var(--ink);
   display: flex; align-items: center; justify-content: center;
-  font-family: var(--sans); font-weight: 600; font-size: 11px;
+  font-family: var(--sans); font-weight: 600; font-size: 11px; line-height: 1.6;
   margin-bottom: 36px;
   position: relative; z-index: 1;
 }
 .jstep .cap{
-  font-family: var(--sans); font-size: 10.5px;
+  display: block;
+  font-style: normal;
+  font-family: var(--sans); font-size: 10.5px; line-height: 1.6;
   letter-spacing: 0.28em; text-transform: uppercase;
   color: var(--bronze-2);
+  font-weight: 400;
   margin-bottom: 10px;
 }
-.jstep h3{
+.jstep strong{
+  display: block;
   font-family: var(--serif); font-weight: 400;
   font-size: 24px; line-height: 1.25;
   margin: 0 0 12px; color: var(--ivory);
 }
-.jstep p{
+.jstep br{ display: none; }
+.jstep{
   font-family: var(--sans); font-weight: 300;
   font-size: 14px; line-height: 1.65;
   color: rgba(239,236,228,0.66);
-  margin: 0;
 }
 .journey-quote{
   text-align: center;
@@ -1005,6 +1014,8 @@ h3.chapter-tag{ margin-top: 0; }
   padding-top: 60px;
   border-top: 1px solid var(--line-dk);
 }
+blockquote.journey-quote{ margin-left: 0; margin-right: 0; margin-bottom: 0; }
+blockquote.journey-quote p{ margin: 0; }
 @media (max-width: 900px){
   .journey-steps{ grid-template-columns: 1fr; gap: 40px; }
   .journey-steps::before{ display: none; }
@@ -1724,36 +1735,14 @@ h3.chapter-tag{ margin-top: 0; }
       </div>
     </div>
 
-    <div class="journey-steps">
-      <div class="jstep">
-        <div class="marker">01</div>
-        <div class="cap">Solicitação</div>
-        <h3>Acesse a página do clube</h3>
-        <p>Você entra na área Atelier Axell dentro do site oficial e inicia sua solicitação de adesão.</p>
-      </div>
-      <div class="jstep">
-        <div class="marker">02</div>
-        <div class="cap">Cadastro</div>
-        <h3>Conte sobre sua autoria</h3>
-        <p>Nome, escritório, CAU/CREA, portfólio, endereço, CPF/CNPJ, lojas parceiras e o regulamento assinado.</p>
-      </div>
-      <div class="jstep">
-        <div class="marker">03</div>
-        <div class="cap">Curadoria</div>
-        <h3>Aprovação Axell</h3>
-        <p>A equipe Axell lê, entende o seu perfil e libera o acesso — com o cuidado que a autoria merece.</p>
-      </div>
-      <div class="jstep">
-        <div class="marker">04</div>
-        <div class="cap">Onboarding</div>
-        <h3>Recepção ao clube</h3>
-        <p>Recebe e-mail de boas-vindas. Cria usuário e senha e passa a acessar todo o conteúdo do Atelier.</p>
-      </div>
-    </div>
+    <ol class="journey-steps">
+      <li class="jstep"><em class="cap">Solicitação</em><br><strong>Acesse a página do clube</strong><br>Você entra na área Atelier Axell dentro do site oficial e inicia sua solicitação de adesão.</li>
+      <li class="jstep"><em class="cap">Cadastro</em><br><strong>Conte sobre sua autoria</strong><br>Nome, escritório, CAU/CREA, portfólio, endereço, CPF/CNPJ, lojas parceiras e o regulamento assinado.</li>
+      <li class="jstep"><em class="cap">Curadoria</em><br><strong>Aprovação Axell</strong><br>A equipe Axell lê, entende o seu perfil e libera o acesso — com o cuidado que a autoria merece.</li>
+      <li class="jstep"><em class="cap">Onboarding</em><br><strong>Recepção ao clube</strong><br>Recebe e-mail de boas-vindas. Cria usuário e senha e passa a acessar todo o conteúdo do Atelier.</li>
+    </ol>
 
-    <div class="journey-quote">
-      "Você não entra. <em>Você é recebido</em>."
-    </div>
+    <blockquote class="journey-quote"><p>“Você não entra. <em>Você é recebido</em>.”</p></blockquote>
   </div>
 </section>
 </main>
