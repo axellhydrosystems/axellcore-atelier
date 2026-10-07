@@ -138,5 +138,10 @@
         "path": "editorial",
         "title": "Editorial",
         "template": "atelier-section"
+    },
+    {
+        "path": "cta-strip",
+        "title": "Faixa de chamada",
+        "template": "atelier-section"
     }
 ]
