@@ -806,7 +806,12 @@ section{ position: relative; }
   border-bottom: 1px solid var(--line-iv);
 }
 .prota:last-child{ border-right: none; }
-.prota .num{
+/* An ol: the number is the list counter (one piece of text, period
+   included), the strong is the title, the br is for reading without
+   styles, and the li's own text is the description. */
+ol.prota-grid{ list-style: none; margin: 0; padding: 0; }
+.prota::before{
+  content: counter(list-item, roman-period);
   font-family: var(--serif);
   font-style: italic;
   font-weight: 300;
@@ -816,7 +821,8 @@ section{ position: relative; }
   margin-bottom: 44px;
   display: block;
 }
-.prota h3{
+.prota strong{
+  display: block;
   font-family: var(--serif);
   font-weight: 400;
   font-size: 30px;
@@ -824,12 +830,12 @@ section{ position: relative; }
   color: var(--ink);
   margin: 0 0 16px;
 }
-.prota p{
+.prota br{ display: none; }
+.prota{
   font-family: var(--sans);
   font-weight: 300;
   font-size: 14.5px; line-height: 1.7;
   color: var(--stone-dk);
-  margin: 0;
 }
 @media (max-width: 900px){
   .prota-grid{ grid-template-columns: 1fr; }

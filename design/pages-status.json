@@ -22,8 +22,8 @@
       "note": "no-class aprovado em 2026-10-07: /atelier/placa/ (post 880, template atelier-section) a 0,00% em 1440/768/390; pure /atelier/pure/placa/ (post 840); estilo de cover Pedra (is-style-stone)"
     },
     "protagonistas": {
-      "phase": 0,
-      "note": ""
+      "phase": 2,
+      "note": "no-class aprovado em 2026-10-07: /atelier/protagonistas/ (post 897, template atelier-section) a 0,00% em 1440/768/390; pure /atelier/pure/protagonistas/ (post 841); estilo de lista Protagonistas (mixin numbered-grid com Pilares)"
     },
     "promessas": {
       "phase": 0,

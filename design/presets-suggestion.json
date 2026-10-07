@@ -5,7 +5,8 @@
 		"hero",
 		"convite",
 		"manifesto",
-		"placa"
+		"placa",
+		"protagonistas"
 	],
 	"fontSizes": [
 		{
@@ -21,7 +22,8 @@
 			"px": 10.5,
 			"slug": "xx-small",
 			"usedIn": [
-				"header: primary button"
+				"header: primary button",
+				"protagonistas: chapter label (h2)"
 			]
 		},
 		{
@@ -92,14 +94,16 @@
 			"value": "clamp(2.25rem, 5vw, 4.25rem)",
 			"px": "36–68",
 			"usedIn": [
-				"manifesto: section title (source .section-title, all section heads)"
+				"manifesto: section title (source .section-title, all section heads)",
+				"protagonistas: title"
 			]
 		},
 		{
 			"value": "0.96875rem",
 			"px": 15.5,
 			"usedIn": [
-				"manifesto: body text (source p.body; block CSS, theme fluid typography)"
+				"manifesto: body text (source p.body; block CSS, theme fluid typography)",
+				"protagonistas: body (block CSS)"
 			]
 		},
 		{
@@ -148,7 +152,8 @@
 			"value": "0.90625rem",
 			"px": 14.5,
 			"usedIn": [
-				"placa: specs values (block CSS)"
+				"placa: specs values (block CSS)",
+				"protagonistas: item text (block CSS)"
 			]
 		},
 		{
@@ -177,6 +182,20 @@
 			"px": 8.5,
 			"usedIn": [
 				"placa: plate footer"
+			]
+		},
+		{
+			"value": "3.75rem",
+			"px": 60,
+			"usedIn": [
+				"protagonistas: item number (block style)"
+			]
+		},
+		{
+			"value": "1.875rem",
+			"px": 30,
+			"usedIn": [
+				"protagonistas: item title (block style)"
 			]
 		}
 	],
@@ -298,6 +317,12 @@
 			"usedIn": [
 				"placa: plate name"
 			]
+		},
+		{
+			"value": "1.7",
+			"usedIn": [
+				"protagonistas: item text"
+			]
 		}
 	],
 	"spacing": [
@@ -383,7 +408,8 @@
 			"px": "90–180",
 			"usedIn": [
 				"convite: section padding (source .section)",
-				"placa: section padding top and bottom"
+				"placa: section padding top and bottom",
+				"protagonistas: section padding top and bottom"
 			]
 		},
 		{
@@ -468,7 +494,43 @@
 			"value": "2.5rem",
 			"px": 40,
 			"usedIn": [
-				"placa: plate padding top and bottom"
+				"placa: plate padding top and bottom",
+				"protagonistas: item padding sides"
+			]
+		},
+		{
+			"value": "5.5rem",
+			"px": 88,
+			"usedIn": [
+				"protagonistas: head margin bottom"
+			]
+		},
+		{
+			"value": "3.5rem",
+			"px": 56,
+			"usedIn": [
+				"protagonistas: head margin bottom (tablet, mobile), item padding top"
+			]
+		},
+		{
+			"value": "3.75rem",
+			"px": 60,
+			"usedIn": [
+				"protagonistas: item padding bottom"
+			]
+		},
+		{
+			"value": "2.75rem",
+			"px": 44,
+			"usedIn": [
+				"protagonistas: number margin bottom"
+			]
+		},
+		{
+			"value": "1rem",
+			"px": 16,
+			"usedIn": [
+				"protagonistas: title margin bottom"
 			]
 		}
 	],
@@ -497,13 +559,15 @@
 			"slug": "ink",
 			"usedIn": [
 				"section template background",
-				"header: primary button text"
+				"header: primary button text",
+				"protagonistas: section text, title, item titles"
 			]
 		},
 		{
 			"slug": "bronze",
 			"usedIn": [
-				"header: primary button background and border"
+				"header: primary button background and border",
+				"protagonistas: chapter label, title em, item numbers"
 			]
 		},
 		{
@@ -585,13 +649,21 @@
 		{
 			"slug": "ivory",
 			"usedIn": [
-				"placa: section text, plate name"
+				"placa: section text, plate name",
+				"protagonistas: section background"
 			]
 		},
 		{
 			"slug": "stone-dk",
 			"usedIn": [
-				"placa: notice caption"
+				"placa: notice caption",
+				"protagonistas: body, item text"
+			]
+		},
+		{
+			"slug": "line-iv",
+			"usedIn": [
+				"protagonistas: item borders"
 			]
 		}
 	]

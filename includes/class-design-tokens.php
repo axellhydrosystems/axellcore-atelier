@@ -139,7 +139,11 @@ final class Design_Tokens {
 	 * - "Ivory" on images: the dark logo rendered ivory, like .nav-logo img
 	 *   (a duotone filter gets within 1 level, not equal);
 	 * - "Visually hidden" on groups: off screen but read by screen readers
-	 *   (the hero's page h1), like .visually-hidden.
+	 *   (the hero's page h1), like .visually-hidden;
+	 * - "Pillars" and "Protagonists" on lists: numbered grids (the manifesto
+	 *   pillars and the protagonistas items), sharing one SCSS mixin.
+	 *
+	 * A block can have more than one style, so each row is block, name, label.
 	 */
 	public function register_block_styles() {
 		$file = 'build/block-styles/style-frontend.css';
@@ -147,17 +151,18 @@ final class Design_Tokens {
 			return;
 		}
 		$styles = array(
-			'core/button'     => array( 'primary', __( 'Primary', 'axellcore-atelierclub' ) ),
-			'core/navigation' => array( 'bronze-hover', __( 'Bronze hover', 'axellcore-atelierclub' ) ),
-			'core/image'      => array( 'ivory', __( 'Ivory', 'axellcore-atelierclub' ) ),
-			'core/group'      => array( 'visually-hidden', __( 'Visually hidden', 'axellcore-atelierclub' ) ),
-			'core/paragraph'  => array( 'eyebrow', __( 'Eyebrow', 'axellcore-atelierclub' ) ),
-			'core/column'     => array( 'sticky-desktop', __( 'Sticky on desktop', 'axellcore-atelierclub' ) ),
-			'core/heading'    => array( 'chapter', __( 'Chapter', 'axellcore-atelierclub' ) ),
-			'core/list'       => array( 'pillars', __( 'Pillars', 'axellcore-atelierclub' ) ),
-			'core/cover'      => array( 'stone', __( 'Stone', 'axellcore-atelierclub' ) ),
+			array( 'core/button', 'primary', __( 'Primary', 'axellcore-atelierclub' ) ),
+			array( 'core/navigation', 'bronze-hover', __( 'Bronze hover', 'axellcore-atelierclub' ) ),
+			array( 'core/image', 'ivory', __( 'Ivory', 'axellcore-atelierclub' ) ),
+			array( 'core/group', 'visually-hidden', __( 'Visually hidden', 'axellcore-atelierclub' ) ),
+			array( 'core/paragraph', 'eyebrow', __( 'Eyebrow', 'axellcore-atelierclub' ) ),
+			array( 'core/column', 'sticky-desktop', __( 'Sticky on desktop', 'axellcore-atelierclub' ) ),
+			array( 'core/heading', 'chapter', __( 'Chapter', 'axellcore-atelierclub' ) ),
+			array( 'core/list', 'pillars', __( 'Pillars', 'axellcore-atelierclub' ) ),
+			array( 'core/list', 'protagonists', __( 'Protagonists', 'axellcore-atelierclub' ) ),
+			array( 'core/cover', 'stone', __( 'Stone', 'axellcore-atelierclub' ) ),
 		);
-		foreach ( $styles as $block => list( $name, $label ) ) {
+		foreach ( $styles as list( $block, $name, $label ) ) {
 			register_block_style(
 				$block,
 				array(

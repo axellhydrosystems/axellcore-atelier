@@ -806,7 +806,12 @@ section{ position: relative; }
   border-bottom: 1px solid var(--line-iv);
 }
 .prota:last-child{ border-right: none; }
-.prota .num{
+/* An ol: the number is the list counter (one piece of text, period
+   included), the strong is the title, the br is for reading without
+   styles, and the li's own text is the description. */
+ol.prota-grid{ list-style: none; margin: 0; padding: 0; }
+.prota::before{
+  content: counter(list-item, roman-period);
   font-family: var(--serif);
   font-style: italic;
   font-weight: 300;
@@ -816,7 +821,8 @@ section{ position: relative; }
   margin-bottom: 44px;
   display: block;
 }
-.prota h3{
+.prota strong{
+  display: block;
   font-family: var(--serif);
   font-weight: 400;
   font-size: 30px;
@@ -824,12 +830,12 @@ section{ position: relative; }
   color: var(--ink);
   margin: 0 0 16px;
 }
-.prota p{
+.prota br{ display: none; }
+.prota{
   font-family: var(--sans);
   font-weight: 300;
   font-size: 14.5px; line-height: 1.7;
   color: var(--stone-dk);
-  margin: 0;
 }
 @media (max-width: 900px){
   .prota-grid{ grid-template-columns: 1fr; }
@@ -1853,23 +1859,11 @@ section{ position: relative; }
     </div>
   </div>
 
-  <div class="prota-grid">
-    <div class="prota">
-      <span class="num">i.</span>
-      <h3>Vocês assinam ambientes</h3>
-      <p>Detalham o projeto, escolhem o produto, validam o ritual. A mão de vocês está em cada momento — do primeiro croqui ao último acabamento.</p>
-    </div>
-    <div class="prota">
-      <span class="num">ii.</span>
-      <h3>Vocês educam o cliente</h3>
-      <p>Recomendam com curadoria, esclarecem diferenças técnicas, fecham a especificação antes da compra. Vocês são a voz de confiança.</p>
-    </div>
-    <div class="prota">
-      <span class="num">iii.</span>
-      <h3>Vocês constroem a marca</h3>
-      <p>Cada projeto é um capítulo de conteúdo. Vocês são a voz técnica e autoral da Axell no campo — a marca fala através das obras.</p>
-    </div>
-  </div>
+  <ol class="prota-grid">
+    <li class="prota"><strong>Vocês assinam ambientes</strong><br>Detalham o projeto, escolhem o produto, validam o ritual. A mão de vocês está em cada momento — do primeiro croqui ao último acabamento.</li>
+    <li class="prota"><strong>Vocês educam o cliente</strong><br>Recomendam com curadoria, esclarecem diferenças técnicas, fecham a especificação antes da compra. Vocês são a voz de confiança.</li>
+    <li class="prota"><strong>Vocês constroem a marca</strong><br>Cada projeto é um capítulo de conteúdo. Vocês são a voz técnica e autoral da Axell no campo — a marca fala através das obras.</li>
+  </ol>
 </section>
 
 <!-- =================== 4 PROMESSAS =================== -->

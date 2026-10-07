@@ -1935,3 +1935,6 @@ msgstr "Cadeado (contorno)"
 #: includes/class-design-tokens.php
 msgid "Stone"
 msgstr "Pedra"
+
+msgid "Protagonists"
+msgstr "Protagonistas"
