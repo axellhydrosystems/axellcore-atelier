@@ -23,6 +23,14 @@ interface AutocompleteContext {
 	customUf: string;
 	customCity: string;
 	cityOptions: CityOption[];
+	/** City combobox: what the field shows (typed, or the highlighted city). */
+	cityQuery: string;
+	/** City combobox: what was typed (filters the list). */
+	cityTyped: string;
+	cityOpen: boolean;
+	cityActive: number;
+	/** City placeholder: "Selecione UF" until a UF is chosen. */
+	cityHint: string;
 	activeIndex: number;
 	options: Option[];
 }
@@ -33,6 +41,7 @@ interface CityOption {
 }
 
 const DEBOUNCE_MS = 250;
+const MAX_CITIES = 20;
 const NOT_FOUND_LABEL = 'Adicionar não encontrada';
 
 /**
@@ -55,12 +64,84 @@ function composeTitle( context: AutocompleteContext ): string {
 }
 
 /**
+ * Lower case, no accents, for matching typed city names.
+ * @param text
+ */
+const fold = ( text: string ) =>
+	text
+		.normalize( 'NFD' )
+		.replace( /[\u0300-\u036f]/g, '' )
+		.toLowerCase();
+
+/**
+ * A city name as a slug, for matching what was typed in full: no case,
+ * accents, hyphens or apostrophes ("sao joao del rei" = "São João del-Rei").
+ * @param text
+ */
+const slug = ( text: string ) =>
+	fold( text )
+		.replace( /[^a-z0-9]+/g, '-' )
+		.replace( /^-+|-+$/g, '' );
+
+/**
+ * Cities of the chosen UF matching what was typed (start of name first), as
+ * in the address city (src/form/form-address/view.ts).
+ *
+ * @param context Autocomplete context.
+ */
+function cityMatches( context: AutocompleteContext ): CityOption[] {
+	const q = fold( ( context.cityTyped || '' ).trim() );
+	if ( ! q ) {
+		return [];
+	}
+	const cities = context.cityOptions || [];
+	const starts = cities.filter( ( c ) => fold( c.label ).startsWith( q ) );
+	const inner = cities.filter(
+		( c ) =>
+			! fold( c.label ).startsWith( q ) && fold( c.label ).includes( q )
+	);
+	return [ ...starts, ...inner ].slice( 0, MAX_CITIES );
+}
+
+/**
+ * The city of the chosen UF whose name, as a slug, is the typed text's.
+ *
+ * @param context Autocomplete context.
+ */
+function exactCity( context: AutocompleteContext ): CityOption | undefined {
+	const q = slug( context.cityTyped || '' );
+	return q
+		? ( context.cityOptions || [] ).find( ( c ) => slug( c.label ) === q )
+		: undefined;
+}
+
+/**
+ * Choose a city in the custom store's city combobox.
+ *
+ * @param context Autocomplete context.
+ * @param city    City name.
+ */
+function chooseCity( context: AutocompleteContext, city: string ) {
+	context.customCity = city;
+	context.cityQuery = city;
+	context.cityTyped = city;
+	context.cityOpen = false;
+	context.cityActive = -1;
+	context.title = composeTitle( context );
+}
+
+/**
  * Select the option at index; an index past the list is "Não encontrada".
  *
  * @param context Autocomplete context.
  * @param index   Position in the list.
+ * @param from    Element inside the widget (where the choice was made).
  */
-function choose( context: AutocompleteContext, index: number ) {
+function choose(
+	context: AutocompleteContext,
+	index: number,
+	from?: Element | null
+) {
 	if ( index < context.options.length ) {
 		const option = context.options[ index ];
 		context.selectedId = String( option.id );
@@ -75,6 +156,11 @@ function choose( context: AutocompleteContext, index: number ) {
 		context.custom = true;
 		context.customName = context.query.trim();
 		context.title = composeTitle( context );
+		// The search input is hidden now: focus moves to the store's name.
+		const name = from
+			?.closest( '[data-wp-interactive="axell/autocomplete"]' )
+			?.querySelector< HTMLInputElement >( '.aa-ac-name input' );
+		setTimeout( () => name?.focus(), 0 );
 	}
 	context.open = false;
 	context.activeIndex = -1;
@@ -104,7 +190,9 @@ const { state } = store( 'axell/autocomplete', {
 			}
 
 			// Debounce: a newer keystroke makes this request stale.
-			yield new Promise( ( resolve ) => setTimeout( resolve, DEBOUNCE_MS ) );
+			yield new Promise( ( resolve ) =>
+				setTimeout( resolve, DEBOUNCE_MS )
+			);
 			if ( context.query !== query ) {
 				return;
 			}
@@ -165,11 +253,112 @@ const { state } = store( 'axell/autocomplete', {
 			setTimeout( () => input?.focus(), 0 );
 		},
 
+		onCustomCitySearch( event: Event ) {
+			const context = getContext< AutocompleteContext >();
+			const input = event.target as HTMLInputElement;
+			context.cityTyped = input.value;
+			context.cityQuery = input.value;
+			// Open only with something typed (the list is empty otherwise).
+			context.cityOpen = input.value.trim() !== '';
+			context.cityActive = -1;
+			// Typing again drops the previous choice until a city is picked.
+			context.customCity = '';
+			context.title = composeTitle( context );
+		},
+
+		pickCustomCity( event: MouseEvent ) {
+			const item = ( event.target as HTMLElement ).closest< HTMLElement >(
+				'li[data-label]'
+			);
+			if ( item ) {
+				chooseCity(
+					getContext< AutocompleteContext >(),
+					item.dataset.label || ''
+				);
+			}
+		},
+
+		onCustomCityKeydown( event: KeyboardEvent ) {
+			const context = getContext< AutocompleteContext >();
+			const list = cityMatches( context );
+			// The field shows the highlighted city; what was typed still filters.
+			const highlight = ( index: number ) => {
+				context.cityActive = index;
+				context.cityQuery = list[ index ].label;
+			};
+			switch ( event.key ) {
+				case 'ArrowDown':
+					event.preventDefault();
+					if ( list.length ) {
+						context.cityOpen = true;
+						highlight( ( context.cityActive + 1 ) % list.length );
+					}
+					break;
+				case 'ArrowUp':
+					event.preventDefault();
+					if ( list.length ) {
+						highlight(
+							context.cityActive <= 0
+								? list.length - 1
+								: context.cityActive - 1
+						);
+					}
+					break;
+				case 'Enter':
+				case ' ': {
+					// Enter or Space on a highlighted city chooses it and closes the
+					// list; Enter with none highlighted takes the city typed in full.
+					const chosen =
+						list[ context.cityActive ] ??
+						( event.key === 'Enter'
+							? exactCity( context )
+							: undefined );
+					if ( context.cityOpen && chosen ) {
+						event.preventDefault();
+						chooseCity( context, chosen.label );
+					}
+					break;
+				}
+				case 'Escape':
+					context.cityOpen = false;
+					context.cityActive = -1;
+					context.cityQuery = context.cityTyped;
+					break;
+			}
+		},
+
+		onCustomCityFocusOut( event: FocusEvent ) {
+			const wrapper = event.currentTarget as HTMLElement;
+			const next = event.relatedTarget as Node | null;
+			if ( next && wrapper.contains( next ) ) {
+				return;
+			}
+			const context = getContext< AutocompleteContext >();
+			// Leaving without picking a city takes the city typed in full
+			// ("joinville" → Joinville), or clears the text.
+			if ( ! context.customCity ) {
+				const typed = exactCity( context );
+				if ( typed ) {
+					chooseCity( context, typed.label );
+					return;
+				}
+				context.cityQuery = '';
+				context.cityTyped = '';
+			}
+			context.cityOpen = false;
+			context.cityActive = -1;
+		},
+
 		*onCustomUf( event: Event ): Generator< unknown, void, unknown > {
 			const select = event.target as HTMLSelectElement;
 			const context = getContext< AutocompleteContext >();
 			context.customUf = select.value;
 			context.customCity = '';
+			context.cityQuery = '';
+			context.cityTyped = '';
+			context.cityOpen = false;
+			context.cityActive = -1;
+			context.cityHint = select.value ? 'Cidade' : 'Selecione UF';
 			context.cityOptions = [];
 			context.title = composeTitle( context );
 
@@ -199,6 +388,14 @@ const { state } = store( 'axell/autocomplete', {
 		},
 
 		onKeydown( event: KeyboardEvent ) {
+			// Only the search field: the custom store's fields have their own keys.
+			const target = event.target as HTMLElement;
+			if (
+				target.getAttribute( 'role' ) !== 'combobox' ||
+				target.hasAttribute( 'data-field' )
+			) {
+				return;
+			}
 			const context = getContext< AutocompleteContext >();
 			const total =
 				context.options.length +
@@ -225,7 +422,11 @@ const { state } = store( 'axell/autocomplete', {
 				case 'ArrowUp':
 					event.preventDefault();
 					if ( total ) {
-						highlight( context.activeIndex <= 0 ? total - 1 : context.activeIndex - 1 );
+						highlight(
+							context.activeIndex <= 0
+								? total - 1
+								: context.activeIndex - 1
+						);
 					}
 					break;
 				case 'Enter':
@@ -233,7 +434,11 @@ const { state } = store( 'axell/autocomplete', {
 					// Enter or Space on a highlighted item chooses it and closes the list.
 					if ( context.open && context.activeIndex >= 0 ) {
 						event.preventDefault();
-						choose( context, context.activeIndex );
+						choose(
+							context,
+							context.activeIndex,
+							event.target as Element
+						);
 					}
 					break;
 				case 'Escape':
@@ -249,7 +454,11 @@ const { state } = store( 'axell/autocomplete', {
 				'li[data-index]'
 			);
 			if ( item ) {
-				choose( getContext< AutocompleteContext >(), Number( item.dataset.index ) );
+				choose(
+					getContext< AutocompleteContext >(),
+					Number( item.dataset.index ),
+					item
+				);
 			}
 		},
 
@@ -295,6 +504,24 @@ const { state } = store( 'axell/autocomplete', {
 			select.value = context.customCity;
 		},
 
+		// The custom store's city list: the matching cities of the chosen UF.
+		renderCustomCities() {
+			const context = getContext< AutocompleteContext >();
+			const list = getElement().ref as HTMLElement;
+			const items = cityMatches( context ).map( ( city, index ) => {
+				const li = document.createElement( 'li' );
+				li.setAttribute( 'role', 'option' );
+				li.dataset.label = city.label;
+				li.setAttribute(
+					'aria-selected',
+					String( index === context.cityActive )
+				);
+				li.textContent = city.label;
+				return li;
+			} );
+			list.replaceChildren( ...items );
+		},
+
 		// The list is rebuilt whenever the options, the active item or the text change.
 		renderList() {
 			const context = getContext< AutocompleteContext >();
@@ -309,13 +536,17 @@ const { state } = store( 'axell/autocomplete', {
 			}
 
 			const entries = context.options.map( ( option ) => option.label );
-			const showNotFound = context.allowNotFound && context.query.trim() !== '';
+			const showNotFound =
+				context.allowNotFound && context.query.trim() !== '';
 
 			const items = entries.map( ( label, index ) => {
 				const li = document.createElement( 'li' );
 				li.setAttribute( 'role', 'option' );
 				li.dataset.index = String( index );
-				li.setAttribute( 'aria-selected', String( index === context.activeIndex ) );
+				li.setAttribute(
+					'aria-selected',
+					String( index === context.activeIndex )
+				);
 				li.textContent = label;
 				return li;
 			} );
@@ -326,7 +557,10 @@ const { state } = store( 'axell/autocomplete', {
 				li.setAttribute( 'role', 'option' );
 				li.className = 'aa-ac-notfound';
 				li.dataset.index = String( entries.length );
-				li.setAttribute( 'aria-selected', String( entries.length === context.activeIndex ) );
+				li.setAttribute(
+					'aria-selected',
+					String( entries.length === context.activeIndex )
+				);
 
 				const typed = document.createElement( 'span' );
 				typed.textContent = context.query.trim();

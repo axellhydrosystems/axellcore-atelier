@@ -242,19 +242,18 @@ final class Members {
 			}
 		}
 
-		foreach ( self::RESELLER_FIELDS as $field ) {
-			$id    = absint( $params[ $field ] ?? 0 );
-			$title = sanitize_text_field( $params[ $field . '_title' ] ?? '' );
-			if ( 0 === $id && '' === $title ) {
-				continue;
-			}
+		// The stores filled in, moved up to the first positions (store 1 and
+		// store 3 are saved as reseller1 and reseller2).
+		foreach ( self::submitted_resellers( $params ) as $index => $store ) {
+			$field = self::RESELLER_FIELDS[ $index ];
+			$id    = $store['id'];
 			// Custom store: a text "Nome - UF Cidade" that matches becomes a
 			// pending revenda (Reseller_Store), and its ID is kept.
 			if ( 0 === $id ) {
-				$id = (int) apply_filters( 'axellcore_atelierclub_reseller_text', 0, $title );
+				$id = (int) apply_filters( 'axellcore_atelierclub_reseller_text', 0, $store['title'] );
 			}
 			$meta[ $field ]            = $id > 0 ? (string) $id : '';
-			$meta[ $field . '_title' ] = $title;
+			$meta[ $field . '_title' ] = $store['title'];
 		}
 
 		foreach ( $meta as $key => $value ) {
@@ -417,5 +416,28 @@ final class Members {
 	 */
 	public static function client_ip() {
 		return isset( $_SERVER['REMOTE_ADDR'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) : '';
+	}
+
+	/**
+	 * The partner stores filled in, in the order sent, without the empty
+	 * positions: each with its revenda ID (0 for a custom store) and its text.
+	 *
+	 * @param array $params Submitted fields.
+	 * @return array<int,array{id:int,title:string}>
+	 */
+	public static function submitted_resellers( array $params ) {
+		$stores = array();
+		foreach ( self::RESELLER_FIELDS as $field ) {
+			$id    = absint( $params[ $field ] ?? 0 );
+			$title = sanitize_text_field( $params[ $field . '_title' ] ?? '' );
+			if ( 0 === $id && '' === $title ) {
+				continue;
+			}
+			$stores[] = array(
+				'id'    => $id,
+				'title' => $title,
+			);
+		}
+		return $stores;
 	}
 }

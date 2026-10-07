@@ -35,6 +35,12 @@ final class Form_Directives {
 	const RESELLER_TEMPLATE = '[post_title] · [tax:estado:slug:uppercase] [tax:cidade]';
 
 	/** UF codes of the custom-store panel (the reseller's own UF and city). */
+	/**
+	 * Autocomplete token for the city comboboxes: one Chrome does not know,
+	 * so it does not autofill them (it ignores "off" on address fields).
+	 */
+	const NO_AUTOFILL = 'aa-city-search';
+
 	const UF_CODES = array( 'AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO' );
 
 	/** CPF/CNPJ placeholders by fixed type (src/form/form-control-br-revenue-id/document.ts). */
@@ -544,6 +550,10 @@ final class Form_Directives {
 			$p,
 			array(
 				'role'                        => 'combobox',
+				// Not "off": Chrome ignores it on fields it takes for an
+				// address and autofills the text without a city being picked.
+				// A token it does not know keeps its autofill away.
+				'autocomplete'                => self::NO_AUTOFILL,
 				'aria-autocomplete'           => 'list',
 				'aria-controls'               => $list_id,
 				'hidden'                      => true,
@@ -665,6 +675,11 @@ final class Form_Directives {
 			'customUf'      => '',
 			'customCity'    => '',
 			'cityOptions'   => array(),
+			'cityQuery'     => '',
+			'cityTyped'     => '',
+			'cityOpen'      => false,
+			'cityActive'    => -1,
+			'cityHint'      => __( 'Selecione UF', 'axellcore-atelierclub' ),
 			'activeIndex'   => -1,
 			'options'       => array(),
 		);
@@ -795,10 +810,16 @@ final class Form_Directives {
 				. '<input type="hidden" name="%4$s" data-wp-bind--value="context.selectedId"/>'
 				. '<input type="hidden" name="%4$s_title" data-wp-bind--value="context.title"/>'
 				. '<div class="aa-ac-custom" hidden data-wp-bind--hidden="!context.custom">'
-				. '<div class="aa-ac-name"><input type="text" id="%4$s-custom-name" data-field="name" aria-label="%5$s" placeholder="%5$s" data-wp-bind--value="context.customName" data-wp-on--input="actions.onCustomInput"/>'
-				. '<button type="button" class="aa-ac-back" aria-label="%6$s" data-wp-on--click="actions.backToSearch">%7$s</button></div>'
+				// The back button comes before the name in the Tab order (it is
+				// placed over the name's end by CSS): Tab from the name goes to the UF.
+				. '<div class="aa-ac-name"><button type="button" class="aa-ac-back" aria-label="%6$s" data-wp-on--click="actions.backToSearch">%7$s</button>'
+				. '<input type="text" id="%4$s-custom-store" data-field="name" aria-label="%5$s" placeholder="%5$s" autocomplete="off" data-wp-bind--value="context.customName" data-wp-on--input="actions.onCustomInput"/></div>'
 				. '<select id="%4$s-custom-uf" aria-label="%8$s" data-wp-bind--value="context.customUf" data-wp-on--change="actions.onCustomUf">%9$s</select>'
-				. '<select id="%4$s-custom-city" aria-label="%10$s" data-field="city" disabled data-wp-bind--disabled="!context.customUf" data-wp-on--change="actions.onCustomCity" data-wp-watch="callbacks.renderCities"><option value="">%11$s</option></select>'
+				// The city: a combobox over the UF's cities, as the address city.
+				. '<div class="aa-ac-city" data-wp-on--focusout="actions.onCustomCityFocusOut">'
+				. '<input type="text" id="%4$s-custom-city" data-field="city" role="combobox" aria-label="%10$s" placeholder="%11$s" aria-autocomplete="list" aria-controls="%4$s-custom-cities" aria-expanded="false" autocomplete="%13$s" disabled data-wp-bind--disabled="!context.customUf" data-wp-bind--placeholder="context.cityHint" data-wp-bind--value="context.cityQuery" data-wp-bind--aria-expanded="context.cityOpen" data-wp-on--input="actions.onCustomCitySearch" data-wp-on--keydown="actions.onCustomCityKeydown"/>'
+				. '<ul id="%4$s-custom-cities" role="listbox" hidden tabindex="-1" data-wp-bind--hidden="!context.cityOpen" data-wp-on--click="actions.pickCustomCity" data-wp-on--mousedown="actions.keepFocus" data-wp-watch="callbacks.renderCustomCities"></ul>'
+				. '</div>'
 				. '</div>'
 				. '<ul id="%12$s" role="listbox" hidden tabindex="-1" data-wp-bind--hidden="!context.open" data-wp-on--click="actions.pick" data-wp-on--mousedown="actions.keepFocus" data-wp-watch="callbacks.renderList"></ul>'
 				. '</div>',
@@ -806,14 +827,18 @@ final class Form_Directives {
 			esc_attr( self::json( $context ) ),
 			$field,
 			esc_attr( $name ),
-			esc_attr__( 'Nome', 'axellcore-atelierclub' ),
+			// "Nome da loja", and an id without "name": with a plain "Nome",
+			// Chrome takes it for the person's name and autofills it despite
+			// autocomplete="off".
+			esc_attr__( 'Nome da loja', 'axellcore-atelierclub' ),
 			esc_attr__( 'Voltar à busca', 'axellcore-atelierclub' ),
 			$search_icon,
 			esc_attr__( 'UF', 'axellcore-atelierclub' ),
 			$uf_options,
 			esc_attr__( 'Cidade', 'axellcore-atelierclub' ),
 			esc_html__( 'Selecione UF', 'axellcore-atelierclub' ),
-			esc_attr( $list_id )
+			esc_attr( $list_id ),
+			esc_attr( self::NO_AUTOFILL )
 		);
 	}
 

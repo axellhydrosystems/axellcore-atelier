@@ -115,8 +115,37 @@
 	grid-column: span 2;
 }
 
-:where([data-wp-interactive='axell/autocomplete'] .aa-ac-custom select[data-field='city']) {
+/* The city: a combobox (.aa-ac-city), or a select in content saved before it. */
+:where([data-wp-interactive='axell/autocomplete'] .aa-ac-custom select[data-field='city']),
+:where([data-wp-interactive='axell/autocomplete'] .aa-ac-city) {
 	grid-column: span 4;
+}
+
+/* Its suggestions open under the city field. */
+:where([data-wp-interactive='axell/autocomplete'] .aa-ac-city) {
+	position: relative;
+	min-width: 0;
+}
+
+/*
+ * Phones (WordPress @mobile): twelve columns leave no room once the eleven
+ * gaps are taken, so two columns: the name on its own row, UF and city below.
+ */
+@media (width <= 30rem) {
+	:where([data-wp-interactive='axell/autocomplete'] .aa-ac-custom) {
+		/* UF: its own width plus --aa-ac-inset (see below); city: the rest. */
+		grid-template-columns: calc(var(--aa-ac-inset, 0px) + 4.5rem) minmax(0, 1fr);
+		gap: 0 1rem;
+	}
+
+	:where([data-wp-interactive='axell/autocomplete'] .aa-ac-name) {
+		grid-column: 1 / -1;
+	}
+
+	:where([data-wp-interactive='axell/autocomplete'] .aa-ac-custom select),
+	:where([data-wp-interactive='axell/autocomplete'] .aa-ac-city) {
+		grid-column: auto;
+	}
 }
 
 :where([data-wp-interactive='axell/autocomplete'] .aa-ac-custom[hidden]) {
@@ -186,3 +215,14 @@
 	padding-right: 2.5em;
 }
 
+/*
+ * Phones: the UF (second row of the custom store) lines up with the name's
+ * text; --aa-ac-inset is the name's left padding. After the select rules
+ * above, which set the width with the same (zero) specificity.
+ */
+@media (width <= 30rem) {
+	:where([data-wp-interactive='axell/autocomplete'] .aa-ac-custom select:not([data-field='city'])) {
+		margin-left: var(--aa-ac-inset, 0);
+		width: calc(100% - var(--aa-ac-inset, 0px));
+	}
+}

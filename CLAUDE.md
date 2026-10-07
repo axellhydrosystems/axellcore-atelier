@@ -450,6 +450,17 @@ The interactive form blocks save plain HTML (elements, ids, names, `hidden`/`dis
 - Single-field controls (CPF/CNPJ, telefone, CEP, país) save the field itself as the block root, with the block class and `wp-block-axell-form-control`; the region directives and the field directives go on that one element. UF and Cidade also save only their field (a `<select>` with the placeholder option; a text `<input>`); `Form_Directives::state_widget()` / `city_widget()` build the `{block class}-wrapper` region on render: the UF select with the states and the free-text input for other countries; the city combobox, the hidden field that is sent, the free-text input and the `{name}-cities` list (or, not searchable, the cities select). Their wrapped save is the `v2` deprecation (`wrappedStateMarkup` / `wrappedCityMarkup`). The earlier wrapped save is a `v2` deprecation (`wrapped-markup.tsx`).
 - The autocomplete (reseller, and `axell/form-control` of type autocomplete) saves only its search `<input>`. `Form_Directives::autocomplete_widget()` builds the rest on render: the `{block class}-wrapper` div (the `axell/autocomplete` region), the combobox attributes, the hidden `{name}` and `{name}_titulo` inputs, the custom-store panel (name, back button, UF select from `Form_Directives::UF_CODES`, city select) and the `{name}-list` listbox. Styles and the view key on `[data-wp-interactive='axell/autocomplete']`, not on the block class (now on the input). The wrapped save is the `v2` deprecation (`wrapped-autocomplete-markup.tsx`); content still saved that way (root `DIV`) only gets the directives.
 - Check: the rendered `data-wp-*` of `/atelier/pure/adesao/` must match before and after a change (diff of the attributes per element).
+- Custom store panel (`autocomplete_widget()`):
+  - **Order:** "Voltar à busca" button, then name, UF, city. The button comes first in the Tab order and is placed over the name's end by CSS.
+  - **Name:** choosing "não encontrada" moves focus to it.
+  - **City:** a combobox over the UF's cities, as the address city (`cityQuery`/`cityTyped`/`cityOpen`/`cityActive` in the context). Its placeholder and open state are context values, not `state` getters, which the server directive processor cannot evaluate.
+  - **Keys:** the widget's `onKeydown` only handles the search combobox (no `data-field`), so the arrows in the panel never open the search list.
+  - **Legacy markup:** content saved in the wrapped form keeps the city `<select>` (`renderCities`).
+- **Partner stores on submission:** `Members::submitted_resellers()` drops the empty positions and keeps the order. Stores 2 and 4 are saved as `reseller1` and `reseller2`.
+- **Styled slots (/atelier/adesao/):**
+  - **Layout:** each field spans the whole slot from its left edge, at full height (the slot's 0.5rem vertical padding moved into the fields: 18px).
+  - **Index:** the roman index sits over the field's 46px left padding (`--aa-ac-inset`, which also lines up the UF on phones).
+  - **Line:** the slot's line hides while the custom panel is open.
 
 ## Footer (/atelier/footer/, post 1078)
 

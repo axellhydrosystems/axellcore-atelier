@@ -58,6 +58,17 @@ const here = () => getElement().ref as HTMLElement | null;
 const fold = ( text: string ) =>
 	text.normalize( 'NFD' ).replace( /[̀-ͯ]/g, '' ).toLowerCase();
 
+/**
+ * A city name as a slug, for matching what was typed in full: no case,
+ * accents, hyphens or apostrophes ("sao joao del rei" = "São João del-Rei").
+ *
+ * @param text City name.
+ */
+const slug = ( text: string ) =>
+	fold( text )
+		.replace( /[^a-z0-9]+/g, '-' )
+		.replace( /^-+|-+$/g, '' );
+
 /** Country of a control: chosen in its settings, or the value of its country field. */
 function countryOf( context: ControlContext ): string {
 	// Codes in upper case, whatever the field or the block stored (br = BR).
@@ -177,8 +188,13 @@ const { state } = store( 'axell/address', {
 					break;
 				case 'Enter':
 				case ' ': {
-					// Enter or Space on a highlighted city chooses it and closes the list.
-					const chosen = list[ context.active ?? -1 ];
+					// Enter or Space on a highlighted city chooses it and closes the
+					// list; Enter with none highlighted takes the city typed in full.
+					const chosen =
+						list[ context.active ?? -1 ] ??
+						( event.key === 'Enter'
+							? exactCity( context, event.target as HTMLElement )
+							: undefined );
 					if ( context.open && chosen ) {
 						event.preventDefault();
 						context.code = chosen.value;
@@ -208,10 +224,13 @@ const { state } = store( 'axell/address', {
 				return;
 			}
 			const context = getContext< ControlContext >();
-			// Leaving without picking a city clears the text.
+			// Leaving without picking a city takes the city typed in full
+			// ("joinville" → Joinville), or clears the text.
 			if ( ! context.code ) {
-				context.query = '';
-				context.typed = '';
+				const typed = exactCity( context, wrapper );
+				context.code = typed?.value ?? '';
+				context.query = typed?.label ?? '';
+				context.typed = context.query;
 			}
 			context.open = false;
 			context.active = -1;
@@ -341,6 +360,19 @@ const { state } = store( 'axell/address', {
 		},
 	},
 } );
+
+/**
+ * The city of the linked state whose name, as a slug, is the typed text's.
+ *
+ * @param context Control context.
+ * @param el      An element of the control (to find its form).
+ */
+function exactCity( context: ControlContext, el: Element ): Option | undefined {
+	const s = state as unknown as AddressState;
+	const cities = s.cities[ keyOf( el, context.stateField || 'state' ) ] || [];
+	const q = slug( context.typed ?? context.query ?? '' );
+	return q ? cities.find( ( c ) => slug( c.label ) === q ) : undefined;
+}
 
 /**
  * Cities of the linked state that match the typed text (start of name first).
