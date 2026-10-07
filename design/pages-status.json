@@ -30,8 +30,8 @@
       "note": "no-class aprovado em 2026-10-07: /atelier/promessas/ (post 900, template atelier-section) a 0,00% em 1440/768/390; pure /atelier/pure/promessas/ (post 842); estilo de lista Promessas; overflow abaixo de 337px herdado do source, ignorado (minimo atendido: 390)"
     },
     "conceito": {
-      "phase": 0,
-      "note": ""
+      "phase": 2,
+      "note": "no-class aprovado em 2026-10-07: /atelier/conceito/ (post 911, template atelier-section) a 0,00% em 1440/768/390; pure /atelier/pure/conceito/ (post 843); verso em core/quote, lista chave/valor com a chave pendurada no padding"
     },
     "jornada": {
       "phase": 0,

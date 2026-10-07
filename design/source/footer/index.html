@@ -921,29 +921,37 @@ ol.promises-grid{ list-style: none; margin: 0; padding: 0; }
   border-top: 1px solid var(--line-iv);
   margin-top: 40px;
 }
-.concept-table .row{
-  display: grid;
-  grid-template-columns: 190px 1fr;
-  gap: 32px;
-  padding: 22px 0;
+/* A list: the strong is the key, the br is for reading without styles,
+   and the li's own text is the value. Not a grid: in a grid every inline
+   element of the value (the em) would be an item of its own. The key hangs
+   in the li's left padding (190px + 32px gap), on the first line's
+   baseline, and the value wraps in its own column. */
+ul.concept-table{ list-style: none; padding: 0; margin-bottom: 0; }
+.concept-table li{
+  padding: 22px 0 22px 222px;
   border-bottom: 1px solid var(--line-iv);
-  align-items: baseline;
-}
-.concept-table .row .k{
-  font-family: var(--sans);
-  font-size: 10.5px; letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: var(--stone);
-  font-weight: 500;
-}
-.concept-table .row .v{
   font-family: var(--serif);
   font-weight: 400;
   font-size: 20px;
   color: var(--ink);
   line-height: 1.35;
 }
-.concept-table .row .v em{ color: var(--bronze); font-style: italic; }
+.concept-table .k{
+  font-family: var(--sans);
+  font-size: 10.5px; letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--stone);
+  font-weight: 500;
+  line-height: 1.6;
+  display: inline-block;
+  width: 190px;
+  margin: 0 32px 0 -222px;
+}
+.concept-table br{ display: none; }
+.concept-table li em{ color: var(--bronze); font-style: italic; }
+/* The verse is a quote; the chapter tag over the table is a heading. */
+blockquote.verse, blockquote.verse p{ margin: 0; }
+h3.chapter-tag{ margin-top: 0; }
 @media (max-width: 900px){
   .concept .container{ grid-template-columns: 1fr; gap: 40px; }
 }

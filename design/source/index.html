@@ -918,29 +918,37 @@ ol.promises-grid{ list-style: none; margin: 0; padding: 0; }
   border-top: 1px solid var(--line-iv);
   margin-top: 40px;
 }
-.concept-table .row{
-  display: grid;
-  grid-template-columns: 190px 1fr;
-  gap: 32px;
-  padding: 22px 0;
+/* A list: the strong is the key, the br is for reading without styles,
+   and the li's own text is the value. Not a grid: in a grid every inline
+   element of the value (the em) would be an item of its own. The key hangs
+   in the li's left padding (190px + 32px gap), on the first line's
+   baseline, and the value wraps in its own column. */
+ul.concept-table{ list-style: none; padding: 0; margin-bottom: 0; }
+.concept-table li{
+  padding: 22px 0 22px 222px;
   border-bottom: 1px solid var(--line-iv);
-  align-items: baseline;
-}
-.concept-table .row .k{
-  font-family: var(--sans);
-  font-size: 10.5px; letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: var(--stone);
-  font-weight: 500;
-}
-.concept-table .row .v{
   font-family: var(--serif);
   font-weight: 400;
   font-size: 20px;
   color: var(--ink);
   line-height: 1.35;
 }
-.concept-table .row .v em{ color: var(--bronze); font-style: italic; }
+.concept-table .k{
+  font-family: var(--sans);
+  font-size: 10.5px; letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--stone);
+  font-weight: 500;
+  line-height: 1.6;
+  display: inline-block;
+  width: 190px;
+  margin: 0 32px 0 -222px;
+}
+.concept-table br{ display: none; }
+.concept-table li em{ color: var(--bronze); font-style: italic; }
+/* The verse is a quote; the chapter tag over the table is a heading. */
+blockquote.verse, blockquote.verse p{ margin: 0; }
+h3.chapter-tag{ margin-top: 0; }
 @media (max-width: 900px){
   .concept .container{ grid-template-columns: 1fr; gap: 40px; }
 }
@@ -1902,38 +1910,18 @@ ol.promises-grid{ list-style: none; margin: 0; padding: 0; }
     <div>
       <h2 class="eyebrow on-ivory">O Nome</h2>
       <p class="section-title" style="margin-top: 32px;"><strong>Um espaço <em>exclusivo</em>.</strong></p>
-      <div class="verse" style="margin-top: 24px;">
-        "O atelier é o lugar onde <em>criar</em> encontra <em>morar</em>. É oficina de começar, é o altar de arquitetar. Não é prédio nem morada — é gesto, é sonho, é criar."
-      </div>
+      <blockquote class="verse" style="margin-top: 24px;"><p>“O atelier é o lugar onde <em>criar</em> encontra <em>morar</em>. É oficina de começar, é o altar de arquitetar. Não é prédio nem morada — é gesto, é sonho, é criar.”</p></blockquote>
     </div>
     <div>
-      <div class="chapter-tag" style="color: var(--bronze); margin-bottom: 24px;">Por que Atelier</div>
-      <div class="concept-table">
-        <div class="row">
-          <div class="k">Espaço</div>
-          <div class="v">Espaço de <em>criação</em> — não sala de exposição.</div>
-        </div>
-        <div class="row">
-          <div class="k">Postura</div>
-          <div class="v">Você não é <em>cliente</em>. É autor.</div>
-        </div>
-        <div class="row">
-          <div class="k">Método</div>
-          <div class="v">Curadoria e <em>ofício</em>. Prática, não só compra.</div>
-        </div>
-        <div class="row">
-          <div class="k">Escala</div>
-          <div class="v">Oficina íntima. Pertence a <em>poucos</em>, com profundidade.</div>
-        </div>
-        <div class="row">
-          <div class="k">Origem</div>
-          <div class="v">Herança francesa. Estética editorial, museu, <em>maison</em>.</div>
-        </div>
-        <div class="row">
-          <div class="k">Marca</div>
-          <div class="v">Axell como <em>origem</em> — não como patrocinador.</div>
-        </div>
-      </div>
+      <h3 class="chapter-tag" style="color: var(--bronze); margin-bottom: 24px;">Por que Atelier</h3>
+      <ul class="concept-table">
+        <li><strong class="k">Espaço</strong><br>Espaço de <em>criação</em> — não sala de exposição.</li>
+        <li><strong class="k">Postura</strong><br>Você não é <em>cliente</em>. É autor.</li>
+        <li><strong class="k">Método</strong><br>Curadoria e <em>ofício</em>. Prática, não só compra.</li>
+        <li><strong class="k">Escala</strong><br>Oficina íntima. Pertence a <em>poucos</em>, com profundidade.</li>
+        <li><strong class="k">Origem</strong><br>Herança francesa. Estética editorial, museu, <em>maison</em>.</li>
+        <li><strong class="k">Marca</strong><br>Axell como <em>origem</em> — não como patrocinador.</li>
+      </ul>
     </div>
   </div>
 </section>
