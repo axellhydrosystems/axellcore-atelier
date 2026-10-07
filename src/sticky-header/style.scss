@@ -35,3 +35,13 @@
 		z-index: auto;
 	}
 }
+
+/*
+ * Logged in: below the admin bar (32px, 46px under 782px; core sets the
+ * variable). Under 600px the bar scrolls away, leaving that gap above the
+ * header once the page scrolls, instead of the bar covering it at the top.
+ */
+.admin-bar .wp-block-axell-sticky-header {
+	top: var(--wp-admin--admin-bar--height, 0px);
+}
+
