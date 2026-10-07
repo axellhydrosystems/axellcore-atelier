@@ -1,4 +1,5 @@
 import { __ } from '@wordpress/i18n';
+import { useState } from '@wordpress/element';
 import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
 import {
 	PanelBody,
@@ -49,6 +50,7 @@ export default function Edit( {
 	clientId,
 }: BlockEditProps< FormControlAttributes > ) {
 	const blockProps = useBlockProps( useSelectPreview( clientId, attributes.type === 'select' ) );
+	const [ editingPlaceholder, setEditingPlaceholder ] = useState( false );
 
 	return (
 		<>
@@ -235,7 +237,7 @@ export default function Edit( {
 					) }
 				</PanelBody>
 			</InspectorControls>
-			{ ControlElement( attributes, false, setAttributes, blockProps ) }
+			{ ControlElement( attributes, false, setAttributes, blockProps, undefined, { active: editingPlaceholder, set: setEditingPlaceholder } ) }
 		</>
 	);
 }

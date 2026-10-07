@@ -18,7 +18,11 @@
 .wp-block-axell-form-submission-notification.is-selected::after, .wp-block-axell-form-submission-notification:has(.is-selected)::after {
   display: none !important;
 }
+.wp-block-axell-form-submission-notification {
+  position: relative;
+}
 .wp-block-axell-form-submission-notification::after {
+  pointer-events: none;
   display: flex;
   position: absolute;
   width: 100%;
@@ -28,9 +32,6 @@
   justify-content: center;
   align-items: center;
   font-size: 1.1em;
-}
-.wp-block-axell-form-submission-notification.form-notification-type-success::after {
-  content: attr(data-message-success);
 }
 .wp-block-axell-form-submission-notification.form-notification-type-success::after {
   content: attr(data-message-success);

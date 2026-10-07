@@ -23,7 +23,13 @@
     }
   }
 
+  // The label overlay is anchored on the block and lets the pointer through:
+  // when it caught it, the hover went back and forth between the block and
+  // its inner group, and the editor's hover outline flickered.
+  position: relative;
+
   &::after {
+    pointer-events: none;
     display: flex;
     position: absolute;
     width: 100%;
@@ -33,10 +39,6 @@
     justify-content: center;
     align-items: center;
     font-size: 1.1em;
-  }
-
-  &.form-notification-type-success::after {
-    content: attr(data-message-success);
   }
 
   &.form-notification-type-success::after {

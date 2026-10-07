@@ -1,1 +1,641 @@
-(()=>{"use strict";const e=window.wp.blocks,l=JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"axell/form-atelier","title":"Form Atelier","category":"text","description":"Formulário de adesão do Atelier Axell Club: grava cada envio como cadastro de membro e já vem com todos os campos e textos.","keywords":["form","atelier","adesão","membro"],"textdomain":"axellcore-atelierclub","attributes":{"formId":{"type":"string","default":""},"storePostType":{"type":"string","default":"member"},"storeStatus":{"type":"string","default":"pending"},"titleField":{"type":"string","default":"fullname"},"sendEmail":{"type":"boolean","default":false},"emailTo":{"type":"string","default":""},"emailSubject":{"type":"string","default":""},"emailBody":{"type":"string","default":""}},"supports":{"html":false,"anchor":true,"align":false,"className":true,"customClassName":true,"interactivity":true,"typography":{"fontSize":true,"lineHeight":true,"__experimentalFontFamily":true,"__experimentalFontWeight":true,"__experimentalFontStyle":true,"__experimentalLetterSpacing":true,"__experimentalTextTransform":true,"__experimentalDefaultControls":{"fontSize":true}},"color":{"background":true,"text":true,"link":true,"__experimentalDefaultControls":{"background":true,"text":true}},"__experimentalBorder":{"color":true,"radius":true,"style":true,"width":true,"__experimentalDefaultControls":{"color":false,"radius":false,"style":false,"width":false}},"spacing":{"margin":true,"padding":true,"__experimentalDefaultControls":{"padding":true}}},"editorScript":"file:./index.js","viewScriptModule":"file:./view.ts"}'),o=window.wp.element,r=window.wp.data,a=window.wp.blockEditor,t=window.wp.components,n=window.wp.i18n,c=window.ReactJSXRuntime,i=["core/heading","core/paragraph","core/group","core/columns","core/column","core/list","core/list-item","core/buttons","core/button","axell/fieldset","axell/form-group","axell/form-label","axell/form-control","axell/form-select","axell/form-text","axell/form-control-country","axell/form-control-state","axell/form-control-city","axell/form-control-postal","axell/form-control-phone","axell/form-control-reseller","axell/form-control-br-revenue-id","axell/form-control-br-revenue-id-person","axell/form-control-br-revenue-id-legal","axell/form-check","axell/form-submission-notification"],p=[{label:(0,n.__)("Pendente","axellcore-atelierclub"),value:"pending"},{label:(0,n.__)("Rascunho","axellcore-atelierclub"),value:"draft"},{label:(0,n.__)("Publicado","axellcore-atelierclub"),value:"publish"},{label:(0,n.__)("Privado","axellcore-atelierclub"),value:"private"}],s=(0,c.jsx)("svg",{xmlns:"http://www.w3.org/2000/svg",viewBox:"0 0 24 24",role:"img","aria-hidden":"true",focusable:"false",children:(0,c.jsx)("path",{d:"M18 16H6c-1.1 0-2 .9-2 2s.9 2 2 2h12c1.1 0 2-.9 2-2s-.9-2-2-2Zm0 2.5H6c-.3 0-.5-.2-.5-.5s.2-.5.5-.5h12c.3 0 .5.2.5.5s-.2.5-.5.5ZM13 13H4v1.5h9V13Zm-7-2h12c1.1 0 2-.9 2-2s-.9-2-2-2H6c-1.1 0-2 .9-2 2s.9 2 2 2Zm0-2.5h12c.3 0 .5.2.5.5s-.2.5-.5.5H6c-.3 0-.5-.2-.5-.5s.2-.5.5-.5ZM13 4H4v1.5h9V4Z"})});(0,e.registerBlockType)(l.name,{...l,icon:s,edit:function(l){return function(l,s={}){const{attributes:x,setAttributes:u,clientId:d}=l,{replaceInnerBlocks:m}=(0,r.useDispatch)(a.store),{postTypes:f,duplicated:b,hasInner:w}=(0,r.useSelect)(e=>{const l=e(a.store),o=l.getClientIdsWithDescendants().filter(e=>e!==d).some(e=>l.getBlockAttributes(e)?.formId===x.formId);return{postTypes:e("core/editor").getEditorSettings().axellFormPostTypes||[],duplicated:!!x.formId&&o,hasInner:l.getBlockCount(d)>0}},[d,x.formId]);(0,o.useEffect)(()=>{x.formId&&!b||u({formId:Math.random().toString(36).slice(2,10)})},[x.formId,b]),(0,o.useEffect)(()=>{s.initialMarkup&&!w&&m(d,(0,e.parse)(s.initialMarkup),!1)},[]);const g=(0,a.useBlockProps)(),y=(0,a.useInnerBlocksProps)(g,{allowedBlocks:i,template:s.initialMarkup?void 0:[["axell/form-group",{}]],templateLock:!1}),v=f.find(e=>e.value===x.storePostType)?.label||x.storePostType;return(0,c.jsxs)(c.Fragment,{children:[(0,c.jsx)(a.InspectorControls,{children:(0,c.jsxs)(t.PanelBody,{title:(0,n.__)("Ações de envio","axellcore-atelierclub"),initialOpen:!0,children:[(0,c.jsx)(t.SelectControl,{label:(0,n.__)("Gravar em","axellcore-atelierclub"),help:s.lockedStore?(0,n.__)("Definido por este bloco: cada envio vira um cadastro.","axellcore-atelierclub"):(0,n.__)("Cada envio vira um post deste tipo. Nenhum: não grava.","axellcore-atelierclub"),value:x.storePostType,disabled:!!s.lockedStore,options:s.lockedStore?[{label:v,value:x.storePostType}]:[{label:(0,n.__)("Nenhum","axellcore-atelierclub"),value:""},...f],onChange:e=>u({storePostType:e})}),!!x.storePostType&&!s.lockedStore&&(0,c.jsxs)(c.Fragment,{children:[(0,c.jsx)(t.SelectControl,{label:(0,n.__)("Status do post","axellcore-atelierclub"),value:x.storeStatus,options:p,onChange:e=>u({storeStatus:e})}),(0,c.jsx)(t.TextControl,{label:(0,n.__)("Campo do título (name)","axellcore-atelierclub"),help:(0,n.__)("Name do campo cujo valor vira o título do post.","axellcore-atelierclub"),value:x.titleField,onChange:e=>u({titleField:e})})]}),(0,c.jsx)(t.ToggleControl,{label:(0,n.__)("Enviar e-mail","axellcore-atelierclub"),checked:!!x.sendEmail,onChange:e=>u({sendEmail:e})}),x.sendEmail&&(0,c.jsxs)(c.Fragment,{children:[(0,c.jsx)(t.TextControl,{label:(0,n.__)("Para","axellcore-atelierclub"),help:(0,n.__)("Separe vários e-mails por vírgula. Em branco: e-mail do administrador.","axellcore-atelierclub"),value:x.emailTo,onChange:e=>u({emailTo:e})}),(0,c.jsx)(t.TextControl,{label:(0,n.__)("Assunto","axellcore-atelierclub"),value:x.emailSubject,onChange:e=>u({emailSubject:e})}),(0,c.jsx)(t.TextareaControl,{label:(0,n.__)("Mensagem","axellcore-atelierclub"),help:(0,n.__)("Tags: {name de um campo}, por exemplo {nome}, e {all_fields} com todos os campos.","axellcore-atelierclub"),value:x.emailBody,rows:6,onChange:e=>u({emailBody:e})})]})]})}),(0,c.jsx)("form",{...y})]})}(l,{lockedStore:!0,initialMarkup:'\x3c!-- wp:axell/fieldset --\x3e\n<fieldset class="wp-block-axell-fieldset"><legend>Autoria</legend>\x3c!-- wp:group {"layout":{"type":"grid","columnCount":12}} --\x3e\n<div class="wp-block-group">\x3c!-- wp:axell/form-group {"style":{"layout":{"columnSpan":6}}} --\x3e\n<div class="wp-block-axell-form-group">\x3c!-- wp:axell/form-label {"for":"fullname","required":true} --\x3e\n<label class="wp-block-axell-form-label is-required" for="fullname">Nome completo</label>\n\x3c!-- /wp:axell/form-label --\x3e\n\n\x3c!-- wp:axell/form-control {"id":"fullname","name":"fullname","autofill":"name","required":true,"placeholder":"Como devemos chamá-lo(a)?"} --\x3e\n<input class="wp-block-axell-form-control" id="fullname" name="fullname" required aria-required="true" autocomplete="name" placeholder="Como devemos chamá-lo(a)?" type="text"/>\n\x3c!-- /wp:axell/form-control --\x3e</div>\n\x3c!-- /wp:axell/form-group --\x3e\n\n\x3c!-- wp:axell/form-group {"style":{"layout":{"columnSpan":6}}} --\x3e\n<div class="wp-block-axell-form-group">\x3c!-- wp:axell/form-label {"for":"company","required":true} --\x3e\n<label class="wp-block-axell-form-label is-required" for="company">Escritório / Ateliê</label>\n\x3c!-- /wp:axell/form-label --\x3e\n\n\x3c!-- wp:axell/form-control {"id":"company","name":"company","autofill":"organization","required":true,"placeholder":"Nome do escritório"} --\x3e\n<input class="wp-block-axell-form-control" id="company" name="company" required aria-required="true" autocomplete="organization" placeholder="Nome do escritório" type="text"/>\n\x3c!-- /wp:axell/form-control --\x3e</div>\n\x3c!-- /wp:axell/form-group --\x3e\n\n\x3c!-- wp:axell/form-group {"style":{"layout":{"columnSpan":4}}} --\x3e\n<div class="wp-block-axell-form-group">\x3c!-- wp:axell/form-label {"for":"email","required":true,"style":{"css":"height:2lh;display:flex;align-items:flex-end;gap:0.29em;"}} --\x3e\n<label class="wp-block-axell-form-label is-required has-custom-css" for="email">E-mail profissional</label>\n\x3c!-- /wp:axell/form-label --\x3e\n\n\x3c!-- wp:axell/form-control {"type":"email","id":"email","name":"email","autofill":"email","required":true,"placeholder":"voce@escritorio.com.br"} --\x3e\n<input class="wp-block-axell-form-control" id="email" name="email" required aria-required="true" autocomplete="email" placeholder="voce@escritorio.com.br" type="email"/>\n\x3c!-- /wp:axell/form-control --\x3e</div>\n\x3c!-- /wp:axell/form-group --\x3e\n\n\x3c!-- wp:axell/form-group {"style":{"layout":{"columnSpan":4}}} --\x3e\n<div class="wp-block-axell-form-group">\x3c!-- wp:axell/form-label {"for":"phone","required":true,"style":{"css":"height:2lh;display:flex;align-items:flex-end;gap:0.29em;"}} --\x3e\n<label class="wp-block-axell-form-label is-required has-custom-css" for="phone">Telefone</label>\n\x3c!-- /wp:axell/form-label --\x3e\n\n\x3c!-- wp:axell/form-control-phone {"id":"phone","name":"phone","required":true,"countrySource":"select","country":"BR"} --\x3e\n<input class="wp-block-axell-form-control-phone wp-block-axell-form-control" type="tel" id="phone" name="phone" autocomplete="tel" placeholder="(11) 90000-0000" required aria-required="true"/>\n\x3c!-- /wp:axell/form-control-phone --\x3e</div>\n\x3c!-- /wp:axell/form-group --\x3e\n\n\x3c!-- wp:axell/form-group {"style":{"spacing":{"blockGap":"0"},"layout":{"columnSpan":4}}} --\x3e\n<div class="wp-block-axell-form-group">\x3c!-- wp:axell/form-label {"for":"professional_registration"} --\x3e\n<label class="wp-block-axell-form-label" for="professional_registration">Registro (CAU / CREA / ABD)</label>\n\x3c!-- /wp:axell/form-label --\x3e\n\n\x3c!-- wp:axell/form-control {"id":"professional_registration","name":"professional_registration","autofill":"off","placeholder":"A00000-0"} --\x3e\n<input class="wp-block-axell-form-control" id="professional_registration" name="professional_registration" autocomplete="off" placeholder="A00000-0" type="text"/>\n\x3c!-- /wp:axell/form-control --\x3e</div>\n\x3c!-- /wp:axell/form-group --\x3e\n\n\x3c!-- wp:axell/form-group {"style":{"layout":{"columnSpan":6}}} --\x3e\n<div class="wp-block-axell-form-group">\x3c!-- wp:axell/form-label {"for":"primary_focus","required":true} --\x3e\n<label class="wp-block-axell-form-label is-required" for="primary_focus">Atuação principal</label>\n\x3c!-- /wp:axell/form-label --\x3e\n\n\x3c!-- wp:axell/form-control {"type":"select","id":"primary_focus","name":"primary_focus","autofill":"off","required":true,"placeholder":"Selecione uma opção","options":[{"label":"Arquitetura residencial de alto padrão","value":"high_end_residential_architecture"},{"label":"Design de interiores","value":"interior_design"},{"label":"Arquitetura corporativa / hospitalidade","value":"corporate_hospitality_architecture"},{"label":"Wellness · Spa · Hotelaria","value":"wellness_spa_hospitality"},{"label":"Outros","value":"other"}]} --\x3e\n<select class="wp-block-axell-form-control" id="primary_focus" name="primary_focus" required aria-required="true" autocomplete="off" placeholder="Selecione uma opção"><option value="">Selecione uma opção</option><option value="high_end_residential_architecture">Arquitetura residencial de alto padrão</option><option value="interior_design">Design de interiores</option><option value="corporate_hospitality_architecture">Arquitetura corporativa / hospitalidade</option><option value="wellness_spa_hospitality">Wellness · Spa · Hotelaria</option><option value="other">Outros</option></select>\n\x3c!-- /wp:axell/form-control --\x3e</div>\n\x3c!-- /wp:axell/form-group --\x3e\n\n\x3c!-- wp:axell/form-group {"style":{"layout":{"columnSpan":6}}} --\x3e\n<div class="wp-block-axell-form-group">\x3c!-- wp:axell/form-label {"for":"url"} --\x3e\n<label class="wp-block-axell-form-label" for="url">Portfólio (URL)</label>\n\x3c!-- /wp:axell/form-label --\x3e\n\n\x3c!-- wp:axell/form-control {"type":"url","id":"url","name":"url","autofill":"url","placeholder":"https://…"} --\x3e\n<input class="wp-block-axell-form-control" id="url" name="url" autocomplete="url" placeholder="https://…" type="url"/>\n\x3c!-- /wp:axell/form-control --\x3e\n\n\x3c!-- wp:axell/form-text --\x3e\n<p class="wp-block-axell-form-text">Site, Instagram, Behance ou drive com projetos.</p>\n\x3c!-- /wp:axell/form-text --\x3e</div>\n\x3c!-- /wp:axell/form-group --\x3e</div>\n\x3c!-- /wp:group --\x3e</fieldset>\n\x3c!-- /wp:axell/fieldset --\x3e\x3c!-- wp:axell/fieldset --\x3e\n<fieldset class="wp-block-axell-fieldset"><legend>Documento</legend>\x3c!-- wp:group {"layout":{"type":"grid","columnCount":12}} --\x3e\n<div class="wp-block-group">\x3c!-- wp:axell/form-group {"style":{"layout":{"columnSpan":6}}} --\x3e\n<div class="wp-block-axell-form-group">\x3c!-- wp:axell/form-label {"for":"profile_type","required":true} --\x3e\n<label class="wp-block-axell-form-label is-required" for="profile_type">Tipo de cadastro</label>\n\x3c!-- /wp:axell/form-label --\x3e\n\n\x3c!-- wp:axell/form-control {"type":"select","id":"profile_type","name":"profile_type","autofill":"off","required":true,"placeholder":"Selecione","options":[{"label":"Pessoa Física · CPF","value":"individual"},{"label":"Pessoa Jurídica · CNPJ","value":"legal_entity"}]} --\x3e\n<select class="wp-block-axell-form-control" id="profile_type" name="profile_type" required aria-required="true" autocomplete="off" placeholder="Selecione"><option value="">Selecione</option><option value="individual">Pessoa Física · CPF</option><option value="legal_entity">Pessoa Jurídica · CNPJ</option></select>\n\x3c!-- /wp:axell/form-control --\x3e</div>\n\x3c!-- /wp:axell/form-group --\x3e\n\n\x3c!-- wp:axell/form-group {"style":{"layout":{"columnSpan":6}}} --\x3e\n<div class="wp-block-axell-form-group">\x3c!-- wp:axell/form-label {"for":"br_revenue_id","required":true} --\x3e\n<label class="wp-block-axell-form-label is-required" for="br_revenue_id">CPF ou CNPJ</label>\n\x3c!-- /wp:axell/form-label --\x3e\n\n\x3c!-- wp:axell/form-control-br-revenue-id {"id":"br_revenue_id","name":"br_revenue_id","placeholder":"","required":true,"typeField":"profile_type"} --\x3e\n<input class="wp-block-axell-form-control-br-revenue-id wp-block-axell-form-control" type="text" id="br_revenue_id" name="br_revenue_id" placeholder="000.000.000-00 / 00.000.000/0000-00" autocomplete="off" required aria-required="true"/>\n\x3c!-- /wp:axell/form-control-br-revenue-id --\x3e\n\n\x3c!-- wp:axell/form-text --\x3e\n<p class="wp-block-axell-form-text">Utilizado para emissão de bônus e nota fiscal.</p>\n\x3c!-- /wp:axell/form-text --\x3e</div>\n\x3c!-- /wp:axell/form-group --\x3e</div>\n\x3c!-- /wp:group --\x3e</fieldset>\n\x3c!-- /wp:axell/fieldset --\x3e\x3c!-- wp:axell/fieldset --\x3e\n<fieldset class="wp-block-axell-fieldset"><legend>Endereço do escritório</legend>\x3c!-- wp:axell/form-group --\x3e\n<div class="wp-block-axell-form-group">\x3c!-- wp:axell/form-control-country {"id":"country","required":true,"fixed":"BR","hiddenField":true} --\x3e\n<input class="wp-block-axell-form-control-country" type="hidden" name="country" value="BR"/>\n\x3c!-- /wp:axell/form-control-country --\x3e</div>\n\x3c!-- /wp:axell/form-group --\x3e\n\n\x3c!-- wp:group {"layout":{"type":"grid","columnCount":12}} --\x3e\n<div class="wp-block-group">\x3c!-- wp:axell/form-group {"style":{"layout":{"columnSpan":5}}} --\x3e\n<div class="wp-block-axell-form-group">\x3c!-- wp:axell/form-label {"for":"address_street","required":true} --\x3e\n<label class="wp-block-axell-form-label is-required" for="address_street">Logradouro</label>\n\x3c!-- /wp:axell/form-label --\x3e\n\n\x3c!-- wp:axell/form-control {"id":"address_street","name":"address_street","autofill":"address-line1","required":true,"placeholder":"Rua, Avenida, Alameda…"} --\x3e\n<input class="wp-block-axell-form-control" id="address_street" name="address_street" required aria-required="true" autocomplete="address-line1" placeholder="Rua, Avenida, Alameda…" type="text"/>\n\x3c!-- /wp:axell/form-control --\x3e</div>\n\x3c!-- /wp:axell/form-group --\x3e\n\n\x3c!-- wp:axell/form-group {"style":{"layout":{"columnSpan":3}}} --\x3e\n<div class="wp-block-axell-form-group">\x3c!-- wp:axell/form-label {"for":"address_number","required":true} --\x3e\n<label class="wp-block-axell-form-label is-required" for="address_number">Número</label>\n\x3c!-- /wp:axell/form-label --\x3e\n\n\x3c!-- wp:axell/form-control {"id":"address_number","name":"address_number","autofill":"off","required":true,"placeholder":"000"} --\x3e\n<input class="wp-block-axell-form-control" id="address_number" name="address_number" required aria-required="true" autocomplete="off" placeholder="000" type="text"/>\n\x3c!-- /wp:axell/form-control --\x3e</div>\n\x3c!-- /wp:axell/form-group --\x3e\n\n\x3c!-- wp:axell/form-group {"style":{"layout":{"columnSpan":4}}} --\x3e\n<div class="wp-block-axell-form-group">\x3c!-- wp:axell/form-label {"for":"address_2"} --\x3e\n<label class="wp-block-axell-form-label" for="address_2">Complemento</label>\n\x3c!-- /wp:axell/form-label --\x3e\n\n\x3c!-- wp:axell/form-control {"id":"address_2","name":"address_2","autofill":"address-line2","placeholder":"Sala, andar, conjunto"} --\x3e\n<input class="wp-block-axell-form-control" id="address_2" name="address_2" autocomplete="address-line2" placeholder="Sala, andar, conjunto" type="text"/>\n\x3c!-- /wp:axell/form-control --\x3e</div>\n\x3c!-- /wp:axell/form-group --\x3e\n\n\x3c!-- wp:axell/form-group {"style":{"layout":{"columnSpan":6}}} --\x3e\n<div class="wp-block-axell-form-group">\x3c!-- wp:axell/form-label {"for":"neighborhood","required":true} --\x3e\n<label class="wp-block-axell-form-label is-required" for="neighborhood">Bairro</label>\n\x3c!-- /wp:axell/form-label --\x3e\n\n\x3c!-- wp:axell/form-control {"id":"neighborhood","name":"neighborhood","autofill":"off","required":true,"placeholder":"Bairro"} --\x3e\n<input class="wp-block-axell-form-control" id="neighborhood" name="neighborhood" required aria-required="true" autocomplete="off" placeholder="Bairro" type="text"/>\n\x3c!-- /wp:axell/form-control --\x3e</div>\n\x3c!-- /wp:axell/form-group --\x3e\n\n\x3c!-- wp:axell/form-group {"style":{"layout":{"columnSpan":6}}} --\x3e\n<div class="wp-block-axell-form-group">\x3c!-- wp:axell/form-label {"for":"landmark"} --\x3e\n<label class="wp-block-axell-form-label" for="landmark">Referência</label>\n\x3c!-- /wp:axell/form-label --\x3e\n\n\x3c!-- wp:axell/form-control {"id":"landmark","name":"landmark","autofill":"off","placeholder":"Próximo a…"} --\x3e\n<input class="wp-block-axell-form-control" id="landmark" name="landmark" autocomplete="off" placeholder="Próximo a…" type="text"/>\n\x3c!-- /wp:axell/form-control --\x3e</div>\n\x3c!-- /wp:axell/form-group --\x3e\n\n\x3c!-- wp:axell/form-group {"style":{"layout":{"columnSpan":2}}} --\x3e\n<div class="wp-block-axell-form-group">\x3c!-- wp:axell/form-label {"for":"state","required":true} --\x3e\n<label class="wp-block-axell-form-label is-required" for="state">UF</label>\n\x3c!-- /wp:axell/form-label --\x3e\n\n\x3c!-- wp:axell/form-control-state {"id":"state","name":"state","placeholder":"—","required":true,"countrySource":"select","country":"BR"} --\x3e\n<select class="wp-block-axell-form-control-state wp-block-axell-form-control" id="state" name="state" disabled required><option value="">—</option></select>\n\x3c!-- /wp:axell/form-control-state --\x3e</div>\n\x3c!-- /wp:axell/form-group --\x3e\n\n\x3c!-- wp:axell/form-group {"style":{"layout":{"columnSpan":6}}} --\x3e\n<div class="wp-block-axell-form-group">\x3c!-- wp:axell/form-label {"for":"city","required":true} --\x3e\n<label class="wp-block-axell-form-label is-required" for="city">Cidade</label>\n\x3c!-- /wp:axell/form-label --\x3e\n\n\x3c!-- wp:axell/form-control-city {"id":"city","name":"city","placeholder":"São Paulo","required":true,"searchable":true,"countrySource":"select","country":"BR"} --\x3e\n<input class="wp-block-axell-form-control-city wp-block-axell-form-control" type="text" id="city" autocomplete="off" placeholder="São Paulo" required/>\n\x3c!-- /wp:axell/form-control-city --\x3e</div>\n\x3c!-- /wp:axell/form-group --\x3e\n\n\x3c!-- wp:axell/form-group {"style":{"layout":{"columnSpan":4}}} --\x3e\n<div class="wp-block-axell-form-group">\x3c!-- wp:axell/form-label {"for":"postal","required":true} --\x3e\n<label class="wp-block-axell-form-label is-required" for="postal">CEP</label>\n\x3c!-- /wp:axell/form-label --\x3e\n\n\x3c!-- wp:axell/form-control-postal {"id":"postal","name":"postal","required":true,"countrySource":"select","country":"BR"} --\x3e\n<input class="wp-block-axell-form-control-postal wp-block-axell-form-control" type="text" id="postal" name="postal" inputmode="numeric" placeholder="00000-000" required/>\n\x3c!-- /wp:axell/form-control-postal --\x3e</div>\n\x3c!-- /wp:axell/form-group --\x3e</div>\n\x3c!-- /wp:group --\x3e</fieldset>\n\x3c!-- /wp:axell/fieldset --\x3e\x3c!-- wp:axell/fieldset --\x3e\n<fieldset class="wp-block-axell-fieldset"><legend>Lojas parceiras</legend>\x3c!-- wp:axell/form-label {"for":"reseller1"} --\x3e\n<label class="wp-block-axell-form-label" for="reseller1">Onde você costuma especificar Axell?</label>\n\x3c!-- /wp:axell/form-label --\x3e\n\n\x3c!-- wp:axell/form-text {"style":{"spacing":{"margin":{"top":"0"}}}} --\x3e\n<p class="wp-block-axell-form-text" style="margin-top:0">Liste até <strong>cinco</strong> revendas ou showrooms parceiros com quem você trabalha. Preencha apenas o que fizer sentido — os campos vazios podem ficar em branco.</p>\n\x3c!-- /wp:axell/form-text --\x3e\n\n\x3c!-- wp:group {"layout":{"type":"grid","columnCount":12}} --\x3e\n<div class="wp-block-group">\x3c!-- wp:axell/form-group {"style":{"layout":{"columnSpan":12}}} --\x3e\n<div class="wp-block-axell-form-group">\x3c!-- wp:axell/form-control-reseller {"id":"reseller1","name":"reseller1","placeholder":"Nome da loja · cidade"} --\x3e\n<input class="wp-block-axell-form-control-reseller wp-block-axell-form-control" type="text" id="reseller1" autocomplete="off" placeholder="Nome da loja · cidade"/>\n\x3c!-- /wp:axell/form-control-reseller --\x3e</div>\n\x3c!-- /wp:axell/form-group --\x3e\n\n\x3c!-- wp:axell/form-group {"style":{"layout":{"columnSpan":12}}} --\x3e\n<div class="wp-block-axell-form-group">\x3c!-- wp:axell/form-label {"for":"reseller2","visuallyHidden":true} --\x3e\n<label class="wp-block-axell-form-label is-visually-hidden" for="reseller2">Loja parceira 2</label>\n\x3c!-- /wp:axell/form-label --\x3e\n\n\x3c!-- wp:axell/form-control-reseller {"id":"reseller2","name":"reseller2","placeholder":"Nome da loja · cidade"} --\x3e\n<input class="wp-block-axell-form-control-reseller wp-block-axell-form-control" type="text" id="reseller2" autocomplete="off" placeholder="Nome da loja · cidade"/>\n\x3c!-- /wp:axell/form-control-reseller --\x3e</div>\n\x3c!-- /wp:axell/form-group --\x3e\n\n\x3c!-- wp:axell/form-group {"style":{"layout":{"columnSpan":12}}} --\x3e\n<div class="wp-block-axell-form-group">\x3c!-- wp:axell/form-label {"for":"reseller3","visuallyHidden":true} --\x3e\n<label class="wp-block-axell-form-label is-visually-hidden" for="reseller3">Loja parceira 3</label>\n\x3c!-- /wp:axell/form-label --\x3e\n\n\x3c!-- wp:axell/form-control-reseller {"id":"reseller3","name":"reseller3","placeholder":"Nome da loja · cidade"} --\x3e\n<input class="wp-block-axell-form-control-reseller wp-block-axell-form-control" type="text" id="reseller3" autocomplete="off" placeholder="Nome da loja · cidade"/>\n\x3c!-- /wp:axell/form-control-reseller --\x3e</div>\n\x3c!-- /wp:axell/form-group --\x3e\n\n\x3c!-- wp:axell/form-group {"style":{"layout":{"columnSpan":12}}} --\x3e\n<div class="wp-block-axell-form-group">\x3c!-- wp:axell/form-label {"for":"reseller4","visuallyHidden":true} --\x3e\n<label class="wp-block-axell-form-label is-visually-hidden" for="reseller4">Loja parceira 4</label>\n\x3c!-- /wp:axell/form-label --\x3e\n\n\x3c!-- wp:axell/form-control-reseller {"id":"reseller4","name":"reseller4","placeholder":"Nome da loja · cidade"} --\x3e\n<input class="wp-block-axell-form-control-reseller wp-block-axell-form-control" type="text" id="reseller4" autocomplete="off" placeholder="Nome da loja · cidade"/>\n\x3c!-- /wp:axell/form-control-reseller --\x3e</div>\n\x3c!-- /wp:axell/form-group --\x3e\n\n\x3c!-- wp:axell/form-group {"style":{"layout":{"columnSpan":12}}} --\x3e\n<div class="wp-block-axell-form-group">\x3c!-- wp:axell/form-label {"for":"reseller5","visuallyHidden":true} --\x3e\n<label class="wp-block-axell-form-label is-visually-hidden" for="reseller5">Loja parceira 5</label>\n\x3c!-- /wp:axell/form-label --\x3e\n\n\x3c!-- wp:axell/form-control-reseller {"id":"reseller5","name":"reseller5","placeholder":"Nome da loja · cidade"} --\x3e\n<input class="wp-block-axell-form-control-reseller wp-block-axell-form-control" type="text" id="reseller5" autocomplete="off" placeholder="Nome da loja · cidade"/>\n\x3c!-- /wp:axell/form-control-reseller --\x3e</div>\n\x3c!-- /wp:axell/form-group --\x3e</div>\n\x3c!-- /wp:group --\x3e</fieldset>\n\x3c!-- /wp:axell/fieldset --\x3e\x3c!-- wp:axell/form-check {"id":"consent","name":"consent","required":true} --\x3e\n<div class="wp-block-axell-form-check"><input type="checkbox" id="consent" name="consent" required aria-required="true"/><label for="consent" class="wp-block-axell-form-label">Li e concordo com o <a href="#">regulamento do Atelier Axell Club</a> e com o tratamento dos meus dados conforme a Política de Privacidade e a LGPD.</label></div>\n\x3c!-- /wp:axell/form-check --\x3e\x3c!-- wp:group --\x3e\n<div class="wp-block-group">\x3c!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap"}} --\x3e\n<div class="wp-block-group">\x3c!-- wp:buttons {"style":{"layout":{"selfStretch":"fill","flexSize":null}}} --\x3e\n<div class="wp-block-buttons">\x3c!-- wp:button {"tagName":"button","type":"submit"} --\x3e\n<div class="wp-block-button"><button type="submit" class="wp-block-button__link wp-element-button">Enviar <img data-icon="axellcore/arrow-large" alt="" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" class="aa-inline-icon"></button></div>\n\x3c!-- /wp:button --\x3e</div>\n\x3c!-- /wp:buttons --\x3e\n\n\x3c!-- wp:axell/form-text {"style":{"spacing":{"margin":{"top":"0"}}}} --\x3e\n<p class="wp-block-axell-form-text" style="margin-top:0">Ao enviar, você concorda em receber comunicações do Atelier Axell Club. Cadastro sujeito à aprovação da curadoria Axell.</p>\n\x3c!-- /wp:axell/form-text --\x3e</div>\n\x3c!-- /wp:group --\x3e</div>\n\x3c!-- /wp:group --\x3e\x3c!-- wp:axell/form-submission-notification --\x3e\n<div hidden data-axell-notice-type="success" class="wp-block-axell-form-submission-notification">\x3c!-- wp:group {"style":{"color":{"background":"#00d084","text":"#000000"},"elements":{"link":{"color":{"text":"#000000"}}},"spacing":{"padding":{"top":"1.25em","bottom":"1.25em","left":"2.375em","right":"2.375em"}}},"layout":{"type":"constrained"}} --\x3e\n<div class="wp-block-group has-text-color has-background has-link-color" style="color:#000000;background-color:#00d084;padding-top:1.25em;padding-right:2.375em;padding-bottom:1.25em;padding-left:2.375em">\x3c!-- wp:paragraph --\x3e\n<p>Sua solicitação foi enviada.</p>\n\x3c!-- /wp:paragraph --\x3e\n\n\x3c!-- wp:paragraph --\x3e\n<p>A curadoria Axell entrará em contato em breve com o próximo passo. Bem-vindo(a) ao Atelier.</p>\n\x3c!-- /wp:paragraph --\x3e</div>\n\x3c!-- /wp:group --\x3e</div>\n\x3c!-- /wp:axell/form-submission-notification --\x3e\x3c!-- wp:axell/form-submission-notification {"type":"error"} --\x3e\n<div hidden data-axell-notice-type="error" class="wp-block-axell-form-submission-notification">\x3c!-- wp:group {"style":{"color":{"background":"#cf2e2e","text":"#ffffff"},"elements":{"link":{"color":{"text":"#ffffff"}}},"spacing":{"padding":{"top":"1.25em","bottom":"1.25em","left":"2.375em","right":"2.375em"}}},"layout":{"type":"constrained"}} --\x3e\n<div class="wp-block-group has-text-color has-background has-link-color" style="color:#ffffff;background-color:#cf2e2e;padding-top:1.25em;padding-right:2.375em;padding-bottom:1.25em;padding-left:2.375em">\x3c!-- wp:paragraph --\x3e\n<p>Não foi possível enviar sua solicitação. Tente novamente em instantes.</p>\n\x3c!-- /wp:paragraph --\x3e</div>\n\x3c!-- /wp:group --\x3e</div>\n\x3c!-- /wp:axell/form-submission-notification --\x3e'})},save:function({attributes:e}){const l=a.useBlockProps.save({noValidate:!0,"data-form-id":e.formId||void 0}),o=a.useInnerBlocksProps.save(l);return(0,c.jsx)("form",{...o})},deprecated:[{attributes:l.attributes,supports:l.supports,save:function({attributes:e}){const l=a.useBlockProps.save({noValidate:!0,"data-wp-interactive":"axell/form","data-wp-context":'{"status":"idle"}',"data-wp-on--submit":"actions.submit","data-form-id":e.formId||void 0}),o=a.useInnerBlocksProps.save(l);return(0,c.jsx)("form",{...o})}}]})})();
+/******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
+/******/ 	var __webpack_modules__ = ({
+
+/***/ "./src/form/field-blocks.ts"
+/*!**********************************!*\
+  !*** ./src/form/field-blocks.ts ***!
+  \**********************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   FIELD_BLOCKS: () => (/* binding */ FIELD_BLOCKS)
+/* harmony export */ });
+/**
+ * The field blocks: a label, a help text and the controls. A field group
+ * holds them, and so can a fieldset or the form directly (no group needed).
+ */
+const FIELD_BLOCKS = ['axell/form-label', 'axell/form-control', 'axell/form-select', 'axell/form-text', 'axell/form-control-country', 'axell/form-control-state', 'axell/form-control-city', 'axell/form-control-postal', 'axell/form-control-phone', 'axell/form-control-reseller', 'axell/form-control-br-revenue-id', 'axell/form-control-br-revenue-id-person', 'axell/form-control-br-revenue-id-legal'];
+
+/***/ },
+
+/***/ "./src/form/form-atelier/edit.tsx"
+/*!****************************************!*\
+  !*** ./src/form/form-atelier/edit.tsx ***!
+  \****************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ Edit)
+/* harmony export */ });
+/* harmony import */ var _form_form_edit__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../form/form-edit */ "./src/form/form/form-edit.tsx");
+/* harmony import */ var _template__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./template */ "./src/form/form-atelier/template.ts");
+
+
+
+/**
+ * axell/form-atelier — the atelier application form: stores into members
+ * (fixed) and starts with the full template; the email action stays optional.
+ * @param props Block edit props.
+ */
+function Edit(props) {
+  return (0,_form_form_edit__WEBPACK_IMPORTED_MODULE_0__.FormEdit)(props, {
+    lockedStore: true,
+    initialMarkup: _template__WEBPACK_IMPORTED_MODULE_1__.ATELIER_TEMPLATE
+  });
+}
+
+/***/ },
+
+/***/ "./src/form/form-atelier/template.ts"
+/*!*******************************************!*\
+  !*** ./src/form/form-atelier/template.ts ***!
+  \*******************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   ATELIER_TEMPLATE: () => (/* binding */ ATELIER_TEMPLATE)
+/* harmony export */ });
+/**
+ * Default content of axell/form-atelier: the inner blocks of the atelier
+ * form on /atelier/pure/adesao. Generated by bin/export-content.sh from the
+ * database; do not edit by hand (edit the page, export, then build).
+ */
+const ATELIER_TEMPLATE = "<!-- wp:axell/fieldset -->\n<fieldset class=\"wp-block-axell-fieldset\"><legend>Autoria</legend><!-- wp:group {\"layout\":{\"type\":\"grid\",\"columnCount\":12}} -->\n<div class=\"wp-block-group\"><!-- wp:axell/form-group {\"style\":{\"layout\":{\"columnSpan\":6}}} -->\n<div class=\"wp-block-axell-form-group\"><!-- wp:axell/form-label {\"for\":\"fullname\",\"required\":true} -->\n<label class=\"wp-block-axell-form-label is-required\" for=\"fullname\">Nome completo</label>\n<!-- /wp:axell/form-label -->\n\n<!-- wp:axell/form-control {\"id\":\"fullname\",\"name\":\"fullname\",\"autofill\":\"name\",\"required\":true,\"placeholder\":\"Como devemos chamá-lo(a)?\"} -->\n<input class=\"wp-block-axell-form-control\" id=\"fullname\" name=\"fullname\" required aria-required=\"true\" autocomplete=\"name\" placeholder=\"Como devemos chamá-lo(a)?\" type=\"text\"/>\n<!-- /wp:axell/form-control --></div>\n<!-- /wp:axell/form-group -->\n\n<!-- wp:axell/form-group {\"style\":{\"layout\":{\"columnSpan\":6}}} -->\n<div class=\"wp-block-axell-form-group\"><!-- wp:axell/form-label {\"for\":\"company\",\"required\":true} -->\n<label class=\"wp-block-axell-form-label is-required\" for=\"company\">Escritório / Ateliê</label>\n<!-- /wp:axell/form-label -->\n\n<!-- wp:axell/form-control {\"id\":\"company\",\"name\":\"company\",\"autofill\":\"organization\",\"required\":true,\"placeholder\":\"Nome do escritório\"} -->\n<input class=\"wp-block-axell-form-control\" id=\"company\" name=\"company\" required aria-required=\"true\" autocomplete=\"organization\" placeholder=\"Nome do escritório\" type=\"text\"/>\n<!-- /wp:axell/form-control --></div>\n<!-- /wp:axell/form-group -->\n\n<!-- wp:axell/form-group {\"style\":{\"layout\":{\"columnSpan\":4}}} -->\n<div class=\"wp-block-axell-form-group\"><!-- wp:axell/form-label {\"for\":\"email\",\"required\":true,\"style\":{\"css\":\"height:2lh;display:flex;align-items:flex-end;gap:0.29em;\"}} -->\n<label class=\"wp-block-axell-form-label is-required has-custom-css\" for=\"email\">E-mail profissional</label>\n<!-- /wp:axell/form-label -->\n\n<!-- wp:axell/form-control {\"type\":\"email\",\"id\":\"email\",\"name\":\"email\",\"autofill\":\"email\",\"required\":true,\"placeholder\":\"voce@escritorio.com.br\"} -->\n<input class=\"wp-block-axell-form-control\" id=\"email\" name=\"email\" required aria-required=\"true\" autocomplete=\"email\" placeholder=\"voce@escritorio.com.br\" type=\"email\"/>\n<!-- /wp:axell/form-control --></div>\n<!-- /wp:axell/form-group -->\n\n<!-- wp:axell/form-group {\"style\":{\"layout\":{\"columnSpan\":4}}} -->\n<div class=\"wp-block-axell-form-group\"><!-- wp:axell/form-label {\"for\":\"phone\",\"required\":true,\"style\":{\"css\":\"height:2lh;display:flex;align-items:flex-end;gap:0.29em;\"}} -->\n<label class=\"wp-block-axell-form-label is-required has-custom-css\" for=\"phone\">Telefone</label>\n<!-- /wp:axell/form-label -->\n\n<!-- wp:axell/form-control-phone {\"id\":\"phone\",\"name\":\"phone\",\"required\":true,\"countrySource\":\"select\",\"country\":\"BR\"} -->\n<input class=\"wp-block-axell-form-control-phone wp-block-axell-form-control\" type=\"tel\" id=\"phone\" name=\"phone\" autocomplete=\"tel\" placeholder=\"(11) 90000-0000\" required aria-required=\"true\"/>\n<!-- /wp:axell/form-control-phone --></div>\n<!-- /wp:axell/form-group -->\n\n<!-- wp:axell/form-group {\"style\":{\"spacing\":{\"blockGap\":\"0\"},\"layout\":{\"columnSpan\":4}}} -->\n<div class=\"wp-block-axell-form-group\"><!-- wp:axell/form-label {\"for\":\"professional_registration\"} -->\n<label class=\"wp-block-axell-form-label\" for=\"professional_registration\">Registro (CAU / CREA / ABD)</label>\n<!-- /wp:axell/form-label -->\n\n<!-- wp:axell/form-control {\"id\":\"professional_registration\",\"name\":\"professional_registration\",\"autofill\":\"off\",\"placeholder\":\"A00000-0\"} -->\n<input class=\"wp-block-axell-form-control\" id=\"professional_registration\" name=\"professional_registration\" autocomplete=\"off\" placeholder=\"A00000-0\" type=\"text\"/>\n<!-- /wp:axell/form-control --></div>\n<!-- /wp:axell/form-group -->\n\n<!-- wp:axell/form-group {\"style\":{\"layout\":{\"columnSpan\":6}}} -->\n<div class=\"wp-block-axell-form-group\"><!-- wp:axell/form-label {\"for\":\"primary_focus\",\"required\":true} -->\n<label class=\"wp-block-axell-form-label is-required\" for=\"primary_focus\">Atuação principal</label>\n<!-- /wp:axell/form-label -->\n\n<!-- wp:axell/form-control {\"type\":\"select\",\"id\":\"primary_focus\",\"name\":\"primary_focus\",\"autofill\":\"off\",\"required\":true,\"placeholder\":\"Selecione uma opção\",\"options\":[{\"label\":\"Arquitetura residencial de alto padrão\",\"value\":\"high_end_residential_architecture\"},{\"label\":\"Design de interiores\",\"value\":\"interior_design\"},{\"label\":\"Arquitetura corporativa / hospitalidade\",\"value\":\"corporate_hospitality_architecture\"},{\"label\":\"Wellness · Spa · Hotelaria\",\"value\":\"wellness_spa_hospitality\"},{\"label\":\"Outros\",\"value\":\"other\"}]} -->\n<select class=\"wp-block-axell-form-control\" id=\"primary_focus\" name=\"primary_focus\" required aria-required=\"true\" autocomplete=\"off\" placeholder=\"Selecione uma opção\"><option value=\"\">Selecione uma opção</option><option value=\"high_end_residential_architecture\">Arquitetura residencial de alto padrão</option><option value=\"interior_design\">Design de interiores</option><option value=\"corporate_hospitality_architecture\">Arquitetura corporativa / hospitalidade</option><option value=\"wellness_spa_hospitality\">Wellness · Spa · Hotelaria</option><option value=\"other\">Outros</option></select>\n<!-- /wp:axell/form-control --></div>\n<!-- /wp:axell/form-group -->\n\n<!-- wp:axell/form-group {\"style\":{\"layout\":{\"columnSpan\":6}}} -->\n<div class=\"wp-block-axell-form-group\"><!-- wp:axell/form-label {\"for\":\"url\"} -->\n<label class=\"wp-block-axell-form-label\" for=\"url\">Portfólio (URL)</label>\n<!-- /wp:axell/form-label -->\n\n<!-- wp:axell/form-control {\"type\":\"url\",\"id\":\"url\",\"name\":\"url\",\"autofill\":\"url\",\"placeholder\":\"https://…\"} -->\n<input class=\"wp-block-axell-form-control\" id=\"url\" name=\"url\" autocomplete=\"url\" placeholder=\"https://…\" type=\"url\"/>\n<!-- /wp:axell/form-control -->\n\n<!-- wp:axell/form-text -->\n<p class=\"wp-block-axell-form-text\">Site, Instagram, Behance ou drive com projetos.</p>\n<!-- /wp:axell/form-text --></div>\n<!-- /wp:axell/form-group --></div>\n<!-- /wp:group --></fieldset>\n<!-- /wp:axell/fieldset --><!-- wp:axell/fieldset -->\n<fieldset class=\"wp-block-axell-fieldset\"><legend>Documento</legend><!-- wp:group {\"layout\":{\"type\":\"grid\",\"columnCount\":12}} -->\n<div class=\"wp-block-group\"><!-- wp:axell/form-group {\"style\":{\"layout\":{\"columnSpan\":6}}} -->\n<div class=\"wp-block-axell-form-group\"><!-- wp:axell/form-label {\"for\":\"profile_type\",\"required\":true} -->\n<label class=\"wp-block-axell-form-label is-required\" for=\"profile_type\">Tipo de cadastro</label>\n<!-- /wp:axell/form-label -->\n\n<!-- wp:axell/form-control {\"type\":\"select\",\"id\":\"profile_type\",\"name\":\"profile_type\",\"autofill\":\"off\",\"required\":true,\"placeholder\":\"Selecione\",\"options\":[{\"label\":\"Pessoa Física · CPF\",\"value\":\"individual\"},{\"label\":\"Pessoa Jurídica · CNPJ\",\"value\":\"legal_entity\"}]} -->\n<select class=\"wp-block-axell-form-control\" id=\"profile_type\" name=\"profile_type\" required aria-required=\"true\" autocomplete=\"off\" placeholder=\"Selecione\"><option value=\"\">Selecione</option><option value=\"individual\">Pessoa Física · CPF</option><option value=\"legal_entity\">Pessoa Jurídica · CNPJ</option></select>\n<!-- /wp:axell/form-control --></div>\n<!-- /wp:axell/form-group -->\n\n<!-- wp:axell/form-group {\"style\":{\"layout\":{\"columnSpan\":6}}} -->\n<div class=\"wp-block-axell-form-group\"><!-- wp:axell/form-label {\"for\":\"br_revenue_id\",\"required\":true} -->\n<label class=\"wp-block-axell-form-label is-required\" for=\"br_revenue_id\">CPF ou CNPJ</label>\n<!-- /wp:axell/form-label -->\n\n<!-- wp:axell/form-control-br-revenue-id {\"id\":\"br_revenue_id\",\"name\":\"br_revenue_id\",\"placeholder\":\"\",\"required\":true,\"typeField\":\"profile_type\"} -->\n<input class=\"wp-block-axell-form-control-br-revenue-id wp-block-axell-form-control\" type=\"text\" id=\"br_revenue_id\" name=\"br_revenue_id\" placeholder=\"000.000.000-00 / 00.000.000/0000-00\" autocomplete=\"off\" required aria-required=\"true\"/>\n<!-- /wp:axell/form-control-br-revenue-id -->\n\n<!-- wp:axell/form-text -->\n<p class=\"wp-block-axell-form-text\">Utilizado para emissão de bônus e nota fiscal.</p>\n<!-- /wp:axell/form-text --></div>\n<!-- /wp:axell/form-group --></div>\n<!-- /wp:group --></fieldset>\n<!-- /wp:axell/fieldset --><!-- wp:axell/fieldset -->\n<fieldset class=\"wp-block-axell-fieldset\"><legend>Endereço do escritório</legend><!-- wp:axell/form-group -->\n<div class=\"wp-block-axell-form-group\"><!-- wp:axell/form-control-country {\"id\":\"country\",\"required\":true,\"fixed\":\"BR\",\"hiddenField\":true} -->\n<input class=\"wp-block-axell-form-control-country\" type=\"hidden\" name=\"country\" value=\"BR\"/>\n<!-- /wp:axell/form-control-country --></div>\n<!-- /wp:axell/form-group -->\n\n<!-- wp:group {\"layout\":{\"type\":\"grid\",\"columnCount\":12}} -->\n<div class=\"wp-block-group\"><!-- wp:axell/form-group {\"style\":{\"layout\":{\"columnSpan\":5}}} -->\n<div class=\"wp-block-axell-form-group\"><!-- wp:axell/form-label {\"for\":\"address_street\",\"required\":true} -->\n<label class=\"wp-block-axell-form-label is-required\" for=\"address_street\">Logradouro</label>\n<!-- /wp:axell/form-label -->\n\n<!-- wp:axell/form-control {\"id\":\"address_street\",\"name\":\"address_street\",\"autofill\":\"address-line1\",\"required\":true,\"placeholder\":\"Rua, Avenida, Alameda…\"} -->\n<input class=\"wp-block-axell-form-control\" id=\"address_street\" name=\"address_street\" required aria-required=\"true\" autocomplete=\"address-line1\" placeholder=\"Rua, Avenida, Alameda…\" type=\"text\"/>\n<!-- /wp:axell/form-control --></div>\n<!-- /wp:axell/form-group -->\n\n<!-- wp:axell/form-group {\"style\":{\"layout\":{\"columnSpan\":3}}} -->\n<div class=\"wp-block-axell-form-group\"><!-- wp:axell/form-label {\"for\":\"address_number\",\"required\":true} -->\n<label class=\"wp-block-axell-form-label is-required\" for=\"address_number\">Número</label>\n<!-- /wp:axell/form-label -->\n\n<!-- wp:axell/form-control {\"id\":\"address_number\",\"name\":\"address_number\",\"autofill\":\"off\",\"required\":true,\"placeholder\":\"000\"} -->\n<input class=\"wp-block-axell-form-control\" id=\"address_number\" name=\"address_number\" required aria-required=\"true\" autocomplete=\"off\" placeholder=\"000\" type=\"text\"/>\n<!-- /wp:axell/form-control --></div>\n<!-- /wp:axell/form-group -->\n\n<!-- wp:axell/form-group {\"style\":{\"layout\":{\"columnSpan\":4}}} -->\n<div class=\"wp-block-axell-form-group\"><!-- wp:axell/form-label {\"for\":\"address_2\"} -->\n<label class=\"wp-block-axell-form-label\" for=\"address_2\">Complemento</label>\n<!-- /wp:axell/form-label -->\n\n<!-- wp:axell/form-control {\"id\":\"address_2\",\"name\":\"address_2\",\"autofill\":\"address-line2\",\"placeholder\":\"Sala, andar, conjunto\"} -->\n<input class=\"wp-block-axell-form-control\" id=\"address_2\" name=\"address_2\" autocomplete=\"address-line2\" placeholder=\"Sala, andar, conjunto\" type=\"text\"/>\n<!-- /wp:axell/form-control --></div>\n<!-- /wp:axell/form-group -->\n\n<!-- wp:axell/form-group {\"style\":{\"layout\":{\"columnSpan\":6}}} -->\n<div class=\"wp-block-axell-form-group\"><!-- wp:axell/form-label {\"for\":\"neighborhood\",\"required\":true} -->\n<label class=\"wp-block-axell-form-label is-required\" for=\"neighborhood\">Bairro</label>\n<!-- /wp:axell/form-label -->\n\n<!-- wp:axell/form-control {\"id\":\"neighborhood\",\"name\":\"neighborhood\",\"autofill\":\"off\",\"required\":true,\"placeholder\":\"Bairro\"} -->\n<input class=\"wp-block-axell-form-control\" id=\"neighborhood\" name=\"neighborhood\" required aria-required=\"true\" autocomplete=\"off\" placeholder=\"Bairro\" type=\"text\"/>\n<!-- /wp:axell/form-control --></div>\n<!-- /wp:axell/form-group -->\n\n<!-- wp:axell/form-group {\"style\":{\"layout\":{\"columnSpan\":6}}} -->\n<div class=\"wp-block-axell-form-group\"><!-- wp:axell/form-label {\"for\":\"landmark\"} -->\n<label class=\"wp-block-axell-form-label\" for=\"landmark\">Referência</label>\n<!-- /wp:axell/form-label -->\n\n<!-- wp:axell/form-control {\"id\":\"landmark\",\"name\":\"landmark\",\"autofill\":\"off\",\"placeholder\":\"Próximo a…\"} -->\n<input class=\"wp-block-axell-form-control\" id=\"landmark\" name=\"landmark\" autocomplete=\"off\" placeholder=\"Próximo a…\" type=\"text\"/>\n<!-- /wp:axell/form-control --></div>\n<!-- /wp:axell/form-group -->\n\n<!-- wp:axell/form-group {\"style\":{\"layout\":{\"columnSpan\":2}}} -->\n<div class=\"wp-block-axell-form-group\"><!-- wp:axell/form-label {\"for\":\"state\",\"required\":true} -->\n<label class=\"wp-block-axell-form-label is-required\" for=\"state\">UF</label>\n<!-- /wp:axell/form-label -->\n\n<!-- wp:axell/form-control-state {\"id\":\"state\",\"name\":\"state\",\"placeholder\":\"—\",\"required\":true,\"countrySource\":\"select\",\"country\":\"BR\"} -->\n<select class=\"wp-block-axell-form-control-state wp-block-axell-form-control\" id=\"state\" name=\"state\" disabled required><option value=\"\">—</option></select>\n<!-- /wp:axell/form-control-state --></div>\n<!-- /wp:axell/form-group -->\n\n<!-- wp:axell/form-group {\"style\":{\"layout\":{\"columnSpan\":6}}} -->\n<div class=\"wp-block-axell-form-group\"><!-- wp:axell/form-label {\"for\":\"city\",\"required\":true} -->\n<label class=\"wp-block-axell-form-label is-required\" for=\"city\">Cidade</label>\n<!-- /wp:axell/form-label -->\n\n<!-- wp:axell/form-control-city {\"id\":\"city\",\"name\":\"city\",\"placeholder\":\"São Paulo\",\"required\":true,\"searchable\":true,\"countrySource\":\"select\",\"country\":\"BR\"} -->\n<input class=\"wp-block-axell-form-control-city wp-block-axell-form-control\" type=\"text\" id=\"city\" autocomplete=\"off\" placeholder=\"São Paulo\" required/>\n<!-- /wp:axell/form-control-city --></div>\n<!-- /wp:axell/form-group -->\n\n<!-- wp:axell/form-group {\"style\":{\"layout\":{\"columnSpan\":4}}} -->\n<div class=\"wp-block-axell-form-group\"><!-- wp:axell/form-label {\"for\":\"postal\",\"required\":true} -->\n<label class=\"wp-block-axell-form-label is-required\" for=\"postal\">CEP</label>\n<!-- /wp:axell/form-label -->\n\n<!-- wp:axell/form-control-postal {\"id\":\"postal\",\"name\":\"postal\",\"required\":true,\"countrySource\":\"select\",\"country\":\"BR\"} -->\n<input class=\"wp-block-axell-form-control-postal wp-block-axell-form-control\" type=\"text\" id=\"postal\" name=\"postal\" inputmode=\"numeric\" placeholder=\"00000-000\" required/>\n<!-- /wp:axell/form-control-postal --></div>\n<!-- /wp:axell/form-group --></div>\n<!-- /wp:group --></fieldset>\n<!-- /wp:axell/fieldset --><!-- wp:axell/fieldset -->\n<fieldset class=\"wp-block-axell-fieldset\"><legend>Lojas parceiras</legend><!-- wp:axell/form-label {\"for\":\"reseller1\"} -->\n<label class=\"wp-block-axell-form-label\" for=\"reseller1\">Onde você costuma especificar Axell?</label>\n<!-- /wp:axell/form-label -->\n\n<!-- wp:axell/form-text {\"style\":{\"spacing\":{\"margin\":{\"top\":\"0\"}}}} -->\n<p class=\"wp-block-axell-form-text\" style=\"margin-top:0\">Liste até <strong>cinco</strong> revendas ou showrooms parceiros com quem você trabalha. Preencha apenas o que fizer sentido — os campos vazios podem ficar em branco.</p>\n<!-- /wp:axell/form-text -->\n\n<!-- wp:group {\"layout\":{\"type\":\"default\"}} -->\n<div class=\"wp-block-group\"><!-- wp:axell/form-group -->\n<div class=\"wp-block-axell-form-group\"><!-- wp:axell/form-control-reseller {\"id\":\"reseller1\",\"name\":\"reseller1\",\"placeholder\":\"Nome da loja · cidade\"} -->\n<input class=\"wp-block-axell-form-control-reseller wp-block-axell-form-control\" type=\"text\" id=\"reseller1\" autocomplete=\"off\" placeholder=\"Nome da loja · cidade\"/>\n<!-- /wp:axell/form-control-reseller --></div>\n<!-- /wp:axell/form-group -->\n\n<!-- wp:axell/form-group -->\n<div class=\"wp-block-axell-form-group\"><!-- wp:axell/form-label {\"for\":\"reseller2\",\"visuallyHidden\":true} -->\n<label class=\"wp-block-axell-form-label is-visually-hidden\" for=\"reseller2\">Loja parceira 2</label>\n<!-- /wp:axell/form-label -->\n\n<!-- wp:axell/form-control-reseller {\"id\":\"reseller2\",\"name\":\"reseller2\",\"placeholder\":\"Nome da loja · cidade\"} -->\n<input class=\"wp-block-axell-form-control-reseller wp-block-axell-form-control\" type=\"text\" id=\"reseller2\" autocomplete=\"off\" placeholder=\"Nome da loja · cidade\"/>\n<!-- /wp:axell/form-control-reseller --></div>\n<!-- /wp:axell/form-group -->\n\n<!-- wp:axell/form-group -->\n<div class=\"wp-block-axell-form-group\"><!-- wp:axell/form-label {\"for\":\"reseller3\",\"visuallyHidden\":true} -->\n<label class=\"wp-block-axell-form-label is-visually-hidden\" for=\"reseller3\">Loja parceira 3</label>\n<!-- /wp:axell/form-label -->\n\n<!-- wp:axell/form-control-reseller {\"id\":\"reseller3\",\"name\":\"reseller3\",\"placeholder\":\"Nome da loja · cidade\"} -->\n<input class=\"wp-block-axell-form-control-reseller wp-block-axell-form-control\" type=\"text\" id=\"reseller3\" autocomplete=\"off\" placeholder=\"Nome da loja · cidade\"/>\n<!-- /wp:axell/form-control-reseller --></div>\n<!-- /wp:axell/form-group -->\n\n<!-- wp:axell/form-group -->\n<div class=\"wp-block-axell-form-group\"><!-- wp:axell/form-label {\"for\":\"reseller4\",\"visuallyHidden\":true} -->\n<label class=\"wp-block-axell-form-label is-visually-hidden\" for=\"reseller4\">Loja parceira 4</label>\n<!-- /wp:axell/form-label -->\n\n<!-- wp:axell/form-control-reseller {\"id\":\"reseller4\",\"name\":\"reseller4\",\"placeholder\":\"Nome da loja · cidade\"} -->\n<input class=\"wp-block-axell-form-control-reseller wp-block-axell-form-control\" type=\"text\" id=\"reseller4\" autocomplete=\"off\" placeholder=\"Nome da loja · cidade\"/>\n<!-- /wp:axell/form-control-reseller --></div>\n<!-- /wp:axell/form-group -->\n\n<!-- wp:axell/form-group -->\n<div class=\"wp-block-axell-form-group\"><!-- wp:axell/form-label {\"for\":\"reseller5\",\"visuallyHidden\":true} -->\n<label class=\"wp-block-axell-form-label is-visually-hidden\" for=\"reseller5\">Loja parceira 5</label>\n<!-- /wp:axell/form-label -->\n\n<!-- wp:axell/form-control-reseller {\"id\":\"reseller5\",\"name\":\"reseller5\",\"placeholder\":\"Nome da loja · cidade\"} -->\n<input class=\"wp-block-axell-form-control-reseller wp-block-axell-form-control\" type=\"text\" id=\"reseller5\" autocomplete=\"off\" placeholder=\"Nome da loja · cidade\"/>\n<!-- /wp:axell/form-control-reseller --></div>\n<!-- /wp:axell/form-group --></div>\n<!-- /wp:group --></fieldset>\n<!-- /wp:axell/fieldset --><!-- wp:axell/form-check {\"id\":\"consent\",\"name\":\"consent\",\"required\":true} -->\n<div class=\"wp-block-axell-form-check\"><input type=\"checkbox\" id=\"consent\" name=\"consent\" required aria-required=\"true\"/><label for=\"consent\" class=\"wp-block-axell-form-label\">Li e concordo com o <a href=\"#\">regulamento do Atelier Axell Club</a> e com o tratamento dos meus dados conforme a Política de Privacidade e a LGPD.</label></div>\n<!-- /wp:axell/form-check --><!-- wp:group -->\n<div class=\"wp-block-group\"><!-- wp:group {\"layout\":{\"type\":\"flex\",\"flexWrap\":\"nowrap\"}} -->\n<div class=\"wp-block-group\"><!-- wp:buttons {\"style\":{\"layout\":{\"selfStretch\":\"fill\",\"flexSize\":null}}} -->\n<div class=\"wp-block-buttons\"><!-- wp:button {\"tagName\":\"button\",\"type\":\"submit\"} -->\n<div class=\"wp-block-button\"><button type=\"submit\" class=\"wp-block-button__link wp-element-button\">Enviar <img data-icon=\"axellcore/arrow-large\" alt=\"\" src=\"data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7\" class=\"aa-inline-icon\"></button></div>\n<!-- /wp:button --></div>\n<!-- /wp:buttons -->\n\n<!-- wp:axell/form-text {\"style\":{\"spacing\":{\"margin\":{\"top\":\"0\"}}}} -->\n<p class=\"wp-block-axell-form-text\" style=\"margin-top:0\">Ao enviar, você concorda em receber comunicações do Atelier Axell Club. Cadastro sujeito à aprovação da curadoria Axell.</p>\n<!-- /wp:axell/form-text --></div>\n<!-- /wp:group --></div>\n<!-- /wp:group --><!-- wp:axell/form-submission-notification -->\n<div hidden data-axell-notice-type=\"success\" class=\"wp-block-axell-form-submission-notification\"><!-- wp:group {\"style\":{\"color\":{\"background\":\"#00d084\",\"text\":\"#000000\"},\"elements\":{\"link\":{\"color\":{\"text\":\"#000000\"}}},\"spacing\":{\"padding\":{\"top\":\"1.25em\",\"bottom\":\"1.25em\",\"left\":\"2.375em\",\"right\":\"2.375em\"}}},\"layout\":{\"type\":\"constrained\"}} -->\n<div class=\"wp-block-group has-text-color has-background has-link-color\" style=\"color:#000000;background-color:#00d084;padding-top:1.25em;padding-right:2.375em;padding-bottom:1.25em;padding-left:2.375em\"><!-- wp:paragraph -->\n<p>Sua solicitação foi enviada.</p>\n<!-- /wp:paragraph -->\n\n<!-- wp:paragraph -->\n<p>A curadoria Axell entrará em contato em breve com o próximo passo. Bem-vindo(a) ao Atelier.</p>\n<!-- /wp:paragraph --></div>\n<!-- /wp:group --></div>\n<!-- /wp:axell/form-submission-notification --><!-- wp:axell/form-submission-notification {\"type\":\"error\"} -->\n<div hidden data-axell-notice-type=\"error\" class=\"wp-block-axell-form-submission-notification\"><!-- wp:group {\"style\":{\"color\":{\"background\":\"#cf2e2e\",\"text\":\"#ffffff\"},\"elements\":{\"link\":{\"color\":{\"text\":\"#ffffff\"}}},\"spacing\":{\"padding\":{\"top\":\"1.25em\",\"bottom\":\"1.25em\",\"left\":\"2.375em\",\"right\":\"2.375em\"}}},\"layout\":{\"type\":\"constrained\"}} -->\n<div class=\"wp-block-group has-text-color has-background has-link-color\" style=\"color:#ffffff;background-color:#cf2e2e;padding-top:1.25em;padding-right:2.375em;padding-bottom:1.25em;padding-left:2.375em\"><!-- wp:paragraph -->\n<p>Não foi possível enviar sua solicitação. Tente novamente em instantes.</p>\n<!-- /wp:paragraph --></div>\n<!-- /wp:group --></div>\n<!-- /wp:axell/form-submission-notification -->";
+
+/***/ },
+
+/***/ "./src/form/form/deprecated.tsx"
+/*!**************************************!*\
+  !*** ./src/form/form/deprecated.tsx ***!
+  \**************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   LEGACY_ATTRIBUTES: () => (/* binding */ LEGACY_ATTRIBUTES),
+/* harmony export */   migrateLegacy: () => (/* binding */ migrateLegacy),
+/* harmony export */   v1Save: () => (/* binding */ v1Save),
+/* harmony export */   v2Save: () => (/* binding */ v2Save),
+/* harmony export */   v3Save: () => (/* binding */ v3Save)
+/* harmony export */ });
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__);
+
+
+
+/**
+ * Save output before the Interactivity wiring (v1). Kept so content saved
+ * with it stays valid in the editor; re-saving migrates it to the current save.
+ * @param root0
+ * @param root0.attributes
+ */
+function v1Save({
+  attributes
+}) {
+  const blockProps = _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__.useBlockProps.save();
+  const innerBlocksProps = _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__.useInnerBlocksProps.save(attributes.submitsToRest ? {
+    ...blockProps,
+    'data-aa-club-form': '',
+    noValidate: true
+  } : blockProps);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("form", {
+    ...innerBlocksProps
+  });
+}
+
+/**
+ * Save output with the single "Destino do envio" switch (v2): the Interactivity
+ * wiring, the members admin-post action and the honeypot only when submitsToRest.
+ * @param root0
+ * @param root0.attributes
+ */
+function v2Save({
+  attributes
+}) {
+  const blockProps = _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__.useBlockProps.save();
+  const wired = attributes.submitsToRest ? {
+    noValidate: true,
+    'data-wp-interactive': 'axell/form',
+    'data-wp-context': '{"status":"idle"}',
+    'data-wp-on--submit': 'actions.submit'
+  } : {};
+  const {
+    children,
+    ...innerBlocksProps
+  } = _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__.useInnerBlocksProps.save({
+    ...wired,
+    ...blockProps
+  });
+  if (!attributes.submitsToRest) {
+    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("form", {
+      ...innerBlocksProps,
+      children: children
+    });
+  }
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsxs)("form", {
+    ...innerBlocksProps,
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
+      type: "hidden",
+      name: "action",
+      value: "axellcore_member_submit"
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("div", {
+      hidden: true,
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("input", {
+        type: "text",
+        name: "website",
+        tabIndex: -1,
+        autoComplete: "off",
+        "aria-label": (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Leave this field empty', 'axellcore-atelierclub')
+      })
+    }), children]
+  });
+}
+
+/** "Membro (REST)" becomes "store into members". */
+function migrateLegacy(attributes) {
+  const {
+    submitsToRest,
+    ...rest
+  } = attributes;
+  return {
+    ...rest,
+    storePostType: submitsToRest ? 'member' : ''
+  };
+}
+const LEGACY_ATTRIBUTES = {
+  submitsToRest: {
+    type: 'boolean',
+    default: false
+  }
+};
+
+/**
+ * Save output with the Interactivity directives in the markup (v3), before
+ * they moved to render time (includes/class-form-block.php).
+ * @param root0
+ * @param root0.attributes
+ */
+function v3Save({
+  attributes
+}) {
+  const blockProps = _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__.useBlockProps.save({
+    noValidate: true,
+    'data-wp-interactive': 'axell/form',
+    'data-wp-context': '{"status":"idle"}',
+    'data-wp-on--submit': 'actions.submit',
+    'data-form-id': attributes.formId || undefined
+  });
+  const innerBlocksProps = _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__.useInnerBlocksProps.save(blockProps);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)("form", {
+    ...innerBlocksProps
+  });
+}
+
+/***/ },
+
+/***/ "./src/form/form/form-edit.tsx"
+/*!*************************************!*\
+  !*** ./src/form/form/form-edit.tsx ***!
+  \*************************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   ALLOWED_BLOCKS: () => (/* binding */ ALLOWED_BLOCKS),
+/* harmony export */   FormEdit: () => (/* binding */ FormEdit)
+/* harmony export */ });
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/blocks */ "@wordpress/blocks");
+/* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _field_blocks__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../field-blocks */ "./src/form/field-blocks.ts");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__);
+
+
+
+
+
+
+
+
+const ALLOWED_BLOCKS = ['core/heading', 'core/paragraph', 'core/group', 'core/columns', 'core/column', 'core/list', 'core/list-item', 'core/buttons', 'core/button', 'axell/fieldset', 'axell/form-group', ..._field_blocks__WEBPACK_IMPORTED_MODULE_6__.FIELD_BLOCKS, 'axell/form-check', 'axell/form-submission-notification'];
+const STATUS_OPTIONS = [{
+  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Pendente', 'axellcore-atelierclub'),
+  value: 'pending'
+}, {
+  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Rascunho', 'axellcore-atelierclub'),
+  value: 'draft'
+}, {
+  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Publicado', 'axellcore-atelierclub'),
+  value: 'publish'
+}, {
+  label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Privado', 'axellcore-atelierclub'),
+  value: 'private'
+}];
+
+/** Short random id for formId. */
+const newFormId = () => Math.random().toString(36).slice(2, 10);
+
+/**
+ * Editor of a form block: its inner blocks and the "Ações de envio" panel
+ * (store as a post of a chosen type, send an email). Shared by axell/form and
+ * axell/form-atelier.
+ *
+ * @param props   Block edit props.
+ * @param options Per-block options.
+ */
+function FormEdit(props, options = {}) {
+  const {
+    attributes,
+    setAttributes,
+    clientId
+  } = props;
+  const {
+    replaceInnerBlocks
+  } = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_1__.useDispatch)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.store);
+  const {
+    postTypes,
+    duplicated,
+    hasInner
+  } = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_1__.useSelect)(select => {
+    const be = select(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.store);
+    const others = be.getClientIdsWithDescendants().filter(id => id !== clientId).some(id => be.getBlockAttributes(id)?.formId === attributes.formId);
+    // core/block-editor only keeps a fixed list of setting keys; the
+    // editor settings keep the custom ones (added in PHP).
+    const editorSettings = select('core/editor').getEditorSettings();
+    return {
+      postTypes: editorSettings.axellFormPostTypes || [],
+      duplicated: !!attributes.formId && others,
+      hasInner: be.getBlockCount(clientId) > 0
+    };
+  }, [clientId, attributes.formId]);
+
+  // A form needs its own id in the page (a new insert, or a copy).
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (!attributes.formId || duplicated) {
+      setAttributes({
+        formId: newFormId()
+      });
+    }
+  }, [attributes.formId, duplicated]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // The atelier form starts with its full template.
+  (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
+    if (options.initialMarkup && !hasInner) {
+      replaceInnerBlocks(clientId, (0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_3__.parse)(options.initialMarkup), false);
+    }
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const blockProps = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)();
+  const innerBlocksProps = (0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useInnerBlocksProps)(blockProps, {
+    allowedBlocks: ALLOWED_BLOCKS,
+    template: options.initialMarkup ? undefined : [['axell/form-group', {}]],
+    templateLock: false
+  });
+  const storeLabel = postTypes.find(t => t.value === attributes.storePostType)?.label || attributes.storePostType;
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.Fragment, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.InspectorControls, {
+      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.PanelBody, {
+        title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Ações de envio', 'axellcore-atelierclub'),
+        initialOpen: true,
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.SelectControl, {
+          label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Gravar em', 'axellcore-atelierclub'),
+          help: options.lockedStore ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Definido por este bloco: cada envio vira um cadastro.', 'axellcore-atelierclub') : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Cada envio vira um post deste tipo. Nenhum: não grava.', 'axellcore-atelierclub'),
+          value: attributes.storePostType,
+          disabled: !!options.lockedStore,
+          options: options.lockedStore ? [{
+            label: storeLabel,
+            value: attributes.storePostType
+          }] : [{
+            label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Nenhum', 'axellcore-atelierclub'),
+            value: ''
+          }, ...postTypes],
+          onChange: value => setAttributes({
+            storePostType: value
+          })
+        }), !!attributes.storePostType && !options.lockedStore && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.Fragment, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.SelectControl, {
+            label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Status do post', 'axellcore-atelierclub'),
+            value: attributes.storeStatus,
+            options: STATUS_OPTIONS,
+            onChange: value => setAttributes({
+              storeStatus: value
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.TextControl, {
+            label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Campo do título (name)', 'axellcore-atelierclub'),
+            help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Name do campo cujo valor vira o título do post.', 'axellcore-atelierclub'),
+            value: attributes.titleField,
+            onChange: value => setAttributes({
+              titleField: value
+            })
+          })]
+        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.ToggleControl, {
+          label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Enviar e-mail', 'axellcore-atelierclub'),
+          checked: !!attributes.sendEmail,
+          onChange: value => setAttributes({
+            sendEmail: value
+          })
+        }), attributes.sendEmail && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.Fragment, {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.TextControl, {
+            label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Para', 'axellcore-atelierclub'),
+            help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Separe vários e-mails por vírgula. Em branco: e-mail do administrador.', 'axellcore-atelierclub'),
+            value: attributes.emailTo,
+            onChange: value => setAttributes({
+              emailTo: value
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.TextControl, {
+            label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Assunto', 'axellcore-atelierclub'),
+            value: attributes.emailSubject,
+            onChange: value => setAttributes({
+              emailSubject: value
+            })
+          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.TextareaControl, {
+            label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Mensagem', 'axellcore-atelierclub'),
+            help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_5__.__)('Tags: {name de um campo}, por exemplo {nome}, e {all_fields} com todos os campos.', 'axellcore-atelierclub'),
+            value: attributes.emailBody,
+            rows: 6,
+            onChange: value => setAttributes({
+              emailBody: value
+            })
+          })]
+        })]
+      })
+    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("form", {
+      ...innerBlocksProps
+    })]
+  });
+}
+
+/***/ },
+
+/***/ "./src/form/form/icon.tsx"
+/*!********************************!*\
+  !*** ./src/form/form/icon.tsx ***!
+  \********************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__);
+
+/**
+ * Same icon as the reference block (Gutenberg 23.9.1's core/form,
+ * packages/block-library/src/form/icons.js — copied verbatim). See this
+ * plugin's CLAUDE.md.
+ */
+const icon = /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("svg", {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 24 24",
+  role: "img",
+  "aria-hidden": "true",
+  focusable: "false",
+  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("path", {
+    d: "M18 16H6c-1.1 0-2 .9-2 2s.9 2 2 2h12c1.1 0 2-.9 2-2s-.9-2-2-2Zm0 2.5H6c-.3 0-.5-.2-.5-.5s.2-.5.5-.5h12c.3 0 .5.2.5.5s-.2.5-.5.5ZM13 13H4v1.5h9V13Zm-7-2h12c1.1 0 2-.9 2-2s-.9-2-2-2H6c-1.1 0-2 .9-2 2s.9 2 2 2Zm0-2.5h12c.3 0 .5.2.5.5s-.2.5-.5.5H6c-.3 0-.5-.2-.5-.5s.2-.5.5-.5ZM13 4H4v1.5h9V4Z"
+  })
+});
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (icon);
+
+/***/ },
+
+/***/ "./src/form/form/save.tsx"
+/*!********************************!*\
+  !*** ./src/form/form/save.tsx ***!
+  \********************************/
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ save)
+/* harmony export */ });
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__);
+
+
+/**
+ * Every form submits through the axell/form store (view.ts): with JavaScript to
+ * the /submit route, without it to admin-post.php. The action, the post id, the
+ * form id and the honeypot are added on render (includes/class-form-block.php),
+ * and what the submission does comes from this block's settings on the server.
+ *
+ * @param root0
+ * @param root0.attributes
+ */
+function save({
+  attributes
+}) {
+  // The axell/form directives (store, context, submit) are added on render
+  // (includes/class-form-block.php), like the action and the hidden fields.
+  const blockProps = _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__.useBlockProps.save({
+    noValidate: true,
+    'data-form-id': attributes.formId || undefined
+  });
+  const innerBlocksProps = _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_0__.useInnerBlocksProps.save(blockProps);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_1__.jsx)("form", {
+    ...innerBlocksProps
+  });
+}
+
+/***/ },
+
+/***/ "react/jsx-runtime"
+/*!**********************************!*\
+  !*** external "ReactJSXRuntime" ***!
+  \**********************************/
+(module) {
+
+module.exports = window["ReactJSXRuntime"];
+
+/***/ },
+
+/***/ "@wordpress/block-editor"
+/*!*************************************!*\
+  !*** external ["wp","blockEditor"] ***!
+  \*************************************/
+(module) {
+
+module.exports = window["wp"]["blockEditor"];
+
+/***/ },
+
+/***/ "@wordpress/blocks"
+/*!********************************!*\
+  !*** external ["wp","blocks"] ***!
+  \********************************/
+(module) {
+
+module.exports = window["wp"]["blocks"];
+
+/***/ },
+
+/***/ "@wordpress/components"
+/*!************************************!*\
+  !*** external ["wp","components"] ***!
+  \************************************/
+(module) {
+
+module.exports = window["wp"]["components"];
+
+/***/ },
+
+/***/ "@wordpress/data"
+/*!******************************!*\
+  !*** external ["wp","data"] ***!
+  \******************************/
+(module) {
+
+module.exports = window["wp"]["data"];
+
+/***/ },
+
+/***/ "@wordpress/element"
+/*!*********************************!*\
+  !*** external ["wp","element"] ***!
+  \*********************************/
+(module) {
+
+module.exports = window["wp"]["element"];
+
+/***/ },
+
+/***/ "@wordpress/i18n"
+/*!******************************!*\
+  !*** external ["wp","i18n"] ***!
+  \******************************/
+(module) {
+
+module.exports = window["wp"]["i18n"];
+
+/***/ },
+
+/***/ "./src/form/form-atelier/block.json"
+/*!******************************************!*\
+  !*** ./src/form/form-atelier/block.json ***!
+  \******************************************/
+(module) {
+
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"axell/form-atelier","title":"Form Atelier","category":"text","description":"Formulário de adesão do Atelier Axell Club: grava cada envio como cadastro de membro e já vem com todos os campos e textos.","keywords":["form","atelier","adesão","membro"],"textdomain":"axellcore-atelierclub","attributes":{"formId":{"type":"string","default":""},"storePostType":{"type":"string","default":"member"},"storeStatus":{"type":"string","default":"pending"},"titleField":{"type":"string","default":"fullname"},"sendEmail":{"type":"boolean","default":false},"emailTo":{"type":"string","default":""},"emailSubject":{"type":"string","default":""},"emailBody":{"type":"string","default":""}},"supports":{"html":false,"anchor":true,"align":false,"className":true,"customClassName":true,"interactivity":true,"typography":{"fontSize":true,"lineHeight":true,"__experimentalFontFamily":true,"__experimentalFontWeight":true,"__experimentalFontStyle":true,"__experimentalLetterSpacing":true,"__experimentalTextTransform":true,"__experimentalDefaultControls":{"fontSize":true}},"color":{"background":true,"text":true,"link":true,"__experimentalDefaultControls":{"background":true,"text":true}},"__experimentalBorder":{"color":true,"radius":true,"style":true,"width":true,"__experimentalDefaultControls":{"color":false,"radius":false,"style":false,"width":false}},"spacing":{"margin":true,"padding":true,"__experimentalDefaultControls":{"padding":true}}},"editorScript":"file:./index.js","viewScriptModule":"file:./view.ts"}');
+
+/***/ }
+
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	const __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		const cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		const module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		if (!(moduleId in __webpack_modules__)) {
+/******/ 			delete __webpack_module_cache__[moduleId];
+/******/ 			const e = new Error("Cannot find module '" + moduleId + "'");
+/******/ 			e.code = 'MODULE_NOT_FOUND';
+/******/ 			throw e;
+/******/ 		}
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = (module) => {
+/******/ 		const getter = module && module.__esModule ?
+/******/ 			() => (module['default']) :
+/******/ 			() => (module);
+/******/ 		__webpack_require__.d(getter, { a: getter });
+/******/ 		return getter;
+/******/ 	};
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	// define getter/value functions for harmony exports
+/******/ 	__webpack_require__.d = (exports, definition) => {
+/******/ 		for(var key in definition) {
+/******/ 			if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 				Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 			}
+/******/ 		}
+/******/ 	};
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	__webpack_require__.o = (obj, prop) => (Object.hasOwn(obj, prop));
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = (exports) => {
+/******/ 		Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/ 	
+/************************************************************************/
+let __webpack_exports__ = {};
+// This entry needs to be wrapped in an IIFE because it needs to be isolated against other modules in the chunk.
+(() => {
+/*!*****************************************!*\
+  !*** ./src/form/form-atelier/index.tsx ***!
+  \*****************************************/
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @wordpress/blocks */ "@wordpress/blocks");
+/* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _block_json__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./block.json */ "./src/form/form-atelier/block.json");
+/* harmony import */ var _edit__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./edit */ "./src/form/form-atelier/edit.tsx");
+/* harmony import */ var _form_save__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../form/save */ "./src/form/form/save.tsx");
+/* harmony import */ var _form_icon__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../form/icon */ "./src/form/form/icon.tsx");
+/* harmony import */ var _form_deprecated__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../form/deprecated */ "./src/form/form/deprecated.tsx");
+
+
+
+
+
+
+(0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_0__.registerBlockType)(_block_json__WEBPACK_IMPORTED_MODULE_1__.name, {
+  ..._block_json__WEBPACK_IMPORTED_MODULE_1__,
+  icon: _form_icon__WEBPACK_IMPORTED_MODULE_4__["default"],
+  edit: _edit__WEBPACK_IMPORTED_MODULE_2__["default"],
+  save: _form_save__WEBPACK_IMPORTED_MODULE_3__["default"],
+  deprecated: [{
+    attributes: _block_json__WEBPACK_IMPORTED_MODULE_1__.attributes,
+    supports: _block_json__WEBPACK_IMPORTED_MODULE_1__.supports,
+    save: _form_deprecated__WEBPACK_IMPORTED_MODULE_5__.v3Save
+  }]
+});
+})();
+
+/******/ })()
+;
+//# sourceMappingURL=index.js.map

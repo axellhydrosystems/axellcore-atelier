@@ -25,15 +25,16 @@ export function autocompleteMarkup( args: AutocompleteMarkupArgs ) {
 
 	if ( ! isSave ) {
 		// Same field look as the other controls in the editor (read-only, so it does not grey out).
+		// The field is the block root, as saved, so its style attributes show here.
 		return (
-			<div { ...blockProps }>
-				<input
-					type="text"
-					className="wp-block-axell-form-control"
-					readOnly
-					placeholder={ placeholder || __( 'Autocomplete (posts)', 'axellcore-atelierclub' ) }
-				/>
-			</div>
+			<input
+				{ ...blockProps }
+				className={ [ blockProps.className as string | undefined, 'wp-block-axell-form-control' ].filter( Boolean ).join( ' ' ) }
+				type="text"
+				readOnly
+				tabIndex={ -1 }
+				placeholder={ placeholder || __( 'Autocomplete (posts)', 'axellcore-atelierclub' ) }
+			/>
 		);
 	}
 

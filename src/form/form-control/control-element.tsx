@@ -19,6 +19,8 @@ export function HiddenFieldPlaceholder( { label }: { label?: string } = {} ) {
 				boxSizing: 'border-box',
 				width: '100%',
 				padding: '0.6em',
+				// Editor only: keeps the next field off the placeholder.
+				marginBlockEnd: '1rem',
 				fontSize: '0.85em',
 				opacity: 0.6,
 				border: '1px dashed currentColor',
@@ -52,7 +54,13 @@ export default function ControlElement(
 	setAttributes: ( attrs: Partial< FormControlAttributes > ) => void,
 	blockProps: Record< string, unknown >,
 	/** Renders the autocomplete type (the deprecation passes the legacy one). */
-	renderAutocomplete: typeof autocompleteMarkup = autocompleteMarkup
+	renderAutocomplete: typeof autocompleteMarkup = autocompleteMarkup,
+	/**
+	 * Editor: whether the placeholder is being edited in the field. Out of
+	 * focus the field shows the real placeholder (as on the front); in focus
+	 * its text is the placeholder, to edit in place.
+	 */
+	editing?: { active: boolean; set: ( active: boolean ) => void }
 ) {
 	const { type, required, placeholder } = attributes;
 	const id = attributes.id || undefined;
@@ -90,10 +98,13 @@ export default function ControlElement(
 					'Optional placeholder text',
 					'axellcore-atelierclub'
 				),
-				placeholder: placeholder
-					? undefined
-					: __( 'Optional placeholder…', 'axellcore-atelierclub' ),
-				value: placeholder,
+				placeholder:
+					editing?.active && placeholder
+						? undefined
+						: placeholder || __( 'Optional placeholder…', 'axellcore-atelierclub' ),
+				value: editing && ! editing.active ? '' : placeholder,
+				onFocus: () => editing?.set( true ),
+				onBlur: () => editing?.set( false ),
 				onChange: (
 					event: React.ChangeEvent<
 						HTMLInputElement | HTMLTextAreaElement

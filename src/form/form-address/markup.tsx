@@ -105,24 +105,21 @@ export function stateMarkup( a: AddressArgs ) {
 		// The editor has no interactivity to switch the two elements: show the
 		// one the settings make active. A chosen country with a state list is
 		// a select whose first option is the placeholder; else a text field.
+		// The field is the block root, as saved, so its style attributes show here.
 		const list = a.countrySource === 'select' && STATE_LISTS.includes( chosenCountry( a.country ) );
-		return (
-			<div { ...a.blockProps }>
-				{ list ? (
-					<select id={ a.id } className={ FIELD } defaultValue="" tabIndex={ -1 }>
-						<option value="">{ a.placeholder || '—' }</option>
-					</select>
-				) : (
-					<input
-						type="text"
-						id={ a.id }
-						className={ FIELD }
-						placeholder={ a.placeholder || undefined }
-						readOnly
-						tabIndex={ -1 }
-					/>
-				) }
-			</div>
+		return list ? (
+			<select { ...fieldProps( a ) } id={ a.id } defaultValue="" tabIndex={ -1 }>
+				<option value="">{ a.placeholder || '—' }</option>
+			</select>
+		) : (
+			<input
+				{ ...fieldProps( a ) }
+				type="text"
+				id={ a.id }
+				placeholder={ a.placeholder || undefined }
+				readOnly
+				tabIndex={ -1 }
+			/>
 		);
 	}
 	// Only the field: the render (Form_Directives::state()) adds the wrapper,
@@ -143,16 +140,14 @@ export function stateMarkup( a: AddressArgs ) {
 export function cityMarkup( a: AddressArgs ) {
 	if ( a.isEditor ) {
 		return (
-			<div { ...a.blockProps }>
-				<input
-					type="text"
-					id={ a.id }
-					className={ FIELD }
-					placeholder={ a.placeholder || undefined }
-					readOnly
-					tabIndex={ -1 }
-				/>
-			</div>
+			<input
+				{ ...fieldProps( a ) }
+				type="text"
+				id={ a.id }
+				placeholder={ a.placeholder || undefined }
+				readOnly
+				tabIndex={ -1 }
+			/>
 		);
 	}
 	// Only the field: the render (Form_Directives::city()) builds the search
