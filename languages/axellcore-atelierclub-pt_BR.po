@@ -1938,3 +1938,6 @@ msgstr "Pedra"
 
 msgid "Protagonists"
 msgstr "Protagonistas"
+
+msgid "Promises"
+msgstr "Promessas"

@@ -855,30 +855,38 @@ ol.prota-grid{ list-style: none; margin: 0; padding: 0; }
   padding: 60px 48px 68px;
   border-right: 1px solid var(--line-dk);
   border-bottom: 1px solid var(--line-dk);
-  display: flex;
-  gap: 32px;
+  display: grid;
+  grid-template-columns: minmax(60px, max-content) 1fr;
+  column-gap: 32px;
+  /* A grid li is no longer a list-item: count it by hand. */
+  counter-increment: list-item;
 }
 .promise:nth-child(2n){ border-right: none; }
 .promise:nth-child(n+3){ border-bottom: none; }
-.promise .pn{
+/* An ol: the number is the list counter in the first column, next to the
+   strong title and the li's own text (the br is for reading without
+   styles). */
+ol.promises-grid{ list-style: none; margin: 0; padding: 0; }
+.promise::before{
+  content: counter(list-item, roman-period);
+  grid-row: 1 / span 2;
   font-family: var(--serif); font-style: italic; font-weight: 300;
   font-size: 44px; line-height: 1;
   color: var(--bronze-2);
-  flex-shrink: 0;
-  min-width: 60px;
 }
-.promise h3{
+.promise strong{
+  display: block;
   font-family: var(--serif);
   font-weight: 400;
   font-size: 26px; line-height: 1.2;
   margin: 0 0 12px;
   color: var(--ivory);
 }
-.promise p{
+.promise br{ display: none; }
+.promise{
   font-family: var(--sans); font-weight: 300;
   font-size: 14.5px; line-height: 1.65;
   color: rgba(239,236,228,0.68);
-  margin: 0;
 }
 @media (max-width: 900px){
   .promises-grid{ grid-template-columns: 1fr; }
@@ -1880,36 +1888,12 @@ ol.prota-grid{ list-style: none; margin: 0; padding: 0; }
     </div>
   </div>
 
-  <div class="promises-grid">
-    <div class="promise">
-      <div class="pn">i.</div>
-      <div>
-        <h3>Recompensa real</h3>
-        <p>Bônus financeiro direto por cada venda concretizada, sem intermediários. Transparência de valor.</p>
-      </div>
-    </div>
-    <div class="promise">
-      <div class="pn">ii.</div>
-      <div>
-        <h3>Curadoria constante</h3>
-        <p>Eventos, viagens e encontros desenhados ao detalhe — do jantar íntimo à imersão internacional.</p>
-      </div>
-    </div>
-    <div class="promise">
-      <div class="pn">iii.</div>
-      <div>
-        <h3>Visibilidade editorial</h3>
-        <p>Os seus projetos ganham a voz autoral da Axell — publicação em canais oficiais e imprensa parceira.</p>
-      </div>
-    </div>
-    <div class="promise">
-      <div class="pn">iv.</div>
-      <div>
-        <h3>Pertencimento</h3>
-        <p>Lugar entre os poucos profissionais que a Axell reconhece por assinatura. Discreto, curado, permanente.</p>
-      </div>
-    </div>
-  </div>
+  <ol class="promises-grid">
+    <li class="promise"><strong>Recompensa real</strong><br>Bônus financeiro direto por cada venda concretizada, sem intermediários. Transparência de valor.</li>
+    <li class="promise"><strong>Curadoria constante</strong><br>Eventos, viagens e encontros desenhados ao detalhe — do jantar íntimo à imersão internacional.</li>
+    <li class="promise"><strong>Visibilidade editorial</strong><br>Os seus projetos ganham a voz autoral da Axell — publicação em canais oficiais e imprensa parceira.</li>
+    <li class="promise"><strong>Pertencimento</strong><br>Lugar entre os poucos profissionais que a Axell reconhece por assinatura. Discreto, curado, permanente.</li>
+  </ol>
 </section>
 
 <!-- =================== O NOME / CONCEITO =================== -->

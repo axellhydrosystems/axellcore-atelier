@@ -855,30 +855,38 @@ ol.prota-grid{ list-style: none; margin: 0; padding: 0; }
   padding: 60px 48px 68px;
   border-right: 1px solid var(--line-dk);
   border-bottom: 1px solid var(--line-dk);
-  display: flex;
-  gap: 32px;
+  display: grid;
+  grid-template-columns: minmax(60px, max-content) 1fr;
+  column-gap: 32px;
+  /* A grid li is no longer a list-item: count it by hand. */
+  counter-increment: list-item;
 }
 .promise:nth-child(2n){ border-right: none; }
 .promise:nth-child(n+3){ border-bottom: none; }
-.promise .pn{
+/* An ol: the number is the list counter in the first column, next to the
+   strong title and the li's own text (the br is for reading without
+   styles). */
+ol.promises-grid{ list-style: none; margin: 0; padding: 0; }
+.promise::before{
+  content: counter(list-item, roman-period);
+  grid-row: 1 / span 2;
   font-family: var(--serif); font-style: italic; font-weight: 300;
   font-size: 44px; line-height: 1;
   color: var(--bronze-2);
-  flex-shrink: 0;
-  min-width: 60px;
 }
-.promise h3{
+.promise strong{
+  display: block;
   font-family: var(--serif);
   font-weight: 400;
   font-size: 26px; line-height: 1.2;
   margin: 0 0 12px;
   color: var(--ivory);
 }
-.promise p{
+.promise br{ display: none; }
+.promise{
   font-family: var(--sans); font-weight: 300;
   font-size: 14.5px; line-height: 1.65;
   color: rgba(239,236,228,0.68);
-  margin: 0;
 }
 @media (max-width: 900px){
   .promises-grid{ grid-template-columns: 1fr; }

@@ -26,8 +26,8 @@
       "note": "no-class aprovado em 2026-10-07: /atelier/protagonistas/ (post 897, template atelier-section) a 0,00% em 1440/768/390; pure /atelier/pure/protagonistas/ (post 841); estilo de lista Protagonistas (mixin numbered-grid com Pilares)"
     },
     "promessas": {
-      "phase": 0,
-      "note": ""
+      "phase": 2,
+      "note": "no-class aprovado em 2026-10-07: /atelier/promessas/ (post 900, template atelier-section) a 0,00% em 1440/768/390; pure /atelier/pure/promessas/ (post 842); estilo de lista Promessas; overflow abaixo de 337px herdado do source, ignorado (minimo atendido: 390)"
     },
     "conceito": {
       "phase": 0,

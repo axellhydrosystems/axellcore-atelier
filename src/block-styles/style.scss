@@ -268,6 +268,58 @@ p.is-style-eyebrow {
 	}
 }
 
+// "Promises" list: 2 columns (1 under 900px) with rules between them, on a
+// dark background; each item is a grid with the number in its own column,
+// next to the title and the text (design/source .promises-grid).
+.wp-block-list.is-style-promises {
+	@include numbered-grid;
+	grid-template-columns: 1fr 1fr;
+
+	> li {
+		display: grid;
+		grid-template-columns: minmax(3.75rem, max-content) 1fr;
+		column-gap: 2rem;
+		padding: 3.75rem 3rem 4.25rem;
+		border-right: 1px solid var(--wp--preset--color--line-dk);
+		border-bottom: 1px solid var(--wp--preset--color--line-dk);
+		// A grid li is no longer a list-item: count it by hand.
+		counter-increment: list-item;
+
+		&:nth-child(2n) {
+			border-right: none;
+		}
+
+		&:nth-child(n + 3) {
+			border-bottom: none;
+		}
+
+		&::before {
+			grid-row: 1 / span 2;
+			font-size: 2.75rem;
+			color: var(--wp--preset--color--bronze-2);
+		}
+	}
+
+	strong {
+		margin: 0 0 0.75rem;
+		font-size: 1.625rem;
+		color: var(--wp--preset--color--ivory);
+	}
+
+	@media (max-width: 56.25rem) {
+		grid-template-columns: 1fr;
+
+		> li {
+			border-right: none;
+			border-bottom: 1px solid var(--wp--preset--color--line-dk);
+		}
+
+		> li:last-child {
+			border-bottom: none;
+		}
+	}
+}
+
 // "Stone" cover: the member plate's stone (design/source .placa-stone). The
 // cover's own overlay carries the stone gradients (a custom gradient); these
 // add the veins (blended over it) and the mineral specks, under the content.

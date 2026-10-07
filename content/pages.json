@@ -10,6 +10,11 @@
         "template": "atelier-section"
     },
     {
+        "path": "promessas",
+        "title": "Promessas",
+        "template": "atelier-section"
+    },
+    {
         "path": "protagonistas",
         "title": "Protagonistas",
         "template": "atelier-section"

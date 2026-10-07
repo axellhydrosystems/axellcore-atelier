@@ -140,8 +140,9 @@ final class Design_Tokens {
 	 *   (a duotone filter gets within 1 level, not equal);
 	 * - "Visually hidden" on groups: off screen but read by screen readers
 	 *   (the hero's page h1), like .visually-hidden;
-	 * - "Pillars" and "Protagonists" on lists: numbered grids (the manifesto
-	 *   pillars and the protagonistas items), sharing one SCSS mixin.
+	 * - "Pillars", "Protagonists" and "Promises" on lists: numbered grids
+	 *   (the manifesto pillars, the protagonistas and the promessas items),
+	 *   sharing one SCSS mixin.
 	 *
 	 * A block can have more than one style, so each row is block, name, label.
 	 */
@@ -160,6 +161,7 @@ final class Design_Tokens {
 			array( 'core/heading', 'chapter', __( 'Chapter', 'axellcore-atelierclub' ) ),
 			array( 'core/list', 'pillars', __( 'Pillars', 'axellcore-atelierclub' ) ),
 			array( 'core/list', 'protagonists', __( 'Protagonists', 'axellcore-atelierclub' ) ),
+			array( 'core/list', 'promises', __( 'Promises', 'axellcore-atelierclub' ) ),
 			array( 'core/cover', 'stone', __( 'Stone', 'axellcore-atelierclub' ) ),
 		);
 		foreach ( $styles as list( $block, $name, $label ) ) {

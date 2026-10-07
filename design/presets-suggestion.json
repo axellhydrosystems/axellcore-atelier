@@ -6,7 +6,8 @@
 		"convite",
 		"manifesto",
 		"placa",
-		"protagonistas"
+		"protagonistas",
+		"promessas"
 	],
 	"fontSizes": [
 		{
@@ -23,7 +24,8 @@
 			"slug": "xx-small",
 			"usedIn": [
 				"header: primary button",
-				"protagonistas: chapter label (h2)"
+				"protagonistas: chapter label (h2)",
+				"promessas: chapter label (h2)"
 			]
 		},
 		{
@@ -95,7 +97,8 @@
 			"px": "36–68",
 			"usedIn": [
 				"manifesto: section title (source .section-title, all section heads)",
-				"protagonistas: title"
+				"protagonistas: title",
+				"promessas: title"
 			]
 		},
 		{
@@ -103,7 +106,8 @@
 			"px": 15.5,
 			"usedIn": [
 				"manifesto: body text (source p.body; block CSS, theme fluid typography)",
-				"protagonistas: body (block CSS)"
+				"protagonistas: body (block CSS)",
+				"promessas: body (block CSS)"
 			]
 		},
 		{
@@ -153,7 +157,8 @@
 			"px": 14.5,
 			"usedIn": [
 				"placa: specs values (block CSS)",
-				"protagonistas: item text (block CSS)"
+				"protagonistas: item text (block CSS)",
+				"promessas: item text (block CSS)"
 			]
 		},
 		{
@@ -196,6 +201,20 @@
 			"px": 30,
 			"usedIn": [
 				"protagonistas: item title (block style)"
+			]
+		},
+		{
+			"value": "2.75rem",
+			"px": 44,
+			"usedIn": [
+				"promessas: item number (block style)"
+			]
+		},
+		{
+			"value": "1.625rem",
+			"px": 26,
+			"usedIn": [
+				"promessas: item title (block style)"
 			]
 		}
 	],
@@ -323,6 +342,12 @@
 			"usedIn": [
 				"protagonistas: item text"
 			]
+		},
+		{
+			"value": "1.65",
+			"usedIn": [
+				"promessas: item text"
+			]
 		}
 	],
 	"spacing": [
@@ -424,7 +449,8 @@
 			"px": 32,
 			"usedIn": [
 				"convite: paragraphs in the quote",
-				"placa: title margin top, specs margin top, plate padding sides"
+				"placa: title margin top, specs margin top, plate padding sides",
+				"promessas: number to text gap"
 			]
 		},
 		{
@@ -452,7 +478,8 @@
 			"value": "3rem",
 			"px": 48,
 			"usedIn": [
-				"placa: stacked columns gap"
+				"placa: stacked columns gap",
+				"promessas: item padding sides"
 			]
 		},
 		{
@@ -466,7 +493,8 @@
 			"value": "0.75rem",
 			"px": 12,
 			"usedIn": [
-				"placa: notice padding and gap, caption margin top"
+				"placa: notice padding and gap, caption margin top",
+				"promessas: title margin bottom"
 			]
 		},
 		{
@@ -516,7 +544,8 @@
 			"value": "3.75rem",
 			"px": 60,
 			"usedIn": [
-				"protagonistas: item padding bottom"
+				"protagonistas: item padding bottom",
+				"promessas: item padding top, number column"
 			]
 		},
 		{
@@ -531,6 +560,20 @@
 			"px": 16,
 			"usedIn": [
 				"protagonistas: title margin bottom"
+			]
+		},
+		{
+			"value": "clamp(4.375rem, 9vw, 7.5rem)",
+			"px": "70–120",
+			"usedIn": [
+				"promessas: section padding top and bottom (source .section-sm)"
+			]
+		},
+		{
+			"value": "4.25rem",
+			"px": 68,
+			"usedIn": [
+				"promessas: item padding bottom"
 			]
 		}
 	],
