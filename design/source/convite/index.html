@@ -1296,11 +1296,12 @@ blockquote.editorial-quote p{ margin: 0; }
   font-size: clamp(32px, 4.4vw, 60px);
   line-height: 1.1;
   margin: 0;
-  max-width: 20ch;
   color: var(--ivory);
   text-wrap: balance;
 }
 .cta-strip .cta-title em{ font-style: normal; color: var(--bronze-2); }
+/* The button keeps its own width when the strip stacks, at the right. */
+.cta-strip .btn{ justify-self: end; }
 @media (max-width: 780px){
   .cta-strip-inner{ grid-template-columns: 1fr; }
 }
