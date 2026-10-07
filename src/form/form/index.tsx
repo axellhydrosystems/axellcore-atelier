@@ -3,14 +3,17 @@ import metadata from './block.json';
 import Edit from './edit';
 import save from './save';
 import icon from './icon';
-import { v1Save, v2Save, migrateLegacy, LEGACY_ATTRIBUTES } from './deprecated';
+import { v1Save, v2Save, v3Save, migrateLegacy, LEGACY_ATTRIBUTES } from './deprecated';
 
-const deprecated = [ v2Save, v1Save ].map( ( legacySave ) => ( {
-	attributes: { ...LEGACY_ATTRIBUTES, className: { type: 'string' } },
-	supports: metadata.supports,
-	save: legacySave,
-	migrate: migrateLegacy,
-} ) );
+const deprecated = [
+	{ attributes: metadata.attributes, supports: metadata.supports, save: v3Save },
+	...[ v2Save, v1Save ].map( ( legacySave ) => ( {
+		attributes: { ...LEGACY_ATTRIBUTES, className: { type: 'string' } },
+		supports: metadata.supports,
+		save: legacySave,
+		migrate: migrateLegacy,
+	} ) ),
+];
 
 registerBlockType( metadata.name, {
 	...( metadata as unknown as Record< string, unknown > ),

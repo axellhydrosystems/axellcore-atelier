@@ -25,7 +25,8 @@ export interface AutocompleteMarkupArgs {
  * @param args Block props and the source of the search.
  */
 export function autocompleteMarkup( args: AutocompleteMarkupArgs ) {
-	const { blockProps, isSave, id, name, placeholder, postType, template, allowNotFound } = args;
+	// postType, template and allowNotFound feed the render-time context (PHP).
+	const { blockProps, isSave, id, name, placeholder } = args;
 
 	if ( ! isSave ) {
 		// Same field look as the other controls in the editor (read-only, so it does not grey out).
@@ -41,73 +42,43 @@ export function autocompleteMarkup( args: AutocompleteMarkupArgs ) {
 		);
 	}
 
-	// Initial state of the Interactivity store "axell/autocomplete".
-	const context = {
-		postType,
-		template,
-		allowNotFound,
-		text: '',
-		selectedId: '',
-		titulo: '',
-		open: false,
-		notFound: false,
-		loading: false,
-		custom: false,
-		customName: '',
-		customUf: '',
-		customCity: '',
-		cityOptions: [],
-		activeIndex: -1,
-		options: [],
-	};
+	// The axell/autocomplete directives and initial context are added on render
+	// (includes/class-form-directives.php), from the block attributes.
 	const listId = `${ name }-list`;
 
 	return (
 		<div
 			{ ...blockProps }
-			data-wp-interactive="axell/autocomplete"
-			data-wp-context={ JSON.stringify( context ) }
-			data-wp-on--keydown="actions.onKeydown"
-			data-wp-on--focusout="actions.onFocusOut"
 		>
 			<input
 				type="text"
 				id={ id }
 				autoComplete="off"
 				role="combobox"
-				data-wp-bind--hidden="context.custom"
 				aria-autocomplete="list"
 				aria-controls={ listId }
 				placeholder={ placeholder || undefined }
-				data-wp-bind--value="context.text"
-				data-wp-bind--aria-expanded="context.open"
-				data-wp-on--input="actions.onInput"
 			/>
 			<input
 				type="hidden"
 				name={ name }
-				data-wp-bind--value="context.selectedId"
 			/>
 			<input
 				type="hidden"
 				name={ `${ name }_titulo` }
-				data-wp-bind--value="context.titulo"
 			/>
-			<div className="aa-ac-custom" hidden data-wp-bind--hidden="!context.custom">
+			<div className="aa-ac-custom" hidden>
 				<div className="aa-ac-name">
 					<input
 						type="text"
 						data-field="name"
 						aria-label={ __( 'Nome', 'axellcore-atelierclub' ) }
 						placeholder={ __( 'Nome', 'axellcore-atelierclub' ) }
-						data-wp-bind--value="context.customName"
-						data-wp-on--input="actions.onCustomInput"
 					/>
 					<button
 						type="button"
 						className="aa-ac-back"
 						aria-label={ __( 'Voltar à busca', 'axellcore-atelierclub' ) }
-						data-wp-on--click="actions.backToSearch"
 					>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -127,8 +98,6 @@ export function autocompleteMarkup( args: AutocompleteMarkupArgs ) {
 				</div>
 				<select
 					aria-label={ __( 'UF', 'axellcore-atelierclub' ) }
-					data-wp-bind--value="context.customUf"
-					data-wp-on--change="actions.onCustomUf"
 				>
 					<option value="">UF</option>
 					{ UF_CODES.map( ( uf ) => (
@@ -141,9 +110,6 @@ export function autocompleteMarkup( args: AutocompleteMarkupArgs ) {
 					aria-label={ __( 'Cidade', 'axellcore-atelierclub' ) }
 					data-field="city"
 					disabled
-					data-wp-bind--disabled="!context.customUf"
-					data-wp-on--change="actions.onCustomCity"
-					data-wp-watch="callbacks.renderCities"
 				>
 					<option value="">{ __( 'Selecione UF', 'axellcore-atelierclub' ) }</option>
 				</select>
@@ -152,10 +118,6 @@ export function autocompleteMarkup( args: AutocompleteMarkupArgs ) {
 				id={ listId }
 				role="listbox"
 				hidden
-				data-wp-bind--hidden="!context.open"
-				data-wp-on--click="actions.pick"
-				data-wp-on--mousedown="actions.keepFocus"
-				data-wp-watch="callbacks.renderList"
 			/>
 		</div>
 	);

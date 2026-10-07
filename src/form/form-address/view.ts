@@ -22,6 +22,8 @@ interface ControlContext {
 	lineType?: string;
 	/** City search: typed text, picked IBGE code, list open, active option. */
 	query?: string;
+	/** City search: what was typed (filters the list; query shows the highlighted city). */
+	typed?: string;
 	code?: string;
 	open?: boolean;
 	active?: number;
@@ -81,7 +83,7 @@ const { state } = store( 'axell/address', {
 		},
 		get cityListOpen(): boolean {
 			const context = getContext< ControlContext >();
-			return !! context.open && ( context.query || '' ).trim() !== '';
+			return !! context.open && ( context.typed ?? context.query ?? '' ).trim() !== '';
 		},
 	},
 	actions: {
@@ -125,6 +127,7 @@ const { state } = store( 'axell/address', {
 		onCitySearch( event: Event ) {
 			const context = getContext< ControlContext >();
 			const input = event.target as HTMLInputElement;
+			context.typed = input.value;
 			context.query = input.value;
 			context.open = true;
 			context.active = -1;
@@ -140,6 +143,7 @@ const { state } = store( 'axell/address', {
 			const context = getContext< ControlContext >();
 			context.code = item.dataset.value || '';
 			context.query = item.dataset.label || '';
+			context.typed = context.query;
 			context.open = false;
 			context.active = -1;
 		},
@@ -147,26 +151,34 @@ const { state } = store( 'axell/address', {
 		onCityKeydown( event: KeyboardEvent ) {
 			const context = getContext< ControlContext >();
 			const list = matches( context, event.target as HTMLElement );
+			// The field shows the highlighted city; what was typed still filters.
+			const highlight = ( index: number ) => {
+				context.active = index;
+				context.query = list[ index ].label;
+			};
 			switch ( event.key ) {
 				case 'ArrowDown':
 					event.preventDefault();
 					context.open = true;
 					if ( list.length ) {
-						context.active = ( ( context.active ?? -1 ) + 1 ) % list.length;
+						highlight( ( ( context.active ?? -1 ) + 1 ) % list.length );
 					}
 					break;
 				case 'ArrowUp':
 					event.preventDefault();
 					if ( list.length ) {
-						context.active = ( context.active ?? 0 ) <= 0 ? list.length - 1 : ( context.active ?? 0 ) - 1;
+						highlight( ( context.active ?? 0 ) <= 0 ? list.length - 1 : ( context.active ?? 0 ) - 1 );
 					}
 					break;
-				case 'Enter': {
+				case 'Enter':
+				case ' ': {
+					// Enter or Space on a highlighted city chooses it and closes the list.
 					const chosen = list[ context.active ?? -1 ];
 					if ( context.open && chosen ) {
 						event.preventDefault();
 						context.code = chosen.value;
 						context.query = chosen.label;
+						context.typed = chosen.label;
 						context.open = false;
 						context.active = -1;
 					}
@@ -175,6 +187,7 @@ const { state } = store( 'axell/address', {
 				case 'Escape':
 					context.open = false;
 					context.active = -1;
+					context.query = context.typed ?? context.query;
 					break;
 			}
 		},
@@ -193,6 +206,7 @@ const { state } = store( 'axell/address', {
 			// Leaving without picking a city clears the text.
 			if ( ! context.code ) {
 				context.query = '';
+				context.typed = '';
 			}
 			context.open = false;
 			context.active = -1;
@@ -320,7 +334,7 @@ const { state } = store( 'axell/address', {
 function matches( context: ControlContext, el: Element ): Option[] {
 	const s = state as unknown as AddressState;
 	const cities = s.cities[ keyOf( el, context.stateField || 'uf' ) ] || [];
-	const q = fold( ( context.query || '' ).trim() );
+	const q = fold( ( context.typed ?? context.query ?? '' ).trim() );
 	if ( ! q ) {
 		return [];
 	}

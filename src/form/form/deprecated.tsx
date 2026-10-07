@@ -75,3 +75,21 @@ export function migrateLegacy( attributes: LegacyAttributes ) {
 export const LEGACY_ATTRIBUTES = {
 	submitsToRest: { type: 'boolean', default: false },
 };
+
+/**
+ * Save output with the Interactivity directives in the markup (v3), before
+ * they moved to render time (includes/class-form-block.php).
+ * @param root0
+ * @param root0.attributes
+ */
+export function v3Save( { attributes }: BlockSaveProps< { formId?: string; [ key: string ]: unknown } > ) {
+	const blockProps = useBlockProps.save( {
+		noValidate: true,
+		'data-wp-interactive': 'axell/form',
+		'data-wp-context': '{"status":"idle"}',
+		'data-wp-on--submit': 'actions.submit',
+		'data-form-id': attributes.formId || undefined,
+	} );
+	const innerBlocksProps = useInnerBlocksProps.save( blockProps );
+	return <form { ...innerBlocksProps } />;
+}

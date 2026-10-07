@@ -74,6 +74,7 @@ final class Plugin {
 		Locations::instance()->register_hooks();
 		Members::instance()->register_hooks();
 		Form_Block::instance()->register_hooks();
+		Form_Directives::instance()->register_hooks();
 		Form_Submission::instance()->register_hooks();
 		Activator::register_hooks();
 		// City names per UF for the revendas plugin, which only creates a

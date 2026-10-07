@@ -61,7 +61,8 @@ store( 'axell/document', {
 			if ( ! field || ! ( 'value' in field ) ) {
 				return;
 			}
-			const input = region.querySelector< HTMLInputElement >( 'input' );
+			// The region is the input itself (older saves wrapped it in a div).
+			const input = region instanceof HTMLInputElement ? region : region.querySelector< HTMLInputElement >( 'input' );
 			const apply = withScope( () => {
 				const ctx = getContext< DocumentContext >();
 				ctx.type = ( field.value === 'cnpj' || field.value === 'cpf' ? field.value : '' ) as DocType;

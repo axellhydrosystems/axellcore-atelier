@@ -2,6 +2,7 @@ import { registerBlockType } from '@wordpress/blocks';
 import metadata from './block.json';
 import Edit from './edit';
 import save from './save';
+import deprecated from './deprecated';
 import icon from './icon';
 import type { FormControlAttributes } from './types';
 // Not imported here: block.json's editorScript array lists variations.js as
@@ -15,4 +16,5 @@ registerBlockType< FormControlAttributes >( metadata.name, {
 	icon,
 	edit: Edit,
 	save,
-} );
+	deprecated,
+} as unknown as Parameters< typeof registerBlockType< FormControlAttributes > >[ 1 ] );

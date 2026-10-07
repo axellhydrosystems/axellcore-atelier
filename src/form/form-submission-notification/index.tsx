@@ -6,7 +6,7 @@ import './style.scss';
 import metadata from './block.json';
 import Edit from './edit';
 import save from './save';
-import { v1Save } from './deprecated';
+import { v1Save, v2Save } from './deprecated';
 import type { FormSubmissionNotificationAttributes } from './types';
 
 /**
@@ -86,6 +86,11 @@ registerBlockType( metadata.name, {
 	edit: Edit,
 	save,
 	deprecated: [
+		{
+			attributes: metadata.attributes,
+			supports: metadata.supports,
+			save: v2Save,
+		} as unknown as BlockDeprecation< FormSubmissionNotificationAttributes >,
 		{
 			attributes: metadata.attributes,
 			save: v1Save,

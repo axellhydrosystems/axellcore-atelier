@@ -15,8 +15,8 @@ export interface BrDocumentAttributes {
 const FIELD = 'wp-block-axell-form-control';
 
 /**
- * Markup of a CPF/CNPJ control: its own region of the axell/document store
- * (view.ts), with an optional PF/PJ switch. fixedType makes it a CPF-only or a
+ * Markup of a CPF/CNPJ control (the axell/document store, view.ts, wires it on
+ * render), with an optional PF/PJ switch. fixedType makes it a CPF-only or a
  * CNPJ-only control.
  *
  * @param attributes Block attributes.
@@ -32,33 +32,21 @@ export function documentMarkup(
 ) {
 	const placeholder = attributes.placeholder || PLACEHOLDERS[ fixedType ];
 
+	// The field is the block root (no wrapper); the axell/document directives
+	// are added to it on render (includes/class-form-directives.php).
+	const className = [ blockProps.className as string | undefined, FIELD ].filter( Boolean ).join( ' ' );
 	return (
-		<div
+		<input
 			{ ...blockProps }
-			data-wp-interactive="axell/document"
-			data-wp-context={ JSON.stringify( {
-				type: fixedType,
-				fixed: !! fixedType,
-				placeholder,
-				typeField: fixedType ? '' : attributes.typeField || '',
-			} ) }
-			data-wp-init="callbacks.linkType"
-		>
-			<input
-				type="text"
-				id={ attributes.id || undefined }
-				name={ attributes.name || attributes.id || undefined }
-				className={ FIELD }
-				placeholder={ placeholder }
-				readOnly={ isEditor || undefined }
-				autoComplete="off"
-				required={ attributes.required || undefined }
-				aria-required={ attributes.required || undefined }
-				data-wp-bind--placeholder="state.placeholder"
-				data-wp-bind--maxlength="state.maxLength"
-				data-wp-on--input="actions.onInput"
-				data-wp-on--blur="actions.validate"
-			/>
-		</div>
+			className={ className }
+			type="text"
+			id={ attributes.id || undefined }
+			name={ attributes.name || attributes.id || undefined }
+			placeholder={ placeholder }
+			readOnly={ isEditor || undefined }
+			autoComplete="off"
+			required={ attributes.required || undefined }
+			aria-required={ attributes.required || undefined }
+		/>
 	);
 }

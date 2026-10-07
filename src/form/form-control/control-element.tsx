@@ -50,7 +50,9 @@ export default function ControlElement(
 	attributes: FormControlAttributes,
 	isSave: boolean,
 	setAttributes: ( attrs: Partial< FormControlAttributes > ) => void,
-	blockProps: Record< string, unknown >
+	blockProps: Record< string, unknown >,
+	/** Renders the autocomplete type (the deprecation passes the legacy one). */
+	renderAutocomplete: typeof autocompleteMarkup = autocompleteMarkup
 ) {
 	const { type, required, placeholder } = attributes;
 	const id = attributes.id || undefined;
@@ -101,7 +103,7 @@ export default function ControlElement(
 		: {};
 
 	if ( type === 'autocomplete' ) {
-		return autocompleteMarkup( {
+		return renderAutocomplete( {
 			blockProps,
 			isSave,
 			id,

@@ -9,6 +9,9 @@ interface AutocompleteContext {
 	postType: string;
 	template: string;
 	allowNotFound: boolean;
+	/** What was typed: drives the search (text shows the highlighted item). */
+	query: string;
+	/** The field's value: the typed text, or the highlighted option's label. */
 	text: string;
 	selectedId: string;
 	titulo: string;
@@ -61,6 +64,7 @@ function choose( context: AutocompleteContext, index: number ) {
 	if ( index < context.options.length ) {
 		const option = context.options[ index ];
 		context.selectedId = String( option.id );
+		context.query = option.label;
 		context.text = option.label;
 		context.titulo = option.label;
 		context.notFound = false;
@@ -69,7 +73,7 @@ function choose( context: AutocompleteContext, index: number ) {
 		context.selectedId = '';
 		context.notFound = true;
 		context.custom = true;
-		context.customName = context.text.trim();
+		context.customName = context.query.trim();
 		context.titulo = composeTitulo( context );
 	}
 	context.open = false;
@@ -84,6 +88,7 @@ const { state } = store( 'axell/autocomplete', {
 			const context = getContext< AutocompleteContext >();
 			const query = input.value;
 
+			context.query = query;
 			context.text = query;
 			context.titulo = query;
 			context.selectedId = '';
@@ -100,7 +105,7 @@ const { state } = store( 'axell/autocomplete', {
 
 			// Debounce: a newer keystroke makes this request stale.
 			yield new Promise( ( resolve ) => setTimeout( resolve, DEBOUNCE_MS ) );
-			if ( context.text !== query ) {
+			if ( context.query !== query ) {
 				return;
 			}
 
@@ -115,12 +120,12 @@ const { state } = store( 'axell/autocomplete', {
 					throw new Error( response.statusText );
 				}
 				const options = ( yield response.json() ) as Option[];
-				if ( context.text === query ) {
+				if ( context.query === query ) {
 					context.options = options;
 					context.loading = false;
 				}
 			} catch {
-				if ( context.text === query ) {
+				if ( context.query === query ) {
 					context.options = [];
 					context.loading = false;
 				}
@@ -149,7 +154,8 @@ const { state } = store( 'axell/autocomplete', {
 			context.titulo = '';
 			context.activeIndex = -1;
 			// Back to the search with the list open (its options and the add row).
-			context.open = context.text.trim() !== '';
+			context.text = context.query;
+			context.open = context.query.trim() !== '';
 
 			// Focus the search input once it is shown again.
 			const button = event.currentTarget as HTMLElement;
@@ -196,26 +202,35 @@ const { state } = store( 'axell/autocomplete', {
 			const context = getContext< AutocompleteContext >();
 			const total =
 				context.options.length +
-				( context.allowNotFound && context.text.trim() ? 1 : 0 );
+				( context.allowNotFound && context.query.trim() ? 1 : 0 );
+
+			// The field shows the highlighted item: an option's label, or what
+			// was typed for the "not found" row.
+			const highlight = ( index: number ) => {
+				context.activeIndex = index;
+				context.text =
+					index < context.options.length
+						? context.options[ index ].label
+						: context.query;
+			};
 
 			switch ( event.key ) {
 				case 'ArrowDown':
 					event.preventDefault();
 					context.open = true;
 					if ( total ) {
-						context.activeIndex = ( context.activeIndex + 1 ) % total;
+						highlight( ( context.activeIndex + 1 ) % total );
 					}
 					break;
 				case 'ArrowUp':
 					event.preventDefault();
 					if ( total ) {
-						context.activeIndex =
-							context.activeIndex <= 0
-								? total - 1
-								: context.activeIndex - 1;
+						highlight( context.activeIndex <= 0 ? total - 1 : context.activeIndex - 1 );
 					}
 					break;
 				case 'Enter':
+				case ' ':
+					// Enter or Space on a highlighted item chooses it and closes the list.
 					if ( context.open && context.activeIndex >= 0 ) {
 						event.preventDefault();
 						choose( context, context.activeIndex );
@@ -224,6 +239,7 @@ const { state } = store( 'axell/autocomplete', {
 				case 'Escape':
 					context.open = false;
 					context.activeIndex = -1;
+					context.text = context.query;
 					break;
 			}
 		},
@@ -251,6 +267,7 @@ const { state } = store( 'axell/autocomplete', {
 			const context = getContext< AutocompleteContext >();
 			// Leaving without a valid choice (no item picked, no custom store) clears the text.
 			if ( ! context.selectedId && ! context.custom ) {
+				context.query = '';
 				context.text = '';
 				context.titulo = '';
 				context.options = [];
@@ -292,7 +309,7 @@ const { state } = store( 'axell/autocomplete', {
 			}
 
 			const entries = context.options.map( ( option ) => option.label );
-			const showNotFound = context.allowNotFound && context.text.trim() !== '';
+			const showNotFound = context.allowNotFound && context.query.trim() !== '';
 
 			const items = entries.map( ( label, index ) => {
 				const li = document.createElement( 'li' );
@@ -312,11 +329,13 @@ const { state } = store( 'axell/autocomplete', {
 				li.setAttribute( 'aria-selected', String( entries.length === context.activeIndex ) );
 
 				const typed = document.createElement( 'span' );
-				typed.textContent = context.text.trim();
+				typed.textContent = context.query.trim();
 
 				const add = document.createElement( 'button' );
 				add.type = 'button';
 				add.className = 'aa-ac-add';
+				// Not a Tab stop: the row is chosen with the arrows and Enter/Space.
+				add.tabIndex = -1;
 				add.textContent = NOT_FOUND_LABEL;
 
 				li.append( typed, add );

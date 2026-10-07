@@ -12,11 +12,10 @@ import type { FormAttributes } from './types';
  * @param root0.attributes
  */
 export default function save( { attributes }: BlockSaveProps< FormAttributes > ) {
+	// The axell/form directives (store, context, submit) are added on render
+	// (includes/class-form-block.php), like the action and the hidden fields.
 	const blockProps = useBlockProps.save( {
 		noValidate: true,
-		'data-wp-interactive': 'axell/form',
-		'data-wp-context': '{"status":"idle"}',
-		'data-wp-on--submit': 'actions.submit',
 		'data-form-id': attributes.formId || undefined,
 	} );
 	const innerBlocksProps = useInnerBlocksProps.save( blockProps );
