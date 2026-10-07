@@ -216,3 +216,40 @@ p.is-style-eyebrow {
 		}
 	}
 }
+
+// "Stone" cover: the member plate's stone (design/source .placa-stone). The
+// cover's own overlay carries the stone gradients (a custom gradient); these
+// add the veins (blended over it) and the mineral specks, under the content.
+.wp-block-cover.is-style-stone {
+	min-height: 0;
+
+	&::before,
+	&::after {
+		content: "";
+		position: absolute;
+		inset: 0;
+		z-index: 1;
+		pointer-events: none;
+	}
+
+	&::before {
+		background-image:
+			repeating-linear-gradient(115deg, rgba(255, 240, 220, 0.03) 0 2px, transparent 2px 30px),
+			repeating-linear-gradient(35deg, rgba(0, 0, 0, 0.15) 0 1px, transparent 1px 45px);
+		mix-blend-mode: overlay;
+	}
+
+	&::after {
+		background-image:
+			radial-gradient(1px 1px at 20% 30%, rgba(230, 178, 122, 0.4), transparent),
+			radial-gradient(1px 1px at 70% 20%, rgba(255, 235, 200, 0.3), transparent),
+			radial-gradient(1.5px 1.5px at 40% 80%, rgba(230, 178, 122, 0.5), transparent),
+			radial-gradient(1px 1px at 85% 65%, rgba(255, 235, 200, 0.35), transparent),
+			radial-gradient(1px 1px at 15% 60%, rgba(230, 178, 122, 0.4), transparent);
+	}
+
+	> .wp-block-cover__inner-container {
+		z-index: 2;
+		align-self: stretch;
+	}
+}

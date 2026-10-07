@@ -1931,3 +1931,7 @@ msgstr "Pilares"
 #: includes/class-icons.php
 msgid "Lock (outline)"
 msgstr "Cadeado (contorno)"
+
+#: includes/class-design-tokens.php
+msgid "Stone"
+msgstr "Pedra"

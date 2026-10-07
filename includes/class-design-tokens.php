@@ -155,6 +155,7 @@ final class Design_Tokens {
 			'core/column'     => array( 'sticky-desktop', __( 'Sticky on desktop', 'axellcore-atelierclub' ) ),
 			'core/heading'    => array( 'chapter', __( 'Chapter', 'axellcore-atelierclub' ) ),
 			'core/list'       => array( 'pillars', __( 'Pillars', 'axellcore-atelierclub' ) ),
+			'core/cover'      => array( 'stone', __( 'Stone', 'axellcore-atelierclub' ) ),
 		);
 		foreach ( $styles as $block => list( $name, $label ) ) {
 			register_block_style(

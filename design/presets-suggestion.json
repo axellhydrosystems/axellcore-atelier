@@ -4,7 +4,8 @@
 		"header",
 		"hero",
 		"convite",
-		"manifesto"
+		"manifesto",
+		"placa"
 	],
 	"fontSizes": [
 		{
@@ -107,6 +108,76 @@
 			"usedIn": [
 				"manifesto: pillar text"
 			]
+		},
+		{
+			"value": "0.65625rem",
+			"px": 10.5,
+			"usedIn": [
+				"placa: chapter label (h2)"
+			]
+		},
+		{
+			"value": "clamp(2.25rem, 5vw, 4.25rem)",
+			"px": "36–68",
+			"usedIn": [
+				"placa: title"
+			]
+		},
+		{
+			"value": "0.6875rem",
+			"px": 11,
+			"usedIn": [
+				"placa: notice pill"
+			]
+		},
+		{
+			"value": "0.9375rem",
+			"px": 15,
+			"usedIn": [
+				"placa: notice caption (block CSS)"
+			]
+		},
+		{
+			"value": "clamp(1.25rem, 2vw, 1.625rem)",
+			"px": "20–26",
+			"usedIn": [
+				"placa: lede"
+			]
+		},
+		{
+			"value": "0.90625rem",
+			"px": 14.5,
+			"usedIn": [
+				"placa: specs values (block CSS)"
+			]
+		},
+		{
+			"value": "1.25rem",
+			"px": 20,
+			"usedIn": [
+				"placa: specs titles (block CSS)"
+			]
+		},
+		{
+			"value": "0.59375rem",
+			"px": 9.5,
+			"usedIn": [
+				"placa: plate top"
+			]
+		},
+		{
+			"value": "clamp(1.75rem, 3vw, 2.625rem)",
+			"px": "28–42",
+			"usedIn": [
+				"placa: plate name (block CSS)"
+			]
+		},
+		{
+			"value": "0.53125rem",
+			"px": 8.5,
+			"usedIn": [
+				"placa: plate footer"
+			]
 		}
 	],
 	"letterSpacing": [
@@ -114,13 +185,15 @@
 			"value": "0.24em",
 			"usedIn": [
 				"header: navigation links",
-				"header: primary button"
+				"header: primary button",
+				"placa: plate name strong"
 			]
 		},
 		{
 			"value": "0.42em",
 			"usedIn": [
-				"hero: eyebrow"
+				"hero: eyebrow",
+				"placa: plate top"
 			]
 		},
 		{
@@ -138,13 +211,15 @@
 		{
 			"value": "0.36em",
 			"usedIn": [
-				"hero: footer"
+				"hero: footer",
+				"placa: chapter label"
 			]
 		},
 		{
 			"value": "-0.015em",
 			"usedIn": [
-				"hero: display title"
+				"hero: display title",
+				"placa: title"
 			]
 		},
 		{
@@ -170,6 +245,24 @@
 			"usedIn": [
 				"manifesto: chapter label (source .eyebrow)"
 			]
+		},
+		{
+			"value": "0.2em",
+			"usedIn": [
+				"placa: notice pill"
+			]
+		},
+		{
+			"value": "0.02em",
+			"usedIn": [
+				"placa: plate name"
+			]
+		},
+		{
+			"value": "0.4em",
+			"usedIn": [
+				"placa: plate footer"
+			]
 		}
 	],
 	"lineHeight": [
@@ -178,7 +271,32 @@
 			"usedIn": [
 				"header: navigation",
 				"header: primary button",
-				"source body"
+				"source body",
+				"placa: section, chapter label, notice, specs, plate"
+			]
+		},
+		{
+			"value": "1.05",
+			"usedIn": [
+				"placa: title"
+			]
+		},
+		{
+			"value": "1.5",
+			"usedIn": [
+				"placa: notice caption"
+			]
+		},
+		{
+			"value": "1.4",
+			"usedIn": [
+				"placa: lede"
+			]
+		},
+		{
+			"value": "1.1",
+			"usedIn": [
+				"placa: plate name"
 			]
 		}
 	],
@@ -187,7 +305,8 @@
 			"value": "1.5rem",
 			"px": 24,
 			"usedIn": [
-				"header: padding top and bottom"
+				"header: padding top and bottom",
+				"placa: title margin bottom"
 			]
 		},
 		{
@@ -195,7 +314,8 @@
 			"px": "20–60",
 			"slug": "gutter",
 			"usedIn": [
-				"header: padding left and right (source --gutter)"
+				"header: padding left and right (source --gutter)",
+				"placa: content gutter"
 			]
 		},
 		{
@@ -262,7 +382,8 @@
 			"value": "clamp(5.625rem, 13vw, 11.25rem)",
 			"px": "90–180",
 			"usedIn": [
-				"convite: section padding (source .section)"
+				"convite: section padding (source .section)",
+				"placa: section padding top and bottom"
 			]
 		},
 		{
@@ -276,7 +397,8 @@
 			"value": "2rem",
 			"px": 32,
 			"usedIn": [
-				"convite: paragraphs in the quote"
+				"convite: paragraphs in the quote",
+				"placa: title margin top, specs margin top, plate padding sides"
 			]
 		},
 		{
@@ -292,6 +414,62 @@
 			"usedIn": [
 				"manifesto: section head bottom margin"
 			]
+		},
+		{
+			"value": "5rem",
+			"px": 80,
+			"usedIn": [
+				"placa: columns gap"
+			]
+		},
+		{
+			"value": "3rem",
+			"px": 48,
+			"usedIn": [
+				"placa: stacked columns gap"
+			]
+		},
+		{
+			"value": "1.25rem",
+			"px": 20,
+			"usedIn": [
+				"placa: notice margin top, plate name margin"
+			]
+		},
+		{
+			"value": "0.75rem",
+			"px": 12,
+			"usedIn": [
+				"placa: notice padding and gap, caption margin top"
+			]
+		},
+		{
+			"value": "1.75rem",
+			"px": 28,
+			"usedIn": [
+				"placa: lede margin top"
+			]
+		},
+		{
+			"value": "2.25rem",
+			"px": 36,
+			"usedIn": [
+				"placa: lede margin bottom"
+			]
+		},
+		{
+			"value": "1.375rem",
+			"px": 22,
+			"usedIn": [
+				"placa: specs padding"
+			]
+		},
+		{
+			"value": "2.5rem",
+			"px": 40,
+			"usedIn": [
+				"placa: plate padding top and bottom"
+			]
 		}
 	],
 	"radius": [
@@ -299,6 +477,18 @@
 			"value": "50rem",
 			"usedIn": [
 				"header: primary button (pill)"
+			]
+		},
+		{
+			"value": "999px",
+			"usedIn": [
+				"placa: notice pill"
+			]
+		},
+		{
+			"value": "4px",
+			"usedIn": [
+				"placa: stone cover"
 			]
 		}
 	],
@@ -319,7 +509,8 @@
 		{
 			"slug": "bronze-2",
 			"usedIn": [
-				"header: hover of links and button (block styles)"
+				"header: hover of links and button (block styles)",
+				"placa: chapter label, title em, spec titles, notice icon"
 			]
 		},
 		{
@@ -332,7 +523,8 @@
 		{
 			"slug": "bronze-3",
 			"usedIn": [
-				"hero: eyebrow, stamp"
+				"hero: eyebrow, stamp",
+				"placa: notice pill, plate top, plate footer, plate name strong"
 			]
 		},
 		{
@@ -368,7 +560,8 @@
 		{
 			"slug": "line-dk",
 			"usedIn": [
-				"convite: signature rule"
+				"convite: signature rule",
+				"placa: specs borders"
 			]
 		},
 		{
@@ -381,6 +574,24 @@
 			"value": "rgba(239,236,228,0.66)",
 			"usedIn": [
 				"manifesto: pillar text"
+			]
+		},
+		{
+			"slug": "ink-warm",
+			"usedIn": [
+				"placa: section background"
+			]
+		},
+		{
+			"slug": "ivory",
+			"usedIn": [
+				"placa: section text, plate name"
+			]
+		},
+		{
+			"slug": "stone-dk",
+			"usedIn": [
+				"placa: notice caption"
 			]
 		}
 	]

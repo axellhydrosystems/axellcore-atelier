@@ -706,7 +706,8 @@ section{ position: relative; }
   font-family: var(--serif); font-style: italic; font-weight: 400;
   color: var(--bronze-2); font-size: 20px;
 }
-.placa-specs .v{
+/* The value is the li's own text (the second grid item, after the hidden br). */
+.placa-specs li{
   font-size: 14.5px; color: rgba(239,236,228,0.80); line-height: 1.6;
   font-weight: 300;
 }
@@ -773,7 +774,7 @@ section{ position: relative; }
   letter-spacing: 0.02em;
   margin: 20px 0;
 }
-.placa-plate .pp-name span{ display:block; font-style: normal; font-size: 0.65em; letter-spacing: 0.24em; color: var(--bronze-3); margin-top: 6px; text-transform: uppercase; font-weight: 400; }
+.placa-plate .pp-name strong{ display:block; font-style: normal; font-size: 0.65em; letter-spacing: 0.24em; color: var(--bronze-3); margin-top: 6px; text-transform: uppercase; font-weight: 400; }
 .placa-plate .pp-bottom{
   font-family: var(--sans); font-size: 8.5px;
   letter-spacing: 0.4em; text-transform: uppercase;
@@ -782,6 +783,9 @@ section{ position: relative; }
   display: flex; justify-content: space-between;
 }
 
+.lede strong{ font-weight: inherit; }
+.placa-specs br{ display: none; }
+.placa-plate .pp-top, .placa-plate .pp-name p, .placa-plate .pp-bottom p{ margin: 0; }
 @media (max-width: 900px){
   .placa .container{ grid-template-columns: 1fr; gap: 48px; }
 }
@@ -1806,41 +1810,29 @@ section{ position: relative; }
       <h2 class="chapter-tag">A Placa</h2>
       <p class="section-title" style="margin-top: 32px;"><strong>A placa do <em>membro</em>.</strong></p>
 
-      <div class="notice-pill">
+      <p class="notice-pill">
         <svg viewBox="0 0 14 14" fill="currentColor"><path d="M3.5 5.3H10.5A1.2 1.2 0 0 1 11.7 6.5V11.5A1.2 1.2 0 0 1 10.5 12.7H3.5A1.2 1.2 0 0 1 2.3 11.5V6.5A1.2 1.2 0 0 1 3.5 5.3ZM3.7 6.7V11.3H10.3V6.7ZM3.8 6V4A3.2 3.2 0 0 1 10.2 4V6H8.8V4A1.8 1.8 0 0 0 5.2 4V6Z"/></svg>
         Concedida por categorização
-      </div>
+      </p>
       <p class="notice-caption">A entrega da placa depende do estágio de categorização alcançado pelo profissional dentro do clube. Ela é conquistada, não distribuída — nasce quando a curadoria Axell reconhece a maturidade da parceria.</p>
 
-      <p class="lede" style="margin-top: 28px;">Uma peça <em>única</em>, uma obra de arte em pedra. Gravada com o nome do profissional e o selo ATELIER AXELL em letras finas e delgadas — à altura do detalhe.</p>
+      <p class="lede" style="margin-top: 28px;"><strong>Uma peça <em>única</em>, uma obra de arte em pedra. Gravada com o nome do profissional e o selo ATELIER AXELL em letras finas e delgadas — à altura do detalhe.</strong></p>
 
       <ul class="placa-specs">
-        <li>
-          <span class="k">Abstratismo</span>
-          <span class="v">Cada peça traz um desenho abstrato único, criado pela curadoria Axell. Nenhum motivo se repete.</span>
-        </li>
-        <li>
-          <span class="k">Exclusividade</span>
-          <span class="v">Nenhum membro recebe o mesmo desenho. Cada placa nasce com o nome do arquiteto — não é fabricada, é dedicada.</span>
-        </li>
-        <li>
-          <span class="k">Entrega</span>
-          <span class="v">Após aprovação do cadastro, em até 30 dias, em embalagem premium do clube.</span>
-        </li>
+        <li><strong class="k">Abstratismo</strong><br>Cada peça traz um desenho abstrato único, criado pela curadoria Axell. Nenhum motivo se repete.</li>
+        <li><strong class="k">Exclusividade</strong><br>Nenhum membro recebe o mesmo desenho. Cada placa nasce com o nome do arquiteto — não é fabricada, é dedicada.</li>
+        <li><strong class="k">Entrega</strong><br>Após aprovação do cadastro, em até 30 dias, em embalagem premium do clube.</li>
       </ul>
     </div>
 
     <div class="placa-visual">
       <div class="placa-stone"></div>
       <div class="placa-plate">
-        <div class="pp-top">Atelier · Axell</div>
-        <div class="pp-name">
-          [Seu nome]
-          <span>Membro Ateliê</span>
-        </div>
+        <p class="pp-top">Atelier · Axell</p>
+        <div class="pp-name"><p>[Seu nome]</p><p><strong>Membro Ateliê</strong></p></div>
         <div class="pp-bottom">
-          <span>Nº única</span>
-          <span>MMXXVI</span>
+          <p>Nº única</p>
+          <p>MMXXVI</p>
         </div>
       </div>
     </div>

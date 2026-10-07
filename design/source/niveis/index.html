@@ -706,7 +706,8 @@ section{ position: relative; }
   font-family: var(--serif); font-style: italic; font-weight: 400;
   color: var(--bronze-2); font-size: 20px;
 }
-.placa-specs .v{
+/* The value is the li's own text (the second grid item, after the hidden br). */
+.placa-specs li{
   font-size: 14.5px; color: rgba(239,236,228,0.80); line-height: 1.6;
   font-weight: 300;
 }
@@ -773,7 +774,7 @@ section{ position: relative; }
   letter-spacing: 0.02em;
   margin: 20px 0;
 }
-.placa-plate .pp-name span{ display:block; font-style: normal; font-size: 0.65em; letter-spacing: 0.24em; color: var(--bronze-3); margin-top: 6px; text-transform: uppercase; font-weight: 400; }
+.placa-plate .pp-name strong{ display:block; font-style: normal; font-size: 0.65em; letter-spacing: 0.24em; color: var(--bronze-3); margin-top: 6px; text-transform: uppercase; font-weight: 400; }
 .placa-plate .pp-bottom{
   font-family: var(--sans); font-size: 8.5px;
   letter-spacing: 0.4em; text-transform: uppercase;
@@ -782,6 +783,9 @@ section{ position: relative; }
   display: flex; justify-content: space-between;
 }
 
+.lede strong{ font-weight: inherit; }
+.placa-specs br{ display: none; }
+.placa-plate .pp-top, .placa-plate .pp-name p, .placa-plate .pp-bottom p{ margin: 0; }
 @media (max-width: 900px){
   .placa .container{ grid-template-columns: 1fr; gap: 48px; }
 }
