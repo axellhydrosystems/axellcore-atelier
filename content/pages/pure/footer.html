@@ -1,8 +1,8 @@
-<!-- wp:group {"tagName":"footer","metadata":{"name":"Footer"},"align":"full","style":{"spacing":{"padding":{"top":"5rem","bottom":"2rem","left":"clamp(1.25rem, 4vw, 3.75rem)","right":"clamp(1.25rem, 4vw, 3.75rem)"}}},"layout":{"type":"default"}} -->
-<footer class="wp-block-group alignfull" style="padding-top:5rem;padding-right:clamp(1.25rem, 4vw, 3.75rem);padding-bottom:2rem;padding-left:clamp(1.25rem, 4vw, 3.75rem)"><!-- wp:group {"metadata":{"name":"Conteúdo"},"style":{"spacing":{"padding":{"left":"0","right":"0"}}},"layout":{"type":"constrained","contentSize":"calc(80rem - 2 * clamp(1.25rem, 4vw, 3.75rem))","justifyContent":"center"}} -->
-<div class="wp-block-group" style="padding-right:0;padding-left:0"><!-- wp:columns {"style":{"spacing":{"blockGap":{"top":"2.5rem","left":"3rem"}}}} -->
-<div class="wp-block-columns"><!-- wp:column {"width":"35%","metadata":{"name":"Marca"}} -->
-<div class="wp-block-column" style="flex-basis:35%"><!-- wp:image {"id":755,"width":"68px","height":"46px","sizeSlug":"full","linkDestination":"none"} -->
+<!-- wp:group {"tagName":"footer","metadata":{"name":"Footer"},"align":"full","layout":{"type":"constrained"}} -->
+<footer class="wp-block-group alignfull"><!-- wp:group {"metadata":{"name":"Conteúdo"},"align":"wide","style":{"spacing":{"padding":{"left":"0","right":"0"}}},"layout":{"type":"constrained","contentSize":"80rem","justifyContent":"center"}} -->
+<div class="wp-block-group alignwide" style="padding-right:0;padding-left:0"><!-- wp:columns {"style":{"spacing":{"blockGap":{"top":"2.75rem","left":"2.75rem"}}}} -->
+<div class="wp-block-columns"><!-- wp:column {"width":"calc((100% - 3 * 2.75rem) * 1.6 / 4.6)","metadata":{"name":"Marca"}} -->
+<div class="wp-block-column" style="flex-basis:calc((100% - 3 * 2.75rem) * 1.6 / 4.6)"><!-- wp:image {"id":755,"width":"68px","height":"46px","sizeSlug":"full","linkDestination":"none"} -->
 <figure class="wp-block-image size-full is-resized"><img src="http://localhost:8906/wp-content/uploads/2026/10/atelier-axell.svg" alt="Atelier Axell - The Axell World" class="wp-image-755" style="width:68px;height:46px"/></figure>
 <!-- /wp:image -->
 
@@ -11,72 +11,36 @@
 <!-- /wp:paragraph --></div>
 <!-- /wp:column -->
 
-<!-- wp:column {"metadata":{"name":"O Clube"}} -->
-<div class="wp-block-column"><!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading">O Clube</h3>
-<!-- /wp:heading -->
+<!-- wp:column {"metadata":{"name":"Navegação"}} -->
+<div class="wp-block-column"><!-- wp:navigation {"showSubmenuIcon":false,"overlayMenu":"never","metadata":{"name":"Rodapé"},"style":{"spacing":{"blockGap":"2.75rem"},"css":"\u0026 .wp-block-navigation__container { align-items: flex-start !important; } \u0026 .wp-block-navigation__container \u003e .has-child { flex: 1 1 8rem !important; flex-direction: column !important; align-items: flex-start !important; } \u0026 .wp-block-navigation__submenu-container { position: static !important; visibility: visible !important; opacity: 1 !important; width: auto !important; height: auto !important; min-width: 0 !important; overflow: visible !important; border: 0 !important; background: none !important; padding: 0 !important; box-shadow: none !important; } \u0026 .wp-block-navigation__submenu-container .wp-block-navigation-item__content { padding: 0 !important; }"},"layout":{"type":"flex","orientation":"horizontal","justifyContent":"right","flexWrap":"wrap","verticalAlignment":"top"},"ariaLabel":"Rodapé"} -->
+<!-- wp:navigation-submenu {"label":"O Clube","kind":"custom","style":{"css":"\u0026 \u003e .wp-block-navigation-item__content { pointer-events: none; cursor: default; }"}} -->
+<!-- wp:navigation-link {"label":"Convite","url":"#convite","kind":"custom","isTopLevelLink":false} /-->
 
-<!-- wp:list -->
-<ul class="wp-block-list"><!-- wp:list-item -->
-<li><a href="#convite">Convite</a></li>
-<!-- /wp:list-item -->
+<!-- wp:navigation-link {"label":"A Placa","url":"#placa","kind":"custom","isTopLevelLink":false} /-->
 
-<!-- wp:list-item -->
-<li><a href="#placa">A Placa</a></li>
-<!-- /wp:list-item -->
+<!-- wp:navigation-link {"label":"Níveis","url":"#niveis","kind":"custom","isTopLevelLink":false} /-->
 
-<!-- wp:list-item -->
-<li><a href="#niveis">Níveis</a></li>
-<!-- /wp:list-item -->
+<!-- wp:navigation-link {"label":"Benefícios","url":"#beneficios","kind":"custom","isTopLevelLink":false} /-->
+<!-- /wp:navigation-submenu -->
 
-<!-- wp:list-item -->
-<li><a href="#beneficios">Benefícios</a></li>
-<!-- /wp:list-item --></ul>
-<!-- /wp:list --></div>
-<!-- /wp:column -->
+<!-- wp:navigation-submenu {"label":"Contato","kind":"custom","style":{"css":"\u0026 \u003e .wp-block-navigation-item__content { pointer-events: none; cursor: default; }"}} -->
+<!-- wp:navigation-link {"label":"atelier@axell.com.br","url":"mailto:atelier@axell.com.br","kind":"custom","isTopLevelLink":false} /-->
 
-<!-- wp:column {"metadata":{"name":"Contato"}} -->
-<div class="wp-block-column"><!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading">Contato</h3>
-<!-- /wp:heading -->
+<!-- wp:navigation-link {"label":"0800 000 0000","url":"tel:08000000000","kind":"custom","isTopLevelLink":false} /-->
 
-<!-- wp:list -->
-<ul class="wp-block-list"><!-- wp:list-item -->
-<li>atelier@axell.com.br</li>
-<!-- /wp:list-item -->
+<!-- wp:navigation-link {"label":"Seg. a Sex. 09h — 18h","url":"#","kind":"custom","isTopLevelLink":false,"style":{"css":"\u0026 .wp-block-navigation-item__content { pointer-events: none; cursor: default; }"}} /-->
+<!-- /wp:navigation-submenu -->
 
-<!-- wp:list-item -->
-<li>0800 000 0000</li>
-<!-- /wp:list-item -->
+<!-- wp:navigation-submenu {"label":"Institucional","kind":"custom","style":{"css":"\u0026 \u003e .wp-block-navigation-item__content { pointer-events: none; cursor: default; }"}} -->
+<!-- wp:navigation-link {"label":"Sobre a Axell","url":"#","kind":"custom","isTopLevelLink":false} /-->
 
-<!-- wp:list-item -->
-<li>Seg. a Sex. 09h — 18h</li>
-<!-- /wp:list-item --></ul>
-<!-- /wp:list --></div>
-<!-- /wp:column -->
+<!-- wp:navigation-link {"label":"Showrooms","url":"#","kind":"custom","isTopLevelLink":false} /-->
 
-<!-- wp:column {"metadata":{"name":"Institucional"}} -->
-<div class="wp-block-column"><!-- wp:heading {"level":3} -->
-<h3 class="wp-block-heading">Institucional</h3>
-<!-- /wp:heading -->
+<!-- wp:navigation-link {"label":"Política de privacidade","url":"#","kind":"custom","isTopLevelLink":false} /-->
 
-<!-- wp:list -->
-<ul class="wp-block-list"><!-- wp:list-item -->
-<li><a href="#">Sobre a Axell</a></li>
-<!-- /wp:list-item -->
-
-<!-- wp:list-item -->
-<li><a href="#">Showrooms</a></li>
-<!-- /wp:list-item -->
-
-<!-- wp:list-item -->
-<li><a href="#">Política de privacidade</a></li>
-<!-- /wp:list-item -->
-
-<!-- wp:list-item -->
-<li><a href="#">Regulamento do clube</a></li>
-<!-- /wp:list-item --></ul>
-<!-- /wp:list --></div>
+<!-- wp:navigation-link {"label":"Regulamento do clube","url":"#","kind":"custom","isTopLevelLink":false} /-->
+<!-- /wp:navigation-submenu -->
+<!-- /wp:navigation --></div>
 <!-- /wp:column --></div>
 <!-- /wp:columns -->
 

@@ -58,8 +58,8 @@
       "note": "no-class aprovado em 2026-10-07: /atelier/adesao/ (post 1049, template atelier-section) a 0,00% em 1440/768 e 0,01% em 390 (20/88/86 px de subpixel: asterisco do Numero ::after vs span e antialias do \"—\" da UF); pure /atelier/pure/adesao/ (post 81). Source: linhas do form em 12 colunas (5/3/4, 2/6/4), campos com line-height 1.46666667 e padding 0.625rem 0.6875rem; bases regenerados pelo elemento da secao."
     },
     "footer": {
-      "phase": 0,
-      "note": ""
+      "phase": 1,
+      "note": "pure aprovado em 2026-10-07: /atelier/pure/footer/ (post 849): footer constrained sem padding, Conteudo wide 80rem; colunas Marca 1.6fr + Navegacao; um core/navigation aria-label \"Rodape\" (overlay never, sem icone de submenu) com submenus O Clube / Contato / Institucional sempre abertos por CSS do bloco; titulos e horario com pointer-events none (CSS no proprio item); sem headings; mailto e tel. Proximo: no-class /atelier/footer/."
     }
   }
 }
