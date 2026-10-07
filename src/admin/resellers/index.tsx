@@ -1,6 +1,4 @@
 import { createRoot } from '@wordpress/element';
-// Relative path on purpose (see src/admin/members/index.tsx).
-import '../../../node_modules/@wordpress/dataviews/build-style/style.css';
 import './style.scss';
 import ResellersList from './list';
 import ResellerDetailView from './detail';

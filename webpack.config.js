@@ -16,6 +16,7 @@ const src = ( file ) => path.resolve( __dirname, 'src', file );
 // Entries that are not driven by block.json, per config (index 0 = scripts).
 const extraEntriesByConfig = [
 	{
+		'admin/dataviews/index': src( 'admin/dataviews/index.ts' ),
 		'admin/members/index': src( 'admin/members/index.tsx' ),
 		'admin/members-export/index': src( 'admin/members-export/index.ts' ),
 		'admin/resellers/index': src( 'admin/resellers/index.tsx' ),

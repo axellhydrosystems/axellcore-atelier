@@ -370,7 +370,8 @@ final class Admin_Rest {
 			'state'         => $this->meta( $user->ID, 'state' ),
 			'city'          => $this->meta( $user->ID, 'city' ),
 			'br_revenue_id' => $this->meta( $user->ID, 'br_revenue_id' ),
-			'data'          => $user->user_registered,
+			// user_registered is UTC; the list shows the site's time.
+			'data'          => get_date_from_gmt( (string) $user->user_registered ),
 			'status'        => $this->status( $user ),
 		);
 	}
@@ -390,7 +391,8 @@ final class Admin_Rest {
 			'url'      => $user->user_url,
 			'state'    => $this->meta( $user->ID, 'state' ),
 			'city'     => $this->meta( $user->ID, 'city' ),
-			'data'     => $user->user_registered,
+			// Read-only text: the site's date and time formats and timezone.
+			'data'     => (string) wp_date( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), (int) strtotime( $user->user_registered . ' UTC' ) ),
 			'status'   => $this->status( $user ),
 		);
 

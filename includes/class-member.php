@@ -192,7 +192,7 @@ final class Member {
 		wp_enqueue_style(
 			$handle,
 			AXELLCORE_ATELIERCLUB_URL . 'build/admin/members/style-index.css',
-			array( 'wp-components' ),
+			array( 'wp-components', Assets::admin_dataviews_style() ),
 			$asset['version']
 		);
 	}

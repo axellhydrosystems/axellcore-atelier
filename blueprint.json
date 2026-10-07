@@ -6,6 +6,16 @@
 	"steps": [
 		{ "step": "login", "username": "admin", "password": "password" },
 		{
+			"step": "setSiteOptions",
+			"options": {
+				"timezone_string": "America/Sao_Paulo",
+				"gmt_offset": "-3",
+				"date_format": "d/m/Y",
+				"time_format": "H:i",
+				"start_of_week": "1"
+			}
+		},
+		{
 			"step": "installPlugin",
 			"pluginData": {
 				"resource": "url",

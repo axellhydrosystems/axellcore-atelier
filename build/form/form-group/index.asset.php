@@ -5,5 +5,5 @@
 		'wp-blocks',
 		'wp-primitives'
 	),
-	'version' => 'fe99062727ed634e05c6'
+	'version' => '67e2d17c6189b41eeccc'
 );

@@ -175,4 +175,20 @@ final class Assets {
 
 		return $urls;
 	}
+
+	/**
+	 * Register the DataViews/DataForm stylesheet the admin apps share
+	 * (build/admin/dataviews/) and return its handle, to list as a dependency.
+	 *
+	 * @return string
+	 */
+	public static function admin_dataviews_style() {
+		$handle = 'axellcore-atelierclub-admin-dataviews';
+		$asset  = AXELLCORE_ATELIERCLUB_PATH . 'build/admin/dataviews/index.asset.php';
+		if ( ! wp_style_is( $handle, 'registered' ) && file_exists( $asset ) ) {
+			$version = ( require $asset )['version'];
+			wp_register_style( $handle, AXELLCORE_ATELIERCLUB_URL . 'build/admin/dataviews/style-index.css', array( 'wp-components' ), $version );
+		}
+		return $handle;
+	}
 }

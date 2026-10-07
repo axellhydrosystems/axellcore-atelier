@@ -207,7 +207,7 @@ final class Resellers_Admin {
 		wp_enqueue_style(
 			$handle,
 			AXELLCORE_ATELIERCLUB_URL . 'build/admin/resellers/style-index.css',
-			array( 'wp-components' ),
+			array( 'wp-components', Assets::admin_dataviews_style() ),
 			$asset['version']
 		);
 	}
