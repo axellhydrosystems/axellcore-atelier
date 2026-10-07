@@ -66,25 +66,25 @@
   --aa-dark-border-subtle: #adb5bd;
   --aa-white-rgb: 255, 255, 255;
   --aa-black-rgb: 0, 0, 0;
-  --aa-font-sans-serif: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --aa-font-sans-serif: "Inter", -apple-system, "Segoe UI", system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --aa-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   --aa-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
-  --aa-body-font-family: var(--aa-font-sans-serif);
+  --aa-body-font-family: "Inter", -apple-system, "Segoe UI", system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --aa-body-font-size: 1rem;
   --aa-body-font-weight: 400;
   --aa-body-line-height: 1.5;
-  --aa-body-color: #212529;
-  --aa-body-color-rgb: 33, 37, 41;
-  --aa-body-bg: #fff;
-  --aa-body-bg-rgb: 255, 255, 255;
+  --aa-body-color: #0B0E12;
+  --aa-body-color-rgb: 11, 14, 18;
+  --aa-body-bg: #EFECE4;
+  --aa-body-bg-rgb: 239, 236, 228;
   --aa-emphasis-color: #000;
   --aa-emphasis-color-rgb: 0, 0, 0;
-  --aa-secondary-color: rgba(33, 37, 41, 0.75);
-  --aa-secondary-color-rgb: 33, 37, 41;
+  --aa-secondary-color: rgba(11, 14, 18, 0.75);
+  --aa-secondary-color-rgb: 11, 14, 18;
   --aa-secondary-bg: #e9ecef;
   --aa-secondary-bg-rgb: 233, 236, 239;
-  --aa-tertiary-color: rgba(33, 37, 41, 0.5);
-  --aa-tertiary-color-rgb: 33, 37, 41;
+  --aa-tertiary-color: rgba(11, 14, 18, 0.5);
+  --aa-tertiary-color-rgb: 11, 14, 18;
   --aa-tertiary-bg: #f8f9fa;
   --aa-tertiary-bg-rgb: 248, 249, 250;
   --aa-heading-color: inherit;
@@ -94,7 +94,7 @@
   --aa-link-hover-color: rgb(144, 122.4, 84.8);
   --aa-link-hover-color-rgb: 144, 122, 85;
   --aa-code-color: #d63384;
-  --aa-highlight-color: #212529;
+  --aa-highlight-color: #0B0E12;
   --aa-highlight-bg: rgb(255, 242.6, 205.4);
   --aa-border-width: 1px;
   --aa-border-style: solid;
@@ -183,7 +183,7 @@
 .container-lg,
 .container-md,
 .container-sm {
-  --aa-gutter-x: 1.5rem;
+  --aa-gutter-x: 7.2rem;
   --aa-gutter-y: 0;
   width: 100%;
   padding-right: calc(var(--aa-gutter-x) * 0.5);
@@ -192,42 +192,42 @@
   margin-left: auto;
 }
 
-@media (min-width: 561px) {
+@media (min-width: 480px) {
   .container-sm, .container {
-    max-width: 540px;
+    max-width: 100%;
   }
 }
-@media (min-width: 901px) {
+@media (min-width: 782px) {
   .container-md, .container-sm, .container {
-    max-width: 720px;
+    max-width: 100%;
   }
 }
-@media (min-width: 1201px) {
+@media (min-width: 782px) {
   .container-lg, .container-md, .container-sm, .container {
-    max-width: 960px;
+    max-width: 100%;
   }
 }
-@media (min-width: 1401px) {
+@media (min-width: 782px) {
   .container-xl, .container-lg, .container-md, .container-sm, .container {
-    max-width: 1140px;
+    max-width: 1280px;
   }
 }
-@media (min-width: 1601px) {
+@media (min-width: 782px) {
   .container-xxl, .container-xl, .container-lg, .container-md, .container-sm, .container {
-    max-width: 1320px;
+    max-width: 1280px;
   }
 }
 :root {
   --aa-breakpoint-xs: 0;
-  --aa-breakpoint-sm: 561px;
-  --aa-breakpoint-md: 901px;
-  --aa-breakpoint-lg: 1201px;
-  --aa-breakpoint-xl: 1401px;
-  --aa-breakpoint-xxl: 1601px;
+  --aa-breakpoint-sm: 480px;
+  --aa-breakpoint-md: 782px;
+  --aa-breakpoint-lg: 782px;
+  --aa-breakpoint-xl: 782px;
+  --aa-breakpoint-xxl: 782px;
 }
 
 .row {
-  --aa-gutter-x: 1.5rem;
+  --aa-gutter-x: 7.2rem;
   --aa-gutter-y: 0;
   display: flex;
   flex-wrap: wrap;
@@ -452,7 +452,7 @@
   --aa-gutter-y: 3rem;
 }
 
-@media (min-width: 561px) {
+@media (min-width: 480px) {
   .col-sm {
     flex: 1 0 0;
   }
@@ -621,7 +621,7 @@
     --aa-gutter-y: 3rem;
   }
 }
-@media (min-width: 901px) {
+@media (min-width: 782px) {
   .col-md {
     flex: 1 0 0;
   }
@@ -790,7 +790,7 @@
     --aa-gutter-y: 3rem;
   }
 }
-@media (min-width: 1201px) {
+@media (min-width: 782px) {
   .col-lg {
     flex: 1 0 0;
   }
@@ -959,7 +959,7 @@
     --aa-gutter-y: 3rem;
   }
 }
-@media (min-width: 1401px) {
+@media (min-width: 782px) {
   .col-xl {
     flex: 1 0 0;
   }
@@ -1128,7 +1128,7 @@
     --aa-gutter-y: 3rem;
   }
 }
-@media (min-width: 1601px) {
+@media (min-width: 782px) {
   .col-xxl {
     flex: 1 0 0;
   }
@@ -3200,11 +3200,11 @@ ul.channels-grid {
 }
 
 .form-row.cols-addr {
-  grid-template-columns: 1.6fr 0.6fr 1fr;
+  grid-template-columns: 6fr 2fr 4fr;
 } /* rua / número / complemento */
 .form-row.cols-city {
-  grid-template-columns: 1fr 100px 140px;
-} /* cidade / uf / cep */
+  grid-template-columns: 2fr 6fr 4fr;
+} /* uf / cidade / cep */
 .field label {
   display: block;
   font-family: var(--sans);

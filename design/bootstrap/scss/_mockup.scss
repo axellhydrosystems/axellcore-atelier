@@ -1231,8 +1231,8 @@ ul.channels-grid{ list-style: none; padding: 0; margin-bottom: 0; }
 }
 .form-row.cols-2{ grid-template-columns: 1fr 1fr; }
 .form-row.cols-3{ grid-template-columns: 1fr 1fr 1fr; }
-.form-row.cols-addr{ grid-template-columns: 1.6fr 0.6fr 1fr; } /* rua / número / complemento */
-.form-row.cols-city{ grid-template-columns: 1fr 100px 140px; }  /* cidade / uf / cep */
+.form-row.cols-addr{ grid-template-columns: 6fr 2fr 4fr; } /* rua / número / complemento */
+.form-row.cols-city{ grid-template-columns: 2fr 6fr 4fr; } /* uf / cidade / cep */
 
 .field label{
   display: block;

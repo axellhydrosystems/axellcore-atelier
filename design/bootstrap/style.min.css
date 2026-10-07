@@ -1971,11 +1971,11 @@ ul.channels-grid {
 }
 
 .form-row.cols-addr {
-  grid-template-columns: 1.6fr 0.6fr 1fr;
+  grid-template-columns: 6fr 2fr 4fr;
 } /* rua / número / complemento */
 .form-row.cols-city {
-  grid-template-columns: 1fr 100px 140px;
-} /* cidade / uf / cep */
+  grid-template-columns: 2fr 6fr 4fr;
+} /* uf / cidade / cep */
 .field label {
   display: block;
   font-family: var(--sans);
