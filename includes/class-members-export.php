@@ -70,7 +70,7 @@ final class Members_Export {
 	 * @return array<string,string>
 	 */
 	public static function columns() {
-		$columns = array(
+		$columns              = array(
 			'id'                        => 'ID',
 			'status'                    => __( 'Status', 'axellcore-atelierclub' ),
 			'registered'                => __( 'Enviado em', 'axellcore-atelierclub' ),
@@ -94,11 +94,18 @@ final class Members_Export {
 			'landmark'                  => __( 'Referência', 'axellcore-atelierclub' ),
 			'postal'                    => __( 'CEP', 'axellcore-atelierclub' ),
 		);
-		foreach ( Members::RESELLER_FIELDS as $index => $field ) {
-			/* translators: %d: partner store number. */
-			$columns[ $field ] = sprintf( __( 'Loja parceira %d', 'axellcore-atelierclub' ), $index + 1 );
-		}
+		$columns['resellers'] = __( 'Lojas parceiras', 'axellcore-atelierclub' );
 		return $columns;
+	}
+
+	/**
+	 * Columns exported when none is chosen: all but the technical ones (ID,
+	 * Enviado em, Login, País), which can still be picked.
+	 *
+	 * @return string[]
+	 */
+	public static function default_columns() {
+		return array_values( array_diff( array_keys( self::columns() ), array( 'id', 'registered', 'login', 'country' ) ) );
 	}
 
 	/**
@@ -176,7 +183,7 @@ final class Members_Export {
 		foreach ( self::columns() as $id => $label ) {
 			$columns[ $id ] = $label;
 		}
-		self::select_row( 'aa-export-columns', 'columns[]', __( 'Quais colunas exportar?', 'axellcore-atelierclub' ), __( 'Exportar todas as colunas', 'axellcore-atelierclub' ), $columns );
+		self::select_row( 'aa-export-columns', 'columns[]', __( 'Quais colunas exportar?', 'axellcore-atelierclub' ), __( 'Exportar as colunas padrão', 'axellcore-atelierclub' ), $columns );
 		self::select_row( 'aa-export-statuses', 'statuses[]', __( 'Quais status exportar?', 'axellcore-atelierclub' ), __( 'Exportar todos os status', 'axellcore-atelierclub' ), Member::roles() );
 		echo '<div class="aa-export-row"><label for="aa-export-since">' . esc_html__( 'Cadastrados desde', 'axellcore-atelierclub' ) . '</label><div>';
 		echo '<input type="date" id="aa-export-since" name="since" max="' . esc_attr( wp_date( 'Y-m-d' ) ) . '" aria-describedby="aa-export-since-help">';
@@ -318,7 +325,7 @@ final class Members_Export {
 	public static function export_page( $file, $page, array $args ) {
 		$columns = array_values( array_intersect( array_keys( self::columns() ), $args['columns'] ) );
 		if ( ! $columns ) {
-			$columns = array_keys( self::columns() );
+			$columns = self::default_columns();
 		}
 
 		$roles      = array_values( array_intersect( array_keys( Member::roles() ), $args['statuses'] ) );
@@ -417,9 +424,9 @@ final class Members_Export {
 		$values['primary_focus'] = Admin_Rest::PRIMARY_FOCUS_OPTIONS[ $values['primary_focus'] ] ?? $values['primary_focus'];
 		$values['profile_type']  = self::profile_types()[ $values['profile_type'] ] ?? $values['profile_type'];
 		$values['br_revenue_id'] = self::format_document( $values['br_revenue_id'] );
-		foreach ( Members::RESELLER_FIELDS as $field ) {
-			$values[ $field ] = $meta( $field . '_title' );
-		}
+		$values['resellers']     = self::join_values(
+			array_map( static fn( $field ) => $meta( $field . '_title' ), Members::RESELLER_FIELDS )
+		);
 
 		$row = array();
 		foreach ( $columns as $id ) {
@@ -442,6 +449,24 @@ final class Members_Export {
 			return "$m[1].$m[2].$m[3]/$m[4]-$m[5]";
 		}
 		return $digits;
+	}
+
+	/**
+	 * Several values in one cell, joined with ", "; a comma inside a value is
+	 * escaped with a backslash (axellcore's Axellcore_Fields::join_values()).
+	 *
+	 * @param string[] $values Values (empty ones are skipped).
+	 * @return string
+	 */
+	public static function join_values( array $values ) {
+		$out = array();
+		foreach ( $values as $value ) {
+			$value = trim( (string) $value );
+			if ( '' !== $value ) {
+				$out[] = str_replace( ',', '\\,', $value );
+			}
+		}
+		return implode( ', ', $out );
 	}
 
 	/**

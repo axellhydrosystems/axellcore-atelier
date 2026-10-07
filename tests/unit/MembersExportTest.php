@@ -34,6 +34,7 @@ final class MembersExportTest extends TestCase {
 			'state'            => 'MG',
 			'city'             => 'Belo Horizonte',
 			'reseller1_title'  => 'Loja · MG BH',
+			'reseller3_title'  => 'Casa, Banho · SP',
 		);
 		Functions\when( 'get_date_from_gmt' )->returnArg( 1 );
 		Functions\when( 'get_user_meta' )->alias(
@@ -47,10 +48,10 @@ final class MembersExportTest extends TestCase {
 		$user->display_name    = 'Beatriz Lima';
 		$user->user_email      = 'contato@limainteriores.com';
 
-		$row = Members_Export::row_for( $user, array( 'id', 'status', 'fullname', 'company', 'primary_focus', 'profile_type', 'br_revenue_id', 'city', 'reseller1' ) );
+		$row = Members_Export::row_for( $user, array( 'id', 'status', 'fullname', 'company', 'primary_focus', 'profile_type', 'br_revenue_id', 'city', 'resellers' ) );
 
 		$this->assertSame(
-			array( '4', 'Membro', 'Beatriz Lima', "'=HYPERLINK(\"x\")", 'Design de interiores', 'Pessoa Jurídica · CNPJ', '11.222.333/0001-81', 'Belo Horizonte', 'Loja · MG BH' ),
+			array( '4', 'Membro', 'Beatriz Lima', "'=HYPERLINK(\"x\")", 'Design de interiores', 'Pessoa Jurídica · CNPJ', '11.222.333/0001-81', 'Belo Horizonte', 'Loja · MG BH, Casa\\, Banho · SP' ),
 			$row
 		);
 	}
@@ -61,5 +62,16 @@ final class MembersExportTest extends TestCase {
 
 	public function test_cpf_is_masked(): void {
 		$this->assertSame( '529.982.247-25', Members_Export::format_document( '52998224725' ) );
+	}
+
+	public function test_default_columns_leave_out_the_technical_ones(): void {
+		$defaults = Members_Export::default_columns();
+
+		$this->assertNotContains( 'id', $defaults );
+		$this->assertNotContains( 'registered', $defaults );
+		$this->assertNotContains( 'login', $defaults );
+		$this->assertNotContains( 'country', $defaults );
+		$this->assertSame( 'fullname', $defaults[1] );
+		$this->assertSame( 'resellers', end( $defaults ) );
 	}
 }

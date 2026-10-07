@@ -287,7 +287,10 @@ escaping; filters: status, "Cadastrados desde" (a day in the site timezone,
 included; `date_query` on `user_registered`, for incremental exports), UF,
 cidade, atuação; "Enviado em" is in the site timezone; columns: every member field
 with PT headers (labels for status, atuação and tipo de cadastro, masked
-CPF/CNPJ, partner stores by their text).
+CPF/CNPJ); the partner stores are one "Lojas parceiras" cell joined with
+", " (a comma inside a store is escaped as `\,`, as axellcore's
+`join_values()`). By default ID, Enviado em, Login and País are left out
+(`default_columns()`); they can still be picked.
 
 ### Field layout: a core/group grid inside the fieldset
 

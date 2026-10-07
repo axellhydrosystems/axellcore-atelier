@@ -76,7 +76,7 @@ final class Member {
 	 */
 	public static function roles() {
 		return array(
-			self::ROLE_PENDING => __( 'Aguardando aprovação', 'axellcore-atelierclub' ),
+			self::ROLE_PENDING => __( 'Pendente', 'axellcore-atelierclub' ),
 			self::ROLE         => __( 'Membro', 'axellcore-atelierclub' ),
 		);
 	}
