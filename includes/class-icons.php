@@ -105,6 +105,17 @@ final class Icons {
 			)
 		);
 
+		// The design's outline lock (design/source .notice-pill and .lock-mark:
+		// a rect and a shackle stroked at 1.4 on a 14 grid), as the outline
+		// of that stroke so it is fill-only.
+		wp_register_icon(
+			self::COLLECTION . '/lock-outline',
+			array(
+				'label'   => __( 'Lock (outline)', 'axellcore-atelierclub' ),
+				'content' => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 14" width="14" height="14" fill="currentColor"><path d="M3.5 5.3H10.5A1.2 1.2 0 0 1 11.7 6.5V11.5A1.2 1.2 0 0 1 10.5 12.7H3.5A1.2 1.2 0 0 1 2.3 11.5V6.5A1.2 1.2 0 0 1 3.5 5.3ZM3.7 6.7V11.3H10.3V6.7ZM3.8 6V4A3.2 3.2 0 0 1 10.2 4V6H8.8V4A1.8 1.8 0 0 0 5.2 4V6Z"/></svg>',
+			)
+		);
+
 		wp_register_icon(
 			self::COLLECTION . '/lock',
 			array(

@@ -1927,3 +1927,7 @@ msgstr "Seta (grande)"
 #: includes/class-design-tokens.php
 msgid "Pillars"
 msgstr "Pilares"
+
+#: includes/class-icons.php
+msgid "Lock (outline)"
+msgstr "Cadeado (contorno)"
