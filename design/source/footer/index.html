@@ -1046,7 +1046,12 @@ blockquote.journey-quote p{ margin: 0; }
   transform: translateY(-4px);
   box-shadow: 0 30px 60px -30px rgba(11,14,18,0.15);
 }
-.tier .num-roman{
+.tiers-grid{ counter-reset: tier; }
+.tier{ counter-increment: tier; }
+/* The number is a counter (the cards hold blocks, so they are not list
+   items), in ::before; the mystery veil moved to ::after. */
+.tier::before{
+  content: counter(tier, roman-period);
   font-family: var(--serif);
   font-style: italic;
   font-weight: 300;
@@ -1104,7 +1109,7 @@ blockquote.journey-quote p{ margin: 0; }
   background: var(--ink); color: var(--ivory); border-color: var(--ink);
   position: relative;
 }
-.tier.dark .num-roman{ color: var(--bronze-2); }
+.tier.dark::before{ color: var(--bronze-2); }
 .tier.dark .tier-cap{ color: var(--bronze-2); }
 .tier.dark .tier-name{ color: var(--ivory); }
 .tier.dark .tier-italic{ color: var(--bronze-2); }
@@ -1570,7 +1575,10 @@ blockquote.journey-quote p{ margin: 0; }
   overflow: hidden;
   min-height: 460px;
 }
-.tier.mystery::before{
+/* The card's body (label to list, or label to mystery text) grows, so
+   the link or the hint sits at the bottom. */
+.tier-body{ display: flex; flex-direction: column; flex: 1; }
+.tier.mystery::after{
   content: "";
   position: absolute; inset: 0;
   background:
@@ -1578,8 +1586,8 @@ blockquote.journey-quote p{ margin: 0; }
     repeating-linear-gradient(45deg, rgba(180,153,106,0.04) 0 1px, transparent 1px 22px);
   pointer-events: none;
 }
-.tier.mystery > *{ position: relative; z-index: 1; }
-.tier.mystery .num-roman{ color: var(--bronze); opacity: 0.75; }
+.tier.mystery > *, .tier.mystery::before{ position: relative; z-index: 1; }
+.tier.mystery::before{ color: var(--bronze); opacity: 0.75; }
 .tier.mystery .tier-cap{ color: var(--stone); }
 .tier.mystery .tier-name{ color: var(--ink); }
 .tier.mystery .tier-italic{
@@ -1628,6 +1636,8 @@ blockquote.journey-quote p{ margin: 0; }
   font-style: normal;
   color: var(--bronze);
 }
+p.tier-cap, p.tier-italic, p.lock-mark{ margin-top: 0; }
+p.mystery-hint{ margin-bottom: 0; }
 .tier.mystery .mystery-hint{
   font-family: var(--sans);
   font-size: 11px;

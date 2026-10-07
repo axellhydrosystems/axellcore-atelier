@@ -403,6 +403,65 @@ p.is-style-eyebrow {
 	}
 }
 
+// Level cards (design/source .tier): the roman number on top (a "tier"
+// counter, reset by the cards' container; the cards hold blocks, so they
+// are not list items) and the hover lift. "Tier (locked)" adds the veil
+// over the card (.tier.mystery) under its content.
+@mixin tier-card {
+	// Fills its column, like a stretched grid item (a min-height attribute,
+	// as on the locked cards, still applies).
+	height: 100%;
+	counter-increment: tier;
+	transition: transform 0.4s ease, box-shadow 0.4s ease;
+
+	&:hover {
+		transform: translateY(-4px);
+		box-shadow: 0 30px 60px -30px rgba(11, 14, 18, 0.15);
+	}
+
+	&::before {
+		content: counter(tier, roman-period);
+		margin-bottom: 2.25rem;
+		font-family: var(--wp--preset--font-family--cormorant-garamond);
+		font-size: 2.75rem;
+		font-style: italic;
+		font-weight: 300;
+		line-height: 1;
+		color: var(--wp--preset--color--bronze);
+	}
+}
+
+.wp-block-group.is-style-tier {
+	@include tier-card;
+}
+
+.wp-block-group.is-style-tier-locked {
+	@include tier-card;
+	position: relative;
+	overflow: hidden;
+
+	&::before {
+		position: relative;
+		z-index: 1;
+		opacity: 0.75;
+	}
+
+	&::after {
+		content: "";
+		position: absolute;
+		inset: 0;
+		background:
+			radial-gradient(ellipse at 70% 30%, rgba(180, 153, 106, 0.1), transparent 60%),
+			repeating-linear-gradient(45deg, rgba(180, 153, 106, 0.04) 0 1px, transparent 1px 22px);
+		pointer-events: none;
+	}
+
+	> * {
+		position: relative;
+		z-index: 1;
+	}
+}
+
 // "Stone" cover: the member plate's stone (design/source .placa-stone). The
 // cover's own overlay carries the stone gradients (a custom gradient); these
 // add the veins (blended over it) and the mineral specks, under the content.

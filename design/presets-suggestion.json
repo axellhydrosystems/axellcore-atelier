@@ -9,7 +9,8 @@
 		"protagonistas",
 		"promessas",
 		"conceito",
-		"jornada"
+		"jornada",
+		"niveis"
 	],
 	"fontSizes": [
 		{
@@ -18,7 +19,8 @@
 			"slug": "x-small",
 			"usedIn": [
 				"header: navigation links",
-				"jornada: step number (block style)"
+				"jornada: step number (block style)",
+				"niveis: link, hints"
 			]
 		},
 		{
@@ -30,7 +32,8 @@
 				"protagonistas: chapter label (h2)",
 				"promessas: chapter label (h2)",
 				"conceito: chapter label (h2), Por que Atelier (h3), list keys",
-				"jornada: chapter label (h2), step labels"
+				"jornada: chapter label (h2), step labels",
+				"niveis: chapter label, card labels"
 			]
 		},
 		{
@@ -45,7 +48,8 @@
 			"px": 10,
 			"usedIn": [
 				"hero: summary labels",
-				"hero: footer"
+				"hero: footer",
+				"niveis: lock notice"
 			]
 		},
 		{
@@ -96,7 +100,8 @@
 			"px": 14,
 			"usedIn": [
 				"convite: signature",
-				"jornada: step text"
+				"jornada: step text",
+				"niveis: list items"
 			]
 		},
 		{
@@ -107,7 +112,8 @@
 				"protagonistas: title",
 				"promessas: title",
 				"conceito: title",
-				"jornada: title"
+				"jornada: title",
+				"niveis: title"
 			]
 		},
 		{
@@ -217,7 +223,8 @@
 			"value": "2.75rem",
 			"px": 44,
 			"usedIn": [
-				"promessas: item number (block style)"
+				"promessas: item number (block style)",
+				"niveis: card number (block style)"
 			]
 		},
 		{
@@ -247,6 +254,27 @@
 			"usedIn": [
 				"jornada: quote (block CSS)"
 			]
+		},
+		{
+			"value": "2.375rem",
+			"px": 38,
+			"usedIn": [
+				"niveis: card names (block CSS)"
+			]
+		},
+		{
+			"value": "1rem",
+			"px": 16,
+			"usedIn": [
+				"niveis: card subtitles (block CSS)"
+			]
+		},
+		{
+			"value": "1.375rem",
+			"px": 22,
+			"usedIn": [
+				"niveis: mystery text (block CSS)"
+			]
 		}
 	],
 	"letterSpacing": [
@@ -255,7 +283,8 @@
 			"usedIn": [
 				"header: navigation links",
 				"header: primary button",
-				"placa: plate name strong"
+				"placa: plate name strong",
+				"niveis: hints"
 			]
 		},
 		{
@@ -268,13 +297,15 @@
 		{
 			"value": "0.26em",
 			"usedIn": [
-				"hero: large buttons"
+				"hero: large buttons",
+				"niveis: link"
 			]
 		},
 		{
 			"value": "0.32em",
 			"usedIn": [
-				"hero: summary labels"
+				"hero: summary labels",
+				"niveis: card labels, notice"
 			]
 		},
 		{
@@ -334,6 +365,12 @@
 			"value": "0.4em",
 			"usedIn": [
 				"placa: plate footer"
+			]
+		},
+		{
+			"value": "-0.01em",
+			"usedIn": [
+				"niveis: card names"
 			]
 		}
 	],
@@ -411,7 +448,8 @@
 			"usedIn": [
 				"header: padding top and bottom",
 				"placa: title margin bottom",
-				"conceito: title margin bottom, verse margin top, h3 margin bottom"
+				"conceito: title margin bottom, verse margin top, h3 margin bottom",
+				"niveis: mystery padding top and margin bottom"
 			]
 		},
 		{
@@ -509,7 +547,8 @@
 				"placa: title margin top, specs margin top, plate padding sides",
 				"promessas: number to text gap",
 				"conceito: title margin top, key to value gap",
-				"jornada: steps gap"
+				"jornada: steps gap",
+				"niveis: list and notice margin bottom, locked subtitle"
 			]
 		},
 		{
@@ -538,14 +577,16 @@
 			"px": 48,
 			"usedIn": [
 				"placa: stacked columns gap",
-				"promessas: item padding sides"
+				"promessas: item padding sides",
+				"niveis: card padding top"
 			]
 		},
 		{
 			"value": "1.25rem",
 			"px": 20,
 			"usedIn": [
-				"placa: notice margin top, plate name margin"
+				"placa: notice margin top, plate name margin",
+				"niveis: cards gap"
 			]
 		},
 		{
@@ -560,7 +601,8 @@
 			"value": "1.75rem",
 			"px": 28,
 			"usedIn": [
-				"placa: lede margin top"
+				"placa: lede margin top",
+				"niveis: subtitle margin bottom"
 			]
 		},
 		{
@@ -568,7 +610,8 @@
 			"px": 36,
 			"usedIn": [
 				"placa: lede margin bottom",
-				"jornada: number margin bottom"
+				"jornada: number margin bottom",
+				"niveis: number margin bottom"
 			]
 		},
 		{
@@ -586,7 +629,8 @@
 				"placa: plate padding top and bottom",
 				"protagonistas: item padding sides",
 				"conceito: stacked columns gap, list margin top",
-				"jornada: step padding top, stacked steps gap"
+				"jornada: step padding top, stacked steps gap",
+				"niveis: card padding sides"
 			]
 		},
 		{
@@ -617,7 +661,8 @@
 			"value": "2.75rem",
 			"px": 44,
 			"usedIn": [
-				"protagonistas: number margin bottom"
+				"protagonistas: number margin bottom",
+				"niveis: card padding bottom"
 			]
 		},
 		{
@@ -661,6 +706,13 @@
 			"usedIn": [
 				"conceito: key column + gap (li padding)"
 			]
+		},
+		{
+			"value": "28.75rem",
+			"px": 460,
+			"usedIn": [
+				"niveis: locked card min-height"
+			]
 		}
 	],
 	"radius": [
@@ -673,13 +725,15 @@
 		{
 			"value": "999px",
 			"usedIn": [
-				"placa: notice pill"
+				"placa: notice pill",
+				"niveis: lock notice"
 			]
 		},
 		{
 			"value": "4px",
 			"usedIn": [
-				"placa: stone cover"
+				"placa: stone cover",
+				"niveis: cards"
 			]
 		}
 	],
@@ -803,6 +857,18 @@
 			"slug": "stone",
 			"usedIn": [
 				"conceito: list keys"
+			]
+		},
+		{
+			"value": "#FBF8F0",
+			"usedIn": [
+				"niveis: open card background"
+			]
+		},
+		{
+			"value": "#F4F0E5",
+			"usedIn": [
+				"niveis: locked card background"
 			]
 		}
 	]

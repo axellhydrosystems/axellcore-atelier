@@ -1043,7 +1043,12 @@ blockquote.journey-quote p{ margin: 0; }
   transform: translateY(-4px);
   box-shadow: 0 30px 60px -30px rgba(11,14,18,0.15);
 }
-.tier .num-roman{
+.tiers-grid{ counter-reset: tier; }
+.tier{ counter-increment: tier; }
+/* The number is a counter (the cards hold blocks, so they are not list
+   items), in ::before; the mystery veil moved to ::after. */
+.tier::before{
+  content: counter(tier, roman-period);
   font-family: var(--serif);
   font-style: italic;
   font-weight: 300;
@@ -1101,7 +1106,7 @@ blockquote.journey-quote p{ margin: 0; }
   background: var(--ink); color: var(--ivory); border-color: var(--ink);
   position: relative;
 }
-.tier.dark .num-roman{ color: var(--bronze-2); }
+.tier.dark::before{ color: var(--bronze-2); }
 .tier.dark .tier-cap{ color: var(--bronze-2); }
 .tier.dark .tier-name{ color: var(--ivory); }
 .tier.dark .tier-italic{ color: var(--bronze-2); }
@@ -1567,7 +1572,10 @@ blockquote.journey-quote p{ margin: 0; }
   overflow: hidden;
   min-height: 460px;
 }
-.tier.mystery::before{
+/* The card's body (label to list, or label to mystery text) grows, so
+   the link or the hint sits at the bottom. */
+.tier-body{ display: flex; flex-direction: column; flex: 1; }
+.tier.mystery::after{
   content: "";
   position: absolute; inset: 0;
   background:
@@ -1575,8 +1583,8 @@ blockquote.journey-quote p{ margin: 0; }
     repeating-linear-gradient(45deg, rgba(180,153,106,0.04) 0 1px, transparent 1px 22px);
   pointer-events: none;
 }
-.tier.mystery > *{ position: relative; z-index: 1; }
-.tier.mystery .num-roman{ color: var(--bronze); opacity: 0.75; }
+.tier.mystery > *, .tier.mystery::before{ position: relative; z-index: 1; }
+.tier.mystery::before{ color: var(--bronze); opacity: 0.75; }
 .tier.mystery .tier-cap{ color: var(--stone); }
 .tier.mystery .tier-name{ color: var(--ink); }
 .tier.mystery .tier-italic{
@@ -1625,6 +1633,8 @@ blockquote.journey-quote p{ margin: 0; }
   font-style: normal;
   color: var(--bronze);
 }
+p.tier-cap, p.tier-italic, p.lock-mark{ margin-top: 0; }
+p.mystery-hint{ margin-bottom: 0; }
 .tier.mystery .mystery-hint{
   font-family: var(--sans);
   font-size: 11px;
@@ -1977,60 +1987,61 @@ blockquote.journey-quote p{ margin: 0; }
     <div class="tiers-grid">
       <!-- Signature Member -->
       <div class="tier">
-        <div class="num-roman">i.</div>
-        <div class="tier-cap">Entrada no clube</div>
-        <h3 class="tier-name">Signature</h3>
-        <div class="tier-italic">o primeiro convite</div>
-        <ul>
-          <li>Área exclusiva do clube</li>
-          <li>Cadastro de projetos</li>
-          <li>Materiais e biblioteca técnica</li>
-          <li>Convites para treinamentos</li>
-          <li>Newsletter editorial</li>
-          <li>Bônus financeiro por cada especificação de produto Axell revertida em venda</li>
-        </ul>
+        <div class="tier-body">
+          <p class="tier-cap">Entrada no clube</p>
+          <h3 class="tier-name">Signature</h3>
+          <p class="tier-italic"><em>o primeiro convite</em></p>
+          <ul>
+            <li>Área exclusiva do clube</li>
+            <li>Cadastro de projetos</li>
+            <li>Materiais e biblioteca técnica</li>
+            <li>Convites para treinamentos</li>
+            <li>Newsletter editorial</li>
+            <li>Bônus financeiro por cada especificação de produto Axell revertida em venda</li>
+          </ul>
+        </div>
         <a href="#adesao" class="tier-cta">
           Começar por aqui
-          <svg width="16" height="8" viewBox="0 0 16 8" fill="none"><path d="M0 4h14m0 0L11 1m3 3l-3 3" stroke="currentColor" stroke-width="1.2"/></svg>
+          <svg width="16" height="8" viewBox="0 0 16 8" fill="currentColor"><path d="M0 4.6 L14 4.6 L14 3.4 L0 3.4ZM14.424264 3.575736 L11.424264 0.575736 L10.575736 1.424264 L13.575736 4.424264ZM13.575736 3.575736 L10.575736 6.575736 L11.424264 7.424264 L14.424264 4.424264Z"/></svg>
         </a>
       </div>
 
       <!-- Alliance Member — MYSTERY -->
       <div class="tier mystery">
-        <div class="num-roman">ii.</div>
-        <div class="tier-cap">Segundo estágio</div>
-        <h3 class="tier-name">Alliance</h3>
-        <div class="tier-italic">a ser conquistado</div>
+        <div class="tier-body">
+          <p class="tier-cap">Segundo estágio</p>
+          <h3 class="tier-name">Alliance</h3>
+          <p class="tier-italic"><em>a ser conquistado</em></p>
 
-        <div class="lock-mark">
-          <svg viewBox="0 0 14 14" fill="currentColor"><path d="M3.5 5.3H10.5A1.2 1.2 0 0 1 11.7 6.5V11.5A1.2 1.2 0 0 1 10.5 12.7H3.5A1.2 1.2 0 0 1 2.3 11.5V6.5A1.2 1.2 0 0 1 3.5 5.3ZM3.7 6.7V11.3H10.3V6.7ZM3.8 6V4A3.2 3.2 0 0 1 10.2 4V6H8.8V4A1.8 1.8 0 0 0 5.2 4V6Z"/></svg>
-          Revelado após conquista
+          <p class="lock-mark">
+            <svg viewBox="0 0 14 14" fill="currentColor"><path d="M3.5 5.3H10.5A1.2 1.2 0 0 1 11.7 6.5V11.5A1.2 1.2 0 0 1 10.5 12.7H3.5A1.2 1.2 0 0 1 2.3 11.5V6.5A1.2 1.2 0 0 1 3.5 5.3ZM3.7 6.7V11.3H10.3V6.7ZM3.8 6V4A3.2 3.2 0 0 1 10.2 4V6H8.8V4A1.8 1.8 0 0 0 5.2 4V6Z"/></svg>
+            Revelado após conquista
+          </p>
+
+          <div class="mystery-body">
+            <p class="mystery-line">Há um <em>segundo capítulo</em> reservado a quem transforma o hábito em consistência. Seus benefícios são desvelados quando o membro alcança o estágio.</p>
+          </div>
         </div>
-
-        <div class="mystery-body">
-          <p class="mystery-line">Há um <em>segundo capítulo</em> reservado a quem transforma o hábito em consistência. Seus benefícios são desvelados quando o membro alcança o estágio.</p>
-        </div>
-
-        <div class="mystery-hint">Conquistado pela curadoria Axell</div>
+        <p class="mystery-hint">Conquistado pela curadoria Axell</p>
       </div>
 
       <!-- Ambassador Member — MYSTERY -->
       <div class="tier mystery">
-        <div class="num-roman">iii.</div>
-        <div class="tier-cap">Terceiro estágio</div>
-        <h3 class="tier-name">Ambassador</h3>
-        <div class="tier-italic">o círculo mais estreito</div>
+        <div class="tier-body">
+          <p class="tier-cap">Terceiro estágio</p>
+          <h3 class="tier-name">Ambassador</h3>
+          <p class="tier-italic"><em>o círculo mais estreito</em></p>
 
-        <div class="lock-mark">
-          <svg viewBox="0 0 14 14" fill="currentColor"><path d="M3.5 5.3H10.5A1.2 1.2 0 0 1 11.7 6.5V11.5A1.2 1.2 0 0 1 10.5 12.7H3.5A1.2 1.2 0 0 1 2.3 11.5V6.5A1.2 1.2 0 0 1 3.5 5.3ZM3.7 6.7V11.3H10.3V6.7ZM3.8 6V4A3.2 3.2 0 0 1 10.2 4V6H8.8V4A1.8 1.8 0 0 0 5.2 4V6Z"/></svg>
-          Revelado após conquista
+          <p class="lock-mark">
+            <svg viewBox="0 0 14 14" fill="currentColor"><path d="M3.5 5.3H10.5A1.2 1.2 0 0 1 11.7 6.5V11.5A1.2 1.2 0 0 1 10.5 12.7H3.5A1.2 1.2 0 0 1 2.3 11.5V6.5A1.2 1.2 0 0 1 3.5 5.3ZM3.7 6.7V11.3H10.3V6.7ZM3.8 6V4A3.2 3.2 0 0 1 10.2 4V6H8.8V4A1.8 1.8 0 0 0 5.2 4V6Z"/></svg>
+            Revelado após conquista
+          </p>
+
+          <div class="mystery-body">
+            <p class="mystery-line">O <em>topo entre prescritores</em>. Um convite reservado, com benefícios que só se descobrem ao chegar. A curadoria Axell guarda o silêncio até lá.</p>
+          </div>
         </div>
-
-        <div class="mystery-body">
-          <p class="mystery-line">O <em>topo entre prescritores</em>. Um convite reservado, com benefícios que só se descobrem ao chegar. A curadoria Axell guarda o silêncio até lá.</p>
-        </div>
-
-        <div class="mystery-hint">Um capítulo por vez</div>
+        <p class="mystery-hint">Um capítulo por vez</p>
       </div>
     </div>
   </div>

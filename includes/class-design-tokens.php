@@ -143,7 +143,9 @@ final class Design_Tokens {
 	 * - "Pillars", "Protagonists" and "Promises" on lists: numbered grids
 	 *   (the manifesto pillars, the protagonistas and the promessas items),
 	 *   sharing one SCSS mixin; "Steps" on lists: the jornada steps joined
-	 *   by a line, numbered in circles.
+	 *   by a line, numbered in circles;
+	 * - "Tier" and "Tier (locked)" on groups: the niveis cards (number, hover
+	 *   lift; the locked one adds the veil).
 	 *
 	 * A block can have more than one style, so each row is block, name, label.
 	 */
@@ -157,6 +159,8 @@ final class Design_Tokens {
 			array( 'core/navigation', 'bronze-hover', __( 'Bronze hover', 'axellcore-atelierclub' ) ),
 			array( 'core/image', 'ivory', __( 'Ivory', 'axellcore-atelierclub' ) ),
 			array( 'core/group', 'visually-hidden', __( 'Visually hidden', 'axellcore-atelierclub' ) ),
+			array( 'core/group', 'tier', __( 'Tier', 'axellcore-atelierclub' ) ),
+			array( 'core/group', 'tier-locked', __( 'Tier (locked)', 'axellcore-atelierclub' ) ),
 			array( 'core/paragraph', 'eyebrow', __( 'Eyebrow', 'axellcore-atelierclub' ) ),
 			array( 'core/column', 'sticky-desktop', __( 'Sticky on desktop', 'axellcore-atelierclub' ) ),
 			array( 'core/heading', 'chapter', __( 'Chapter', 'axellcore-atelierclub' ) ),

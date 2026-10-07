@@ -105,6 +105,16 @@ final class Icons {
 			)
 		);
 
+		// The tier link's small arrow (design/source .tier-cta: a 16x8 path
+		// stroked at 1.2), outlined the same way.
+		wp_register_icon(
+			self::COLLECTION . '/arrow-small',
+			array(
+				'label'   => __( 'Arrow (small)', 'axellcore-atelierclub' ),
+				'content' => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 8" width="16" height="8" fill="currentColor"><path d="M0 4.6 L14 4.6 L14 3.4 L0 3.4ZM14.424264 3.575736 L11.424264 0.575736 L10.575736 1.424264 L13.575736 4.424264ZM13.575736 3.575736 L10.575736 6.575736 L11.424264 7.424264 L14.424264 4.424264Z"/></svg>',
+			)
+		);
+
 		// The design's outline lock (design/source .notice-pill and .lock-mark:
 		// a rect and a shackle stroked at 1.4 on a 14 grid), as the outline
 		// of that stroke so it is fill-only.

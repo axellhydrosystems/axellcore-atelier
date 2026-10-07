@@ -1944,3 +1944,12 @@ msgstr "Promessas"
 
 msgid "Steps"
 msgstr "Passos"
+
+msgid "Arrow (small)"
+msgstr "Seta (pequena)"
+
+msgid "Tier"
+msgstr "Nível"
+
+msgid "Tier (locked)"
+msgstr "Nível (bloqueado)"
