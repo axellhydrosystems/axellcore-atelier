@@ -2,8 +2,9 @@ name: Language
 
 # Language packs for SelfDirectory: axellcore-atelierclub.<version>-<locale>.zip
 # on the <version> release, built from the language/<version> orphan branch
-# (made by `wp --require=bin/release.php axc language`). Each pack holds the
-# .po, the compiled .mo and the JS catalogs (.json) of its locale.
+# (made by `wp --require=bin/release.php axc language`, which also dispatches
+# this workflow: a push to an orphan branch has no .github/ to run). Each pack
+# holds the .po, the compiled .mo and the JS catalogs (.json) of its locale.
 
 on:
   push:

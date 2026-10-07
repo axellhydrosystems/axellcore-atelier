@@ -568,7 +568,18 @@ class Axellcore_Atelierclub_CLI_Command extends WP_CLI_Command {
 		axellcore_atelierclub_run( 'git push origin ' . escapeshellarg( $lang_branch ) . ' --force --quiet', $lang_repo, true );
 		axellcore_atelierclub_run( 'rm -rf ' . escapeshellarg( $lang_repo ) );
 
-		WP_CLI::success( "Language branch {$lang_branch} pushed; the Language workflow attaches the packs to the {$current} release." );
+		WP_CLI::success( "Language branch {$lang_branch} pushed." );
+
+		// A push to an orphan branch runs no workflow (the branch has no
+		// .github/), so the Language workflow is dispatched from the default branch.
+		list( $gh_exit ) = axellcore_atelierclub_try_run( 'command -v gh' );
+		if ( 0 !== $gh_exit ) {
+			WP_CLI::warning( "gh CLI not found — run the Language workflow by hand with version={$current}." );
+			return;
+		}
+		$repo = preg_replace( array( '#.*github\.com[:/]#', '#\.git$#' ), '', $remote_url );
+		axellcore_atelierclub_run( 'gh workflow run language.yml --repo ' . escapeshellarg( $repo ) . ' --field version=' . escapeshellarg( $current ), $plugin_dir, true );
+		WP_CLI::success( "Language workflow dispatched: it attaches axellcore-atelierclub.{$current}-<locale>.zip to the {$current} release." );
 	}
 }
 
