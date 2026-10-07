@@ -33,11 +33,11 @@
     },
     "stateField": {
       "type": "string",
-      "default": "uf"
+      "default": "state"
     },
     "countryField": {
       "type": "string",
-      "default": "pais"
+      "default": "country"
     },
     "searchable": {
       "type": "boolean",

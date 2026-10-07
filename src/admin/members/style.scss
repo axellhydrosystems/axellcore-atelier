@@ -1,22 +1,7 @@
-/* Members admin screens. */
+/* Members admin page (admin.php?page=members). */
 .aa-members-list {
-	#posts-filter,
-	.subsubsub,
-	.page-title-action,
-	#screen-meta-links,
-	.wp-header-end ~ .search-box {
-		display: none;
-	}
-
 	.dataviews-view-table tr .dataviews-item-actions .components-button {
 		opacity: 1;
-	}
-}
-
-.aa-members-edit {
-	#post,
-	#poststuff {
-		display: none;
 	}
 }
 

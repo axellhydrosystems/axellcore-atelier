@@ -69,7 +69,7 @@ export function v2Save( { attributes }: BlockSaveProps< LegacyAttributes > ) {
 /** "Membro (REST)" becomes "store into members". */
 export function migrateLegacy( attributes: LegacyAttributes ) {
 	const { submitsToRest, ...rest } = attributes;
-	return { ...rest, storePostType: submitsToRest ? 'aa_member' : '' };
+	return { ...rest, storePostType: submitsToRest ? 'member' : '' };
 }
 
 export const LEGACY_ATTRIBUTES = {

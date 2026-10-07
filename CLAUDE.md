@@ -237,6 +237,58 @@ ambiguous in one block).
   `<legend>` element at all, genuine semantic optionality — not just an
   empty tag). No `layout` support of its own: a plain block container.
 
+### Members are users (roles member_pending / member)
+
+An adesão submission (`Members::create_from_params()`, store target
+`member`, `Members::STORE`; the former `aa_member` post type value maps to
+it) creates a WordPress user with role `member_pending` ("Membro
+Pendente"); the curadoria approves by switching it to `member` (the
+status select in the admin detail saves at once). There is no member post
+type. Roles: `Member::register_roles()`.
+
+- `user_login`: WooCommerce's e-mail fallback of
+  `wc_create_new_customer_username()` (`Members::username_for()`): the part
+  before the @ (the domain for sales/hello/mail/contact/info), sanitized,
+  lower case; a taken login gets `-NNNN`.
+- Unique: the e-mail (`aa_email_exists`, 409) and `br_revenue_id`, stored as
+  digits (`aa_document_exists`, 409).
+- Fields are user meta named exactly as the form fields (no prefix):
+  `company`, `phone`, `professional_registration`, `primary_focus` (slug),
+  `profile_type` (`individual`/`legal_entity`), `br_revenue_id`, `country`,
+  `address_street`, `address_number`, `address_2`, `neighborhood`,
+  `landmark`, `state`, `city`, `postal`, `reseller1`…`reseller5` and
+  `reseller{N}_title`. `fullname` is `display_name`, `email` `user_email`,
+  `url` `user_url`. `consent` is required, not stored.
+- Location (`Members::location()`): the state is a code for BR/US (upper
+  case) or a name elsewhere, 2+ characters, any case; the city is sent and
+  stored by name, checked against the bundled IBGE list in Brazil.
+- Admin: menu Atelier > Members (`admin.php?page=members`, one member
+  `&member=<id>`), DataViews/DataForms over `Admin_Rest`
+  (`WP_User_Query` on both roles; `PRIMARY_FOCUS_OPTIONS` labels the slugs).
+- The CPF/CNPJ control accepts `individual`/`legal_entity` as well as
+  `cpf`/`cnpj` (`docTypeOf`); address controls default to the fields
+  `country` and `state`.
+
+### Members CSV export (Atelier > Exportar)
+
+`includes/class-members-export.php` (`Members_Export`, page
+`admin.php?page=members-export`, plus an "Exportar" button on the members
+list) is a port of axellcore's store exporter (`axellcore/includes/
+import-export/`: `Axellcore_Exporter`, the export half of `Axellcore_Admin`,
+`Axellcore_Fields::csv_line()`/`escape_cell()`; the chip picker and batch
+loop of `assets/js/admin/import-export.js` in
+`src/admin/members-export/index.ts`). Export only. It never calls axellcore
+and every name is its own (AJAX `axellcore_atelierclub_members_export`,
+admin-post `axellcore_atelierclub_members_download`, nonce, handle,
+`window.aaMembersExport`, `uploads/axellcore-atelierclub-export/`, CSS
+`aa-export-*`), so it works with or without axellcore active. Batches of
+100 users (`WP_User_Query` on both member roles), UTF-8 BOM, formula
+escaping; filters: status, "Cadastrados desde" (a day in the site timezone,
+included; `date_query` on `user_registered`, for incremental exports), UF,
+cidade, atuação; "Enviado em" is in the site timezone; columns: every member field
+with PT headers (labels for status, atuação and tipo de cadastro, masked
+CPF/CNPJ, partner stores by their text).
+
 ### Field layout: a core/group grid inside the fieldset
 
 `axell/form-group` is a plain `display: block` field (label, control, help

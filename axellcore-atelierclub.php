@@ -56,6 +56,7 @@ require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-form-submission.php';
 require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-seo.php';
 require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-rest.php';
 require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-admin-rest.php';
+require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-members-export.php';
 require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-template-parts.php';
 require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-classic-template.php';
 require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-reveal.php';

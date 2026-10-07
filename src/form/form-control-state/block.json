@@ -33,7 +33,7 @@
 		},
 		"countryField": {
 			"type": "string",
-			"default": "pais"
+			"default": "country"
 		},
 		"countrySource": {
 			"type": "string",

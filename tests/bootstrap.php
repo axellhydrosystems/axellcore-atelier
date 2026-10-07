@@ -40,4 +40,6 @@ require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-blocks.php';
 require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-member.php';
 require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-locations.php';
 require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-members.php';
+require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-admin-rest.php';
+require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-members-export.php';
 require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-rest.php';

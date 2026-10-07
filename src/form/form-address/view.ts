@@ -20,7 +20,7 @@ interface ControlContext {
 	stateField?: string;
 	/** Phone: line type (Brazil only): mobile or landline; absent = both. */
 	lineType?: string;
-	/** City search: typed text, picked IBGE code, list open, active option. */
+	/** City search: typed text, picked city name, list open, active option. */
 	query?: string;
 	/** City search: what was typed (filters the list; query shows the highlighted city). */
 	typed?: string;
@@ -61,7 +61,7 @@ function countryOf( context: ControlContext ): string {
 		return context.fixedCountry.toUpperCase();
 	}
 	const s = state as unknown as AddressState;
-	return ( s.values[ `${ context.form }|${ context.countryField || 'pais' }` ] || '' ).toUpperCase();
+	return ( s.values[ `${ context.form }|${ context.countryField || 'country' }` ] || '' ).toUpperCase();
 }
 
 const { state } = store( 'axell/address', {
@@ -117,7 +117,8 @@ const { state } = store( 'axell/address', {
 				}
 				const cities = ( yield response.json() ) as Option[];
 				if ( s.values[ key ] === uf ) {
-					s.cities[ key ] = cities;
+					// The form sends (and members store) the city name, not its IBGE code.
+					s.cities[ key ] = cities.map( ( city ) => ( { value: city.label, label: city.label } ) );
 				}
 			} catch {
 				s.cities[ key ] = [];
@@ -301,9 +302,9 @@ const { state } = store( 'axell/address', {
 			const s = state as unknown as AddressState;
 			const context = getContext< ControlContext >();
 			const select = here() as HTMLSelectElement;
-			const cities = s.cities[ keyOf( select, context.stateField || 'uf' ) ] || [];
+			const cities = s.cities[ keyOf( select, context.stateField || 'state' ) ] || [];
 			const current = select.value;
-			// The value is the IBGE code of the city, as the form has always sent it.
+			// The value is the city name.
 			select.replaceChildren( new Option( '—', '' ), ...cities.map( ( city ) => new Option( city.label, city.value ) ) );
 			select.value = current;
 		},
@@ -333,7 +334,7 @@ const { state } = store( 'axell/address', {
  */
 function matches( context: ControlContext, el: Element ): Option[] {
 	const s = state as unknown as AddressState;
-	const cities = s.cities[ keyOf( el, context.stateField || 'uf' ) ] || [];
+	const cities = s.cities[ keyOf( el, context.stateField || 'state' ) ] || [];
 	const q = fold( ( context.typed ?? context.query ?? '' ).trim() );
 	if ( ! q ) {
 		return [];

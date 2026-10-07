@@ -43,7 +43,7 @@ final class LocationsTest extends TestCase {
 			->once()
 			->with(
 				Locations::TAXONOMY,
-				\Mockery::type( 'string' ),
+				array(),
 				\Mockery::on(
 					function ( $args ) {
 						return true === $args['hierarchical'] && false === $args['public'];

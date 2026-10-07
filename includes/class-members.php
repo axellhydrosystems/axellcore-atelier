@@ -13,9 +13,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Creates aa_member posts from a form submission.
+ * Creates member users (role member_pending) from a form submission.
  */
 final class Members {
+
+	/**
+	 * Store target of a form that creates members (the form block's
+	 * `storePostType`; `aa_member`, the former post type, means the same).
+	 */
+	const STORE = 'member';
+
+	/**
+	 * E-mail local parts too generic to be a username (the domain is used).
+	 *
+	 * @var string[]
+	 */
+	const GENERIC_EMAIL_PREFIXES = array( 'sales', 'hello', 'mail', 'contact', 'info' );
 
 	/**
 	 * Admin-post action of the no-JavaScript submission.
@@ -43,52 +56,53 @@ final class Members {
 	 * @var string[]
 	 */
 	const REQUIRED_FIELDS = array(
-		'nome',
-		'escritorio',
+		'fullname',
+		'company',
 		'email',
-		'telefone',
-		'atuacao',
-		'tipoDoc',
-		'documento',
-		'rua',
-		'numero',
-		'bairro',
-		'cidade',
-		'uf',
-		'cep',
-		'regulamento',
+		'phone',
+		'primary_focus',
+		'profile_type',
+		'br_revenue_id',
+		'address_street',
+		'address_number',
+		'neighborhood',
+		'city',
+		'state',
+		'postal',
+		'consent',
 	);
 
 	/**
-	 * Optional text-meta fields, stored verbatim (sanitize_text_field) under
-	 * `_aa_{field}`. `email` and `portfolio` are handled separately (their
-	 * own sanitizers); `uf`/`cidade` are handled by the location-resolution
-	 * step, not stored as plain meta.
+	 * Optional text fields, stored (sanitize_text_field) as user meta
+	 * under the field name, named as the adesão form names them. `email` and `url`
+	 * are handled separately (their own sanitizers); `state`/`city` by the
+	 * location-resolution step, not stored as plain meta.
 	 *
 	 * @var string[]
 	 */
 	const TEXT_META_FIELDS = array(
-		'escritorio',
-		'telefone',
-		'registro',
-		'atuacao',
-		'tipoDoc',
-		'documento',
-		'rua',
-		'numero',
-		'complemento',
-		'bairro',
-		'referencia',
-		'cep',
+		'company',
+		'phone',
+		'professional_registration',
+		'primary_focus',
+		'profile_type',
+		'br_revenue_id',
+		'country',
+		'address_street',
+		'address_number',
+		'address_2',
+		'neighborhood',
+		'landmark',
+		'postal',
 	);
 
 	/**
-	 * Partner store slots. Each slot stores its ID (`_aa_lojaN`, empty for free
-	 * text) and the text shown to the user (`_aa_lojaN_titulo`).
+	 * Partner store slots. Each slot stores its ID (`resellerN`, empty for
+	 * free text) and the text shown to the user (`resellerN_title`).
 	 *
 	 * @var string[]
 	 */
-	const LOJA_FIELDS = array( 'loja1', 'loja2', 'loja3', 'loja4', 'loja5' );
+	const RESELLER_FIELDS = array( 'reseller1', 'reseller2', 'reseller3', 'reseller4', 'reseller5' );
 
 	/**
 	 * Singleton instance.
@@ -125,7 +139,7 @@ final class Members {
 		add_filter(
 			'axellcore_form_store_handler',
 			static function ( $handler, $post_type ) {
-				if ( Member::POST_TYPE !== $post_type ) {
+				if ( self::STORE !== $post_type ) {
 					return $handler;
 				}
 				return static function ( array $fields ) {
@@ -185,59 +199,173 @@ final class Members {
 			return new \WP_Error( 'aa_invalid_email', __( 'Invalid email address.', 'axellcore-atelierclub' ), array( 'status' => 400 ) );
 		}
 
-		$uf        = strtoupper( sanitize_text_field( $params['uf'] ) );
-		$city_code = absint( $params['cidade'] );
-		$city_term = Locations::instance()->resolve_city_term( $uf, $city_code );
-		if ( null === $city_term ) {
-			return new \WP_Error( 'aa_invalid_location', __( 'Invalid state/city.', 'axellcore-atelierclub' ), array( 'status' => 400 ) );
+		$location = self::location( (string) ( $params['country'] ?? 'BR' ), (string) $params['state'], (string) $params['city'] );
+		if ( is_wp_error( $location ) ) {
+			return $location;
+		}
+		list( $uf, $city ) = $location;
+
+		if ( email_exists( $email ) ) {
+			return new \WP_Error( 'aa_email_exists', __( 'This e-mail is already registered.', 'axellcore-atelierclub' ), array( 'status' => 409 ) );
 		}
 
-		$post_id = wp_insert_post(
-			array(
-				'post_type'   => Member::POST_TYPE,
-				'post_title'  => sanitize_text_field( $params['nome'] ),
-				'post_status' => 'publish',
-			),
-			true
-		);
+		$document = self::digits( (string) $params['br_revenue_id'] );
+		if ( '' === $document || self::document_exists( $document ) ) {
+			return new \WP_Error( 'aa_document_exists', __( 'This CPF/CNPJ is already registered.', 'axellcore-atelierclub' ), array( 'status' => 409 ) );
+		}
 
-		if ( is_wp_error( $post_id ) ) {
+		$fullname = sanitize_text_field( $params['fullname'] );
+		$user_id  = wp_insert_user(
+			array(
+				'user_login'   => self::username_for( $email ),
+				'user_email'   => $email,
+				// Never shown: the member sets a password when access is granted.
+				'user_pass'    => wp_generate_password( 24 ),
+				'display_name' => $fullname,
+				'user_url'     => esc_url_raw( (string) ( $params['url'] ?? '' ) ),
+				'nickname'     => $fullname,
+				'role'         => Member::ROLE_PENDING,
+			)
+		);
+		if ( is_wp_error( $user_id ) ) {
 			return new \WP_Error( 'aa_insert_failed', __( 'Could not save your application.', 'axellcore-atelierclub' ), array( 'status' => 500 ) );
 		}
 
-		wp_set_object_terms( $post_id, array( $city_term ), Locations::TAXONOMY );
-
-		update_post_meta( $post_id, '_aa_email', $email );
-		if ( ! empty( $params['portfolio'] ) ) {
-			update_post_meta( $post_id, '_aa_portfolio', esc_url_raw( $params['portfolio'] ) );
-		}
-		update_post_meta( $post_id, '_aa_uf', $uf );
-
+		$meta = array(
+			'state'         => $uf,
+			'city'          => $city,
+			'br_revenue_id' => $document,
+		);
 		foreach ( self::TEXT_META_FIELDS as $field ) {
-			if ( ! empty( $params[ $field ] ) ) {
-				update_post_meta( $post_id, '_aa_' . $field, sanitize_text_field( $params[ $field ] ) );
+			if ( 'br_revenue_id' !== $field && ! empty( $params[ $field ] ) ) {
+				$meta[ $field ] = sanitize_text_field( $params[ $field ] );
 			}
 		}
 
-		foreach ( self::LOJA_FIELDS as $field ) {
+		foreach ( self::RESELLER_FIELDS as $field ) {
 			$id    = absint( $params[ $field ] ?? 0 );
-			$title = sanitize_text_field( $params[ $field . '_titulo' ] ?? '' );
+			$title = sanitize_text_field( $params[ $field . '_title' ] ?? '' );
 			if ( 0 === $id && '' === $title ) {
 				continue;
 			}
 			// Custom store: a text "Nome - UF Cidade" that matches becomes a
 			// pending revenda (see axellcore-revendas), and its ID is kept.
 			if ( 0 === $id ) {
-				$id = (int) apply_filters( 'axellcore_atelierclub_loja_text', 0, $title );
+				$id = (int) apply_filters( 'axellcore_atelierclub_reseller_text', 0, $title );
 			}
-			update_post_meta( $post_id, '_aa_' . $field, $id > 0 ? $id : '' );
-			update_post_meta( $post_id, '_aa_' . $field . '_titulo', $title );
+			$meta[ $field ]            = $id > 0 ? (string) $id : '';
+			$meta[ $field . '_title' ] = $title;
+		}
+
+		foreach ( $meta as $key => $value ) {
+			update_user_meta( $user_id, $key, $value );
 		}
 
 		return array(
 			'success' => true,
-			'id'      => $post_id,
+			'id'      => (int) $user_id,
 		);
+	}
+
+	/**
+	 * State and city as stored. The state is a code (BR, US: upper case) or,
+	 * for other countries, a name; either way 2 characters or more, any case.
+	 * In Brazil the state must be a UF and the city one of its cities (the
+	 * bundled IBGE list, case-insensitive), stored with its proper name.
+	 *
+	 * @param string $country Country code.
+	 * @param string $state   Submitted state.
+	 * @param string $city    Submitted city name.
+	 * @return array{0:string,1:string}|\WP_Error
+	 */
+	public static function location( $country, $state, $city ) {
+		$country = strtoupper( trim( sanitize_text_field( $country ) ) );
+		$state   = trim( sanitize_text_field( $state ) );
+		$city    = trim( sanitize_text_field( $city ) );
+		$invalid = new \WP_Error( 'aa_invalid_location', __( 'Invalid state/city.', 'axellcore-atelierclub' ), array( 'status' => 400 ) );
+
+		if ( mb_strlen( $state ) < 2 || '' === $city ) {
+			return $invalid;
+		}
+		if ( in_array( $country, array( '', 'BR', 'US' ), true ) ) {
+			$state = strtoupper( $state );
+		}
+		if ( '' === $country || 'BR' === $country ) {
+			$cities = Locations::instance()->cities_for_state( $state );
+			$match  = array_values(
+				array_filter(
+					$cities,
+					static function ( $name ) use ( $city ) {
+						return 0 === strcasecmp( $name, $city ) || mb_strtolower( $name ) === mb_strtolower( $city );
+					}
+				)
+			);
+			if ( ! $match ) {
+				return $invalid;
+			}
+			$city = $match[0];
+		}
+		return array( $state, $city );
+	}
+
+	/**
+	 * Only the digits of a value (CPF/CNPJ are stored and compared this way).
+	 *
+	 * @param string $value Value.
+	 * @return string
+	 */
+	public static function digits( $value ) {
+		return (string) preg_replace( '/\D+/', '', $value );
+	}
+
+	/**
+	 * Whether a member user already has this CPF/CNPJ.
+	 *
+	 * @param string $document CPF/CNPJ digits.
+	 * @param int    $exclude  User ID to ignore (the one being edited).
+	 * @return bool
+	 */
+	public static function document_exists( $document, $exclude = 0 ) {
+		$ids = get_users(
+			array(
+				'meta_key'   => 'br_revenue_id', // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key -- uniqueness check on one key.
+				'meta_value' => $document, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value -- uniqueness check on one key.
+				'exclude'    => $exclude ? array( $exclude ) : array(),
+				'number'     => 1,
+				'fields'     => 'ID',
+			)
+		);
+		return ! empty( $ids );
+	}
+
+	/**
+	 * Username for a new member, as WooCommerce builds one from an e-mail
+	 * (wc_create_new_customer_username()): the part before the @ (the domain
+	 * for generic ones such as info@), sanitized and lower case; a blocked
+	 * or empty name becomes member_NNNN, and a taken one gets -NNNN.
+	 *
+	 * @param string $email  E-mail address.
+	 * @param string $suffix Suffix of a retry.
+	 * @return string
+	 */
+	public static function username_for( $email, $suffix = '' ) {
+		$parts = explode( '@', $email );
+		$base  = $parts[0];
+		if ( in_array( $base, self::GENERIC_EMAIL_PREFIXES, true ) && isset( $parts[1] ) ) {
+			$base = $parts[1];
+		}
+		$username = strtolower( sanitize_user( $base, true ) );
+
+		$illegal = array_map( 'strtolower', (array) apply_filters( 'illegal_user_logins', array() ) );
+		if ( '' === $username || in_array( $username, $illegal, true ) ) {
+			$username = 'member_' . zeroise( wp_rand( 0, 9999 ), 4 );
+		}
+		$username .= $suffix;
+
+		if ( username_exists( $username ) ) {
+			return self::username_for( $email, '-' . zeroise( wp_rand( 0, 9999 ), 4 ) );
+		}
+		return $username;
 	}
 
 	/**

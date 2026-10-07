@@ -124,7 +124,7 @@ final class Form_Directives {
 			return array( 'fixedCountry' => strtoupper( (string) ( $attrs['country'] ?? 'BR' ) ) );
 		}
 		$field = (string) ( $attrs['countryField'] ?? '' );
-		return array( 'countryField' => '' !== $field ? $field : 'pais' );
+		return array( 'countryField' => '' !== $field ? $field : 'country' );
 	}
 
 	/**
@@ -216,7 +216,7 @@ final class Form_Directives {
 		$searchable = ! empty( $attrs['searchable'] );
 		$context    = array_merge(
 			self::country_link( $attrs ),
-			array( 'stateField' => '' !== (string) ( $attrs['stateField'] ?? '' ) ? (string) $attrs['stateField'] : 'uf' )
+			array( 'stateField' => '' !== (string) ( $attrs['stateField'] ?? '' ) ? (string) $attrs['stateField'] : 'state' )
 		);
 		if ( $searchable ) {
 			$context = array_merge(
@@ -451,7 +451,7 @@ final class Form_Directives {
 			'query'         => '',
 			'text'          => '',
 			'selectedId'    => '',
-			'titulo'        => '',
+			'title'         => '',
 			'open'          => false,
 			'notFound'      => false,
 			'loading'       => false,
@@ -501,7 +501,7 @@ final class Form_Directives {
 				);
 			} elseif ( 'INPUT' === $tag && 'hidden' === $p->get_attribute( 'type' ) ) {
 				// The chosen post's ID, then its title.
-				$p->set_attribute( 'data-wp-bind--value', 0 === $hidden++ ? 'context.selectedId' : 'context.titulo' );
+				$p->set_attribute( 'data-wp-bind--value', 0 === $hidden++ ? 'context.selectedId' : 'context.title' );
 			} elseif ( 'DIV' === $tag && $p->has_class( 'aa-ac-custom' ) ) {
 				$p->set_attribute( 'data-wp-bind--hidden', '!context.custom' );
 			} elseif ( 'INPUT' === $tag && 'name' === $p->get_attribute( 'data-field' ) ) {
@@ -588,7 +588,7 @@ final class Form_Directives {
 			'<div class="%1$s" data-wp-interactive="axell/autocomplete" data-wp-context="%2$s" data-wp-on--keydown="actions.onKeydown" data-wp-on--focusout="actions.onFocusOut">'
 				. '%3$s'
 				. '<input type="hidden" name="%4$s" data-wp-bind--value="context.selectedId"/>'
-				. '<input type="hidden" name="%4$s_titulo" data-wp-bind--value="context.titulo"/>'
+				. '<input type="hidden" name="%4$s_title" data-wp-bind--value="context.title"/>'
 				. '<div class="aa-ac-custom" hidden data-wp-bind--hidden="!context.custom">'
 				. '<div class="aa-ac-name"><input type="text" data-field="name" aria-label="%5$s" placeholder="%5$s" data-wp-bind--value="context.customName" data-wp-on--input="actions.onCustomInput"/>'
 				. '<button type="button" class="aa-ac-back" aria-label="%6$s" data-wp-on--click="actions.backToSearch">%7$s</button></div>'

@@ -5,6 +5,7 @@ import type { Action, Field, View } from '@wordpress/dataviews';
 import { Notice } from '@wordpress/components';
 import { fetchMembers } from './api';
 import type { ListQuery, ListResult } from './api';
+import { formatDocument } from './types';
 import type { MemberSummary } from './types';
 
 const DEFAULT_VIEW: View = {
@@ -15,19 +16,19 @@ const DEFAULT_VIEW: View = {
 	sort: { field: 'data', direction: 'desc' },
 	filters: [],
 	fields: [
-		'nome',
-		'escritorio',
-		'cidade',
-		'uf',
-		'atuacao',
+		'fullname',
+		'company',
+		'city',
+		'state',
+		'primary_focus',
 		'data',
 	],
 	layout: {},
 };
 
 const SORT_FIELD_TO_ORDERBY: Record< string, ListQuery[ 'orderby' ] > = {
-	nome: 'title',
-	uf: 'uf',
+	fullname: 'title',
+	state: 'state',
 	data: 'date',
 };
 
@@ -42,8 +43,8 @@ function toQuery( view: View ): ListQuery {
 		page: view.page ?? 1,
 		perPage: view.perPage ?? 20,
 		search: view.search ?? '',
-		uf: filterValue( view, 'uf' ),
-		atuacao: filterValue( view, 'atuacao' ),
+		state: filterValue( view, 'state' ),
+		primaryFocus: filterValue( view, 'primary_focus' ),
 		orderby: SORT_FIELD_TO_ORDERBY[ sort.field ] ?? 'date',
 		order: sort.direction,
 	};
@@ -51,11 +52,13 @@ function toQuery( view: View ): ListQuery {
 
 export default function MembersList( {
 	states,
-	atuacao,
+	primaryFocus,
+	statuses,
 	editUrl,
 }: {
 	states: Array< { value: string; label: string } >;
-	atuacao: string[];
+	primaryFocus: Array< { value: string; label: string } >;
+	statuses: Array< { value: string; label: string } >;
 	editUrl: string;
 } ) {
 	const [ view, setView ] = useState< View >( DEFAULT_VIEW );
@@ -111,25 +114,25 @@ export default function MembersList( {
 	const fields: Field< MemberSummary >[] = useMemo(
 		() => [
 			{
-				id: 'nome',
+				id: 'fullname',
 				label: __( 'Nome', 'axellcore-atelierclub' ),
 				type: 'text',
 				enableHiding: false,
 			},
 			{
-				id: 'escritorio',
+				id: 'company',
 				label: __( 'Escritório', 'axellcore-atelierclub' ),
 				type: 'text',
 				enableSorting: false,
 			},
 			{
-				id: 'cidade',
+				id: 'city',
 				label: __( 'Cidade', 'axellcore-atelierclub' ),
 				type: 'text',
 				enableSorting: false,
 			},
 			{
-				id: 'uf',
+				id: 'state',
 				label: __( 'UF', 'axellcore-atelierclub' ),
 				type: 'text',
 				// UF is shown by its code (PR), not the state name.
@@ -140,14 +143,11 @@ export default function MembersList( {
 				filterBy: { operators: [ 'is' ] },
 			},
 			{
-				id: 'atuacao',
+				id: 'primary_focus',
 				label: __( 'Atuação', 'axellcore-atelierclub' ),
 				type: 'text',
 				enableSorting: false,
-				elements: atuacao.map( ( value ) => ( {
-					value,
-					label: value,
-				} ) ),
+				elements: primaryFocus,
 				filterBy: { operators: [ 'is' ] },
 			},
 			{
@@ -157,15 +157,16 @@ export default function MembersList( {
 				enableSorting: false,
 			},
 			{
-				id: 'telefone',
+				id: 'phone',
 				label: __( 'Telefone', 'axellcore-atelierclub' ),
 				type: 'telephone',
 				enableSorting: false,
 			},
 			{
-				id: 'documento',
+				id: 'br_revenue_id',
 				label: __( 'CPF / CNPJ', 'axellcore-atelierclub' ),
 				type: 'text',
+				getValue: ( { item } ) => formatDocument( item.br_revenue_id ),
 				enableSorting: false,
 			},
 			{
@@ -179,9 +180,10 @@ export default function MembersList( {
 				label: __( 'Status', 'axellcore-atelierclub' ),
 				type: 'text',
 				enableSorting: false,
+				elements: statuses,
 			},
 		],
-		[ states, atuacao ]
+		[ states, primaryFocus, statuses ]
 	);
 
 	const actions: Action< MemberSummary >[] = useMemo(

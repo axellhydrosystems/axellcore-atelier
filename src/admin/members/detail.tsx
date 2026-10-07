@@ -4,33 +4,10 @@ import { DataForm } from '@wordpress/dataviews';
 import type { Field, Form, FormField } from '@wordpress/dataviews';
 import { Notice } from '@wordpress/components';
 import { fetchCities, fetchMember, saveMember } from './api';
-import type { MemberDetail, MemberLoja, SelectOption } from './types';
+import { formatDocument } from './types';
+import type { MemberDetail, MemberReseller, SelectOption } from './types';
 
 type Draft = Record< string, string >;
-
-const EDITABLE_KEYS = [
-	'nome',
-	'email',
-	'portfolio',
-	'uf',
-	'cidade',
-	'escritorio',
-	'telefone',
-	'registro',
-	'atuacao',
-	'tipoDoc',
-	'documento',
-	'rua',
-	'numero',
-	'complemento',
-	'bairro',
-	'referencia',
-	'cep',
-	'loja1',
-	'loja2',
-	'loja3',
-	'loja4',
-] as const;
 
 function toDraft( member: MemberDetail ): Draft {
 	const draft: Draft = {};
@@ -41,30 +18,25 @@ function toDraft( member: MemberDetail ): Draft {
 	return draft;
 }
 
-function toPayload( draft: Draft ): Draft {
-	const payload: Draft = {};
-	for ( const key of EDITABLE_KEYS ) {
-		payload[ key ] = draft[ key ] ?? '';
-	}
-	return payload;
-}
 
 interface Props {
 	id: number;
 	states: SelectOption[];
-	atuacao: string[];
+	primaryFocus: SelectOption[];
+	statuses: SelectOption[];
 	listUrl: string;
 }
 
 export default function MemberDetailView( {
 	id,
 	states,
-	atuacao,
+	primaryFocus,
+	statuses,
 	listUrl,
 }: Props ) {
 	const [ draft, setDraft ] = useState< Draft | null >( null );
 	const [ cities, setCities ] = useState< SelectOption[] >( [] );
-	const [ lojas, setLojas ] = useState< MemberLoja[] >( [] );
+	const [ resellers, setResellers ] = useState< MemberReseller[] >( [] );
 	const [ isSaving, setIsSaving ] = useState( false );
 	const [ notice, setNotice ] = useState< {
 		status: 'success' | 'error';
@@ -75,7 +47,7 @@ export default function MemberDetailView( {
 		fetchMember( id )
 			.then( ( member ) => {
 				setDraft( toDraft( member ) );
-				setLojas( member.lojas ?? [] );
+				setResellers( member.resellers ?? [] );
 			} )
 			.catch( ( err: { message?: string } ) =>
 				setNotice( {
@@ -90,7 +62,7 @@ export default function MemberDetailView( {
 			);
 	}, [ id ] );
 
-	const uf = draft?.uf ?? '';
+	const uf = draft?.state ?? '';
 	useEffect( () => {
 		if ( ! uf ) {
 			setCities( [] );
@@ -104,7 +76,7 @@ export default function MemberDetailView( {
 	const fields: Field< Draft >[] = useMemo(
 		() => [
 			{
-				id: 'nome',
+				id: 'fullname',
 				readOnly: true,
 				label: __( 'Nome completo', 'axellcore-atelierclub' ),
 				type: 'text',
@@ -116,19 +88,19 @@ export default function MemberDetailView( {
 				type: 'email',
 			},
 			{
-				id: 'telefone',
+				id: 'phone',
 				readOnly: true,
 				label: __( 'Telefone', 'axellcore-atelierclub' ),
 				type: 'telephone',
 			},
 			{
-				id: 'escritorio',
+				id: 'company',
 				readOnly: true,
 				label: __( 'Escritório / Atelê', 'axellcore-atelierclub' ),
 				type: 'text',
 			},
 			{
-				id: 'registro',
+				id: 'professional_registration',
 				readOnly: true,
 				label: __(
 					'Registro (CAU / CREA / ABD)',
@@ -137,38 +109,35 @@ export default function MemberDetailView( {
 				type: 'text',
 			},
 			{
-				id: 'atuacao',
+				id: 'primary_focus',
 				readOnly: true,
 				label: __( 'Atuação principal', 'axellcore-atelierclub' ),
 				type: 'text',
 				Edit: 'select',
-				elements: atuacao.map( ( value ) => ( {
-					value,
-					label: value,
-				} ) ),
+				elements: primaryFocus,
 			},
 			{
-				id: 'portfolio',
+				id: 'url',
 				readOnly: true,
 				label: __( 'Portfólio (URL)', 'axellcore-atelierclub' ),
 				type: 'url',
 			},
 			{
-				id: 'tipoDoc',
+				id: 'profile_type',
 				readOnly: true,
 				label: __( 'Tipo de cadastro', 'axellcore-atelierclub' ),
 				type: 'text',
 				Edit: 'select',
 				elements: [
 					{
-						value: 'cpf',
+						value: 'individual',
 						label: __(
 							'Pessoa Física · CPF',
 							'axellcore-atelierclub'
 						),
 					},
 					{
-						value: 'cnpj',
+						value: 'legal_entity',
 						label: __(
 							'Pessoa Jurídica · CNPJ',
 							'axellcore-atelierclub'
@@ -177,13 +146,14 @@ export default function MemberDetailView( {
 				],
 			},
 			{
-				id: 'documento',
+				id: 'br_revenue_id',
 				readOnly: true,
 				label: __( 'CPF ou CNPJ', 'axellcore-atelierclub' ),
 				type: 'text',
+				getValue: ( { item } ) => formatDocument( item.br_revenue_id ?? '' ),
 			},
 			{
-				id: 'uf',
+				id: 'state',
 				readOnly: true,
 				label: __( 'UF', 'axellcore-atelierclub' ),
 				type: 'text',
@@ -195,7 +165,7 @@ export default function MemberDetailView( {
 				} ) ),
 			},
 			{
-				id: 'cidade',
+				id: 'city',
 				readOnly: true,
 				label: __( 'Cidade', 'axellcore-atelierclub' ),
 				type: 'text',
@@ -203,70 +173,82 @@ export default function MemberDetailView( {
 				elements: cities,
 			},
 			{
-				id: 'rua',
+				id: 'address_street',
 				readOnly: true,
 				label: __( 'Logradouro', 'axellcore-atelierclub' ),
 				type: 'text',
 			},
 			{
-				id: 'numero',
+				id: 'address_number',
 				readOnly: true,
 				label: __( 'Número', 'axellcore-atelierclub' ),
 				type: 'text',
 			},
 			{
-				id: 'complemento',
+				id: 'address_2',
 				readOnly: true,
 				label: __( 'Complemento', 'axellcore-atelierclub' ),
 				type: 'text',
 			},
 			{
-				id: 'bairro',
+				id: 'neighborhood',
 				readOnly: true,
 				label: __( 'Bairro', 'axellcore-atelierclub' ),
 				type: 'text',
 			},
 			{
-				id: 'referencia',
+				id: 'landmark',
 				readOnly: true,
 				label: __( 'Referência', 'axellcore-atelierclub' ),
 				type: 'text',
 			},
 			{
-				id: 'cep',
+				id: 'postal',
 				readOnly: true,
 				label: __( 'CEP', 'axellcore-atelierclub' ),
 				type: 'text',
 			},
 			{
-				id: 'loja1',
+				id: 'reseller1',
 				readOnly: true,
 				label: __( 'Loja parceira 1', 'axellcore-atelierclub' ),
 				type: 'text',
+				render: () => <ResellerValue reseller={ resellers.find( ( r ) => r.field === 'reseller1' ) } />,
 			},
 			{
-				id: 'loja2',
+				id: 'reseller2',
 				readOnly: true,
 				label: __( 'Loja parceira 2', 'axellcore-atelierclub' ),
 				type: 'text',
+				render: () => <ResellerValue reseller={ resellers.find( ( r ) => r.field === 'reseller2' ) } />,
 			},
 			{
-				id: 'loja3',
+				id: 'reseller3',
 				readOnly: true,
 				label: __( 'Loja parceira 3', 'axellcore-atelierclub' ),
 				type: 'text',
+				render: () => <ResellerValue reseller={ resellers.find( ( r ) => r.field === 'reseller3' ) } />,
 			},
 			{
-				id: 'loja4',
+				id: 'reseller4',
 				readOnly: true,
 				label: __( 'Loja parceira 4', 'axellcore-atelierclub' ),
 				type: 'text',
+				render: () => <ResellerValue reseller={ resellers.find( ( r ) => r.field === 'reseller4' ) } />,
+			},
+			{
+				id: 'reseller5',
+				readOnly: true,
+				label: __( 'Loja parceira 5', 'axellcore-atelierclub' ),
+				type: 'text',
+				render: () => <ResellerValue reseller={ resellers.find( ( r ) => r.field === 'reseller5' ) } />,
 			},
 			{
 				id: 'status',
 				label: __( 'Status', 'axellcore-atelierclub' ),
 				type: 'text',
-				readOnly: true,
+				Edit: 'select',
+				elements: statuses,
 			},
 			{
 				id: 'data',
@@ -275,7 +257,7 @@ export default function MemberDetailView( {
 				readOnly: true,
 			},
 		],
-		[ states, atuacao, cities ]
+		[ states, primaryFocus, statuses, cities, resellers ]
 	);
 
 	// Same rows as the public form (design/bootstrap/pure/adesao): fields that
@@ -295,19 +277,25 @@ export default function MemberDetailView( {
 
 	const form: Form = {
 		fields: [
-			card( 'autoria', __( 'Autoria', 'axellcore-atelierclub' ), [
-				row( 'autoria-1', [ 'nome', 'escritorio' ] ),
-				row( 'autoria-2', [ 'email', 'telefone', 'registro' ] ),
-				row( 'autoria-3', [ 'atuacao', 'portfolio' ] ),
+			card( 'status', __( 'Cadastro', 'axellcore-atelierclub' ), [
+				row( 'status-1', [ 'status', 'data' ] ),
 			] ),
-			card( 'documento', __( 'Documento', 'axellcore-atelierclub' ), [
-				row( 'documento-1', [ 'tipoDoc', 'documento' ] ),
+			card( 'autoria', __( 'Autoria', 'axellcore-atelierclub' ), [
+				row( 'autoria-1', [ 'fullname', 'company' ] ),
+				row( 'autoria-2', [ 'email', 'phone', 'professional_registration' ] ),
+				row( 'autoria-3', [ 'primary_focus', 'url' ] ),
+			] ),
+			card( 'br_revenue_id', __( 'Documento', 'axellcore-atelierclub' ), [
+				row( 'documento-1', [ 'profile_type', 'br_revenue_id' ] ),
 			] ),
 			card( 'endereco', __( 'Endereço do escritório', 'axellcore-atelierclub' ), [
-				row( 'endereco-1', [ 'rua', 'numero', 'complemento' ] ),
-				row( 'endereco-2', [ 'bairro', 'referencia' ] ),
-				row( 'endereco-3', [ 'cidade', 'uf', 'cep' ] ),
+				row( 'endereco-1', [ 'address_street', 'address_number', 'address_2' ] ),
+				row( 'endereco-2', [ 'neighborhood', 'landmark' ] ),
+				row( 'endereco-3', [ 'city', 'state', 'postal' ] ),
 			] ),
+			...( resellers.length
+				? [ card( 'resellers', __( 'Lojas parceiras', 'axellcore-atelierclub' ), resellers.map( ( r ) => r.field ) ) ]
+				: [] ),
 		],
 	};
 
@@ -320,6 +308,25 @@ export default function MemberDetailView( {
 	}
 
 	function onChange( edits: Partial< Draft > ) {
+		// The status (the member role) is the one editable field: approving
+		// saves right away.
+		if ( edits.status !== undefined && edits.status !== draft?.status ) {
+			const status = edits.status;
+			saveMember( id, { status } )
+				.then( ( member ) => {
+					setDraft( toDraft( member ) );
+					setNotice( {
+						status: 'success',
+						message: __( 'Status atualizado.', 'axellcore-atelierclub' ),
+					} );
+				} )
+				.catch( ( error: { message?: string } ) =>
+					setNotice( {
+						status: 'error',
+						message: error.message || __( 'Não foi possível salvar.', 'axellcore-atelierclub' ),
+					} )
+				);
+		}
 		setDraft( ( prev ) => {
 			if ( ! prev ) {
 				return prev;
@@ -329,8 +336,8 @@ export default function MemberDetailView( {
 				next[ key ] = value ?? '';
 			}
 			// A different state invalidates the chosen city.
-			if ( edits.uf !== undefined && edits.uf !== prev.uf ) {
-				next.cidade = '';
+			if ( edits.state !== undefined && edits.state !== prev.state ) {
+				next.city = '';
 			}
 			return next;
 		} );
@@ -358,7 +365,6 @@ export default function MemberDetailView( {
 				form={ form }
 				onChange={ onChange }
 			/>
-			<LojasParceiras lojas={ lojas } />
 		</>
 	);
 }
@@ -383,43 +389,36 @@ function WarningIcon() {
 }
 
 /**
- * The partner stores of the member. A store linked to an revenda that is
- * still pending shows a warning and a link to open it for curation.
+ * A partner store: its text and, for a store waiting for curadoria, a
+ * warning with the link to it.
  * @param root0
- * @param root0.lojas
+ * @param root0.reseller
  */
-function LojasParceiras( { lojas }: { lojas: MemberLoja[] } ) {
-	if ( ! lojas.length ) {
+function ResellerValue( { reseller }: { reseller?: MemberReseller } ) {
+	if ( ! reseller ) {
 		return null;
 	}
 	return (
-		<section className="aa-lojas-parceiras">
-			<h3>{ __( 'Lojas parceiras', 'axellcore-atelierclub' ) }</h3>
-			<ul>
-				{ lojas.map( ( loja ) => (
-					<li key={ loja.field }>
-						<span>{ loja.title }</span>
-						{ loja.pending && (
-							<>
-								{ ' ' }
-								<span
-									className="aa-loja-pendente"
-									role="img"
-									aria-label={ __( 'Pendente de curadoria', 'axellcore-atelierclub' ) }
-									title={ __( 'Pendente de curadoria', 'axellcore-atelierclub' ) }
-								>
-									<WarningIcon />
-								</span>{ ' ' }
-								{ loja.url && (
-									<a href={ loja.url }>
-										{ __( 'Abrir loja', 'axellcore-atelierclub' ) }
-									</a>
-								) }
-							</>
-						) }
-					</li>
-				) ) }
-			</ul>
-		</section>
+		<span className="aa-reseller">
+			<span>{ reseller.title }</span>
+			{ reseller.pending && (
+				<>
+					{ ' ' }
+					<span
+						className="aa-reseller-pending"
+						role="img"
+						aria-label={ __( 'Pendente de curadoria', 'axellcore-atelierclub' ) }
+						title={ __( 'Pendente de curadoria', 'axellcore-atelierclub' ) }
+					>
+						<WarningIcon />
+					</span>{ ' ' }
+					{ reseller.url && (
+						<a href={ reseller.url }>
+							{ __( 'Abrir loja', 'axellcore-atelierclub' ) }
+						</a>
+					) }
+				</>
+			) }
+		</span>
 	);
 }

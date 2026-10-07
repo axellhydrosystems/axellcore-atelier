@@ -1,13 +1,14 @@
 <?php
 /**
- * Admin-only REST endpoints backing the aa_member dashboard (DataViews list
- * + DataForms detail, see src/admin/members/):
+ * Admin-only REST endpoints backing the Members dashboard (DataViews list
+ * + DataForms detail, see src/admin/members/). Members are users with the
+ * member_pending or member role; their fields are user meta named as the form fields:
  *  - GET  /axellcore-atelierclub/v1/admin/members       — paginated, filterable list.
  *  - GET  /axellcore-atelierclub/v1/admin/members/{id}  — full record.
  *  - POST /axellcore-atelierclub/v1/admin/members/{id}  — partial update.
  *
- * Everything here requires edit_posts (and edit_post per record). The list
- * returns the full CPF/CNPJ in the list and the single-record read.
+ * Listing requires list_users; reading and updating one member, edit_user
+ * on it. The list and the single-record read return the full CPF/CNPJ.
  *
  * @package Axellcore_Atelierclub
  */
@@ -29,17 +30,17 @@ final class Admin_Rest {
 	const PER_PAGE_MAX = 100;
 
 	/**
-	 * Atuação choices offered by the application form, for the dashboard's
-	 * filter and edit controls.
+	 * Primary focus choices of the adesão form (stored value => label), for
+	 * the dashboard's filter and edit controls.
 	 *
-	 * @var string[]
+	 * @var array<string,string>
 	 */
-	const ATUACAO_OPTIONS = array(
-		'Arquitetura residencial de alto padrão',
-		'Design de interiores',
-		'Arquitetura corporativa / hospitalidade',
-		'Wellness · Spa · Hotelaria',
-		'Outros',
+	const PRIMARY_FOCUS_OPTIONS = array(
+		'high_end_residential_architecture'  => 'Arquitetura residencial de alto padrão',
+		'interior_design'                    => 'Design de interiores',
+		'corporate_hospitality_architecture' => 'Arquitetura corporativa / hospitalidade',
+		'wellness_spa_hospitality'           => 'Wellness · Spa · Hotelaria',
+		'other'                              => 'Outros',
 	);
 
 	/**
@@ -85,38 +86,38 @@ final class Admin_Rest {
 				'callback'            => array( $this, 'list_members' ),
 				'permission_callback' => array( $this, 'can_manage_members' ),
 				'args'                => array(
-					'page'     => array(
+					'page'          => array(
 						'type'    => 'integer',
 						'default' => 1,
 						'minimum' => 1,
 					),
-					'per_page' => array(
+					'per_page'      => array(
 						'type'    => 'integer',
 						'default' => 20,
 						'minimum' => 1,
 						'maximum' => self::PER_PAGE_MAX,
 					),
-					'search'   => array(
+					'search'        => array(
 						'type'              => 'string',
 						'default'           => '',
 						'sanitize_callback' => 'sanitize_text_field',
 					),
-					'uf'       => array(
+					'state'         => array(
 						'type'              => 'string',
 						'default'           => '',
 						'sanitize_callback' => 'sanitize_text_field',
 					),
-					'atuacao'  => array(
+					'primary_focus' => array(
 						'type'              => 'string',
 						'default'           => '',
 						'sanitize_callback' => 'sanitize_text_field',
 					),
-					'orderby'  => array(
+					'orderby'       => array(
 						'type'    => 'string',
 						'default' => 'date',
-						'enum'    => array( 'date', 'title', 'uf' ),
+						'enum'    => array( 'date', 'title', 'state' ),
 					),
-					'order'    => array(
+					'order'         => array(
 						'type'    => 'string',
 						'default' => 'desc',
 						'enum'    => array( 'asc', 'desc' ),
@@ -149,17 +150,17 @@ final class Admin_Rest {
 	 * @return bool
 	 */
 	public function can_manage_members() {
-		return current_user_can( 'edit_posts' );
+		return current_user_can( 'list_users' );
 	}
 
 	/**
-	 * Permission: may this user read/update one specific member record.
+	 * Permission: may this user read/update one specific member.
 	 *
 	 * @param \WP_REST_Request $request Request.
 	 * @return bool
 	 */
 	public function can_edit_member( \WP_REST_Request $request ) {
-		return current_user_can( 'edit_post', (int) $request['id'] );
+		return current_user_can( 'edit_user', (int) $request['id'] );
 	}
 
 	/**
@@ -170,28 +171,32 @@ final class Admin_Rest {
 	 */
 	public function list_members( \WP_REST_Request $request ) {
 		$args = array(
-			'post_type'      => Member::POST_TYPE,
-			'post_status'    => array( 'publish', 'draft', 'pending', 'private' ),
-			'posts_per_page' => (int) $request['per_page'],
-			'paged'          => (int) $request['page'],
-			's'              => $request['search'],
-			'meta_query'     => $this->list_meta_filters( $request ), // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query -- admin-only list, small dataset.
-			'order'          => 'asc' === $request['order'] ? 'ASC' : 'DESC',
+			'role__in'    => array_keys( Member::roles() ),
+			'number'      => (int) $request['per_page'],
+			'paged'       => (int) $request['page'],
+			'meta_query'  => $this->list_meta_filters( $request ), // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query -- admin-only list, small dataset.
+			'order'       => 'asc' === $request['order'] ? 'ASC' : 'DESC',
+			'count_total' => true,
 		);
-
-		if ( 'title' === $request['orderby'] ) {
-			$args['orderby'] = 'title';
-		} elseif ( 'uf' === $request['orderby'] ) {
-			$args['meta_key'] = '_aa_uf'; // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key -- admin-only list, small dataset.
-			$args['orderby']  = 'meta_value';
-		} else {
-			$args['orderby'] = 'date';
+		if ( '' !== $request['search'] ) {
+			$args['search']         = '*' . $request['search'] . '*';
+			$args['search_columns'] = array( 'user_login', 'user_email', 'display_name' );
 		}
 
-		$query    = new \WP_Query( $args );
-		$response = rest_ensure_response( array_map( array( $this, 'summarize' ), $query->posts ) );
-		$response->header( 'X-WP-Total', (string) (int) $query->found_posts );
-		$response->header( 'X-WP-TotalPages', (string) (int) $query->max_num_pages );
+		if ( 'title' === $request['orderby'] ) {
+			$args['orderby'] = 'display_name';
+		} elseif ( 'state' === $request['orderby'] ) {
+			$args['meta_key'] = 'state'; // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key -- admin-only list, small dataset.
+			$args['orderby']  = 'meta_value';
+		} else {
+			$args['orderby'] = 'registered';
+		}
+
+		$query    = new \WP_User_Query( $args );
+		$total    = (int) $query->get_total();
+		$response = rest_ensure_response( array_map( array( $this, 'summarize' ), $query->get_results() ) );
+		$response->header( 'X-WP-Total', (string) $total );
+		$response->header( 'X-WP-TotalPages', (string) (int) ceil( $total / max( 1, (int) $request['per_page'] ) ) );
 
 		return $response;
 	}
@@ -203,12 +208,12 @@ final class Admin_Rest {
 	 * @return \WP_REST_Response|\WP_Error
 	 */
 	public function get_member( \WP_REST_Request $request ) {
-		$post = $this->member_post( (int) $request['id'] );
-		if ( is_wp_error( $post ) ) {
-			return $post;
+		$user = $this->member_user( (int) $request['id'] );
+		if ( is_wp_error( $user ) ) {
+			return $user;
 		}
 
-		return rest_ensure_response( $this->detail( $post ) );
+		return rest_ensure_response( $this->detail( $user ) );
 	}
 
 	/**
@@ -218,9 +223,9 @@ final class Admin_Rest {
 	 * @return \WP_REST_Response|\WP_Error
 	 */
 	public function update_member( \WP_REST_Request $request ) {
-		$post = $this->member_post( (int) $request['id'] );
-		if ( is_wp_error( $post ) ) {
-			return $post;
+		$user = $this->member_user( (int) $request['id'] );
+		if ( is_wp_error( $user ) ) {
+			return $user;
 		}
 
 		$params = $request->get_json_params();
@@ -228,73 +233,93 @@ final class Admin_Rest {
 			$params = array();
 		}
 
-		if ( isset( $params['nome'] ) ) {
-			$nome = $this->param_string( $params, 'nome' );
-			if ( '' === $nome ) {
+		$userdata = array( 'ID' => $user->ID );
+		if ( isset( $params['fullname'] ) ) {
+			$fullname = sanitize_text_field( $this->param_string( $params, 'fullname' ) );
+			if ( '' === $fullname ) {
 				return new \WP_Error( 'aa_missing_field', __( 'Name cannot be empty.', 'axellcore-atelierclub' ), array( 'status' => 400 ) );
 			}
-			$updated = wp_update_post(
-				array(
-					'ID'         => $post->ID,
-					'post_title' => $nome,
-				),
-				true
-			);
-			if ( is_wp_error( $updated ) ) {
-				return $updated;
-			}
+			$userdata['display_name'] = $fullname;
+			$userdata['nickname']     = $fullname;
 		}
-
 		if ( isset( $params['email'] ) ) {
 			$email = sanitize_email( $this->param_string( $params, 'email' ) );
 			if ( '' === $email || ! is_email( $email ) ) {
 				return new \WP_Error( 'aa_invalid_email', __( 'Invalid email address.', 'axellcore-atelierclub' ), array( 'status' => 400 ) );
 			}
-			update_post_meta( $post->ID, '_aa_email', $email );
-		}
-
-		if ( isset( $params['portfolio'] ) ) {
-			$this->store_meta( $post->ID, '_aa_portfolio', esc_url_raw( $this->param_string( $params, 'portfolio' ) ) );
-		}
-
-		if ( isset( $params['uf'] ) || isset( $params['cidade'] ) ) {
-			$uf   = strtoupper( sanitize_text_field( isset( $params['uf'] ) ? $this->param_string( $params, 'uf' ) : (string) get_post_meta( $post->ID, '_aa_uf', true ) ) );
-			$code = isset( $params['cidade'] ) ? absint( $this->param_string( $params, 'cidade' ) ) : ( $this->city_code( $post->ID, $uf ) ?? 0 );
-
-			$term = Locations::instance()->resolve_city_term( $uf, $code );
-			if ( null === $term ) {
-				return new \WP_Error( 'aa_invalid_location', __( 'Invalid state/city.', 'axellcore-atelierclub' ), array( 'status' => 400 ) );
+			$owner = email_exists( $email );
+			if ( $owner && (int) $owner !== $user->ID ) {
+				return new \WP_Error( 'aa_email_exists', __( 'This e-mail is already registered.', 'axellcore-atelierclub' ), array( 'status' => 409 ) );
 			}
+			$userdata['user_email'] = $email;
+		}
+		if ( isset( $params['url'] ) ) {
+			$userdata['user_url'] = esc_url_raw( $this->param_string( $params, 'url' ) );
+		}
+		if ( count( $userdata ) > 1 ) {
+			$updated = wp_update_user( $userdata );
+			if ( is_wp_error( $updated ) ) {
+				return $updated;
+			}
+		}
 
-			wp_set_object_terms( $post->ID, array( $term ), Locations::TAXONOMY );
-			update_post_meta( $post->ID, '_aa_uf', $uf );
+		if ( isset( $params['br_revenue_id'] ) ) {
+			$document = Members::digits( $this->param_string( $params, 'br_revenue_id' ) );
+			if ( '' !== $document && Members::document_exists( $document, $user->ID ) ) {
+				return new \WP_Error( 'aa_document_exists', __( 'This CPF/CNPJ is already registered.', 'axellcore-atelierclub' ), array( 'status' => 409 ) );
+			}
+			$this->store_meta( $user->ID, 'br_revenue_id', $document );
+		}
+
+		if ( isset( $params['state'] ) || isset( $params['city'] ) ) {
+			$location = Members::location(
+				'' !== $this->meta( $user->ID, 'country' ) ? $this->meta( $user->ID, 'country' ) : 'BR',
+				isset( $params['state'] ) ? $this->param_string( $params, 'state' ) : $this->meta( $user->ID, 'state' ),
+				isset( $params['city'] ) ? $this->param_string( $params, 'city' ) : $this->meta( $user->ID, 'city' )
+			);
+			if ( is_wp_error( $location ) ) {
+				return $location;
+			}
+			$this->store_meta( $user->ID, 'state', $location[0] );
+			$this->store_meta( $user->ID, 'city', $location[1] );
 		}
 
 		foreach ( Members::TEXT_META_FIELDS as $field ) {
-			if ( isset( $params[ $field ] ) ) {
-				$this->store_meta( $post->ID, '_aa_' . $field, sanitize_text_field( $this->param_string( $params, $field ) ) );
+			if ( 'br_revenue_id' !== $field && isset( $params[ $field ] ) ) {
+				$this->store_meta( $user->ID, $field, sanitize_text_field( $this->param_string( $params, $field ) ) );
 			}
 		}
 
-		return rest_ensure_response( $this->detail( get_post( $post->ID ) ) );
+		// Approval: the status is the member role.
+		if ( isset( $params['status'] ) ) {
+			$role = $this->param_string( $params, 'status' );
+			if ( ! isset( Member::roles()[ $role ] ) ) {
+				return new \WP_Error( 'aa_invalid_status', __( 'Invalid status.', 'axellcore-atelierclub' ), array( 'status' => 400 ) );
+			}
+			if ( ! in_array( $role, $user->roles, true ) ) {
+				$user->set_role( $role );
+			}
+		}
+
+		return rest_ensure_response( $this->detail( get_userdata( $user->ID ) ) );
 	}
 
 	/**
-	 * Fetch an aa_member post, or a 404 WP_Error.
+	 * Fetch a member user (either member role), or a 404 WP_Error.
 	 *
-	 * @param int $id Post ID.
-	 * @return \WP_Post|\WP_Error
+	 * @param int $id User ID.
+	 * @return \WP_User|\WP_Error
 	 */
-	private function member_post( int $id ) {
-		$post = get_post( $id );
-		if ( ! $post || Member::POST_TYPE !== $post->post_type ) {
+	private function member_user( int $id ) {
+		$user = get_userdata( $id );
+		if ( ! $user || ! array_intersect( array_keys( Member::roles() ), $user->roles ) ) {
 			return new \WP_Error( 'aa_not_found', __( 'Member not found.', 'axellcore-atelierclub' ), array( 'status' => 404 ) );
 		}
-		return $post;
+		return $user;
 	}
 
 	/**
-	 * Meta_query clauses for the list's uf/atuacao filters.
+	 * Meta_query clauses for the list's state/primary_focus filters.
 	 *
 	 * @param \WP_REST_Request $request Request.
 	 * @return array
@@ -302,16 +327,16 @@ final class Admin_Rest {
 	private function list_meta_filters( \WP_REST_Request $request ) {
 		$clauses = array();
 
-		if ( '' !== $request['uf'] ) {
+		if ( '' !== $request['state'] ) {
 			$clauses[] = array(
-				'key'   => '_aa_uf',
-				'value' => strtoupper( $request['uf'] ),
+				'key'   => 'state',
+				'value' => strtoupper( $request['state'] ),
 			);
 		}
-		if ( '' !== $request['atuacao'] ) {
+		if ( '' !== $request['primary_focus'] ) {
 			$clauses[] = array(
-				'key'   => '_aa_atuacao',
-				'value' => $request['atuacao'],
+				'key'   => 'primary_focus',
+				'value' => $request['primary_focus'],
 			);
 		}
 
@@ -319,108 +344,94 @@ final class Admin_Rest {
 	}
 
 	/**
+	 * The member's status: its member role.
+	 *
+	 * @param \WP_User $user Member user.
+	 * @return string
+	 */
+	private function status( \WP_User $user ) {
+		return in_array( Member::ROLE, $user->roles, true ) ? Member::ROLE : Member::ROLE_PENDING;
+	}
+
+	/**
 	 * Compact row shape for the list view.
 	 *
-	 * @param \WP_Post $post Member post.
+	 * @param \WP_User $user Member user.
 	 * @return array
 	 */
-	private function summarize( \WP_Post $post ) {
+	private function summarize( \WP_User $user ) {
 		return array(
-			'id'                  => $post->ID,
-			'nome'                => $post->post_title,
-			'escritorio'          => (string) get_post_meta( $post->ID, '_aa_escritorio', true ),
-			'email'               => (string) get_post_meta( $post->ID, '_aa_email', true ),
-			'telefone'            => (string) get_post_meta( $post->ID, '_aa_telefone', true ),
-			'atuacao'             => (string) get_post_meta( $post->ID, '_aa_atuacao', true ),
-			'uf'                  => (string) get_post_meta( $post->ID, '_aa_uf', true ),
-			'cidade'              => $this->city_name( $post->ID ),
-			'documento' => (string) get_post_meta( $post->ID, '_aa_documento', true ),
-			'data'                => $post->post_date,
-			'status'              => $post->post_status,
+			'id'            => $user->ID,
+			'fullname'      => $user->display_name,
+			'company'       => $this->meta( $user->ID, 'company' ),
+			'email'         => $user->user_email,
+			'phone'         => $this->meta( $user->ID, 'phone' ),
+			'primary_focus' => $this->meta( $user->ID, 'primary_focus' ),
+			'state'         => $this->meta( $user->ID, 'state' ),
+			'city'          => $this->meta( $user->ID, 'city' ),
+			'br_revenue_id' => $this->meta( $user->ID, 'br_revenue_id' ),
+			'data'          => $user->user_registered,
+			'status'        => $this->status( $user ),
 		);
 	}
 
 	/**
-	 * Full record, for the detail/edit view. Includes unmasked CPF/CNPJ.
+	 * Full record, for the detail/edit view. Includes the unmasked CPF/CNPJ.
 	 *
-	 * @param \WP_Post $post Member post.
+	 * @param \WP_User $user Member user.
 	 * @return array
 	 */
-	private function detail( \WP_Post $post ) {
-		$uf   = (string) get_post_meta( $post->ID, '_aa_uf', true );
+	private function detail( \WP_User $user ) {
 		$data = array(
-			'id'          => $post->ID,
-			'nome'        => $post->post_title,
-			'email'       => (string) get_post_meta( $post->ID, '_aa_email', true ),
-			'portfolio'   => (string) get_post_meta( $post->ID, '_aa_portfolio', true ),
-			'uf'          => $uf,
-			'cidade'      => $this->city_code( $post->ID, $uf ),
-			'cidade_nome' => $this->city_name( $post->ID ),
-			'data'        => $post->post_date,
-			'status'      => $post->post_status,
+			'id'       => $user->ID,
+			'fullname' => $user->display_name,
+			'email'    => $user->user_email,
+			'login'    => $user->user_login,
+			'url'      => $user->user_url,
+			'state'    => $this->meta( $user->ID, 'state' ),
+			'city'     => $this->meta( $user->ID, 'city' ),
+			'data'     => $user->user_registered,
+			'status'   => $this->status( $user ),
 		);
 
 		foreach ( Members::TEXT_META_FIELDS as $field ) {
-			$data[ $field ] = (string) get_post_meta( $post->ID, '_aa_' . $field, true );
+			$data[ $field ] = $this->meta( $user->ID, $field );
 		}
 
 		// Partner stores are shown by their text, not their ID.
-		$lojas = array();
-		foreach ( Members::LOJA_FIELDS as $field ) {
-			$data[ $field ] = (string) get_post_meta( $post->ID, '_aa_' . $field . '_titulo', true );
+		$resellers = array();
+		foreach ( Members::RESELLER_FIELDS as $field ) {
+			$data[ $field ] = $this->meta( $user->ID, $field . '_title' );
 
-			$loja_id = (int) get_post_meta( $post->ID, '_aa_' . $field, true );
-			if ( '' === $data[ $field ] && ! $loja_id ) {
+			$reseller_id = (int) $this->meta( $user->ID, $field );
+			if ( '' === $data[ $field ] && ! $reseller_id ) {
 				continue;
 			}
-			// A store linked to an revenda shows its status: "pending" needs curation.
-			$status  = $loja_id ? (string) get_post_status( $loja_id ) : '';
-			$lojas[] = array(
+			// A store linked to a revenda shows its status: "pending" needs curation.
+			$status      = $reseller_id ? (string) get_post_status( $reseller_id ) : '';
+			$resellers[] = array(
 				'field'   => $field,
 				'title'   => $data[ $field ],
-				'id'      => $loja_id,
+				'id'      => $reseller_id,
 				'status'  => $status,
 				'pending' => 'pending' === $status,
-				'url'     => $loja_id ? (string) get_edit_post_link( $loja_id, 'raw' ) : '',
+				'url'     => $reseller_id ? (string) get_edit_post_link( $reseller_id, 'raw' ) : '',
 			);
 		}
-		$data['lojas'] = $lojas;
+		$data['resellers'] = $resellers;
 
 		return $data;
 	}
 
 	/**
-	 * Name of the member's city term, or '' if none.
+	 * One member field (user meta under its name), '' when unset.
 	 *
-	 * @param int $post_id Member post ID.
+	 * @param int    $user_id User ID.
+	 * @param string $name    Field name.
 	 * @return string
 	 */
-	private function city_name( int $post_id ) {
-		$terms = wp_get_object_terms( $post_id, Locations::TAXONOMY );
-		return ( ! is_wp_error( $terms ) && ! empty( $terms ) ) ? $terms[0]->name : '';
-	}
-
-	/**
-	 * IBGE code of the member's city, reverse-looked-up from its term name
-	 * within the given state, or null if it can't be matched.
-	 *
-	 * @param int    $post_id Member post ID.
-	 * @param string $uf      Two-letter state code.
-	 * @return int|null
-	 */
-	private function city_code( int $post_id, string $uf ) {
-		$name = $this->city_name( $post_id );
-		if ( '' === $name || '' === $uf ) {
-			return null;
-		}
-
-		foreach ( Locations::instance()->cities_for_state( $uf ) as $code => $city ) {
-			if ( $city === $name ) {
-				return (int) $code;
-			}
-		}
-
-		return null;
+	private function meta( int $user_id, string $name ) {
+		return (string) get_user_meta( $user_id, $name, true );
 	}
 
 	/**
@@ -435,17 +446,17 @@ final class Admin_Rest {
 	}
 
 	/**
-	 * Write or (for an empty value) delete one meta key.
+	 * Write or (for an empty value) delete one member field.
 	 *
-	 * @param int    $post_id Post ID.
-	 * @param string $key     Meta key.
+	 * @param int    $user_id User ID.
+	 * @param string $name    Field name.
 	 * @param string $value   Sanitized value.
 	 */
-	private function store_meta( int $post_id, string $key, string $value ) {
+	private function store_meta( int $user_id, string $name, string $value ) {
 		if ( '' === $value ) {
-			delete_post_meta( $post_id, $key );
+			delete_user_meta( $user_id, $name );
 			return;
 		}
-		update_post_meta( $post_id, $key, $value );
+		update_user_meta( $user_id, $name, $value );
 	}
 }

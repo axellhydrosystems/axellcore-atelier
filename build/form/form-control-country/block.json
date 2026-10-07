@@ -21,7 +21,7 @@
     },
     "name": {
       "type": "string",
-      "default": "pais"
+      "default": "country"
     },
     "placeholder": {
       "type": "string",

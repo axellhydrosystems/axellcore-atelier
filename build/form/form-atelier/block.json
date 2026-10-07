@@ -19,7 +19,7 @@
     },
     "storePostType": {
       "type": "string",
-      "default": "aa_member"
+      "default": "member"
     },
     "storeStatus": {
       "type": "string",
@@ -27,7 +27,7 @@
     },
     "titleField": {
       "type": "string",
-      "default": "nome"
+      "default": "fullname"
     },
     "sendEmail": {
       "type": "boolean",

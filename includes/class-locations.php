@@ -80,7 +80,8 @@ final class Locations {
 	}
 
 	/**
-	 * Register the `aa_location` taxonomy on the `aa_member` post type.
+	 * Register the `aa_location` taxonomy (no object type: members are
+	 * users now and keep their city as an IBGE code in user meta).
 	 *
 	 * Deliberately locked down in wp-admin — the same restriction the
 	 * frontend form already has (a fixed Estado/Cidade select, never free
@@ -100,7 +101,7 @@ final class Locations {
 	public function register_taxonomy() {
 		register_taxonomy(
 			self::TAXONOMY,
-			Member::POST_TYPE,
+			array(),
 			array(
 				'labels'            => array(
 					'name'          => __( 'Locations', 'axellcore-atelierclub' ),

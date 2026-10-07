@@ -7,9 +7,9 @@ export interface ListQuery {
 	page: number;
 	perPage: number;
 	search: string;
-	uf: string;
-	atuacao: string;
-	orderby: 'date' | 'title' | 'uf';
+	state: string;
+	primaryFocus: string;
+	orderby: 'date' | 'title' | 'state';
 	order: 'asc' | 'desc';
 }
 
@@ -24,8 +24,8 @@ export async function fetchMembers( query: ListQuery ): Promise< ListResult > {
 		page: String( query.page ),
 		per_page: String( query.perPage ),
 		search: query.search,
-		uf: query.uf,
-		atuacao: query.atuacao,
+		state: query.state,
+		primary_focus: query.primaryFocus,
 		orderby: query.orderby,
 		order: query.order,
 	} );
@@ -62,8 +62,9 @@ export function fetchCities( uf: string ): Promise< SelectOption[] > {
 	return apiFetch< Array< { value: number; label: string } > >( {
 		path: `${ BASE }/cities?uf=${ encodeURIComponent( uf ) }`,
 	} ).then( ( items ) =>
+		// Members store the city name, not its IBGE code.
 		items.map( ( item ) => ( {
-			value: String( item.value ),
+			value: item.label,
 			label: item.label,
 		} ) )
 	);

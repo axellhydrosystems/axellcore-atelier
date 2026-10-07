@@ -100,6 +100,22 @@ if ( ! class_exists( 'WP_Error' ) ) {
 		public function get_error_data() {
 			return $this->data;
 		}
+
+		public function get_error_message() {
+			return $this->message;
+		}
+	}
+}
+
+if ( ! class_exists( 'WP_User' ) ) {
+	class WP_User {
+		public $ID              = 0;
+		public $roles           = array();
+		public $user_login      = '';
+		public $user_email      = '';
+		public $user_url        = '';
+		public $user_registered = '';
+		public $display_name    = '';
 	}
 }
 

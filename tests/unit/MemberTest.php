@@ -24,23 +24,37 @@ final class MemberTest extends TestCase {
 		parent::tearDown();
 	}
 
-	public function test_register_post_type_registers_aa_member_as_non_public(): void {
+	public function test_roles_are_added_once_pending_without_capabilities(): void {
 		Functions\when( '__' )->returnArg( 1 );
+		Functions\when( 'get_role' )->justReturn( null );
+		$added = array();
+		Functions\when( 'add_role' )->alias(
+			static function ( $role, $label, $caps ) use ( &$added ) {
+				$added[ $role ] = $caps;
+				return null;
+			}
+		);
 
-		Functions\expect( 'register_post_type' )
-			->once()
-			->with(
-				Member::POST_TYPE,
-				\Mockery::on(
-					function ( $args ) {
-						return false === $args['public']
-							&& true === $args['show_ui']
-							&& array( 'title' ) === $args['supports'];
-					}
-				)
-			);
+		Member::instance()->register_roles();
 
-		Member::instance()->register_post_type();
+		$this->assertSame( array(), $added[ Member::ROLE_PENDING ] );
+		$this->assertSame( array( 'read' => true ), $added[ Member::ROLE ] );
+	}
+
+	public function test_existing_roles_are_not_added_again(): void {
+		Functions\when( '__' )->returnArg( 1 );
+		Functions\when( 'get_role' )->justReturn( new \stdClass() );
+		Functions\when( 'wp_roles' )->justReturn(
+			(object) array(
+				'role_names' => array(
+					Member::ROLE_PENDING => 'Membro Pendente',
+					Member::ROLE         => 'Membro',
+				),
+			)
+		);
+		Functions\expect( 'add_role' )->never();
+
+		Member::instance()->register_roles();
 
 		$this->addToAssertionCount( 1 );
 	}

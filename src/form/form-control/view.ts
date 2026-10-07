@@ -14,7 +14,7 @@ interface AutocompleteContext {
 	/** The field's value: the typed text, or the highlighted option's label. */
 	text: string;
 	selectedId: string;
-	titulo: string;
+	title: string;
 	open: boolean;
 	notFound: boolean;
 	loading: boolean;
@@ -46,7 +46,7 @@ const serverState = (): { optionsUrl: string } =>
  *
  * @param context Autocomplete context.
  */
-function composeTitulo( context: AutocompleteContext ): string {
+function composeTitle( context: AutocompleteContext ): string {
 	const nome = context.customName.trim();
 	const cidade = context.customCity.trim();
 	return nome && context.customUf && cidade
@@ -66,7 +66,7 @@ function choose( context: AutocompleteContext, index: number ) {
 		context.selectedId = String( option.id );
 		context.query = option.label;
 		context.text = option.label;
-		context.titulo = option.label;
+		context.title = option.label;
 		context.notFound = false;
 		context.custom = false;
 	} else {
@@ -74,7 +74,7 @@ function choose( context: AutocompleteContext, index: number ) {
 		context.notFound = true;
 		context.custom = true;
 		context.customName = context.query.trim();
-		context.titulo = composeTitulo( context );
+		context.title = composeTitle( context );
 	}
 	context.open = false;
 	context.activeIndex = -1;
@@ -90,7 +90,7 @@ const { state } = store( 'axell/autocomplete', {
 
 			context.query = query;
 			context.text = query;
-			context.titulo = query;
+			context.title = query;
 			context.selectedId = '';
 			context.notFound = false;
 			context.custom = false;
@@ -136,14 +136,14 @@ const { state } = store( 'axell/autocomplete', {
 			const input = event.target as HTMLInputElement;
 			const context = getContext< AutocompleteContext >();
 			context.customName = input.value;
-			context.titulo = composeTitulo( context );
+			context.title = composeTitle( context );
 		},
 
 		onCustomCity( event: Event ) {
 			const select = event.target as HTMLSelectElement;
 			const context = getContext< AutocompleteContext >();
 			context.customCity = select.value;
-			context.titulo = composeTitulo( context );
+			context.title = composeTitle( context );
 		},
 
 		backToSearch( event: MouseEvent ) {
@@ -151,7 +151,7 @@ const { state } = store( 'axell/autocomplete', {
 			context.custom = false;
 			context.notFound = false;
 			context.selectedId = '';
-			context.titulo = '';
+			context.title = '';
 			context.activeIndex = -1;
 			// Back to the search with the list open (its options and the add row).
 			context.text = context.query;
@@ -171,7 +171,7 @@ const { state } = store( 'axell/autocomplete', {
 			context.customUf = select.value;
 			context.customCity = '';
 			context.cityOptions = [];
-			context.titulo = composeTitulo( context );
+			context.title = composeTitle( context );
 
 			if ( ! select.value ) {
 				return;
@@ -269,7 +269,7 @@ const { state } = store( 'axell/autocomplete', {
 			if ( ! context.selectedId && ! context.custom ) {
 				context.query = '';
 				context.text = '';
-				context.titulo = '';
+				context.title = '';
 				context.options = [];
 				context.loading = false;
 			}

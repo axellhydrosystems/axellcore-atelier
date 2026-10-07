@@ -93,6 +93,7 @@ final class Plugin {
 		Options_Rest::instance()->register_hooks();
 		Kses::instance()->register_hooks();
 		Admin_Rest::instance()->register_hooks();
+		Members_Export::instance()->register_hooks();
 		Template_Parts::instance()->register_hooks();
 		Classic_Template::instance()->register_hooks();
 		Reveal::instance()->register_hooks();

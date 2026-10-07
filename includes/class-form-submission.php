@@ -72,14 +72,19 @@ final class Form_Submission {
 	}
 
 	/**
-	 * Post types the form can store into, for the block's settings panel (the
-	 * member type is not in REST, so core-data cannot list it).
+	 * Targets the form can store into, for the block's settings panel:
+	 * members (users) and the post types with an admin UI.
 	 *
 	 * @param array $settings Block editor settings.
 	 * @return array
 	 */
 	public function editor_settings( $settings ) {
-		$types = array();
+		$types = array(
+			array(
+				'value' => Members::STORE,
+				'label' => __( 'Membro (usuário)', 'axellcore-atelierclub' ),
+			),
+		);
 		foreach ( get_post_types( array( 'show_ui' => true ), 'objects' ) as $type ) {
 			if ( in_array( $type->name, array( 'attachment', 'wp_block', 'wp_navigation', 'wp_template', 'wp_template_part' ), true ) ) {
 				continue;
@@ -208,12 +213,17 @@ final class Form_Submission {
 
 		// Content saved before the actions existed: "Membro (REST)" stored members.
 		if ( empty( $attrs['storePostType'] ) && ! empty( $attrs['submitsToRest'] ) ) {
-			$attrs['storePostType'] = Member::POST_TYPE;
+			$attrs['storePostType'] = Members::STORE;
+		}
+		// Members were the aa_member post type; now they are users.
+		$target = (string) ( $attrs['storePostType'] ?? '' );
+		if ( 'aa_member' === $target ) {
+			$target = Members::STORE;
 		}
 
 		$status = (string) ( $attrs['storeStatus'] ?? 'pending' );
 		return array(
-			'storePostType' => post_type_exists( (string) ( $attrs['storePostType'] ?? '' ) ) ? (string) $attrs['storePostType'] : '',
+			'storePostType' => Members::STORE === $target || post_type_exists( $target ) ? $target : '',
 			'storeStatus'   => in_array( $status, array( 'pending', 'publish', 'draft', 'private' ), true ) ? $status : 'pending',
 			'titleField'    => (string) ( $attrs['titleField'] ?? '' ),
 			'sendEmail'     => ! empty( $attrs['sendEmail'] ),

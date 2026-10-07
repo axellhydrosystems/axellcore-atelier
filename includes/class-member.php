@@ -1,9 +1,10 @@
 <?php
 /**
- * Registers the `aa_member` post type — one record per submitted Atelier
- * Club application (created by Members::create_from_params() on form submission).
- * Internal record-keeping only (not a public post type): admins review
- * submissions in wp-admin, nothing here is ever queried on the frontend.
+ * Members are WordPress users: an adesão submission creates a user with the
+ * `member_pending` role (Members::create_from_params()), and the curadoria
+ * approves it by switching the role to `member`. This class registers both
+ * roles and the Members admin page (the DataViews/DataForms app over those
+ * users, src/admin/members/).
  *
  * @package Axellcore_Atelierclub
  */
@@ -15,14 +16,24 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * `aa_member` post type registration.
+ * Member roles and admin page.
  */
 final class Member {
 
 	/**
-	 * Post type slug.
+	 * Role of a submitted application, waiting for the curadoria.
 	 */
-	const POST_TYPE = 'aa_member';
+	const ROLE_PENDING = 'member_pending';
+
+	/**
+	 * Role of an approved member.
+	 */
+	const ROLE = 'member';
+
+	/**
+	 * Slug of the Members admin page (admin.php?page=members).
+	 */
+	const ADMIN_PAGE = 'members';
 
 	/**
 	 * Singleton instance.
@@ -52,28 +63,110 @@ final class Member {
 	 * Register hooks.
 	 */
 	public function register_hooks() {
-		add_action( 'init', array( $this, 'register_post_type' ) );
+		add_action( 'init', array( $this, 'register_roles' ) );
+		add_action( 'admin_menu', array( $this, 'register_admin_page' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin' ) );
 		add_filter( 'admin_body_class', array( $this, 'admin_body_class' ) );
 	}
 
 	/**
-	 * Screen IDs of the members list and single-record edit screens, which
-	 * the DataViews/DataForms app replaces.
+	 * Both member roles, with their status label.
 	 *
-	 * @var array<string,string> Screen ID => body class.
+	 * @return array<string,string> Role => label.
 	 */
-	const ADMIN_SCREENS = array(
-		'edit-aa_member' => 'aa-members-list',
-		'aa_member'      => 'aa-members-edit',
-	);
+	public static function roles() {
+		return array(
+			self::ROLE_PENDING => __( 'Aguardando aprovação', 'axellcore-atelierclub' ),
+			self::ROLE         => __( 'Membro', 'axellcore-atelierclub' ),
+		);
+	}
 
 	/**
-	 * Enqueue the DataViews/DataForms admin app on the members screens only.
+	 * Register the roles (add_role() stores them in the options), and
+	 * rename one whose stored name is not the current label.
+	 */
+	public function register_roles() {
+		$roles = array(
+			self::ROLE_PENDING => array( __( 'Membro Pendente', 'axellcore-atelierclub' ), array() ),
+			self::ROLE         => array( __( 'Membro', 'axellcore-atelierclub' ), array( 'read' => true ) ),
+		);
+		foreach ( $roles as $role => list( $name, $caps ) ) {
+			$current = get_role( $role );
+			if ( $current && wp_roles()->role_names[ $role ] === $name ) {
+				continue;
+			}
+			if ( $current ) {
+				// Users keep the role (it is stored on them by slug).
+				remove_role( $role );
+			}
+			add_role( $role, $name, $caps );
+		}
+	}
+
+	/**
+	 * The Atelier admin menu, whose first page is Members: the list, and
+	 * one member with `&member=<id>`.
+	 */
+	public function register_admin_page() {
+		// "Atelier" menu; its first item (same slug) is Members.
+		add_menu_page(
+			__( 'Members', 'axellcore-atelierclub' ),
+			__( 'Atelier', 'axellcore-atelierclub' ),
+			'list_users',
+			self::ADMIN_PAGE,
+			array( $this, 'render_admin_page' ),
+			'dashicons-groups',
+			26
+		);
+		add_submenu_page(
+			self::ADMIN_PAGE,
+			__( 'Members', 'axellcore-atelierclub' ),
+			__( 'Members', 'axellcore-atelierclub' ),
+			'list_users',
+			self::ADMIN_PAGE,
+			array( $this, 'render_admin_page' )
+		);
+	}
+
+	/**
+	 * Page shell; the app mounts after its heading.
+	 */
+	public function render_admin_page() {
+		echo '<div class="wrap"><h1 class="wp-heading-inline">' . esc_html__( 'Members', 'axellcore-atelierclub' ) . '</h1>';
+		if ( ! $this->current_member_id() && current_user_can( Members_Export::CAPABILITY ) ) {
+			printf(
+				' <a href="%s" class="page-title-action">%s</a>',
+				esc_url( admin_url( 'admin.php?page=' . Members_Export::PAGE ) ),
+				esc_html__( 'Exportar', 'axellcore-atelierclub' )
+			);
+		}
+		echo '<hr class="wp-header-end"></div>';
+	}
+
+	/**
+	 * Whether the current screen is the Members page.
+	 *
+	 * @return bool
+	 */
+	private function is_admin_page() {
+		$screen = get_current_screen();
+		return $screen && 'toplevel_page_' . self::ADMIN_PAGE === $screen->id;
+	}
+
+	/**
+	 * Member being viewed (`&member=<id>`), 0 on the list.
+	 *
+	 * @return int
+	 */
+	private function current_member_id() {
+		return isset( $_GET['member'] ) ? absint( $_GET['member'] ) : 0; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only view selection.
+	}
+
+	/**
+	 * Enqueue the DataViews/DataForms admin app on the Members page only.
 	 */
 	public function enqueue_admin() {
-		$screen = get_current_screen();
-		if ( ! $screen || ! isset( self::ADMIN_SCREENS[ $screen->id ] ) ) {
+		if ( ! $this->is_admin_page() ) {
 			return;
 		}
 
@@ -118,61 +211,40 @@ final class Member {
 			);
 		}
 
+		$options = static function ( array $map ) {
+			return array_map(
+				static function ( $value, $label ) {
+					return array(
+						'value' => $value,
+						'label' => $label,
+					);
+				},
+				array_keys( $map ),
+				$map
+			);
+		};
+
+		$page = admin_url( 'admin.php?page=' . self::ADMIN_PAGE );
 		return array(
-			'listUrl' => admin_url( 'edit.php?post_type=' . self::POST_TYPE ),
-			'editUrl' => admin_url( 'post.php?action=edit&post=' ),
-			'states'  => $states,
-			'atuacao' => Admin_Rest::ATUACAO_OPTIONS,
+			'listUrl'      => $page,
+			'editUrl'      => $page . '&member=',
+			'memberId'     => $this->current_member_id(),
+			'states'       => $states,
+			'primaryFocus' => $options( Admin_Rest::PRIMARY_FOCUS_OPTIONS ),
+			'statuses'     => $options( self::roles() ),
 		);
 	}
 
 	/**
-	 * Add the body class the app's CSS keys off on the members screens.
+	 * Add the body class the app's CSS keys off on the Members page.
 	 *
 	 * @param string $classes Space-separated body classes.
 	 * @return string
 	 */
 	public function admin_body_class( $classes ) {
-		$screen = get_current_screen();
-		if ( ! $screen || ! isset( self::ADMIN_SCREENS[ $screen->id ] ) ) {
+		if ( ! $this->is_admin_page() ) {
 			return $classes;
 		}
-		return $classes . ' ' . self::ADMIN_SCREENS[ $screen->id ];
-	}
-
-	/**
-	 * Register the post type.
-	 */
-	public function register_post_type() {
-		register_post_type(
-			self::POST_TYPE,
-			array(
-				'labels'          => array(
-					'name'               => __( 'Members', 'axellcore-atelierclub' ),
-					'singular_name'      => __( 'Member', 'axellcore-atelierclub' ),
-					'add_new_item'       => __( 'Add New Member', 'axellcore-atelierclub' ),
-					'edit_item'          => __( 'View Member', 'axellcore-atelierclub' ),
-					'view_item'          => __( 'View Member', 'axellcore-atelierclub' ),
-					'search_items'       => __( 'Search Members', 'axellcore-atelierclub' ),
-					'not_found'          => __( 'No members found.', 'axellcore-atelierclub' ),
-					'not_found_in_trash' => __( 'No members found in Trash.', 'axellcore-atelierclub' ),
-					'all_items'          => __( 'All Members', 'axellcore-atelierclub' ),
-				),
-				'description'     => __( 'A submitted Atelier Axell Club application.', 'axellcore-atelierclub' ),
-				'public'          => false,
-				'show_ui'         => true,
-				'show_in_menu'    => true,
-				'show_in_rest'    => false,
-				'menu_icon'       => 'dashicons-groups',
-				'menu_position'   => 26,
-				'supports'        => array( 'title' ),
-				'capability_type' => 'post',
-				'map_meta_cap'    => true,
-				'capabilities'    => array(
-					// Members only come from the public application form (Members::create_from_params).
-					'create_posts' => 'do_not_allow',
-				),
-			)
-		);
+		return $classes . ' ' . ( $this->current_member_id() ? 'aa-members-edit' : 'aa-members-list' );
 	}
 }

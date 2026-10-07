@@ -2,6 +2,19 @@ import { store, getContext, getElement, withScope } from '@wordpress/interactivi
 import { guessType, isValidCNPJ, isValidCPF, mask, PLACEHOLDERS } from './document';
 import type { DocType } from './document';
 
+/**
+ * Document type from the linked type field's value: `cpf` / `individual`
+ * (pessoa física) or `cnpj` / `legal_entity` (pessoa jurídica).
+ * @param value
+ */
+const docTypeOf = ( value: string ): DocType => {
+	const v = value.trim().toLowerCase();
+	if ( v === 'cpf' || v === 'individual' ) {
+		return 'cpf';
+	}
+	return v === 'cnpj' || v === 'legal_entity' ? 'cnpj' : '';
+};
+
 interface DocumentContext {
 	/** cpf or cnpj: fixed by the block, or chosen in its PF/PJ switch. '' = by length. */
 	type: DocType;
@@ -47,8 +60,8 @@ store( 'axell/document', {
 	},
 	callbacks: {
 		/**
-		 * Follow the linked type field (e.g. a "Tipo de cadastro" select named
-		 * tipoDoc): its value sets the type, and a new type clears the document.
+		 * Follow the linked type field (e.g. a "Tipo de cadastro" select): its
+		 * value sets the type (see docTypeOf), and a new type clears the document.
 		 */
 		linkType() {
 			const context = getContext< DocumentContext >();
@@ -65,7 +78,7 @@ store( 'axell/document', {
 			const input = region instanceof HTMLInputElement ? region : region.querySelector< HTMLInputElement >( 'input' );
 			const apply = withScope( () => {
 				const ctx = getContext< DocumentContext >();
-				ctx.type = ( field.value === 'cnpj' || field.value === 'cpf' ? field.value : '' ) as DocType;
+				ctx.type = docTypeOf( field.value );
 			} );
 			apply();
 			field.addEventListener( 'change', () => {

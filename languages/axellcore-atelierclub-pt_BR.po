@@ -1962,3 +1962,12 @@ msgstr "Benefícios"
 
 msgid "Channels"
 msgstr "Canais"
+
+msgid "This e-mail is already registered."
+msgstr "Este e-mail já está cadastrado."
+
+msgid "This CPF/CNPJ is already registered."
+msgstr "Este CPF/CNPJ já está cadastrado."
+
+msgid "Invalid status."
+msgstr "Status inválido."
