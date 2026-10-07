@@ -21,6 +21,8 @@ export interface AddressArgs {
 	fixed?: string;
 	/** Country: sent as a hidden field instead of a select. */
 	hiddenField?: boolean;
+	/** Phone: line type (Brazil only): both, mobile or landline. */
+	lineType?: string;
 	/** Editor preview (the hidden country shows a placeholder). */
 	isEditor?: boolean;
 }
@@ -39,9 +41,17 @@ const FIELD = 'wp-block-axell-form-control';
  * is hidden and disabled, so only the active one is submitted.
  */
 /** How a control finds its country: the chosen one, or the linked field. */
+/**
+ * The chosen country as a code: upper case, and Brazil when the block has none
+ * stored (blocks saved before the country was written out).
+ */
+export function chosenCountry( country?: string ): string {
+	return ( country ?? 'BR' ).toUpperCase();
+}
+
 function countryLink( a: AddressArgs ): Record< string, unknown > {
 	return a.countrySource === 'select'
-		? { fixedCountry: a.country || '' }
+		? { fixedCountry: chosenCountry( a.country ) }
 		: { countryField: a.countryField || 'pais' };
 }
 
@@ -102,7 +112,7 @@ export function stateMarkup( a: AddressArgs ) {
 		// The editor has no interactivity to switch the two elements: show the
 		// one the settings make active. A chosen country with a state list is
 		// a select whose first option is the placeholder; else a text field.
-		const list = a.countrySource === 'select' && STATE_LISTS.includes( a.country || '' );
+		const list = a.countrySource === 'select' && STATE_LISTS.includes( chosenCountry( a.country ) );
 		return (
 			<div { ...a.blockProps }>
 				{ list ? (
@@ -263,8 +273,11 @@ export function postalMarkup( a: AddressArgs ) {
 }
 
 export function phoneMarkup( a: AddressArgs ) {
+	// The line type only goes into the context when it narrows the number, so
+	// phones saved before it ("both") keep their markup.
+	const line = a.lineType && a.lineType !== 'both' ? { lineType: a.lineType } : {};
 	return (
-		<div { ...region( a, countryLink( a ) ) }>
+		<div { ...region( a, { ...countryLink( a ), ...line } ) }>
 			<input
 				type="tel"
 				id={ a.id }

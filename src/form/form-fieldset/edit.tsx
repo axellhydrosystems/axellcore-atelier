@@ -72,7 +72,6 @@ export default function Edit( {
 				{ showLegend && (
 					<RichText
 						tagName="legend"
-						className="aa-form-legend-text"
 						value={ attributes.legend }
 						onChange={ ( value: string ) =>
 							setAttributes( { legend: value } )

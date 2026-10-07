@@ -41,8 +41,16 @@
 			"default": "field"
 		},
 		"country": {
+			"type": "string"
+		},
+		"lineType": {
 			"type": "string",
-			"default": "BR"
+			"enum": [
+				"both",
+				"mobile",
+				"landline"
+			],
+			"default": "both"
 		}
 	},
 	"supports": {

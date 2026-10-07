@@ -51,8 +51,7 @@
       "default": "field"
     },
     "country": {
-      "type": "string",
-      "default": "BR"
+      "type": "string"
     }
   },
   "supports": {

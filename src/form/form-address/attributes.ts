@@ -10,5 +10,7 @@ export interface AddressAttributes {
 	searchable?: boolean;
 	fixed?: string;
 	hiddenField?: boolean;
+	/** Phone: line type (Brazil only): both, mobile or landline. */
+	lineType?: string;
 	[ key: string ]: unknown;
 }

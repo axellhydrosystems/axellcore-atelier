@@ -20,7 +20,7 @@
     "legend": {
       "type": "rich-text",
       "source": "rich-text",
-      "selector": ".aa-form-legend-text",
+      "selector": "legend",
       "default": ""
     }
   },

@@ -18,6 +18,8 @@ interface ControlContext {
 	fixedCountry?: string;
 	countryField?: string;
 	stateField?: string;
+	/** Phone: line type (Brazil only): mobile or landline; absent = both. */
+	lineType?: string;
 	/** City search: typed text, picked IBGE code, list open, active option. */
 	query?: string;
 	code?: string;
@@ -52,11 +54,12 @@ const fold = ( text: string ) =>
 
 /** Country of a control: chosen in its settings, or the value of its country field. */
 function countryOf( context: ControlContext ): string {
+	// Codes in upper case, whatever the field or the block stored (br = BR).
 	if ( context.fixedCountry !== undefined ) {
-		return context.fixedCountry;
+		return context.fixedCountry.toUpperCase();
 	}
 	const s = state as unknown as AddressState;
-	return s.values[ `${ context.form }|${ context.countryField || 'pais' }` ] || '';
+	return ( s.values[ `${ context.form }|${ context.countryField || 'pais' }` ] || '' ).toUpperCase();
 }
 
 const { state } = store( 'axell/address', {
@@ -197,16 +200,40 @@ const { state } = store( 'axell/address', {
 
 		/** Phone mask by country: (11) 90000-0000, (555) 555-5555, or as typed. */
 		onPhoneInput( event: Event ) {
-			const country = countryOf( getContext< ControlContext >() );
+			const context = getContext< ControlContext >();
+			const country = countryOf( context );
 			const input = event.target as HTMLInputElement;
 			const digits = input.value.replace( /\D/g, '' );
+			input.setCustomValidity( '' );
 			if ( country === 'BR' ) {
-				const v = digits.slice( 0, 11 );
-				input.value =
-					v.length > 10 ? v.replace( /^(\d{2})(\d{5})(\d{4}).*/, '($1) $2-$3' )
-					: v.length > 6 ? v.replace( /^(\d{2})(\d{4})(\d{0,4}).*/, '($1) $2-$3' )
-					: v.length > 2 ? v.replace( /^(\d{2})(\d{0,5}).*/, '($1) $2' )
-					: v.replace( /^(\d*)/, v ? '($1' : '' );
+				// Brazil tells the line apart: a mobile has 11 digits with 9 after
+				// the area code, a landline 10 digits starting with 2 to 5.
+				// With both, the first digit after the area code picks the line as
+				// it is typed: 9 is a mobile, 2 to 5 a landline (else by length).
+				const first = digits.charAt( 2 );
+				const line = context.lineType ||
+					( first === '9' ? 'mobile' : /[2-5]/.test( first ) ? 'landline' : '' );
+				const v = digits.slice( 0, line === 'landline' ? 10 : 11 );
+				const mobile = line === 'mobile' || ( ! line && v.length > 10 );
+				input.value = mobile
+					? ( v.length > 7 ? v.replace( /^(\d{2})(\d{5})(\d{0,4}).*/, '($1) $2-$3' )
+						: v.length > 2 ? v.replace( /^(\d{2})(\d{0,5}).*/, '($1) $2' )
+						: v.replace( /^(\d*)/, v ? '($1' : '' ) )
+					: ( v.length > 6 ? v.replace( /^(\d{2})(\d{4})(\d{0,4}).*/, '($1) $2-$3' )
+						: v.length > 2 ? v.replace( /^(\d{2})(\d{0,5}).*/, '($1) $2' )
+						: v.replace( /^(\d*)/, v ? '($1' : '' ) );
+				if ( v ) {
+					const isMobile = /^\d{2}9\d{8}$/.test( v );
+					const isLandline = /^\d{2}[2-5]\d{7}$/.test( v );
+					const only = context.lineType;
+					if ( only === 'mobile' && ! isMobile ) {
+						input.setCustomValidity( 'Informe um celular com DDD: (11) 9XXXX-XXXX.' );
+					} else if ( only === 'landline' && ! isLandline ) {
+						input.setCustomValidity( 'Informe um telefone fixo com DDD: (11) XXXX-XXXX.' );
+					} else if ( ! only && ! isMobile && ! isLandline ) {
+						input.setCustomValidity( 'Informe um telefone com DDD.' );
+					}
+				}
 			} else if ( country === 'US' ) {
 				const v = digits.slice( 0, 10 );
 				input.value =

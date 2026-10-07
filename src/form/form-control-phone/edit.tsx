@@ -1,12 +1,19 @@
+import { useEffect } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
 import { PanelBody, SelectControl, TextControl, ToggleControl } from '@wordpress/components';
 import type { BlockEditProps } from '@wordpress/blocks';
-import { phoneMarkup } from '../form-address/markup';
+import { phoneMarkup, chosenCountry } from '../form-address/markup';
 import type { AddressAttributes } from '../form-address/attributes';
 
 export default function Edit( { attributes, setAttributes }: BlockEditProps< AddressAttributes > ) {
 	const blockProps = useBlockProps();
+	// "Seleção" stores its country (older blocks relied on a default).
+	useEffect( () => {
+		if ( attributes.countrySource === 'select' && attributes.country === undefined ) {
+			setAttributes( { country: 'BR' } );
+		}
+	}, [ attributes.countrySource, attributes.country ] ); // eslint-disable-line react-hooks/exhaustive-deps
 
 	return (
 		<>
@@ -34,7 +41,11 @@ export default function Edit( { attributes, setAttributes }: BlockEditProps< Add
 							{ label: __( 'Campo', 'axellcore-atelierclub' ), value: 'field' },
 							{ label: __( 'Seleção', 'axellcore-atelierclub' ), value: 'select' },
 						] as { label: string; value: string }[] }
-						onChange={ ( value: string ) => setAttributes( { countrySource: value } ) }
+						onChange={ ( value: string ) =>
+							setAttributes( value === 'select'
+								? { countrySource: value, country: chosenCountry( attributes.country as string | undefined ) }
+								: { countrySource: value } )
+						}
 					/>
 					{ ( attributes.countrySource || 'field' ) === 'field' ? (
 						<TextControl
@@ -45,7 +56,7 @@ export default function Edit( { attributes, setAttributes }: BlockEditProps< Add
 					) : (
 						<SelectControl
 							label={ __( 'País', 'axellcore-atelierclub' ) }
-							value={ ( attributes.country as string ) || '' }
+							value={ chosenCountry( attributes.country as string | undefined ) }
 							options={ [
 								{ label: 'Brasil', value: 'BR' },
 								{ label: 'Estados Unidos', value: 'US' },
@@ -54,6 +65,17 @@ export default function Edit( { attributes, setAttributes }: BlockEditProps< Add
 							onChange={ ( value: string ) => setAttributes( { country: value } ) }
 						/>
 					) }
+					<SelectControl
+						label={ __( 'Tipo de telefone', 'axellcore-atelierclub' ) }
+						value={ ( attributes.lineType as string ) || 'both' }
+						options={ [
+							{ label: __( 'Ambos', 'axellcore-atelierclub' ), value: 'both' },
+							{ label: __( 'Celular', 'axellcore-atelierclub' ), value: 'mobile' },
+							{ label: __( 'Fixo', 'axellcore-atelierclub' ), value: 'landline' },
+						] as { label: string; value: string }[] }
+						help={ __( 'Só vale para números do Brasil: celular tem 11 dígitos e começa com 9 depois do DDD; fixo tem 10 e começa de 2 a 5. Nos EUA o número não indica o tipo.', 'axellcore-atelierclub' ) }
+						onChange={ ( value: string ) => setAttributes( { lineType: value } ) }
+					/>
 					<ToggleControl
 						label={ __( 'Required', 'axellcore-atelierclub' ) }
 						checked={ !! attributes.required }
@@ -61,7 +83,7 @@ export default function Edit( { attributes, setAttributes }: BlockEditProps< Add
 					/>
 				</PanelBody>
 			</InspectorControls>
-			{ phoneMarkup( { blockProps, id: attributes.id || undefined, name: attributes.name, placeholder: attributes.placeholder, required: attributes.required, countryField: attributes.countryField as string, countrySource: attributes.countrySource as string, country: attributes.country as string } ) }
+			{ phoneMarkup( { blockProps, id: attributes.id || undefined, name: attributes.name, placeholder: attributes.placeholder, required: attributes.required, countryField: attributes.countryField as string, countrySource: attributes.countrySource as string, country: attributes.country as string, lineType: attributes.lineType as string } ) }
 		</>
 	);
 }

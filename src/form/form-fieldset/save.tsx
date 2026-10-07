@@ -19,7 +19,6 @@ export default function save( {
 			{ hasLegend ? (
 				<RichText.Content
 					tagName="legend"
-					className="aa-form-legend-text"
 					value={ attributes.legend }
 				/>
 			) : null }

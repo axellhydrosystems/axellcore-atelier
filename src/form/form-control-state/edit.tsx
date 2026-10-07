@@ -1,12 +1,19 @@
+import { useEffect } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
 import { PanelBody, SelectControl, TextControl, ToggleControl } from '@wordpress/components';
 import type { BlockEditProps } from '@wordpress/blocks';
-import { stateMarkup } from '../form-address/markup';
+import { stateMarkup, chosenCountry } from '../form-address/markup';
 import type { AddressAttributes } from '../form-address/attributes';
 
 export default function Edit( { attributes, setAttributes }: BlockEditProps< AddressAttributes > ) {
 	const blockProps = useBlockProps();
+	// "Seleção" stores its country (older blocks relied on a default).
+	useEffect( () => {
+		if ( attributes.countrySource === 'select' && attributes.country === undefined ) {
+			setAttributes( { country: 'BR' } );
+		}
+	}, [ attributes.countrySource, attributes.country ] ); // eslint-disable-line react-hooks/exhaustive-deps
 
 	return (
 		<>
@@ -34,7 +41,11 @@ export default function Edit( { attributes, setAttributes }: BlockEditProps< Add
 							{ label: __( 'Campo', 'axellcore-atelierclub' ), value: 'field' },
 							{ label: __( 'Seleção', 'axellcore-atelierclub' ), value: 'select' },
 						] as { label: string; value: string }[] }
-						onChange={ ( value: string ) => setAttributes( { countrySource: value } ) }
+						onChange={ ( value: string ) =>
+							setAttributes( value === 'select'
+								? { countrySource: value, country: chosenCountry( attributes.country as string | undefined ) }
+								: { countrySource: value } )
+						}
 					/>
 					{ ( attributes.countrySource || 'field' ) === 'field' ? (
 						<TextControl
@@ -45,7 +56,7 @@ export default function Edit( { attributes, setAttributes }: BlockEditProps< Add
 					) : (
 						<SelectControl
 							label={ __( 'País', 'axellcore-atelierclub' ) }
-							value={ ( attributes.country as string ) || '' }
+							value={ chosenCountry( attributes.country as string | undefined ) }
 							options={ [
 								{ label: 'Brasil', value: 'BR' },
 								{ label: 'Estados Unidos', value: 'US' },

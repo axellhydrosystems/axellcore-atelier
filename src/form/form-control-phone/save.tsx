@@ -5,5 +5,5 @@ import type { AddressAttributes } from '../form-address/attributes';
 
 export default function save( { attributes }: BlockSaveProps< AddressAttributes > ) {
 	const blockProps = useBlockProps.save();
-	return phoneMarkup( { blockProps, id: attributes.id || undefined, name: attributes.name, placeholder: attributes.placeholder, required: attributes.required, countryField: attributes.countryField as string, countrySource: attributes.countrySource as string, country: attributes.country as string } );
+	return phoneMarkup( { blockProps, id: attributes.id || undefined, name: attributes.name, placeholder: attributes.placeholder, required: attributes.required, countryField: attributes.countryField as string, countrySource: attributes.countrySource as string, country: attributes.country as string, lineType: attributes.lineType as string } );
 }
