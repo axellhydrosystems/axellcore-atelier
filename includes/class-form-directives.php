@@ -36,10 +36,12 @@ final class Form_Directives {
 
 	/** UF codes of the custom-store panel (the reseller's own UF and city). */
 	/**
-	 * Autocomplete token for the city comboboxes: one Chrome does not know,
-	 * so it does not autofill them (it ignores "off" on address fields).
+	 * Autocomplete for the city comboboxes. A token Chrome does not know
+	 * ("aa-city-search") kept its address autofill away, but it is not a valid
+	 * value: Lighthouse fails autocomplete-valid and the agent accessibility
+	 * tree. So the valid "off".
 	 */
-	const NO_AUTOFILL = 'aa-city-search';
+	const NO_AUTOFILL = 'off';
 
 	const UF_CODES = array( 'AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO' );
 
@@ -550,9 +552,7 @@ final class Form_Directives {
 			$p,
 			array(
 				'role'                        => 'combobox',
-				// Not "off": Chrome ignores it on fields it takes for an
-				// address and autofills the text without a city being picked.
-				// A token it does not know keeps its autofill away.
+				// A combobox: no browser autofill (see NO_AUTOFILL).
 				'autocomplete'                => self::NO_AUTOFILL,
 				'aria-autocomplete'           => 'list',
 				'aria-controls'               => $list_id,

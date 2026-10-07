@@ -2,64 +2,64 @@
   "_phases": "0 none, 1 pure approved, 2 no-class approved (0.00%), 3 in /atelier, 4 in template parts",
   "sections": {
     "header": {
-      "phase": 2,
-      "note": "no-class aprovado em 2026-10-06: /atelier/header/ (post 772, template atelier-section) a 0,00% em 1440/768/390; pure /atelier/pure/header/ (post 754); menu wp_navigation 763 so com links; CTA Aderir fora do menu"
+      "phase": 4,
+      "note": "no-class aprovado em 2026-10-06: /atelier/header/ (post 772, template atelier-section) a 0,00% em 1440/768/390; pure /atelier/pure/header/ (post 754); menu wp_navigation 763 so com links; CTA Aderir fora do menu | template part axellcore-header em 2026-10-07: raiz axell/sticky-header (fixo, estado is-scrolled após 40px como o source, 0 px rolado e no topo)."
     },
     "hero": {
-      "phase": 2,
-      "note": "no-class aprovado em 2026-10-06: /atelier/hero/ (post 829, template atelier-section, foto midia 819) a 0,00% em 1440/768/390; pure /atelier/pure/hero/ (post 816)"
+      "phase": 3,
+      "note": "no-class aprovado em 2026-10-06: /atelier/hero/ (post 829, template atelier-section, foto midia 819) a 0,00% em 1440/768/390; pure /atelier/pure/hero/ (post 816) | /atelier montado em 2026-10-07 (post 6): página inteira a 0,00% em 1440/768/390 (521/88/86 px de rasterização: selects da adesão e logo do footer); reveal do source por revealMode."
     },
     "convite": {
-      "phase": 2,
-      "note": "no-class aprovado em 2026-10-06: /atelier/convite/ (post 862, template atelier-section) a 0,00% em 1440/768/390; pure /atelier/pure/convite/ (post 837)"
+      "phase": 3,
+      "note": "no-class aprovado em 2026-10-06: /atelier/convite/ (post 862, template atelier-section) a 0,00% em 1440/768/390; pure /atelier/pure/convite/ (post 837) | /atelier montado em 2026-10-07 (post 6): página inteira a 0,00% em 1440/768/390 (521/88/86 px de rasterização: selects da adesão e logo do footer); reveal do source por revealMode."
     },
     "manifesto": {
-      "phase": 2,
-      "note": "no-class aprovado em 2026-10-06: /atelier/manifesto/ (post 868) a 0,00% em 1440/768/390; pure /atelier/pure/manifesto/ (post 839) com pilares em lista ordenada"
+      "phase": 3,
+      "note": "no-class aprovado em 2026-10-06: /atelier/manifesto/ (post 868) a 0,00% em 1440/768/390; pure /atelier/pure/manifesto/ (post 839) com pilares em lista ordenada | /atelier montado em 2026-10-07 (post 6): página inteira a 0,00% em 1440/768/390 (521/88/86 px de rasterização: selects da adesão e logo do footer); reveal do source por revealMode."
     },
     "placa": {
-      "phase": 2,
-      "note": "no-class aprovado em 2026-10-07: /atelier/placa/ (post 880, template atelier-section) a 0,00% em 1440/768/390; pure /atelier/pure/placa/ (post 840); estilo de cover Pedra (is-style-stone)"
+      "phase": 3,
+      "note": "no-class aprovado em 2026-10-07: /atelier/placa/ (post 880, template atelier-section) a 0,00% em 1440/768/390; pure /atelier/pure/placa/ (post 840); estilo de cover Pedra (is-style-stone) | /atelier montado em 2026-10-07 (post 6): página inteira a 0,00% em 1440/768/390 (521/88/86 px de rasterização: selects da adesão e logo do footer); reveal do source por revealMode."
     },
     "protagonistas": {
-      "phase": 2,
-      "note": "no-class aprovado em 2026-10-07: /atelier/protagonistas/ (post 897, template atelier-section) a 0,00% em 1440/768/390; pure /atelier/pure/protagonistas/ (post 841); estilo de lista Protagonistas (mixin numbered-grid com Pilares)"
+      "phase": 3,
+      "note": "no-class aprovado em 2026-10-07: /atelier/protagonistas/ (post 897, template atelier-section) a 0,00% em 1440/768/390; pure /atelier/pure/protagonistas/ (post 841); estilo de lista Protagonistas (mixin numbered-grid com Pilares) | /atelier montado em 2026-10-07 (post 6): página inteira a 0,00% em 1440/768/390 (521/88/86 px de rasterização: selects da adesão e logo do footer); reveal do source por revealMode."
     },
     "promessas": {
-      "phase": 2,
-      "note": "no-class aprovado em 2026-10-07: /atelier/promessas/ (post 900, template atelier-section) a 0,00% em 1440/768/390; pure /atelier/pure/promessas/ (post 842); estilo de lista Promessas; overflow abaixo de 337px herdado do source, ignorado (minimo atendido: 390)"
+      "phase": 3,
+      "note": "no-class aprovado em 2026-10-07: /atelier/promessas/ (post 900, template atelier-section) a 0,00% em 1440/768/390; pure /atelier/pure/promessas/ (post 842); estilo de lista Promessas; overflow abaixo de 337px herdado do source, ignorado (minimo atendido: 390) | /atelier montado em 2026-10-07 (post 6): página inteira a 0,00% em 1440/768/390 (521/88/86 px de rasterização: selects da adesão e logo do footer); reveal do source por revealMode."
     },
     "conceito": {
-      "phase": 2,
-      "note": "no-class aprovado em 2026-10-07: /atelier/conceito/ (post 911, template atelier-section) a 0,00% em 1440/768/390; pure /atelier/pure/conceito/ (post 843); verso em core/quote, lista chave/valor com a chave pendurada no padding"
+      "phase": 3,
+      "note": "no-class aprovado em 2026-10-07: /atelier/conceito/ (post 911, template atelier-section) a 0,00% em 1440/768/390; pure /atelier/pure/conceito/ (post 843); verso em core/quote, lista chave/valor com a chave pendurada no padding | /atelier montado em 2026-10-07 (post 6): página inteira a 0,00% em 1440/768/390 (521/88/86 px de rasterização: selects da adesão e logo do footer); reveal do source por revealMode."
     },
     "jornada": {
-      "phase": 2,
-      "note": "no-class aprovado em 2026-10-07: /atelier/jornada/ (post 921, template atelier-section) a 0,00% em 1440/768/390; pure /atelier/pure/jornada/ (post 844); estilo de lista Passos, citacao centralizada"
+      "phase": 3,
+      "note": "no-class aprovado em 2026-10-07: /atelier/jornada/ (post 921, template atelier-section) a 0,00% em 1440/768/390; pure /atelier/pure/jornada/ (post 844); estilo de lista Passos, citacao centralizada | /atelier montado em 2026-10-07 (post 6): página inteira a 0,00% em 1440/768/390 (521/88/86 px de rasterização: selects da adesão e logo do footer); reveal do source por revealMode."
     },
     "niveis": {
-      "phase": 2,
-      "note": "no-class aprovado em 2026-10-07: /atelier/niveis/ (post 928, template atelier-section) a 0,00% em 1440/768/390; pure /atelier/pure/niveis/ (post 845); estilos de grupo Nivel e Nivel (bloqueado), seta pequena"
+      "phase": 3,
+      "note": "no-class aprovado em 2026-10-07: /atelier/niveis/ (post 928, template atelier-section) a 0,00% em 1440/768/390; pure /atelier/pure/niveis/ (post 845); estilos de grupo Nivel e Nivel (bloqueado), seta pequena | /atelier montado em 2026-10-07 (post 6): página inteira a 0,00% em 1440/768/390 (521/88/86 px de rasterização: selects da adesão e logo do footer); reveal do source por revealMode."
     },
     "beneficios": {
-      "phase": 2,
-      "note": "no-class aprovado em 2026-10-07: /atelier/beneficios/ (post 935, template atelier-section) a 0,00% em 1440/768/390; pure /atelier/pure/beneficios/ (post 846); estilo de lista Beneficios, relogio em contorno"
+      "phase": 3,
+      "note": "no-class aprovado em 2026-10-07: /atelier/beneficios/ (post 935, template atelier-section) a 0,00% em 1440/768/390; pure /atelier/pure/beneficios/ (post 846); estilo de lista Beneficios, relogio em contorno | /atelier montado em 2026-10-07 (post 6): página inteira a 0,00% em 1440/768/390 (521/88/86 px de rasterização: selects da adesão e logo do footer); reveal do source por revealMode."
     },
     "editorial": {
-      "phase": 2,
-      "note": "no-class aprovado em 2026-10-07: /atelier/editorial/ (post 944, template atelier-section) a 0,00% em 1440/768/390; pure /atelier/pure/editorial/ (post 847); estilo de lista Canais (45/55)"
+      "phase": 3,
+      "note": "no-class aprovado em 2026-10-07: /atelier/editorial/ (post 944, template atelier-section) a 0,00% em 1440/768/390; pure /atelier/pure/editorial/ (post 847); estilo de lista Canais (45/55) | /atelier montado em 2026-10-07 (post 6): página inteira a 0,00% em 1440/768/390 (521/88/86 px de rasterização: selects da adesão e logo do footer); reveal do source por revealMode."
     },
     "cta-strip": {
-      "phase": 2,
-      "note": "no-class aprovado em 2026-10-07: /atelier/cta-strip/ (post 969, template atelier-section) a 0,00% em 1440/768/390; pure /atelier/pure/cta-strip/ (post 848); colunas com a coluna do botao em max-content"
+      "phase": 3,
+      "note": "no-class aprovado em 2026-10-07: /atelier/cta-strip/ (post 969, template atelier-section) a 0,00% em 1440/768/390; pure /atelier/pure/cta-strip/ (post 848); colunas com a coluna do botao em max-content | /atelier montado em 2026-10-07 (post 6): página inteira a 0,00% em 1440/768/390 (521/88/86 px de rasterização: selects da adesão e logo do footer); reveal do source por revealMode."
     },
     "adesao": {
-      "phase": 2,
-      "note": "no-class aprovado em 2026-10-07: /atelier/adesao/ (post 1049, template atelier-section) a 0,00% em 1440/768 e 0,01% em 390 (20/88/86 px de subpixel: asterisco do Numero ::after vs span e antialias do \"—\" da UF); pure /atelier/pure/adesao/ (post 81). Source: linhas do form em 12 colunas (5/3/4, 2/6/4), campos com line-height 1.46666667 e padding 0.625rem 0.6875rem; bases regenerados pelo elemento da secao."
+      "phase": 3,
+      "note": "no-class aprovado em 2026-10-07: /atelier/adesao/ (post 1049, template atelier-section) a 0,00% em 1440/768 e 0,01% em 390 (20/88/86 px de subpixel: asterisco do Numero ::after vs span e antialias do \"—\" da UF); pure /atelier/pure/adesao/ (post 81). Source: linhas do form em 12 colunas (5/3/4, 2/6/4), campos com line-height 1.46666667 e padding 0.625rem 0.6875rem; bases regenerados pelo elemento da secao. | /atelier montado em 2026-10-07 (post 6): página inteira a 0,00% em 1440/768/390 (521/88/86 px de rasterização: selects da adesão e logo do footer); reveal do source por revealMode."
     },
     "footer": {
-      "phase": 2,
-      "note": "no-class aprovado em 2026-10-07: /atelier/footer/ (post 1078, template atelier-section) a 0,00% em 1440/768/390; pure /atelier/pure/footer/ (post 849). Grid das colunas pelo estilo de bloco \"Footer\" de core/columns (1.6fr 1fr 1fr 1fr, display: contents na coluna/nav/lista, 2 colunas abaixo de 900px); titulos e itens do nav por CSS do bloco (margin 0 !important nos itens, hover so cor); Rodape final empilhado e centralizado em @tablet/@mobile. Lighthouse WP 100 exceto mobile Performance 95 (FCP 2,4 s; cta-strip aprovado deu 94 na mesma hora)."
+      "phase": 4,
+      "note": "no-class aprovado em 2026-10-07: /atelier/footer/ (post 1078, template atelier-section) a 0,00% em 1440/768/390; pure /atelier/pure/footer/ (post 849). Grid das colunas pelo estilo de bloco \"Footer\" de core/columns (1.6fr 1fr 1fr 1fr, display: contents na coluna/nav/lista, 2 colunas abaixo de 900px); titulos e itens do nav por CSS do bloco (margin 0 !important nos itens, hover so cor); Rodape final empilhado e centralizado em @tablet/@mobile. Lighthouse WP 100 exceto mobile Performance 95 (FCP 2,4 s; cta-strip aprovado deu 94 na mesma hora). | template part axellcore-footer em 2026-10-07."
     }
   }
 }

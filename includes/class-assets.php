@@ -1,8 +1,9 @@
 <?php
 /**
- * Loads the plugin's own design-token/section CSS and frontend JS on the
- * Atelier landing page template, and strips the theme's/core's own
- * unconditional style output so the page renders fully self-contained.
+ * Frontend JS (input masks, cities cascade) on the Atelier landing template
+ * and on pages with an application form. The landing renders like the
+ * section pages: the theme's global styles, block styles and presets (the
+ * legacy isolated stylesheets are gone).
  *
  * @package Axellcore_Atelierclub
  */
@@ -14,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Asset enqueue + theme/core CSS suppression, both gated to our template only.
+ * Frontend script enqueue.
  */
 final class Assets {
 
@@ -46,9 +47,7 @@ final class Assets {
 	 * Register hooks.
 	 */
 	public function register_hooks() {
-		add_action( 'template_redirect', array( $this, 'strip_theme_and_core_assets' ), 5 );
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_frontend_assets' ) );
-		add_filter( 'wp_resource_hints', array( $this, 'add_google_fonts_preconnect' ), 10, 2 );
 	}
 
 	/**
@@ -62,49 +61,8 @@ final class Assets {
 	}
 
 	/**
-	 * The isolated atelier template: theme/core CSS stripping and the Google
-	 * Fonts preconnect hint apply there.
-	 *
-	 * @return bool
-	 */
-	private function is_isolated_template() {
-		return $this->is_our_template();
-	}
-
-	/**
-	 * Remove the active theme's stylesheet and WP core's unconditional
-	 * global-styles/block-library CSS + emoji script on our template only.
-	 * Handles confirmed by directly curl-ing this install's homepage <head>.
-	 */
-	public function strip_theme_and_core_assets() {
-		if ( ! $this->is_isolated_template() ) {
-			return;
-		}
-
-		// twentytwentyfive's own stylesheet — named, removable callback
-		// (confirmed at wp-content/themes/twentytwentyfive/functions.php:65).
-		remove_action( 'wp_enqueue_scripts', 'twentytwentyfive_enqueue_styles' );
-
-		// theme.json-derived global styles (custom properties + presets) — hooked
-		// twice by core, once for <head> and once as a footer fallback.
-		remove_action( 'wp_enqueue_scripts', 'wp_enqueue_global_styles' );
-		remove_action( 'wp_footer', 'wp_enqueue_global_styles', 1 );
-
-		// Core block-library common CSS + block-supports inline CSS.
-		remove_action( 'wp_enqueue_scripts', 'wp_common_block_scripts_and_styles' );
-
-		// Emoji detection script/styles.
-		remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
-		remove_action( 'wp_print_styles', 'print_emoji_styles' );
-
-		// Avoid the 32px admin-bar offset pushing our position:fixed nav down,
-		// so a logged-in pixel check matches a logged-out visitor.
-		add_filter( 'show_admin_bar', '__return_false' );
-	}
-
-	/**
-	 * Enqueue our own design tokens, section CSS, and frontend JS on the
-	 * atelier template.
+	 * Enqueue the frontend script on the atelier template and on pages with
+	 * an application form.
 	 */
 	public function enqueue_frontend_assets() {
 		if ( ! $this->is_our_template() ) {
@@ -116,17 +74,6 @@ final class Assets {
 			}
 			return;
 		}
-
-		wp_enqueue_style(
-			'aa-google-fonts',
-			'https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap',
-			array(),
-			null // phpcs:ignore WordPress.WP.EnqueuedResourceParameters.MissingVersion -- external URL, WP doesn't own its versioning.
-		);
-
-		wp_enqueue_style( 'aa-tokens', AXELLCORE_ATELIERCLUB_URL . 'assets/css/tokens.css', array(), AXELLCORE_ATELIERCLUB_VERSION );
-		wp_enqueue_style( 'aa-sections', AXELLCORE_ATELIERCLUB_URL . 'assets/css/sections.css', array( 'aa-tokens' ), AXELLCORE_ATELIERCLUB_VERSION );
-		wp_enqueue_style( 'aa-blocks-bridge', AXELLCORE_ATELIERCLUB_URL . 'assets/css/blocks-bridge.css', array( 'aa-sections' ), AXELLCORE_ATELIERCLUB_VERSION );
 
 		$this->enqueue_frontend_script();
 	}
@@ -152,28 +99,6 @@ final class Assets {
 			'aaRest',
 			array( 'root' => esc_url_raw( trailingslashit( rest_url( Rest::NAMESPACE ) ) ) )
 		);
-	}
-
-	/**
-	 * Add the Google Fonts preconnect hints the source mockup uses, matching
-	 * the original <link rel="preconnect"> tags exactly.
-	 *
-	 * @param array  $urls          Resource hint URLs.
-	 * @param string $relation_type The relation type ('preconnect', etc.).
-	 * @return array
-	 */
-	public function add_google_fonts_preconnect( $urls, $relation_type ) {
-		if ( 'preconnect' !== $relation_type || ! $this->is_isolated_template() ) {
-			return $urls;
-		}
-
-		$urls[] = 'https://fonts.googleapis.com';
-		$urls[] = array(
-			'href' => 'https://fonts.gstatic.com',
-			'crossorigin',
-		);
-
-		return $urls;
 	}
 
 	/**

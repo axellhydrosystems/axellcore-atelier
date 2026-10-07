@@ -82,15 +82,49 @@ final class Design_Tokens {
 		add_filter( 'wp_theme_json_data_default', array( $this, 'add_font_families' ) );
 		add_action( 'init', array( $this, 'register_block_styles' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_text_rendering' ) );
+		add_filter( 'wp_preload_resources', array( $this, 'preload_fonts' ) );
+	}
+
+	/**
+	 * Font files the first screen of an Atelier page uses (the hero title and
+	 * its italic, the Inter text), preloaded: loaded later, the swap moved
+	 * the hero's columns (CLS 0.14 in Lighthouse).
+	 */
+	const PRELOAD_FONTS = array(
+		'cormorant-garamond-normal-300-latin.woff2',
+		'cormorant-garamond-italic-300-latin.woff2',
+		'inter-normal-300-latin.woff2',
+	);
+
+	/**
+	 * Preload the first-screen fonts on Atelier pages.
+	 *
+	 * @param array $resources Resources to preload.
+	 * @return array
+	 */
+	public function preload_fonts( $resources ) {
+		if ( ! self::is_atelier_page() ) {
+			return $resources;
+		}
+		foreach ( self::PRELOAD_FONTS as $file ) {
+			$resources[] = array(
+				'href'        => AXELLCORE_ATELIERCLUB_URL . 'assets/fonts/' . $file,
+				'as'          => 'font',
+				'type'        => 'font/woff2',
+				'crossorigin' => 'anonymous',
+			);
+		}
+		return $resources;
 	}
 
 	/**
 	 * Page-level rules of design/source with no block attribute or theme.json
 	 * setting: the text rendering of its body (without it text renders
-	 * heavier on macOS) and the ink background of its html (a section whose
-	 * height ends in a fraction of a pixel shows it in its last row).
+	 * heavier on macOS), the ink background of its html (a section whose
+	 * height ends in a fraction of a pixel shows it in its last row) and its
+	 * smooth scrolling to anchors (off for reduced motion).
 	 */
-	const TEXT_RENDERING_CSS = 'html{background:var(--wp--preset--color--ink)}body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}';
+	const TEXT_RENDERING_CSS = 'html{background:var(--wp--preset--color--ink);scroll-behavior:smooth}@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}';
 
 	/**
 	 * Page templates of the Atelier pages.

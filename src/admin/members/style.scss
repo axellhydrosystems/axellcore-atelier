@@ -9,3 +9,8 @@
 	margin-top: 1em;
 	max-width: none;
 }
+
+/* White page behind the DataViews/DataForm app (this stylesheet only loads here). */
+#wpwrap {
+	background-color: white;
+}

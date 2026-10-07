@@ -487,3 +487,17 @@ With JetEngine active nothing of that is registered: no admin and no import. Onl
   - **Also reads** the axellcore export layout ("Localização", "Telefone").
 - **Admin (`Resellers_Admin`, `Resellers_Rest`, `src/admin/resellers/`):** DataViews list and DataForm detail, like members, under the post type menu (`admin.php?page=resellers`, `&reseller=<id|new>`). The core list, new and edit screens redirect there; the trash and the taxonomy screens stay core. REST `admin/resellers` (list, create, read, update, trash) uses the post type caps.
 - **Verified against production:** an import on a clean site matches production field by field for 354 of 355 revendas. That covers the title, the 5 meta and the term name, slug and parent. The one difference is a draft that has no meta rows at all in production.
+
+## /atelier landing (post 6) and the header/footer template parts
+
+- **Content:** `/atelier` is the 13 styled section pages (hero to adesão) joined in order. `/atelier/<section>/` stays the source of each one: change a section there, then rebuild post 6 from them.
+- **Template parts:** `axellcore-header` and `axellcore-footer` hold the content of `/atelier/header/` and `/atelier/footer/`.
+  - **Header:** its root is `axell/sticky-header`, fixed, with the mockup's `is-scrolled` state past 40px. The scrolled padding is `!important`, because the block's padding attribute is inline.
+- **`templates/atelier-club.html`:** renders like the section pages, with the theme's global styles and no legacy stylesheets.
+  - **Wrappers:** the template parts are `div`, and the semantic `<header>`/`<footer>` is their root block.
+  - **Gaps:** a root group with `blockGap: 0` holds header, `main` and footer, and the `post-content` has `blockGap: 0`. Without them the theme's 1.2rem block gap separates the template parts and every section (+269px).
+- **Reveal:** set with `revealMode` on each section page, as the source's `.reveal`:
+  - `block` on the `.section-head` columns and on the CTA strip;
+  - `items` on the numbered lists, the tier cards and the two halves of placa, conceito, editorial and adesão.
+- **Page rules (`Design_Tokens`):** smooth scrolling to anchors (off for reduced motion); the first-screen fonts preloaded (Cormorant 300 normal and italic, Inter), whose late swap moved the hero (CLS 0.14).
+- **Comparison captures** (`design/base/scripts/shot-file-*.mjs`): they force `.axell-reveal` visible and run with `reducedMotion: 'reduce'`. The reveal's animation leaves composited layers whose text antialiasing differs from the bases (+1.3k px on the selects).

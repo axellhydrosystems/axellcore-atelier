@@ -1,7 +1,8 @@
 // Capture a local HTML file like shot-file-forced.mjs (every .reveal forced to
 // its final state, no scrolling, no transitions), but in tiles of 8000 px
 // stitched together: a single full-page capture goes blank past ~16384 px.
-// Usage: node shot-file-forced-tiles.mjs <file.html> <width> <out.png>
+// Usage: node shot-file-forced-tiles.mjs <file.html|URL> <width> <out.png>
+// On a WordPress page the plugin's reveals (.axell-reveal) are forced too.
 import { createRequire } from 'node:module';
 import { pathToFileURL } from 'node:url';
 import { execFileSync } from 'node:child_process';
@@ -15,10 +16,10 @@ const { launchOptions } = await import(pathToFileURL(SK + '/browser.mjs').href);
 const [ file, width, out ] = process.argv.slice(2);
 const TILE = 8000;
 const browser = await chromium.launch({ ...launchOptions(), args: [ '--disable-gpu' ] });
-const page = await browser.newPage({ viewport: { width: Number(width), height: 900 }, deviceScaleFactor: 1 });
-await page.goto(pathToFileURL(file).href, { waitUntil: 'load' });
+const page = await browser.newPage({ viewport: { width: Number(width), height: 900 }, deviceScaleFactor: 1, reducedMotion: 'reduce' });
+await page.goto(/^https?:/.test(file) ? file : pathToFileURL(file).href, { waitUntil: 'load' });
 await page.evaluate(() => document.fonts.ready);
-await page.addStyleTag({ content: '.reveal{opacity:1!important;transform:none!important;transition:none!important}' });
+await page.addStyleTag({ content: '.reveal,.axell-reveal,.axell-reveal>*{opacity:1!important;transform:none!important;transition:none!important}' });
 await page.evaluate(() => document.querySelectorAll('.reveal').forEach((e) => e.classList.add('in')));
 await page.waitForTimeout(1500);
 const height = await page.evaluate(() => Math.ceil(document.documentElement.scrollHeight));

@@ -15,3 +15,8 @@
 	gap: 0.5rem;
 	margin-top: 1rem;
 }
+
+/* White page behind the DataViews/DataForm app (this stylesheet only loads here). */
+#wpwrap {
+	background-color: white;
+}
