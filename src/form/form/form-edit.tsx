@@ -17,6 +17,7 @@ import {
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import type { FormAttributes } from './types';
+import { FIELD_BLOCKS } from '../field-blocks';
 
 export const ALLOWED_BLOCKS = [
 	'core/heading',
@@ -30,6 +31,7 @@ export const ALLOWED_BLOCKS = [
 	'core/button',
 	'axell/fieldset',
 	'axell/form-group',
+	...FIELD_BLOCKS,
 	'axell/form-check',
 	'axell/form-submission-notification',
 ];

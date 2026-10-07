@@ -8,7 +8,7 @@
 		"axell/form",
 		"axell/form-atelier"
 	],
-	"description": "A form field: an axell/form-label and an axell/form-control (or axell/form-select), inserted together, with an optional axell/form-text. Other blocks can't be inserted inside it.",
+	"description": "A form field: an axell/form-label and an axell/form-control (or axell/form-select), inserted together, with an optional axell/form-text. A plain block: its width comes from the layout around it (a core/group grid in the fieldset).",
 	"keywords": [
 		"group",
 		"field",
@@ -28,7 +28,6 @@
 				"bottom"
 			],
 			"padding": true,
-			"blockGap": true,
 			"__experimentalDefaultControls": {
 				"padding": true
 			}
@@ -47,11 +46,5 @@
 		}
 	},
 	"editorScript": "file:./index.js",
-	"style": "file:./style-index.css",
-	"attributes": {
-		"fieldWidth": {
-			"type": "string",
-			"default": ""
-		}
-	}
+	"style": "file:./style-index.css"
 }

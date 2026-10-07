@@ -235,8 +235,21 @@ ambiguous in one block).
 - **`axell/fieldset`** (`includes/blocks/form/form-fieldset/`) — a
   real `<fieldset>`/`<legend>` pair (`legend` rich-text, empty → no
   `<legend>` element at all, genuine semantic optionality — not just an
-  empty tag). Own native `layout` support too, though the generator doesn't
-  end up needing it (see below).
+  empty tag). No `layout` support of its own: a plain block container.
+
+### Field layout: a core/group grid inside the fieldset
+
+`axell/form-group` is a plain `display: block` field (label, control, help
+text) with no width, row, column or grid option of its own. To place fields
+side by side, the fieldset holds a `core/group` with
+`layout: { type: 'grid', columnCount: 12 }` and `blockGap: 1rem`
+(`metadata.name: 'Campos'`), and each form-group sets the core grid span
+(`style.layout.columnSpan`, the "Extensão da coluna" control under
+Dimensões). Fields that are not laid out (the hidden country) sit in the
+fieldset outside the grid. The old `fieldWidth` (Largura slider, inline
+`width`) is the form-group `v1` deprecation, which migrates a `%` width to
+the span in twelfths. Spacing between fieldsets is the fieldset's own
+default `margin-block: 1rem`; under the legend, `0.5rem`.
 
 ### `for`/`id` association — the more correct pattern, confirmed live
 
@@ -355,5 +368,6 @@ The interactive form blocks save plain HTML (elements, ids, names, `hidden`/`dis
 
 - When a control's markup or store changes, change the TS markup (`src/form/form-address/markup.tsx`, `form-control-br-revenue-id/markup.tsx`, `form-control/autocomplete-markup.tsx`) **and** the PHP method that decorates it; they must agree on the elements (matched by tag, `type`, `role`, `data-field`, class).
 - Content saved with the directives validates through each block's `deprecated.tsx` (the old markup is in `legacy-*markup.tsx`) and is re-saved without them.
-- Single-field controls (CPF/CNPJ, telefone, CEP, país) save the field itself as the block root, with the block class and `wp-block-axell-form-control`; the region directives and the field directives go on that one element. UF, cidade and the autocomplete keep a wrapper div (several elements). The earlier wrapped save is a `v2` deprecation (`wrapped-markup.tsx`).
+- Single-field controls (CPF/CNPJ, telefone, CEP, país) save the field itself as the block root, with the block class and `wp-block-axell-form-control`; the region directives and the field directives go on that one element. UF and cidade keep a wrapper div (several elements). The earlier wrapped save is a `v2` deprecation (`wrapped-markup.tsx`).
+- The autocomplete (reseller, and `axell/form-control` of type autocomplete) saves only its search `<input>`. `Form_Directives::autocomplete_widget()` builds the rest on render: the `{block class}-wrapper` div (the `axell/autocomplete` region), the combobox attributes, the hidden `{name}` and `{name}_titulo` inputs, the custom-store panel (name, back button, UF select from `Form_Directives::UF_CODES`, city select) and the `{name}-list` listbox. Styles and the view key on `[data-wp-interactive='axell/autocomplete']`, not on the block class (now on the input). The wrapped save is the `v2` deprecation (`wrapped-autocomplete-markup.tsx`); content still saved that way (root `DIV`) only gets the directives.
 - Check: the rendered `data-wp-*` of `/atelier/pure/adesao/` must match before and after a change (diff of the attributes per element).

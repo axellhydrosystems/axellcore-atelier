@@ -1,5 +1,6 @@
 :where(.wp-block-axell-form-text) {
-  margin-top: .25rem;
+  margin-block-start: .25rem;
+  margin-block-end: 0;
   font-size: .875em;
   color: color-mix(in srgb, currentColor 75%, transparent);
 }

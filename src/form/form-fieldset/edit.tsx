@@ -9,9 +9,11 @@ import {
 import { ToolbarButton } from '@wordpress/components';
 import type { BlockEditProps } from '@wordpress/blocks';
 import type { FormFieldsetAttributes } from './types';
+import { FIELD_BLOCKS } from '../field-blocks';
 
 const ALLOWED_BLOCKS = [
 	'axell/form-group',
+	...FIELD_BLOCKS,
 	'core/paragraph',
 	'core/heading',
 	'core/group',

@@ -4,9 +4,6 @@
   "name": "axell/form-label",
   "title": "Label",
   "category": "text",
-  "parent": [
-    "axell/form-group"
-  ],
   "description": "A form field's label, associated with its axell/form-control sibling via a matching id/for pair. Can be visually hidden (still read by screen readers) via the \"Visually hidden\" toggle. A required-field asterisk, if wanted, is just part of the label's own text content (e.g. embed a styled span directly) — not a separate attribute.",
   "keywords": [
     "label",

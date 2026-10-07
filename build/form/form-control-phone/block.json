@@ -4,9 +4,6 @@
   "name": "axell/form-control-phone",
   "title": "Form Control (Telefone)",
   "category": "text",
-  "parent": [
-    "axell/form-group"
-  ],
   "description": "Telefone com máscara conforme o país (Brasil, EUA ou outro).",
   "keywords": [
     "telefone",

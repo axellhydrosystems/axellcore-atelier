@@ -4,9 +4,6 @@
 	"name": "axell/form-control-city",
 	"title": "Form Control (Cidade)",
 	"category": "text",
-	"parent": [
-		"axell/form-group"
-	],
 	"description": "Cidade: lista pela UF no Brasil; texto livre nos EUA e em outros países.",
 	"keywords": [
 		"endereço",

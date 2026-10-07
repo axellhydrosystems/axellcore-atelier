@@ -3,6 +3,7 @@ import { group as groupIcon } from '@wordpress/icons';
 import metadata from './block.json';
 import Edit from './edit';
 import save from './save';
+import deprecated from './deprecated';
 import './style.scss';
 
 registerBlockType( metadata.name, {
@@ -10,4 +11,5 @@ registerBlockType( metadata.name, {
 	icon: groupIcon,
 	edit: Edit,
 	save,
+	deprecated,
 } as unknown as Parameters< typeof registerBlockType >[ 1 ] );

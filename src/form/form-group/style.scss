@@ -1,12 +1,7 @@
-.wp-block-axell-form-group {
-  margin-block: 1em;
-}
-
-.wp-block-axell-form-group {
-  &.is-width-25 { width: 25%; }
-  &.is-width-33 { width: 33.333%; }
-  &.is-width-50 { width: 50%; }
-  &.is-width-66 { width: 66.666%; }
-  &.is-width-75 { width: 75%; }
-  &.is-width-100 { width: 100%; }
+/* axell/form-group: one field (label, control, help text) as a plain block.
+   Its width comes from the layout around it (a core/group grid in the
+   fieldset, with the core grid span on the field). */
+:where(.wp-block-axell-form-group) {
+  display: block;
+  margin: 0;
 }

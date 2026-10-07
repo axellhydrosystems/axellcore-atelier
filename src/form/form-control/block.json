@@ -4,9 +4,6 @@
 	"name": "axell/form-control",
 	"title": "Form Control",
 	"category": "text",
-	"parent": [
-		"axell/form-group"
-	],
 	"description": "The actual input/select/textarea of a form field — text, email, tel, number, textarea, select, or hidden, with optional input masking (CPF/CNPJ, CEP, phone). Pair with an axell/form-label sibling (same id/for) for the visible label — see this plugin's CLAUDE.md.",
 	"keywords": [
 		"input",

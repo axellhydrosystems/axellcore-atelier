@@ -4,9 +4,6 @@
   "name": "axell/form-control-state",
   "title": "Form Control (Estado)",
   "category": "text",
-  "parent": [
-    "axell/form-group"
-  ],
   "description": "Estado: lista de UFs no Brasil ou de estados nos EUA; texto livre para outro país.",
   "keywords": [
     "endereço",

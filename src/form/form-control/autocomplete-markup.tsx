@@ -1,10 +1,5 @@
 import { __ } from '@wordpress/i18n';
 
-export const UF_CODES = [
-	'AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA',
-	'PB', 'PR', 'PE', 'PI', 'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO',
-];
-
 export interface AutocompleteMarkupArgs {
 	blockProps: Record< string, unknown >;
 	isSave: boolean;
@@ -26,7 +21,7 @@ export interface AutocompleteMarkupArgs {
  */
 export function autocompleteMarkup( args: AutocompleteMarkupArgs ) {
 	// postType, template and allowNotFound feed the render-time context (PHP).
-	const { blockProps, isSave, id, name, placeholder } = args;
+	const { blockProps, isSave, id, placeholder } = args;
 
 	if ( ! isSave ) {
 		// Same field look as the other controls in the editor (read-only, so it does not grey out).
@@ -42,83 +37,21 @@ export function autocompleteMarkup( args: AutocompleteMarkupArgs ) {
 		);
 	}
 
-	// The axell/autocomplete directives and initial context are added on render
-	// (includes/class-form-directives.php), from the block attributes.
-	const listId = `${ name }-list`;
-
+	// Saved: the search field only. The widget around it (wrapper region,
+	// hidden ID and title fields, custom-store panel, suggestion list) and
+	// the axell/autocomplete directives are built on render from the block
+	// attributes (includes/class-form-directives.php).
+	const className = [ blockProps.className as string | undefined, 'wp-block-axell-form-control' ]
+		.filter( Boolean )
+		.join( ' ' );
 	return (
-		<div
+		<input
 			{ ...blockProps }
-		>
-			<input
-				type="text"
-				id={ id }
-				autoComplete="off"
-				role="combobox"
-				aria-autocomplete="list"
-				aria-controls={ listId }
-				placeholder={ placeholder || undefined }
-			/>
-			<input
-				type="hidden"
-				name={ name }
-			/>
-			<input
-				type="hidden"
-				name={ `${ name }_titulo` }
-			/>
-			<div className="aa-ac-custom" hidden>
-				<div className="aa-ac-name">
-					<input
-						type="text"
-						data-field="name"
-						aria-label={ __( 'Nome', 'axellcore-atelierclub' ) }
-						placeholder={ __( 'Nome', 'axellcore-atelierclub' ) }
-					/>
-					<button
-						type="button"
-						className="aa-ac-back"
-						aria-label={ __( 'Voltar à busca', 'axellcore-atelierclub' ) }
-					>
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							viewBox="0 0 24 24"
-							width="18"
-							height="18"
-							fill="none"
-							stroke="currentColor"
-							strokeWidth="2"
-							aria-hidden="true"
-							focusable="false"
-						>
-							<circle cx="11" cy="11" r="7" />
-							<path d="m20 20-3.5-3.5" />
-						</svg>
-					</button>
-				</div>
-				<select
-					aria-label={ __( 'UF', 'axellcore-atelierclub' ) }
-				>
-					<option value="">UF</option>
-					{ UF_CODES.map( ( uf ) => (
-						<option key={ uf } value={ uf }>
-							{ uf }
-						</option>
-					) ) }
-				</select>
-				<select
-					aria-label={ __( 'Cidade', 'axellcore-atelierclub' ) }
-					data-field="city"
-					disabled
-				>
-					<option value="">{ __( 'Selecione UF', 'axellcore-atelierclub' ) }</option>
-				</select>
-			</div>
-			<ul
-				id={ listId }
-				role="listbox"
-				hidden
-			/>
-		</div>
+			className={ className }
+			type="text"
+			id={ id }
+			autoComplete="off"
+			placeholder={ placeholder || undefined }
+		/>
 	);
 }

@@ -4,9 +4,6 @@
 	"name": "axell/form-text",
 	"title": "Form Text",
 	"category": "text",
-	"parent": [
-		"axell/form-group"
-	],
 	"description": "Help text for a form field: a paragraph (rich text, links allowed) placed inside an axell/form-group.",
 	"keywords": [
 		"text",

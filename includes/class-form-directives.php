@@ -34,6 +34,9 @@ final class Form_Directives {
 	/** Reseller search: label of each result. */
 	const RESELLER_TEMPLATE = '[post_title] · [tax:estado:slug:uppercase] [tax:cidade]';
 
+	/** UF codes of the custom-store panel (the reseller's own UF and city). */
+	const UF_CODES = array( 'AC', 'AL', 'AP', 'AM', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MT', 'MS', 'MG', 'PA', 'PB', 'PR', 'PE', 'PI', 'RJ', 'RN', 'RS', 'RO', 'RR', 'SC', 'SP', 'SE', 'TO' );
+
 	/** CPF/CNPJ placeholders by fixed type (src/form/form-control-br-revenue-id/document.ts). */
 	const DOCUMENT_PLACEHOLDERS = array(
 		'cpf'  => '000.000.000-00',
@@ -441,42 +444,50 @@ final class Form_Directives {
 			return $content;
 		}
 
+		$context = array(
+			'postType'      => $post_type,
+			'template'      => $template,
+			'allowNotFound' => $allow_notfound,
+			'query'         => '',
+			'text'          => '',
+			'selectedId'    => '',
+			'titulo'        => '',
+			'open'          => false,
+			'notFound'      => false,
+			'loading'       => false,
+			'custom'        => false,
+			'customName'    => '',
+			'customUf'      => '',
+			'customCity'    => '',
+			'cityOptions'   => array(),
+			'activeIndex'   => -1,
+			'options'       => array(),
+		);
+
 		$p = new \WP_HTML_Tag_Processor( $content );
-		if ( ! $p->next_tag( array( 'tag_name' => 'DIV' ) ) ) {
+		if ( ! $p->next_tag() ) {
 			return $content;
 		}
+		if ( 'INPUT' === $p->get_tag() ) {
+			$name = (string) ( $attrs['name'] ?? '' );
+			$name = '' !== $name ? $name : (string) ( $attrs['id'] ?? '' );
+			return self::autocomplete_widget( $p, $name, $context );
+		}
+
+		// Content saved before the field-only save: the widget is in the
+		// markup, only the directives are added.
 		self::set(
 			$p,
 			array(
 				'data-wp-interactive'  => 'axell/autocomplete',
-				'data-wp-context'      => self::json(
-					array(
-						'postType'      => $post_type,
-						'template'      => $template,
-						'allowNotFound' => $allow_notfound,
-						'query'         => '',
-						'text'          => '',
-						'selectedId'    => '',
-						'titulo'        => '',
-						'open'          => false,
-						'notFound'      => false,
-						'loading'       => false,
-						'custom'        => false,
-						'customName'    => '',
-						'customUf'      => '',
-						'customCity'    => '',
-						'cityOptions'   => array(),
-						'activeIndex'   => -1,
-						'options'       => array(),
-					)
-				),
+				'data-wp-context'      => self::json( $context ),
 				'data-wp-on--keydown'  => 'actions.onKeydown',
 				'data-wp-on--focusout' => 'actions.onFocusOut',
 			)
 		);
 
 		$hidden = 0;
-		while ( $p->next_tag() ) {
+		while ( $p->next_tag( array( 'tag_closers' => 'skip' ) ) ) {
 			$tag = $p->get_tag();
 			if ( 'INPUT' === $tag && 'combobox' === $p->get_attribute( 'role' ) ) {
 				self::set(
@@ -535,6 +546,70 @@ final class Form_Directives {
 			}
 		}
 		return $p->get_updated_html();
+	}
+
+	/**
+	 * The autocomplete widget around the saved search field: the region
+	 * wrapper, the field as a combobox, the hidden ID and title fields, the
+	 * custom-store panel (name, UF, city) and the suggestion list, with the
+	 * axell/autocomplete directives (src/form/form-control/view.ts).
+	 *
+	 * @param \WP_HTML_Tag_Processor $p       Processor on the saved <input>.
+	 * @param string                 $name    Field name (the hidden ID's name).
+	 * @param array<string,mixed>    $context Initial context.
+	 * @return string
+	 */
+	private static function autocomplete_widget( $p, $name, $context ) {
+		$list_id = $name . '-list';
+		$classes = preg_split( '/\s+/', trim( (string) $p->get_attribute( 'class' ) ) );
+		$wrapper = ( $classes[0] ?? 'wp-block-axell-form-control' ) . '-wrapper';
+
+		self::set(
+			$p,
+			array(
+				'role'                        => 'combobox',
+				'aria-autocomplete'           => 'list',
+				'aria-controls'               => $list_id,
+				'data-wp-bind--hidden'        => 'context.custom',
+				'data-wp-bind--value'         => 'context.text',
+				'data-wp-bind--aria-expanded' => 'context.open',
+				'data-wp-on--input'           => 'actions.onInput',
+			)
+		);
+		$field = trim( $p->get_updated_html() );
+
+		$uf_options = '<option value="">' . esc_html__( 'UF', 'axellcore-atelierclub' ) . '</option>';
+		foreach ( self::UF_CODES as $uf ) {
+			$uf_options .= sprintf( '<option value="%1$s">%1$s</option>', esc_attr( $uf ) );
+		}
+		$search_icon = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg>';
+
+		return sprintf(
+			'<div class="%1$s" data-wp-interactive="axell/autocomplete" data-wp-context="%2$s" data-wp-on--keydown="actions.onKeydown" data-wp-on--focusout="actions.onFocusOut">'
+				. '%3$s'
+				. '<input type="hidden" name="%4$s" data-wp-bind--value="context.selectedId"/>'
+				. '<input type="hidden" name="%4$s_titulo" data-wp-bind--value="context.titulo"/>'
+				. '<div class="aa-ac-custom" hidden data-wp-bind--hidden="!context.custom">'
+				. '<div class="aa-ac-name"><input type="text" data-field="name" aria-label="%5$s" placeholder="%5$s" data-wp-bind--value="context.customName" data-wp-on--input="actions.onCustomInput"/>'
+				. '<button type="button" class="aa-ac-back" aria-label="%6$s" data-wp-on--click="actions.backToSearch">%7$s</button></div>'
+				. '<select aria-label="%8$s" data-wp-bind--value="context.customUf" data-wp-on--change="actions.onCustomUf">%9$s</select>'
+				. '<select aria-label="%10$s" data-field="city" disabled data-wp-bind--disabled="!context.customUf" data-wp-on--change="actions.onCustomCity" data-wp-watch="callbacks.renderCities"><option value="">%11$s</option></select>'
+				. '</div>'
+				. '<ul id="%12$s" role="listbox" hidden tabindex="-1" data-wp-bind--hidden="!context.open" data-wp-on--click="actions.pick" data-wp-on--mousedown="actions.keepFocus" data-wp-watch="callbacks.renderList"></ul>'
+				. '</div>',
+			esc_attr( $wrapper ),
+			esc_attr( self::json( $context ) ),
+			$field,
+			esc_attr( $name ),
+			esc_attr__( 'Nome', 'axellcore-atelierclub' ),
+			esc_attr__( 'Voltar à busca', 'axellcore-atelierclub' ),
+			$search_icon,
+			esc_attr__( 'UF', 'axellcore-atelierclub' ),
+			$uf_options,
+			esc_attr__( 'Cidade', 'axellcore-atelierclub' ),
+			esc_html__( 'Selecione UF', 'axellcore-atelierclub' ),
+			esc_attr( $list_id )
+		);
 	}
 
 	/**

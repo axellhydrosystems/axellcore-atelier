@@ -4,9 +4,6 @@
 	"name": "axell/form-select",
 	"title": "Form Select",
 	"category": "text",
-	"parent": [
-		"axell/form-group"
-	],
 	"description": "A select field with a list of options, placed inside an axell/form-group next to its axell/form-label.",
 	"keywords": [
 		"select",

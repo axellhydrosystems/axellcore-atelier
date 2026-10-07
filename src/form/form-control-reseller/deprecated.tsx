@@ -8,6 +8,7 @@ import type { BlockSaveProps } from '@wordpress/blocks';
 import metadata from './block.json';
 import { autocompleteMarkup } from '../form-control/legacy-autocomplete-markup';
 import { RESELLER_POST_TYPE, RESELLER_TEMPLATE } from './constants';
+import { wrappedAutocompleteMarkup } from '../form-control/wrapped-autocomplete-markup';
 
 function v1Save( { attributes }: BlockSaveProps< ResellerAttributes > ) {
 	const blockProps = useBlockProps.save();
@@ -32,7 +33,30 @@ export interface ResellerAttributes {
 	[ key: string ]: unknown;
 }
 
+/*
+ * v2: the whole widget saved without directives, before the save became the
+ * search field only.
+ */
+function v2Save( { attributes }: BlockSaveProps< ResellerAttributes > ) {
+	const blockProps = useBlockProps.save();
+	return wrappedAutocompleteMarkup( {
+		blockProps,
+		isSave: true,
+		id: attributes.id || undefined,
+		name: attributes.name || attributes.id,
+		placeholder: attributes.placeholder || undefined,
+		postType: RESELLER_POST_TYPE,
+		template: RESELLER_TEMPLATE,
+		allowNotFound: !! attributes.allowNotFound,
+	} );
+}
+
 export default [
+	{
+		attributes: metadata.attributes,
+		supports: metadata.supports,
+		save: v2Save,
+	},
 	{
 		attributes: metadata.attributes,
 		supports: metadata.supports,
