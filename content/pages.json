@@ -93,5 +93,10 @@
         "path": "convite",
         "title": "Convite",
         "template": "atelier-section"
+    },
+    {
+        "path": "manifesto",
+        "title": "Manifesto",
+        "template": "atelier-section"
     }
 ]

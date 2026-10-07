@@ -84,10 +84,12 @@ final class Design_Tokens {
 	}
 
 	/**
-	 * Text rendering of design/source body. No block attribute or theme.json
-	 * setting exists for it; without it text renders heavier on macOS.
+	 * Page-level rules of design/source with no block attribute or theme.json
+	 * setting: the text rendering of its body (without it text renders
+	 * heavier on macOS) and the ink background of its html (a section whose
+	 * height ends in a fraction of a pixel shows it in its last row).
 	 */
-	const TEXT_RENDERING_CSS = 'body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}';
+	const TEXT_RENDERING_CSS = 'html{background:var(--wp--preset--color--ink)}body{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}';
 
 	/**
 	 * Page templates of the Atelier pages.
@@ -151,6 +153,8 @@ final class Design_Tokens {
 			'core/group'      => array( 'visually-hidden', __( 'Visually hidden', 'axellcore-atelierclub' ) ),
 			'core/paragraph'  => array( 'eyebrow', __( 'Eyebrow', 'axellcore-atelierclub' ) ),
 			'core/column'     => array( 'sticky-desktop', __( 'Sticky on desktop', 'axellcore-atelierclub' ) ),
+			'core/heading'    => array( 'chapter', __( 'Chapter', 'axellcore-atelierclub' ) ),
+			'core/list'       => array( 'pillars', __( 'Pillars', 'axellcore-atelierclub' ) ),
 		);
 		foreach ( $styles as $block => list( $name, $label ) ) {
 			register_block_style(

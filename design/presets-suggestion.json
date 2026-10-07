@@ -3,7 +3,8 @@
 	"sections": [
 		"header",
 		"hero",
-		"convite"
+		"convite",
+		"manifesto"
 	],
 	"fontSizes": [
 		{
@@ -85,6 +86,27 @@
 			"usedIn": [
 				"convite: signature"
 			]
+		},
+		{
+			"value": "clamp(2.25rem, 5vw, 4.25rem)",
+			"px": "36–68",
+			"usedIn": [
+				"manifesto: section title (source .section-title, all section heads)"
+			]
+		},
+		{
+			"value": "0.96875rem",
+			"px": 15.5,
+			"usedIn": [
+				"manifesto: body text (source p.body; block CSS, theme fluid typography)"
+			]
+		},
+		{
+			"value": "0.875rem",
+			"px": 14,
+			"usedIn": [
+				"manifesto: pillar text"
+			]
 		}
 	],
 	"letterSpacing": [
@@ -141,6 +163,12 @@
 			"value": "-0.005em",
 			"usedIn": [
 				"convite: quote"
+			]
+		},
+		{
+			"value": "0.32em",
+			"usedIn": [
+				"manifesto: chapter label (source .eyebrow)"
 			]
 		}
 	],
@@ -250,6 +278,20 @@
 			"usedIn": [
 				"convite: paragraphs in the quote"
 			]
+		},
+		{
+			"value": "5rem / 1.75rem",
+			"px": "80 / 28",
+			"usedIn": [
+				"manifesto: section head columns gap (source .section-head)"
+			]
+		},
+		{
+			"value": "5.5rem (3.5rem tablet/mobile)",
+			"px": "88 / 56",
+			"usedIn": [
+				"manifesto: section head bottom margin"
+			]
 		}
 	],
 	"radius": [
@@ -327,6 +369,18 @@
 			"slug": "line-dk",
 			"usedIn": [
 				"convite: signature rule"
+			]
+		},
+		{
+			"value": "rgba(239,236,228,0.72)",
+			"usedIn": [
+				"manifesto: body text"
+			]
+		},
+		{
+			"value": "rgba(239,236,228,0.66)",
+			"usedIn": [
+				"manifesto: pillar text"
 			]
 		}
 	]

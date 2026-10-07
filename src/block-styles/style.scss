@@ -106,3 +106,113 @@ p.is-style-eyebrow {
 		top: 7.5rem;
 	}
 }
+
+// "Chapter" heading: the small caps section label with a 32px rule before it
+// (design/source h2.eyebrow). The block's own CSS adds the prefix
+// (`&::before { content: "Capítulo 02 ·" }`); the margin after the prefix is
+// the space before the name, and vertical-align keeps the label on the
+// baseline it had in the source.
+.wp-block-heading.is-style-chapter {
+	display: inline-block;
+	position: relative;
+	vertical-align: -0.2008928571em;
+	padding-left: 46px;
+
+	&::before {
+		margin-right: 0.5848214286em;
+	}
+
+	&::after {
+		content: "";
+		position: absolute;
+		left: 0;
+		top: calc(50% - 0.5px);
+		width: 32px;
+		height: 1px;
+		background: currentcolor;
+		opacity: 0.7;
+	}
+}
+
+// "Pillars" list: numbered columns (4, 2 under 900px, 1 under 560px) with
+// rules between them, the roman number above each item and the strong text as
+// its title (design/source .pillars). The line break after the title is for
+// reading without styles.
+@counter-style roman-period {
+	system: fixed;
+	symbols: "i." "ii." "iii." "iv." "v." "vi." "vii." "viii." "ix." "x.";
+	fallback: lower-roman;
+}
+
+.wp-block-list.is-style-pillars {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	list-style: none;
+
+	> li {
+		margin: 0;
+		padding: 60px 40px 68px;
+		border-right: 1px solid var(--wp--preset--color--line-dk);
+		transition: background 0.4s ease;
+
+		&:last-child {
+			border-right: none;
+		}
+
+		&:hover {
+			background: rgba(180, 153, 106, 0.04);
+		}
+
+		&::before {
+			content: counter(list-item, roman-period);
+			display: block;
+			margin-bottom: 40px;
+			font-family: var(--wp--preset--font-family--cormorant-garamond);
+			font-style: italic;
+			font-weight: 300;
+			font-size: 46px;
+			line-height: 1;
+			color: var(--wp--preset--color--bronze-2);
+		}
+	}
+
+	strong {
+		display: block;
+		margin: 0 0 14px;
+		font-family: var(--wp--preset--font-family--cormorant-garamond);
+		font-weight: 400;
+		font-size: 26px;
+		line-height: 1.2;
+		letter-spacing: -0.01em;
+		color: var(--wp--preset--color--ivory);
+	}
+
+	br {
+		display: none;
+	}
+
+	@media (max-width: 56.25rem) {
+		grid-template-columns: 1fr 1fr;
+
+		> li:nth-child(2n) {
+			border-right: none;
+		}
+
+		> li:nth-child(-n + 2) {
+			border-bottom: 1px solid var(--wp--preset--color--line-dk);
+		}
+	}
+
+	@media (max-width: 35rem) {
+		grid-template-columns: 1fr;
+
+		> li {
+			border-right: none;
+			border-bottom: 1px solid var(--wp--preset--color--line-dk);
+		}
+
+		> li:last-child {
+			border-bottom: none;
+		}
+	}
+}

@@ -1923,3 +1923,7 @@ msgstr "Sobretítulo"
 #: includes/class-design-tokens.php
 msgid "Arrow (large)"
 msgstr "Seta (grande)"
+
+#: includes/class-design-tokens.php
+msgid "Pillars"
+msgstr "Pilares"

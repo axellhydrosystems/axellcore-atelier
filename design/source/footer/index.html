@@ -620,15 +620,30 @@ section{ position: relative; }
   grid-template-columns: repeat(4, 1fr);
   border-top: 1px solid var(--line-dk);
   border-bottom: 1px solid var(--line-dk);
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 .pillar{
   padding: 60px 40px 68px;
   border-right: 1px solid var(--line-dk);
   transition: background .4s ease;
+  font-family: var(--sans);
+  font-weight: 300;
+  font-size: 14px; line-height: 1.65;
+  color: rgba(239,236,228,0.66);
 }
 .pillar:last-child{ border-right: none; }
 .pillar:hover{ background: rgba(180,153,106,0.04); }
-.pillar .num{
+/* The number is the list's own counter (i., ii., …); the period is part of
+   each symbol so the number is one piece of text. */
+@counter-style roman-period{
+  system: fixed;
+  symbols: "i." "ii." "iii." "iv." "v." "vi." "vii." "viii." "ix." "x.";
+  fallback: lower-roman;
+}
+.pillar::before{
+  content: counter(list-item, roman-period);
   font-family: var(--serif);
   font-style: italic;
   font-weight: 300;
@@ -638,7 +653,9 @@ section{ position: relative; }
   margin-bottom: 40px;
   display: block;
 }
-.pillar h3{
+/* Title: the strong before the line break (the br is for reading without CSS). */
+.pillar strong{
+  display: block;
   font-family: var(--serif);
   font-weight: 400;
   font-size: 26px;
@@ -647,13 +664,7 @@ section{ position: relative; }
   margin: 0 0 14px;
   letter-spacing: -0.01em;
 }
-.pillar p{
-  font-family: var(--sans);
-  font-weight: 300;
-  font-size: 14px; line-height: 1.65;
-  color: rgba(239,236,228,0.66);
-  margin: 0;
-}
+.pillar br{ display: none; }
 @media (max-width: 900px){
   .pillars{ grid-template-columns: 1fr 1fr; }
   .pillar:nth-child(2n){ border-right: none; }

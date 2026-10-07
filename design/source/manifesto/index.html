@@ -617,15 +617,30 @@ section{ position: relative; }
   grid-template-columns: repeat(4, 1fr);
   border-top: 1px solid var(--line-dk);
   border-bottom: 1px solid var(--line-dk);
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 .pillar{
   padding: 60px 40px 68px;
   border-right: 1px solid var(--line-dk);
   transition: background .4s ease;
+  font-family: var(--sans);
+  font-weight: 300;
+  font-size: 14px; line-height: 1.65;
+  color: rgba(239,236,228,0.66);
 }
 .pillar:last-child{ border-right: none; }
 .pillar:hover{ background: rgba(180,153,106,0.04); }
-.pillar .num{
+/* The number is the list's own counter (i., ii., …); the period is part of
+   each symbol so the number is one piece of text. */
+@counter-style roman-period{
+  system: fixed;
+  symbols: "i." "ii." "iii." "iv." "v." "vi." "vii." "viii." "ix." "x.";
+  fallback: lower-roman;
+}
+.pillar::before{
+  content: counter(list-item, roman-period);
   font-family: var(--serif);
   font-style: italic;
   font-weight: 300;
@@ -635,7 +650,9 @@ section{ position: relative; }
   margin-bottom: 40px;
   display: block;
 }
-.pillar h3{
+/* Title: the strong before the line break (the br is for reading without CSS). */
+.pillar strong{
+  display: block;
   font-family: var(--serif);
   font-weight: 400;
   font-size: 26px;
@@ -644,13 +661,7 @@ section{ position: relative; }
   margin: 0 0 14px;
   letter-spacing: -0.01em;
 }
-.pillar p{
-  font-family: var(--sans);
-  font-weight: 300;
-  font-size: 14px; line-height: 1.65;
-  color: rgba(239,236,228,0.66);
-  margin: 0;
-}
+.pillar br{ display: none; }
 @media (max-width: 900px){
   .pillars{ grid-template-columns: 1fr 1fr; }
   .pillar:nth-child(2n){ border-right: none; }
@@ -1688,28 +1699,12 @@ section{ position: relative; }
     </div>
   </div>
 
-  <div class="pillars">
-    <div class="pillar">
-      <span class="num">i.</span>
-      <h3>Reconhecimento</h3>
-      <p>Selo de autoria para quem desenha ambientes extraordinários. Sua assinatura, valorizada pela marca.</p>
-    </div>
-    <div class="pillar">
-      <span class="num">ii.</span>
-      <h3>Recompensa</h3>
-      <p>Bônus financeiro direto por cada venda concretizada. A parceria em números, com transparência.</p>
-    </div>
-    <div class="pillar">
-      <span class="num">iii.</span>
-      <h3>Experiência</h3>
-      <p>Viagens, jantares e curadoria à altura do talento. Momentos que alimentam repertório.</p>
-    </div>
-    <div class="pillar">
-      <span class="num">iv.</span>
-      <h3>Visibilidade</h3>
-      <p>Os seus projetos ganham a voz autoral da Axell — publicação editorial, imprensa e redes.</p>
-    </div>
-  </div>
+  <ol class="pillars">
+    <li class="pillar"><strong>Reconhecimento</strong><br>Selo de autoria para quem desenha ambientes extraordinários. Sua assinatura, valorizada pela marca.</li>
+    <li class="pillar"><strong>Recompensa</strong><br>Bônus financeiro direto por cada venda concretizada. A parceria em números, com transparência.</li>
+    <li class="pillar"><strong>Experiência</strong><br>Viagens, jantares e curadoria à altura do talento. Momentos que alimentam repertório.</li>
+    <li class="pillar"><strong>Visibilidade</strong><br>Os seus projetos ganham a voz autoral da Axell — publicação editorial, imprensa e redes.</li>
+  </ol>
 </section>
 </main>
 </body>
