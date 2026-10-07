@@ -547,7 +547,7 @@ final class Activator {
 	 * @param string $content Block markup from content/.
 	 * @return string
 	 */
-	private static function localize( $content ) {
+	public static function localize( $content ) {
 		return self::localize_navigation( self::localize_media( $content ) );
 	}
 

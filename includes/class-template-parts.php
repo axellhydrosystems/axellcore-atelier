@@ -90,7 +90,20 @@ final class Template_Parts {
 	 * @return string
 	 */
 	public function render( $slug ) {
-		return do_blocks( $this->raw( $slug ) );
+		return do_blocks( $this->content( $slug ) );
+	}
+
+	/**
+	 * A part's content for this site: the file with the media ids and URLs
+	 * and the navigation refs of this install (the file holds the ones of the
+	 * site it was exported from, e.g. localhost).
+	 *
+	 * @param string $slug Part slug.
+	 * @return string
+	 */
+	public function content( $slug ) {
+		$raw = $this->raw( $slug );
+		return '' === $raw ? '' : Activator::localize( $raw );
 	}
 
 	/**
@@ -124,17 +137,21 @@ final class Template_Parts {
 			return;
 		}
 
-		$content = $this->raw( $slug );
+		$content = $this->content( $slug );
 		if ( '' === $content || $content === $template->content ) {
 			return;
 		}
 
+		// Trusted bundled markup (block CSS, inline icons): no kses, as the
+		// page sync (the request may have no user with unfiltered_html).
+		kses_remove_filters();
 		wp_update_post(
 			array(
 				'ID'           => (int) $template->wp_id,
 				'post_content' => wp_slash( $content ),
 			)
 		);
+		kses_init_filters();
 	}
 
 	/**

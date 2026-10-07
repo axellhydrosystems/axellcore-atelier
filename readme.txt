@@ -4,7 +4,7 @@ Tags: axell, atelier, landing-page, blocks
 Requires at least: 6.7
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 0.2.1
+Stable tag: 0.2.2
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -17,6 +17,9 @@ Self-contained landing page (FSE template + core blocks + a custom application-f
 The Atelier Axell Club landing (`/atelier`) built from native WordPress blocks: every section is core blocks styled with block attributes, presets, the plugin's block styles and per-block custom CSS, matched pixel for pixel to the approved mockup. The header and footer are template parts. The application form is a family of `axell/form*` blocks (labels, controls, address with state and city, CPF/CNPJ, partner stores) with Interactivity API behaviour; each submission creates a pending member (a user), reviewed in Atelier > Members. Without JetEngine the plugin also registers the `revendas` post type with production's signature and imports the bundled revendas on activation.
 
 == Changelog ==
+
+= 0.2.2 =
+* Fix: on a new install (Playground) the header menu was empty and the header and footer logos pointed at the exporting site. The header and footer template parts are now synced with the media and navigation of the install, as the pages already were, and without kses.
 
 = 0.2.1 =
 * Fix: logged in, the admin bar covered the Atelier header. The Sticky Header block now sits below it (32px, 46px on small screens), as WordPress sets in --wp-admin--admin-bar--height.
