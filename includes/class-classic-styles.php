@@ -177,6 +177,10 @@ final class Classic_Styles {
 				// the space before a button's inline icon shows; the page's
 				// nowrap drops it.
 				. '.wp-block-button__link.rich-text:has(.aa-inline-icon){white-space:nowrap!important}'
+				// Same for every rich text out of focus: spaces collapse as on the
+				// page (the space next to an inline icon, at line ends); the
+				// field being typed in keeps pre-wrap.
+				. '.rich-text:not(:focus){white-space-collapse:collapse!important}'
 				// The text rendering the page gets from Design_Tokens.
 				. Design_Tokens::TEXT_RENDERING_CSS,
 			'__unstableType' => 'theme',
