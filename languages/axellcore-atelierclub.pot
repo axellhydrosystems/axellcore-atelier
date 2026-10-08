@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-07T15:58:35+00:00\n"
+"POT-Creation-Date: 2026-10-08T06:19:16+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: axellcore-atelierclub\n"
@@ -42,7 +42,7 @@ msgstr ""
 msgid "Atelier — Footer"
 msgstr ""
 
-#: includes/class-activator.php:262
+#: includes/class-activator.php:277
 #: includes/class-icons.php:73
 msgid "Atelier Axell Club"
 msgstr ""
@@ -276,6 +276,7 @@ msgstr ""
 #: includes/class-member.php:123
 #: includes/class-member.php:124
 #: includes/class-member.php:135
+#: includes/class-settings.php:116
 msgid "Members"
 msgstr ""
 
@@ -603,6 +604,27 @@ msgstr ""
 
 #: includes/class-resellers.php:141
 msgid "All countries"
+msgstr ""
+
+#: includes/class-settings.php:94
+#: includes/class-settings.php:158
+msgid "Atelier settings"
+msgstr ""
+
+#: includes/class-settings.php:95
+msgid "Settings"
+msgstr ""
+
+#: includes/class-settings.php:120
+msgid "New members"
+msgstr ""
+
+#: includes/class-settings.php:149
+msgid "Create new members as pending"
+msgstr ""
+
+#: includes/class-settings.php:150
+msgid "When on, an application creates a pending member who waits for approval. When off, it creates the member already approved."
 msgstr ""
 
 #: includes/class-template-loader.php:108

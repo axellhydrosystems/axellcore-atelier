@@ -224,7 +224,7 @@ final class Members {
 				'display_name' => $fullname,
 				'user_url'     => esc_url_raw( (string) ( $params['url'] ?? '' ) ),
 				'nickname'     => $fullname,
-				'role'         => Member::ROLE_PENDING,
+				'role'         => Settings::get( 'pending_on_create' ) ? Member::ROLE_PENDING : Member::ROLE,
 			)
 		);
 		if ( is_wp_error( $user_id ) ) {

@@ -50,6 +50,7 @@ require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-design-tokens.php';
 require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-member.php';
 require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-locations.php';
 require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-members.php';
+require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-settings.php';
 require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-form-block.php';
 require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-form-directives.php';
 require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-form-submission.php';

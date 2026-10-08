@@ -385,7 +385,7 @@ msgstr "Atelier — Cabeçalho"
 msgid "Atelier — Footer"
 msgstr "Atelier — Rodapé"
 
-#: includes/class-activator.php:262
+#: includes/class-activator.php:277
 #: includes/class-icons.php:73
 msgid "Atelier Axell Club"
 msgstr "Atelier Axell Club"
@@ -476,6 +476,7 @@ msgstr "Brasil"
 #: includes/class-member.php:123
 #: includes/class-member.php:124
 #: includes/class-member.php:135
+#: includes/class-settings.php:116
 msgid "Members"
 msgstr "Membros"
 
@@ -2352,3 +2353,24 @@ msgstr "Controle de formulário (Estado)"
 #: axellcore-atelierclub.php
 msgid "https://github.com/axellhydrosystems/axellcore-atelierclub"
 msgstr "https://github.com/axellhydrosystems/axellcore-atelierclub"
+
+#: includes/class-settings.php:94
+#: includes/class-settings.php:158
+msgid "Atelier settings"
+msgstr "Configurações do Atelier"
+
+#: includes/class-settings.php:95
+msgid "Settings"
+msgstr "Configurações"
+
+#: includes/class-settings.php:120
+msgid "New members"
+msgstr "Novos membros"
+
+#: includes/class-settings.php:149
+msgid "Create new members as pending"
+msgstr "Criar novos membros como pendentes"
+
+#: includes/class-settings.php:150
+msgid "When on, an application creates a pending member who waits for approval. When off, it creates the member already approved."
+msgstr "Quando ligado, uma solicitação cria um membro pendente, que aguarda aprovação. Quando desligado, cria o membro já aprovado."

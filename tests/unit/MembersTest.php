@@ -148,6 +148,7 @@ final class MembersTest extends TestCase {
 	}
 
 	public function test_application_creates_a_pending_member_user_with_meta(): void {
+		Functions\when( 'get_option' )->justReturn( array() );
 		$this->stub_validation();
 		Functions\when( 'email_exists' )->justReturn( false );
 		Functions\when( 'get_users' )->justReturn( array() );
@@ -180,6 +181,30 @@ final class MembersTest extends TestCase {
 		$this->assertSame( 'SP', $meta['state'] );
 		$this->assertSame( '52998224725', $meta['br_revenue_id'] );
 		$this->assertArrayNotHasKey( 'aa_city', $meta );
+	}
+
+	public function test_application_creates_an_approved_member_when_pending_is_off(): void {
+		Functions\when( 'get_option' )->justReturn( array( 'pending_on_create' => false ) );
+		$this->stub_validation();
+		Functions\when( 'email_exists' )->justReturn( false );
+		Functions\when( 'get_users' )->justReturn( array() );
+		Functions\when( 'sanitize_user' )->returnArg( 1 );
+		Functions\when( 'username_exists' )->justReturn( false );
+		Functions\when( 'esc_url_raw' )->returnArg( 1 );
+		Functions\when( 'wp_generate_password' )->justReturn( 'secret' );
+		Functions\when( 'absint' )->alias( 'intval' );
+		Functions\when( 'update_user_meta' )->justReturn( true );
+		$user = array();
+		Functions\expect( 'wp_insert_user' )->once()->andReturnUsing(
+			static function ( $data ) use ( &$user ) {
+				$user = $data;
+				return 43;
+			}
+		);
+
+		Members::instance()->create_from_params( $this->valid_params() );
+
+		$this->assertSame( 'member', $user['role'] );
 	}
 
 	public function test_username_is_the_email_prefix(): void {

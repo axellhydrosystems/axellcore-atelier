@@ -73,6 +73,7 @@ final class Plugin {
 		Member::instance()->register_hooks();
 		Locations::instance()->register_hooks();
 		Members::instance()->register_hooks();
+		Settings::instance()->register_hooks();
 		Form_Block::instance()->register_hooks();
 		Form_Directives::instance()->register_hooks();
 		Form_Submission::instance()->register_hooks();
