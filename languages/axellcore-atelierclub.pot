@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-08T18:51:57+00:00\n"
+"POT-Creation-Date: 2026-10-08T18:56:02+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: axellcore-atelierclub\n"
@@ -767,6 +767,7 @@ msgstr ""
 
 #: includes/class-members.php:680
 #: includes/class-members.php:785
+#: includes/class-places.php:347
 #: includes/class-rest.php:183
 msgid "Too many attempts. Try again in a few minutes."
 msgstr ""
@@ -957,6 +958,10 @@ msgstr ""
 
 #: includes/class-notifications.php:582
 msgid "Unknown e-mail."
+msgstr ""
+
+#: includes/class-places.php:179
+msgid "Address not found."
 msgstr ""
 
 #: includes/class-resellers-admin.php:109

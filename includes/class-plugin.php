@@ -76,6 +76,7 @@ final class Plugin {
 		Settings::instance()->register_hooks();
 		Form_Block::instance()->register_hooks();
 		Recaptcha::instance()->register_hooks();
+		Places::instance()->register_hooks();
 		Form_Directives::instance()->register_hooks();
 		Form_Submission::instance()->register_hooks();
 		Activator::register_hooks();
