@@ -1,6 +1,8 @@
 <?php
 /**
- * Atelier → Settings: the plugin's options, in one option array.
+ * Atelier → Settings: the plugin's options, in one option array, on tabs as
+ * WooCommerce's settings (General, Members, E-mails; the e-mails listed and
+ * one section per e-mail).
  *
  * @package Axellcore_Atelierclub
  */
@@ -44,6 +46,11 @@ final class Settings {
 		// The Atelier page; 0 = none.
 		'page_id'            => 0,
 	);
+
+	/**
+	 * Tabs: slug => settings sections page (the Settings API page id).
+	 */
+	const TABS = array( 'general', 'members', 'emails' );
 
 	/**
 	 * The admin-post action of "Create Atelier page".
@@ -192,24 +199,24 @@ final class Settings {
 			)
 		);
 
-		add_settings_section( 'page', __( 'Page', 'axellcore-atelierclub' ), '__return_false', self::PAGE );
+		add_settings_section( 'page', __( 'Page', 'axellcore-atelierclub' ), '__return_false', self::PAGE . '-general' );
 
 		add_settings_field(
 			'page_id',
 			__( 'Atelier page', 'axellcore-atelierclub' ),
 			array( $this, 'render_page_id' ),
-			self::PAGE,
+			self::PAGE . '-general',
 			'page',
 			array( 'label_for' => self::OPTION . '-page_id' )
 		);
 
-		add_settings_section( 'members', __( 'Members', 'axellcore-atelierclub' ), '__return_false', self::PAGE );
+		add_settings_section( 'members', __( 'Members', 'axellcore-atelierclub' ), '__return_false', self::PAGE . '-members' );
 
 		add_settings_field(
 			'pending_on_create',
 			__( 'New members', 'axellcore-atelierclub' ),
 			array( $this, 'render_pending_on_create' ),
-			self::PAGE,
+			self::PAGE . '-members',
 			'members',
 			array( 'label_for' => self::OPTION . '-pending_on_create' )
 		);
@@ -218,26 +225,90 @@ final class Settings {
 			'members_can_log_in',
 			__( 'Dashboard access', 'axellcore-atelierclub' ),
 			array( $this, 'render_members_can_log_in' ),
-			self::PAGE,
+			self::PAGE . '-members',
 			'members',
 			array( 'label_for' => self::OPTION . '-members_can_log_in' )
 		);
 	}
 
 	/**
-	 * Keep only known keys, as booleans.
+	 * The fields sent, over the values saved: each tab sends only its own
+	 * fields, so saving one never resets another. An e-mail's subject,
+	 * heading or text equal to its default in the site's language is not
+	 * stored (empty), so it follows the translation.
 	 *
 	 * @param mixed $input Submitted value.
 	 * @return array<string,mixed>
 	 */
 	public function sanitize( $input ) {
-		$input   = is_array( $input ) ? $input : array();
-		$page_id = absint( $input['page_id'] ?? 0 );
-		return array(
-			'pending_on_create'  => ! empty( $input['pending_on_create'] ),
-			'members_can_log_in' => ! empty( $input['members_can_log_in'] ),
-			'page_id'            => $page_id && 'page' === get_post_type( $page_id ) ? $page_id : 0,
-		);
+		$input  = is_array( $input ) ? $input : array();
+		$values = get_option( self::OPTION, array() );
+		$values = is_array( $values ) ? $values : array();
+		foreach ( array( 'pending_on_create', 'members_can_log_in' ) as $key ) {
+			if ( array_key_exists( $key, $input ) ) {
+				$values[ $key ] = ! empty( $input[ $key ] );
+			}
+		}
+		if ( array_key_exists( 'page_id', $input ) ) {
+			$page_id           = absint( $input['page_id'] );
+			$values['page_id'] = $page_id && 'page' === get_post_type( $page_id ) ? $page_id : 0;
+		}
+		foreach ( array_keys( Notifications::EMAILS ) as $email ) {
+			$key = Notifications::setting( $email, 'enabled' );
+			if ( array_key_exists( $key, $input ) ) {
+				$values[ $key ] = ! empty( $input[ $key ] );
+			}
+			foreach ( Notifications::FIELDS as $field ) {
+				$key = Notifications::setting( $email, $field );
+				if ( ! array_key_exists( $key, $input ) || ! is_scalar( $input[ $key ] ) ) {
+					continue;
+				}
+				$value          = self::clean_text( (string) $input[ $key ], 'body' === $field );
+				$values[ $key ] = self::clean_text( Notifications::site_default( $email, $field ), 'body' === $field ) === $value ? '' : $value;
+			}
+		}
+		$key = Notifications::setting( 'team_new', 'to' );
+		if ( array_key_exists( $key, $input ) && is_scalar( $input[ $key ] ) ) {
+			$values[ $key ] = self::clean_recipients( (string) $input[ $key ] );
+		}
+		return $values;
+	}
+
+	/**
+	 * A text field as stored: one line, or several (line breaks as \n), no
+	 * spaces at the ends.
+	 *
+	 * @param string $value     Text.
+	 * @param bool   $multiline Several lines (textarea).
+	 * @return string
+	 */
+	private static function clean_text( $value, $multiline ) {
+		$value = str_replace( array( "\r\n", "\r" ), "\n", $value );
+		return trim( $multiline ? sanitize_textarea_field( $value ) : sanitize_text_field( $value ) );
+	}
+
+	/**
+	 * The team's recipients: valid e-mails, comma-separated; the invalid ones
+	 * are dropped and named in a notice.
+	 *
+	 * @param string $value Typed list.
+	 * @return string
+	 */
+	private static function clean_recipients( $value ) {
+		$valid   = array();
+		$invalid = array();
+		foreach ( array_filter( array_map( 'trim', explode( ',', $value ) ) ) as $email ) {
+			if ( is_email( $email ) ) {
+				$valid[] = sanitize_email( $email );
+			} else {
+				$invalid[] = $email;
+			}
+		}
+		if ( $invalid && function_exists( 'add_settings_error' ) ) {
+			/* translators: %s: the invalid e-mail addresses. */
+			add_settings_error( self::OPTION, 'invalid-recipients', sprintf( __( 'Left out, not valid e-mail addresses: %s', 'axellcore-atelierclub' ), implode( ', ', $invalid ) ) );
+		}
+		return implode( ', ', array_unique( $valid ) );
 	}
 
 	/**
@@ -297,27 +368,219 @@ final class Settings {
 	}
 
 	/**
-	 * The settings form.
+	 * The tab shown (general by default).
+	 *
+	 * @return string
+	 */
+	private static function current_tab() {
+		$tab = isset( $_GET['tab'] ) ? sanitize_key( wp_unslash( $_GET['tab'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- only picks the tab.
+		return in_array( $tab, self::TABS, true ) ? $tab : 'general';
+	}
+
+	/**
+	 * The e-mail whose section is shown on the E-mails tab, '' for the list.
+	 *
+	 * @return string
+	 */
+	private static function current_section() {
+		$section = isset( $_GET['section'] ) ? sanitize_key( wp_unslash( $_GET['section'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- only picks the section.
+		return isset( Notifications::EMAILS[ $section ] ) ? $section : '';
+	}
+
+	/**
+	 * A tab's (and section's) address.
+	 *
+	 * @param string $tab     Tab.
+	 * @param string $section E-mail section.
+	 * @return string
+	 */
+	public static function url( $tab = 'general', $section = '' ) {
+		$args = array(
+			'page'    => self::PAGE,
+			'tab'     => $tab,
+			'section' => $section,
+		);
+		return add_query_arg( array_filter( $args ), admin_url( 'admin.php' ) );
+	}
+
+	/**
+	 * The preview of an e-mail (Notifications::preview()).
+	 *
+	 * @param string $key E-mail.
+	 * @return string
+	 */
+	private static function preview_url( $key ) {
+		$args = array(
+			'action' => Notifications::PREVIEW_ACTION,
+			'email'  => $key,
+		);
+		return wp_nonce_url( add_query_arg( $args, admin_url( 'admin-post.php' ) ), Notifications::PREVIEW_ACTION );
+	}
+
+	/**
+	 * The settings screen: the tabs, then the tab's form (the E-mails tab
+	 * lists the e-mails; each one has its own section).
 	 */
 	public function render_page() {
+		$tab     = self::current_tab();
+		$section = 'emails' === $tab ? self::current_section() : '';
+		$labels  = array(
+			'general' => __( 'General', 'axellcore-atelierclub' ),
+			'members' => __( 'Members', 'axellcore-atelierclub' ),
+			'emails'  => __( 'E-mails', 'axellcore-atelierclub' ),
+		);
+
 		echo '<div class="wrap"><h1>' . esc_html__( 'Atelier settings', 'axellcore-atelierclub' ) . '</h1>';
+		echo '<nav class="nav-tab-wrapper" aria-label="' . esc_attr__( 'Settings sections', 'axellcore-atelierclub' ) . '">';
+		foreach ( $labels as $slug => $label ) {
+			printf(
+				'<a href="%1$s" class="nav-tab%2$s"%3$s>%4$s</a>',
+				esc_url( self::url( $slug ) ),
+				$tab === $slug ? ' nav-tab-active' : '',
+				$tab === $slug ? ' aria-current="page"' : '',
+				esc_html( $label )
+			);
+		}
+		echo '</nav>';
 		settings_errors( self::OPTION );
+
+		if ( 'emails' === $tab && '' === $section ) {
+			$this->render_email_list();
+			echo '</div>';
+			return;
+		}
+
 		echo '<form method="post" action="options.php">';
 		settings_fields( self::GROUP );
-		do_settings_sections( self::PAGE );
+		if ( 'emails' === $tab ) {
+			$this->render_email_section( $section );
+		} else {
+			do_settings_sections( self::PAGE . '-' . $tab );
+		}
 		submit_button();
 		echo '</form>';
 
-		// Outside the settings form (forms cannot nest): a new page with the
-		// bundled landing content.
+		if ( 'general' === $tab ) {
+			// Outside the settings form (forms cannot nest): a new page with the
+			// bundled landing content.
+			printf(
+				'<form method="post" action="%1$s"><input type="hidden" name="action" value="%2$s">',
+				esc_url( admin_url( 'admin-post.php' ) ),
+				esc_attr( self::CREATE_ACTION )
+			);
+			wp_nonce_field( self::CREATE_ACTION );
+			submit_button( __( 'Create Atelier page', 'axellcore-atelierclub' ), 'secondary', 'submit', false );
+			printf( '<p class="description">%s</p></form>', esc_html__( 'Creates a page with the Atelier landing content and makes it the Atelier page.', 'axellcore-atelierclub' ) );
+		}
+		echo '</div>';
+	}
+
+	/**
+	 * The E-mails tab: the e-mails, as WooCommerce lists its own.
+	 */
+	private function render_email_list() {
+		printf( '<p>%s</p>', esc_html__( 'E-mails sent by the Atelier. Each one is off until turned on; manage one to edit its subject, heading and text.', 'axellcore-atelierclub' ) );
+		echo '<table class="widefat striped aa-emails"><thead><tr>';
 		printf(
-			'<form method="post" action="%1$s"><input type="hidden" name="action" value="%2$s">',
-			esc_url( admin_url( 'admin-post.php' ) ),
-			esc_attr( self::CREATE_ACTION )
+			'<th scope="col">%1$s</th><th scope="col">%2$s</th><th scope="col">%3$s</th><th scope="col"><span class="screen-reader-text">%4$s</span></th>',
+			esc_html__( 'E-mail', 'axellcore-atelierclub' ),
+			esc_html__( 'Recipient', 'axellcore-atelierclub' ),
+			esc_html__( 'Status', 'axellcore-atelierclub' ),
+			esc_html__( 'Actions', 'axellcore-atelierclub' )
 		);
-		wp_nonce_field( self::CREATE_ACTION );
-		submit_button( __( 'Create Atelier page', 'axellcore-atelierclub' ), 'secondary', 'submit', false );
-		printf( '<p class="description">%s</p></form></div>', esc_html__( 'Creates a page with the Atelier landing content and makes it the Atelier page.', 'axellcore-atelierclub' ) );
+		echo '</tr></thead><tbody>';
+		foreach ( Notifications::titles() as $key => list( $title, $description ) ) {
+			$url       = self::url( 'emails', $key );
+			$recipient = 'team' === Notifications::EMAILS[ $key ] ? implode( ', ', Notifications::team_recipients() ) : __( 'Member', 'axellcore-atelierclub' );
+			$enabled   = Notifications::enabled( $key );
+			printf(
+				'<tr><td><a href="%1$s"><strong>%2$s</strong></a><p class="description">%3$s</p></td><td>%4$s</td><td>%5$s</td><td><a class="button" href="%1$s">%6$s</a></td></tr>',
+				esc_url( $url ),
+				esc_html( $title ),
+				esc_html( $description ),
+				esc_html( $recipient ),
+				$enabled ? esc_html__( 'Enabled', 'axellcore-atelierclub' ) : esc_html__( 'Disabled', 'axellcore-atelierclub' ),
+				esc_html__( 'Manage', 'axellcore-atelierclub' )
+			);
+		}
+		echo '</tbody></table>';
+	}
+
+	/**
+	 * One e-mail's settings: on/off, recipients (the team's), subject,
+	 * heading and text, prefilled with the default in the site's language.
+	 *
+	 * @param string $key E-mail.
+	 */
+	private function render_email_section( $key ) {
+		$titles = Notifications::titles();
+		$name   = static fn( $field ) => esc_attr( self::OPTION . '[' . Notifications::setting( $key, $field ) . ']' );
+		$id     = static fn( $field ) => esc_attr( self::OPTION . '-' . Notifications::setting( $key, $field ) );
+		$value  = static function ( $field ) use ( $key ) {
+			$saved = (string) self::get( Notifications::setting( $key, $field ) );
+			return '' !== $saved ? $saved : Notifications::site_default( $key, $field );
+		};
+
+		printf(
+			'<p><a href="%1$s">&larr; %2$s</a></p><h2>%3$s</h2><p>%4$s</p>',
+			esc_url( self::url( 'emails' ) ),
+			esc_html__( 'E-mails', 'axellcore-atelierclub' ),
+			esc_html( $titles[ $key ][0] ),
+			esc_html( $titles[ $key ][1] )
+		);
+		echo '<table class="form-table" role="presentation"><tbody>';
+		printf(
+			'<tr><th scope="row">%1$s</th><td><input type="hidden" name="%2$s" value="0"><label><input type="checkbox" id="%3$s" name="%2$s" value="1"%4$s> %5$s</label></td></tr>',
+			esc_html__( 'Enable/Disable', 'axellcore-atelierclub' ),
+			$name( 'enabled' ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped by $name.
+			$id( 'enabled' ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped by $id.
+			checked( Notifications::enabled( $key ), true, false ),
+			esc_html__( 'Enable this e-mail', 'axellcore-atelierclub' )
+		);
+		if ( 'team' === Notifications::EMAILS[ $key ] ) {
+			printf(
+				'<tr><th scope="row"><label for="%1$s">%2$s</label></th><td><input type="text" class="regular-text" id="%1$s" name="%3$s" value="%4$s" placeholder="%5$s"><p class="description">%6$s</p></td></tr>',
+				$id( 'to' ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped by $id.
+				esc_html__( 'Recipients', 'axellcore-atelierclub' ),
+				$name( 'to' ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped by $name.
+				esc_attr( (string) self::get( Notifications::setting( $key, 'to' ) ) ),
+				esc_attr( (string) get_option( 'admin_email' ) ),
+				esc_html__( 'One or more e-mail addresses, separated by commas. Empty, the site\'s admin e-mail.', 'axellcore-atelierclub' )
+			);
+		}
+		foreach ( array(
+			'subject' => __( 'Subject', 'axellcore-atelierclub' ),
+			'heading' => __( 'E-mail heading', 'axellcore-atelierclub' ),
+		) as $field => $label ) {
+			printf(
+				'<tr><th scope="row"><label for="%1$s">%2$s</label></th><td><input type="text" class="large-text" id="%1$s" name="%3$s" value="%4$s"></td></tr>',
+				$id( $field ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped by $id.
+				esc_html( $label ),
+				$name( $field ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped by $name.
+				esc_attr( $value( $field ) )
+			);
+		}
+		printf(
+			'<tr><th scope="row"><label for="%1$s">%2$s</label></th><td><textarea class="large-text" rows="12" id="%1$s" name="%3$s" aria-describedby="%1$s-help">%4$s</textarea><p class="description" id="%1$s-help">%5$s</p></td></tr>',
+			$id( 'body' ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped by $id.
+			esc_html__( 'Text', 'axellcore-atelierclub' ),
+			$name( 'body' ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped by $name.
+			esc_textarea( $value( 'body' ) ),
+			esc_html__( 'Plain text: a blank line starts a paragraph and addresses become links. Sent as an HTML e-mail in the Atelier\'s colors.', 'axellcore-atelierclub' )
+		);
+		echo '<tr><th scope="row">' . esc_html__( 'Placeholders', 'axellcore-atelierclub' ) . '</th><td><ul class="aa-placeholders">';
+		foreach ( Notifications::placeholder_help() as $tag => $meaning ) {
+			printf( '<li><code>%1$s</code> %2$s</li>', esc_html( $tag ), esc_html( $meaning ) );
+		}
+		echo '</ul></td></tr>';
+		printf(
+			'<tr><th scope="row">%1$s</th><td><a href="%2$s" target="_blank" rel="noopener">%3$s</a><p class="description">%4$s</p></td></tr>',
+			esc_html__( 'Preview', 'axellcore-atelierclub' ),
+			esc_url( self::preview_url( $key ) ),
+			esc_html__( 'Open the preview', 'axellcore-atelierclub' ),
+			esc_html__( 'The saved e-mail, with a sample member.', 'axellcore-atelierclub' )
+		);
+		echo '</tbody></table>';
 	}
 
 	/**
@@ -337,15 +600,7 @@ final class Settings {
 			add_settings_error( self::OPTION, 'not-created', __( 'Could not create the Atelier page.', 'axellcore-atelierclub' ) );
 		}
 		set_transient( 'settings_errors', get_settings_errors(), 30 );
-		wp_safe_redirect(
-			add_query_arg(
-				array(
-					'page'             => self::PAGE,
-					'settings-updated' => 'true',
-				),
-				admin_url( 'admin.php' )
-			)
-		);
+		wp_safe_redirect( add_query_arg( 'settings-updated', 'true', self::url( 'general' ) ) );
 		exit;
 	}
 }

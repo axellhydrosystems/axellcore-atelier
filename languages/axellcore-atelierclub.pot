@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-08T15:08:35+00:00\n"
+"POT-Creation-Date: 2026-10-08T15:48:39+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: axellcore-atelierclub\n"
@@ -53,14 +53,14 @@ msgstr ""
 
 #: includes/class-admin-rest.php:266
 #: includes/class-members.php:238
-#: includes/class-members.php:746
+#: includes/class-members.php:753
 #: includes/class-resellers-rest.php:374
 msgid "Invalid email address."
 msgstr ""
 
 #: includes/class-admin-rest.php:270
 #: includes/class-members.php:285
-#: includes/class-members.php:753
+#: includes/class-members.php:760
 msgid "This e-mail is already registered."
 msgstr ""
 
@@ -181,6 +181,7 @@ msgstr ""
 #: includes/class-form-directives.php:802
 #: includes/class-form-directives.php:837
 #: includes/class-members-export.php:88
+#: includes/class-notifications.php:209
 #: build/form/form-control-reseller/index.js:1
 #: build/form/form-control/index.js:1
 msgid "State code"
@@ -198,6 +199,7 @@ msgstr ""
 
 #: includes/class-form-directives.php:839
 #: includes/class-members-export.php:89
+#: includes/class-notifications.php:208
 #: includes/class-resellers.php:131
 #: build/admin/resellers/index.js:175
 #: build/admin/resellers/index.js:184
@@ -392,13 +394,13 @@ msgstr ""
 
 #: includes/class-member-profile.php:629
 #: includes/class-members.php:257
-#: includes/class-members.php:748
+#: includes/class-members.php:755
 msgid "Enter a phone number with area code."
 msgstr ""
 
 #: includes/class-member-profile.php:633
 #: includes/class-members.php:260
-#: includes/class-members.php:749
+#: includes/class-members.php:756
 msgid "Enter a CEP with 8 digits."
 msgstr ""
 
@@ -408,79 +410,82 @@ msgstr ""
 
 #: includes/class-member-profile.php:738
 #: includes/class-members.php:275
-#: includes/class-members.php:752
+#: includes/class-members.php:759
 msgid "Choose a reseller from the list."
 msgstr ""
 
-#: includes/class-member.php:127
+#: includes/class-member.php:146
 msgid "Your membership application is under review. You will be told once it is approved."
 msgstr ""
 
-#: includes/class-member.php:129
+#: includes/class-member.php:148
 msgid "Members' access to the dashboard is turned off."
 msgstr ""
 
 #. translators: %s: user's display name.
-#: includes/class-member.php:225
+#: includes/class-member.php:251
 #, php-format
 msgid "Approve %s"
 msgstr ""
 
-#: includes/class-member.php:226
-#: includes/class-member.php:239
+#: includes/class-member.php:252
+#: includes/class-member.php:265
 msgid "Approve"
 msgstr ""
 
-#: includes/class-member.php:277
+#: includes/class-member.php:303
 msgid "Sorry, you are not allowed to edit this user."
 msgstr ""
 
-#: includes/class-member.php:302
+#: includes/class-member.php:328
 msgid "Member approved."
 msgstr ""
 
 #. translators: %d: number of members approved.
-#: includes/class-member.php:304
+#: includes/class-member.php:330
 #, php-format
 msgid "%d member approved."
 msgid_plural "%d members approved."
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/class-member.php:327
+#: includes/class-member.php:353
 #: includes/class-resellers-rest.php:53
 #: build/form/form-atelier/index.js:1
 #: build/form/form/index.js:1
 msgid "Pending"
 msgstr ""
 
-#: includes/class-member.php:328
-#: includes/class-member.php:339
+#: includes/class-member.php:354
+#: includes/class-member.php:367
+#: includes/class-settings.php:494
 msgid "Member"
 msgstr ""
 
-#: includes/class-member.php:338
+#: includes/class-member.php:365
 msgid "Pending Member"
 msgstr ""
 
-#: includes/class-member.php:361
-#: includes/class-member.php:371
-#: includes/class-member.php:372
-#: includes/class-member.php:383
-#: includes/class-settings.php:206
+#: includes/class-member.php:394
+#: includes/class-member.php:404
+#: includes/class-member.php:405
+#: includes/class-member.php:416
+#: includes/class-settings.php:213
+#: includes/class-settings.php:429
 msgid "Members"
 msgstr ""
 
-#: includes/class-member.php:362
+#: includes/class-member.php:395
 msgid "Atelier"
 msgstr ""
 
-#: includes/class-member.php:388
+#: includes/class-member.php:421
 #: includes/class-members-export.php:130
 msgid "Export"
 msgstr ""
 
 #: includes/class-members-export.php:75
+#: includes/class-settings.php:488
 #: build/admin/members/index.js:175
 #: build/admin/members/index.js:184
 #: build/admin/resellers/index.js:175
@@ -499,6 +504,7 @@ msgid "Login"
 msgstr ""
 
 #: includes/class-members-export.php:78
+#: includes/class-notifications.php:202
 #: build/admin/members/index.js:184
 msgid "Full name"
 msgstr ""
@@ -514,10 +520,12 @@ msgid "Email"
 msgstr ""
 
 #: includes/class-members-export.php:80
+#: includes/class-notifications.php:205
 msgid "Office / Studio"
 msgstr ""
 
 #: includes/class-members-export.php:81
+#: includes/class-notifications.php:206
 #: build/admin/resellers/index.js:175
 #: build/form/form-control/index.js:1
 #: build/form/form-input/index.js:1
@@ -534,6 +542,7 @@ msgid "Registration (CAU / CREA / ABD)"
 msgstr ""
 
 #: includes/class-members-export.php:83
+#: includes/class-notifications.php:210
 #: build/admin/members/index.js:184
 msgid "Main practice"
 msgstr ""
@@ -549,6 +558,7 @@ msgid "Registration type"
 msgstr ""
 
 #: includes/class-members-export.php:86
+#: includes/class-notifications.php:207
 #: build/admin/members/index.js:175
 #: build/form/form-control/index.js:1
 #: build/form/form-input/index.js:1
@@ -714,19 +724,170 @@ msgstr ""
 msgid "Could not save your application."
 msgstr ""
 
-#: includes/class-members.php:366
-#: includes/class-members.php:747
+#: includes/class-members.php:373
+#: includes/class-members.php:754
 msgid "Invalid state/city."
 msgstr ""
 
-#: includes/class-members.php:660
-#: includes/class-members.php:756
+#: includes/class-members.php:667
+#: includes/class-members.php:763
 #: includes/class-rest.php:183
 msgid "Too many attempts. Try again in a few minutes."
 msgstr ""
 
-#: includes/class-members.php:745
+#: includes/class-members.php:752
 msgid "Fill in the required fields."
+msgstr ""
+
+#: includes/class-notifications.php:86
+msgid "New application (team)"
+msgstr ""
+
+#: includes/class-notifications.php:86
+msgid "Sent to the team when someone applies on the form."
+msgstr ""
+
+#: includes/class-notifications.php:87
+#: includes/class-notifications.php:112
+msgid "Application received"
+msgstr ""
+
+#: includes/class-notifications.php:87
+msgid "Sent to whoever applies, when the member is created as pending."
+msgstr ""
+
+#: includes/class-notifications.php:88
+msgid "Welcome"
+msgstr ""
+
+#: includes/class-notifications.php:88
+msgid "Sent to whoever applies, when the member is created already approved."
+msgstr ""
+
+#: includes/class-notifications.php:89
+#: includes/class-notifications.php:124
+msgid "Membership approved"
+msgstr ""
+
+#: includes/class-notifications.php:89
+msgid "Sent to a pending member once approved."
+msgstr ""
+
+#. translators: {fullname} and the other {placeholders} are replaced when sending; keep them as they are.
+#: includes/class-notifications.php:105
+msgid "New membership application: {fullname}"
+msgstr ""
+
+#: includes/class-notifications.php:106
+msgid "New membership application"
+msgstr ""
+
+#: includes/class-notifications.php:107
+msgid ""
+"A new application to the Atelier Axell Club has arrived.\n"
+"\n"
+"Name: {fullname}\n"
+"Office / Studio: {company}\n"
+"E-mail: {email}\n"
+"Phone: {phone}\n"
+"CPF / CNPJ: {document}\n"
+"City: {city} / {state}\n"
+"Main practice: {primary_focus}\n"
+"\n"
+"Partner stores:\n"
+"{stores}\n"
+"\n"
+"Review the application: {member_admin_url}"
+msgstr ""
+
+#: includes/class-notifications.php:111
+msgid "We received your application, {first_name}"
+msgstr ""
+
+#: includes/class-notifications.php:113
+msgid ""
+"Hello, {first_name}.\n"
+"\n"
+"We received your application to the Atelier Axell Club. Our curators will review it, and we will let you know by e-mail as soon as it is approved.\n"
+"\n"
+"Thank you for your interest.\n"
+"Atelier Axell"
+msgstr ""
+
+#: includes/class-notifications.php:117
+msgid "Welcome to the Atelier Axell Club, {first_name}"
+msgstr ""
+
+#: includes/class-notifications.php:118
+msgid "Welcome to the Atelier"
+msgstr ""
+
+#: includes/class-notifications.php:119
+msgid ""
+"Hello, {first_name}.\n"
+"\n"
+"Your membership in the Atelier Axell Club is confirmed. From now on you are part of a circle of architects and designers who specify Axell.\n"
+"\n"
+"Get to know the club: {atelier_url}\n"
+"\n"
+"Atelier Axell"
+msgstr ""
+
+#: includes/class-notifications.php:123
+msgid "Your Atelier Axell Club membership is approved"
+msgstr ""
+
+#: includes/class-notifications.php:125
+msgid ""
+"Hello, {first_name}.\n"
+"\n"
+"Good news: our curators approved your application, and you are now a member of the Atelier Axell Club.\n"
+"\n"
+"Get to know the club: {atelier_url}\n"
+"\n"
+"Atelier Axell"
+msgstr ""
+
+#: includes/class-notifications.php:203
+msgid "First name"
+msgstr ""
+
+#: includes/class-notifications.php:204
+#: includes/class-settings.php:486
+msgid "E-mail"
+msgstr ""
+
+#: includes/class-notifications.php:211
+msgid "Partner stores, one per line"
+msgstr ""
+
+#: includes/class-notifications.php:212
+msgid "The member on Atelier > Members (team e-mail)"
+msgstr ""
+
+#: includes/class-notifications.php:213
+msgid "The Atelier page"
+msgstr ""
+
+#: includes/class-notifications.php:214
+msgid "Site name"
+msgstr ""
+
+#: includes/class-notifications.php:215
+msgid "Site address"
+msgstr ""
+
+#: includes/class-notifications.php:216
+msgid "Today's date"
+msgstr ""
+
+#: includes/class-notifications.php:395
+#: includes/class-settings.php:592
+msgid "Sorry, you are not allowed to do that."
+msgstr ""
+
+#: includes/class-notifications.php:400
+msgid "Unknown e-mail."
 msgstr ""
 
 #: includes/class-resellers-admin.php:109
@@ -798,86 +959,178 @@ msgstr ""
 msgid "All countries"
 msgstr ""
 
-#: includes/class-settings.php:97
+#: includes/class-settings.php:104
 msgid "Atelier Page"
 msgstr ""
 
-#: includes/class-settings.php:173
-#: includes/class-settings.php:303
+#: includes/class-settings.php:180
+#: includes/class-settings.php:433
 msgid "Atelier settings"
 msgstr ""
 
-#: includes/class-settings.php:174
+#: includes/class-settings.php:181
 msgid "Settings"
 msgstr ""
 
-#: includes/class-settings.php:195
+#: includes/class-settings.php:202
 msgid "Page"
 msgstr ""
 
-#: includes/class-settings.php:199
+#: includes/class-settings.php:206
 msgid "Atelier page"
 msgstr ""
 
-#: includes/class-settings.php:210
+#: includes/class-settings.php:217
 msgid "New members"
 msgstr ""
 
-#: includes/class-settings.php:219
+#: includes/class-settings.php:226
 msgid "Dashboard access"
 msgstr ""
 
-#: includes/class-settings.php:253
+#. translators: %s: the invalid e-mail addresses.
+#: includes/class-settings.php:309
+#, php-format
+msgid "Left out, not valid e-mail addresses: %s"
+msgstr ""
+
+#: includes/class-settings.php:324
 msgid "— Select —"
 msgstr ""
 
-#: includes/class-settings.php:262
+#: includes/class-settings.php:333
 #: build/admin/resellers/index.js:175
 msgid "Edit"
 msgstr ""
 
-#: includes/class-settings.php:264
+#: includes/class-settings.php:335
 #: build/admin/members/index.js:175
 msgid "View"
 msgstr ""
 
-#: includes/class-settings.php:269
+#: includes/class-settings.php:340
 msgid "The page of the Atelier landing: its slug can change. With a block theme, use the Atelier Club template on it. Empty, no page is the Atelier page."
 msgstr ""
 
-#: includes/class-settings.php:281
+#: includes/class-settings.php:352
 msgid "Create new members as pending"
 msgstr ""
 
-#: includes/class-settings.php:282
+#: includes/class-settings.php:353
 msgid "When on, an application creates a pending member who waits for approval. When off, it creates the member already approved."
 msgstr ""
 
-#: includes/class-settings.php:294
+#: includes/class-settings.php:365
 msgid "Allow members to log in"
 msgstr ""
 
-#: includes/class-settings.php:295
+#: includes/class-settings.php:366
 msgid "Approved members can log in and reset their password. Pending members never can."
 msgstr ""
 
-#: includes/class-settings.php:319
+#: includes/class-settings.php:428
+msgid "General"
+msgstr ""
+
+#: includes/class-settings.php:430
+#: includes/class-settings.php:527
+msgid "E-mails"
+msgstr ""
+
+#: includes/class-settings.php:434
+msgid "Settings sections"
+msgstr ""
+
+#: includes/class-settings.php:472
 msgid "Create Atelier page"
 msgstr ""
 
-#: includes/class-settings.php:320
+#: includes/class-settings.php:473
 msgid "Creates a page with the Atelier landing content and makes it the Atelier page."
 msgstr ""
 
-#: includes/class-settings.php:329
-msgid "Sorry, you are not allowed to do that."
+#: includes/class-settings.php:482
+msgid "E-mails sent by the Atelier. Each one is off until turned on; manage one to edit its subject, heading and text."
 msgstr ""
 
-#: includes/class-settings.php:335
+#: includes/class-settings.php:487
+msgid "Recipient"
+msgstr ""
+
+#: includes/class-settings.php:489
+msgid "Actions"
+msgstr ""
+
+#: includes/class-settings.php:502
+msgid "Enabled"
+msgstr ""
+
+#: includes/class-settings.php:502
+msgid "Disabled"
+msgstr ""
+
+#: includes/class-settings.php:503
+msgid "Manage"
+msgstr ""
+
+#: includes/class-settings.php:534
+msgid "Enable/Disable"
+msgstr ""
+
+#: includes/class-settings.php:538
+msgid "Enable this e-mail"
+msgstr ""
+
+#: includes/class-settings.php:544
+msgid "Recipients"
+msgstr ""
+
+#: includes/class-settings.php:548
+msgid "One or more e-mail addresses, separated by commas. Empty, the site's admin e-mail."
+msgstr ""
+
+#: includes/class-settings.php:552
+#: build/form/form-atelier/index.js:1
+#: build/form/form/index.js:1
+msgid "Subject"
+msgstr ""
+
+#: includes/class-settings.php:553
+msgid "E-mail heading"
+msgstr ""
+
+#: includes/class-settings.php:566
+#: build/form/form-input/index.js:1
+#: includes/blocks/form/form-control/index.js:46
+#: includes/blocks/form/form-input/index.js:55
+msgid "Text"
+msgstr ""
+
+#: includes/class-settings.php:569
+msgid "Plain text: a blank line starts a paragraph and addresses become links. Sent as an HTML e-mail in the Atelier's colors."
+msgstr ""
+
+#: includes/class-settings.php:571
+msgid "Placeholders"
+msgstr ""
+
+#: includes/class-settings.php:578
+msgid "Preview"
+msgstr ""
+
+#: includes/class-settings.php:580
+msgid "Open the preview"
+msgstr ""
+
+#: includes/class-settings.php:581
+msgid "The saved e-mail, with a sample member."
+msgstr ""
+
+#: includes/class-settings.php:598
 msgid "Atelier page created."
 msgstr ""
 
-#: includes/class-settings.php:337
+#: includes/class-settings.php:600
 msgid "Could not create the Atelier page."
 msgstr ""
 
@@ -2108,11 +2361,6 @@ msgstr ""
 
 #: build/form/form-atelier/index.js:1
 #: build/form/form/index.js:1
-msgid "Subject"
-msgstr ""
-
-#: build/form/form-atelier/index.js:1
-#: build/form/form/index.js:1
 msgid "Message"
 msgstr ""
 
@@ -2583,12 +2831,6 @@ msgstr ""
 #: build/form/form-fieldset/index.js:1
 #: includes/blocks/form/form-fieldset/index.js:74
 msgid "Legend…"
-msgstr ""
-
-#: build/form/form-input/index.js:1
-#: includes/blocks/form/form-control/index.js:46
-#: includes/blocks/form/form-input/index.js:55
-msgid "Text"
 msgstr ""
 
 #: build/form/form-input/index.js:1

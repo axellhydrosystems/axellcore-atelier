@@ -49,6 +49,7 @@ require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-members-export.php';
 require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-label-template.php';
 require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-form-directives.php';
 require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-member-profile.php';
+require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-notifications.php';
 require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-rest.php';
 require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-resellers.php';
 require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-reseller-store.php';

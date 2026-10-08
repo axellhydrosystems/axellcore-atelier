@@ -99,6 +99,7 @@ final class SettingsTest extends TestCase {
 	public function test_sanitize_keeps_the_access_setting_as_a_boolean(): void {
 		Functions\when( 'absint' )->alias( static fn( $v ) => abs( (int) $v ) );
 		Functions\when( 'get_post_type' )->justReturn( 'page' );
+		Functions\when( 'get_option' )->justReturn( array() );
 
 		$on  = Settings::instance()->sanitize( array( 'members_can_log_in' => '1', 'other' => 'x' ) );
 		$off = Settings::instance()->sanitize( array( 'members_can_log_in' => '0' ) );
@@ -107,5 +108,61 @@ final class SettingsTest extends TestCase {
 		$this->assertFalse( $off['members_can_log_in'] );
 		$this->assertArrayNotHasKey( 'other', $on );
 		$this->assertFalse( Settings::DEFAULTS['members_can_log_in'], 'Off by default.' );
+	}
+
+	private function stub_texts( array $saved ): void {
+		Functions\when( 'get_option' )->justReturn( $saved );
+		Functions\when( '__' )->returnArg( 1 );
+		Functions\when( 'sanitize_text_field' )->alias( 'trim' );
+		Functions\when( 'sanitize_textarea_field' )->returnArg( 1 );
+		Functions\when( 'is_email' )->alias( static fn( $e ) => false !== strpos( (string) $e, '@' ) );
+		Functions\when( 'sanitize_email' )->returnArg( 1 );
+		Functions\when( 'add_settings_error' )->justReturn( null );
+	}
+
+	public function test_a_text_equal_to_the_default_is_not_stored(): void {
+		$this->stub_texts( array() );
+		$defaults = \Axellcore_Atelierclub\Notifications::defaults( 'member_pending' );
+
+		$values = Settings::instance()->sanitize(
+			array(
+				'email_member_pending_enabled' => '1',
+				'email_member_pending_subject' => $defaults['subject'],
+				'email_member_pending_heading' => 'My own heading',
+				'email_member_pending_body'    => str_replace( "\n", "\r\n", $defaults['body'] ) . "\r\n",
+			)
+		);
+
+		$this->assertTrue( $values['email_member_pending_enabled'] );
+		$this->assertSame( '', $values['email_member_pending_subject'], 'Equal to the default: not stored.' );
+		$this->assertSame( 'My own heading', $values['email_member_pending_heading'] );
+		$this->assertSame( '', $values['email_member_pending_body'], 'Line endings and ends do not count.' );
+	}
+
+	public function test_saving_one_tab_keeps_the_others(): void {
+		$this->stub_texts(
+			array(
+				'page_id'                   => 7,
+				'email_team_new_enabled'    => true,
+				'email_team_new_subject'    => 'Custom',
+				'members_can_log_in'        => true,
+			)
+		);
+
+		$values = Settings::instance()->sanitize( array( 'pending_on_create' => '0', 'members_can_log_in' => '0' ) );
+
+		$this->assertFalse( $values['pending_on_create'] );
+		$this->assertFalse( $values['members_can_log_in'] );
+		$this->assertSame( 7, $values['page_id'] );
+		$this->assertTrue( $values['email_team_new_enabled'] );
+		$this->assertSame( 'Custom', $values['email_team_new_subject'] );
+	}
+
+	public function test_invalid_recipients_are_dropped(): void {
+		$this->stub_texts( array() );
+
+		$values = Settings::instance()->sanitize( array( 'email_team_new_to' => 'curadoria@axell.com.br, nope, ana@x.com, curadoria@axell.com.br' ) );
+
+		$this->assertSame( 'curadoria@axell.com.br, ana@x.com', $values['email_team_new_to'] );
 	}
 }

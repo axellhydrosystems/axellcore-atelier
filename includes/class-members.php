@@ -342,6 +342,13 @@ final class Members {
 		}
 		self::set_reseller_ids( $user_id, $ids );
 
+		/**
+		 * A member was created from the form (the e-mails go out here).
+		 *
+		 * @param int $user_id New member.
+		 */
+		do_action( 'axellcore_atelierclub_member_created', (int) $user_id );
+
 		return array(
 			'success' => true,
 			'id'      => (int) $user_id,

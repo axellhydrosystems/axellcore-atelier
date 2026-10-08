@@ -195,6 +195,13 @@ final class Member {
 			return false;
 		}
 		$user->set_role( self::ROLE );
+
+		/**
+		 * A pending member was approved (the e-mail goes out here).
+		 *
+		 * @param int $user_id Member.
+		 */
+		do_action( 'axellcore_atelierclub_member_approved', $user->ID );
 		return true;
 	}
 
