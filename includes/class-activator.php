@@ -574,14 +574,24 @@ final class Activator {
 			$content
 		);
 
+		// The attachment id in the block comment too: the block's save()
+		// writes wp-image-{id} from it, so a stale id makes the block invalid
+		// in the editor. Image and Cover keep it in `id`, Media & Text in
+		// `mediaId`.
+		$keys = array(
+			'image'      => 'id',
+			'cover'      => 'id',
+			'media-text' => 'mediaId',
+		);
 		return (string) preg_replace_callback(
-			'/<!-- wp:image (\{.*?\}) (\/)?-->/',
-			function ( $m ) use ( $map ) {
-				$attrs = json_decode( $m[1], true );
-				if ( ! is_array( $attrs ) || ! isset( $attrs['id'], $map[ (int) $attrs['id'] ] ) ) {
+			'/<!-- wp:(image|cover|media-text) (\{.*?\}) (\/)?-->/',
+			function ( $m ) use ( $map, $keys ) {
+				$key   = $keys[ $m[1] ];
+				$attrs = json_decode( $m[2], true );
+				if ( ! is_array( $attrs ) || ! isset( $attrs[ $key ], $map[ (int) $attrs[ $key ] ] ) ) {
 					return $m[0];
 				}
-				return (string) preg_replace( '/"id":' . (int) $attrs['id'] . '(?=[,}])/', '"id":' . $map[ (int) $attrs['id'] ]['id'], $m[0], 1 );
+				return (string) preg_replace( '/"' . $key . '":' . (int) $attrs[ $key ] . '(?=[,}])/', '"' . $key . '":' . $map[ (int) $attrs[ $key ] ]['id'], $m[0], 1 );
 			},
 			$content
 		);
