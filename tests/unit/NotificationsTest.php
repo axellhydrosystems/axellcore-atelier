@@ -45,6 +45,8 @@ final class NotificationsTest extends TestCase {
 			}
 		);
 		Functions\when( 'get_bloginfo' )->justReturn( 'Axell' );
+		// The bundled logo is not in the media library unless a test says so.
+		Functions\when( 'get_posts' )->justReturn( array() );
 		Functions\when( 'is_email' )->alias( static fn( $e ) => false !== strpos( (string) $e, '@' ) );
 		Functions\when( 'wp_specialchars_decode' )->returnArg( 1 );
 		Functions\when( 'home_url' )->justReturn( 'https://axell.com.br/' );
@@ -171,7 +173,11 @@ final class NotificationsTest extends TestCase {
 		Functions\when( 'wp_get_attachment_image_url' )->alias( static fn( $id ) => $id ? "https://axell.com.br/logo-$id.png" : false );
 		Functions\when( 'get_post_mime_type' )->justReturn( 'image/png' );
 
-		$this->assertNull( Notifications::logo(), 'None by default.' );
+		$this->assertSame( array( 'http://example.com/wp-content/plugins/axellcore-atelierclub/assets/email/atelier-axell-email.png', 'image/png' ), Notifications::logo(), 'By default the bundled logo, from the plugin when not in the library.' );
+		Functions\when( 'get_posts' )->justReturn( array( 44 ) );
+		$this->assertSame( 'https://axell.com.br/logo-44.png', Notifications::logo()[0], 'From the library once imported.' );
+		$this->settings['email_logo'] = 'none';
+		$this->assertNull( Notifications::logo() );
 		$this->settings['email_logo'] = 'site';
 		$this->assertNull( Notifications::logo(), 'The theme has no logo.' );
 		Functions\when( 'get_theme_mod' )->justReturn( 12 );
@@ -185,6 +191,7 @@ final class NotificationsTest extends TestCase {
 	}
 
 	public function test_brand_in_text_by_default_or_as_saved(): void {
+		$this->settings['email_logo'] = 'none';
 		$this->assertSame( array( 'Atelier Axell', 'The Axell World' ), Notifications::brand() );
 
 		$this->settings['email_tagline'] = 'Universo próprio';

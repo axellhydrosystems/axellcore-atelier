@@ -272,12 +272,15 @@ final class Settings {
 			$values[ $key ] = self::clean_recipients( (string) $input[ $key ] );
 		}
 		// The e-mails' header: none (the brand in text), the site's logo or one chosen.
+		// The default (the bundled logo, as a custom image) is not stored.
 		if ( array_key_exists( 'email_logo', $input ) ) {
-			$values['email_logo'] = in_array( $input['email_logo'], array( 'none', 'site', 'custom' ), true ) ? $input['email_logo'] : 'none';
+			$choice               = in_array( $input['email_logo'], array( 'none', 'site', 'custom' ), true ) ? $input['email_logo'] : 'custom';
+			$values['email_logo'] = 'custom' === $choice ? '' : $choice;
 		}
 		if ( array_key_exists( 'email_logo_id', $input ) ) {
 			$id                      = absint( $input['email_logo_id'] );
-			$values['email_logo_id'] = $id && wp_attachment_is_image( $id ) ? $id : 0;
+			$id                      = $id && wp_attachment_is_image( $id ) ? $id : 0;
+			$values['email_logo_id'] = Notifications::default_logo_id() === $id ? 0 : $id;
 		}
 		foreach ( array( 'brand', 'tagline' ) as $field ) {
 			$key = 'email_' . $field;
@@ -501,21 +504,21 @@ final class Settings {
 	 */
 	private function render_email_header_settings() {
 		wp_enqueue_media();
-		$choice    = (string) self::get( 'email_logo' );
-		$choice    = '' !== $choice ? $choice : 'none';
-		$site_id   = (int) get_theme_mod( 'custom_logo' );
-		$custom_id = (int) self::get( 'email_logo_id' );
-		$name      = static fn( $key ) => esc_attr( self::OPTION . '[' . $key . ']' );
-		$thumb     = static function ( $id ) {
-			$url = $id ? wp_get_attachment_image_url( $id, 'medium' ) : false;
+		$choice     = Notifications::logo_choice();
+		$site_id    = (int) get_theme_mod( 'custom_logo' );
+		$custom_id  = Notifications::logo_id();
+		$default_id = Notifications::default_logo_id();
+		$name       = static fn( $key ) => esc_attr( self::OPTION . '[' . $key . ']' );
+		$thumb      = static function ( $id ) {
+			$url = $id ? wp_get_attachment_image_url( $id, 'medium' ) : AXELLCORE_ATELIERCLUB_URL . Notifications::LOGO_FILE;
 			return $url ? sprintf( '<img src="%s" alt="" style="display:block;max-width:200px;height:auto;margin:8px 0;background:#fff;padding:8px;border:1px solid #dcdcde;">', esc_url( $url ) ) : '';
 		};
-		$svg_note  = static function ( $id ) {
+		$svg_note   = static function ( $id ) {
 			return $id && 'image/svg+xml' === get_post_mime_type( $id )
 				? '<p class="description">' . esc_html__( 'This image is an SVG: Gmail and other e-mail clients do not show SVG. Prefer a PNG.', 'axellcore-atelierclub' ) . '</p>'
 				: '';
 		};
-		$brand     = static function ( $field ) {
+		$brand      = static function ( $field ) {
 			$saved = (string) self::get( 'email_' . $field );
 			return '' !== $saved ? $saved : Notifications::site_brand_default( $field );
 		};
@@ -550,17 +553,19 @@ final class Settings {
 
 		// An image chosen in the media library.
 		printf(
-			'<p><label><input type="radio" name="%1$s" value="custom"%2$s> %3$s</label></p><div class="aa-email-logo-custom" style="margin:0 0 4px 24px"><input type="hidden" name="%4$s" id="aa-email-logo-id" value="%5$d"><div id="aa-email-logo-preview">%6$s</div>%7$s<p><button type="button" class="button" id="aa-email-logo-choose">%8$s</button> <button type="button" class="button-link" id="aa-email-logo-remove"%9$s>%10$s</button></p></div>',
+			'<p><label><input type="radio" name="%1$s" value="custom"%2$s> %3$s</label></p><div class="aa-email-logo-custom" style="margin:0 0 4px 24px"><input type="hidden" name="%4$s" id="aa-email-logo-id" value="%5$d" data-default="%11$d" data-default-url="%12$s"><div id="aa-email-logo-preview">%6$s</div>%7$s<p><button type="button" class="button" id="aa-email-logo-choose">%8$s</button> <button type="button" class="button-link" id="aa-email-logo-remove"%9$s>%10$s</button></p></div>',
 			$name( 'email_logo' ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped by $name.
 			checked( $choice, 'custom', false ),
-			esc_html__( 'Custom image', 'axellcore-atelierclub' ),
+			esc_html__( 'Image (by default, the Atelier logo)', 'axellcore-atelierclub' ),
 			$name( 'email_logo_id' ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped by $name.
 			absint( $custom_id ),
 			$thumb( $custom_id ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- built escaped above.
 			$svg_note( $custom_id ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- built escaped above.
 			esc_html__( 'Choose image', 'axellcore-atelierclub' ),
-			$custom_id ? '' : ' hidden',
-			esc_html__( 'Remove', 'axellcore-atelierclub' )
+			$custom_id !== $default_id ? '' : ' hidden',
+			esc_html__( 'Use the default', 'axellcore-atelierclub' ),
+			absint( $default_id ),
+			esc_url( $default_id ? (string) wp_get_attachment_image_url( $default_id, 'medium' ) : AXELLCORE_ATELIERCLUB_URL . Notifications::LOGO_FILE )
 		);
 		echo '<p class="description">' . esc_html__( 'Shown at the top of every e-mail, up to 200px wide. A PNG works in every e-mail client.', 'axellcore-atelierclub' ) . '</p>';
 		echo '</fieldset></td></tr></tbody></table>';
@@ -592,10 +597,17 @@ final class Settings {
 				}
 				frame.open();
 			} );
+			// Back to the bundled logo.
 			remove.addEventListener( 'click', function () {
-				field.value = '0';
+				field.value = field.dataset.default;
+				var img = document.createElement( 'img' );
+				img.src = field.dataset.defaultUrl;
+				img.alt = '';
+				img.style.cssText = 'display:block;max-width:200px;height:auto;margin:8px 0;background:#fff;padding:8px;border:1px solid #dcdcde;';
 				preview.innerHTML = '';
+				preview.appendChild( img );
 				remove.hidden = true;
+				radio.checked = true;
 			} );
 		} )();
 		</script>

@@ -44,6 +44,7 @@ final class Activator {
 	 */
 	public static function activate() {
 		self::import_media();
+		self::import_email_logo();
 		self::import_navigation();
 
 		self::create_template_part(
@@ -505,7 +506,7 @@ final class Activator {
 	 * @param string $file File name in content/media/.
 	 * @return int Attachment id, or 0.
 	 */
-	private static function find_media( $file ) {
+	public static function find_media( $file ) {
 		$ids = get_posts(
 			array(
 				'post_type'      => 'attachment',
@@ -528,48 +529,76 @@ final class Activator {
 	 */
 	private static function import_media() {
 		foreach ( self::media_entries() as $entry ) {
-			$source = AXELLCORE_ATELIERCLUB_PATH . 'content/media/' . $entry['file'];
-			if ( self::find_media( $entry['file'] ) || ! file_exists( $source ) ) {
-				continue;
-			}
-
-			$type = wp_check_filetype( $entry['file'], wp_get_mime_types() + array( 'svg' => 'image/svg+xml' ) );
-			if ( empty( $type['type'] ) ) {
-				continue;
-			}
-
-			$uploads = wp_upload_dir();
-			if ( ! empty( $uploads['error'] ) || ! wp_mkdir_p( $uploads['path'] ) ) {
-				continue;
-			}
-			$name = wp_unique_filename( $uploads['path'], $entry['file'] );
-			$path = trailingslashit( $uploads['path'] ) . $name;
-			if ( ! copy( $source, $path ) ) {
-				continue;
-			}
-
-			$id = wp_insert_attachment(
-				array(
-					'post_mime_type' => $type['type'],
-					'post_title'     => '' !== $entry['title'] ? $entry['title'] : pathinfo( $entry['file'], PATHINFO_FILENAME ),
-					'post_status'    => 'inherit',
-				),
-				$path,
-				0,
-				true
-			);
-			if ( is_wp_error( $id ) || ! $id ) {
-				continue;
-			}
-
-			require_once ABSPATH . 'wp-admin/includes/image.php';
-			wp_update_attachment_metadata( $id, wp_generate_attachment_metadata( $id, $path ) );
-			update_post_meta( $id, self::MEDIA_META, $entry['file'] );
-			if ( '' !== $entry['alt'] ) {
-				update_post_meta( $id, '_wp_attachment_image_alt', $entry['alt'] );
+			if ( ! self::find_media( $entry['file'] ) ) {
+				self::import_file( AXELLCORE_ATELIERCLUB_PATH . 'content/media/' . $entry['file'], $entry['title'], $entry['alt'] );
 			}
 		}
 		self::$media_map = null;
+	}
+
+	/**
+	 * The e-mails' default logo (assets/email/, a PNG in a bronze that reads
+	 * on light and dark backgrounds), into the media library once.
+	 *
+	 * @return int Attachment id, or 0.
+	 */
+	public static function import_email_logo() {
+		$id = self::find_media( basename( Notifications::LOGO_FILE ) );
+		return $id ? $id : self::import_file( AXELLCORE_ATELIERCLUB_PATH . Notifications::LOGO_FILE, 'Atelier Axell (e-mail)', 'Atelier Axell' );
+	}
+
+	/**
+	 * Import one bundled file into the media library, marked with
+	 * MEDIA_META (its file name) so it is found again. The file is copied
+	 * into uploads directly (not through the upload checks): it is our own,
+	 * and a type such as SVG may not be allowed for uploads on the site.
+	 *
+	 * @param string $source Bundled file.
+	 * @param string $title  Attachment title ('' for the file name).
+	 * @param string $alt    Alt text.
+	 * @return int Attachment id, or 0.
+	 */
+	private static function import_file( $source, $title, $alt ) {
+		$file = basename( $source );
+		if ( ! file_exists( $source ) ) {
+			return 0;
+		}
+		$type = wp_check_filetype( $file, wp_get_mime_types() + array( 'svg' => 'image/svg+xml' ) );
+		if ( empty( $type['type'] ) ) {
+			return 0;
+		}
+
+		$uploads = wp_upload_dir();
+		if ( ! empty( $uploads['error'] ) || ! wp_mkdir_p( $uploads['path'] ) ) {
+			return 0;
+		}
+		$name = wp_unique_filename( $uploads['path'], $file );
+		$path = trailingslashit( $uploads['path'] ) . $name;
+		if ( ! copy( $source, $path ) ) {
+			return 0;
+		}
+
+		$id = wp_insert_attachment(
+			array(
+				'post_mime_type' => $type['type'],
+				'post_title'     => '' !== $title ? $title : pathinfo( $file, PATHINFO_FILENAME ),
+				'post_status'    => 'inherit',
+			),
+			$path,
+			0,
+			true
+		);
+		if ( is_wp_error( $id ) || ! $id ) {
+			return 0;
+		}
+
+		require_once ABSPATH . 'wp-admin/includes/image.php';
+		wp_update_attachment_metadata( $id, wp_generate_attachment_metadata( $id, $path ) );
+		update_post_meta( $id, self::MEDIA_META, $file );
+		if ( '' !== $alt ) {
+			update_post_meta( $id, '_wp_attachment_image_alt', $alt );
+		}
+		return (int) $id;
 	}
 
 	/**

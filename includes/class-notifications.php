@@ -39,6 +39,12 @@ final class Notifications {
 	const FIELDS = array( 'subject', 'heading', 'body' );
 
 	/**
+	 * The e-mails' default header logo, bundled (imported on activation):
+	 * the Atelier's logo in a bronze that reads on light and dark.
+	 */
+	const LOGO_FILE = 'assets/email/atelier-axell-email.png';
+
+	/**
 	 * The admin-post action of the preview.
 	 */
 	const PREVIEW_ACTION = 'aa_email_preview';
@@ -215,18 +221,54 @@ final class Notifications {
 	}
 
 	/**
-	 * The header's logo: the theme's (Customizer > Site Identity) or one
-	 * chosen in Settings; null for none (the brand in text then).
+	 * The header's logo choice: none (the brand in text), site (the
+	 * theme's logo) or custom (an image; by default the bundled logo).
+	 *
+	 * @return string
+	 */
+	public static function logo_choice() {
+		$choice = (string) Settings::get( 'email_logo' );
+		return in_array( $choice, array( 'none', 'site', 'custom' ), true ) ? $choice : 'custom';
+	}
+
+	/**
+	 * The bundled logo's attachment (imported on activation), 0 when not in
+	 * the media library.
+	 *
+	 * @return int
+	 */
+	public static function default_logo_id() {
+		return Activator::find_media( basename( self::LOGO_FILE ) );
+	}
+
+	/**
+	 * The custom logo's attachment: the one chosen, else the bundled one.
+	 *
+	 * @return int
+	 */
+	public static function logo_id() {
+		$id = (int) Settings::get( 'email_logo_id' );
+		return $id ? $id : self::default_logo_id();
+	}
+
+	/**
+	 * The header's logo: the bundled one by default, the theme's
+	 * (Customizer > Site Identity) or one chosen in Settings; null for none
+	 * (the brand in text then).
 	 *
 	 * @return array{0:string,1:string}|null URL and type (image/png…).
 	 */
 	public static function logo() {
-		switch ( (string) Settings::get( 'email_logo' ) ) {
+		switch ( self::logo_choice() ) {
 			case 'site':
 				$id = (int) get_theme_mod( 'custom_logo' );
 				break;
 			case 'custom':
-				$id = (int) Settings::get( 'email_logo_id' );
+				$id = self::logo_id();
+				if ( ! $id ) {
+					// Not in the media library: the plugin's own file.
+					return array( AXELLCORE_ATELIERCLUB_URL . self::LOGO_FILE, 'image/png' );
+				}
 				break;
 			default:
 				return null;
