@@ -46,3 +46,5 @@ require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-rest.php';
 require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-resellers.php';
 require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-reseller-store.php';
 require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-resellers-import.php';
+require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-activator.php';
+require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-weglot.php';

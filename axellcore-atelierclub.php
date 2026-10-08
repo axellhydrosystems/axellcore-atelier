@@ -65,6 +65,7 @@ require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-resellers-admin.php';
 require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-template-parts.php';
 require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-classic-template.php';
 require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-reveal.php';
+require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-weglot.php';
 require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-activator.php';
 
 register_activation_hook( AXELLCORE_ATELIERCLUB_FILE, array( 'Axellcore_Atelierclub\\Activator', 'activate' ) );

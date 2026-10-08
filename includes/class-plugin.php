@@ -90,5 +90,6 @@ final class Plugin {
 		Template_Parts::instance()->register_hooks();
 		Classic_Template::instance()->register_hooks();
 		Reveal::instance()->register_hooks();
+		Weglot::instance()->register_hooks();
 	}
 }
