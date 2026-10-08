@@ -211,7 +211,7 @@ final class Member {
 	 * @param int $user_id User ID.
 	 * @return bool
 	 */
-	private static function can_approve( $user_id ) {
+	public static function can_approve( $user_id ) {
 		return current_user_can( 'promote_user', $user_id ) && current_user_can( 'edit_user', $user_id );
 	}
 
@@ -233,25 +233,34 @@ final class Member {
 		if ( ! in_array( self::ROLE_PENDING, (array) $user->roles, true ) || ! self::can_approve( $user->ID ) ) {
 			return $actions;
 		}
-		$url = wp_nonce_url(
-			add_query_arg(
-				array(
-					'action' => self::APPROVE_ACTION,
-					'user'   => $user->ID,
-				),
-				admin_url( 'users.php' )
-			),
-			self::APPROVE_ACTION . '-user_' . $user->ID
-		);
-
 		$actions[ self::APPROVE_ACTION ] = sprintf(
 			'<a href="%1$s" aria-label="%2$s">%3$s</a>',
-			esc_url( $url ),
+			esc_url( self::approve_url( $user->ID ) ),
 			/* translators: %s: user's display name. */
 			esc_attr( sprintf( __( 'Approve %s', 'axellcore-atelierclub' ), $user->display_name ) ),
 			esc_html__( 'Approve', 'axellcore-atelierclub' )
 		);
 		return $actions;
+	}
+
+	/**
+	 * The link that approves a pending member (with its nonce), used on the
+	 * users' list and on the profile.
+	 *
+	 * @param int $user_id Member.
+	 * @return string
+	 */
+	public static function approve_url( $user_id ) {
+		return wp_nonce_url(
+			add_query_arg(
+				array(
+					'action' => self::APPROVE_ACTION,
+					'user'   => (int) $user_id,
+				),
+				admin_url( 'users.php' )
+			),
+			self::APPROVE_ACTION . '-user_' . (int) $user_id
+		);
 	}
 
 	/**
@@ -314,7 +323,7 @@ final class Member {
 	public function approved_notice() {
 		$screen = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- only a count to show.
-		if ( ! $screen || 'users' !== $screen->id || ! isset( $_GET[ self::APPROVED_ARG ] ) ) {
+		if ( ! $screen || ! in_array( $screen->id, array( 'users', 'user-edit', 'profile' ), true ) || ! isset( $_GET[ self::APPROVED_ARG ] ) ) {
 			return;
 		}
 		$approved = absint( $_GET[ self::APPROVED_ARG ] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended

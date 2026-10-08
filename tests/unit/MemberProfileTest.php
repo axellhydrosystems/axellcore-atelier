@@ -371,4 +371,39 @@ final class MemberProfileTest extends TestCase {
 		$this->assertStringContainsString( 'value="529.982.247-25"', $html );
 		$this->assertStringContainsString( '<option value="individual" selected="selected">', $html );
 	}
+
+	/**
+	 * The profile's HTML for a user with these roles.
+	 *
+	 * @param string[] $roles Roles.
+	 */
+	private function profile_html( array $roles ): string {
+		Functions\when( 'admin_url' )->alias( static fn( $p ) => 'https://example.com/wp-admin/' . $p );
+		Functions\when( 'add_query_arg' )->alias( static fn( $args, $url ) => $url . '?' . http_build_query( $args ) );
+		Functions\when( 'wp_nonce_url' )->alias( static fn( $url, $action ) => $url . '&_wpnonce=' . $action );
+		$user        = new \WP_User();
+		$user->ID    = 9;
+		$user->roles = $roles;
+		ob_start();
+		Member_Profile::instance()->add_member_meta_fields( $user );
+		return (string) ob_get_clean();
+	}
+
+	public function test_status_approves_a_pending_member(): void {
+		$html = $this->profile_html( array( 'member_pending' ) );
+
+		$this->assertStringContainsString( '<h2>Atelier: Status</h2>', $html );
+		$this->assertStringContainsString( '<a class="button" href="https://example.com/wp-admin/users.php?action=aa-approve&user=9&_wpnonce=aa-approve-user_9">Approve member</a>', $html );
+	}
+
+	public function test_status_of_an_approved_member_is_a_disabled_button(): void {
+		$html = $this->profile_html( array( 'member' ) );
+
+		$this->assertStringContainsString( '<button type="button" class="button" disabled>Member approved</button>', $html );
+		$this->assertStringNotContainsString( 'aa-approve', $html );
+	}
+
+	public function test_no_status_for_other_users(): void {
+		$this->assertStringNotContainsString( 'Atelier: Status', $this->profile_html( array( 'administrator' ) ) );
+	}
 }

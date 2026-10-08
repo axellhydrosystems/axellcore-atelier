@@ -243,7 +243,7 @@ final class Member_Profile {
 					'resellers' => array(
 						'label'       => $labels['resellers'],
 						'type'        => 'resellers',
-						'description' => __( 'Search the registered resellers by name. Leaving a store empty moves the next ones up.', 'axellcore-atelierclub' ),
+						'description' => __( 'Search the registered resellers by name.', 'axellcore-atelierclub' ),
 					),
 				),
 			),
@@ -395,6 +395,38 @@ final class Member_Profile {
 			}
 			echo '</table>';
 		}
+		$this->print_status( $user );
+	}
+
+	/**
+	 * Atelier: Status, after the stores: the member's approval, in the mold
+	 * of WordPress's own rows ("New password", "Sessions"): a button to
+	 * approve a pending member, or a disabled one once approved.
+	 *
+	 * @param \WP_User $user User being edited.
+	 */
+	private function print_status( \WP_User $user ) {
+		$roles = (array) $user->roles;
+		if ( ! array_intersect( array_keys( Member::roles() ), $roles ) ) {
+			return;
+		}
+		if ( in_array( Member::ROLE, $roles, true ) ) {
+			$button = sprintf( '<button type="button" class="button" disabled>%s</button>', esc_html__( 'Member approved', 'axellcore-atelierclub' ) );
+			$help   = __( 'This member has been approved.', 'axellcore-atelierclub' );
+		} elseif ( Member::can_approve( $user->ID ) ) {
+			$button = sprintf( '<a class="button" href="%1$s">%2$s</a>', esc_url( Member::approve_url( $user->ID ) ), esc_html__( 'Approve member', 'axellcore-atelierclub' ) );
+			$help   = __( 'This application is pending approval. Approving lets the member in and sends the "Membership approved" e-mail, when it is on. Save any changes on this screen first.', 'axellcore-atelierclub' );
+		} else {
+			$button = sprintf( '<button type="button" class="button" disabled>%s</button>', esc_html__( 'Pending', 'axellcore-atelierclub' ) );
+			$help   = __( 'This application is pending approval.', 'axellcore-atelierclub' );
+		}
+		printf(
+			'<h2>%1$s</h2><table class="form-table" id="fieldset-aa-status" role="presentation"><tr><th scope="row">%2$s</th><td>%3$s<p class="description">%4$s</p></td></tr></table>',
+			esc_html__( 'Atelier: Status', 'axellcore-atelierclub' ),
+			esc_html__( 'Membership', 'axellcore-atelierclub' ),
+			$button, // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped above.
+			esc_html( $help )
+		);
 	}
 
 	/**
