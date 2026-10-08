@@ -166,7 +166,7 @@ final class Member_Profile {
 	 * @return array<string,array{title:string,fields:array<string,array<string,mixed>>}>
 	 */
 	public function get_member_meta_fields( $user_id = 0 ) {
-		$labels    = Members_Export::columns();
+		$labels    = array_merge( Members_Export::columns(), self::woocommerce_labels() );
 		$fieldsets = array(
 			'authorship' => array(
 				'title'  => __( 'Atelier: Authorship', 'axellcore-atelierclub' ),
@@ -217,9 +217,10 @@ final class Member_Profile {
 					'neighborhood'   => array( 'label' => $labels['neighborhood'] ),
 					'landmark'       => array( 'label' => $labels['landmark'] ),
 					'state'          => array(
-						'label'   => $labels['state'],
-						'type'    => 'select',
-						'options' => array( '' => '' ) + Locations::instance()->states(),
+						'label'      => $labels['state'],
+						'type'       => 'select',
+						'searchable' => true,
+						'options'    => array( '' => '' ) + Locations::instance()->states(),
 					),
 					'city'           => array(
 						'label' => $labels['city'],
@@ -258,6 +259,25 @@ final class Member_Profile {
 		 * @param int   $user_id   User being edited.
 		 */
 		return apply_filters( 'axellcore_atelierclub_member_meta_fields', $fieldsets, $user_id );
+	}
+
+	/**
+	 * The labels of the fields WooCommerce also has, as its customer screen
+	 * names them (and its translations: the "WooCommerce field" context).
+	 *
+	 * @return array<string,string>
+	 */
+	public static function woocommerce_labels() {
+		return array(
+			'company'        => _x( 'Company', 'WooCommerce field', 'axellcore-atelierclub' ),
+			'phone'          => _x( 'Phone', 'WooCommerce field', 'axellcore-atelierclub' ),
+			'country'        => _x( 'Country / Region', 'WooCommerce field', 'axellcore-atelierclub' ),
+			'address_street' => _x( 'Address line 1', 'WooCommerce field', 'axellcore-atelierclub' ),
+			'address_2'      => _x( 'Address line 2', 'WooCommerce field', 'axellcore-atelierclub' ),
+			'state'          => _x( 'State / County', 'WooCommerce field', 'axellcore-atelierclub' ),
+			'city'           => _x( 'City', 'WooCommerce field', 'axellcore-atelierclub' ),
+			'postal'         => _x( 'Postcode / ZIP', 'WooCommerce field', 'axellcore-atelierclub' ),
+		);
 	}
 
 	/**
@@ -336,11 +356,13 @@ final class Member_Profile {
 					$attrs .= ' disabled';
 				}
 
-				printf( '<tr%s><th><label for="%s">%s</label></th><td>', '' !== $error ? ' class="form-required form-invalid"' : '', esc_attr( $label ), esc_html( (string) $field['label'] ) );
+				printf( '<tr%s><th><label for="%s" id="%s-label">%s</label></th><td>', '' !== $error ? ' class="form-required form-invalid"' : '', esc_attr( $label ), esc_attr( $id ), esc_html( (string) $field['label'] ) );
 				if ( 'resellers' === $type ) {
 					$this->print_resellers( $user->ID );
 				} elseif ( 'city' === $type ) {
 					$this->print_city( $id, $this->value( $user->ID, $key ), $attrs );
+				} elseif ( 'select' === $type && ! empty( $field['searchable'] ) ) {
+					$this->print_searchable_select( $id, $key, (array) $field['options'], $this->value( $user->ID, $key ), $attrs );
 				} elseif ( 'select' === $type ) {
 					$value = $this->value( $user->ID, $key );
 					printf( '<select name="%1$s" id="%1$s" style="width: 25em;"%2$s%3$s>', esc_attr( $id ), $attrs, 'state' === $key ? ' data-wp-interactive="axell/member-city" data-wp-on--change="actions.onState"' : '' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $attrs is escaped above.
@@ -368,6 +390,71 @@ final class Member_Profile {
 			}
 			echo '</table>';
 		}
+	}
+
+	/**
+	 * A select with a search, as WooCommerce's (selectWoo) on its state
+	 * field: the native select stays (and is what is sent; without
+	 * JavaScript it is the field), and a button opens the options with a
+	 * filter over them.
+	 *
+	 * @param string               $id      Field id and name.
+	 * @param string               $key     Field.
+	 * @param array<string,string> $options Label by value.
+	 * @param string               $value   Selected value.
+	 * @param string               $attrs   Extra attributes of the select (escaped).
+	 */
+	private function print_searchable_select( $id, $key, array $options, $value, $attrs ) {
+		$items = array();
+		foreach ( $options as $option => $label ) {
+			if ( '' !== (string) $option ) {
+				$items[] = array(
+					'value' => (string) $option,
+					'label' => (string) $label,
+				);
+			}
+		}
+		$context = array(
+			'value'  => (string) $value,
+			'label'  => (string) ( $options[ $value ] ?? '' ),
+			'items'  => $items,
+			'query'  => '',
+			'open'   => false,
+			'active' => -1,
+			'ready'  => false,
+			'listId' => $id . '-options',
+		);
+		printf(
+			'<div class="aa-member-select" data-wp-interactive="axell/member-select" data-wp-context="%1$s" data-wp-init="callbacks.init" data-wp-on--focusout="actions.onFocusOut" data-wp-on--keydown="actions.onKeydown">',
+			esc_attr( (string) wp_json_encode( $context, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES ) )
+		);
+		// The state's change also clears the city (axell/member-city).
+		printf(
+			'<select name="%1$s" id="%1$s" style="width: 25em;"%2$s data-wp-bind--hidden="context.ready" data-wp-bind--value="context.value"%3$s>',
+			esc_attr( $id ),
+			$attrs, // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped by the caller.
+			'state' === $key ? ' data-wp-on--change="axell/member-city::actions.onState"' : ''
+		);
+		foreach ( $options as $option => $label ) {
+			printf( '<option value="%1$s"%2$s>%3$s</option>', esc_attr( (string) $option ), selected( $value, (string) $option, false ), esc_html( (string) $label ) );
+		}
+		echo '</select>';
+		printf(
+			'<button type="button" class="aa-member-select__toggle" hidden aria-haspopup="listbox" aria-expanded="false" aria-labelledby="%1$s-label %1$s-toggle" id="%1$s-toggle" data-wp-bind--hidden="!context.ready" data-wp-bind--aria-expanded="context.open" data-wp-on--click="actions.toggle"><span data-wp-text="state.shown">%2$s</span></button>',
+			esc_attr( $id ),
+			esc_html( (string) ( $options[ $value ] ?? '' ) )
+		);
+		printf(
+			'<div class="aa-member-select__popup" hidden data-wp-bind--hidden="!context.open">'
+				. '<input type="search" class="aa-member-select__search" role="combobox" aria-autocomplete="list" aria-expanded="true" aria-controls="%1$s-options" aria-label="%2$s" autocomplete="off" data-wp-bind--value="context.query" data-wp-bind--aria-activedescendant="state.activeId" data-wp-on--input="actions.onSearch"/>'
+				. '<ul id="%1$s-options" class="aa-member-store__list" role="listbox" tabindex="-1">'
+				. '<template data-wp-each--item="state.filtered" data-wp-each-key="context.item.value"><li role="option" data-wp-bind--id="state.itemId" data-wp-bind--aria-selected="state.isActive" data-wp-class--is-current="state.isCurrent" data-wp-text="context.item.label" data-wp-on--mousedown="actions.pick"></li></template>'
+				. '<li class="aa-member-select__none" data-wp-bind--hidden="state.hasResults" hidden>%3$s</li>'
+				. '</ul></div></div>',
+			esc_attr( $id ),
+			esc_attr__( 'Search', 'axellcore-atelierclub' ),
+			esc_html__( 'No matches found', 'axellcore-atelierclub' )
+		);
 	}
 
 	/**
@@ -438,7 +525,7 @@ final class Member_Profile {
 				esc_attr( self::PREFIX . 'resellers' ),
 				$index,
 				esc_attr( $slot['title'] ),
-				esc_attr__( 'Search reseller…', 'axellcore-atelierclub' ),
+				esc_attr__( 'Store name · city', 'axellcore-atelierclub' ),
 				/* translators: %d: partner store position, 1 to 5. */
 				$index > 0 ? sprintf( ' aria-label="%s"', esc_attr( sprintf( __( 'Partner store %d', 'axellcore-atelierclub' ), $index + 1 ) ) ) : '',
 				'' !== $error ? sprintf( ' aria-invalid="true" aria-describedby="%s-error"', esc_attr( $id ) ) : '',

@@ -6,6 +6,7 @@
  */
 import { store, getContext } from '@wordpress/interactivity';
 import './fields';
+import './select';
 
 interface Option {
 	id: number;

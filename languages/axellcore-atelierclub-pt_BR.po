@@ -68,8 +68,6 @@ msgid "Number"
 msgstr "Número"
 
 #: includes/class-members-export.php:81
-#: build/admin/members/index.js:175
-#: build/admin/members/index.js:184
 #: build/admin/resellers/index.js:175
 #: build/form/form-control/index.js:1
 #: build/form/form-input/index.js:1
@@ -1464,8 +1462,6 @@ msgstr "Selecione UF"
 #: includes/class-form-directives.php:802
 #: includes/class-form-directives.php:837
 #: includes/class-members-export.php:88
-#: build/admin/members/index.js:175
-#: build/admin/members/index.js:184
 #: build/form/form-control-reseller/index.js:1
 #: build/form/form-control/index.js:1
 msgid "State code"
@@ -1484,8 +1480,6 @@ msgstr "Voltar à busca"
 #: includes/class-form-directives.php:839
 #: includes/class-members-export.php:89
 #: includes/class-resellers.php:131
-#: build/admin/members/index.js:175
-#: build/admin/members/index.js:184
 #: build/admin/resellers/index.js:175
 #: build/admin/resellers/index.js:184
 #: build/form/form-control-reseller/index.js:1
@@ -1540,7 +1534,6 @@ msgid "Full name"
 msgstr "Nome completo"
 
 #: includes/class-members-export.php:80
-#: build/admin/members/index.js:184
 msgid "Office / Studio"
 msgstr "Escritório / Ateliê"
 
@@ -1577,12 +1570,10 @@ msgid "Country"
 msgstr "País"
 
 #: includes/class-members-export.php:90
-#: build/admin/members/index.js:184
 msgid "Street"
 msgstr "Logradouro"
 
 #: includes/class-members-export.php:92
-#: build/admin/members/index.js:184
 msgid "Address line 2"
 msgstr "Complemento"
 
@@ -1597,7 +1588,6 @@ msgid "Landmark"
 msgstr "Referência"
 
 #: includes/class-members-export.php:95
-#: build/admin/members/index.js:184
 msgid "Postal code"
 msgstr "CEP"
 
@@ -1759,7 +1749,7 @@ msgstr "Editar revenda"
 msgid "States"
 msgstr "Estados"
 
-#: includes/class-member-profile.php:392
+#: includes/class-member-profile.php:479
 #: includes/class-resellers.php:130
 msgid "Cities"
 msgstr "Cidades"
@@ -1775,10 +1765,6 @@ msgstr "Países"
 #: includes/class-resellers.php:141
 msgid "All countries"
 msgstr "Todos os países"
-
-#: build/admin/members/index.js:175
-msgid "Office"
-msgstr "Escritório"
 
 #: build/admin/members/index.js:175
 msgid "Practice"
@@ -1834,7 +1820,7 @@ msgstr "Não foi possível salvar."
 msgid "Pending curation"
 msgstr "Pendente de curadoria"
 
-#: includes/class-member-profile.php:447
+#: includes/class-member-profile.php:536
 #: build/admin/members/index.js:184
 msgid "Open store"
 msgstr "Abrir loja"
@@ -2368,20 +2354,20 @@ msgstr "CPF inválido."
 msgid "Invalid CNPJ."
 msgstr "CNPJ inválido."
 
-#: includes/class-member-profile.php:534
+#: includes/class-member-profile.php:623
 #: includes/class-members.php:250
 #: includes/class-members.php:695
 msgid "Enter a phone number with area code."
 msgstr "Informe um telefone com DDD."
 
-#: includes/class-member-profile.php:538
+#: includes/class-member-profile.php:627
 #: includes/class-members.php:253
 #: includes/class-members.php:696
 msgid "Enter a CEP with 8 digits."
 msgstr "Informe um CEP com 8 dígitos."
 
-#: includes/class-member-profile.php:643
-#: includes/class-member-profile.php:654
+#: includes/class-member-profile.php:732
+#: includes/class-member-profile.php:743
 #: includes/class-members.php:267
 #: includes/class-members.php:699
 msgid "Choose a reseller from the list."
@@ -2444,7 +2430,7 @@ msgid "Atelier Page"
 msgstr "Página Atelier"
 
 #. translators: %d: partner store position, 1 to 5.
-#: includes/class-member-profile.php:441
+#: includes/class-member-profile.php:530
 #, php-format
 msgid "Partner store %d"
 msgstr "Loja parceira %d"
@@ -3449,23 +3435,19 @@ msgstr "Zâmbia"
 msgid "Zimbabwe"
 msgstr "Zimbábue"
 
-#: includes/class-member-profile.php:240
+#: includes/class-member-profile.php:241
 msgid "Search the registered resellers by name. Leaving a store empty moves the next ones up."
 msgstr "Busque as revendas cadastradas pelo nome. Deixar uma loja vazia faz as seguintes subirem."
 
-#: includes/class-member-profile.php:439
-msgid "Search reseller…"
-msgstr "Buscar revenda…"
-
-#: includes/class-member-profile.php:445
+#: includes/class-member-profile.php:534
 msgid "Pending curation."
 msgstr "Pendente de curadoria."
 
-#: includes/class-member-profile.php:449
+#: includes/class-member-profile.php:538
 msgid "Remove"
 msgstr "Remover"
 
-#: includes/class-member-profile.php:542
+#: includes/class-member-profile.php:631
 msgid "Choose an option from the list."
 msgstr "Escolha uma opção da lista."
 
@@ -3489,11 +3471,74 @@ msgstr "Conferido pelos dígitos verificadores e único entre os membros; o tipo
 msgid "Atelier: Office address"
 msgstr "Atelier: Endereço do escritório"
 
-#: includes/class-member-profile.php:235
+#: includes/class-member-profile.php:236
 msgid "Atelier: Partner stores"
 msgstr "Atelier: Lojas parceiras"
 
-#: includes/class-member-profile.php:524
+#: includes/class-member-profile.php:613
 #: includes/class-members.php:237
 msgid "Only Brazil is accepted."
 msgstr "Só o Brasil é aceito."
+
+#: includes/class-member-profile.php:455
+msgid "Search"
+msgstr "Buscar"
+
+#: includes/class-member-profile.php:456
+msgid "No matches found"
+msgstr "Nenhum resultado encontrado"
+
+#: includes/class-member-profile.php:528
+msgid "Store name · city"
+msgstr "Nome da loja · cidade"
+
+#: includes/class-member-profile.php:272
+#: build/admin/members/index.js:175
+#: build/admin/members/index.js:184
+msgctxt "WooCommerce field"
+msgid "Company"
+msgstr "Empresa"
+
+#: includes/class-member-profile.php:273
+#: build/admin/members/index.js:175
+#: build/admin/members/index.js:184
+msgctxt "WooCommerce field"
+msgid "Phone"
+msgstr "Telefone"
+
+#: includes/class-member-profile.php:274
+msgctxt "WooCommerce field"
+msgid "Country / Region"
+msgstr "País"
+
+#: includes/class-member-profile.php:275
+#: build/admin/members/index.js:184
+msgctxt "WooCommerce field"
+msgid "Address line 1"
+msgstr "Endereço linha 1"
+
+#: includes/class-member-profile.php:276
+#: build/admin/members/index.js:184
+msgctxt "WooCommerce field"
+msgid "Address line 2"
+msgstr "Endereço linha 2"
+
+#: includes/class-member-profile.php:277
+#: build/admin/members/index.js:175
+#: build/admin/members/index.js:184
+msgctxt "WooCommerce field"
+msgid "State / County"
+msgstr "Estado"
+
+#: includes/class-member-profile.php:278
+#: build/admin/members/index.js:175
+#: build/admin/members/index.js:184
+msgctxt "WooCommerce field"
+msgid "City"
+msgstr "Cidade"
+
+#: includes/class-member-profile.php:279
+#: build/admin/members/index.js:184
+msgctxt "WooCommerce field"
+msgid "Postcode / ZIP"
+msgstr "CEP"

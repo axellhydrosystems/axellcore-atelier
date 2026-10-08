@@ -126,7 +126,11 @@ const DEBOUNCE_MS = 150;
  * @param value Text.
  */
 const fold = ( value: string ) =>
-	value.normalize( 'NFD' ).replace( /[̀-ͯ]/g, '' ).toLowerCase().trim();
+	value
+		.normalize( 'NFD' )
+		.replace( /[\u0300-\u036f]/g, '' )
+		.toLowerCase()
+		.trim();
 
 const cityState = ( id: string ) =>
 	( document.getElementById( id ) as HTMLSelectElement | null )?.value ?? '';

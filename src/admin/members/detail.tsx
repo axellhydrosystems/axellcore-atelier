@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
+import { __, _x } from '@wordpress/i18n';
 import { DataForm } from '@wordpress/dataviews';
 import type { Field, Form, FormField } from '@wordpress/dataviews';
 import { Notice } from '@wordpress/components';
@@ -17,7 +17,6 @@ function toDraft( member: MemberDetail ): Draft {
 	}
 	return draft;
 }
-
 
 interface Props {
 	id: number;
@@ -37,7 +36,6 @@ export default function MemberDetailView( {
 	const [ draft, setDraft ] = useState< Draft | null >( null );
 	const [ cities, setCities ] = useState< SelectOption[] >( [] );
 	const [ resellers, setResellers ] = useState< MemberReseller[] >( [] );
-	const [ isSaving, setIsSaving ] = useState( false );
 	const [ notice, setNotice ] = useState< {
 		status: 'success' | 'error';
 		message: string;
@@ -90,14 +88,22 @@ export default function MemberDetailView( {
 			{
 				id: 'phone',
 				readOnly: true,
-				label: __( 'Phone', 'axellcore-atelierclub' ),
+				label: _x(
+					'Phone',
+					'WooCommerce field',
+					'axellcore-atelierclub'
+				),
 				type: 'telephone',
 				getValue: ( { item } ) => formatPhone( item.phone ?? '' ),
 			},
 			{
 				id: 'company',
 				readOnly: true,
-				label: __( 'Office / Studio', 'axellcore-atelierclub' ),
+				label: _x(
+					'Company',
+					'WooCommerce field',
+					'axellcore-atelierclub'
+				),
 				type: 'text',
 			},
 			{
@@ -139,10 +145,7 @@ export default function MemberDetailView( {
 					},
 					{
 						value: 'legal_entity',
-						label: __(
-							'Company · CNPJ',
-							'axellcore-atelierclub'
-						),
+						label: __( 'Company · CNPJ', 'axellcore-atelierclub' ),
 					},
 				],
 			},
@@ -151,12 +154,17 @@ export default function MemberDetailView( {
 				readOnly: true,
 				label: __( 'CPF or CNPJ', 'axellcore-atelierclub' ),
 				type: 'text',
-				getValue: ( { item } ) => formatDocument( item.br_revenue_id ?? '' ),
+				getValue: ( { item } ) =>
+					formatDocument( item.br_revenue_id ?? '' ),
 			},
 			{
 				id: 'state',
 				readOnly: true,
-				label: __( 'State code', 'axellcore-atelierclub' ),
+				label: _x(
+					'State / County',
+					'WooCommerce field',
+					'axellcore-atelierclub'
+				),
 				type: 'text',
 				Edit: 'select',
 				// UF is shown by its code (PR), not the state name.
@@ -168,7 +176,11 @@ export default function MemberDetailView( {
 			{
 				id: 'city',
 				readOnly: true,
-				label: __( 'City', 'axellcore-atelierclub' ),
+				label: _x(
+					'City',
+					'WooCommerce field',
+					'axellcore-atelierclub'
+				),
 				type: 'text',
 				Edit: 'select',
 				elements: cities,
@@ -176,7 +188,11 @@ export default function MemberDetailView( {
 			{
 				id: 'address_street',
 				readOnly: true,
-				label: __( 'Street', 'axellcore-atelierclub' ),
+				label: _x(
+					'Address line 1',
+					'WooCommerce field',
+					'axellcore-atelierclub'
+				),
 				type: 'text',
 			},
 			{
@@ -188,7 +204,11 @@ export default function MemberDetailView( {
 			{
 				id: 'address_2',
 				readOnly: true,
-				label: __( 'Address line 2', 'axellcore-atelierclub' ),
+				label: _x(
+					'Address line 2',
+					'WooCommerce field',
+					'axellcore-atelierclub'
+				),
 				type: 'text',
 			},
 			{
@@ -206,7 +226,11 @@ export default function MemberDetailView( {
 			{
 				id: 'postal',
 				readOnly: true,
-				label: __( 'Postal code', 'axellcore-atelierclub' ),
+				label: _x(
+					'Postcode / ZIP',
+					'WooCommerce field',
+					'axellcore-atelierclub'
+				),
 				type: 'text',
 				getValue: ( { item } ) => formatPostal( item.postal ?? '' ),
 			},
@@ -247,14 +271,18 @@ export default function MemberDetailView( {
 
 	// Same rows as the public form (design/bootstrap/pure/adesao): fields that
 	// share a line are grouped in a `row` layout inside their card.
-	const row = ( id: string, children: string[] ) => ( {
-		id: `row-${ id }`,
+	const row = ( rowId: string, children: string[] ) => ( {
+		id: `row-${ rowId }`,
 		label: '',
 		children,
 		layout: { type: 'row' as const },
 	} );
-	const card = ( id: string, label: string, children: FormField[ 'children' ] ): FormField => ( {
-		id,
+	const card = (
+		cardId: string,
+		label: string,
+		children: FormField[ 'children' ]
+	): FormField => ( {
+		id: cardId,
 		label,
 		children,
 		layout: { type: 'card' as const, withHeader: true, isOpened: true },
@@ -267,14 +295,22 @@ export default function MemberDetailView( {
 			] ),
 			card( 'autoria', __( 'Authorship', 'axellcore-atelierclub' ), [
 				row( 'autoria-1', [ 'fullname', 'company' ] ),
-				row( 'autoria-2', [ 'email', 'phone', 'professional_registration' ] ),
+				row( 'autoria-2', [
+					'email',
+					'phone',
+					'professional_registration',
+				] ),
 				row( 'autoria-3', [ 'primary_focus', 'url' ] ),
 			] ),
 			card( 'br_revenue_id', __( 'Document', 'axellcore-atelierclub' ), [
 				row( 'documento-1', [ 'profile_type', 'br_revenue_id' ] ),
 			] ),
 			card( 'endereco', __( 'Office address', 'axellcore-atelierclub' ), [
-				row( 'endereco-1', [ 'address_street', 'address_number', 'address_2' ] ),
+				row( 'endereco-1', [
+					'address_street',
+					'address_number',
+					'address_2',
+				] ),
 				row( 'endereco-2', [ 'neighborhood', 'landmark' ] ),
 				row( 'endereco-3', [ 'city', 'state', 'postal' ] ),
 			] ),
@@ -302,13 +338,18 @@ export default function MemberDetailView( {
 					setDraft( toDraft( member ) );
 					setNotice( {
 						status: 'success',
-						message: __( 'Status updated.', 'axellcore-atelierclub' ),
+						message: __(
+							'Status updated.',
+							'axellcore-atelierclub'
+						),
 					} );
 				} )
 				.catch( ( error: { message?: string } ) =>
 					setNotice( {
 						status: 'error',
-						message: error.message || __( 'Could not save.', 'axellcore-atelierclub' ),
+						message:
+							error.message ||
+							__( 'Could not save.', 'axellcore-atelierclub' ),
 					} )
 				);
 		}
@@ -392,8 +433,14 @@ function ResellerValue( { reseller }: { reseller?: MemberReseller } ) {
 					<span
 						className="aa-reseller-pending"
 						role="img"
-						aria-label={ __( 'Pending curation', 'axellcore-atelierclub' ) }
-						title={ __( 'Pending curation', 'axellcore-atelierclub' ) }
+						aria-label={ __(
+							'Pending curation',
+							'axellcore-atelierclub'
+						) }
+						title={ __(
+							'Pending curation',
+							'axellcore-atelierclub'
+						) }
 					>
 						<WarningIcon />
 					</span>{ ' ' }

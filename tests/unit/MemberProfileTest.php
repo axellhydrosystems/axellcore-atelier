@@ -327,7 +327,7 @@ final class MemberProfileTest extends TestCase {
 
 		$this->assertStringContainsString( 'value="New studio"', $html );
 		$this->assertStringContainsString( 'value="111.111.111-11"', $html );
-		$this->assertStringContainsString( '<tr class="form-required form-invalid"><th><label for="aa_member_br_revenue_id">', $html );
+		$this->assertStringContainsString( '<tr class="form-required form-invalid"><th><label for="aa_member_br_revenue_id" id="aa_member_br_revenue_id-label">', $html );
 		$this->assertStringContainsString( 'aria-describedby="aa_member_br_revenue_id-error"', $html );
 		$this->assertStringContainsString( 'id="aa_member_br_revenue_id-error">Invalid CPF.</p>', $html );
 		$this->assertMatchesRegularExpression( '/<select name="aa_member_profile_type" id="aa_member_profile_type"[^>]* disabled>\\s*<option value="" selected="selected">/', $html, 'An invalid number has no type.' );

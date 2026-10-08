@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
+import { __, _x } from '@wordpress/i18n';
 import { DataViews } from '@wordpress/dataviews';
 import type { Action, Field, View } from '@wordpress/dataviews';
 import { Notice } from '@wordpress/components';
@@ -15,14 +15,7 @@ const DEFAULT_VIEW: View = {
 	search: '',
 	sort: { field: 'data', direction: 'desc' },
 	filters: [],
-	fields: [
-		'fullname',
-		'company',
-		'city',
-		'state',
-		'primary_focus',
-		'data',
-	],
+	fields: [ 'fullname', 'company', 'city', 'state', 'primary_focus', 'data' ],
 	layout: {},
 };
 
@@ -121,19 +114,31 @@ export default function MembersList( {
 			},
 			{
 				id: 'company',
-				label: __( 'Office', 'axellcore-atelierclub' ),
+				label: _x(
+					'Company',
+					'WooCommerce field',
+					'axellcore-atelierclub'
+				),
 				type: 'text',
 				enableSorting: false,
 			},
 			{
 				id: 'city',
-				label: __( 'City', 'axellcore-atelierclub' ),
+				label: _x(
+					'City',
+					'WooCommerce field',
+					'axellcore-atelierclub'
+				),
 				type: 'text',
 				enableSorting: false,
 			},
 			{
 				id: 'state',
-				label: __( 'State code', 'axellcore-atelierclub' ),
+				label: _x(
+					'State / County',
+					'WooCommerce field',
+					'axellcore-atelierclub'
+				),
 				type: 'text',
 				// UF is shown by its code (PR), not the state name.
 				elements: states.map( ( state ) => ( {
@@ -158,7 +163,11 @@ export default function MembersList( {
 			},
 			{
 				id: 'phone',
-				label: __( 'Phone', 'axellcore-atelierclub' ),
+				label: _x(
+					'Phone',
+					'WooCommerce field',
+					'axellcore-atelierclub'
+				),
 				type: 'telephone',
 				getValue: ( { item } ) => formatPhone( item.phone ?? '' ),
 				enableSorting: false,
