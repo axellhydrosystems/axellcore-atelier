@@ -165,4 +165,18 @@ final class SettingsTest extends TestCase {
 
 		$this->assertSame( 'curadoria@axell.com.br, ana@x.com', $values['email_team_new_to'] );
 	}
+
+	public function test_email_logo_and_brand(): void {
+		$this->stub_texts( array() );
+		Functions\when( 'absint' )->alias( static fn( $v ) => abs( (int) $v ) );
+		Functions\when( 'wp_attachment_is_image' )->alias( static fn( $id ) => 30 === $id );
+
+		$values = Settings::instance()->sanitize( array( 'email_logo' => 'nope', 'email_logo_id' => '99', 'email_brand' => 'Atelier Axell', 'email_tagline' => 'Outro' ) );
+
+		$this->assertSame( 'none', $values['email_logo'] );
+		$this->assertSame( 0, $values['email_logo_id'], 'Not an image.' );
+		$this->assertSame( '', $values['email_brand'], 'Equal to the default.' );
+		$this->assertSame( 'Outro', $values['email_tagline'] );
+		$this->assertSame( 30, Settings::instance()->sanitize( array( 'email_logo_id' => '30' ) )['email_logo_id'] );
+	}
 }

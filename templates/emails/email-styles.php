@@ -1,8 +1,9 @@
 <?php
 /**
  * E-mail styles, as WooCommerce's email-styles.php but returned inline (the
- * plugin has no CSS inliner): the Atelier's colors (Design_Tokens::PALETTE)
- * in light mode, with the system's serif and sans fonts.
+ * plugin has no CSS inliner): the Atelier's colors (Design_Tokens::PALETTE),
+ * light here; the header's <style> gives the dark ones for a device in dark
+ * mode (the e-mail does not force either). System serif and sans fonts.
  *
  * A theme can override this file in axellcore-atelierclub/emails/.
  *
@@ -27,6 +28,7 @@ return array(
 	'logo_cell'     => 'padding:0 0 28px;text-align:center;',
 	'logo'          => "margin:0;font-family:$serif;font-size:30px;line-height:1.1;letter-spacing:0.02em;color:$ink;",
 	'logo_link'     => "color:$ink;text-decoration:none;",
+	'logo_img'      => 'display:inline-block;width:200px;max-width:100%;height:auto;border:0;outline:none;text-decoration:none;',
 	'tagline'       => "margin:6px 0 0;font-family:$sans;font-size:11px;line-height:1.4;letter-spacing:0.28em;text-transform:uppercase;color:$stone_dk;",
 	'container'     => "background-color:#ffffff;border:1px solid $line;border-radius:4px;",
 	'header'        => 'padding:40px 48px 0;text-align:left;',

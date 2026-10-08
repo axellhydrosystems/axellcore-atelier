@@ -104,7 +104,7 @@ final class Notifications {
 					/* translators: {fullname} and the other {placeholders} are replaced when sending; keep them as they are. */
 					'subject' => __( 'New membership application: {fullname}', 'axellcore-atelierclub' ),
 					'heading' => __( 'New membership application', 'axellcore-atelierclub' ),
-					'body'    => __( "A new application to the Atelier Axell Club has arrived.\n\nName: {fullname}\nOffice / Studio: {company}\nE-mail: {email}\nPhone: {phone}\nCPF / CNPJ: {document}\nCity: {city} / {state}\nMain practice: {primary_focus}\n\nPartner stores:\n{stores}\n\nReview the application: {member_admin_url}", 'axellcore-atelierclub' ),
+					'body'    => __( "A new application to the Atelier Axell Club has arrived.\n\nName: {fullname}\nOffice / Studio: {company}\nE-mail: {email}\nPhone: {phone}\nRegistration (CAU / CREA / ABD): {professional_registration}\nMain practice: {primary_focus}\nPortfolio (URL): {url}\n\nRegistration type: {profile_type}\n{document_label}: {document}\n\nStreet: {address_street}\nNumber: {address_number}\nAddress line 2: {address_2}\nNeighborhood: {neighborhood}\nLandmark: {landmark}\nCity: {state} {city}\nPostal code: {postal}\n\nPartner stores:\n{stores}\n\nReview the application: {member_admin_url}", 'axellcore-atelierclub' ),
 				);
 			case 'member_pending':
 				return array(
@@ -173,6 +173,69 @@ final class Notifications {
 	}
 
 	/**
+	 * The header's brand in text (when there is no logo): its text and
+	 * description, as saved or by default in the site's language.
+	 *
+	 * @return array{0:string,1:string}
+	 */
+	public static function brand() {
+		$fields = array();
+		foreach ( array( 'brand', 'tagline' ) as $field ) {
+			$saved    = (string) Settings::get( 'email_' . $field );
+			$fields[] = '' !== $saved ? $saved : self::site_brand_default( $field );
+		}
+		return $fields;
+	}
+
+	/**
+	 * The brand's defaults, in the current language.
+	 *
+	 * @return array{brand:string,tagline:string}
+	 */
+	public static function brand_defaults() {
+		return array(
+			'brand'   => __( 'Atelier Axell', 'axellcore-atelierclub' ),
+			'tagline' => __( 'The Axell World', 'axellcore-atelierclub' ),
+		);
+	}
+
+	/**
+	 * A brand default in the site's language.
+	 *
+	 * @param string $field brand or tagline.
+	 * @return string
+	 */
+	public static function site_brand_default( $field ) {
+		$switched = function_exists( 'switch_to_locale' ) && switch_to_locale( get_locale() );
+		$value    = self::brand_defaults()[ $field ] ?? '';
+		if ( $switched ) {
+			restore_previous_locale();
+		}
+		return $value;
+	}
+
+	/**
+	 * The header's logo: the theme's (Customizer > Site Identity) or one
+	 * chosen in Settings; null for none (the brand in text then).
+	 *
+	 * @return array{0:string,1:string}|null URL and type (image/png…).
+	 */
+	public static function logo() {
+		switch ( (string) Settings::get( 'email_logo' ) ) {
+			case 'site':
+				$id = (int) get_theme_mod( 'custom_logo' );
+				break;
+			case 'custom':
+				$id = (int) Settings::get( 'email_logo_id' );
+				break;
+			default:
+				return null;
+		}
+		$url = $id ? wp_get_attachment_image_url( $id, 'full' ) : false;
+		return $url ? array( (string) $url, (string) get_post_mime_type( $id ) ) : null;
+	}
+
+	/**
 	 * Whether an e-mail is turned on.
 	 *
 	 * @param string $key E-mail.
@@ -199,21 +262,31 @@ final class Notifications {
 	 */
 	public static function placeholder_help() {
 		return array(
-			'{fullname}'         => __( 'Full name', 'axellcore-atelierclub' ),
-			'{first_name}'       => __( 'First name', 'axellcore-atelierclub' ),
-			'{email}'            => __( 'E-mail', 'axellcore-atelierclub' ),
-			'{company}'          => __( 'Office / Studio', 'axellcore-atelierclub' ),
-			'{phone}'            => __( 'Phone', 'axellcore-atelierclub' ),
-			'{document}'         => __( 'CPF / CNPJ', 'axellcore-atelierclub' ),
-			'{city}'             => __( 'City', 'axellcore-atelierclub' ),
-			'{state}'            => __( 'State code', 'axellcore-atelierclub' ),
-			'{primary_focus}'    => __( 'Main practice', 'axellcore-atelierclub' ),
-			'{stores}'           => __( 'Partner stores, one per line', 'axellcore-atelierclub' ),
-			'{member_admin_url}' => __( 'The member on Atelier > Members (team e-mail)', 'axellcore-atelierclub' ),
-			'{atelier_url}'      => __( 'The Atelier page', 'axellcore-atelierclub' ),
-			'{site_name}'        => __( 'Site name', 'axellcore-atelierclub' ),
-			'{site_url}'         => __( 'Site address', 'axellcore-atelierclub' ),
-			'{date}'             => __( 'Today\'s date', 'axellcore-atelierclub' ),
+			'{fullname}'                  => __( 'Full name', 'axellcore-atelierclub' ),
+			'{first_name}'                => __( 'First name', 'axellcore-atelierclub' ),
+			'{company}'                   => __( 'Office / Studio', 'axellcore-atelierclub' ),
+			'{email}'                     => __( 'E-mail', 'axellcore-atelierclub' ),
+			'{phone}'                     => __( 'Phone', 'axellcore-atelierclub' ),
+			'{professional_registration}' => __( 'Registration (CAU / CREA / ABD)', 'axellcore-atelierclub' ),
+			'{primary_focus}'             => __( 'Main practice', 'axellcore-atelierclub' ),
+			'{url}'                       => __( 'Portfolio (URL)', 'axellcore-atelierclub' ),
+			'{profile_type}'              => __( 'Registration type', 'axellcore-atelierclub' ),
+			'{document_label}'            => __( 'CPF or CNPJ, as the document is', 'axellcore-atelierclub' ),
+			'{document}'                  => __( 'CPF / CNPJ', 'axellcore-atelierclub' ),
+			'{address_street}'            => __( 'Street', 'axellcore-atelierclub' ),
+			'{address_number}'            => __( 'Number', 'axellcore-atelierclub' ),
+			'{address_2}'                 => __( 'Address line 2', 'axellcore-atelierclub' ),
+			'{neighborhood}'              => __( 'Neighborhood', 'axellcore-atelierclub' ),
+			'{landmark}'                  => __( 'Landmark', 'axellcore-atelierclub' ),
+			'{state}'                     => __( 'State code', 'axellcore-atelierclub' ),
+			'{city}'                      => __( 'City', 'axellcore-atelierclub' ),
+			'{postal}'                    => __( 'Postal code', 'axellcore-atelierclub' ),
+			'{stores}'                    => __( 'Partner stores, one per line', 'axellcore-atelierclub' ),
+			'{member_admin_url}'          => __( 'The member on Atelier > Members (team e-mail)', 'axellcore-atelierclub' ),
+			'{atelier_url}'               => __( 'The Atelier page', 'axellcore-atelierclub' ),
+			'{site_name}'                 => __( 'Site name', 'axellcore-atelierclub' ),
+			'{site_url}'                  => __( 'Site address', 'axellcore-atelierclub' ),
+			'{date}'                      => __( 'Today\'s date', 'axellcore-atelierclub' ),
 		);
 	}
 
@@ -224,22 +297,55 @@ final class Notifications {
 	 * @return array<string,string>
 	 */
 	public static function member_vars( $user_id ) {
-		$user   = get_userdata( (int) $user_id );
-		$name   = $user instanceof \WP_User ? (string) $user->display_name : '';
-		$stores = array_filter( array_map( array( Members::class, 'reseller_title' ), Members::reseller_ids( (int) $user_id ) ) );
-		return array(
-			'{fullname}'         => $name,
-			'{first_name}'       => Members::split_name( $name )[0],
-			'{email}'            => $user instanceof \WP_User ? (string) $user->user_email : '',
-			'{company}'          => Members::get( (int) $user_id, 'company' ),
-			'{phone}'            => Format::phone( Members::get( (int) $user_id, 'phone' ) ),
-			'{document}'         => Format::document( Members::get( (int) $user_id, 'br_revenue_id' ) ),
-			'{city}'             => Members::get( (int) $user_id, 'city' ),
-			'{state}'            => Members::get( (int) $user_id, 'state' ),
-			'{primary_focus}'    => Members::get( (int) $user_id, 'primary_focus' ),
-			'{stores}'           => $stores ? implode( "\n", $stores ) : '—',
-			'{member_admin_url}' => admin_url( 'admin.php?page=' . Member::ADMIN_PAGE . '&member=' . (int) $user_id ),
+		$user_id = (int) $user_id;
+		$user    = get_userdata( $user_id );
+		$name    = $user instanceof \WP_User ? (string) $user->display_name : '';
+		$type    = Members::get( $user_id, 'profile_type' );
+		$stores  = array_filter( array_map( array( Members::class, 'reseller_title' ), Members::reseller_ids( $user_id ) ) );
+		$vars    = array(
+			'{fullname}'                  => $name,
+			'{first_name}'                => Members::split_name( $name )[0],
+			'{company}'                   => Members::get( $user_id, 'company' ),
+			'{email}'                     => $user instanceof \WP_User ? (string) $user->user_email : '',
+			'{phone}'                     => Format::phone( Members::get( $user_id, 'phone' ) ),
+			'{professional_registration}' => Members::get( $user_id, 'professional_registration' ),
+			'{primary_focus}'             => Members::get( $user_id, 'primary_focus' ),
+			'{url}'                       => $user instanceof \WP_User ? (string) $user->user_url : '',
+			'{profile_type}'              => Members_Export::profile_types()[ $type ] ?? '',
+			'{document_label}'            => self::document_label( $type ),
+			'{document}'                  => Format::document( Members::get( $user_id, 'br_revenue_id' ) ),
+			'{address_street}'            => Members::get( $user_id, 'address_street' ),
+			'{address_number}'            => Members::get( $user_id, 'address_number' ),
+			'{address_2}'                 => Members::get( $user_id, 'address_2' ),
+			'{neighborhood}'              => Members::get( $user_id, 'neighborhood' ),
+			'{landmark}'                  => Members::get( $user_id, 'landmark' ),
+			'{state}'                     => Members::get( $user_id, 'state' ),
+			'{city}'                      => Members::get( $user_id, 'city' ),
+			'{postal}'                    => Format::postcode( Members::get( $user_id, 'postal' ) ),
+			'{stores}'                    => implode( "\n", $stores ),
+		);
+		// An empty field reads as a dash ("Landmark: —").
+		$vars = array_map( static fn( $value ) => '' !== trim( (string) $value ) ? (string) $value : '—', $vars );
+		return $vars + array(
+			'{member_admin_url}' => admin_url( 'admin.php?page=' . Member::ADMIN_PAGE . '&member=' . $user_id ),
 		) + self::site_vars();
+	}
+
+	/**
+	 * The document's name: CPF for an individual, CNPJ for a company,
+	 * "CPF / CNPJ" when the type is not known.
+	 *
+	 * @param string $profile_type individual, legal_entity or ''.
+	 * @return string
+	 */
+	public static function document_label( $profile_type ) {
+		switch ( $profile_type ) {
+			case 'individual':
+				return 'CPF';
+			case 'legal_entity':
+				return 'CNPJ';
+		}
+		return 'CPF / CNPJ';
 	}
 
 	/**
@@ -314,8 +420,8 @@ final class Notifications {
 		$html       = '';
 		foreach ( (array) $paragraphs as $paragraph ) {
 			$paragraph = make_clickable( nl2br( esc_html( trim( $paragraph ) ), false ) );
-			$paragraph = str_replace( '<a ', '<a style="' . esc_attr( $styles['link'] ) . '" ', $paragraph );
-			$html     .= '<p style="' . esc_attr( $styles['p'] ) . '">' . $paragraph . "</p>\n";
+			$paragraph = str_replace( '<a ', '<a class="aa-link" style="' . esc_attr( $styles['link'] ) . '" ', $paragraph );
+			$html     .= '<p class="aa-text" style="' . esc_attr( $styles['p'] ) . '">' . $paragraph . "</p>\n";
 		}
 		return $html;
 	}
@@ -412,17 +518,27 @@ final class Notifications {
 	 */
 	public static function sample_vars() {
 		return array(
-			'{fullname}'         => 'Ana Souza',
-			'{first_name}'       => 'Ana',
-			'{email}'            => 'ana@escritorio.com.br',
-			'{company}'          => 'Souza Arquitetura',
-			'{phone}'            => '(11) 98765-4321',
-			'{document}'         => '529.982.247-25',
-			'{city}'             => 'São Paulo',
-			'{state}'            => 'SP',
-			'{primary_focus}'    => 'Arquitetura residencial de alto padrão',
-			'{stores}'           => "A Casa Acabamentos · RS Caxias do Sul\nCasa Blanca · RJ Niterói",
-			'{member_admin_url}' => admin_url( 'admin.php?page=' . Member::ADMIN_PAGE ),
+			'{fullname}'                  => 'Ana Souza',
+			'{first_name}'                => 'Ana',
+			'{company}'                   => 'Souza Arquitetura',
+			'{email}'                     => 'ana@escritorio.com.br',
+			'{phone}'                     => '(11) 98765-4321',
+			'{professional_registration}' => 'A12345-6',
+			'{primary_focus}'             => 'Arquitetura residencial de alto padrão',
+			'{url}'                       => 'https://souzaarquitetura.com.br',
+			'{profile_type}'              => Members_Export::profile_types()['individual'],
+			'{document_label}'            => self::document_label( 'individual' ),
+			'{document}'                  => '529.982.247-25',
+			'{address_street}'            => 'Rua Oscar Freire',
+			'{address_number}'            => '1000',
+			'{address_2}'                 => 'Sala 12',
+			'{neighborhood}'              => 'Jardins',
+			'{landmark}'                  => '—',
+			'{state}'                     => 'SP',
+			'{city}'                      => 'São Paulo',
+			'{postal}'                    => '01426-001',
+			'{stores}'                    => "A Casa Acabamentos · RS Caxias do Sul\nCasa Blanca · RJ Niterói",
+			'{member_admin_url}'          => admin_url( 'admin.php?page=' . Member::ADMIN_PAGE ),
 		) + self::site_vars();
 	}
 }

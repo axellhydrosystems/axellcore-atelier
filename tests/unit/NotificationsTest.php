@@ -68,7 +68,7 @@ final class NotificationsTest extends TestCase {
 		);
 		Functions\when( 'get_userdata' )->alias( static fn( $id ) => $users[ $id ] ?? false );
 		Functions\when( 'get_user_meta' )->alias(
-			static fn( $id, $key ) => array( 'billing_company' => 'Souza Arq', 'billing_cpf' => '52998224725', 'billing_phone' => '+5511987654321', 'reseller_ids' => '' )[ $key ] ?? ''
+			static fn( $id, $key ) => array( 'billing_company' => 'Souza Arq', 'billing_cpf' => '52998224725', 'billing_phone' => '+5511987654321', 'billing_state' => 'SP', 'billing_city' => 'Campinas', 'reseller_ids' => '' )[ $key ] ?? ''
 		);
 	}
 
@@ -99,14 +99,15 @@ final class NotificationsTest extends TestCase {
 
 		$this->assertSame( 'Olá Ana (Souza Arq)', $email['subject'] );
 		$this->assertStringContainsString( 'Hello, Ana.', $email['text'], 'Empty body: the default.' );
-		$this->assertStringContainsString( '<h1 style="', $email['html'] );
+		$this->assertStringContainsString( '<h1 class="aa-text" style="', $email['html'] );
+		$this->assertStringContainsString( '<meta name="color-scheme" content="light dark">', $email['html'], 'The device picks light or dark.' );
 		$this->assertStringContainsString( '>Application received</h1>', $email['html'] );
 	}
 
 	public function test_body_becomes_escaped_paragraphs_with_links(): void {
 		$html = Notifications::body_html( "One <b>bold</b>\nline two\n\nSee https://axell.com.br/atelier/", array( 'p' => 'P', 'link' => 'L' ) );
 
-		$this->assertSame( "<p style=\"P\">One &lt;b&gt;bold&lt;/b&gt;<br>\nline two</p>\n<p style=\"P\">See <a style=\"L\" href=\"https://axell.com.br/atelier/\">https://axell.com.br/atelier/</a></p>\n", $html );
+		$this->assertSame( "<p class=\"aa-text\" style=\"P\">One &lt;b&gt;bold&lt;/b&gt;<br>\nline two</p>\n<p class=\"aa-text\" style=\"P\">See <a class=\"aa-link\" style=\"L\" href=\"https://axell.com.br/atelier/\">https://axell.com.br/atelier/</a></p>\n", $html );
 	}
 
 	public function test_pending_application_sends_team_and_pending(): void {
@@ -145,5 +146,52 @@ final class NotificationsTest extends TestCase {
 		Notifications::instance()->member_approved( 6 );
 
 		$this->assertSame( 'Your Atelier Axell Club membership is approved', $this->sent[0][1] );
+	}
+
+	public function test_team_e_mail_has_type_document_label_and_uf_city(): void {
+		$this->enable( 'team_new' );
+
+		Notifications::instance()->member_created( 5 );
+
+		$this->assertStringContainsString( 'Registration type: Individual · CPF', $this->sent[0][2] );
+		$this->assertStringContainsString( 'CPF: 529.982.247-25', $this->sent[0][2] );
+		$this->assertStringContainsString( 'City: SP Campinas', $this->sent[0][2] );
+		$this->assertStringContainsString( 'Landmark: —', $this->sent[0][2], 'An empty field reads as a dash.' );
+		// The form's order: authorship, document, address, stores.
+		$positions = array_map( fn( $label ) => strpos( $this->sent[0][2], $label ), array( 'Name:', 'Office / Studio:', 'E-mail:', 'Phone:', 'Main practice:', 'Registration type:', 'CPF:', 'Street:', 'Neighborhood:', 'City:', 'Postal code:', 'Partner stores:' ) );
+		$sorted    = $positions;
+		sort( $sorted );
+		$this->assertSame( $sorted, $positions );
+		$this->assertSame( 'CNPJ', Notifications::document_label( 'legal_entity' ) );
+		$this->assertSame( 'CPF / CNPJ', Notifications::document_label( '' ) );
+	}
+
+	public function test_logo_none_site_and_custom(): void {
+		Functions\when( 'get_theme_mod' )->justReturn( 0 );
+		Functions\when( 'wp_get_attachment_image_url' )->alias( static fn( $id ) => $id ? "https://axell.com.br/logo-$id.png" : false );
+		Functions\when( 'get_post_mime_type' )->justReturn( 'image/png' );
+
+		$this->assertNull( Notifications::logo(), 'None by default.' );
+		$this->settings['email_logo'] = 'site';
+		$this->assertNull( Notifications::logo(), 'The theme has no logo.' );
+		Functions\when( 'get_theme_mod' )->justReturn( 12 );
+		$this->assertSame( array( 'https://axell.com.br/logo-12.png', 'image/png' ), Notifications::logo() );
+		$this->settings['email_logo']    = 'custom';
+		$this->settings['email_logo_id'] = 30;
+		$this->assertSame( 'https://axell.com.br/logo-30.png', Notifications::logo()[0] );
+
+		$email = Notifications::compose( 'member_approved', Notifications::member_vars( 6 ) );
+		$this->assertStringContainsString( '<img src="https://axell.com.br/logo-30.png" alt="Atelier Axell"', $email['html'] );
+	}
+
+	public function test_brand_in_text_by_default_or_as_saved(): void {
+		$this->assertSame( array( 'Atelier Axell', 'The Axell World' ), Notifications::brand() );
+
+		$this->settings['email_tagline'] = 'Universo próprio';
+		$email = Notifications::compose( 'member_approved', Notifications::member_vars( 6 ) );
+
+		$this->assertStringContainsString( '>Atelier Axell</a></p>', $email['html'] );
+		$this->assertStringContainsString( '>Universo próprio</p>', $email['html'] );
+		$this->assertStringNotContainsString( '<img', $email['html'] );
 	}
 }
