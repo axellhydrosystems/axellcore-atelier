@@ -4,7 +4,7 @@ Tags: axell, atelier, landing-page, blocks
 Requires at least: 6.7
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 0.2.2
+Stable tag: 0.3.0
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -17,6 +17,16 @@ Self-contained landing page (FSE template + core blocks + a custom application-f
 The Atelier Axell Club landing (`/atelier`) built from native WordPress blocks: every section is core blocks styled with block attributes, presets, the plugin's block styles and per-block custom CSS, matched pixel for pixel to the approved mockup. The header and footer are template parts. The application form is a family of `axell/form*` blocks (labels, controls, address with state and city, CPF/CNPJ, partner stores) with Interactivity API behaviour; each submission creates a pending member (a user), reviewed in Atelier > Members. Without JetEngine the plugin also registers the `revendas` post type with production's signature and imports the bundled revendas on activation.
 
 == Changelog ==
+
+= 0.3.0 =
+* Runs on a classic theme with page builders (hello-elementor, Elementor, JetEngine, Weglot, Yoast), as on production: /atelier and its editor render as on the block theme the bases were approved on (Twenty Twenty-Five's theme.json and the saved Site Editor styles, layout support, the template's Post Content, no theme or page builder assets, popups or "Edit with Elementor" switch), at 0.00% against the bases on the page and in the editor.
+* Header and footer editable as template parts in a classic theme (Appearance > Template Parts), the page rendering the saved parts.
+* Activation creates only /atelier; the pure and per-section pages stay in content/ behind the axellcore_atelierclub_create_child_pages filter. Fix: the content kept its JSON escapes and the blocks' custom CSS (wp_slash, and WordPress 7's custom CSS filter), and the Hero cover its image id.
+* Weglot is kept off /atelier. With Yoast, the page gets the Atelier meta description when it has none. Page styles inlined, no emoji script.
+* Revendas: with JetEngine active its screens stay (the check ran before JetEngine loaded).
+* Atelier > Settings, with "Create new members as pending".
+* Application form: CPF and CNPJ (including the alphanumeric CNPJ) checked for check digits, profile type and uniqueness in the browser and on the server, with one message for each; the server also checks phone, CEP and resellers, and errors point to their field, with JavaScript and without it.
+* The Atelier admin screens and the block editor without other plugins' notices.
 
 = 0.2.2 =
 * Fix: on a new install (Playground) the header menu was empty and the header and footer logos pointed at the exporting site. The header and footer template parts are now synced with the media and navigation of the install, as the pages already were, and without kses.
