@@ -20,7 +20,7 @@
 			"step": "unzip",
 			"zipFile": {
 				"resource": "url",
-				"url": "https://github.com/axellhydrosystems/axellcore-atelierclub/releases/download/0.4.0/axellcore-atelierclub.0.4.0-pt_BR.zip"
+				"url": "https://github.com/axellhydrosystems/axellcore-atelierclub/releases/download/0.5.0/axellcore-atelierclub.0.5.0-pt_BR.zip"
 			},
 			"extractToPath": "/wordpress/wp-content/languages/plugins"
 		},
@@ -36,7 +36,7 @@
 			"step": "installPlugin",
 			"pluginData": {
 				"resource": "url",
-				"url": "https://github.com/axellhydrosystems/axellcore-atelierclub/releases/download/0.4.0/axellcore-atelierclub.0.4.0.zip"
+				"url": "https://github.com/axellhydrosystems/axellcore-atelierclub/releases/download/0.5.0/axellcore-atelierclub.0.5.0.zip"
 			},
 			"options": { "activate": true }
 		},

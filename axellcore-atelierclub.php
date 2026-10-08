@@ -3,7 +3,7 @@
  * Plugin Name:       Axellcore — Atelier Club
  * Plugin URI:        https://github.com/axellhydrosystems/axellcore-atelierclub
  * Description:       Self-contained landing page (FSE template + core blocks + a custom application-form block) for the Atelier Axell Club invite program.
- * Version:           0.4.0
+ * Version:           0.5.0
  * Requires at least: 6.7
  * Requires PHP:      7.4
  * Author:            Axell
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'AXELLCORE_ATELIERCLUB_VERSION', '0.4.0' );
+define( 'AXELLCORE_ATELIERCLUB_VERSION', '0.5.0' );
 define( 'AXELLCORE_ATELIERCLUB_FILE', __FILE__ );
 define( 'AXELLCORE_ATELIERCLUB_PATH', plugin_dir_path( __FILE__ ) );
 define( 'AXELLCORE_ATELIERCLUB_URL', plugin_dir_url( __FILE__ ) );
