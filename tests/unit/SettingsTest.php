@@ -186,4 +186,14 @@ final class SettingsTest extends TestCase {
 		Functions\when( 'wp_attachment_is_image' )->justReturn( true );
 		$this->assertSame( 31, Settings::instance()->sanitize( array( 'email_logo_id' => '31' ) )['email_logo_id'] );
 	}
+
+	public function test_logo_width_is_stored_only_when_filled(): void {
+		$this->stub_texts( array() );
+		Functions\when( 'absint' )->alias( static fn( $v ) => abs( (int) $v ) );
+
+		$this->assertSame( '', Settings::instance()->sanitize( array( 'email_logo_width' => '' ) )['email_logo_width'] );
+		$this->assertSame( 220, Settings::instance()->sanitize( array( 'email_logo_width' => '220' ) )['email_logo_width'] );
+		$this->assertSame( 600, Settings::instance()->sanitize( array( 'email_logo_width' => '9000' ) )['email_logo_width'], 'At most the e-mail width.' );
+		$this->assertSame( 40, Settings::instance()->sanitize( array( 'email_logo_width' => '5' ) )['email_logo_width'] );
+	}
 }

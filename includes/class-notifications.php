@@ -45,6 +45,18 @@ final class Notifications {
 	const LOGO_FILE = 'assets/email/atelier-axell-email.png';
 
 	/**
+	 * The header logo's width by default, in px (the bundled logo is a PNG
+	 * twice as wide, for high-density screens).
+	 */
+	const LOGO_WIDTH = 140;
+
+	/**
+	 * The logo widths allowed, in px (the e-mail is 600px wide).
+	 */
+	const LOGO_WIDTH_MIN = 40;
+	const LOGO_WIDTH_MAX = 600;
+
+	/**
 	 * The admin-post action of the preview.
 	 */
 	const PREVIEW_ACTION = 'aa_email_preview';
@@ -226,6 +238,16 @@ final class Notifications {
 			restore_previous_locale();
 		}
 		return $value;
+	}
+
+	/**
+	 * The header logo's width in px: the one set in Settings, else 140.
+	 *
+	 * @return int
+	 */
+	public static function logo_width() {
+		$width = (int) Settings::get( 'email_logo_width' );
+		return $width >= self::LOGO_WIDTH_MIN && $width <= self::LOGO_WIDTH_MAX ? $width : self::LOGO_WIDTH;
 	}
 
 	/**

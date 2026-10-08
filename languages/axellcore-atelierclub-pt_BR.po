@@ -37,7 +37,7 @@ msgstr "Atelier — Página em Branco"
 msgid "Self-contained canvas for the Atelier Axell Club landing page. No header/footer template parts — the page content renders alone."
 msgstr "Tela autocontida para a landing page do Atelier Axell Club. Sem partes de template de cabeçalho/rodapé — o conteúdo da página é renderizado sozinho."
 
-#: includes/class-settings.php:715
+#: includes/class-settings.php:739
 #: build/form/form-input/index.js:1
 #: includes/blocks/form/form-control/index.js:46
 #: includes/blocks/form/form-input/index.js:55
@@ -61,7 +61,7 @@ msgid "URL"
 msgstr "URL"
 
 #: includes/class-members-export.php:91
-#: includes/class-notifications.php:329
+#: includes/class-notifications.php:351
 #: build/admin/members/index.js:184
 #: build/form/form-input/index.js:1
 #: includes/blocks/form/form-control/index.js:49
@@ -70,7 +70,7 @@ msgid "Number"
 msgstr "Número"
 
 #: includes/class-members-export.php:81
-#: includes/class-notifications.php:321
+#: includes/class-notifications.php:343
 #: build/admin/resellers/index.js:175
 #: build/form/form-control/index.js:1
 #: build/form/form-input/index.js:1
@@ -115,7 +115,7 @@ msgid "— none —"
 msgstr "— nenhuma —"
 
 #: includes/class-members-export.php:86
-#: includes/class-notifications.php:327
+#: includes/class-notifications.php:349
 #: build/admin/members/index.js:175
 #: build/form/form-control/index.js:1
 #: build/form/form-input/index.js:1
@@ -480,7 +480,7 @@ msgstr "Brasil"
 #: includes/class-member.php:405
 #: includes/class-member.php:416
 #: includes/class-settings.php:213
-#: includes/class-settings.php:447
+#: includes/class-settings.php:452
 msgid "Members"
 msgstr "Membros"
 
@@ -967,7 +967,7 @@ msgid "Could not load members."
 msgstr "Não foi possível carregar os membros."
 
 #: includes/class-members-export.php:75
-#: includes/class-settings.php:637
+#: includes/class-settings.php:661
 #: build/admin/members/index.js:175
 #: build/admin/members/index.js:184
 #: build/admin/resellers/index.js:175
@@ -1468,7 +1468,7 @@ msgstr "Selecione UF"
 #: includes/class-form-directives.php:802
 #: includes/class-form-directives.php:837
 #: includes/class-members-export.php:88
-#: includes/class-notifications.php:333
+#: includes/class-notifications.php:355
 #: build/form/form-control-reseller/index.js:1
 #: build/form/form-control/index.js:1
 msgid "State code"
@@ -1486,7 +1486,7 @@ msgstr "Voltar à busca"
 
 #: includes/class-form-directives.php:839
 #: includes/class-members-export.php:89
-#: includes/class-notifications.php:334
+#: includes/class-notifications.php:356
 #: includes/class-resellers.php:131
 #: build/admin/resellers/index.js:175
 #: build/admin/resellers/index.js:184
@@ -1518,7 +1518,7 @@ msgstr "Pendente"
 
 #: includes/class-member.php:354
 #: includes/class-member.php:367
-#: includes/class-settings.php:643
+#: includes/class-settings.php:667
 msgid "Member"
 msgstr "Membro"
 
@@ -1538,7 +1538,7 @@ msgid "Submitted on"
 msgstr "Enviado em"
 
 #: includes/class-members-export.php:78
-#: includes/class-notifications.php:317
+#: includes/class-notifications.php:339
 #: build/admin/members/index.js:184
 msgid "Full name"
 msgstr "Nome completo"
@@ -1548,25 +1548,25 @@ msgid "Office / Studio"
 msgstr "Escritório / Ateliê"
 
 #: includes/class-members-export.php:82
-#: includes/class-notifications.php:322
+#: includes/class-notifications.php:344
 #: build/admin/members/index.js:184
 msgid "Registration (CAU / CREA / ABD)"
 msgstr "Registro (CAU / CREA / ABD)"
 
 #: includes/class-members-export.php:83
-#: includes/class-notifications.php:323
+#: includes/class-notifications.php:345
 #: build/admin/members/index.js:184
 msgid "Main practice"
 msgstr "Atuação principal"
 
 #: includes/class-members-export.php:84
-#: includes/class-notifications.php:324
+#: includes/class-notifications.php:346
 #: build/admin/members/index.js:184
 msgid "Portfolio (URL)"
 msgstr "Portfólio (URL)"
 
 #: includes/class-members-export.php:85
-#: includes/class-notifications.php:325
+#: includes/class-notifications.php:347
 #: build/admin/members/index.js:184
 msgid "Registration type"
 msgstr "Tipo de cadastro"
@@ -1584,29 +1584,29 @@ msgid "Country"
 msgstr "País"
 
 #: includes/class-members-export.php:90
-#: includes/class-notifications.php:328
+#: includes/class-notifications.php:350
 msgid "Street"
 msgstr "Logradouro"
 
 #: includes/class-members-export.php:92
-#: includes/class-notifications.php:330
+#: includes/class-notifications.php:352
 msgid "Address line 2"
 msgstr "Complemento"
 
 #: includes/class-members-export.php:93
-#: includes/class-notifications.php:331
+#: includes/class-notifications.php:353
 #: build/admin/members/index.js:184
 msgid "Neighborhood"
 msgstr "Bairro"
 
 #: includes/class-members-export.php:94
-#: includes/class-notifications.php:332
+#: includes/class-notifications.php:354
 #: build/admin/members/index.js:184
 msgid "Landmark"
 msgstr "Referência"
 
 #: includes/class-members-export.php:95
-#: includes/class-notifications.php:335
+#: includes/class-notifications.php:357
 msgid "Postal code"
 msgstr "CEP"
 
@@ -1789,7 +1789,7 @@ msgstr "Todos os países"
 msgid "Practice"
 msgstr "Atuação"
 
-#: includes/class-settings.php:353
+#: includes/class-settings.php:358
 #: build/admin/members/index.js:175
 msgid "View"
 msgstr "Ver"
@@ -1863,7 +1863,7 @@ msgstr "Site"
 msgid "Date"
 msgstr "Data"
 
-#: includes/class-settings.php:351
+#: includes/class-settings.php:356
 #: build/admin/resellers/index.js:175
 msgid "Edit"
 msgstr "Editar"
@@ -1978,7 +1978,7 @@ msgstr "Para"
 msgid "Separate several emails with commas. Empty: the administrator's email."
 msgstr "Separe vários e-mails por vírgula. Em branco: e-mail do administrador."
 
-#: includes/class-settings.php:701
+#: includes/class-settings.php:725
 #: build/form/form-atelier/index.js:1
 #: build/form/form/index.js:1
 msgid "Subject"
@@ -2346,7 +2346,7 @@ msgid "https://github.com/axellhydrosystems/axellcore-atelierclub"
 msgstr "https://github.com/axellhydrosystems/axellcore-atelierclub"
 
 #: includes/class-settings.php:180
-#: includes/class-settings.php:451
+#: includes/class-settings.php:456
 msgid "Atelier settings"
 msgstr "Configurações do Atelier"
 
@@ -2358,11 +2358,11 @@ msgstr "Configurações"
 msgid "New members"
 msgstr "Novos membros"
 
-#: includes/class-settings.php:370
+#: includes/class-settings.php:375
 msgid "Create new members as pending"
 msgstr "Criar novos membros como pendentes"
 
-#: includes/class-settings.php:371
+#: includes/class-settings.php:376
 msgid "When on, an application creates a pending member who waits for approval. When off, it creates the member already approved."
 msgstr "Quando ligado, uma solicitação cria um membro pendente, que aguarda aprovação. Quando desligado, cria o membro já aprovado."
 
@@ -2416,32 +2416,32 @@ msgstr "Página"
 msgid "Atelier page"
 msgstr "Página do Atelier"
 
-#: includes/class-settings.php:342
+#: includes/class-settings.php:347
 msgid "— Select —"
 msgstr "— Selecione —"
 
-#: includes/class-settings.php:495
+#: includes/class-settings.php:500
 msgid "Create Atelier page"
 msgstr "Criar página do Atelier"
 
-#: includes/class-settings.php:496
+#: includes/class-settings.php:501
 msgid "Creates a page with the Atelier landing content and makes it the Atelier page."
 msgstr "Cria uma página com o conteúdo da landing do Atelier e a define como a página do Atelier."
 
-#: includes/class-notifications.php:555
-#: includes/class-settings.php:741
+#: includes/class-notifications.php:577
+#: includes/class-settings.php:765
 msgid "Sorry, you are not allowed to do that."
 msgstr "Você não tem permissão para fazer isso."
 
-#: includes/class-settings.php:747
+#: includes/class-settings.php:771
 msgid "Atelier page created."
 msgstr "Página do Atelier criada."
 
-#: includes/class-settings.php:749
+#: includes/class-settings.php:773
 msgid "Could not create the Atelier page."
 msgstr "Não foi possível criar a página do Atelier."
 
-#: includes/class-settings.php:358
+#: includes/class-settings.php:363
 msgid "The page of the Atelier landing: its slug can change. With a block theme, use the Atelier Club template on it. Empty, no page is the Atelier page."
 msgstr "A página da landing do Atelier: o slug dela pode mudar. Com um tema de blocos, use nela o modelo Atelier Club. Vazio, nenhuma página é a do Atelier."
 
@@ -3509,7 +3509,7 @@ msgid "Store name · city"
 msgstr "Nome da loja · cidade"
 
 #: includes/class-member-profile.php:277
-#: includes/class-notifications.php:319
+#: includes/class-notifications.php:341
 #: build/admin/members/index.js:175
 #: build/admin/members/index.js:184
 msgctxt "WooCommerce field"
@@ -3607,231 +3607,231 @@ msgstr "O acesso dos membros ao painel está desativado."
 msgid "Dashboard access"
 msgstr "Acesso ao painel"
 
-#: includes/class-settings.php:383
+#: includes/class-settings.php:388
 msgid "Allow members to log in"
 msgstr "Permitir que membros entrem no painel"
 
-#: includes/class-settings.php:384
+#: includes/class-settings.php:389
 msgid "Approved members can log in and reset their password. Pending members never can."
 msgstr "Membros aprovados podem entrar e redefinir a senha. Membros pendentes nunca."
 
-#: includes/class-notifications.php:92
+#: includes/class-notifications.php:104
 msgid "New application (team)"
 msgstr "Nova solicitação (equipe)"
 
-#: includes/class-notifications.php:92
+#: includes/class-notifications.php:104
 msgid "Sent to the team when someone applies on the form."
 msgstr "Enviado à equipe quando alguém se cadastra pelo formulário."
 
-#: includes/class-notifications.php:93
-#: includes/class-notifications.php:118
+#: includes/class-notifications.php:105
+#: includes/class-notifications.php:130
 msgid "Application received"
 msgstr "Solicitação recebida"
 
-#: includes/class-notifications.php:93
+#: includes/class-notifications.php:105
 msgid "Sent to whoever applies, when the member is created as pending."
 msgstr "Enviado a quem se cadastra, quando o membro é criado como pendente."
 
-#: includes/class-notifications.php:94
+#: includes/class-notifications.php:106
 msgid "Welcome"
 msgstr "Boas-vindas"
 
-#: includes/class-notifications.php:94
+#: includes/class-notifications.php:106
 msgid "Sent to whoever applies, when the member is created already approved."
 msgstr "Enviado a quem se cadastra, quando o membro é criado já aprovado."
 
-#: includes/class-notifications.php:95
-#: includes/class-notifications.php:130
+#: includes/class-notifications.php:107
+#: includes/class-notifications.php:142
 msgid "Membership approved"
 msgstr "Adesão aprovada"
 
-#: includes/class-notifications.php:95
+#: includes/class-notifications.php:107
 msgid "Sent to a pending member once approved."
 msgstr "Enviado a um membro pendente quando é aprovado."
 
 #. translators: {fullname} and the other {placeholders} are replaced when sending; keep them as they are.
-#: includes/class-notifications.php:111
+#: includes/class-notifications.php:123
 msgid "New membership application: {fullname}"
 msgstr "Nova solicitação de adesão: {fullname}"
 
-#: includes/class-notifications.php:112
+#: includes/class-notifications.php:124
 msgid "New membership application"
 msgstr "Nova solicitação de adesão"
 
-#: includes/class-notifications.php:117
+#: includes/class-notifications.php:129
 msgid "We received your application, {first_name}"
 msgstr "Recebemos sua solicitação, {first_name}"
 
-#: includes/class-notifications.php:124
+#: includes/class-notifications.php:136
 msgid "Welcome to the Atelier"
 msgstr "Boas-vindas ao Atelier"
 
-#: includes/class-notifications.php:318
+#: includes/class-notifications.php:340
 msgid "First name"
 msgstr "Primeiro nome"
 
-#: includes/class-notifications.php:320
-#: includes/class-settings.php:635
+#: includes/class-notifications.php:342
+#: includes/class-settings.php:659
 msgid "E-mail"
 msgstr "E-mail"
 
-#: includes/class-notifications.php:336
+#: includes/class-notifications.php:358
 msgid "Partner stores, one per line"
 msgstr "Lojas parceiras, uma por linha"
 
-#: includes/class-notifications.php:337
+#: includes/class-notifications.php:359
 msgid "The member on Atelier > Members (team e-mail)"
 msgstr "O membro em Atelier > Membros (e-mail da equipe)"
 
-#: includes/class-notifications.php:339
+#: includes/class-notifications.php:361
 msgid "The Atelier page"
 msgstr "A página do Atelier"
 
-#: includes/class-notifications.php:340
+#: includes/class-notifications.php:362
 msgid "Site name"
 msgstr "Nome do site"
 
-#: includes/class-notifications.php:341
+#: includes/class-notifications.php:363
 msgid "Site address"
 msgstr "Endereço do site"
 
-#: includes/class-notifications.php:342
+#: includes/class-notifications.php:364
 msgid "Today's date"
 msgstr "Data de hoje"
 
-#: includes/class-notifications.php:560
+#: includes/class-notifications.php:582
 msgid "Unknown e-mail."
 msgstr "E-mail desconhecido."
 
 #. translators: %s: the invalid e-mail addresses.
-#: includes/class-settings.php:327
+#: includes/class-settings.php:332
 #, php-format
 msgid "Left out, not valid e-mail addresses: %s"
 msgstr "Deixados de fora, por não serem e-mails válidos: %s"
 
-#: includes/class-settings.php:446
+#: includes/class-settings.php:451
 msgid "General"
 msgstr "Geral"
 
-#: includes/class-settings.php:448
-#: includes/class-settings.php:676
+#: includes/class-settings.php:453
+#: includes/class-settings.php:700
 msgid "E-mails"
 msgstr "E-mails"
 
-#: includes/class-settings.php:452
+#: includes/class-settings.php:457
 msgid "Settings sections"
 msgstr "Seções das configurações"
 
-#: includes/class-settings.php:636
+#: includes/class-settings.php:660
 msgid "Recipient"
 msgstr "Destinatário"
 
-#: includes/class-settings.php:638
+#: includes/class-settings.php:662
 msgid "Actions"
 msgstr "Ações"
 
-#: includes/class-settings.php:651
+#: includes/class-settings.php:675
 msgid "Enabled"
 msgstr "Ativado"
 
-#: includes/class-settings.php:651
+#: includes/class-settings.php:675
 msgid "Disabled"
 msgstr "Desativado"
 
-#: includes/class-settings.php:652
+#: includes/class-settings.php:676
 msgid "Manage"
 msgstr "Gerenciar"
 
-#: includes/class-settings.php:683
+#: includes/class-settings.php:707
 msgid "Enable/Disable"
 msgstr "Ativar/desativar"
 
-#: includes/class-settings.php:687
+#: includes/class-settings.php:711
 msgid "Enable this e-mail"
 msgstr "Ativar este e-mail"
 
-#: includes/class-settings.php:693
+#: includes/class-settings.php:717
 msgid "Recipients"
 msgstr "Destinatários"
 
-#: includes/class-settings.php:697
+#: includes/class-settings.php:721
 msgid "One or more e-mail addresses, separated by commas. Empty, the site's admin e-mail."
 msgstr "Um ou mais endereços de e-mail, separados por vírgula. Vazio, usa o e-mail de administração do site."
 
-#: includes/class-settings.php:702
+#: includes/class-settings.php:726
 msgid "E-mail heading"
 msgstr "Título do e-mail"
 
-#: includes/class-settings.php:718
+#: includes/class-settings.php:742
 msgid "Plain text: a blank line starts a paragraph and addresses become links. Sent as an HTML e-mail in the Atelier's colors."
 msgstr "Texto simples: uma linha em branco começa um parágrafo, e os endereços viram links. É enviado como e-mail HTML nas cores do Atelier."
 
-#: includes/class-settings.php:720
+#: includes/class-settings.php:744
 msgid "Placeholders"
 msgstr "Marcadores"
 
-#: includes/class-settings.php:727
+#: includes/class-settings.php:751
 msgid "Preview"
 msgstr "Pré-visualização"
 
-#: includes/class-settings.php:729
+#: includes/class-settings.php:753
 msgid "Open the preview"
 msgstr "Abrir a pré-visualização"
 
-#: includes/class-settings.php:730
+#: includes/class-settings.php:754
 msgid "The saved e-mail, with a sample member."
 msgstr "O e-mail salvo, com um membro de exemplo."
 
-#: includes/class-notifications.php:212
+#: includes/class-notifications.php:224
 msgid "The Axell World"
 msgstr "The Axell World"
 
-#: includes/class-notifications.php:326
+#: includes/class-notifications.php:348
 msgid "CPF or CNPJ, as the document is"
 msgstr "CPF ou CNPJ, conforme o documento"
 
-#: includes/class-settings.php:518
+#: includes/class-settings.php:523
 msgid "This image is an SVG: Gmail and other e-mail clients do not show SVG. Prefer a PNG."
 msgstr "Esta imagem é um SVG: o Gmail e outros programas de e-mail não mostram SVG. Prefira um PNG."
 
-#: includes/class-settings.php:526
+#: includes/class-settings.php:531
 msgid "E-mail header"
 msgstr "Cabeçalho dos e-mails"
 
-#: includes/class-settings.php:543
-#: includes/class-settings.php:544
+#: includes/class-settings.php:548
+#: includes/class-settings.php:549
 msgid "Logo"
 msgstr "Logo"
 
-#: includes/class-settings.php:551
+#: includes/class-settings.php:556
 msgid "None: the brand in text"
 msgstr "Nenhum: a marca em texto"
 
-#: includes/class-settings.php:538
+#: includes/class-settings.php:543
 msgid "Description"
 msgstr "Descrição"
 
-#: includes/class-settings.php:560
+#: includes/class-settings.php:565
 msgid "Use the site's logo"
 msgstr "Usar o logo do site"
 
-#: includes/class-settings.php:561
+#: includes/class-settings.php:566
 msgid "The theme has no logo (Appearance > Customize > Site Identity)."
 msgstr "O tema não tem logo (Aparência > Personalizar > Identidade do site)."
 
-#: includes/class-settings.php:574
+#: includes/class-settings.php:579
 msgid "Choose image"
 msgstr "Escolher imagem"
 
-#: includes/class-settings.php:569
+#: includes/class-settings.php:574
 msgid "Image (by default, the Atelier logo)"
 msgstr "Imagem (por padrão, o logo do Atelier)"
 
-#: includes/class-settings.php:576
+#: includes/class-settings.php:581
 msgid "Use the default"
 msgstr "Usar o padrão"
 
-#: includes/class-notifications.php:113
+#: includes/class-notifications.php:125
 msgid ""
 "A new application to {atelier_name} has arrived.\n"
 "\n"
@@ -3885,7 +3885,7 @@ msgstr ""
 "\n"
 "Analise a solicitação: {member_admin_url}"
 
-#: includes/class-notifications.php:119
+#: includes/class-notifications.php:131
 msgid ""
 "Hello, {first_name}.\n"
 "\n"
@@ -3901,31 +3901,31 @@ msgstr ""
 "Obrigado pelo interesse.\n"
 "{atelier_name}"
 
-#: includes/class-notifications.php:123
+#: includes/class-notifications.php:135
 msgid "Welcome to {atelier_name}, {first_name}"
 msgstr "Boas-vindas ao {atelier_name}, {first_name}"
 
-#: includes/class-notifications.php:129
+#: includes/class-notifications.php:141
 msgid "Your {atelier_name} membership is approved"
 msgstr "Sua adesão ao {atelier_name} foi aprovada"
 
-#: includes/class-notifications.php:211
+#: includes/class-notifications.php:223
 msgctxt "Atelier name"
 msgid "Atelier Axell"
 msgstr "Atelier Axell"
 
-#: includes/class-notifications.php:338
-#: includes/class-settings.php:530
+#: includes/class-notifications.php:360
+#: includes/class-settings.php:535
 msgid "Atelier name"
 msgstr "Nome do Atelier"
 
 #. translators: %s: the placeholder, {atelier_name}.
-#: includes/class-settings.php:534
+#: includes/class-settings.php:539
 #, php-format
 msgid "Used by the %s placeholder and as the header's brand in text."
 msgstr "Usado pelo marcador %s e como marca em texto do cabeçalho."
 
-#: includes/class-settings.php:541
+#: includes/class-settings.php:546
 msgid "Below the name, when the header has no logo."
 msgstr "Abaixo do nome, quando o cabeçalho não usa logo."
 
@@ -3933,11 +3933,11 @@ msgstr "Abaixo do nome, quando o cabeçalho não usa logo."
 msgid "Enter a valid address, such as https://yoursite.com.br."
 msgstr "Informe um endereço válido, como https://seusite.com.br."
 
-#: includes/class-settings.php:631
+#: includes/class-settings.php:655
 msgid "E-mails sent by the Atelier. Each one is on until turned off; manage one to edit its subject, heading and text."
 msgstr "E-mails enviados pelo Atelier. Cada um fica ativado até ser desativado; gerencie um para editar o assunto, o título e o texto."
 
-#: includes/class-notifications.php:125
+#: includes/class-notifications.php:137
 msgid ""
 "Hello, {first_name}.\n"
 "\n"
@@ -3951,7 +3951,7 @@ msgstr ""
 "\n"
 "{atelier_name}"
 
-#: includes/class-notifications.php:131
+#: includes/class-notifications.php:143
 msgid ""
 "Hello, {first_name}.\n"
 "\n"
@@ -3965,6 +3965,12 @@ msgstr ""
 "\n"
 "{atelier_name}"
 
-#: includes/class-settings.php:580
-msgid "Shown at the top of every e-mail, 140px wide. Use an image 280px wide (twice the size) so it stays sharp on high-resolution screens. A PNG works in every e-mail client."
-msgstr "Aparece no topo de todos os e-mails, com 140 px de largura. Use uma imagem com 280 px de largura (o dobro) para ela ficar nítida em telas de alta resolução. Um PNG funciona em todos os programas de e-mail."
+#: includes/class-settings.php:591
+msgid "Logo width"
+msgstr "Largura do logo"
+
+#. translators: 1: the logo's width in px, 2: twice that width.
+#: includes/class-settings.php:600
+#, php-format
+msgid "Shown at the top of every e-mail, %1$dpx wide. Use an image %2$dpx wide (twice the size) so it stays sharp on high-resolution screens. A PNG works in every e-mail client."
+msgstr "Aparece no topo de todos os e-mails, com %1$d px de largura. Use uma imagem com %2$d px de largura (o dobro) para ela ficar nítida em telas de alta resolução. Um PNG funciona em todos os programas de e-mail."

@@ -282,6 +282,11 @@ final class Settings {
 			$id                      = $id && wp_attachment_is_image( $id ) ? $id : 0;
 			$values['email_logo_id'] = Notifications::default_logo_id() === $id ? 0 : $id;
 		}
+		// The logo's width: only when filled (empty: the default, 140px).
+		if ( array_key_exists( 'email_logo_width', $input ) && is_scalar( $input['email_logo_width'] ) ) {
+			$width                      = absint( $input['email_logo_width'] );
+			$values['email_logo_width'] = $width ? max( Notifications::LOGO_WIDTH_MIN, min( Notifications::LOGO_WIDTH_MAX, $width ) ) : '';
+		}
 		foreach ( array( 'atelier_name', 'tagline' ) as $field ) {
 			$key = 'email_' . $field;
 			if ( array_key_exists( $key, $input ) && is_scalar( $input[ $key ] ) ) {
@@ -577,8 +582,27 @@ final class Settings {
 			absint( $default_id ),
 			esc_url( $default_id ? (string) wp_get_attachment_image_url( $default_id, 'medium' ) : AXELLCORE_ATELIERCLUB_URL . Notifications::LOGO_FILE )
 		);
-		echo '<p class="description">' . esc_html__( 'Shown at the top of every e-mail, 140px wide. Use an image 280px wide (twice the size) so it stays sharp on high-resolution screens. A PNG works in every e-mail client.', 'axellcore-atelierclub' ) . '</p>';
-		echo '</fieldset></td></tr></tbody></table>';
+		echo '</fieldset></td></tr>';
+
+		// The logo's width: a placeholder with the default, stored only when filled.
+		$width = Notifications::logo_width();
+		printf(
+			'<tr><th scope="row"><label for="aa-email-logo-width">%1$s</label></th><td><input type="number" class="small-text" id="aa-email-logo-width" name="%2$s" value="%3$s" placeholder="%4$d" min="%5$d" max="%6$d" step="1"> px<p class="description">%7$s</p></td></tr></tbody></table>',
+			esc_html__( 'Logo width', 'axellcore-atelierclub' ),
+			$name( 'email_logo_width' ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped by $name.
+			esc_attr( (string) self::get( 'email_logo_width' ) ),
+			absint( Notifications::LOGO_WIDTH ),
+			absint( Notifications::LOGO_WIDTH_MIN ),
+			absint( Notifications::LOGO_WIDTH_MAX ),
+			esc_html(
+				sprintf(
+					/* translators: 1: the logo's width in px, 2: twice that width. */
+					__( 'Shown at the top of every e-mail, %1$dpx wide. Use an image %2$dpx wide (twice the size) so it stays sharp on high-resolution screens. A PNG works in every e-mail client.', 'axellcore-atelierclub' ),
+					$width,
+					$width * 2
+				)
+			)
+		);
 		?>
 		<script>
 		( function () {

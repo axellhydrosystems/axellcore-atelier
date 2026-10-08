@@ -16,6 +16,7 @@ defined( 'ABSPATH' ) || exit;
 $atelier_page = Axellcore_Atelierclub\Settings::page();
 $atelier_url  = $atelier_page ? get_permalink( $atelier_page ) : home_url( '/' );
 $email_logo   = Axellcore_Atelierclub\Notifications::logo();
+$logo_width   = Axellcore_Atelierclub\Notifications::logo_width();
 
 list( $brand_text, $brand_tagline ) = Axellcore_Atelierclub\Notifications::brand();
 ?>
@@ -59,7 +60,7 @@ list( $brand_text, $brand_tagline ) = Axellcore_Atelierclub\Notifications::brand
 										<tr>
 											<td id="template_header_image" style="<?php echo esc_attr( $styles['logo_cell'] ); ?>">
 												<?php if ( $email_logo ) : ?>
-													<p style="<?php echo esc_attr( $styles['logo'] ); ?>"><a href="<?php echo esc_url( $atelier_url ); ?>" style="<?php echo esc_attr( $styles['logo_link'] ); ?>" target="_blank"><img src="<?php echo esc_url( $email_logo[0] ); ?>" alt="<?php echo esc_attr( '' !== $brand_text ? $brand_text : get_bloginfo( 'name' ) ); ?>" width="140" style="<?php echo esc_attr( $styles['logo_img'] ); ?>"></a></p>
+													<p style="<?php echo esc_attr( $styles['logo'] ); ?>"><a href="<?php echo esc_url( $atelier_url ); ?>" style="<?php echo esc_attr( $styles['logo_link'] ); ?>" target="_blank"><img src="<?php echo esc_url( $email_logo[0] ); ?>" alt="<?php echo esc_attr( '' !== $brand_text ? $brand_text : get_bloginfo( 'name' ) ); ?>" width="<?php echo (int) $logo_width; ?>" style="<?php echo esc_attr( 'width:' . (int) $logo_width . 'px;' . $styles['logo_img'] ); ?>"></a></p>
 												<?php else : ?>
 													<p class="email-logo-text aa-text" style="<?php echo esc_attr( $styles['logo'] ); ?>"><a class="aa-brand" href="<?php echo esc_url( $atelier_url ); ?>" style="<?php echo esc_attr( $styles['logo_link'] ); ?>" target="_blank"><?php echo esc_html( $brand_text ); ?></a></p>
 													<?php if ( '' !== $brand_tagline ) : ?>

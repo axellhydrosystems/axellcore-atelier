@@ -225,4 +225,18 @@ final class NotificationsTest extends TestCase {
 		$this->assertStringContainsString( '>Universo próprio</p>', $email['html'] );
 		$this->assertStringNotContainsString( '<img', $email['html'] );
 	}
+
+	public function test_logo_width_by_default_or_as_set(): void {
+		$this->assertSame( 140, Notifications::logo_width() );
+		$email = Notifications::compose( 'member_approved', Notifications::member_vars( 6 ) );
+		$this->assertStringContainsString( 'width="140" style="width:140px;', $email['html'] );
+
+		$this->settings['email_logo_width'] = 220;
+		$this->assertSame( 220, Notifications::logo_width() );
+		$email = Notifications::compose( 'member_approved', Notifications::member_vars( 6 ) );
+		$this->assertStringContainsString( 'width="220" style="width:220px;', $email['html'] );
+
+		$this->settings['email_logo_width'] = 9000;
+		$this->assertSame( 140, Notifications::logo_width(), 'Out of range: the default.' );
+	}
 }
