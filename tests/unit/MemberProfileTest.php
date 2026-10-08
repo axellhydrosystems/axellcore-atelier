@@ -15,6 +15,18 @@ use PHPUnit\Framework\TestCase;
 final class MemberProfileTest extends TestCase {
 
 	/**
+	 * Posts by ID: post type, status, title.
+	 *
+	 * @var array<int,array{0:string,1:string,2:string}>
+	 */
+	private const POSTS = array(
+		42 => array( 'revendas', 'publish', 'Loja A' ),
+		50 => array( 'revendas', 'publish', 'Nova' ),
+		77 => array( 'revendas', 'pending', 'Loja pendente' ),
+		99 => array( 'page', 'publish', 'Sobre' ),
+	);
+
+	/**
 	 * User meta of the user being edited (ID 9).
 	 *
 	 * @var array<string,mixed>
@@ -26,19 +38,57 @@ final class MemberProfileTest extends TestCase {
 		Monkey\setUp();
 		$_POST      = array();
 		$this->meta = array(
-			'company'          => 'Old studio',
-			'reseller1'        => 42,
-			'reseller1_title'  => 'Loja A',
-			'reseller2'        => 43,
-			'reseller2_title'  => 'Loja B',
-			'br_revenue_id'    => '52998224725',
-			'profile_type'     => 'individual',
+			'company'         => 'Old studio',
+			'reseller1'       => '42',
+			'reseller1_title' => 'Loja A · RS Caxias do Sul',
+			'reseller2'       => '',
+			'reseller2_title' => 'Loja texto - SP Campinas',
+			'reseller3'       => '77',
+			'reseller3_title' => 'Loja pendente - RS Caxias do Sul',
+			'br_revenue_id'   => '52998224725',
+			'profile_type'    => 'individual',
 		);
-		Functions\when( '__' )->returnArg( 1 );
+		Functions\stubTranslationFunctions();
+		Functions\stubEscapeFunctions();
 		Functions\when( 'get_user_locale' )->justReturn( 'en_US' );
 		Functions\when( 'current_user_can' )->justReturn( true );
 		Functions\when( 'wp_unslash' )->returnArg( 1 );
 		Functions\when( 'sanitize_text_field' )->alias( 'trim' );
+		Functions\when( 'absint' )->alias(
+			static function ( $value ) {
+				return abs( (int) $value );
+			}
+		);
+		Functions\when( 'selected' )->alias(
+			static function ( $a, $b ) {
+				return (string) $a === (string) $b ? ' selected="selected"' : '';
+			}
+		);
+		Functions\when( 'wp_kses_post' )->returnArg( 1 );
+		Functions\when( 'wp_json_encode' )->alias( 'json_encode' );
+		Functions\when( 'get_edit_post_link' )->justReturn( 'https://example.com/wp-admin/post.php?post=77&action=edit' );
+		Functions\when( 'get_post_type' )->alias(
+			static function ( $id ) {
+				return self::POSTS[ $id ][0] ?? false;
+			}
+		);
+		Functions\when( 'get_post_status' )->alias(
+			static function ( $id ) {
+				return self::POSTS[ $id ][1] ?? false;
+			}
+		);
+		Functions\when( 'get_post' )->alias(
+			static function ( $id ) {
+				return isset( self::POSTS[ $id ] ) ? new \WP_Post( array( 'ID' => $id, 'post_title' => self::POSTS[ $id ][2] ) ) : null;
+			}
+		);
+		Functions\when( 'get_the_terms' )->alias(
+			static function ( $id, $taxonomy ) {
+				return 'estados' === $taxonomy
+					? array( (object) array( 'slug' => 'rs', 'name' => 'Rio Grande do Sul' ) )
+					: array( (object) array( 'slug' => 'caxias-do-sul', 'name' => 'Caxias do Sul' ) );
+			}
+		);
 		Functions\when( 'get_user_meta' )->alias(
 			function ( $user_id, $key ) {
 				return $this->meta[ $key ] ?? '';
@@ -65,15 +115,47 @@ final class MemberProfileTest extends TestCase {
 		parent::tearDown();
 	}
 
+	/**
+	 * Save as WordPress does: the update hook, then the errors hook.
+	 *
+	 * @param array<string,mixed> $post   Form fields.
+	 * @param \WP_Error|null      $errors WordPress's own errors.
+	 * @return \WP_Error
+	 */
+	private function save( array $post, ?\WP_Error $errors = null ): \WP_Error {
+		$_POST  = $post;
+		$errors = $errors ?? new \WP_Error();
+		Member_Profile::instance()->save_member_meta_fields( 9 );
+		Member_Profile::instance()->report_errors( $errors );
+		return $errors;
+	}
+
+	/**
+	 * The stores rows of the form.
+	 *
+	 * @param array<int,array{0:string|int,1:string}> $rows ID and text per position.
+	 * @return array<string,mixed>
+	 */
+	private static function stores( array $rows ): array {
+		$out = array();
+		foreach ( $rows as $index => $row ) {
+			$out[ $index ] = array(
+				'id'    => (string) $row[0],
+				'title' => $row[1],
+			);
+		}
+		return array( 'aa_member_resellers' => $out );
+	}
+
 	public function test_fieldsets_follow_the_woocommerce_mold(): void {
 		$fieldsets = Member_Profile::instance()->get_member_meta_fields( 9 );
 
 		$this->assertSame( array( 'authorship', 'document', 'address', 'resellers' ), array_keys( $fieldsets ) );
 		$this->assertSame( array( 'company', 'phone', 'professional_registration', 'primary_focus' ), array_keys( $fieldsets['authorship']['fields'] ) );
-		$this->assertSame( 'select', $fieldsets['address']['fields']['country']['type'] );
 		$this->assertArrayHasKey( 'BR', $fieldsets['address']['fields']['country']['options'] );
 		$this->assertSame( 'select', $fieldsets['address']['fields']['state']['type'], 'Brazil (the default) picks a UF.' );
-		$this->assertCount( 5, $fieldsets['resellers']['fields'] );
+		$this->assertSame( array( 'resellers' ), array_keys( $fieldsets['resellers']['fields'] ), 'One row for the stores.' );
+		$this->assertSame( 'resellers', $fieldsets['resellers']['fields']['resellers']['type'] );
 	}
 
 	public function test_state_is_text_outside_brazil(): void {
@@ -84,76 +166,115 @@ final class MemberProfileTest extends TestCase {
 		$this->assertArrayNotHasKey( 'type', $state );
 	}
 
-	public function test_saves_text_and_only_known_select_options(): void {
+	public function test_a_clean_save_writes_after_wordpress_checked_its_fields(): void {
 		$_POST = array(
-			'aa_member_company'       => ' New studio ',
-			'aa_member_primary_focus' => 'not-an-option',
-			'aa_member_profile_type'  => 'legal_entity',
+			'aa_member_company'      => ' New studio ',
+			'aa_member_profile_type' => 'legal_entity',
 		);
-
 		Member_Profile::instance()->save_member_meta_fields( 9 );
+		$this->assertSame( 'Old studio', $this->meta['company'], 'Nothing is written before the errors hook.' );
+
+		Member_Profile::instance()->report_errors( new \WP_Error() );
 
 		$this->assertSame( 'New studio', $this->meta['company'] );
-		$this->assertArrayNotHasKey( 'primary_focus', $this->meta );
 		$this->assertSame( 'legal_entity', $this->meta['profile_type'] );
 	}
 
-	public function test_without_permission_nothing_is_saved_or_shown(): void {
-		Functions\when( 'current_user_can' )->justReturn( false );
-		$_POST = array( 'aa_member_company' => 'New studio' );
+	public function test_one_wrong_field_saves_nothing(): void {
+		$errors = $this->save(
+			array(
+				'aa_member_company'       => 'New studio',
+				'aa_member_br_revenue_id' => '111.111.111-11',
+			)
+		);
 
-		Member_Profile::instance()->save_member_meta_fields( 9 );
-		$user     = new \WP_User();
-		$user->ID = 9;
-		ob_start();
-		Member_Profile::instance()->add_member_meta_fields( $user );
+		$this->assertSame( array( 'aa_invalid_cpf' ), $errors->get_error_codes() );
+		$this->assertSame( 'Old studio', $this->meta['company'] );
+		$this->assertSame( '52998224725', $this->meta['br_revenue_id'] );
+	}
 
-		$this->assertSame( '', ob_get_clean() );
+	public function test_an_option_outside_the_list_is_an_error(): void {
+		$errors = $this->save( array( 'aa_member_primary_focus' => 'not-an-option' ) );
+
+		$this->assertSame( array( 'aa_invalid_option' ), $errors->get_error_codes() );
+		$this->assertArrayNotHasKey( 'primary_focus', $this->meta );
+	}
+
+	public function test_an_error_of_wordpress_saves_nothing_either(): void {
+		$this->save( array( 'aa_member_company' => 'New studio' ), new \WP_Error( 'empty_email', 'Please enter an email address.' ) );
+
 		$this->assertSame( 'Old studio', $this->meta['company'] );
 	}
 
-	public function test_an_invalid_document_keeps_the_old_one_and_is_reported(): void {
-		$_POST = array(
-			'aa_member_company'       => 'New studio',
-			'aa_member_br_revenue_id' => '111.111.111-11',
-		);
-
-		Member_Profile::instance()->save_member_meta_fields( 9 );
-		$errors = new \WP_Error();
-		Member_Profile::instance()->report_errors( $errors );
-
-		$this->assertSame( '52998224725', $this->meta['br_revenue_id'] );
-		$this->assertSame( 'New studio', $this->meta['company'] );
-		$this->assertSame( array( 'aa_invalid_cpf' ), $errors->get_error_codes() );
-	}
-
 	public function test_a_valid_document_is_saved_normalized(): void {
-		$_POST = array( 'aa_member_br_revenue_id' => '168.995.350-09' );
-
-		Member_Profile::instance()->save_member_meta_fields( 9 );
+		$this->save( array( 'aa_member_br_revenue_id' => '168.995.350-09' ) );
 
 		$this->assertSame( '16899535009', $this->meta['br_revenue_id'] );
 	}
 
-	public function test_a_changed_store_text_unlinks_the_reseller_and_empty_clears_it(): void {
-		$_POST = array(
-			'aa_member_reseller1_title' => 'Loja informada',
-			'aa_member_reseller2_title' => '',
-		);
+	public function test_without_permission_nothing_is_saved_or_shown(): void {
+		Functions\when( 'current_user_can' )->justReturn( false );
 
-		Member_Profile::instance()->save_member_meta_fields( 9 );
+		$this->save( array( 'aa_member_company' => 'New studio' ) );
+		$this->assertSame( 'Old studio', $this->meta['company'] );
 
-		$this->assertSame( 0, $this->meta['reseller1'] );
-		$this->assertSame( 'Loja informada', $this->meta['reseller1_title'] );
-		$this->assertArrayNotHasKey( 'reseller2', $this->meta );
-		$this->assertArrayNotHasKey( 'reseller2_title', $this->meta );
+		$user     = new \WP_User();
+		$user->ID = 9;
+		ob_start();
+		Member_Profile::instance()->add_member_meta_fields( $user );
+		$this->assertSame( '', ob_get_clean() );
 	}
 
-	public function test_an_unchanged_store_text_keeps_the_reseller(): void {
-		$_POST = array( 'aa_member_reseller1_title' => 'Loja A' );
+	public function test_stores_move_up_and_keep_what_the_member_had(): void {
+		$errors = $this->save(
+			self::stores(
+				array(
+					array( '', '' ),
+					array( 50, 'whatever the browser sent' ),
+					array( '', 'Loja texto - SP Campinas' ),
+					array( 77, 'Loja pendente - RS Caxias do Sul' ),
+					array( 50, 'Nova · RS Caxias do Sul' ),
+				)
+			)
+		);
 
-		Member_Profile::instance()->save_member_meta_fields( 9 );
+		$this->assertFalse( $errors->has_errors() );
+		$this->assertSame( '50', $this->meta['reseller1'] );
+		$this->assertSame( 'Nova · RS Caxias do Sul', $this->meta['reseller1_title'], 'The title comes from the reseller.' );
+		$this->assertSame( '', $this->meta['reseller2'] );
+		$this->assertSame( 'Loja texto - SP Campinas', $this->meta['reseller2_title'] );
+		$this->assertSame( '77', $this->meta['reseller3'], 'A pending reseller the member had stays.' );
+		$this->assertArrayNotHasKey( 'reseller4', $this->meta, 'The repeated reseller counts once.' );
+		$this->assertArrayNotHasKey( 'reseller5_title', $this->meta );
+	}
 
-		$this->assertSame( 42, $this->meta['reseller1'] );
+	public function test_a_store_must_be_a_registered_reseller(): void {
+		foreach ( array( array( 99, 'Sobre' ), array( '', 'Typed by hand' ) ) as $row ) {
+			$errors = $this->save( self::stores( array( $row ) ) + array( 'aa_member_company' => 'New studio' ) );
+
+			$this->assertSame( array( 'aa_invalid_reseller' ), $errors->get_error_codes() );
+			$this->assertSame( '42', $this->meta['reseller1'] );
+			$this->assertSame( 'Old studio', $this->meta['company'] );
+		}
+	}
+
+	public function test_after_an_error_the_form_shows_what_was_sent_and_marks_the_field(): void {
+		$this->save(
+			array(
+				'aa_member_company'       => 'New studio',
+				'aa_member_br_revenue_id' => '111.111.111-11',
+			)
+		);
+		$user     = new \WP_User();
+		$user->ID = 9;
+		ob_start();
+		Member_Profile::instance()->add_member_meta_fields( $user );
+		$html = (string) ob_get_clean();
+
+		$this->assertStringContainsString( 'value="New studio"', $html );
+		$this->assertStringContainsString( 'value="111.111.111-11"', $html );
+		$this->assertStringContainsString( '<tr class="form-required form-invalid"><th><label for="aa_member_br_revenue_id">', $html );
+		$this->assertStringContainsString( 'aria-describedby="aa_member_br_revenue_id-error"', $html );
+		$this->assertStringContainsString( 'id="aa_member_br_revenue_id-error">Invalid CPF.</p>', $html );
 	}
 }

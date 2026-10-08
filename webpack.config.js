@@ -24,9 +24,11 @@ const extraEntriesByConfig = [
 		'reveal/frontend': src( 'reveal/style.scss' ),
 		'inline-icon/index': src( 'inline-icon/index.tsx' ),
 		'block-styles/frontend': src( 'block-styles/style.scss' ),
+		'admin/member-profile/index': src( 'admin/member-profile/style.scss' ),
 	},
 	{
 		'reveal/view': src( 'reveal/view.ts' ),
+		'admin/member-profile/view': src( 'admin/member-profile/view.ts' ),
 	},
 ];
 

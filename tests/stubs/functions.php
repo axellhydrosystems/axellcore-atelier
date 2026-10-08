@@ -120,6 +120,10 @@ if ( ! class_exists( 'WP_Error' ) ) {
 			}
 		}
 
+		public function has_errors() {
+			return '' !== $this->code;
+		}
+
 		public function get_error_codes() {
 			return '' === $this->code ? array() : array_merge( array( $this->code ), array_keys( $this->errors ) );
 		}
@@ -159,6 +163,8 @@ if ( ! class_exists( 'WP_Post' ) ) {
 		public $post_name = '';
 		/** @var int */
 		public $post_parent = 0;
+		/** @var string */
+		public $post_title = '';
 
 		/**
 		 * @param array<string,mixed> $fields Properties.

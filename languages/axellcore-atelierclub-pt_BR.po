@@ -1801,26 +1801,6 @@ msgid "CPF or CNPJ"
 msgstr "CPF ou CNPJ"
 
 #: build/admin/members/index.js:184
-msgid "Partner store 1"
-msgstr "Loja parceira 1"
-
-#: build/admin/members/index.js:184
-msgid "Partner store 2"
-msgstr "Loja parceira 2"
-
-#: build/admin/members/index.js:184
-msgid "Partner store 3"
-msgstr "Loja parceira 3"
-
-#: build/admin/members/index.js:184
-msgid "Partner store 4"
-msgstr "Loja parceira 4"
-
-#: build/admin/members/index.js:184
-msgid "Partner store 5"
-msgstr "Loja parceira 5"
-
-#: build/admin/members/index.js:184
 msgid "Registration"
 msgstr "Cadastro"
 
@@ -1853,6 +1833,7 @@ msgstr "Não foi possível salvar."
 msgid "Pending curation"
 msgstr "Pendente de curadoria"
 
+#: includes/class-member-profile.php:317
 #: build/admin/members/index.js:184
 msgid "Open store"
 msgstr "Abrir loja"
@@ -2396,6 +2377,8 @@ msgstr "Informe um telefone com DDD."
 msgid "Enter a CEP with 8 digits."
 msgstr "Informe um CEP com 8 dígitos."
 
+#: includes/class-member-profile.php:498
+#: includes/class-member-profile.php:509
 #: includes/class-members.php:230
 #: includes/class-members.php:509
 msgid "Choose a reseller from the list."
@@ -2458,41 +2441,37 @@ msgid "Atelier Page"
 msgstr "Página Atelier"
 
 #. translators: %d: partner store position, 1 to 5.
-#: includes/class-member-profile.php:108
+#: includes/class-member-profile.php:311
 #, php-format
 msgid "Partner store %d"
 msgstr "Loja parceira %d"
 
-#: includes/class-member-profile.php:109
-msgid "Changing a store's text unlinks it from the registered reseller."
-msgstr "Alterar o texto de uma loja a desvincula da revenda cadastrada."
-
-#: includes/class-member-profile.php:123
+#: includes/class-member-profile.php:165
 msgid "Atelier: authorship"
 msgstr "Atelier: autoria"
 
-#: includes/class-member-profile.php:131
-#: includes/class-member-profile.php:141
+#: includes/class-member-profile.php:173
+#: includes/class-member-profile.php:183
 msgid "Select an option…"
 msgstr "Selecione uma opção…"
 
-#: includes/class-member-profile.php:136
+#: includes/class-member-profile.php:178
 msgid "Atelier: document"
 msgstr "Atelier: documento"
 
-#: includes/class-member-profile.php:145
+#: includes/class-member-profile.php:187
 msgid "Checked for its check digits and the registration type, and unique among members."
 msgstr "Conferido pelos dígitos verificadores e pelo tipo de cadastro, e único entre os membros."
 
-#: includes/class-member-profile.php:150
+#: includes/class-member-profile.php:192
 msgid "Atelier: office address"
 msgstr "Atelier: endereço do escritório"
 
-#: includes/class-member-profile.php:172
+#: includes/class-member-profile.php:214
 msgid "In Brazil, a city of the chosen state."
 msgstr "No Brasil, uma cidade do estado escolhido."
 
-#: includes/class-member-profile.php:177
+#: includes/class-member-profile.php:219
 msgid "Atelier: partner stores"
 msgstr "Atelier: lojas parceiras"
 
@@ -3491,3 +3470,27 @@ msgstr "Zâmbia"
 #: includes/data/countries.php:264
 msgid "Zimbabwe"
 msgstr "Zimbábue"
+
+#: includes/class-member-profile.php:224
+msgid "Search the registered resellers by name. Leaving a store empty moves the next ones up."
+msgstr "Busque as revendas cadastradas pelo nome. Deixar uma loja vazia faz as seguintes subirem."
+
+#: includes/class-member-profile.php:309
+msgid "Search reseller…"
+msgstr "Buscar revenda…"
+
+#: includes/class-member-profile.php:315
+msgid "Pending curation."
+msgstr "Pendente de curadoria."
+
+#: includes/class-member-profile.php:319
+msgid "Remove"
+msgstr "Remover"
+
+#: includes/class-member-profile.php:397
+msgid "Choose an option from the list."
+msgstr "Escolha uma opção da lista."
+
+#: build/admin/members/index.js:184
+msgid "Stores"
+msgstr "Lojas"

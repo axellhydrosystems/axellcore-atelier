@@ -1,0 +1,78 @@
+// Partner stores on the user edit screens (includes/class-member-profile.php).
+.aa-member-stores {
+	display: grid;
+	gap: 8px;
+
+	.aa-member-store {
+		position: relative;
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 4px 12px;
+
+		&[hidden] {
+			display: none;
+		}
+
+		.aa-member-error {
+			flex-basis: 100%;
+			margin: 0;
+
+			&[hidden] {
+				display: none;
+			}
+		}
+
+		&.is-invalid input[role="combobox"] {
+			border-color: #d63638;
+			box-shadow: 0 0 2px rgba(214, 54, 56, 0.8);
+		}
+	}
+
+	.aa-member-store__pending {
+		color: #996800;
+
+		&[hidden] {
+			display: none;
+		}
+	}
+
+	.aa-member-store__list {
+		position: absolute;
+		top: 100%;
+		left: 0;
+		z-index: 10;
+		box-sizing: border-box;
+		width: 25em;
+		max-width: 100%;
+		max-height: 240px;
+		overflow-y: auto;
+		margin: 2px 0 0;
+		padding: 4px 0;
+		list-style: none;
+		background: #fff;
+		border: 1px solid #8c8f94;
+		border-radius: 4px;
+		box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+
+		&[hidden] {
+			display: none;
+		}
+
+		li {
+			margin: 0;
+			padding: 6px 10px;
+			cursor: pointer;
+
+			&:hover,
+			&[aria-selected="true"] {
+				color: #fff;
+				background: #2271b1;
+			}
+		}
+	}
+}
+
+.form-table .aa-member-error {
+	color: #d63638;
+}

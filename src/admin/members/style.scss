@@ -27,3 +27,14 @@
 .wrap h1.wp-heading-inline {
 	margin-left: 20px;
 }
+
+// Partner stores in the detail: one per line.
+.aa-resellers {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+
+	li {
+		margin: 0 0 4px;
+	}
+}

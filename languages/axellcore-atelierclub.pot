@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-08T12:57:17+00:00\n"
+"POT-Creation-Date: 2026-10-08T13:29:19+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: axellcore-atelierclub\n"
@@ -274,43 +274,71 @@ msgstr ""
 msgid "Brazil"
 msgstr ""
 
+#: includes/class-member-profile.php:165
+msgid "Atelier: authorship"
+msgstr ""
+
+#: includes/class-member-profile.php:173
+#: includes/class-member-profile.php:183
+msgid "Select an option…"
+msgstr ""
+
+#: includes/class-member-profile.php:178
+msgid "Atelier: document"
+msgstr ""
+
+#: includes/class-member-profile.php:187
+msgid "Checked for its check digits and the registration type, and unique among members."
+msgstr ""
+
+#: includes/class-member-profile.php:192
+msgid "Atelier: office address"
+msgstr ""
+
+#: includes/class-member-profile.php:214
+msgid "In Brazil, a city of the chosen state."
+msgstr ""
+
+#: includes/class-member-profile.php:219
+msgid "Atelier: partner stores"
+msgstr ""
+
+#: includes/class-member-profile.php:224
+msgid "Search the registered resellers by name. Leaving a store empty moves the next ones up."
+msgstr ""
+
+#: includes/class-member-profile.php:309
+msgid "Search reseller…"
+msgstr ""
+
 #. translators: %d: partner store position, 1 to 5.
-#: includes/class-member-profile.php:108
+#: includes/class-member-profile.php:311
 #, php-format
 msgid "Partner store %d"
 msgstr ""
 
-#: includes/class-member-profile.php:109
-msgid "Changing a store's text unlinks it from the registered reseller."
+#: includes/class-member-profile.php:315
+msgid "Pending curation."
 msgstr ""
 
-#: includes/class-member-profile.php:123
-msgid "Atelier: authorship"
+#: includes/class-member-profile.php:317
+#: build/admin/members/index.js:184
+msgid "Open store"
 msgstr ""
 
-#: includes/class-member-profile.php:131
-#: includes/class-member-profile.php:141
-msgid "Select an option…"
+#: includes/class-member-profile.php:319
+msgid "Remove"
 msgstr ""
 
-#: includes/class-member-profile.php:136
-msgid "Atelier: document"
+#: includes/class-member-profile.php:397
+msgid "Choose an option from the list."
 msgstr ""
 
-#: includes/class-member-profile.php:145
-msgid "Checked for its check digits and the registration type, and unique among members."
-msgstr ""
-
-#: includes/class-member-profile.php:150
-msgid "Atelier: office address"
-msgstr ""
-
-#: includes/class-member-profile.php:172
-msgid "In Brazil, a city of the chosen state."
-msgstr ""
-
-#: includes/class-member-profile.php:177
-msgid "Atelier: partner stores"
+#: includes/class-member-profile.php:498
+#: includes/class-member-profile.php:509
+#: includes/class-members.php:230
+#: includes/class-members.php:509
+msgid "Choose a reseller from the list."
 msgstr ""
 
 #: includes/class-member.php:79
@@ -586,11 +614,6 @@ msgstr ""
 #: includes/class-members.php:216
 #: includes/class-members.php:506
 msgid "Enter a CEP with 8 digits."
-msgstr ""
-
-#: includes/class-members.php:230
-#: includes/class-members.php:509
-msgid "Choose a reseller from the list."
 msgstr ""
 
 #: includes/class-members.php:256
@@ -1808,23 +1831,7 @@ msgid "CPF or CNPJ"
 msgstr ""
 
 #: build/admin/members/index.js:184
-msgid "Partner store 1"
-msgstr ""
-
-#: build/admin/members/index.js:184
-msgid "Partner store 2"
-msgstr ""
-
-#: build/admin/members/index.js:184
-msgid "Partner store 3"
-msgstr ""
-
-#: build/admin/members/index.js:184
-msgid "Partner store 4"
-msgstr ""
-
-#: build/admin/members/index.js:184
-msgid "Partner store 5"
+msgid "Stores"
 msgstr ""
 
 #: build/admin/members/index.js:184
@@ -1858,10 +1865,6 @@ msgstr ""
 
 #: build/admin/members/index.js:184
 msgid "Pending curation"
-msgstr ""
-
-#: build/admin/members/index.js:184
-msgid "Open store"
 msgstr ""
 
 #. translators: %s: timezone detail, e.g. "(CEST) Europe/Madrid" or "UTC+3".

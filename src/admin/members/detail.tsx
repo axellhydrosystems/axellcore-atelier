@@ -209,39 +209,22 @@ export default function MemberDetailView( {
 				type: 'text',
 			},
 			{
-				id: 'reseller1',
+				id: 'resellers',
 				readOnly: true,
-				label: __( 'Partner store 1', 'axellcore-atelierclub' ),
+				label: __( 'Stores', 'axellcore-atelierclub' ),
 				type: 'text',
-				render: () => <ResellerValue reseller={ resellers.find( ( r ) => r.field === 'reseller1' ) } />,
-			},
-			{
-				id: 'reseller2',
-				readOnly: true,
-				label: __( 'Partner store 2', 'axellcore-atelierclub' ),
-				type: 'text',
-				render: () => <ResellerValue reseller={ resellers.find( ( r ) => r.field === 'reseller2' ) } />,
-			},
-			{
-				id: 'reseller3',
-				readOnly: true,
-				label: __( 'Partner store 3', 'axellcore-atelierclub' ),
-				type: 'text',
-				render: () => <ResellerValue reseller={ resellers.find( ( r ) => r.field === 'reseller3' ) } />,
-			},
-			{
-				id: 'reseller4',
-				readOnly: true,
-				label: __( 'Partner store 4', 'axellcore-atelierclub' ),
-				type: 'text',
-				render: () => <ResellerValue reseller={ resellers.find( ( r ) => r.field === 'reseller4' ) } />,
-			},
-			{
-				id: 'reseller5',
-				readOnly: true,
-				label: __( 'Partner store 5', 'axellcore-atelierclub' ),
-				type: 'text',
-				render: () => <ResellerValue reseller={ resellers.find( ( r ) => r.field === 'reseller5' ) } />,
+				render: () =>
+					resellers.length ? (
+						<ul className="aa-resellers">
+							{ resellers.map( ( reseller ) => (
+								<li key={ reseller.field }>
+									<ResellerValue reseller={ reseller } />
+								</li>
+							) ) }
+						</ul>
+					) : (
+						'—'
+					),
 			},
 			{
 				id: 'status',
@@ -293,11 +276,9 @@ export default function MemberDetailView( {
 				row( 'endereco-2', [ 'neighborhood', 'landmark' ] ),
 				row( 'endereco-3', [ 'city', 'state', 'postal' ] ),
 			] ),
-			card(
+			card( 'lojas', __( 'Partner stores', 'axellcore-atelierclub' ), [
 				'resellers',
-				__( 'Partner stores', 'axellcore-atelierclub' ),
-				[ 'reseller1', 'reseller2', 'reseller3', 'reseller4', 'reseller5' ]
-			),
+			] ),
 		],
 	};
 
