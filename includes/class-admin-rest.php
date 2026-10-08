@@ -322,7 +322,9 @@ final class Admin_Rest {
 			if ( ! isset( Member::roles()[ $role ] ) ) {
 				return new \WP_Error( 'aa_invalid_status', __( 'Invalid status.', 'axellcore-atelierclub' ), array( 'status' => 400 ) );
 			}
-			if ( ! in_array( $role, $user->roles, true ) ) {
+			if ( Member::ROLE === $role ) {
+				Member::approve( $user->ID );
+			} elseif ( ! in_array( $role, $user->roles, true ) ) {
 				$user->set_role( $role );
 			}
 		}

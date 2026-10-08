@@ -139,6 +139,10 @@ if ( ! class_exists( 'WP_User' ) ) {
 		public $user_url        = '';
 		public $user_registered = '';
 		public $display_name    = '';
+
+		public function set_role( $role ) {
+			$this->roles = array( $role );
+		}
 	}
 }
 

@@ -58,4 +58,68 @@ final class MemberTest extends TestCase {
 
 		$this->addToAssertionCount( 1 );
 	}
+
+	/**
+	 * A user with these roles.
+	 *
+	 * @param string[] $roles Roles.
+	 */
+	private static function user( array $roles, int $id = 7 ): \WP_User {
+		$user               = new \WP_User();
+		$user->ID           = $id;
+		$user->roles        = $roles;
+		$user->display_name = 'Ana';
+		return $user;
+	}
+
+	private function stub_links(): void {
+		Functions\when( '__' )->returnArg( 1 );
+		Functions\when( 'esc_html__' )->returnArg( 1 );
+		Functions\when( 'esc_attr' )->returnArg( 1 );
+		Functions\when( 'esc_url' )->returnArg( 1 );
+		Functions\when( 'admin_url' )->alias( static fn( $path ) => 'https://example.com/wp-admin/' . $path );
+		Functions\when( 'add_query_arg' )->alias( static fn( $args, $url ) => $url . '?' . http_build_query( $args ) );
+		Functions\when( 'wp_nonce_url' )->alias( static fn( $url, $action ) => $url . '&_wpnonce=' . $action );
+	}
+
+	public function test_a_pending_member_row_gets_approve(): void {
+		$this->stub_links();
+		Functions\when( 'current_user_can' )->justReturn( true );
+
+		$actions = Member::instance()->row_actions( array( 'edit' => 'Edit' ), self::user( array( Member::ROLE_PENDING ) ) );
+
+		$this->assertSame( array( 'edit', Member::APPROVE_ACTION ), array_keys( $actions ) );
+		$this->assertStringContainsString( 'href="https://example.com/wp-admin/users.php?action=aa-approve&user=7&_wpnonce=aa-approve-user_7"', $actions[ Member::APPROVE_ACTION ] );
+		$this->assertStringContainsString( 'aria-label="Approve Ana"', $actions[ Member::APPROVE_ACTION ] );
+		$this->assertStringContainsString( '>Approve</a>', $actions[ Member::APPROVE_ACTION ] );
+	}
+
+	public function test_no_approve_for_members_or_without_permission(): void {
+		$this->stub_links();
+		Functions\when( 'current_user_can' )->justReturn( true );
+		$this->assertSame( array(), Member::instance()->row_actions( array(), self::user( array( Member::ROLE ) ) ) );
+
+		Functions\when( 'current_user_can' )->justReturn( false );
+		$this->assertSame( array(), Member::instance()->row_actions( array(), self::user( array( Member::ROLE_PENDING ) ) ) );
+	}
+
+	public function test_bulk_approve_only_pending_members_one_can_promote(): void {
+		$users = array(
+			1 => self::user( array( Member::ROLE_PENDING ), 1 ),
+			2 => self::user( array( Member::ROLE ), 2 ),
+			3 => self::user( array( 'subscriber' ), 3 ),
+			4 => self::user( array( Member::ROLE_PENDING ), 4 ),
+		);
+		Functions\when( 'get_userdata' )->alias( static fn( $id ) => $users[ $id ] ?? false );
+		Functions\when( 'current_user_can' )->alias( static fn( $cap, $id = 0 ) => 4 !== $id );
+		Functions\when( 'add_query_arg' )->alias( static fn( $key, $value, $url ) => $url . '?' . $key . '=' . $value );
+
+		$redirect = Member::instance()->handle_bulk_approve( 'users.php', Member::APPROVE_ACTION, array( 1, 2, 3, 4 ) );
+
+		$this->assertSame( 'users.php?aa-approved=1', $redirect );
+		$this->assertSame( array( Member::ROLE ), $users[1]->roles );
+		$this->assertSame( array( 'subscriber' ), $users[3]->roles, 'Only pending members.' );
+		$this->assertSame( array( Member::ROLE_PENDING ), $users[4]->roles, 'Only those one can promote.' );
+		$this->assertSame( 'x', Member::instance()->handle_bulk_approve( 'x', 'delete', array( 1 ) ), 'Other actions pass.' );
+	}
 }

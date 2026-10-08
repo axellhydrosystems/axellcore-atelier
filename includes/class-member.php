@@ -36,6 +36,16 @@ final class Member {
 	const ADMIN_PAGE = 'members';
 
 	/**
+	 * Action that approves pending members on the users' list (row and bulk).
+	 */
+	const APPROVE_ACTION = 'aa-approve';
+
+	/**
+	 * Query arg with how many were approved, for the notice.
+	 */
+	const APPROVED_ARG = 'aa-approved';
+
+	/**
 	 * Singleton instance.
 	 *
 	 * @var Member|null
@@ -67,6 +77,160 @@ final class Member {
 		add_action( 'admin_menu', array( $this, 'register_admin_page' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin' ) );
 		add_filter( 'admin_body_class', array( $this, 'admin_body_class' ) );
+		// Users' list: approve pending members (row action and bulk action).
+		add_filter( 'user_row_actions', array( $this, 'row_actions' ), 10, 2 );
+		add_filter( 'bulk_actions-users', array( $this, 'bulk_actions' ) );
+		add_filter( 'handle_bulk_actions-users', array( $this, 'handle_bulk_approve' ), 10, 3 );
+		add_action( 'load-users.php', array( $this, 'handle_approve' ) );
+		add_action( 'admin_notices', array( $this, 'approved_notice' ) );
+		add_filter( 'removable_query_args', array( $this, 'removable_query_args' ) );
+	}
+
+	/**
+	 * Approve a pending member: the member role in place of the pending one
+	 * (the status, as Atelier > Members sets it).
+	 *
+	 * @param int $user_id User ID.
+	 * @return bool Whether the user was pending and is now a member.
+	 */
+	public static function approve( $user_id ) {
+		$user = get_userdata( (int) $user_id );
+		if ( ! $user instanceof \WP_User || ! in_array( self::ROLE_PENDING, (array) $user->roles, true ) ) {
+			return false;
+		}
+		$user->set_role( self::ROLE );
+		return true;
+	}
+
+	/**
+	 * Whether the current user can approve a user (change its role).
+	 *
+	 * @param int $user_id User ID.
+	 * @return bool
+	 */
+	private static function can_approve( $user_id ) {
+		return current_user_can( 'promote_user', $user_id ) && current_user_can( 'edit_user', $user_id );
+	}
+
+	/**
+	 * "Approve" among a pending member's actions on the users' list.
+	 *
+	 * @param array<string,string> $actions Row actions.
+	 * @param \WP_User             $user    User of the row.
+	 * @return array<string,string>
+	 */
+	public function row_actions( $actions, $user ) {
+		if ( ! $user instanceof \WP_User || ! in_array( self::ROLE_PENDING, (array) $user->roles, true ) || ! self::can_approve( $user->ID ) ) {
+			return $actions;
+		}
+		$url = wp_nonce_url(
+			add_query_arg(
+				array(
+					'action' => self::APPROVE_ACTION,
+					'user'   => $user->ID,
+				),
+				admin_url( 'users.php' )
+			),
+			self::APPROVE_ACTION . '-user_' . $user->ID
+		);
+
+		$actions[ self::APPROVE_ACTION ] = sprintf(
+			'<a href="%1$s" aria-label="%2$s">%3$s</a>',
+			esc_url( $url ),
+			/* translators: %s: user's display name. */
+			esc_attr( sprintf( __( 'Approve %s', 'axellcore-atelierclub' ), $user->display_name ) ),
+			esc_html__( 'Approve', 'axellcore-atelierclub' )
+		);
+		return $actions;
+	}
+
+	/**
+	 * "Approve" among the users' list bulk actions.
+	 *
+	 * @param array<string,string> $actions Bulk actions.
+	 * @return array<string,string>
+	 */
+	public function bulk_actions( $actions ) {
+		if ( current_user_can( 'promote_users' ) ) {
+			$actions[ self::APPROVE_ACTION ] = __( 'Approve', 'axellcore-atelierclub' );
+		}
+		return $actions;
+	}
+
+	/**
+	 * Approve the pending members chosen (WordPress checked the bulk nonce).
+	 *
+	 * @param string $redirect Where WordPress goes back.
+	 * @param string $action   Bulk action.
+	 * @param int[]  $user_ids Users chosen.
+	 * @return string
+	 */
+	public function handle_bulk_approve( $redirect, $action, $user_ids ) {
+		if ( self::APPROVE_ACTION !== $action ) {
+			return $redirect;
+		}
+		$approved = 0;
+		foreach ( (array) $user_ids as $user_id ) {
+			if ( self::can_approve( (int) $user_id ) && self::approve( (int) $user_id ) ) {
+				++$approved;
+			}
+		}
+		return add_query_arg( self::APPROVED_ARG, $approved, $redirect );
+	}
+
+	/**
+	 * The row action's link: approve one member and go back to the list.
+	 */
+	public function handle_approve() {
+		// phpcs:disable WordPress.Security.NonceVerification.Recommended -- the nonce is checked below.
+		if ( ! isset( $_GET['action'], $_GET['user'] ) || self::APPROVE_ACTION !== $_GET['action'] ) {
+			return;
+		}
+		$user_id = absint( $_GET['user'] );
+		// phpcs:enable WordPress.Security.NonceVerification.Recommended
+		check_admin_referer( self::APPROVE_ACTION . '-user_' . $user_id );
+		if ( ! self::can_approve( $user_id ) ) {
+			wp_die( esc_html__( 'Sorry, you are not allowed to edit this user.', 'axellcore-atelierclub' ), 403 );
+		}
+		$approved = self::approve( $user_id ) ? 1 : 0;
+		$back     = wp_get_referer();
+		wp_safe_redirect( add_query_arg( self::APPROVED_ARG, $approved, remove_query_arg( array( 'action', 'user', '_wpnonce' ), $back ? $back : admin_url( 'users.php' ) ) ) );
+		exit;
+	}
+
+	/**
+	 * After approving: how many, on the users' list.
+	 */
+	public function approved_notice() {
+		$screen = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- only a count to show.
+		if ( ! $screen || 'users' !== $screen->id || ! isset( $_GET[ self::APPROVED_ARG ] ) ) {
+			return;
+		}
+		$approved = absint( $_GET[ self::APPROVED_ARG ] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+		if ( ! $approved ) {
+			return;
+		}
+		printf(
+			'<div class="notice notice-success is-dismissible"><p>%s</p></div>',
+			esc_html(
+				1 === $approved
+					? __( 'Member approved.', 'axellcore-atelierclub' )
+					/* translators: %d: number of members approved. */
+					: sprintf( _n( '%d member approved.', '%d members approved.', $approved, 'axellcore-atelierclub' ), $approved )
+			)
+		);
+	}
+
+	/**
+	 * The count leaves the address once shown (as WordPress's own).
+	 *
+	 * @param string[] $args Query args removed from the address.
+	 * @return string[]
+	 */
+	public function removable_query_args( $args ) {
+		$args[] = self::APPROVED_ARG;
+		return $args;
 	}
 
 	/**

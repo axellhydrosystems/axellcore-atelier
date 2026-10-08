@@ -471,10 +471,10 @@ msgstr "Localização"
 msgid "Brazil"
 msgstr "Brasil"
 
-#: includes/class-member.php:113
-#: includes/class-member.php:123
-#: includes/class-member.php:124
-#: includes/class-member.php:135
+#: includes/class-member.php:277
+#: includes/class-member.php:287
+#: includes/class-member.php:288
+#: includes/class-member.php:299
 #: includes/class-settings.php:204
 msgid "Members"
 msgstr "Membros"
@@ -913,7 +913,7 @@ msgstr "Houve um erro ao enviar seu formulário."
 msgid "Name cannot be empty."
 msgstr "O nome não pode ficar vazio."
 
-#: includes/class-admin-rest.php:342
+#: includes/class-admin-rest.php:344
 msgid "Member not found."
 msgstr "Membro não encontrado."
 
@@ -1438,7 +1438,7 @@ msgstr "Status inválido."
 msgid "Footer"
 msgstr "Rodapé"
 
-#: includes/class-member.php:114
+#: includes/class-member.php:278
 msgid "Atelier"
 msgstr "Atelier"
 
@@ -1501,23 +1501,23 @@ msgstr "Envio de formulário %s"
 msgid "New form submission"
 msgstr "Novo envio de formulário"
 
-#: includes/class-member.php:79
+#: includes/class-member.php:243
 #: includes/class-resellers-rest.php:53
 #: build/form/form-atelier/index.js:1
 #: build/form/form/index.js:1
 msgid "Pending"
 msgstr "Pendente"
 
-#: includes/class-member.php:80
-#: includes/class-member.php:91
+#: includes/class-member.php:244
+#: includes/class-member.php:255
 msgid "Member"
 msgstr "Membro"
 
-#: includes/class-member.php:90
+#: includes/class-member.php:254
 msgid "Pending Member"
 msgstr "Membro Pendente"
 
-#: includes/class-member.php:140
+#: includes/class-member.php:304
 #: includes/class-members-export.php:130
 msgid "Export"
 msgstr "Exportar"
@@ -3545,3 +3545,30 @@ msgstr "Informe a loja como \"Nome - UF Cidade\"."
 #: includes/class-member-profile.php:202
 msgid "Only a valid one is allowed, and it must be unique among members."
 msgstr "Permite apenas válido e precisa ser único entre os membros."
+
+#. translators: %s: user's display name.
+#: includes/class-member.php:141
+#, php-format
+msgid "Approve %s"
+msgstr "Aprovar %s"
+
+#: includes/class-member.php:142
+#: includes/class-member.php:155
+msgid "Approve"
+msgstr "Aprovar"
+
+#: includes/class-member.php:193
+msgid "Sorry, you are not allowed to edit this user."
+msgstr "Você não tem permissão para editar este usuário."
+
+#: includes/class-member.php:218
+msgid "Member approved."
+msgstr "Membro aprovado."
+
+#. translators: %d: number of members approved.
+#: includes/class-member.php:220
+#, php-format
+msgid "%d member approved."
+msgid_plural "%d members approved."
+msgstr[0] "%d membro aprovado."
+msgstr[1] "%d membros aprovados."
