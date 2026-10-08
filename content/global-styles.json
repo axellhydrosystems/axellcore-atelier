@@ -1,0 +1,83 @@
+{
+    "styles": {
+        "typography": {
+            "lineHeight": "1.5",
+            "fontSize": "var(--wp--preset--font-size--medium)",
+            "letterSpacing": "0px",
+            "fontFamily": "var(--wp--preset--font-family--open-sans)",
+            "fontStyle": "normal",
+            "fontWeight": "400"
+        },
+        "color": {
+            "text": "#000000"
+        },
+        "css": ".wp-site-blocks>header,\n.wp-site-blocks>footer {\ndisplay:none;\n}"
+    },
+    "settings": {
+        "typography": {
+            "fontFamilies": {
+                "theme": [],
+                "custom": [
+                    {
+                        "name": "Open Sans",
+                        "slug": "open-sans",
+                        "fontFamily": "\"Open Sans\", sans-serif",
+                        "fontFace": [
+                            {
+                                "src": "assets/fonts/open-sans-normal-400.woff2",
+                                "fontWeight": "400",
+                                "fontStyle": "normal",
+                                "fontFamily": "\"Open Sans\""
+                            }
+                        ]
+                    }
+                ]
+            },
+            "fontSizes": {
+                "theme": [
+                    {
+                        "fluid": false,
+                        "name": "Pequeno",
+                        "size": "0.875rem",
+                        "slug": "small"
+                    },
+                    {
+                        "fluid": false,
+                        "name": "Média",
+                        "size": "1rem",
+                        "slug": "medium"
+                    },
+                    {
+                        "fluid": {
+                            "max": "1.375rem",
+                            "min": "1.125rem"
+                        },
+                        "name": "Grande",
+                        "size": "1.38rem",
+                        "slug": "large"
+                    },
+                    {
+                        "fluid": {
+                            "max": "2rem",
+                            "min": "1.75rem"
+                        },
+                        "name": "Extra grande",
+                        "size": "1.75rem",
+                        "slug": "x-large"
+                    },
+                    {
+                        "fluid": {
+                            "max": "3rem",
+                            "min": "2.15rem"
+                        },
+                        "name": "Extra extra grande",
+                        "size": "2.15rem",
+                        "slug": "xx-large"
+                    }
+                ]
+            }
+        }
+    },
+    "isGlobalStylesUserThemeJSON": true,
+    "version": 3
+}

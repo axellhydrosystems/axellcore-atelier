@@ -89,4 +89,36 @@ final class Classic_Template {
 		}
 		return (string) apply_filters( 'axellcore_atelier_template_path', AXELLCORE_ATELIERCLUB_PATH . 'templates/atelier/' . $file, $file );
 	}
+
+	/**
+	 * The page as the block template renders it in a block theme
+	 * (templates/atelier-club.html inside .wp-site-blocks), with the header
+	 * and footer partials in place of its template parts. Called before
+	 * wp_head(), as a block theme does, so the styles the blocks need are
+	 * printed in the head.
+	 *
+	 * @return string
+	 */
+	public static function render_page() {
+		$parts  = array(
+			'axellcore-header' => 'header-atelier.php',
+			'axellcore-footer' => 'footer-atelier.php',
+		);
+		$markup = (string) file_get_contents( AXELLCORE_ATELIERCLUB_PATH . 'templates/' . Plugin::TEMPLATE_SLUG . '.html' ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+		$markup = (string) preg_replace_callback(
+			'#<!-- wp:template-part (\{.*?\}) /-->#',
+			static function ( $m ) use ( $parts ) {
+				$attrs = json_decode( $m[1], true );
+				$slug  = is_array( $attrs ) ? (string) ( $attrs['slug'] ?? '' ) : '';
+				if ( ! isset( $parts[ $slug ] ) ) {
+					return '';
+				}
+				ob_start();
+				load_template( self::locate( $parts[ $slug ] ), false );
+				return '<!-- wp:html --><div class="wp-block-template-part">' . ob_get_clean() . '</div><!-- /wp:html -->';
+			},
+			$markup
+		);
+		return '<div class="wp-site-blocks">' . do_blocks( $markup ) . '</div>';
+	}
 }

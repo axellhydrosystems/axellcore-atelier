@@ -81,6 +81,37 @@ foreach ( $parts as $slug => $file ) {
 	}
 }
 
+// Global styles the user saved in the Site Editor of the block theme the
+// page is built on (body typography, font sizes, fonts): Classic_Styles uses
+// them for the Atelier page under a classic theme. Uploaded font files are
+// copied to assets/fonts/ and referenced by their path in the plugin.
+if ( wp_is_block_theme() ) {
+	$styles_post = get_post( WP_Theme_JSON_Resolver::get_user_global_styles_post_id() );
+	$styles      = $styles_post ? json_decode( $styles_post->post_content, true ) : null;
+	if ( is_array( $styles ) ) {
+		$uploads = wp_get_upload_dir();
+		foreach ( $styles['settings']['typography']['fontFamilies'] ?? array() as $origin => $families ) {
+			foreach ( $families as $f => $family ) {
+				foreach ( $family['fontFace'] ?? array() as $i => $face ) {
+					$srcs = (array) $face['src'];
+					foreach ( $srcs as $s => $src ) {
+						if ( 0 !== strpos( $src, $uploads['baseurl'] ) ) {
+							continue;
+						}
+						$name = sanitize_title( $family['slug'] ) . '-' . ( $face['fontStyle'] ?? 'normal' ) . '-' . ( $face['fontWeight'] ?? '400' ) . '.' . pathinfo( $src, PATHINFO_EXTENSION );
+						copy( $uploads['basedir'] . substr( $src, strlen( $uploads['baseurl'] ) ), AXELLCORE_ATELIERCLUB_PATH . 'assets/fonts/' . $name );
+						$srcs[ $s ] = 'assets/fonts/' . $name;
+						echo 'assets/fonts/' . $name . "\n";
+					}
+					$styles['settings']['typography']['fontFamilies'][ $origin ][ $f ]['fontFace'][ $i ]['src'] = is_array( $face['src'] ) ? $srcs : $srcs[0];
+				}
+			}
+		}
+		file_put_contents( $dir . 'global-styles.json', wp_json_encode( $styles, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES ) . "\n" );
+		echo "global-styles.json\n";
+	}
+}
+
 // Media used by the exported content (images with a wp-image-{id} class):
 // the files go to media/ and media.json keeps the id and URL they had here,
 // so Activator can import them on a clean install and point the content at
