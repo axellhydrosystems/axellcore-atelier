@@ -583,7 +583,11 @@ final class Notifications {
 		if ( ! isset( self::EMAILS[ $key ] ) ) {
 			wp_die( esc_html__( 'Unknown e-mail.', 'axellcore-atelierclub' ), 404 );
 		}
-		$email = self::compose( $key, self::sample_vars() );
+		// A hidden parameter, &user_id=ID: a member's own data instead of the sample's.
+		$user_id = isset( $_GET['user_id'] ) ? absint( $_GET['user_id'] ) : 0;
+		$user    = $user_id ? get_userdata( $user_id ) : false;
+		$member  = $user instanceof \WP_User && array_intersect( array_keys( Member::roles() ), (array) $user->roles );
+		$email   = self::compose( $key, $member ? self::member_vars( $user_id ) : self::sample_vars() );
 		header( 'Content-Type: text/html; charset=UTF-8' );
 		echo $email['html']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- the e-mail's HTML, escaped while built.
 		exit;
@@ -616,6 +620,13 @@ final class Notifications {
 			'{city}'                      => 'São Paulo',
 			'{postal}'                    => '01426-001',
 			'{stores}'                    => "A Casa Acabamentos · RS Caxias do Sul\nCasa Blanca · RJ Niterói",
+			'{consent}'                   => sprintf(
+				/* translators: 1: date and time, 2: IP address, 3: page address. */
+				__( 'Accepted on %1$s, IP %2$s, at %3$s', 'axellcore-atelierclub' ),
+				wp_date( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ) ),
+				'203.0.113.10',
+				Settings::page() ? (string) get_permalink( Settings::page() ) : home_url( '/' )
+			) . "\n“Li e concordo com o regulamento do Atelier Axell Club e com o tratamento dos meus dados conforme a Política de Privacidade e a LGPD.”",
 			'{member_admin_url}'          => admin_url( 'admin.php?page=' . Member::ADMIN_PAGE ),
 		) + self::site_vars();
 	}
