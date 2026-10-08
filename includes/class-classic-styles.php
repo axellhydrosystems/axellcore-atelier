@@ -233,7 +233,9 @@ final class Classic_Styles {
 				// ink background (the header is transparent over it), over the
 				// theme's :root :where(body) background.
 				. Design_Tokens::TEXT_RENDERING_CSS
-				. '.editor-styles-wrapper.editor-styles-wrapper{background-color:var(--wp--preset--color--ink)}',
+				. '.editor-styles-wrapper.editor-styles-wrapper{background-color:var(--wp--preset--color--ink)}'
+				// The post title sits on that background too.
+				. '.editor-styles-wrapper .editor-post-title{color:var(--wp--preset--color--ivory)}',
 			'__unstableType' => 'theme',
 			'isGlobalStyles' => false,
 		);
