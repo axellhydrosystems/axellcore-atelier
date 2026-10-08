@@ -80,9 +80,33 @@ final class Label_Template {
 		// uf is the short form of slug:uppercase (the state code).
 		$slug  = in_array( 'slug', $modifiers, true ) || in_array( 'uf', $modifiers, true );
 		$label = $slug ? $terms[0]->slug : $terms[0]->name;
+
+		// A state whose slug is its full name ("rio-de-janeiro"): the UF from
+		// our list in Brazil, the state's own name elsewhere.
+		if ( $slug && 'estados' === $taxonomy && strlen( $label ) > 2 ) {
+			$uf = self::in_brazil( $post ) ? Reseller_Store::state_code( $terms[0]->name ) : '';
+			if ( '' === $uf ) {
+				return $terms[0]->name;
+			}
+			$label = $uf;
+		}
 		if ( in_array( 'uppercase', $modifiers, true ) || in_array( 'uf', $modifiers, true ) ) {
 			$label = strtoupper( $label );
 		}
 		return $label;
+	}
+
+	/**
+	 * Whether the post is in Brazil, or has no country.
+	 *
+	 * @param \WP_Post $post Post.
+	 * @return bool
+	 */
+	private static function in_brazil( \WP_Post $post ) {
+		$countries = get_the_terms( $post->ID, 'paises' );
+		if ( ! is_array( $countries ) || ! $countries ) {
+			return true;
+		}
+		return in_array( $countries[0]->slug, array( 'brasil', 'brazil', 'br' ), true );
 	}
 }
