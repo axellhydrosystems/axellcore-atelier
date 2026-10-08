@@ -127,6 +127,11 @@ final class Admin_Rest {
 						'default'           => '',
 						'sanitize_callback' => 'sanitize_text_field',
 					),
+					'status'        => array(
+						'type'    => 'string',
+						'default' => '',
+						'enum'    => array_merge( array( '' ), array_keys( Member::roles() ) ),
+					),
 					'orderby'       => array(
 						'type'    => 'string',
 						'default' => 'date',
@@ -186,7 +191,7 @@ final class Admin_Rest {
 	 */
 	public function list_members( \WP_REST_Request $request ) {
 		$args = array(
-			'role__in'    => array_keys( Member::roles() ),
+			'role__in'    => '' !== $request['status'] ? array( (string) $request['status'] ) : array_keys( Member::roles() ),
 			'number'      => (int) $request['per_page'],
 			'paged'       => (int) $request['page'],
 			'meta_query'  => $this->list_meta_filters( $request ), // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query -- admin-only list, small dataset.

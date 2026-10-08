@@ -9,6 +9,7 @@ export interface ListQuery {
 	search: string;
 	state: string;
 	primaryFocus: string;
+	status: string;
 	orderby: 'date' | 'title' | 'state';
 	order: 'asc' | 'desc';
 }
@@ -26,6 +27,7 @@ export async function fetchMembers( query: ListQuery ): Promise< ListResult > {
 		search: query.search,
 		state: query.state,
 		primary_focus: query.primaryFocus,
+		status: query.status,
 		orderby: query.orderby,
 		order: query.order,
 	} );

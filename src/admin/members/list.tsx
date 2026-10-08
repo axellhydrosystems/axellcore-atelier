@@ -38,6 +38,7 @@ function toQuery( view: View ): ListQuery {
 		search: view.search ?? '',
 		state: filterValue( view, 'state' ),
 		primaryFocus: filterValue( view, 'primary_focus' ),
+		status: filterValue( view, 'status' ),
 		orderby: SORT_FIELD_TO_ORDERBY[ sort.field ] ?? 'date',
 		order: sort.direction,
 	};
@@ -108,12 +109,15 @@ export default function MembersList( {
 		() => [
 			{
 				id: 'fullname',
+				// Only state, practice and status are filtered on the server.
+				filterBy: false,
 				label: __( 'Name', 'axellcore-atelierclub' ),
 				type: 'text',
 				enableHiding: false,
 			},
 			{
 				id: 'company',
+				filterBy: false,
 				label: _x(
 					'Company',
 					'WooCommerce field',
@@ -124,6 +128,7 @@ export default function MembersList( {
 			},
 			{
 				id: 'city',
+				filterBy: false,
 				label: _x(
 					'City',
 					'WooCommerce field',
@@ -157,12 +162,14 @@ export default function MembersList( {
 			},
 			{
 				id: 'email',
+				filterBy: false,
 				label: __( 'Email', 'axellcore-atelierclub' ),
 				type: 'email',
 				enableSorting: false,
 			},
 			{
 				id: 'phone',
+				filterBy: false,
 				label: _x(
 					'Phone',
 					'WooCommerce field',
@@ -174,6 +181,7 @@ export default function MembersList( {
 			},
 			{
 				id: 'br_revenue_id',
+				filterBy: false,
 				label: __( 'CPF / CNPJ', 'axellcore-atelierclub' ),
 				type: 'text',
 				getValue: ( { item } ) => formatDocument( item.br_revenue_id ),
@@ -181,6 +189,7 @@ export default function MembersList( {
 			},
 			{
 				id: 'data',
+				filterBy: false,
 				label: __( 'Submitted on', 'axellcore-atelierclub' ),
 				type: 'datetime',
 				enableHiding: false,
@@ -191,6 +200,7 @@ export default function MembersList( {
 				type: 'text',
 				enableSorting: false,
 				elements: statuses,
+				filterBy: { operators: [ 'is' ] },
 			},
 		],
 		[ states, primaryFocus, statuses ]
