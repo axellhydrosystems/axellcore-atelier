@@ -350,13 +350,17 @@ final class Activator {
 	 * no-user contexts, e.g. plugin activation via `wp plugin activate`)
 	 * without the unfiltered_html capability.
 	 *
-	 * @param array $postarr wp_insert_post() args.
+	 * wp_insert_post() unslashes its input, so the args are slashed first:
+	 * otherwise the backslashes of the JSON escapes in block comments (e.g.
+	 * `&` in a block's custom CSS) are lost and the attributes break.
+	 *
+	 * @param array $postarr wp_insert_post() args, unslashed.
 	 * @return int|\WP_Error
 	 */
 	private static function insert_trusted_content( array $postarr ) {
 		return self::write_trusted(
 			function () use ( $postarr ) {
-				return wp_insert_post( $postarr, true );
+				return wp_insert_post( wp_slash( $postarr ), true );
 			}
 		);
 	}
