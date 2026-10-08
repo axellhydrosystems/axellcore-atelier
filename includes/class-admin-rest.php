@@ -272,7 +272,11 @@ final class Admin_Rest {
 			$userdata['user_email'] = $email;
 		}
 		if ( isset( $params['url'] ) ) {
-			$userdata['user_url'] = esc_url_raw( $this->param_string( $params, 'url' ) );
+			$url = Format::url( $this->param_string( $params, 'url' ) );
+			if ( null === $url ) {
+				return new \WP_Error( 'aa_invalid_url', Members::invalid_url_message(), array( 'status' => 400 ) );
+			}
+			$userdata['user_url'] = $url;
 		}
 		if ( count( $userdata ) > 1 ) {
 			$updated = wp_update_user( $userdata );

@@ -9,6 +9,8 @@ namespace Axellcore_Atelierclub\Tests;
 
 use Axellcore_Atelierclub\Format;
 use Axellcore_Atelierclub\Members;
+use Brain\Monkey;
+use Brain\Monkey\Functions;
 use PHPUnit\Framework\TestCase;
 
 final class FormatTest extends TestCase {
@@ -35,5 +37,20 @@ final class FormatTest extends TestCase {
 		$this->assertSame( 'individual', Members::profile_type_of( '529.982.247-25' ) );
 		$this->assertSame( 'legal_entity', Members::profile_type_of( '12.ABC.345/01DE-35' ) );
 		$this->assertSame( '', Members::profile_type_of( '529.982.247' ) );
+	}
+
+	public function test_url_gets_https_and_must_be_an_address(): void {
+		Monkey\setUp();
+		Functions\when( 'esc_url_raw' )->returnArg( 1 );
+		Functions\when( 'wp_parse_url' )->alias( 'parse_url' );
+
+		$this->assertSame( 'https://www.atelierhelena.com.br/portfolio', Format::url( 'www.atelierhelena.com.br/portfolio' ), 'No scheme: https://.' );
+		$this->assertSame( 'https://instagram.com/ana', Format::url( ' instagram.com/ana ' ) );
+		$this->assertSame( 'http://site.com.br', Format::url( 'http://site.com.br' ), 'A scheme typed stays.' );
+		$this->assertSame( '', Format::url( '' ), 'Empty is allowed (optional field).' );
+		$this->assertNull( Format::url( 'meu portfolio' ) );
+		$this->assertNull( Format::url( 'localhost' ), 'A host without a dot.' );
+		$this->assertNull( Format::url( 'ftp://site.com.br' ) );
+		Monkey\tearDown();
 	}
 }

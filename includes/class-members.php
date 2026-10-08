@@ -238,6 +238,12 @@ final class Members {
 			return self::field_error( 'aa_invalid_email', __( 'Invalid email address.', 'axellcore-atelierclub' ), 'email' );
 		}
 
+		// The portfolio: https:// added when missing, then a valid address.
+		$url = Format::url( (string) ( $params['url'] ?? '' ) );
+		if ( null === $url ) {
+			return self::field_error( 'aa_invalid_url', self::invalid_url_message(), 'url' );
+		}
+
 		// Brazil only: the form's country is fixed.
 		$country = strtoupper( trim( (string) ( $params['country'] ?? '' ) ) );
 		if ( '' !== $country && 'BR' !== $country ) {
@@ -300,7 +306,7 @@ final class Members {
 				// Never shown: the member sets a password when access is granted.
 				'user_pass'    => wp_generate_password( 24 ),
 				'display_name' => $fullname,
-				'user_url'     => esc_url_raw( (string) ( $params['url'] ?? '' ) ),
+				'user_url'     => $url,
 				'nickname'     => $fullname,
 				'role'         => Settings::get( 'pending_on_create' ) ? Member::ROLE_PENDING : Member::ROLE,
 			)
@@ -708,6 +714,15 @@ final class Members {
 			return new \WP_Error( $code, $message, array( 'status' => 409 ) );
 		}
 		return $document;
+	}
+
+	/**
+	 * Why a site address was refused.
+	 *
+	 * @return string
+	 */
+	public static function invalid_url_message() {
+		return __( 'Enter a valid address, such as https://yoursite.com.br.', 'axellcore-atelierclub' );
 	}
 
 	/**

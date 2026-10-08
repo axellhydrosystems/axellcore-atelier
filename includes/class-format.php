@@ -69,6 +69,32 @@ final class Format {
 	}
 
 	/**
+	 * A site address as stored: https:// added when it came without a
+	 * scheme, then checked. '' for none; null when it is not a valid
+	 * address (http or https, a host with a dot).
+	 *
+	 * @param string $value Address as typed ("www.site.com.br/portfolio").
+	 * @return string|null
+	 */
+	public static function url( $value ) {
+		$value = trim( (string) $value );
+		if ( '' === $value ) {
+			return '';
+		}
+		if ( ! preg_match( '#^[a-z][a-z0-9+.-]*://#i', $value ) ) {
+			$value = 'https://' . ltrim( $value, '/' );
+		}
+		$url    = esc_url_raw( $value, array( 'http', 'https' ) );
+		$scheme = (string) wp_parse_url( $url, PHP_URL_SCHEME );
+		$host   = (string) wp_parse_url( $url, PHP_URL_HOST );
+		$valid  = '' !== $url
+			&& in_array( strtolower( $scheme ), array( 'http', 'https' ), true )
+			&& false !== filter_var( $url, FILTER_VALIDATE_URL )
+			&& preg_match( '/^[a-z0-9-]+(\.[a-z0-9-]+)*\.[a-z]{2,}$/i', $host );
+		return $valid ? $url : null;
+	}
+
+	/**
 	 * A CEP as shown: 01001-000.
 	 *
 	 * @param string $value Stored CEP.

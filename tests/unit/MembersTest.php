@@ -209,6 +209,19 @@ final class MembersTest extends TestCase {
 		$this->assertCount( 0, preg_grep( '/^reseller\d/', array_keys( $meta ) ), 'No per-position keys or texts.' );
 	}
 
+	public function test_an_invalid_portfolio_address_is_refused(): void {
+		$this->stub_validation();
+		Functions\when( 'esc_url_raw' )->returnArg( 1 );
+		Functions\when( 'wp_parse_url' )->alias( 'parse_url' );
+		$params        = $this->valid_params();
+		$params['url'] = 'meu portfolio';
+
+		$result = Members::instance()->create_from_params( $params );
+
+		$this->assertSame( 'aa_invalid_url', $result->get_error_code() );
+		$this->assertSame( 'url', $result->get_error_data()['field'] );
+	}
+
 	public function test_a_store_text_that_cannot_become_a_revenda_is_refused(): void {
 		$this->stub_validation();
 		Functions\when( 'absint' )->alias( 'intval' );

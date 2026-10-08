@@ -114,6 +114,8 @@ final class Member_Profile {
 		add_action( 'edit_user_profile', array( $this, 'add_member_meta_fields' ) );
 		add_action( 'personal_options_update', array( $this, 'save_member_meta_fields' ) );
 		add_action( 'edit_user_profile_update', array( $this, 'save_member_meta_fields' ) );
+		// WordPress's "Website": https:// when typed without, and a valid address.
+		add_action( 'user_profile_update_errors', array( $this, 'check_site_url' ), 10, 3 );
 		// Last, to know whether WordPress's own fields have errors too.
 		add_action( 'user_profile_update_errors', array( $this, 'report_errors' ), PHP_INT_MAX );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue' ) );
@@ -741,6 +743,27 @@ final class Member_Profile {
 			$ids[] = $id;
 		}
 		$this->pending[ Members::RESELLER_META ] = implode( ',', array_unique( $ids ) );
+	}
+
+	/**
+	 * The profile's "Website" (WordPress's own user_url), as the form's
+	 * portfolio: https:// added when missing, refused when not an address.
+	 *
+	 * @param \WP_Error $errors WordPress's errors for the user form.
+	 * @param bool      $update Whether an existing user is saved.
+	 * @param \stdClass $user   User data about to be saved (by reference).
+	 */
+	public function check_site_url( $errors, $update, $user ) {
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing -- WordPress checked the user form's nonce.
+		if ( ! $errors instanceof \WP_Error || ! is_object( $user ) || ! isset( $_POST['url'] ) ) {
+			return;
+		}
+		$url = Format::url( sanitize_text_field( wp_unslash( $_POST['url'] ) ) ); // phpcs:ignore WordPress.Security.NonceVerification.Missing -- as above.
+		if ( null === $url ) {
+			$errors->add( 'aa_invalid_url', Members::invalid_url_message(), array( 'form-field' => 'url' ) );
+			return;
+		}
+		$user->user_url = $url;
 	}
 
 	/**

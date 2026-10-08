@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-08T16:26:44+00:00\n"
+"POT-Creation-Date: 2026-10-08T16:48:57+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: axellcore-atelierclub\n"
@@ -53,23 +53,23 @@ msgstr ""
 
 #: includes/class-admin-rest.php:266
 #: includes/class-members.php:238
-#: includes/class-members.php:753
+#: includes/class-members.php:768
 #: includes/class-resellers-rest.php:374
 msgid "Invalid email address."
 msgstr ""
 
 #: includes/class-admin-rest.php:270
-#: includes/class-members.php:285
-#: includes/class-members.php:760
+#: includes/class-members.php:291
+#: includes/class-members.php:775
 msgid "This e-mail is already registered."
 msgstr ""
 
-#: includes/class-admin-rest.php:323
+#: includes/class-admin-rest.php:327
 #: includes/class-resellers-rest.php:321
 msgid "Invalid status."
 msgstr ""
 
-#: includes/class-admin-rest.php:344
+#: includes/class-admin-rest.php:348
 msgid "Member not found."
 msgstr ""
 
@@ -272,35 +272,35 @@ msgstr ""
 msgid "Brazil"
 msgstr ""
 
-#: includes/class-member-profile.php:172
+#: includes/class-member-profile.php:174
 msgid "Atelier: Authorship"
 msgstr ""
 
-#: includes/class-member-profile.php:184
+#: includes/class-member-profile.php:186
 msgid "Select an option…"
 msgstr ""
 
-#: includes/class-member-profile.php:189
+#: includes/class-member-profile.php:191
 msgid "Atelier: Document"
 msgstr ""
 
-#: includes/class-member-profile.php:202
+#: includes/class-member-profile.php:204
 msgid "Only a valid one is allowed, and it must be unique among members."
 msgstr ""
 
-#: includes/class-member-profile.php:207
+#: includes/class-member-profile.php:209
 msgid "Atelier: Office address"
 msgstr ""
 
-#: includes/class-member-profile.php:239
+#: includes/class-member-profile.php:241
 msgid "Atelier: Partner stores"
 msgstr ""
 
-#: includes/class-member-profile.php:244
+#: includes/class-member-profile.php:246
 msgid "Search the registered resellers by name. Leaving a store empty moves the next ones up."
 msgstr ""
 
-#: includes/class-member-profile.php:275
+#: includes/class-member-profile.php:277
 #: includes/class-notifications.php:317
 #: build/admin/members/index.js:175
 #: build/admin/members/index.js:184
@@ -308,110 +308,110 @@ msgctxt "WooCommerce field"
 msgid "Company"
 msgstr ""
 
-#: includes/class-member-profile.php:276
+#: includes/class-member-profile.php:278
 #: build/admin/members/index.js:175
 #: build/admin/members/index.js:184
 msgctxt "WooCommerce field"
 msgid "Phone"
 msgstr ""
 
-#: includes/class-member-profile.php:277
+#: includes/class-member-profile.php:279
 msgctxt "WooCommerce field"
 msgid "Country / Region"
 msgstr ""
 
-#: includes/class-member-profile.php:278
+#: includes/class-member-profile.php:280
 #: build/admin/members/index.js:184
 msgctxt "WooCommerce field"
 msgid "Address line 1"
 msgstr ""
 
-#: includes/class-member-profile.php:279
+#: includes/class-member-profile.php:281
 #: build/admin/members/index.js:184
 msgctxt "WooCommerce field"
 msgid "Address line 2"
 msgstr ""
 
-#: includes/class-member-profile.php:280
+#: includes/class-member-profile.php:282
 #: build/admin/members/index.js:175
 #: build/admin/members/index.js:184
 msgctxt "WooCommerce field"
 msgid "State / County"
 msgstr ""
 
-#: includes/class-member-profile.php:281
+#: includes/class-member-profile.php:283
 #: build/admin/members/index.js:175
 #: build/admin/members/index.js:184
 msgctxt "WooCommerce field"
 msgid "City"
 msgstr ""
 
-#: includes/class-member-profile.php:282
+#: includes/class-member-profile.php:284
 #: build/admin/members/index.js:184
 msgctxt "WooCommerce field"
 msgid "Postcode / ZIP"
 msgstr ""
 
-#: includes/class-member-profile.php:461
+#: includes/class-member-profile.php:463
 msgid "Search"
 msgstr ""
 
-#: includes/class-member-profile.php:462
+#: includes/class-member-profile.php:464
 msgid "No matches found"
 msgstr ""
 
-#: includes/class-member-profile.php:485
+#: includes/class-member-profile.php:487
 #: includes/class-resellers.php:130
 msgid "Cities"
 msgstr ""
 
-#: includes/class-member-profile.php:534
+#: includes/class-member-profile.php:536
 msgid "Store name · city"
 msgstr ""
 
 #. translators: %d: partner store position, 1 to 5.
-#: includes/class-member-profile.php:536
+#: includes/class-member-profile.php:538
 #, php-format
 msgid "Partner store %d"
 msgstr ""
 
-#: includes/class-member-profile.php:540
+#: includes/class-member-profile.php:542
 msgid "Pending curation."
 msgstr ""
 
-#: includes/class-member-profile.php:542
+#: includes/class-member-profile.php:544
 #: build/admin/members/index.js:184
 msgid "Open store"
 msgstr ""
 
-#: includes/class-member-profile.php:544
+#: includes/class-member-profile.php:546
 msgid "Remove"
 msgstr ""
 
-#: includes/class-member-profile.php:619
-#: includes/class-members.php:244
+#: includes/class-member-profile.php:621
+#: includes/class-members.php:250
 msgid "Only Brazil is accepted."
 msgstr ""
 
-#: includes/class-member-profile.php:629
-#: includes/class-members.php:257
-#: includes/class-members.php:755
+#: includes/class-member-profile.php:631
+#: includes/class-members.php:263
+#: includes/class-members.php:770
 msgid "Enter a phone number with area code."
 msgstr ""
 
-#: includes/class-member-profile.php:633
-#: includes/class-members.php:260
-#: includes/class-members.php:756
+#: includes/class-member-profile.php:635
+#: includes/class-members.php:266
+#: includes/class-members.php:771
 msgid "Enter a CEP with 8 digits."
 msgstr ""
 
-#: includes/class-member-profile.php:637
+#: includes/class-member-profile.php:639
 msgid "Choose an option from the list."
 msgstr ""
 
-#: includes/class-member-profile.php:738
-#: includes/class-members.php:275
-#: includes/class-members.php:759
+#: includes/class-member-profile.php:740
+#: includes/class-members.php:281
+#: includes/class-members.php:774
 msgid "Choose a reseller from the list."
 msgstr ""
 
@@ -725,26 +725,30 @@ msgstr ""
 msgid "Missing required field: %s"
 msgstr ""
 
-#: includes/class-members.php:280
+#: includes/class-members.php:286
 msgid "Enter the store as \"Name - UF City\"."
 msgstr ""
 
-#: includes/class-members.php:309
+#: includes/class-members.php:315
 msgid "Could not save your application."
 msgstr ""
 
-#: includes/class-members.php:373
-#: includes/class-members.php:754
+#: includes/class-members.php:379
+#: includes/class-members.php:769
 msgid "Invalid state/city."
 msgstr ""
 
-#: includes/class-members.php:667
-#: includes/class-members.php:763
+#: includes/class-members.php:673
+#: includes/class-members.php:778
 #: includes/class-rest.php:183
 msgid "Too many attempts. Try again in a few minutes."
 msgstr ""
 
-#: includes/class-members.php:752
+#: includes/class-members.php:725
+msgid "Enter a valid address, such as https://yoursite.com.br."
+msgstr ""
+
+#: includes/class-members.php:767
 msgid "Fill in the required fields."
 msgstr ""
 
