@@ -38,12 +38,16 @@ final class MemberTest extends TestCase {
 		Member::instance()->register_roles();
 
 		$this->assertSame( array(), $added[ Member::ROLE_PENDING ] );
-		$this->assertSame( array( 'read' => true ), $added[ Member::ROLE ] );
+		$this->assertSame( array( 'read' => true, 'level_0' => true ), $added[ Member::ROLE ], 'As a subscriber.' );
 	}
 
 	public function test_existing_roles_are_not_added_again(): void {
 		Functions\when( '__' )->returnArg( 1 );
-		Functions\when( 'get_role' )->justReturn( new \stdClass() );
+		Functions\when( 'get_role' )->alias(
+			static fn( $role ) => (object) array(
+				'capabilities' => Member::ROLE === $role ? array( 'level_0' => true, 'read' => true ) : array(),
+			)
+		);
 		Functions\when( 'wp_roles' )->justReturn(
 			(object) array(
 				'role_names' => array(
@@ -53,6 +57,27 @@ final class MemberTest extends TestCase {
 			)
 		);
 		Functions\expect( 'add_role' )->never();
+
+		Member::instance()->register_roles();
+
+		$this->addToAssertionCount( 1 );
+	}
+
+	public function test_a_member_role_without_level_0_is_redone_as_a_subscriber(): void {
+		Functions\when( '__' )->returnArg( 1 );
+		Functions\when( 'get_role' )->alias(
+			static fn( $role ) => (object) array( 'capabilities' => Member::ROLE === $role ? array( 'read' => true ) : array() )
+		);
+		Functions\when( 'wp_roles' )->justReturn(
+			(object) array(
+				'role_names' => array(
+					Member::ROLE_PENDING => 'Pending Member',
+					Member::ROLE         => 'Member',
+				),
+			)
+		);
+		Functions\expect( 'remove_role' )->once()->with( Member::ROLE );
+		Functions\expect( 'add_role' )->once()->with( Member::ROLE, 'Member', array( 'read' => true, 'level_0' => true ) );
 
 		Member::instance()->register_roles();
 

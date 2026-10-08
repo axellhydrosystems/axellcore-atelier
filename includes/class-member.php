@@ -331,16 +331,23 @@ final class Member {
 
 	/**
 	 * Register the roles (add_role() stores them in the options), and
-	 * rename one whose stored name is not the current label.
+	 * redo one whose stored name or capabilities are not the current ones.
+	 * An approved member has a subscriber's capabilities.
 	 */
 	public function register_roles() {
 		$roles = array(
 			self::ROLE_PENDING => array( __( 'Pending Member', 'axellcore-atelierclub' ), array() ),
-			self::ROLE         => array( __( 'Member', 'axellcore-atelierclub' ), array( 'read' => true ) ),
+			self::ROLE         => array(
+				__( 'Member', 'axellcore-atelierclub' ),
+				array(
+					'read'    => true,
+					'level_0' => true,
+				),
+			),
 		);
 		foreach ( $roles as $role => list( $name, $caps ) ) {
 			$current = get_role( $role );
-			if ( $current && wp_roles()->role_names[ $role ] === $name ) {
+			if ( $current && wp_roles()->role_names[ $role ] === $name && (array) $current->capabilities == $caps ) { // phpcs:ignore Universal.Operators.StrictComparisons.LooseEqual -- same capabilities in any order.
 				continue;
 			}
 			if ( $current ) {
