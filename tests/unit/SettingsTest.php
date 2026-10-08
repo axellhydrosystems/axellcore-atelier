@@ -196,4 +196,30 @@ final class SettingsTest extends TestCase {
 		$this->assertSame( 600, Settings::instance()->sanitize( array( 'email_logo_width' => '9000' ) )['email_logo_width'], 'At most the e-mail width.' );
 		$this->assertSame( 40, Settings::instance()->sanitize( array( 'email_logo_width' => '5' ) )['email_logo_width'] );
 	}
+
+	public function test_recaptcha_settings(): void {
+		$this->stub_texts( array( 'email_team_new_subject' => 'Custom' ) );
+
+		$values = Settings::instance()->sanitize(
+			array(
+				'recaptcha_enabled'       => '1',
+				'recaptcha_skip_local'    => '0',
+				'recaptcha_version'       => 'v9',
+				'recaptcha_v3_site_key'   => '  site  ',
+				'recaptcha_v3_threshold'  => '0,7',
+			)
+		);
+		$this->assertTrue( $values['recaptcha_enabled'] );
+		$this->assertFalse( $values['recaptcha_skip_local'] );
+		$this->assertSame( 'v3', $values['recaptcha_version'], 'Only v2 or v3.' );
+		$this->assertSame( 'site', $values['recaptcha_v3_site_key'] );
+		$this->assertSame( 0.7, $values['recaptcha_v3_threshold'], 'A comma counts as the decimal point.' );
+		$this->assertSame( 'Custom', $values['email_team_new_subject'], 'Other tabs kept.' );
+
+		$this->assertSame( 'v2', Settings::instance()->sanitize( array( 'recaptcha_version' => 'v2' ) )['recaptcha_version'] );
+		$this->assertSame( 1.0, Settings::instance()->sanitize( array( 'recaptcha_v3_threshold' => '1.5' ) )['recaptcha_v3_threshold'] );
+		$this->assertSame( '', Settings::instance()->sanitize( array( 'recaptcha_v3_threshold' => '' ) )['recaptcha_v3_threshold'], 'Empty: the default.' );
+		$this->assertTrue( Settings::DEFAULTS['recaptcha_skip_local'], 'Skips local addresses by default.' );
+		$this->assertTrue( Settings::DEFAULTS['recaptcha_enabled'], 'On by default (it needs the keys).' );
+	}
 }

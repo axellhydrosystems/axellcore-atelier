@@ -463,7 +463,8 @@ final class Classic_Styles {
 	/**
 	 * Whether a handle is WordPress's or this plugin's: its file (or, for an
 	 * inline-only handle, the files of its dependencies) under wp-includes,
-	 * wp-admin or this plugin.
+	 * wp-admin or this plugin, or one this plugin enqueues from elsewhere
+	 * (Google's reCAPTCHA, Recaptcha::SCRIPT), by its handle's prefix.
 	 *
 	 * @param \WP_Dependencies $dependencies Styles or scripts.
 	 * @param string           $handle       Handle.
@@ -473,6 +474,9 @@ final class Classic_Styles {
 		$item = $dependencies->registered[ $handle ] ?? null;
 		if ( ! $item ) {
 			return false;
+		}
+		if ( 0 === strpos( $handle, 'axellcore-atelierclub-' ) ) {
+			return true;
 		}
 		if ( ! $item->src ) {
 			return self::is_core_inline( $handle );

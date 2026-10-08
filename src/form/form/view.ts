@@ -30,12 +30,52 @@ const controlOf = (
 		)
 	).find( ( el ) => el.type !== 'hidden' && ! el.hidden && ! el.disabled );
 
+/** reCAPTCHA v3 of the forms (includes/class-recaptcha.php). */
+interface RecaptchaState {
+	siteKey: string;
+	action: string;
+}
+
+/** Google's reCAPTCHA script (v3 execute, v2 reset). */
+interface Grecaptcha {
+	ready: ( callback: () => void ) => void;
+	execute: (
+		siteKey: string,
+		options: { action: string }
+	) => Promise< string >;
+	reset: () => void;
+}
+
 /**
- * restUrl is provided by includes/class-form-block.php (wp_interactivity_state).
- * It is not declared in the store below, so a client value cannot override it.
+ * restUrl is provided by includes/class-form-block.php (wp_interactivity_state),
+ * recaptcha by includes/class-recaptcha.php when v3 protects the forms. They
+ * are not declared in the store below, so a client value cannot override them.
  */
-const serverState = (): { restUrl: string } =>
-	state as unknown as { restUrl: string };
+const serverState = (): { restUrl: string; recaptcha?: RecaptchaState } =>
+	state as unknown as { restUrl: string; recaptcha?: RecaptchaState };
+
+const grecaptcha = (): Grecaptcha | undefined =>
+	( window as unknown as { grecaptcha?: Grecaptcha } ).grecaptcha;
+
+/**
+ * A reCAPTCHA v3 token for a submission ('' when Google's script did not
+ * load: the server then refuses it with its message).
+ *
+ * @param config Site key and action.
+ */
+const recaptchaToken = ( config: RecaptchaState ): Promise< string > =>
+	new Promise( ( resolve ) => {
+		const google = grecaptcha();
+		if ( ! google ) {
+			resolve( '' );
+			return;
+		}
+		google.ready( () =>
+			google
+				.execute( config.siteKey, { action: config.action } )
+				.then( resolve, () => resolve( '' ) )
+		);
+	} );
 
 /**
  * An address typed without a scheme ("site.com.br") gets https://, as the
@@ -90,6 +130,14 @@ const { state } = store( 'axell/form', {
 
 			const body = Object.fromEntries( new FormData( form ).entries() );
 
+			// reCAPTCHA v3 (v2's box already put its token in the form data).
+			const recaptcha = serverState().recaptcha;
+			if ( recaptcha ) {
+				body[ 'g-recaptcha-response' ] = ( yield recaptchaToken(
+					recaptcha
+				) ) as string;
+			}
+
 			try {
 				const response = ( yield fetch( serverState().restUrl, {
 					method: 'POST',
@@ -125,6 +173,11 @@ const { state } = store( 'axell/form', {
 				form.reset();
 			} catch {
 				context.status = 'error';
+			} finally {
+				// A v2 token is good for one submission only.
+				if ( form.querySelector( '.g-recaptcha' ) ) {
+					grecaptcha()?.reset();
+				}
 			}
 		},
 	},

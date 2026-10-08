@@ -19,6 +19,8 @@ final class MembersTest extends TestCase {
 		parent::setUp();
 		Monkey\setUp();
 		Functions\when( '__' )->returnArg( 1 );
+		// Settings saved: none (reCAPTCHA on, but without keys it does nothing).
+		Functions\when( 'get_option' )->justReturn( array() );
 	}
 
 	protected function tearDown(): void {
@@ -33,6 +35,24 @@ final class MembersTest extends TestCase {
 		$result = Members::instance()->submit( array( Members::HONEYPOT_FIELD => 'spam' ), '203.0.113.7' );
 
 		$this->assertSame( array( 'success' => true, 'id' => 0 ), $result );
+	}
+
+	public function test_recaptcha_refuses_a_submission_without_its_token(): void {
+		Functions\when( 'get_option' )->justReturn(
+			array(
+				'recaptcha_enabled'       => true,
+				'recaptcha_v3_site_key'   => 'site',
+				'recaptcha_v3_secret_key' => 'secret',
+			)
+		);
+		Functions\when( 'home_url' )->justReturn( 'https://axell.com.br/' );
+		Functions\expect( 'set_transient' )->never();
+		Functions\expect( 'wp_insert_user' )->never();
+
+		$result = Members::instance()->submit( array( 'fullname' => 'Ana' ), '203.0.113.6' );
+
+		$this->assertInstanceOf( \WP_Error::class, $result );
+		$this->assertSame( 'aa_recaptcha_failed', $result->get_error_code() );
 	}
 
 	public function test_missing_required_field_returns_400(): void {

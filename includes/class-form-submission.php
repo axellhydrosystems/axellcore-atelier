@@ -119,6 +119,14 @@ final class Form_Submission {
 			return new \WP_Error( 'aa_form_not_found', __( 'Form not found.', 'axellcore-atelierclub' ), array( 'status' => 400 ) );
 		}
 
+		// reCAPTCHA (Atelier → Settings → Integrations), before anything is stored.
+		if ( Recaptcha::active() ) {
+			$human = Recaptcha::verify( $params, $ip );
+			if ( is_wp_error( $human ) ) {
+				return $human;
+			}
+		}
+
 		$limited = Members::instance()->check_rate_limit( $ip );
 		if ( is_wp_error( $limited ) ) {
 			return $limited;

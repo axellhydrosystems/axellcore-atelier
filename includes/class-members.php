@@ -207,6 +207,13 @@ final class Members {
 			);
 		}
 
+		if ( Recaptcha::active() ) {
+			$human = Recaptcha::verify( $params, $ip );
+			if ( is_wp_error( $human ) ) {
+				return $human;
+			}
+		}
+
 		$limited = $this->check_rate_limit( $ip );
 		if ( is_wp_error( $limited ) ) {
 			return $limited;
@@ -776,6 +783,7 @@ final class Members {
 			'aa_cpf_exists'       => Document::registered_error( 'cpf' )[1],
 			'aa_cnpj_exists'      => Document::registered_error( 'cnpj' )[1],
 			'aa_rate_limited'     => __( 'Too many attempts. Try again in a few minutes.', 'axellcore-atelierclub' ),
+			'aa_recaptcha_failed' => __( 'We could not confirm you are not a robot. Please try again.', 'axellcore-atelierclub' ),
 		);
 	}
 

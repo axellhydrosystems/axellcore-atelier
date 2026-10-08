@@ -40,17 +40,27 @@ final class Settings {
 	 */
 	const DEFAULTS = array(
 		// New members wait for approval (role member_pending).
-		'pending_on_create'  => true,
+		'pending_on_create'    => true,
 		// Approved members log in and reset their password (pending never).
-		'members_can_log_in' => false,
+		'members_can_log_in'   => false,
 		// The Atelier page; 0 = none.
-		'page_id'            => 0,
+		'page_id'              => 0,
+		// reCAPTCHA on the forms (Recaptcha): on (it works once the keys are
+		// filled), v3, never on a local address.
+		'recaptcha_enabled'    => true,
+		'recaptcha_version'    => 'v3',
+		'recaptcha_skip_local' => true,
 	);
 
 	/**
 	 * Tabs: slug => settings sections page (the Settings API page id).
 	 */
-	const TABS = array( 'general', 'members', 'emails' );
+	const TABS = array( 'general', 'members', 'emails', 'integrations' );
+
+	/**
+	 * The reCAPTCHA keys (text fields of the Integrations tab), by version.
+	 */
+	const RECAPTCHA_KEYS = array( 'recaptcha_site_key', 'recaptcha_secret_key', 'recaptcha_v3_site_key', 'recaptcha_v3_secret_key' );
 
 	/**
 	 * The admin-post action of "Create Atelier page".
@@ -199,6 +209,26 @@ final class Settings {
 			)
 		);
 
+		add_settings_section( 'atelier', __( 'Atelier', 'axellcore-atelierclub' ), '__return_false', self::PAGE . '-general' );
+
+		add_settings_field(
+			'email_atelier_name',
+			__( 'Atelier name', 'axellcore-atelierclub' ),
+			array( $this, 'render_atelier_name' ),
+			self::PAGE . '-general',
+			'atelier',
+			array( 'label_for' => self::OPTION . '-email_atelier_name' )
+		);
+
+		add_settings_field(
+			'email_tagline',
+			__( 'Description', 'axellcore-atelierclub' ),
+			array( $this, 'render_tagline' ),
+			self::PAGE . '-general',
+			'atelier',
+			array( 'label_for' => self::OPTION . '-email_tagline' )
+		);
+
 		add_settings_section( 'page', __( 'Page', 'axellcore-atelierclub' ), '__return_false', self::PAGE . '-general' );
 
 		add_settings_field(
@@ -229,6 +259,60 @@ final class Settings {
 			'members',
 			array( 'label_for' => self::OPTION . '-members_can_log_in' )
 		);
+
+		$this->register_recaptcha_settings();
+	}
+
+	/**
+	 * Integrations tab: reCAPTCHA on the forms (on, version, local
+	 * addresses), then each version's keys, as Elementor's Integrations.
+	 */
+	private function register_recaptcha_settings() {
+		$page = self::PAGE . '-integrations';
+
+		add_settings_section( 'recaptcha', __( 'reCAPTCHA on the forms', 'axellcore-atelierclub' ), '__return_false', $page );
+		add_settings_field( 'recaptcha_enabled', __( 'Protection', 'axellcore-atelierclub' ), array( $this, 'render_recaptcha_enabled' ), $page, 'recaptcha', array( 'label_for' => self::OPTION . '-recaptcha_enabled' ) );
+		add_settings_field( 'recaptcha_version', __( 'Version', 'axellcore-atelierclub' ), array( $this, 'render_recaptcha_version' ), $page, 'recaptcha', array( 'label_for' => self::OPTION . '-recaptcha_version' ) );
+		add_settings_field( 'recaptcha_skip_local', __( 'Local addresses', 'axellcore-atelierclub' ), array( $this, 'render_recaptcha_skip_local' ), $page, 'recaptcha', array( 'label_for' => self::OPTION . '-recaptcha_skip_local' ) );
+
+		// Each version's intro, its name linked to Google's page (as Elementor's).
+		$intro = static function ( $text, $url ) {
+			return static function () use ( $text, $url ) {
+				printf(
+					'<p>%s</p>',
+					sprintf(
+						esc_html( $text ),
+						'<a href="' . esc_url( $url ) . '" target="_blank" rel="noopener noreferrer">',
+						'</a>'
+					)
+				);
+			};
+		};
+
+		add_settings_section(
+			'recaptcha_v2',
+			__( 'reCAPTCHA v2', 'axellcore-atelierclub' ),
+			/* translators: 1: Link opening tag, 2: Link closing tag. */
+			$intro( __( '%1$sreCAPTCHA v2%2$s is a free service by Google that protects your website from spam and abuse. It does this while letting your valid users pass through with ease.', 'axellcore-atelierclub' ), 'https://www.google.com/recaptcha/' ),
+			$page
+		);
+		add_settings_section(
+			'recaptcha_v3',
+			__( 'reCAPTCHA v3', 'axellcore-atelierclub' ),
+			/* translators: 1: Link opening tag, 2: Link closing tag. */
+			$intro( __( '%1$sreCAPTCHA v3%2$s is a free service by Google that protects your website from spam and abuse. It does this while letting your valid users pass through with ease.', 'axellcore-atelierclub' ), 'https://www.google.com/recaptcha/intro/v3.html' ),
+			$page
+		);
+
+		$prefixes = array(
+			'v2' => 'recaptcha_',
+			'v3' => 'recaptcha_v3_',
+		);
+		foreach ( $prefixes as $version => $prefix ) {
+			add_settings_field( $prefix . 'site_key', __( 'Site key', 'axellcore-atelierclub' ), array( $this, 'render_recaptcha_key' ), $page, 'recaptcha_' . $version, array( 'label_for' => self::OPTION . '-' . $prefix . 'site_key' ) );
+			add_settings_field( $prefix . 'secret_key', __( 'Secret key', 'axellcore-atelierclub' ), array( $this, 'render_recaptcha_key' ), $page, 'recaptcha_' . $version, array( 'label_for' => self::OPTION . '-' . $prefix . 'secret_key' ) );
+		}
+		add_settings_field( 'recaptcha_v3_threshold', __( 'Score threshold', 'axellcore-atelierclub' ), array( $this, 'render_recaptcha_threshold' ), $page, 'recaptcha_v3', array( 'label_for' => self::OPTION . '-recaptcha_v3_threshold' ) );
 	}
 
 	/**
@@ -244,10 +328,23 @@ final class Settings {
 		$input  = is_array( $input ) ? $input : array();
 		$values = get_option( self::OPTION, array() );
 		$values = is_array( $values ) ? $values : array();
-		foreach ( array( 'pending_on_create', 'members_can_log_in' ) as $key ) {
+		foreach ( array( 'pending_on_create', 'members_can_log_in', 'recaptcha_enabled', 'recaptcha_skip_local' ) as $key ) {
 			if ( array_key_exists( $key, $input ) ) {
 				$values[ $key ] = ! empty( $input[ $key ] );
 			}
+		}
+		if ( array_key_exists( 'recaptcha_version', $input ) ) {
+			$values['recaptcha_version'] = 'v2' === $input['recaptcha_version'] ? 'v2' : 'v3';
+		}
+		foreach ( self::RECAPTCHA_KEYS as $key ) {
+			if ( array_key_exists( $key, $input ) && is_scalar( $input[ $key ] ) ) {
+				$values[ $key ] = sanitize_text_field( (string) $input[ $key ] );
+			}
+		}
+		// The v3 score: 0 to 1, only when filled (empty: Recaptcha::THRESHOLD).
+		if ( array_key_exists( 'recaptcha_v3_threshold', $input ) && is_scalar( $input['recaptcha_v3_threshold'] ) ) {
+			$score                            = str_replace( ',', '.', trim( (string) $input['recaptcha_v3_threshold'] ) );
+			$values['recaptcha_v3_threshold'] = is_numeric( $score ) ? max( 0.0, min( 1.0, round( (float) $score, 2 ) ) ) : '';
 		}
 		if ( array_key_exists( 'page_id', $input ) ) {
 			$page_id           = absint( $input['page_id'] );
@@ -365,6 +462,33 @@ final class Settings {
 	}
 
 	/**
+	 * Text: the Atelier's name (Notifications::atelier_name()), stored only
+	 * when it differs from the default in the site's language.
+	 */
+	public function render_atelier_name() {
+		printf(
+			'<input type="text" class="regular-text" id="%1$s-email_atelier_name" name="%1$s[email_atelier_name]" value="%2$s"><p class="description">%3$s</p>',
+			esc_attr( self::OPTION ),
+			esc_attr( Notifications::atelier_name() ),
+			/* translators: %s: the placeholder, {atelier_name}. */
+			esc_html( sprintf( __( 'Used by the e-mails\' %s placeholder and as their header\'s brand in text.', 'axellcore-atelierclub' ), '{atelier_name}' ) )
+		);
+	}
+
+	/**
+	 * Text: the description below the Atelier's name in the e-mails' header.
+	 */
+	public function render_tagline() {
+		$saved = (string) self::get( 'email_tagline' );
+		printf(
+			'<input type="text" class="regular-text" id="%1$s-email_tagline" name="%1$s[email_tagline]" value="%2$s"><p class="description">%3$s</p>',
+			esc_attr( self::OPTION ),
+			esc_attr( '' !== $saved ? $saved : Notifications::site_brand_default( 'tagline' ) ),
+			esc_html__( 'Below the name in the e-mails\' header, when it has no logo.', 'axellcore-atelierclub' )
+		);
+	}
+
+	/**
 	 * Checkbox: new members start as pending.
 	 */
 	public function render_pending_on_create() {
@@ -387,6 +511,77 @@ final class Settings {
 			checked( (bool) self::get( 'members_can_log_in' ), true, false ),
 			esc_html__( 'Allow members to log in', 'axellcore-atelierclub' ),
 			esc_html__( 'Approved members can log in and reset their password. Pending members never can.', 'axellcore-atelierclub' )
+		);
+	}
+
+	/**
+	 * Checkbox: reCAPTCHA on the forms.
+	 */
+	public function render_recaptcha_enabled() {
+		printf(
+			'<input type="hidden" name="%1$s[recaptcha_enabled]" value="0"><label><input type="checkbox" id="%1$s-recaptcha_enabled" name="%1$s[recaptcha_enabled]" value="1"%2$s> %3$s</label><p class="description">%4$s</p>',
+			esc_attr( self::OPTION ),
+			checked( (bool) self::get( 'recaptcha_enabled' ), true, false ),
+			esc_html__( 'Enable reCAPTCHA on the forms', 'axellcore-atelierclub' ),
+			esc_html__( 'A submission is only accepted after Google confirms it, with the keys of the version chosen below.', 'axellcore-atelierclub' )
+		);
+	}
+
+	/**
+	 * Select: reCAPTCHA v3 (default) or v2.
+	 */
+	public function render_recaptcha_version() {
+		$current = 'v2' === self::get( 'recaptcha_version' ) ? 'v2' : 'v3';
+		$options = array(
+			'v3' => __( 'reCAPTCHA v3 (invisible, a score)', 'axellcore-atelierclub' ),
+			'v2' => __( 'reCAPTCHA v2 ("I\'m not a robot" box)', 'axellcore-atelierclub' ),
+		);
+		printf( '<select id="%1$s-recaptcha_version" name="%1$s[recaptcha_version]">', esc_attr( self::OPTION ) );
+		foreach ( $options as $value => $label ) {
+			printf( '<option value="%1$s"%2$s>%3$s</option>', esc_attr( $value ), selected( $current, $value, false ), esc_html( $label ) );
+		}
+		echo '</select>';
+	}
+
+	/**
+	 * Checkbox: no reCAPTCHA on a local address (Recaptcha::LOCAL_PATTERN).
+	 */
+	public function render_recaptcha_skip_local() {
+		printf(
+			'<input type="hidden" name="%1$s[recaptcha_skip_local]" value="0"><label><input type="checkbox" id="%1$s-recaptcha_skip_local" name="%1$s[recaptcha_skip_local]" value="1"%2$s> %3$s</label><p class="description">%4$s</p>',
+			esc_attr( self::OPTION ),
+			checked( (bool) self::get( 'recaptcha_skip_local' ), true, false ),
+			esc_html__( 'Disable on localhost and 127.0.0.1', 'axellcore-atelierclub' ),
+			esc_html__( 'When the site address is http(s)://localhost or http(s)://127.0.0.1, with or without a port, the forms have no reCAPTCHA.', 'axellcore-atelierclub' )
+		);
+	}
+
+	/**
+	 * Text field: a reCAPTCHA key (its setting from the field's label_for).
+	 *
+	 * @param array $args Field arguments.
+	 */
+	public function render_recaptcha_key( $args ) {
+		$key = substr( (string) $args['label_for'], strlen( self::OPTION ) + 1 );
+		printf(
+			'<input type="text" class="regular-text code" id="%1$s-%2$s" name="%1$s[%2$s]" value="%3$s" autocomplete="off" spellcheck="false">',
+			esc_attr( self::OPTION ),
+			esc_attr( $key ),
+			esc_attr( (string) self::get( $key ) )
+		);
+	}
+
+	/**
+	 * Number field: the v3 score threshold (empty: 0.5).
+	 */
+	public function render_recaptcha_threshold() {
+		$value = self::get( 'recaptcha_v3_threshold' );
+		printf(
+			'<input type="number" class="small-text" id="%1$s-recaptcha_v3_threshold" name="%1$s[recaptcha_v3_threshold]" value="%2$s" min="0" max="1" step="0.1" placeholder="%3$s"><p class="description">%4$s</p>',
+			esc_attr( self::OPTION ),
+			esc_attr( is_numeric( $value ) ? (string) $value : '' ),
+			esc_attr( (string) Recaptcha::THRESHOLD ),
+			esc_html__( 'Score threshold should be a value between 0 and 1, default: 0.5', 'axellcore-atelierclub' )
 		);
 	}
 
@@ -448,9 +643,10 @@ final class Settings {
 		$tab     = self::current_tab();
 		$section = 'emails' === $tab ? self::current_section() : '';
 		$labels  = array(
-			'general' => __( 'General', 'axellcore-atelierclub' ),
-			'members' => __( 'Members', 'axellcore-atelierclub' ),
-			'emails'  => __( 'E-mails', 'axellcore-atelierclub' ),
+			'general'      => __( 'General', 'axellcore-atelierclub' ),
+			'members'      => __( 'Members', 'axellcore-atelierclub' ),
+			'emails'       => __( 'E-mails', 'axellcore-atelierclub' ),
+			'integrations' => __( 'Integrations', 'axellcore-atelierclub' ),
 		);
 
 		echo '<div class="wrap"><h1>' . esc_html__( 'Atelier settings', 'axellcore-atelierclub' ) . '</h1>';
@@ -523,28 +719,9 @@ final class Settings {
 				? '<p class="description">' . esc_html__( 'This image is an SVG: Gmail and other e-mail clients do not show SVG. Prefer a PNG.', 'axellcore-atelierclub' ) . '</p>'
 				: '';
 		};
-		$brand      = static function ( $field ) {
-			$saved = (string) self::get( 'email_' . $field );
-			return '' !== $saved ? $saved : Notifications::site_brand_default( $field );
-		};
 
 		printf( '<h2>%s</h2>', esc_html__( 'E-mail header', 'axellcore-atelierclub' ) );
 		echo '<table class="form-table" role="presentation"><tbody>';
-		printf(
-			'<tr><th scope="row"><label for="aa-email-atelier-name">%1$s</label></th><td><input type="text" class="regular-text" id="aa-email-atelier-name" name="%2$s" value="%3$s"><p class="description">%4$s</p></td></tr>',
-			esc_html__( 'Atelier name', 'axellcore-atelierclub' ),
-			$name( 'email_atelier_name' ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped by $name.
-			esc_attr( Notifications::atelier_name() ),
-			/* translators: %s: the placeholder, {atelier_name}. */
-			esc_html( sprintf( __( 'Used by the %s placeholder and as the header\'s brand in text.', 'axellcore-atelierclub' ), '{atelier_name}' ) )
-		);
-		printf(
-			'<tr><th scope="row"><label for="aa-email-tagline">%1$s</label></th><td><input type="text" class="regular-text" id="aa-email-tagline" name="%2$s" value="%3$s"><p class="description">%4$s</p></td></tr>',
-			esc_html__( 'Description', 'axellcore-atelierclub' ),
-			$name( 'email_tagline' ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped by $name.
-			esc_attr( $brand( 'tagline' ) ),
-			esc_html__( 'Below the name, when the header has no logo.', 'axellcore-atelierclub' )
-		);
 		echo '<tr><th scope="row">' . esc_html__( 'Logo', 'axellcore-atelierclub' ) . '</th><td><fieldset class="aa-email-logo">';
 		printf( '<legend class="screen-reader-text">%s</legend>', esc_html__( 'Logo', 'axellcore-atelierclub' ) );
 
