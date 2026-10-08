@@ -433,7 +433,7 @@ the JS).
 
 ## Content files (what activation reads)
 
-`Activator` creates `/atelier` from `content/atelier-page.html`, its child pages from `content/pages/{slug}.html`, and the header/footer template parts from `content/header-part.html` / `content/footer-part.html`. The database is the source of truth: after editing those pages in the editor, run `bin/export-content.sh` to copy them back into `content/`. `bin/generate-content.py` no longer reproduces the live landing (it writes only `content/seed-content.html`, which nothing reads).
+`Activator` creates `/atelier` from `content/atelier-page.html`, its child pages from `content/pages/{slug}.html` only when the `axellcore_atelierclub_create_child_pages` filter returns true (off by default, so a live site gets only the landing; a development site turns it on, e.g. in an mu-plugin), and the header/footer template parts from `content/header-part.html` / `content/footer-part.html`. The database is the source of truth: after editing those pages in the editor, run `bin/export-content.sh` to copy them back into `content/`. `bin/generate-content.py` no longer reproduces the live landing (it writes only `content/seed-content.html`, which nothing reads).
 
 ## `axell/form` (generic) and `axell/form-atelier`
 

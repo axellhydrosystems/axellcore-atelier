@@ -60,8 +60,19 @@ final class Activator {
 		);
 
 		self::create_page();
-		foreach ( self::descendants() as $page ) {
-			self::create_descendant( $page );
+
+		/**
+		 * Whether activation also creates the pages under /atelier from
+		 * content/pages.json (the pure and per-section pages of the rebuild).
+		 * Off by default: a live site gets only the landing. Their content
+		 * stays in content/pages/ for a development site that turns this on.
+		 *
+		 * @param bool $create Default false.
+		 */
+		if ( apply_filters( 'axellcore_atelierclub_create_child_pages', false ) ) {
+			foreach ( self::descendants() as $page ) {
+				self::create_descendant( $page );
+			}
 		}
 
 		// Revendas from content/revendas.csv, once, without JetEngine.
