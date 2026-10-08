@@ -84,6 +84,10 @@ final class Reveal {
 	 * sets `is-ready`, so it is enqueued on every front-end page.
 	 */
 	public function enqueue_style() {
+		// Only where the reveal runs: the Atelier pages.
+		if ( ! Design_Tokens::is_atelier_page() ) {
+			return;
+		}
 		wp_enqueue_style(
 			self::HANDLE,
 			AXELLCORE_ATELIERCLUB_URL . 'build/reveal/style-frontend.css',
