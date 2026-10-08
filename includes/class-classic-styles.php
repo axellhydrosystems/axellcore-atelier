@@ -33,7 +33,7 @@ final class Classic_Styles {
 	/**
 	 * Twenty Twenty-Five 1.5's theme.json, without templates and font files.
 	 */
-	const THEME_JSON = 'templates/atelier/theme.json';
+	const THEME_JSON = 'templates/atelier/block-theme.json';
 
 	/**
 	 * Twenty Twenty-Five 1.5's front-end style.css rules.
