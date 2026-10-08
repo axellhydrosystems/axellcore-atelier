@@ -174,12 +174,11 @@ final class SettingsTest extends TestCase {
 
 		Functions\when( 'get_posts' )->justReturn( array( 30 ) );
 
-		$values = Settings::instance()->sanitize( array( 'email_logo' => 'nope', 'email_logo_id' => '99', 'email_brand' => 'Atelier Axell', 'email_tagline' => 'Outro' ) );
+		$values = Settings::instance()->sanitize( array( 'email_logo' => 'nope', 'email_logo_id' => '99', 'email_tagline' => 'Outro' ) );
 
 		$this->assertSame( '', $values['email_logo'], 'The default choice (the bundled logo) is not stored.' );
 		$this->assertSame( 'none', Settings::instance()->sanitize( array( 'email_logo' => 'none' ) )['email_logo'] );
 		$this->assertSame( 0, $values['email_logo_id'], 'Not an image.' );
-		$this->assertSame( '', $values['email_brand'], 'Equal to the default.' );
 		$this->assertSame( 'Outro', $values['email_tagline'] );
 		$this->assertSame( '', Settings::instance()->sanitize( array( 'email_atelier_name' => 'Atelier Axell' ) )['email_atelier_name'], 'The default is not stored.' );
 		$this->assertSame( 'Atelier Axell Club', Settings::instance()->sanitize( array( 'email_atelier_name' => 'Atelier Axell Club' ) )['email_atelier_name'] );

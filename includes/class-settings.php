@@ -282,7 +282,7 @@ final class Settings {
 			$id                      = $id && wp_attachment_is_image( $id ) ? $id : 0;
 			$values['email_logo_id'] = Notifications::default_logo_id() === $id ? 0 : $id;
 		}
-		foreach ( array( 'atelier_name', 'brand', 'tagline' ) as $field ) {
+		foreach ( array( 'atelier_name', 'tagline' ) as $field ) {
 			$key = 'email_' . $field;
 			if ( array_key_exists( $key, $input ) && is_scalar( $input[ $key ] ) ) {
 				$value          = self::clean_text( (string) $input[ $key ], false );
@@ -531,23 +531,24 @@ final class Settings {
 			$name( 'email_atelier_name' ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped by $name.
 			esc_attr( Notifications::atelier_name() ),
 			/* translators: %s: the placeholder, {atelier_name}. */
-			esc_html( sprintf( __( 'Used by the %s placeholder.', 'axellcore-atelierclub' ), '{atelier_name}' ) )
+			esc_html( sprintf( __( 'Used by the %s placeholder and as the header\'s brand in text.', 'axellcore-atelierclub' ), '{atelier_name}' ) )
+		);
+		printf(
+			'<tr><th scope="row"><label for="aa-email-tagline">%1$s</label></th><td><input type="text" class="regular-text" id="aa-email-tagline" name="%2$s" value="%3$s"><p class="description">%4$s</p></td></tr>',
+			esc_html__( 'Description', 'axellcore-atelierclub' ),
+			$name( 'email_tagline' ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped by $name.
+			esc_attr( $brand( 'tagline' ) ),
+			esc_html__( 'Below the name, when the header has no logo.', 'axellcore-atelierclub' )
 		);
 		echo '<tr><th scope="row">' . esc_html__( 'Logo', 'axellcore-atelierclub' ) . '</th><td><fieldset class="aa-email-logo">';
 		printf( '<legend class="screen-reader-text">%s</legend>', esc_html__( 'Logo', 'axellcore-atelierclub' ) );
 
 		// None: the brand in text.
 		printf(
-			'<p><label><input type="radio" name="%1$s" value="none"%2$s> %3$s</label></p><div class="aa-email-logo-none" style="margin:4px 0 12px 24px"><p><label for="aa-email-brand">%4$s</label><br><input type="text" class="regular-text" id="aa-email-brand" name="%5$s" value="%6$s"></p><p><label for="aa-email-tagline">%7$s</label><br><input type="text" class="regular-text" id="aa-email-tagline" name="%8$s" value="%9$s"></p></div>',
+			'<p><label><input type="radio" name="%1$s" value="none"%2$s> %3$s</label></p>',
 			$name( 'email_logo' ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped by $name.
 			checked( $choice, 'none', false ),
-			esc_html__( 'None: the brand in text', 'axellcore-atelierclub' ),
-			esc_html__( 'Brand text', 'axellcore-atelierclub' ),
-			$name( 'email_brand' ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped by $name.
-			esc_attr( $brand( 'brand' ) ),
-			esc_html__( 'Description', 'axellcore-atelierclub' ),
-			$name( 'email_tagline' ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped by $name.
-			esc_attr( $brand( 'tagline' ) )
+			esc_html__( 'None: the brand in text', 'axellcore-atelierclub' )
 		);
 
 		// The theme's logo, when there is one.

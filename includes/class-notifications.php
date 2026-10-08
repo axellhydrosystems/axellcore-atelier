@@ -179,18 +179,15 @@ final class Notifications {
 	}
 
 	/**
-	 * The header's brand in text (when there is no logo): its text and
-	 * description, as saved or by default in the site's language.
+	 * The header's brand in text (when there is no logo): the Atelier's
+	 * name and the description, as saved or by default in the site's
+	 * language.
 	 *
 	 * @return array{0:string,1:string}
 	 */
 	public static function brand() {
-		$fields = array();
-		foreach ( array( 'brand', 'tagline' ) as $field ) {
-			$saved    = (string) Settings::get( 'email_' . $field );
-			$fields[] = '' !== $saved ? $saved : self::site_brand_default( $field );
-		}
-		return $fields;
+		$tagline = (string) Settings::get( 'email_tagline' );
+		return array( self::atelier_name(), '' !== $tagline ? $tagline : self::site_brand_default( 'tagline' ) );
 	}
 
 	/**
@@ -207,11 +204,10 @@ final class Notifications {
 	/**
 	 * The brand's defaults, in the current language.
 	 *
-	 * @return array{brand:string,atelier_name:string,tagline:string}
+	 * @return array{atelier_name:string,tagline:string}
 	 */
 	public static function brand_defaults() {
 		return array(
-			'brand'        => __( 'Atelier Axell', 'axellcore-atelierclub' ),
 			'atelier_name' => _x( 'Atelier Axell', 'Atelier name', 'axellcore-atelierclub' ),
 			'tagline'      => __( 'The Axell World', 'axellcore-atelierclub' ),
 		);
@@ -220,7 +216,7 @@ final class Notifications {
 	/**
 	 * A brand default in the site's language.
 	 *
-	 * @param string $field brand or tagline.
+	 * @param string $field atelier_name or tagline.
 	 * @return string
 	 */
 	public static function site_brand_default( $field ) {

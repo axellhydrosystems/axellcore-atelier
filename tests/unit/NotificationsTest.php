@@ -205,6 +205,9 @@ final class NotificationsTest extends TestCase {
 	public function test_brand_in_text_by_default_or_as_saved(): void {
 		$this->settings['email_logo'] = 'none';
 		$this->assertSame( array( 'Atelier Axell', 'The Axell World' ), Notifications::brand() );
+		$this->settings['email_atelier_name'] = 'Atelier Axell Club';
+		$this->assertSame( 'Atelier Axell Club', Notifications::brand()[0], 'The brand in text is the Atelier name.' );
+		unset( $this->settings['email_atelier_name'] );
 
 		$this->settings['email_tagline'] = 'Universo próprio';
 		$email = Notifications::compose( 'member_approved', Notifications::member_vars( 6 ) );
