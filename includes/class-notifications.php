@@ -110,7 +110,7 @@ final class Notifications {
 					/* translators: {fullname} and the other {placeholders} are replaced when sending; keep them as they are. */
 					'subject' => __( 'New membership application: {fullname}', 'axellcore-atelierclub' ),
 					'heading' => __( 'New membership application', 'axellcore-atelierclub' ),
-					'body'    => __( "A new application to the Atelier Axell Club has arrived.\n\nName: {fullname}\nOffice / Studio: {company}\nE-mail: {email}\nPhone: {phone}\nRegistration (CAU / CREA / ABD): {professional_registration}\nMain practice: {primary_focus}\nPortfolio (URL): {url}\n\nRegistration type: {profile_type}\n{document_label}: {document}\n\nStreet: {address_street}\nNumber: {address_number}\nAddress line 2: {address_2}\nNeighborhood: {neighborhood}\nLandmark: {landmark}\nCity: {state} {city}\nPostal code: {postal}\n\nPartner stores:\n{stores}\n\nReview the application: {member_admin_url}", 'axellcore-atelierclub' ),
+					'body'    => __( "A new application to the Atelier Axell Club has arrived.\n\nName: {fullname}\nCompany: {company}\nE-mail: {email}\nPhone: {phone}\nRegistration (CAU / CREA / ABD): {professional_registration}\nMain practice: {primary_focus}\nPortfolio (URL): {url}\n\nRegistration type: {profile_type}\n{document_label}: {document}\n\nStreet: {address_street}\nNumber: {address_number}\nAddress line 2: {address_2}\nNeighborhood: {neighborhood}\nLandmark: {landmark}\nCity: {state} {city}\nPostal code: {postal}\n\nPartner stores:\n{stores}\n\nReview the application: {member_admin_url}", 'axellcore-atelierclub' ),
 				);
 			case 'member_pending':
 				return array(
@@ -306,7 +306,7 @@ final class Notifications {
 		return array(
 			'{fullname}'                  => __( 'Full name', 'axellcore-atelierclub' ),
 			'{first_name}'                => __( 'First name', 'axellcore-atelierclub' ),
-			'{company}'                   => __( 'Office / Studio', 'axellcore-atelierclub' ),
+			'{company}'                   => _x( 'Company', 'WooCommerce field', 'axellcore-atelierclub' ),
 			'{email}'                     => __( 'E-mail', 'axellcore-atelierclub' ),
 			'{phone}'                     => __( 'Phone', 'axellcore-atelierclub' ),
 			'{professional_registration}' => __( 'Registration (CAU / CREA / ABD)', 'axellcore-atelierclub' ),

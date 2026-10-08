@@ -1544,7 +1544,6 @@ msgid "Full name"
 msgstr "Nome completo"
 
 #: includes/class-members-export.php:80
-#: includes/class-notifications.php:309
 msgid "Office / Studio"
 msgstr "Escritório / Ateliê"
 
@@ -3510,6 +3509,7 @@ msgid "Store name · city"
 msgstr "Nome da loja · cidade"
 
 #: includes/class-member-profile.php:275
+#: includes/class-notifications.php:309
 #: build/admin/members/index.js:175
 #: build/admin/members/index.js:184
 msgctxt "WooCommerce field"
@@ -3899,12 +3899,20 @@ msgstr "Escolher imagem"
 msgid "Shown at the top of every e-mail, up to 200px wide. A PNG works in every e-mail client."
 msgstr "Aparece no topo de todos os e-mails, com até 200 px de largura. Um PNG funciona em todos os programas de e-mail."
 
+#: includes/class-settings.php:559
+msgid "Image (by default, the Atelier logo)"
+msgstr "Imagem (por padrão, o logo do Atelier)"
+
+#: includes/class-settings.php:566
+msgid "Use the default"
+msgstr "Usar o padrão"
+
 #: includes/class-notifications.php:113
 msgid ""
 "A new application to the Atelier Axell Club has arrived.\n"
 "\n"
 "Name: {fullname}\n"
-"Office / Studio: {company}\n"
+"Company: {company}\n"
 "E-mail: {email}\n"
 "Phone: {phone}\n"
 "Registration (CAU / CREA / ABD): {professional_registration}\n"
@@ -3930,7 +3938,7 @@ msgstr ""
 "Chegou uma nova solicitação de adesão ao Atelier Axell Club.\n"
 "\n"
 "Nome: {fullname}\n"
-"Escritório / Ateliê: {company}\n"
+"Empresa: {company}\n"
 "E-mail: {email}\n"
 "Telefone: {phone}\n"
 "Registro (CAU / CREA / ABD): {professional_registration}\n"
@@ -3952,11 +3960,3 @@ msgstr ""
 "{stores}\n"
 "\n"
 "Analise a solicitação: {member_admin_url}"
-
-#: includes/class-settings.php:559
-msgid "Image (by default, the Atelier logo)"
-msgstr "Imagem (por padrão, o logo do Atelier)"
-
-#: includes/class-settings.php:566
-msgid "Use the default"
-msgstr "Usar o padrão"
