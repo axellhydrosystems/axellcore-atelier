@@ -18,6 +18,14 @@ The Atelier Axell Club landing (`/atelier`) built from native WordPress blocks: 
 
 == Changelog ==
 
+= 0.5.0 =
+* Atelier > Settings > Integrations: reCAPTCHA v3 (default) or v2 on the forms, each with its keys and the v3 score threshold, checked with Google before anything is stored; on by default once the keys are filled, and off on localhost and 127.0.0.1 unless unchecked.
+* Atelier > Settings > Integrations: Google Maps Platform (Places API New) with the API key, a note on its billing and costs, and the address cache with "Clear address cache".
+* Application form: Google's address suggestions under the street field, through this site (the key never reaches the browser), cached for a day and rate limited per address. Choosing one fills in street, number, complement, neighborhood, state, city and CEP; at most 4 suggestions, "Searching addresses…" and "No address found.", Google Maps' logo as the attribution. Every field can still be filled in by hand.
+* Application form: main practice, registration type and the UFs (address and custom store) as selects with a list, as the profile's: the native select is still what is sent and validated. Main practice and the UFs have a filter; a UF is listed as "SP · São Paulo" and shown as "SP".
+* Members list: filters only on state, practice and status, all on the server; states by name, and the state filter offers only the states that have members.
+* The Atelier name and its description move to the General tab.
+
 = 0.4.0 =
 * Atelier > Settings: choose the Atelier page (its slug can change), on tabs (General, Members, E-mails) in the WooCommerce mold.
 * Member fields on the user edit and profile screens, in the application form's order, as WooCommerce's customer fields: saved all or nothing (the screen refilled with the error highlighted), masks for phone, CEP and CPF/CNPJ, searchable selects for state, main practice, profile type and country, city autocomplete, partner stores chosen from the resellers.
