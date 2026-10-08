@@ -88,6 +88,7 @@ final class Plugin {
 		Kses::instance()->register_hooks();
 		Admin_Rest::instance()->register_hooks();
 		Members_Export::instance()->register_hooks();
+		Member_Profile::instance()->register_hooks();
 		Template_Parts::instance()->register_hooks();
 		Classic_Template::instance()->register_hooks();
 		Classic_Styles::instance()->register_hooks();

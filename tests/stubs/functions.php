@@ -101,8 +101,27 @@ if ( ! class_exists( 'WP_Error' ) ) {
 			return $this->data;
 		}
 
-		public function get_error_message() {
+		public function get_error_message( $code = '' ) {
+			if ( '' !== $code && $code !== $this->code ) {
+				return $this->errors[ $code ] ?? '';
+			}
 			return $this->message;
+		}
+
+		/** @var array<string,string> Codes added after the first. */
+		public $errors = array();
+
+		public function add( $code, $message ) {
+			if ( '' === $this->code ) {
+				$this->code    = $code;
+				$this->message = $message;
+			} else {
+				$this->errors[ $code ] = $message;
+			}
+		}
+
+		public function get_error_codes() {
+			return '' === $this->code ? array() : array_merge( array( $this->code ), array_keys( $this->errors ) );
 		}
 	}
 }

@@ -434,6 +434,33 @@ final class Members {
 	}
 
 	/**
+	 * A member's CPF/CNPJ as stored (normalized), or why it can't be: check
+	 * digits for the profile type, and no other user with it. Empty is
+	 * allowed (clears it). Shared by the Members screen and the user profile.
+	 *
+	 * @param int    $user_id      Member being edited.
+	 * @param string $document     Typed value.
+	 * @param string $profile_type Profile type (individual / legal_entity).
+	 * @return string|\WP_Error
+	 */
+	public static function validate_document_for( $user_id, $document, $profile_type ) {
+		$document = Document::normalize( $document );
+		if ( '' === $document ) {
+			return '';
+		}
+		$type = Document::type_for( $document, Document::type_of( $profile_type ) );
+		if ( ! Document::is_valid( $document, $type ) ) {
+			list( $code, $message ) = Document::invalid_error( $type );
+			return new \WP_Error( $code, $message, array( 'status' => 400 ) );
+		}
+		if ( self::document_exists( $document, $user_id ) ) {
+			list( $code, $message ) = Document::registered_error( $type );
+			return new \WP_Error( $code, $message, array( 'status' => 409 ) );
+		}
+		return $document;
+	}
+
+	/**
 	 * Only the digits of a value (phone, CEP).
 	 *
 	 * @param string $value Value.

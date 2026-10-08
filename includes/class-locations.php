@@ -56,6 +56,13 @@ final class Locations {
 	private $cities = null;
 
 	/**
+	 * Lazily-loaded countries.
+	 *
+	 * @var array<string,string>|null
+	 */
+	private $countries = null;
+
+	/**
 	 * Get the singleton instance.
 	 *
 	 * @return Locations
@@ -132,6 +139,27 @@ final class Locations {
 			$this->states = include AXELLCORE_ATELIERCLUB_PATH . 'includes/data/br-states.php';
 		}
 		return $this->states;
+	}
+
+	/**
+	 * All countries, ISO code => translated name, by name (from WooCommerce's
+	 * list, see includes/data/countries.php).
+	 *
+	 * @return array<string,string>
+	 */
+	public function countries(): array {
+		if ( null === $this->countries ) {
+			$countries = include AXELLCORE_ATELIERCLUB_PATH . 'includes/data/countries.php';
+			$countries = is_array( $countries ) ? $countries : array();
+			if ( class_exists( 'Collator' ) ) {
+				$collator = new \Collator( get_user_locale() );
+				uasort( $countries, array( $collator, 'compare' ) );
+			} else {
+				uasort( $countries, 'strcasecmp' );
+			}
+			$this->countries = $countries;
+		}
+		return $this->countries;
 	}
 
 	/**
