@@ -50,6 +50,7 @@ final class Seo {
 	 */
 	public function register_hooks() {
 		add_action( 'wp_head', array( $this, 'print_description' ), 1 );
+		add_filter( 'wpseo_metadesc', array( $this, 'yoast_description' ) );
 	}
 
 	/**
@@ -60,23 +61,8 @@ final class Seo {
 			return;
 		}
 
-		$page = get_queried_object();
-		if ( ! $page instanceof \WP_Post || 'page' !== $page->post_type ) {
-			return;
-		}
-
-		$landing = get_page_by_path( Activator::PAGE_SLUG, OBJECT, 'page' );
-		if ( ! $landing instanceof \WP_Post ) {
-			return;
-		}
-
-		if ( $page->ID === $landing->ID ) {
-			$description = self::LANDING_DESCRIPTION;
-		} elseif ( (int) $page->post_parent === (int) $landing->ID ) {
-			// A section page: its excerpt, else the landing's copy (the
-			// site tagline may be empty, which Lighthouse counts as missing).
-			$description = has_excerpt( $page ) ? get_the_excerpt( $page ) : self::LANDING_DESCRIPTION;
-		} else {
+		$description = self::description_for( get_queried_object() );
+		if ( null === $description ) {
 			return;
 		}
 
@@ -84,5 +70,45 @@ final class Seo {
 			'<meta name="description" content="%s" />' . "\n",
 			esc_attr( wp_strip_all_tags( (string) $description ) )
 		);
+	}
+
+	/**
+	 * With Yoast SEO: the Atelier description when the page has none of its
+	 * own (Yoast then prints no meta description at all).
+	 *
+	 * @param string|mixed $description Yoast's description.
+	 * @return string|mixed
+	 */
+	public function yoast_description( $description ) {
+		if ( '' !== trim( (string) $description ) ) {
+			return $description;
+		}
+		$ours = self::description_for( get_queried_object() );
+		return null === $ours ? $description : wp_strip_all_tags( $ours );
+	}
+
+	/**
+	 * Description of an Atelier page: the landing's copy, a section page's
+	 * excerpt (else the landing's copy: the site tagline may be empty, which
+	 * Lighthouse counts as missing), or null for any other object.
+	 *
+	 * @param mixed $page Queried object.
+	 * @return string|null
+	 */
+	public static function description_for( $page ) {
+		if ( ! $page instanceof \WP_Post || 'page' !== $page->post_type ) {
+			return null;
+		}
+		$landing = get_page_by_path( Activator::PAGE_SLUG, OBJECT, 'page' );
+		if ( ! $landing instanceof \WP_Post ) {
+			return null;
+		}
+		if ( $page->ID === $landing->ID ) {
+			return self::LANDING_DESCRIPTION;
+		}
+		if ( (int) $page->post_parent === (int) $landing->ID ) {
+			return has_excerpt( $page ) ? get_the_excerpt( $page ) : self::LANDING_DESCRIPTION;
+		}
+		return null;
 	}
 }

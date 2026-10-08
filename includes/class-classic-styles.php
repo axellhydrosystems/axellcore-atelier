@@ -287,7 +287,21 @@ final class Classic_Styles {
 			foreach ( array( 'wp_body_open', 'wp_footer' ) as $hook ) {
 				$this->remove_builder_output( $hook );
 			}
+			// No emoji script (the page uses none), and its stylesheets in
+			// the head instead of render-blocking requests.
+			remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
+			add_filter( 'styles_inline_size_limit', array( $this, 'inline_size_limit' ) );
 		}
+	}
+
+	/**
+	 * Inline the page's stylesheets (block styles and this plugin's): about
+	 * 60 KB, against 20 KB by default.
+	 *
+	 * @return int Bytes.
+	 */
+	public function inline_size_limit() {
+		return 100000;
 	}
 
 	/**
@@ -409,6 +423,19 @@ final class Classic_Styles {
 		wp_register_style( self::HANDLE, false, array( 'global-styles' ), AXELLCORE_ATELIERCLUB_VERSION );
 		wp_add_inline_style( self::HANDLE, (string) file_get_contents( AXELLCORE_ATELIERCLUB_PATH . self::THEME_CSS ) ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
 		wp_enqueue_style( self::HANDLE );
+		wp_dequeue_style( 'wp-emoji-styles' );
+
+		// The plugin's stylesheets get the path WordPress needs to inline them
+		// (wp_maybe_inline_styles(), as it does for block styles).
+		foreach ( wp_styles()->queue as $handle ) {
+			$item = wp_styles()->registered[ $handle ] ?? null;
+			if ( $item && is_string( $item->src ) && 0 === strpos( $item->src, AXELLCORE_ATELIERCLUB_URL ) && ! wp_styles()->get_data( $handle, 'path' ) ) {
+				$path = AXELLCORE_ATELIERCLUB_PATH . strtok( substr( $item->src, strlen( AXELLCORE_ATELIERCLUB_URL ) ), '?' );
+				if ( is_readable( $path ) ) {
+					wp_style_add_data( $handle, 'path', $path );
+				}
+			}
+		}
 
 		$this->dequeue_foreign();
 	}
