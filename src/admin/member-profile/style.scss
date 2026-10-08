@@ -26,7 +26,15 @@
 
 		li {
 			margin: 0;
-			padding: 6px 10px;
+			// 40px, as WordPress's controls: 28px line and 6px above and below.
+			padding: 6px 12px;
+			font-size: 14px;
+			line-height: 2;
+
+			@media screen and (max-width: 782px) {
+				font-size: 16px;
+				line-height: 1.75;
+			}
 			cursor: pointer;
 
 			&:hover,
@@ -100,7 +108,15 @@
 
 		li {
 			margin: 0;
-			padding: 6px 10px;
+			// 40px, as WordPress's controls: 28px line and 6px above and below.
+			padding: 6px 12px;
+			font-size: 14px;
+			line-height: 2;
+
+			@media screen and (max-width: 782px) {
+				font-size: 16px;
+				line-height: 1.75;
+			}
 			cursor: pointer;
 
 			&:hover,
@@ -241,7 +257,15 @@
 
 		li {
 			margin: 0;
-			padding: 6px 10px;
+			// 40px, as WordPress's controls: 28px line and 6px above and below.
+			padding: 6px 12px;
+			font-size: 14px;
+			line-height: 2;
+
+			@media screen and (max-width: 782px) {
+				font-size: 16px;
+				line-height: 1.75;
+			}
 			cursor: pointer;
 
 			&.is-current {
