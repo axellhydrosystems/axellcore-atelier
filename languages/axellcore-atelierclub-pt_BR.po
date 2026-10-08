@@ -3966,5 +3966,5 @@ msgstr ""
 "{atelier_name}"
 
 #: includes/class-settings.php:580
-msgid "Shown at the top of every e-mail, 140px wide. A PNG works in every e-mail client."
-msgstr "Aparece no topo de todos os e-mails, com 140 px de largura. Um PNG funciona em todos os programas de e-mail."
+msgid "Shown at the top of every e-mail, 140px wide. Use an image 280px wide (twice the size) so it stays sharp on high-resolution screens. A PNG works in every e-mail client."
+msgstr "Aparece no topo de todos os e-mails, com 140 px de largura. Use uma imagem com 280 px de largura (o dobro) para ela ficar nítida em telas de alta resolução. Um PNG funciona em todos os programas de e-mail."
