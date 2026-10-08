@@ -193,6 +193,24 @@ final class PlacesTest extends TestCase {
 		$this->assertNull( Places::address( '../abc' ), 'Only an id goes into the URL.' );
 	}
 
+	public function test_only_calls_to_google_count_for_the_rate_limit(): void {
+		$calls = 0;
+		Functions\when( 'wp_remote_post' )->alias(
+			function () use ( &$calls ) {
+				++$calls;
+				return array( 'code' => 200, 'body' => '{"suggestions":[]}' );
+			}
+		);
+		for ( $i = 0; $i < Places::RATE_LIMIT; $i++ ) {
+			Places::suggestions( 'Rua numero ' . $i, '', '203.0.113.7' );
+		}
+		$this->assertSame( Places::RATE_LIMIT, $calls );
+
+		$this->assertSame( array(), Places::suggestions( 'Rua numero 0', '', '203.0.113.7' ), 'Cached: answered over the limit.' );
+		$this->assertSame( array(), Places::suggestions( 'Rua nova', '', '203.0.113.7' ), 'New input over the limit: nothing.' );
+		$this->assertSame( Places::RATE_LIMIT, $calls, 'Neither reached Google.' );
+	}
+
 	public function test_rate_limit_per_address(): void {
 		for ( $i = 0; $i < Places::RATE_LIMIT; $i++ ) {
 			$this->assertTrue( Places::check_rate_limit( '203.0.113.5' ) );

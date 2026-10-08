@@ -51,6 +51,8 @@ interface PlacesContext {
 	session?: string;
 	/** Waiting for Google's suggestions. */
 	loading: boolean;
+	/** An address was chosen: no list until the field is cleared. */
+	chosen?: boolean;
 }
 
 interface PlacesState {
@@ -59,7 +61,12 @@ interface PlacesState {
 	minInput: number;
 	/** "Searching addresses…", translated. */
 	searching: string;
+	/** "No address found.", translated. */
+	notFound: string;
 }
+
+/** Suggestions shown at most. */
+const MAX_ITEMS = 4;
 
 /** Time without typing before asking for suggestions. */
 const DEBOUNCE_MS = 200;
@@ -193,8 +200,17 @@ const { state } = store( 'axell/places', {
 				context.open && ! context.loading && context.items.length > 0
 			);
 		},
-		get isSearching(): boolean {
-			return getContext< PlacesContext >().loading;
+		/** Searching, or a search that found nothing. */
+		get hasStatus(): boolean {
+			const context = getContext< PlacesContext >();
+			return (
+				context.loading || ( context.open && ! context.items.length )
+			);
+		},
+		get statusText(): string {
+			return getContext< PlacesContext >().loading
+				? server().searching
+				: server().notFound;
 		},
 	},
 	actions: {
@@ -204,6 +220,12 @@ const { state } = store( 'axell/places', {
 			const typed = input.value;
 			context.typed = typed;
 			context.active = -1;
+			// After choosing, editing the street is just editing: the list
+			// comes back only once the field is cleared.
+			if ( context.chosen ) {
+				context.chosen = typed.trim() !== '';
+				return;
+			}
 			if ( typed.trim().length < server().minInput ) {
 				context.items = [];
 				context.open = false;
@@ -225,7 +247,9 @@ const { state } = store( 'axell/places', {
 					? ( ( yield response.json() ) as Suggestion[] )
 					: [];
 				if ( context.typed === typed ) {
-					context.items = Array.isArray( items ) ? items : [];
+					context.items = Array.isArray( items )
+						? items.slice( 0, MAX_ITEMS )
+						: [];
 					context.open = true;
 					context.loading = false;
 				}
@@ -258,6 +282,7 @@ const { state } = store( 'axell/places', {
 					}
 					break;
 				case 'Escape':
+				case 'Tab':
 					context.open = false;
 					context.active = -1;
 					break;
@@ -346,6 +371,7 @@ function choose( el: HTMLElement, index: number ) {
 	const session = context.session || '';
 	// The details end the session: the next search starts another.
 	context.session = '';
+	context.chosen = true;
 	context.open = false;
 	context.active = -1;
 	context.items = [];

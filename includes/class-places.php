@@ -39,9 +39,9 @@ final class Places {
 	const MIN_INPUT = 4;
 
 	/**
-	 * Calls to these routes per address in RATE_WINDOW.
+	 * Calls to Google per address in RATE_WINDOW (cached answers do not count).
 	 */
-	const RATE_LIMIT = 60;
+	const RATE_LIMIT = 100;
 
 	/**
 	 * The rate limit's window, in seconds.
@@ -175,7 +175,7 @@ final class Places {
 			'loading' => false,
 		);
 		return sprintf(
-			'<div class="aa-places-search" data-wp-interactive="axell/places" data-wp-context="%1$s" data-wp-on--focusout="actions.close">%2$s<p class="aa-places-popup aa-places-status" role="status" hidden data-wp-bind--hidden="!state.isSearching" data-wp-text="state.searching"></p><div class="aa-places-popup" hidden data-wp-bind--hidden="!state.isOpen"><ul id="%3$s" role="listbox" tabindex="-1" data-wp-on--click="actions.pick" data-wp-on--mousedown="actions.keepFocus" data-wp-watch="callbacks.render"></ul><p class="aa-places-attribution" aria-hidden="true">Google Maps</p></div></div>',
+			'<div class="aa-places-search" data-wp-interactive="axell/places" data-wp-context="%1$s" data-wp-on--focusout="actions.close">%2$s<p class="aa-places-popup aa-places-status" role="status" hidden data-wp-bind--hidden="!state.hasStatus" data-wp-text="state.statusText"></p><div class="aa-places-popup" hidden data-wp-bind--hidden="!state.isOpen"><ul id="%3$s" role="listbox" tabindex="-1" data-wp-on--click="actions.pick" data-wp-on--mousedown="actions.keepFocus" data-wp-watch="callbacks.render"></ul><p class="aa-places-attribution" aria-hidden="true">Google Maps</p></div></div>',
 			esc_attr( (string) wp_json_encode( $context ) ),
 			trim( $p->get_updated_html() ),
 			esc_attr( $list )
@@ -193,6 +193,7 @@ final class Places {
 			'detailsUrl'      => rest_url( Rest::NAMESPACE . '/places/details' ),
 			'minInput'        => self::MIN_INPUT,
 			'searching'       => __( 'Searching addresses…', 'axellcore-atelierclub' ),
+			'notFound'        => __( 'No address found.', 'axellcore-atelierclub' ),
 		);
 	}
 
@@ -338,11 +339,7 @@ final class Places {
 	 * @return \WP_REST_Response|\WP_Error
 	 */
 	public function rest_autocomplete( \WP_REST_Request $request ) {
-		$limited = self::check_rate_limit( Members::client_ip() );
-		if ( is_wp_error( $limited ) ) {
-			return $limited;
-		}
-		return rest_ensure_response( self::suggestions( (string) $request['input'], (string) $request['session'] ) );
+		return rest_ensure_response( self::suggestions( (string) $request['input'], (string) $request['session'], Members::client_ip() ) );
 	}
 
 	/**
@@ -352,11 +349,7 @@ final class Places {
 	 * @return \WP_REST_Response|\WP_Error
 	 */
 	public function rest_details( \WP_REST_Request $request ) {
-		$limited = self::check_rate_limit( Members::client_ip() );
-		if ( is_wp_error( $limited ) ) {
-			return $limited;
-		}
-		$address = self::address( (string) $request['id'], (string) $request['session'] );
+		$address = self::address( (string) $request['id'], (string) $request['session'], Members::client_ip() );
 		if ( null === $address ) {
 			return new \WP_Error( 'aa_place_not_found', __( 'Address not found.', 'axellcore-atelierclub' ), array( 'status' => 404 ) );
 		}
@@ -365,13 +358,15 @@ final class Places {
 
 	/**
 	 * Google's suggestions for an input, in Brazil: [ { id, main, secondary } ].
-	 * Empty when off, for a short input or when Google fails.
+	 * Empty when off, for a short input, over the rate limit or when Google
+	 * fails.
 	 *
-	 * @param string $input   What was typed.
-	 * @param string $session Session token (one per search, ended by details).
+	 * @param string      $input   What was typed.
+	 * @param string      $session Session token (one per search, ended by details).
+	 * @param string|null $ip      Client address, for the rate limit (none: not limited).
 	 * @return array<int,array{id:string,main:string,secondary:string}>
 	 */
-	public static function suggestions( $input, $session = '' ) {
+	public static function suggestions( $input, $session = '', $ip = null ) {
 		$input = trim( preg_replace( '/\s+/', ' ', (string) $input ) );
 		if ( ! self::active() || self::length( $input ) < self::MIN_INPUT ) {
 			return array();
@@ -381,6 +376,10 @@ final class Places {
 		$found = get_transient( $cache );
 		if ( is_array( $found ) ) {
 			return $found;
+		}
+
+		if ( null !== $ip && is_wp_error( self::check_rate_limit( $ip ) ) ) {
+			return array();
 		}
 
 		$body = array(
@@ -426,13 +425,15 @@ final class Places {
 	}
 
 	/**
-	 * A place's address in the form's fields, or null when off or not found.
+	 * A place's address in the form's fields, or null when off, not found or
+	 * over the rate limit.
 	 *
-	 * @param string $id      Google's place id.
-	 * @param string $session Session token of the search that offered it.
+	 * @param string      $id      Google's place id.
+	 * @param string      $session Session token of the search that offered it.
+	 * @param string|null $ip      Client address, for the rate limit (none: not limited).
 	 * @return array<string,string>|null
 	 */
-	public static function address( $id, $session = '' ) {
+	public static function address( $id, $session = '', $ip = null ) {
 		$id = (string) $id;
 		if ( ! self::active() || ! preg_match( '/^[A-Za-z0-9_-]+$/', $id ) ) {
 			return null;
@@ -442,6 +443,10 @@ final class Places {
 		$found = get_transient( $cache );
 		if ( is_array( $found ) ) {
 			return $found;
+		}
+
+		if ( null !== $ip && is_wp_error( self::check_rate_limit( $ip ) ) ) {
+			return null;
 		}
 
 		$args = array( 'languageCode' => 'pt-BR' );
