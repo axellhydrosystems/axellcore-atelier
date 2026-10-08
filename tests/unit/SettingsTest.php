@@ -95,4 +95,17 @@ final class SettingsTest extends TestCase {
 		$this->assertFalse( Settings::is_page( new \WP_Post( array( 'ID' => 13 ) ) ) );
 		$this->assertFalse( Settings::is_page( 0 ) );
 	}
+
+	public function test_sanitize_keeps_the_access_setting_as_a_boolean(): void {
+		Functions\when( 'absint' )->alias( static fn( $v ) => abs( (int) $v ) );
+		Functions\when( 'get_post_type' )->justReturn( 'page' );
+
+		$on  = Settings::instance()->sanitize( array( 'members_can_log_in' => '1', 'other' => 'x' ) );
+		$off = Settings::instance()->sanitize( array( 'members_can_log_in' => '0' ) );
+
+		$this->assertTrue( $on['members_can_log_in'] );
+		$this->assertFalse( $off['members_can_log_in'] );
+		$this->assertArrayNotHasKey( 'other', $on );
+		$this->assertFalse( Settings::DEFAULTS['members_can_log_in'], 'Off by default.' );
+	}
 }

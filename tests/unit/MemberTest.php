@@ -73,6 +73,7 @@ final class MemberTest extends TestCase {
 	}
 
 	private function stub_links(): void {
+		Functions\when( 'get_option' )->justReturn( array() );
 		Functions\when( '__' )->returnArg( 1 );
 		Functions\when( 'esc_html__' )->returnArg( 1 );
 		Functions\when( 'esc_attr' )->returnArg( 1 );
@@ -121,5 +122,46 @@ final class MemberTest extends TestCase {
 		$this->assertSame( array( 'subscriber' ), $users[3]->roles, 'Only pending members.' );
 		$this->assertSame( array( Member::ROLE_PENDING ), $users[4]->roles, 'Only those one can promote.' );
 		$this->assertSame( 'x', Member::instance()->handle_bulk_approve( 'x', 'delete', array( 1 ) ), 'Other actions pass.' );
+	}
+
+	public function test_access_pending_never_members_only_when_allowed(): void {
+		Functions\when( 'get_option' )->justReturn( array() );
+		$this->assertFalse( Member::can_access( self::user( array( Member::ROLE_PENDING ) ) ) );
+		$this->assertFalse( Member::can_access( self::user( array( Member::ROLE ) ) ), 'Off by default.' );
+		$this->assertTrue( Member::can_access( self::user( array( 'subscriber' ) ) ) );
+
+		$admin          = self::user( array( Member::ROLE_PENDING, 'administrator' ) );
+		$admin->allcaps = array( 'manage_options' => true );
+		$this->assertTrue( Member::can_access( $admin ), 'Who manages the site always may.' );
+
+		Functions\when( 'get_option' )->justReturn( array( 'members_can_log_in' => true ) );
+		$this->assertTrue( Member::can_access( self::user( array( Member::ROLE ) ) ) );
+		$this->assertFalse( Member::can_access( self::user( array( Member::ROLE_PENDING ) ) ), 'Pending never.' );
+	}
+
+	public function test_login_session_and_reset_are_refused_when_blocked(): void {
+		Functions\when( 'get_option' )->justReturn( array() );
+		Functions\when( '__' )->returnArg( 1 );
+		$pending = self::user( array( Member::ROLE_PENDING ), 5 );
+		$member  = self::user( array( Member::ROLE ), 6 );
+		Functions\when( 'get_userdata' )->alias( static fn( $id ) => 5 === $id ? $pending : $member );
+
+		$this->assertSame( 'aa_member_pending', Member::instance()->authenticate( $pending )->get_error_code() );
+		$this->assertSame( 'aa_member_no_access', Member::instance()->authenticate( $member )->get_error_code() );
+		$error = new \WP_Error( 'incorrect_password', 'x' );
+		$this->assertSame( $error, Member::instance()->authenticate( $error ), 'Earlier errors pass.' );
+
+		$this->assertSame( 0, Member::instance()->current_user( 5 ) );
+		$this->assertFalse( Member::instance()->allow_password_reset( true, 6 ) );
+		$this->assertFalse( Member::instance()->application_passwords( true, $member ) );
+	}
+
+	public function test_blocked_users_have_no_reset_link(): void {
+		$this->stub_links();
+		Functions\when( 'current_user_can' )->justReturn( true );
+
+		$actions = Member::instance()->row_actions( array( 'edit' => 'Edit', 'resetpassword' => 'Reset' ), self::user( array( Member::ROLE_PENDING ) ) );
+
+		$this->assertSame( array( 'edit', Member::APPROVE_ACTION ), array_keys( $actions ) );
 	}
 }

@@ -38,9 +38,11 @@ final class Settings {
 	 */
 	const DEFAULTS = array(
 		// New members wait for approval (role member_pending).
-		'pending_on_create' => true,
+		'pending_on_create'  => true,
+		// Approved members log in and reset their password (pending never).
+		'members_can_log_in' => false,
 		// The Atelier page; 0 = none.
-		'page_id'           => 0,
+		'page_id'            => 0,
 	);
 
 	/**
@@ -211,6 +213,15 @@ final class Settings {
 			'members',
 			array( 'label_for' => self::OPTION . '-pending_on_create' )
 		);
+
+		add_settings_field(
+			'members_can_log_in',
+			__( 'Dashboard access', 'axellcore-atelierclub' ),
+			array( $this, 'render_members_can_log_in' ),
+			self::PAGE,
+			'members',
+			array( 'label_for' => self::OPTION . '-members_can_log_in' )
+		);
 	}
 
 	/**
@@ -223,8 +234,9 @@ final class Settings {
 		$input   = is_array( $input ) ? $input : array();
 		$page_id = absint( $input['page_id'] ?? 0 );
 		return array(
-			'pending_on_create' => ! empty( $input['pending_on_create'] ),
-			'page_id'           => $page_id && 'page' === get_post_type( $page_id ) ? $page_id : 0,
+			'pending_on_create'  => ! empty( $input['pending_on_create'] ),
+			'members_can_log_in' => ! empty( $input['members_can_log_in'] ),
+			'page_id'            => $page_id && 'page' === get_post_type( $page_id ) ? $page_id : 0,
 		);
 	}
 
@@ -268,6 +280,19 @@ final class Settings {
 			checked( (bool) self::get( 'pending_on_create' ), true, false ),
 			esc_html__( 'Create new members as pending', 'axellcore-atelierclub' ),
 			esc_html__( 'When on, an application creates a pending member who waits for approval. When off, it creates the member already approved.', 'axellcore-atelierclub' )
+		);
+	}
+
+	/**
+	 * Checkbox: approved members can log in (Member::can_access()).
+	 */
+	public function render_members_can_log_in() {
+		printf(
+			'<input type="hidden" name="%1$s[members_can_log_in]" value="0"><label><input type="checkbox" id="%1$s-members_can_log_in" name="%1$s[members_can_log_in]" value="1"%2$s> %3$s</label><p class="description">%4$s</p>',
+			esc_attr( self::OPTION ),
+			checked( (bool) self::get( 'members_can_log_in' ), true, false ),
+			esc_html__( 'Allow members to log in', 'axellcore-atelierclub' ),
+			esc_html__( 'Approved members can log in and reset their password. Pending members never can.', 'axellcore-atelierclub' )
 		);
 	}
 

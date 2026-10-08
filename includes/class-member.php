@@ -84,6 +84,83 @@ final class Member {
 		add_action( 'load-users.php', array( $this, 'handle_approve' ) );
 		add_action( 'admin_notices', array( $this, 'approved_notice' ) );
 		add_filter( 'removable_query_args', array( $this, 'removable_query_args' ) );
+		// Dashboard access: never pending members; members only when allowed.
+		add_filter( 'authenticate', array( $this, 'authenticate' ), 30 );
+		add_filter( 'determine_current_user', array( $this, 'current_user' ), 99 );
+		add_filter( 'allow_password_reset', array( $this, 'allow_password_reset' ), 10, 2 );
+		add_filter( 'wp_is_application_passwords_available_for_user', array( $this, 'application_passwords' ), 10, 2 );
+	}
+
+	/**
+	 * Whether a user may log in and reset the password: never a pending
+	 * member, a member only when Atelier > Settings allows it. Who manages
+	 * the site always may.
+	 *
+	 * @param \WP_User|int $user User or ID.
+	 * @return bool
+	 */
+	public static function can_access( $user ) {
+		$user = $user instanceof \WP_User ? $user : get_userdata( (int) $user );
+		// The role's own capabilities, without filters: this runs while
+		// WordPress works out the current user (determine_current_user).
+		if ( ! $user instanceof \WP_User || ! empty( $user->allcaps['manage_options'] ) ) {
+			return true;
+		}
+		$roles = (array) $user->roles;
+		if ( in_array( self::ROLE_PENDING, $roles, true ) ) {
+			return false;
+		}
+		return ! in_array( self::ROLE, $roles, true ) || (bool) Settings::get( 'members_can_log_in' );
+	}
+
+	/**
+	 * Login: a blocked member gets why, after WordPress checked the password.
+	 *
+	 * @param \WP_User|\WP_Error|null $user Result so far.
+	 * @return \WP_User|\WP_Error|null
+	 */
+	public function authenticate( $user ) {
+		if ( ! $user instanceof \WP_User || self::can_access( $user ) ) {
+			return $user;
+		}
+		if ( in_array( self::ROLE_PENDING, (array) $user->roles, true ) ) {
+			return new \WP_Error( 'aa_member_pending', __( 'Your membership application is under review. You will be told once it is approved.', 'axellcore-atelierclub' ) );
+		}
+		return new \WP_Error( 'aa_member_no_access', __( 'Members\' access to the dashboard is turned off.', 'axellcore-atelierclub' ) );
+	}
+
+	/**
+	 * A session (or cookie) of a blocked user no longer counts: approving or
+	 * turning the setting off takes effect on the next request.
+	 *
+	 * @param int|false $user_id User found so far.
+	 * @return int|false
+	 */
+	public function current_user( $user_id ) {
+		return $user_id && ! self::can_access( (int) $user_id ) ? 0 : $user_id;
+	}
+
+	/**
+	 * No password reset for a blocked user ("Lost your password?" and the
+	 * admin's "Send password reset").
+	 *
+	 * @param bool|\WP_Error $allow   Allowed so far.
+	 * @param int            $user_id User.
+	 * @return bool|\WP_Error
+	 */
+	public function allow_password_reset( $allow, $user_id ) {
+		return self::can_access( (int) $user_id ) ? $allow : false;
+	}
+
+	/**
+	 * No application passwords for a blocked user.
+	 *
+	 * @param bool     $available Available so far.
+	 * @param \WP_User $user      User.
+	 * @return bool
+	 */
+	public function application_passwords( $available, $user ) {
+		return $available && self::can_access( $user );
 	}
 
 	/**
@@ -120,7 +197,14 @@ final class Member {
 	 * @return array<string,string>
 	 */
 	public function row_actions( $actions, $user ) {
-		if ( ! $user instanceof \WP_User || ! in_array( self::ROLE_PENDING, (array) $user->roles, true ) || ! self::can_approve( $user->ID ) ) {
+		if ( ! $user instanceof \WP_User ) {
+			return $actions;
+		}
+		// A reset the user could not use.
+		if ( ! self::can_access( $user ) ) {
+			unset( $actions['resetpassword'] );
+		}
+		if ( ! in_array( self::ROLE_PENDING, (array) $user->roles, true ) || ! self::can_approve( $user->ID ) ) {
 			return $actions;
 		}
 		$url = wp_nonce_url(

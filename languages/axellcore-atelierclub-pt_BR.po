@@ -471,11 +471,11 @@ msgstr "Localização"
 msgid "Brazil"
 msgstr "Brasil"
 
-#: includes/class-member.php:277
-#: includes/class-member.php:287
-#: includes/class-member.php:288
-#: includes/class-member.php:299
-#: includes/class-settings.php:204
+#: includes/class-member.php:361
+#: includes/class-member.php:371
+#: includes/class-member.php:372
+#: includes/class-member.php:383
+#: includes/class-settings.php:206
 msgid "Members"
 msgstr "Membros"
 
@@ -1438,7 +1438,7 @@ msgstr "Status inválido."
 msgid "Footer"
 msgstr "Rodapé"
 
-#: includes/class-member.php:278
+#: includes/class-member.php:362
 msgid "Atelier"
 msgstr "Atelier"
 
@@ -1501,23 +1501,23 @@ msgstr "Envio de formulário %s"
 msgid "New form submission"
 msgstr "Novo envio de formulário"
 
-#: includes/class-member.php:243
+#: includes/class-member.php:327
 #: includes/class-resellers-rest.php:53
 #: build/form/form-atelier/index.js:1
 #: build/form/form/index.js:1
 msgid "Pending"
 msgstr "Pendente"
 
-#: includes/class-member.php:244
-#: includes/class-member.php:255
+#: includes/class-member.php:328
+#: includes/class-member.php:339
 msgid "Member"
 msgstr "Membro"
 
-#: includes/class-member.php:254
+#: includes/class-member.php:338
 msgid "Pending Member"
 msgstr "Membro Pendente"
 
-#: includes/class-member.php:304
+#: includes/class-member.php:388
 #: includes/class-members-export.php:130
 msgid "Export"
 msgstr "Exportar"
@@ -1770,7 +1770,7 @@ msgstr "Todos os países"
 msgid "Practice"
 msgstr "Atuação"
 
-#: includes/class-settings.php:252
+#: includes/class-settings.php:264
 #: build/admin/members/index.js:175
 msgid "View"
 msgstr "Ver"
@@ -1844,7 +1844,7 @@ msgstr "Site"
 msgid "Date"
 msgstr "Data"
 
-#: includes/class-settings.php:250
+#: includes/class-settings.php:262
 #: build/admin/resellers/index.js:175
 msgid "Edit"
 msgstr "Editar"
@@ -2325,24 +2325,24 @@ msgstr "Controle de formulário (Estado)"
 msgid "https://github.com/axellhydrosystems/axellcore-atelierclub"
 msgstr "https://github.com/axellhydrosystems/axellcore-atelierclub"
 
-#: includes/class-settings.php:171
-#: includes/class-settings.php:278
+#: includes/class-settings.php:173
+#: includes/class-settings.php:303
 msgid "Atelier settings"
 msgstr "Configurações do Atelier"
 
-#: includes/class-settings.php:172
+#: includes/class-settings.php:174
 msgid "Settings"
 msgstr "Configurações"
 
-#: includes/class-settings.php:208
+#: includes/class-settings.php:210
 msgid "New members"
 msgstr "Novos membros"
 
-#: includes/class-settings.php:269
+#: includes/class-settings.php:281
 msgid "Create new members as pending"
 msgstr "Criar novos membros como pendentes"
 
-#: includes/class-settings.php:270
+#: includes/class-settings.php:282
 msgid "When on, an application creates a pending member who waits for approval. When off, it creates the member already approved."
 msgstr "Quando ligado, uma solicitação cria um membro pendente, que aguarda aprovação. Quando desligado, cria o membro já aprovado."
 
@@ -2388,43 +2388,43 @@ msgstr "Este CPF já está cadastrado."
 msgid "Atelier Club"
 msgstr "Atelier Club"
 
-#: includes/class-settings.php:193
+#: includes/class-settings.php:195
 msgid "Page"
 msgstr "Página"
 
-#: includes/class-settings.php:197
+#: includes/class-settings.php:199
 msgid "Atelier page"
 msgstr "Página do Atelier"
 
-#: includes/class-settings.php:241
+#: includes/class-settings.php:253
 msgid "— Select —"
 msgstr "— Selecione —"
 
-#: includes/class-settings.php:294
+#: includes/class-settings.php:319
 msgid "Create Atelier page"
 msgstr "Criar página do Atelier"
 
-#: includes/class-settings.php:295
+#: includes/class-settings.php:320
 msgid "Creates a page with the Atelier landing content and makes it the Atelier page."
 msgstr "Cria uma página com o conteúdo da landing do Atelier e a define como a página do Atelier."
 
-#: includes/class-settings.php:304
+#: includes/class-settings.php:329
 msgid "Sorry, you are not allowed to do that."
 msgstr "Você não tem permissão para fazer isso."
 
-#: includes/class-settings.php:310
+#: includes/class-settings.php:335
 msgid "Atelier page created."
 msgstr "Página do Atelier criada."
 
-#: includes/class-settings.php:312
+#: includes/class-settings.php:337
 msgid "Could not create the Atelier page."
 msgstr "Não foi possível criar a página do Atelier."
 
-#: includes/class-settings.php:257
+#: includes/class-settings.php:269
 msgid "The page of the Atelier landing: its slug can change. With a block theme, use the Atelier Club template on it. Empty, no page is the Atelier page."
 msgstr "A página da landing do Atelier: o slug dela pode mudar. Com um tema de blocos, use nela o modelo Atelier Club. Vazio, nenhuma página é a do Atelier."
 
-#: includes/class-settings.php:95
+#: includes/class-settings.php:97
 msgid "Atelier Page"
 msgstr "Página Atelier"
 
@@ -3547,28 +3547,48 @@ msgid "Only a valid one is allowed, and it must be unique among members."
 msgstr "Permite apenas válido e precisa ser único entre os membros."
 
 #. translators: %s: user's display name.
-#: includes/class-member.php:141
+#: includes/class-member.php:225
 #, php-format
 msgid "Approve %s"
 msgstr "Aprovar %s"
 
-#: includes/class-member.php:142
-#: includes/class-member.php:155
+#: includes/class-member.php:226
+#: includes/class-member.php:239
 msgid "Approve"
 msgstr "Aprovar"
 
-#: includes/class-member.php:193
+#: includes/class-member.php:277
 msgid "Sorry, you are not allowed to edit this user."
 msgstr "Você não tem permissão para editar este usuário."
 
-#: includes/class-member.php:218
+#: includes/class-member.php:302
 msgid "Member approved."
 msgstr "Membro aprovado."
 
 #. translators: %d: number of members approved.
-#: includes/class-member.php:220
+#: includes/class-member.php:304
 #, php-format
 msgid "%d member approved."
 msgid_plural "%d members approved."
 msgstr[0] "%d membro aprovado."
 msgstr[1] "%d membros aprovados."
+
+#: includes/class-member.php:127
+msgid "Your membership application is under review. You will be told once it is approved."
+msgstr "Sua solicitação de adesão está em análise. Você será avisado quando for aprovada."
+
+#: includes/class-member.php:129
+msgid "Members' access to the dashboard is turned off."
+msgstr "O acesso dos membros ao painel está desativado."
+
+#: includes/class-settings.php:219
+msgid "Dashboard access"
+msgstr "Acesso ao painel"
+
+#: includes/class-settings.php:294
+msgid "Allow members to log in"
+msgstr "Permitir que membros entrem no painel"
+
+#: includes/class-settings.php:295
+msgid "Approved members can log in and reset their password. Pending members never can."
+msgstr "Membros aprovados podem entrar e redefinir a senha. Membros pendentes nunca."
