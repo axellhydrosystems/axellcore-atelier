@@ -292,7 +292,9 @@ final class Notifications {
 	 * @return bool
 	 */
 	public static function enabled( $key ) {
-		return (bool) Settings::get( self::setting( $key, 'enabled' ) );
+		// On by default: only an e-mail turned off in Settings stays unsent.
+		$value = Settings::get( self::setting( $key, 'enabled' ) );
+		return null === $value ? true : (bool) $value;
 	}
 
 	/**

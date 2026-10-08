@@ -628,7 +628,7 @@ final class Settings {
 	 * The E-mails tab: the e-mails, as WooCommerce lists its own.
 	 */
 	private function render_email_list() {
-		printf( '<p>%s</p>', esc_html__( 'E-mails sent by the Atelier. Each one is off until turned on; manage one to edit its subject, heading and text.', 'axellcore-atelierclub' ) );
+		printf( '<p>%s</p>', esc_html__( 'E-mails sent by the Atelier. Each one is on until turned off; manage one to edit its subject, heading and text.', 'axellcore-atelierclub' ) );
 		echo '<table class="widefat striped aa-emails"><thead><tr>';
 		printf(
 			'<th scope="col">%1$s</th><th scope="col">%2$s</th><th scope="col">%3$s</th><th scope="col"><span class="screen-reader-text">%4$s</span></th>',

@@ -89,9 +89,14 @@ final class NotificationsTest extends TestCase {
 		return $user;
 	}
 
+	/**
+	 * Only these e-mails on (all are on by default).
+	 *
+	 * @param string ...$keys E-mails.
+	 */
 	private function enable( string ...$keys ): void {
-		foreach ( $keys as $key ) {
-			$this->settings[ 'email_' . $key . '_enabled' ] = true;
+		foreach ( array_keys( Notifications::EMAILS ) as $key ) {
+			$this->settings[ 'email_' . $key . '_enabled' ] = in_array( $key, $keys, true );
 		}
 	}
 
@@ -137,10 +142,14 @@ final class NotificationsTest extends TestCase {
 		$this->assertCount( 1, $this->sent, 'The team e-mail is off.' );
 		$this->assertSame( 'Welcome to Atelier Axell, Ana', $this->sent[0][1] );
 
-		$this->settings = array();
+		$this->enable();
 		Notifications::instance()->member_created( 6 );
 		Notifications::instance()->member_approved( 6 );
 		$this->assertCount( 1, $this->sent, 'All off: nothing more.' );
+
+		$this->settings = array();
+		Notifications::instance()->member_approved( 6 );
+		$this->assertCount( 2, $this->sent, 'Nothing saved: on by default.' );
 	}
 
 	public function test_atelier_name_by_default_or_as_saved(): void {
