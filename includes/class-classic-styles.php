@@ -164,6 +164,8 @@ final class Classic_Styles {
 				// Post Content has none.
 				. '.is-root-container.has-global-padding{padding-left:0;padding-right:0}'
 				. '.is-root-container.has-global-padding>.alignfull{margin-left:0;margin-right:0}'
+				// Nor the room the editor adds below the last block.
+				. ':root :where(.editor-styles-wrapper)::after{height:0}'
 				// The text rendering the page gets from Design_Tokens.
 				. Design_Tokens::TEXT_RENDERING_CSS,
 			'__unstableType' => 'theme',

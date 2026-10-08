@@ -70,7 +70,7 @@ final class Admin_Notices {
 		}
 		$keep = array(
 			wp_normalize_path( ABSPATH . 'wp-admin/' ),
-			wp_normalize_path( ABSPATH . WPINC . '/' ),
+			wp_normalize_path( ABSPATH . 'wp-includes/' ),
 			wp_normalize_path( AXELLCORE_ATELIERCLUB_PATH ),
 		);
 		foreach ( self::HOOKS as $hook ) {
