@@ -185,33 +185,55 @@ final class Members {
 	public function create_from_params( array $params ) {
 		foreach ( self::REQUIRED_FIELDS as $field ) {
 			if ( empty( $params[ $field ] ) ) {
-				return new \WP_Error(
+				return self::field_error(
 					'aa_missing_field',
 					/* translators: %s: form field name. */
 					sprintf( __( 'Missing required field: %s', 'axellcore-atelierclub' ), $field ),
-					array( 'status' => 400 )
+					$field
 				);
 			}
 		}
 
 		$email = sanitize_email( $params['email'] );
 		if ( '' === $email || ! is_email( $email ) ) {
-			return new \WP_Error( 'aa_invalid_email', __( 'Invalid email address.', 'axellcore-atelierclub' ), array( 'status' => 400 ) );
+			return self::field_error( 'aa_invalid_email', __( 'Invalid email address.', 'axellcore-atelierclub' ), 'email' );
 		}
 
-		$location = self::location( (string) ( $params['country'] ?? 'BR' ), (string) $params['state'], (string) $params['city'] );
+		$country  = strtoupper( trim( (string) ( $params['country'] ?? '' ) ) );
+		$location = self::location( '' !== $country ? $country : 'BR', (string) $params['state'], (string) $params['city'] );
 		if ( is_wp_error( $location ) ) {
 			return $location;
 		}
 		list( $uf, $city ) = $location;
 
-		if ( email_exists( $email ) ) {
-			return new \WP_Error( 'aa_email_exists', __( 'This e-mail is already registered.', 'axellcore-atelierclub' ), array( 'status' => 409 ) );
+		if ( '' === $country || 'BR' === $country ) {
+			// The rules of the form's masks (form-address/view.ts): a mobile
+			// has 9 after the area code, a landline starts with 2 to 5.
+			if ( ! preg_match( '/^\d{2}(9\d{8}|[2-5]\d{7})$/', self::digits( (string) $params['phone'] ) ) ) {
+				return self::field_error( 'aa_invalid_phone', __( 'Enter a phone number with area code.', 'axellcore-atelierclub' ), 'phone' );
+			}
+			if ( ! preg_match( '/^\d{8}$/', self::digits( (string) $params['postal'] ) ) ) {
+				return self::field_error( 'aa_invalid_postal', __( 'Enter a CEP with 8 digits.', 'axellcore-atelierclub' ), 'postal' );
+			}
 		}
 
-		$document = self::digits( (string) $params['br_revenue_id'] );
-		if ( '' === $document || self::document_exists( $document ) ) {
-			return new \WP_Error( 'aa_document_exists', __( 'This CPF/CNPJ is already registered.', 'axellcore-atelierclub' ), array( 'status' => 409 ) );
+		$document = Document::normalize( (string) $params['br_revenue_id'] );
+		if ( ! Document::is_valid( $document, Document::type_of( (string) $params['profile_type'] ) ) ) {
+			return self::field_error( 'aa_invalid_document', __( 'Invalid CPF/CNPJ.', 'axellcore-atelierclub' ), 'br_revenue_id' );
+		}
+
+		foreach ( self::RESELLER_FIELDS as $field ) {
+			$id = absint( $params[ $field ] ?? 0 );
+			if ( $id && ( Resellers::POST_TYPE !== get_post_type( $id ) || 'publish' !== get_post_status( $id ) ) ) {
+				return self::field_error( 'aa_invalid_reseller', __( 'Choose a reseller from the list.', 'axellcore-atelierclub' ), $field . '_title' );
+			}
+		}
+
+		if ( email_exists( $email ) ) {
+			return self::field_error( 'aa_email_exists', __( 'This e-mail is already registered.', 'axellcore-atelierclub' ), 'email', 409 );
+		}
+		if ( self::document_exists( $document ) ) {
+			return self::field_error( 'aa_document_exists', __( 'This CPF/CNPJ is already registered.', 'axellcore-atelierclub' ), 'br_revenue_id', 409 );
 		}
 
 		$fullname = sanitize_text_field( $params['fullname'] );
@@ -281,7 +303,7 @@ final class Members {
 		$country = strtoupper( trim( sanitize_text_field( $country ) ) );
 		$state   = trim( sanitize_text_field( $state ) );
 		$city    = trim( sanitize_text_field( $city ) );
-		$invalid = new \WP_Error( 'aa_invalid_location', __( 'Invalid state/city.', 'axellcore-atelierclub' ), array( 'status' => 400 ) );
+		$invalid = self::field_error( 'aa_invalid_location', __( 'Invalid state/city.', 'axellcore-atelierclub' ), 'city' );
 
 		if ( mb_strlen( $state ) < 2 || '' === $city ) {
 			return $invalid;
@@ -308,19 +330,9 @@ final class Members {
 	}
 
 	/**
-	 * Only the digits of a value (CPF/CNPJ are stored and compared this way).
-	 *
-	 * @param string $value Value.
-	 * @return string
-	 */
-	public static function digits( $value ) {
-		return (string) preg_replace( '/\D+/', '', $value );
-	}
-
-	/**
 	 * Whether a member user already has this CPF/CNPJ.
 	 *
-	 * @param string $document CPF/CNPJ digits.
+	 * @param string $document Normalized CPF/CNPJ (Document::normalize()).
 	 * @param int    $exclude  User ID to ignore (the one being edited).
 	 * @return bool
 	 */
@@ -416,6 +428,58 @@ final class Members {
 	 */
 	public static function client_ip() {
 		return isset( $_SERVER['REMOTE_ADDR'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) : '';
+	}
+
+	/**
+	 * Only the digits of a value (phone, CEP).
+	 *
+	 * @param string $value Value.
+	 * @return string
+	 */
+	public static function digits( $value ) {
+		return (string) preg_replace( '/\D+/', '', $value );
+	}
+
+	/**
+	 * A validation error that names the field it is about, so the form can
+	 * mark it (with JavaScript) or show it (without, see Form_Block).
+	 *
+	 * @param string $code    Error code.
+	 * @param string $message Message for the visitor.
+	 * @param string $field   Form field name.
+	 * @param int    $status  HTTP status.
+	 * @return \WP_Error
+	 */
+	public static function field_error( $code, $message, $field, $status = 400 ) {
+		return new \WP_Error(
+			$code,
+			$message,
+			array(
+				'status' => $status,
+				'field'  => $field,
+			)
+		);
+	}
+
+	/**
+	 * Codes of the errors a visitor can fix, whose message is shown after a
+	 * no-JavaScript submission (any other error shows the form's own text).
+	 *
+	 * @return array<string,string> Code => message.
+	 */
+	public static function visitor_messages() {
+		return array(
+			'aa_missing_field'    => __( 'Fill in the required fields.', 'axellcore-atelierclub' ),
+			'aa_invalid_email'    => __( 'Invalid email address.', 'axellcore-atelierclub' ),
+			'aa_invalid_location' => __( 'Invalid state/city.', 'axellcore-atelierclub' ),
+			'aa_invalid_phone'    => __( 'Enter a phone number with area code.', 'axellcore-atelierclub' ),
+			'aa_invalid_postal'   => __( 'Enter a CEP with 8 digits.', 'axellcore-atelierclub' ),
+			'aa_invalid_document' => __( 'Invalid CPF/CNPJ.', 'axellcore-atelierclub' ),
+			'aa_invalid_reseller' => __( 'Choose a reseller from the list.', 'axellcore-atelierclub' ),
+			'aa_email_exists'     => __( 'This e-mail is already registered.', 'axellcore-atelierclub' ),
+			'aa_document_exists'  => __( 'This CPF/CNPJ is already registered.', 'axellcore-atelierclub' ),
+			'aa_rate_limited'     => __( 'Too many attempts. Try again in a few minutes.', 'axellcore-atelierclub' ),
+		);
 	}
 
 	/**

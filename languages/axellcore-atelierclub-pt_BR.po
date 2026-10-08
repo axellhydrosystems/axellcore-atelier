@@ -488,15 +488,17 @@ msgstr "Campo obrigatório ausente: %s"
 
 #: includes/class-admin-rest.php:248
 #: includes/class-members.php:199
+#: includes/class-members.php:473
 #: includes/class-resellers-rest.php:374
 msgid "Invalid email address."
 msgstr "Endereço de e-mail inválido."
 
-#: includes/class-members.php:284
+#: includes/class-members.php:306
+#: includes/class-members.php:474
 msgid "Invalid state/city."
 msgstr "Estado/cidade inválido."
 
-#: includes/class-members.php:231
+#: includes/class-members.php:253
 msgid "Could not save your application."
 msgstr "Não foi possível salvar seu cadastro."
 
@@ -912,7 +914,7 @@ msgstr "Houve um erro ao enviar seu formulário."
 msgid "Name cannot be empty."
 msgstr "O nome não pode ficar vazio."
 
-#: includes/class-admin-rest.php:316
+#: includes/class-admin-rest.php:320
 msgid "Member not found."
 msgstr "Membro não encontrado."
 
@@ -928,7 +930,7 @@ msgstr "Bronze ao passar o mouse"
 msgid "Ivory"
 msgstr "Marfim"
 
-#: includes/class-form-block.php:153
+#: includes/class-form-block.php:218
 #: build/form/form/index.js:1
 msgid "Leave this field empty"
 msgstr "Deixe este campo vazio"
@@ -941,7 +943,9 @@ msgstr "Formulário não encontrado."
 msgid "Arrow"
 msgstr "Seta"
 
-#: includes/class-members.php:402
+#: includes/class-members.php:414
+#: includes/class-members.php:481
+#: includes/class-rest.php:183
 msgid "Too many attempts. Try again in a few minutes."
 msgstr "Muitas tentativas. Tente novamente em alguns minutos."
 
@@ -1421,16 +1425,19 @@ msgid "Channels"
 msgstr "Canais"
 
 #: includes/class-admin-rest.php:252
-#: includes/class-members.php:209
+#: includes/class-members.php:233
+#: includes/class-members.php:479
 msgid "This e-mail is already registered."
 msgstr "Este e-mail já está cadastrado."
 
-#: includes/class-admin-rest.php:269
-#: includes/class-members.php:214
+#: includes/class-admin-rest.php:273
+#: includes/class-form-block.php:111
+#: includes/class-members.php:236
+#: includes/class-members.php:480
 msgid "This CPF/CNPJ is already registered."
 msgstr "Este CPF/CNPJ já está cadastrado."
 
-#: includes/class-admin-rest.php:297
+#: includes/class-admin-rest.php:301
 #: includes/class-resellers-rest.php:321
 msgid "Invalid status."
 msgstr "Status inválido."
@@ -1497,12 +1504,12 @@ msgid "Member (user)"
 msgstr "Membro (usuário)"
 
 #. translators: %s: date and time of the submission.
-#: includes/class-form-submission.php:289
+#: includes/class-form-submission.php:298
 #, php-format
 msgid "Form submission %s"
 msgstr "Envio de formulário %s"
 
-#: includes/class-form-submission.php:336
+#: includes/class-form-submission.php:345
 msgid "New form submission"
 msgstr "Novo envio de formulário"
 
@@ -2374,3 +2381,36 @@ msgstr "Criar novos membros como pendentes"
 #: includes/class-settings.php:150
 msgid "When on, an application creates a pending member who waits for approval. When off, it creates the member already approved."
 msgstr "Quando ligado, uma solicitação cria um membro pendente, que aguarda aprovação. Quando desligado, cria o membro já aprovado."
+
+#: includes/class-admin-rest.php:270
+#: includes/class-members.php:222
+#: includes/class-members.php:477
+msgid "Invalid CPF/CNPJ."
+msgstr "CPF/CNPJ inválido."
+
+#: includes/class-form-block.php:109
+msgid "Invalid CPF."
+msgstr "CPF inválido."
+
+#: includes/class-form-block.php:110
+msgid "Invalid CNPJ."
+msgstr "CNPJ inválido."
+
+#: includes/class-members.php:213
+#: includes/class-members.php:475
+msgid "Enter a phone number with area code."
+msgstr "Informe um telefone com DDD."
+
+#: includes/class-members.php:216
+#: includes/class-members.php:476
+msgid "Enter a CEP with 8 digits."
+msgstr "Informe um CEP com 8 dígitos."
+
+#: includes/class-members.php:228
+#: includes/class-members.php:478
+msgid "Choose a reseller from the list."
+msgstr "Escolha uma revenda da lista."
+
+#: includes/class-members.php:472
+msgid "Fill in the required fields."
+msgstr "Preencha os campos obrigatórios."

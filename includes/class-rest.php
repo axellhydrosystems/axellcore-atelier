@@ -81,6 +81,30 @@ final class Rest {
 
 		register_rest_route(
 			self::NAMESPACE,
+			'/document',
+			array(
+				'methods'             => 'GET',
+				'callback'            => array( $this, 'check_document' ),
+				// Public: the application form checks its CPF/CNPJ field. It
+				// answers only valid/exists, and is rate limited per address.
+				'permission_callback' => '__return_true',
+				'args'                => array(
+					'value' => array(
+						'required'          => true,
+						'type'              => 'string',
+						'sanitize_callback' => 'sanitize_text_field',
+					),
+					'type'  => array(
+						'type'              => 'string',
+						'default'           => '',
+						'sanitize_callback' => 'sanitize_text_field',
+					),
+				),
+			)
+		);
+
+		register_rest_route(
+			self::NAMESPACE,
 			'/submit',
 			array(
 				'methods'             => 'POST',
@@ -132,6 +156,42 @@ final class Rest {
 		);
 
 		return rest_ensure_response( $items );
+	}
+
+	/**
+	 * Checks of /document per address in DOCUMENT_WINDOW seconds.
+	 */
+	const DOCUMENT_LIMIT = 30;
+
+	/**
+	 * Window of the /document limit, in seconds.
+	 */
+	const DOCUMENT_WINDOW = 600;
+
+	/**
+	 * GET /document?value=…&type=… — whether a CPF/CNPJ is valid (check
+	 * digits, and of the type when given: cpf/individual or
+	 * cnpj/legal_entity) and, when valid, already registered.
+	 *
+	 * @param \WP_REST_Request $request Request.
+	 * @return \WP_REST_Response|\WP_Error
+	 */
+	public function check_document( \WP_REST_Request $request ) {
+		$key   = 'axell_document_' . md5( Members::client_ip() );
+		$count = (int) get_transient( $key );
+		if ( $count >= self::DOCUMENT_LIMIT ) {
+			return new \WP_Error( 'aa_rate_limited', __( 'Too many attempts. Try again in a few minutes.', 'axellcore-atelierclub' ), array( 'status' => 429 ) );
+		}
+		set_transient( $key, $count + 1, self::DOCUMENT_WINDOW );
+
+		$document = Document::normalize( (string) $request->get_param( 'value' ) );
+		$valid    = Document::is_valid( $document, Document::type_of( (string) $request->get_param( 'type' ) ) );
+		return rest_ensure_response(
+			array(
+				'valid'  => $valid,
+				'exists' => $valid && Members::document_exists( $document ),
+			)
+		);
 	}
 
 	/**

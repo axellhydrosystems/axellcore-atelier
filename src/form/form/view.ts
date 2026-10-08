@@ -4,7 +4,31 @@ type FormStatus = 'idle' | 'submitting' | 'success' | 'error';
 
 interface FormContext {
 	status: FormStatus;
+	/** Message of the last error a visitor can fix (also set by the server after a no-JS submission). */
+	errorDetail: string;
 }
+
+/** Body of a WP_Error response: Members::field_error() names the field. */
+interface ServerError {
+	message?: string;
+	data?: { field?: string };
+}
+
+/**
+ * The control a visitor edits for a field name: not a hidden input, not
+ * hidden or disabled (e.g. the city list or the typed city, whichever shows).
+ * @param form
+ * @param name
+ */
+const controlOf = (
+	form: HTMLFormElement,
+	name: string
+): HTMLInputElement | undefined =>
+	Array.from(
+		form.querySelectorAll< HTMLInputElement >(
+			`[name="${ CSS.escape( name ) }"]`
+		)
+	).find( ( el ) => el.type !== 'hidden' && ! el.hidden && ! el.disabled );
 
 /**
  * restUrl is provided by includes/class-form-block.php (wp_interactivity_state).
@@ -37,6 +61,7 @@ const { state } = store( 'axell/form', {
 			}
 
 			context.status = 'submitting';
+			context.errorDetail = '';
 
 			const body = Object.fromEntries( new FormData( form ).entries() );
 
@@ -48,6 +73,26 @@ const { state } = store( 'axell/form', {
 				} ) ) as Response;
 
 				if ( ! response.ok ) {
+					const error =
+						( ( yield response
+							.json()
+							.catch( () => ( {} ) ) ) as ServerError ) || {};
+					const control = error.data?.field
+						? controlOf( form, error.data.field )
+						: undefined;
+					if ( control && error.message ) {
+						// A field the visitor can fix: report it there, as the browser does.
+						context.status = 'idle';
+						control.setCustomValidity( error.message );
+						control.addEventListener(
+							'input',
+							() => control.setCustomValidity( '' ),
+							{ once: true }
+						);
+						control.reportValidity();
+						return;
+					}
+					context.errorDetail = error.message || '';
 					throw new Error( response.statusText );
 				}
 

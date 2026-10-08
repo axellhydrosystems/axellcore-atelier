@@ -159,7 +159,16 @@ final class Form_Submission {
 			$back = home_url( '/' );
 		}
 
-		wp_safe_redirect( add_query_arg( 'axell-form', $status, $back ) );
+		$args = array( 'axell-form' => $status );
+		if ( is_wp_error( $result ) && isset( Members::visitor_messages()[ $result->get_error_code() ] ) ) {
+			// The form shows this error's message and marks its field (Form_Block).
+			$data                    = $result->get_error_data();
+			$args['axell-form-code'] = $result->get_error_code();
+			if ( is_array( $data ) && ! empty( $data['field'] ) ) {
+				$args['axell-form-field'] = $data['field'];
+			}
+		}
+		wp_safe_redirect( add_query_arg( $args, remove_query_arg( array( 'axell-form', 'axell-form-code', 'axell-form-field' ), $back ) ) );
 		exit;
 	}
 

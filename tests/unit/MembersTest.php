@@ -42,7 +42,7 @@ final class MembersTest extends TestCase {
 
 		$this->assertInstanceOf( \WP_Error::class, $result );
 		$this->assertSame( 'aa_missing_field', $result->get_error_code() );
-		$this->assertSame( array( 'status' => 400 ), $result->get_error_data() );
+		$this->assertSame( array( 'status' => 400, 'field' => 'fullname' ), $result->get_error_data() );
 	}
 
 	public function test_invalid_email_returns_400(): void {
@@ -102,6 +102,8 @@ final class MembersTest extends TestCase {
 		$params['state']         = 'SP';
 		$params['city']          = 'Campinas';
 		$params['br_revenue_id'] = '529.982.247-25';
+		$params['phone']         = '(11) 98765-4321';
+		$params['postal']        = '01001-000';
 		return $params;
 	}
 
@@ -128,7 +130,68 @@ final class MembersTest extends TestCase {
 		$result = Members::instance()->create_from_params( $this->valid_params() );
 
 		$this->assertSame( 'aa_email_exists', $result->get_error_code() );
-		$this->assertSame( array( 'status' => 409 ), $result->get_error_data() );
+		$this->assertSame( array( 'status' => 409, 'field' => 'email' ), $result->get_error_data() );
+	}
+
+	public function test_brazilian_phone_must_be_a_mobile_or_landline_with_area_code(): void {
+		$this->stub_validation();
+		foreach ( array( '(11) 8765-4321' => true, '(11) 3456-7890' => false, '(11) 98765-432' => true, '(11) 98765-4321' => false ) as $phone => $rejected ) {
+			$params          = $this->valid_params();
+			$params['phone'] = $phone;
+			Functions\when( 'email_exists' )->justReturn( 7 );
+
+			$result = Members::instance()->create_from_params( $params );
+
+			$this->assertSame( $rejected ? 'aa_invalid_phone' : 'aa_email_exists', $result->get_error_code(), $phone );
+		}
+	}
+
+	public function test_brazilian_cep_must_have_8_digits(): void {
+		$this->stub_validation();
+		$params           = $this->valid_params();
+		$params['postal'] = '01001-00';
+
+		$result = Members::instance()->create_from_params( $params );
+
+		$this->assertSame( 'aa_invalid_postal', $result->get_error_code() );
+		$this->assertSame( 'postal', $result->get_error_data()['field'] );
+	}
+
+	public function test_reseller_must_be_a_published_revenda(): void {
+		$this->stub_validation();
+		Functions\when( 'absint' )->alias( 'intval' );
+		Functions\when( 'get_post_type' )->justReturn( 'page' );
+		Functions\when( 'get_post_status' )->justReturn( 'publish' );
+		$params              = $this->valid_params();
+		$params['reseller2'] = '2625';
+
+		$result = Members::instance()->create_from_params( $params );
+
+		$this->assertSame( 'aa_invalid_reseller', $result->get_error_code() );
+		$this->assertSame( 'reseller2_title', $result->get_error_data()['field'] );
+	}
+
+	public function test_invalid_document_is_rejected_with_400(): void {
+		$this->stub_validation();
+		Functions\when( 'email_exists' )->justReturn( false );
+		$params                  = $this->valid_params();
+		$params['br_revenue_id'] = '529.982.247-24';
+
+		$result = Members::instance()->create_from_params( $params );
+
+		$this->assertSame( 'aa_invalid_document', $result->get_error_code() );
+		$this->assertSame( 400, $result->get_error_data()['status'] );
+	}
+
+	public function test_document_of_the_other_profile_type_is_rejected(): void {
+		$this->stub_validation();
+		Functions\when( 'email_exists' )->justReturn( false );
+		$params                 = $this->valid_params();
+		$params['profile_type'] = 'legal_entity';
+
+		$result = Members::instance()->create_from_params( $params );
+
+		$this->assertSame( 'aa_invalid_document', $result->get_error_code() );
 	}
 
 	public function test_registered_document_is_rejected_with_409(): void {
@@ -144,7 +207,7 @@ final class MembersTest extends TestCase {
 		$result = Members::instance()->create_from_params( $this->valid_params() );
 
 		$this->assertSame( 'aa_document_exists', $result->get_error_code() );
-		$this->assertSame( array( 'status' => 409 ), $result->get_error_data() );
+		$this->assertSame( array( 'status' => 409, 'field' => 'br_revenue_id' ), $result->get_error_data() );
 	}
 
 	public function test_application_creates_a_pending_member_user_with_meta(): void {

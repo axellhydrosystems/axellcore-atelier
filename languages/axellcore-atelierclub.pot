@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-08T06:19:16+00:00\n"
+"POT-Creation-Date: 2026-10-08T06:28:59+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: axellcore-atelierclub\n"
@@ -53,26 +53,36 @@ msgstr ""
 
 #: includes/class-admin-rest.php:248
 #: includes/class-members.php:199
+#: includes/class-members.php:473
 #: includes/class-resellers-rest.php:374
 msgid "Invalid email address."
 msgstr ""
 
 #: includes/class-admin-rest.php:252
-#: includes/class-members.php:209
+#: includes/class-members.php:233
+#: includes/class-members.php:479
 msgid "This e-mail is already registered."
 msgstr ""
 
-#: includes/class-admin-rest.php:269
-#: includes/class-members.php:214
+#: includes/class-admin-rest.php:270
+#: includes/class-members.php:222
+#: includes/class-members.php:477
+msgid "Invalid CPF/CNPJ."
+msgstr ""
+
+#: includes/class-admin-rest.php:273
+#: includes/class-form-block.php:111
+#: includes/class-members.php:236
+#: includes/class-members.php:480
 msgid "This CPF/CNPJ is already registered."
 msgstr ""
 
-#: includes/class-admin-rest.php:297
+#: includes/class-admin-rest.php:301
 #: includes/class-resellers-rest.php:321
 msgid "Invalid status."
 msgstr ""
 
-#: includes/class-admin-rest.php:316
+#: includes/class-admin-rest.php:320
 msgid "Member not found."
 msgstr ""
 
@@ -149,7 +159,15 @@ msgstr ""
 msgid "Footer"
 msgstr ""
 
-#: includes/class-form-block.php:153
+#: includes/class-form-block.php:109
+msgid "Invalid CPF."
+msgstr ""
+
+#: includes/class-form-block.php:110
+msgid "Invalid CNPJ."
+msgstr ""
+
+#: includes/class-form-block.php:218
 #: build/form/form/index.js:1
 msgid "Leave this field empty"
 msgstr ""
@@ -202,12 +220,12 @@ msgid "Form not found."
 msgstr ""
 
 #. translators: %s: date and time of the submission.
-#: includes/class-form-submission.php:289
+#: includes/class-form-submission.php:298
 #, php-format
 msgid "Form submission %s"
 msgstr ""
 
-#: includes/class-form-submission.php:336
+#: includes/class-form-submission.php:345
 msgid "New form submission"
 msgstr ""
 
@@ -521,16 +539,38 @@ msgstr ""
 msgid "Missing required field: %s"
 msgstr ""
 
-#: includes/class-members.php:231
+#: includes/class-members.php:213
+#: includes/class-members.php:475
+msgid "Enter a phone number with area code."
+msgstr ""
+
+#: includes/class-members.php:216
+#: includes/class-members.php:476
+msgid "Enter a CEP with 8 digits."
+msgstr ""
+
+#: includes/class-members.php:228
+#: includes/class-members.php:478
+msgid "Choose a reseller from the list."
+msgstr ""
+
+#: includes/class-members.php:253
 msgid "Could not save your application."
 msgstr ""
 
-#: includes/class-members.php:284
+#: includes/class-members.php:306
+#: includes/class-members.php:474
 msgid "Invalid state/city."
 msgstr ""
 
-#: includes/class-members.php:402
+#: includes/class-members.php:414
+#: includes/class-members.php:481
+#: includes/class-rest.php:183
 msgid "Too many attempts. Try again in a few minutes."
+msgstr ""
+
+#: includes/class-members.php:472
+msgid "Fill in the required fields."
 msgstr ""
 
 #: includes/class-resellers-admin.php:100

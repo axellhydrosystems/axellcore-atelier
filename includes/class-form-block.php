@@ -80,7 +80,15 @@ final class Form_Block {
 		$processor->set_attribute( 'method', 'post' );
 		$processor->set_attribute( 'action', admin_url( 'admin-post.php' ) );
 		$processor->set_attribute( 'data-wp-interactive', self::STORE );
-		$processor->set_attribute( 'data-wp-context', (string) wp_json_encode( array( 'status' => self::result_from_query() ) ) );
+		$processor->set_attribute(
+			'data-wp-context',
+			(string) wp_json_encode(
+				array(
+					'status'      => self::result_from_query(),
+					'errorDetail' => self::error_from_query()[0],
+				)
+			)
+		);
 		if ( null === $processor->get_attribute( 'data-wp-on--submit' ) ) {
 			$processor->set_attribute( 'data-wp-on--submit', 'actions.submit' );
 			$processor->set_attribute( 'novalidate', true );
@@ -90,6 +98,17 @@ final class Form_Block {
 			'axell/autocomplete',
 			array(
 				'optionsUrl' => rest_url( Rest::NAMESPACE . '/options' ),
+			)
+		);
+
+		// CPF/CNPJ field: uniqueness check and its messages, translated here.
+		wp_interactivity_state(
+			'axell/document',
+			array(
+				'documentUrl' => rest_url( Rest::NAMESPACE . '/document' ),
+				'invalidCpf'  => __( 'Invalid CPF.', 'axellcore-atelierclub' ),
+				'invalidCnpj' => __( 'Invalid CNPJ.', 'axellcore-atelierclub' ),
+				'registered'  => __( 'This CPF/CNPJ is already registered.', 'axellcore-atelierclub' ),
 			)
 		);
 
@@ -124,7 +143,53 @@ final class Form_Block {
 			)
 		);
 
-		return self::with_hidden_fields( $processor->get_updated_html(), $block );
+		return self::with_error( self::with_hidden_fields( $processor->get_updated_html(), $block ) );
+	}
+
+	/**
+	 * After a no-JavaScript submission with an error a visitor can fix: its
+	 * message in the error notice, and its field marked aria-invalid. With
+	 * JavaScript the store fills the same message (context.errorDetail).
+	 *
+	 * @param string $html Form HTML.
+	 * @return string
+	 */
+	private static function with_error( $html ) {
+		list( $detail, $field ) = self::error_from_query();
+
+		if ( '' !== $field ) {
+			$p = new \WP_HTML_Tag_Processor( $html );
+			while ( $p->next_tag() ) {
+				if ( in_array( $p->get_tag(), array( 'INPUT', 'SELECT', 'TEXTAREA' ), true ) && $field === $p->get_attribute( 'name' ) && 'hidden' !== $p->get_attribute( 'type' ) ) {
+					$p->set_attribute( 'aria-invalid', 'true' );
+				}
+			}
+			$html = $p->get_updated_html();
+		}
+
+		$paragraph = sprintf(
+			'<p class="axell-form-error-detail" data-wp-text="context.errorDetail" data-wp-bind--hidden="!context.errorDetail"%1$s>%2$s</p>',
+			'' === $detail ? ' hidden' : '',
+			esc_html( $detail )
+		);
+		return (string) preg_replace( '/(<[^>]*\bdata-axell-notice-type="error"[^>]*>)/', '$1' . str_replace( array( '\\', '$' ), array( '\\\\', '\\$' ), $paragraph ), $html, 1 );
+	}
+
+	/**
+	 * Message and field of the error in the query (Form_Submission), or ''.
+	 *
+	 * @return array{0:string,1:string}
+	 */
+	private static function error_from_query() {
+		// phpcs:disable WordPress.Security.NonceVerification.Recommended -- Only picks which message to show.
+		$code  = isset( $_GET['axell-form-code'] ) ? sanitize_key( wp_unslash( $_GET['axell-form-code'] ) ) : '';
+		$field = isset( $_GET['axell-form-field'] ) ? sanitize_key( wp_unslash( $_GET['axell-form-field'] ) ) : '';
+		// phpcs:enable WordPress.Security.NonceVerification.Recommended
+		$messages = Members::visitor_messages();
+		if ( 'error' !== self::result_from_query() || ! isset( $messages[ $code ] ) ) {
+			return array( '', '' );
+		}
+		return array( $messages[ $code ], $field );
 	}
 
 	/**
