@@ -99,7 +99,7 @@ final class Seo {
 		if ( ! $page instanceof \WP_Post || 'page' !== $page->post_type ) {
 			return null;
 		}
-		$landing = get_page_by_path( Activator::PAGE_SLUG, OBJECT, 'page' );
+		$landing = Settings::page();
 		if ( ! $landing instanceof \WP_Post ) {
 			return null;
 		}

@@ -35,6 +35,24 @@ final class WeglotTest extends TestCase {
 			}
 		);
 		Functions\when( 'home_url' )->justReturn( 'https://example.com/' );
+		$this->atelier_page( 'atelier' );
+	}
+
+	/**
+	 * The Atelier page chosen in the settings (ID 7) with this page URI, or none.
+	 *
+	 * @param string|null $uri Page URI, null for no page.
+	 */
+	private function atelier_page( ?string $uri ): void {
+		Functions\when( 'absint' )->alias( 'intval' );
+		Functions\when( 'get_option' )->justReturn( null === $uri ? array() : array( 'page_id' => 7 ) );
+		Functions\when( 'get_post' )->alias(
+			static function ( $id ) use ( $uri ) {
+				return null !== $uri && 7 === (int) $id ? new \WP_Post( array( 'ID' => 7 ) ) : null;
+			}
+		);
+		Functions\when( 'get_page_by_path' )->justReturn( null );
+		Functions\when( 'get_page_uri' )->justReturn( (string) $uri );
 	}
 
 	protected function tearDown(): void {
@@ -73,6 +91,24 @@ final class WeglotTest extends TestCase {
 
 		Functions\when( 'is_admin' )->justReturn( true );
 		$this->assertFalse( Weglot::instance()->cancel_init( false ) );
+	}
+
+	public function test_the_path_follows_the_page_slug(): void {
+		$this->atelier_page( 'clube-atelier' );
+
+		$_SERVER['REQUEST_URI'] = '/clube-atelier/';
+		$this->assertTrue( Weglot::instance()->cancel_init( false ) );
+		$_SERVER['REQUEST_URI'] = '/atelier/';
+		$this->assertFalse( Weglot::instance()->cancel_init( false ) );
+		$this->assertSame( '^/clube\\-atelier(/|$)', Weglot::instance()->exclude_urls( array() )[0][0] );
+	}
+
+	public function test_without_an_atelier_page_nothing_is_cancelled_or_excluded(): void {
+		$this->atelier_page( null );
+
+		$_SERVER['REQUEST_URI'] = '/atelier/';
+		$this->assertFalse( Weglot::instance()->cancel_init( false ) );
+		$this->assertSame( array(), Weglot::instance()->exclude_urls( array() ) );
 	}
 
 	public function test_exclude_urls_adds_atelier_without_the_switcher(): void {

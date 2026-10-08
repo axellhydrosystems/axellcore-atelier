@@ -18,10 +18,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 final class Classic_Template {
 
-	/**
-	 * Page slug the classic template applies to.
-	 */
-	const PAGE_SLUG = 'atelier';
 
 	/**
 	 * Singleton instance.
@@ -76,7 +72,8 @@ final class Classic_Template {
 	 * @return bool
 	 */
 	public static function is_active() {
-		return is_page( self::PAGE_SLUG ) && ! wp_is_block_theme();
+		$page = Settings::page();
+		return $page && ! wp_is_block_theme() && is_page( $page->ID );
 	}
 
 	/**

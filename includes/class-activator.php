@@ -23,7 +23,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 final class Activator {
 
 	/**
-	 * The page slug this plugin owns.
+	 * Slug of the page activation creates; Settings::page() finds the
+	 * Atelier page whatever its slug became.
 	 */
 	const PAGE_SLUG = 'atelier';
 
@@ -80,7 +81,7 @@ final class Activator {
 	}
 
 	/**
-	 * Pages under PAGE_SLUG, from content/pages.json: each entry has the
+	 * Pages under the Atelier page, from content/pages.json: each entry has the
 	 * page path below /atelier (e.g. "pure/adesao"), its title and its page
 	 * template. Content lives in content/pages/{path}.html. Parents come
 	 * before their children (bin/export-content.sh writes them that way).
@@ -110,13 +111,13 @@ final class Activator {
 	}
 
 	/**
-	 * Create one page under PAGE_SLUG if it doesn't already exist. Its parent
+	 * Create one page under the Atelier page if it doesn't already exist. Its parent
 	 * (the path without the last segment) must exist already.
 	 *
 	 * @param array{path:string,title:string,template:string} $page Page entry.
 	 */
 	private static function create_descendant( array $page ) {
-		$full = self::PAGE_SLUG . '/' . $page['path'];
+		$full = self::landing_path() . '/' . $page['path'];
 		if ( get_page_by_path( $full, OBJECT, 'page' ) instanceof \WP_Post ) {
 			return;
 		}
@@ -231,11 +232,11 @@ final class Activator {
 	/**
 	 * Write one page's content when it differs from its file.
 	 *
-	 * @param string $path    Page path below PAGE_SLUG.
+	 * @param string $path    Page path below the Atelier page.
 	 * @param string $content Block markup from content/pages/{path}.html.
 	 */
 	private static function sync_page( $path, $content ) {
-		$page = get_page_by_path( self::PAGE_SLUG . '/' . $path, OBJECT, 'page' );
+		$page = get_page_by_path( self::landing_path() . '/' . $path, OBJECT, 'page' );
 		if ( ! $page instanceof \WP_Post || '' === $content || $content === $page->post_content ) {
 			return;
 		}
@@ -253,7 +254,7 @@ final class Activator {
 	}
 
 	/**
-	 * Content file of a page below PAGE_SLUG.
+	 * Content file of a page below the Atelier page.
 	 *
 	 * @param string $path Page path (e.g. "pure/adesao").
 	 * @return string
@@ -263,13 +264,39 @@ final class Activator {
 	}
 
 	/**
-	 * Create the /atelier page if it doesn't already exist.
+	 * Path of the Atelier page (its slug can change, see Settings::page()),
+	 * which the pages under it are looked up by.
+	 *
+	 * @return string
+	 */
+	private static function landing_path() {
+		$page = Settings::page();
+		return $page ? get_page_uri( $page ) : self::PAGE_SLUG;
+	}
+
+	/**
+	 * Create the Atelier page if there is none yet, and remember it.
 	 */
 	private static function create_page() {
-		$existing = get_page_by_path( self::PAGE_SLUG, OBJECT, 'page' );
-		if ( $existing instanceof \WP_Post ) {
+		if ( Settings::page() ) {
 			return;
 		}
+		$page_id = self::create_landing();
+		if ( $page_id ) {
+			Settings::set_page_id( $page_id );
+		}
+	}
+
+	/**
+	 * A new page with the bundled landing (content/atelier-page.html) and the
+	 * Atelier Club template; its media and menus imported first (once). Used
+	 * on activation and by Atelier > Settings > Create Atelier page.
+	 *
+	 * @return int Page ID, or 0.
+	 */
+	public static function create_landing() {
+		self::import_media();
+		self::import_navigation();
 
 		$page_id = self::insert_trusted_content(
 			array(
@@ -282,12 +309,13 @@ final class Activator {
 		);
 
 		if ( is_wp_error( $page_id ) || ! $page_id ) {
-			return;
+			return 0;
 		}
 
 		// Bare slug, not the `plugin//slug` registration name — see
 		// Plugin::TEMPLATE_SLUG for why.
 		update_post_meta( $page_id, '_wp_page_template', Plugin::TEMPLATE_SLUG );
+		return (int) $page_id;
 	}
 
 	/**

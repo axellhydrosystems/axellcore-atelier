@@ -24,6 +24,7 @@ require_once __DIR__ . '/stubs/functions.php';
 // ── WordPress constants ───────────────────────────────────────────────────────
 
 defined( 'ABSPATH' ) || define( 'ABSPATH', sys_get_temp_dir() . '/wordpress/' );
+defined( 'OBJECT' ) || define( 'OBJECT', 'OBJECT' );
 define( 'AXELLCORE_ATELIERCLUB_VERSION', '0.0.0-test' );
 define( 'AXELLCORE_ATELIERCLUB_FILE', dirname( __DIR__ ) . '/axellcore-atelierclub.php' );
 define( 'AXELLCORE_ATELIERCLUB_PATH', dirname( __DIR__ ) . '/' );

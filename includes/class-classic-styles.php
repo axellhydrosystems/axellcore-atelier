@@ -171,7 +171,7 @@ final class Classic_Styles {
 	 * @return bool
 	 */
 	private static function is_atelier_post( $post ) {
-		return $post instanceof \WP_Post && 'page' === $post->post_type && Activator::PAGE_SLUG === $post->post_name && 0 === (int) $post->post_parent;
+		return Settings::is_page( $post );
 	}
 
 	/**

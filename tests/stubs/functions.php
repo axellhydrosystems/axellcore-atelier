@@ -124,3 +124,30 @@ if ( ! function_exists( 'is_wp_error' ) ) {
 		return $thing instanceof \WP_Error;
 	}
 }
+
+if ( ! class_exists( 'WP_Post' ) ) {
+	/**
+	 * Minimal WP_Post for tests that build posts by hand.
+	 */
+	final class WP_Post {
+		/** @var int */
+		public $ID = 0;
+		/** @var string */
+		public $post_type = 'page';
+		/** @var string */
+		public $post_status = 'publish';
+		/** @var string */
+		public $post_name = '';
+		/** @var int */
+		public $post_parent = 0;
+
+		/**
+		 * @param array<string,mixed> $fields Properties.
+		 */
+		public function __construct( array $fields = array() ) {
+			foreach ( $fields as $key => $value ) {
+				$this->$key = $value;
+			}
+		}
+	}
+}

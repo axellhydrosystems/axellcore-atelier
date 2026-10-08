@@ -18,6 +18,9 @@ final class AssetsTest extends TestCase {
 	protected function setUp(): void {
 		parent::setUp();
 		Monkey\setUp();
+		// No Atelier page chosen nor found (Classic_Template asks Settings).
+		Functions\when( 'get_option' )->justReturn( array() );
+		Functions\when( 'get_page_by_path' )->justReturn( null );
 	}
 
 	protected function tearDown(): void {
