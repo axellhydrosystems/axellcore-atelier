@@ -1,0 +1,152 @@
+/* Selects with a list (src/select/view.ts): the button takes the native
+   select's looks (copied on load) and the native select stays under it,
+   invisible but in place, so the browser's "fill in this field" points at
+   the button. The list: the city and address searches' look. */
+:where(.aa-select) {
+	position: relative;
+	min-width: 0;
+}
+
+.aa-select.is-ready > select {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	opacity: 0;
+	pointer-events: none;
+}
+
+.aa-select[hidden],
+.aa-select [hidden] {
+	display: none !important;
+}
+
+:where(.aa-select__toggle) {
+	display: flex;
+	align-items: center;
+	width: 100%;
+	text-align: start;
+	cursor: pointer;
+	appearance: none;
+
+	/* The native arrow: a small bold chevron at the end. */
+	&::after {
+		content: "";
+		flex: none;
+		width: 5px;
+		height: 5px;
+		margin-inline-start: auto;
+		margin-inline-end: -4px;
+		border-right: 1.5px solid currentColor;
+		border-bottom: 1.5px solid currentColor;
+		transform: translateY(-30%) rotate(45deg);
+	}
+
+	&[aria-expanded="true"]::after {
+		transform: translateY(25%) rotate(-135deg);
+	}
+
+	&:disabled {
+		cursor: default;
+		opacity: 0.6;
+	}
+}
+
+:where(.aa-select__value) {
+	flex: 1 1 auto;
+	min-width: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+
+	/* The text's place in a native select (Chrome indents it 4px). */
+	padding-inline-start: 4px;
+}
+
+/* As wide as the button at least, wider for long options (one line each),
+   never wider than the screen. */
+:where(.aa-select__popup) {
+	position: absolute;
+	top: 100%;
+	left: 0;
+	z-index: 10;
+	box-sizing: border-box;
+	width: max-content;
+	min-width: max(100%, 12rem);
+	max-width: min(32rem, calc(100vw - 2rem));
+	border: 1px solid var(--aa-listbox-border, color-mix(in srgb, currentColor 35%, transparent));
+	background: var(--aa-listbox-bg, Canvas);
+	color: var(--aa-listbox-color, CanvasText);
+	font: var(--aa-listbox-font, inherit);
+}
+
+/* The filter takes the form's text fields' classes and style (view.ts);
+   these are its place in the list and the look without them. */
+.aa-select__popup .aa-select__search {
+	display: block;
+	box-sizing: border-box;
+	width: calc(100% - 1rem);
+	margin: 0.25rem 0.5rem 0.5rem;
+	appearance: none;
+
+	&::-webkit-search-cancel-button {
+		appearance: none;
+	}
+}
+
+:where(.aa-select__search:not([class*="wp-block"])) {
+	padding: 0.4em 0.6em;
+	font: inherit;
+	color: inherit;
+	background: transparent;
+	border: 1px solid color-mix(in srgb, currentColor 35%, transparent);
+	border-radius: 2px;
+}
+
+:where(.aa-select__popup [role="listbox"]) {
+	max-height: 16em;
+	overflow-y: auto;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	outline: none;
+}
+
+:where(.aa-select__popup [role="option"]) {
+	padding: var(--aa-listbox-option-padding, 0.5em 0.75em);
+	cursor: pointer;
+
+	&[aria-selected="true"],
+
+	&:hover {
+		background: var(--aa-listbox-active-bg, color-mix(in srgb, currentColor 12%, transparent));
+		color: var(--aa-listbox-active-color, inherit);
+	}
+
+	&.is-current {
+		font-weight: 600;
+	}
+}
+
+/* The UF before the state's name: the text's color toward the list's
+   background, still 4.5:1 on it and on a highlighted option. */
+:where(.aa-select__code) {
+	color: color-mix(in srgb, currentColor 72%, var(--aa-listbox-bg, Canvas));
+}
+
+:where(.aa-select__none) {
+	padding: var(--aa-listbox-option-padding, 0.5em 0.75em);
+	opacity: 0.75;
+}
+
+/* In the custom store panel (name, UF, city): the UF's grid cell. */
+:where([data-wp-interactive="axell/autocomplete"] .aa-ac-custom > .aa-select) {
+	grid-column: span 2;
+}
+
+@media (width <= 30rem) {
+	:where([data-wp-interactive="axell/autocomplete"] .aa-ac-custom > .aa-select) {
+		grid-column: auto;
+	}
+}

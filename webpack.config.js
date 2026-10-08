@@ -26,11 +26,13 @@ const extraEntriesByConfig = [
 		'block-styles/frontend': src( 'block-styles/style.scss' ),
 		'admin/member-profile/index': src( 'admin/member-profile/style.scss' ),
 		'places/frontend': src( 'places/style.scss' ),
+		'select/frontend': src( 'select/style.scss' ),
 	},
 	{
 		'reveal/view': src( 'reveal/view.ts' ),
 		'admin/member-profile/view': src( 'admin/member-profile/view.ts' ),
 		'places/view': src( 'places/view.ts' ),
+		'select/view': src( 'select/view.ts' ),
 	},
 ];
 

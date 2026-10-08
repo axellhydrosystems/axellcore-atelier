@@ -815,7 +815,7 @@ final class Form_Directives {
 				// placed over the name's end by CSS): Tab from the name goes to the UF.
 				. '<div class="aa-ac-name"><button type="button" class="aa-ac-back" aria-label="%6$s" data-wp-on--click="actions.backToSearch">%7$s</button>'
 				. '<input type="text" id="%4$s-custom-store" data-field="name" aria-label="%5$s" placeholder="%5$s" autocomplete="off" data-wp-bind--value="context.customName" data-wp-on--input="actions.onCustomInput"/></div>'
-				. '<select id="%4$s-custom-uf" aria-label="%8$s" data-wp-bind--value="context.customUf" data-wp-on--change="actions.onCustomUf">%9$s</select>'
+				. '%14$s'
 				// The city: a combobox over the UF's cities, as the address city.
 				. '<div class="aa-ac-city" data-wp-on--focusout="actions.onCustomCityFocusOut">'
 				. '<input type="text" id="%4$s-custom-city" data-field="city" role="combobox" aria-label="%10$s" placeholder="%11$s" aria-autocomplete="list" aria-controls="%4$s-custom-cities" aria-expanded="false" autocomplete="%13$s" disabled data-wp-bind--disabled="!context.customUf" data-wp-bind--placeholder="context.cityHint" data-wp-bind--value="context.cityQuery" data-wp-bind--aria-expanded="context.cityOpen" data-wp-on--input="actions.onCustomCitySearch" data-wp-on--keydown="actions.onCustomCityKeydown"/>'
@@ -839,7 +839,21 @@ final class Form_Directives {
 			esc_attr__( 'City', 'axellcore-atelierclub' ),
 			esc_html__( 'Select state', 'axellcore-atelierclub' ),
 			esc_attr( $list_id ),
-			esc_attr( self::NO_AUTOFILL )
+			esc_attr( self::NO_AUTOFILL ),
+			// The UF: a list with a filter, "SP · São Paulo" (Enhanced_Select).
+			Enhanced_Select::wrap(
+				sprintf(
+					'<select id="%1$s-custom-uf" aria-label="%2$s" data-wp-bind--value="context.customUf" data-wp-on--change="actions.onCustomUf">%3$s</select>',
+					esc_attr( $name ),
+					esc_attr__( 'State code', 'axellcore-atelierclub' ),
+					$uf_options
+				),
+				array(
+					'search' => true,
+					'kind'   => 'uf',
+				),
+				'axell/autocomplete'
+			)
 		);
 	}
 
