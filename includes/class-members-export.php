@@ -429,7 +429,7 @@ final class Members_Export {
 		$values['phone']         = Format::phone( $values['phone'] );
 		$values['postal']        = Format::postcode( $values['postal'] );
 		$values['resellers']     = self::join_values(
-			array_map( static fn( $field ) => $meta( $field . '_title' ), Members::RESELLER_FIELDS )
+			array_map( array( Members::class, 'reseller_title' ), Members::reseller_ids( $user->ID ) )
 		);
 
 		$row = array();

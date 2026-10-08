@@ -9,6 +9,7 @@ namespace Axellcore_Atelierclub\Tests;
 
 use Axellcore_Atelierclub\Members;
 use Brain\Monkey;
+use Brain\Monkey\Filters;
 use Brain\Monkey\Functions;
 use PHPUnit\Framework\TestCase;
 
@@ -168,6 +169,54 @@ final class MembersTest extends TestCase {
 		$result = Members::instance()->create_from_params( $params );
 
 		$this->assertSame( 'aa_invalid_reseller', $result->get_error_code() );
+		$this->assertSame( 'reseller2_title', $result->get_error_data()['field'] );
+	}
+
+	public function test_main_practice_by_label_and_stores_as_revenda_ids(): void {
+		Functions\when( 'get_option' )->justReturn( array() );
+		$this->stub_validation();
+		Functions\when( 'email_exists' )->justReturn( false );
+		Functions\when( 'get_users' )->justReturn( array() );
+		Functions\when( 'sanitize_user' )->returnArg( 1 );
+		Functions\when( 'username_exists' )->justReturn( false );
+		Functions\when( 'esc_url_raw' )->returnArg( 1 );
+		Functions\when( 'wp_generate_password' )->justReturn( 'secret' );
+		Functions\when( 'absint' )->alias( static fn( $v ) => abs( (int) $v ) );
+		Functions\when( 'get_post_type' )->justReturn( 'revendas' );
+		Functions\when( 'get_post_status' )->justReturn( 'publish' );
+		Functions\when( 'wp_insert_user' )->justReturn( 42 );
+		Functions\when( 'delete_user_meta' )->justReturn( true );
+		$meta = array();
+		Functions\when( 'update_user_meta' )->alias(
+			static function ( $id, $key, $value ) use ( &$meta ) {
+				$meta[ $key ] = $value;
+				return true;
+			}
+		);
+		// The store given by text becomes a pending revenda (Reseller_Store).
+		Filters\expectApplied( 'axellcore_atelierclub_reseller_text' )->once()->with( 0, 'Loja Nova - SC Joinville' )->andReturn( 900 );
+		$params                    = $this->valid_params();
+		$params['primary_focus']   = 'interior_design';
+		$params['reseller1_title'] = 'Loja Nova - SC Joinville';
+		$params['reseller3']       = '2625';
+		$params['reseller3_title'] = 'A Casa · RS Caxias do Sul';
+
+		Members::instance()->create_from_params( $params );
+
+		$this->assertSame( 'Design de interiores', $meta['primary_focus'], 'Stored by its label.' );
+		$this->assertSame( '900,2625', $meta['reseller_ids'] );
+		$this->assertCount( 0, preg_grep( '/^reseller\d/', array_keys( $meta ) ), 'No per-position keys or texts.' );
+	}
+
+	public function test_a_store_text_that_cannot_become_a_revenda_is_refused(): void {
+		$this->stub_validation();
+		Functions\when( 'absint' )->alias( 'intval' );
+		$params                    = $this->valid_params();
+		$params['reseller2_title'] = 'Uma loja qualquer';
+
+		$result = Members::instance()->create_from_params( $params );
+
+		$this->assertSame( 'aa_invalid_store', $result->get_error_code() );
 		$this->assertSame( 'reseller2_title', $result->get_error_data()['field'] );
 	}
 

@@ -30,12 +30,27 @@ final class Admin_Rest {
 	const PER_PAGE_MAX = 100;
 
 	/**
-	 * Primary focus choices of the adesão form (stored value => label), for
-	 * the dashboard's filter and edit controls.
+	 * Primary focus choices (stored value => label): stored by their label,
+	 * fixed in pt_BR, so the data reads the same whatever WordPress's
+	 * language. For the dashboard's filter and edit controls.
 	 *
 	 * @var array<string,string>
 	 */
 	const PRIMARY_FOCUS_OPTIONS = array(
+		'Arquitetura residencial de alto padrão'  => 'Arquitetura residencial de alto padrão',
+		'Design de interiores'                    => 'Design de interiores',
+		'Arquitetura corporativa / hospitalidade' => 'Arquitetura corporativa / hospitalidade',
+		'Wellness · Spa · Hotelaria'              => 'Wellness · Spa · Hotelaria',
+		'Outros'                                  => 'Outros',
+	);
+
+	/**
+	 * The adesão form's option values (in its saved block) => the label
+	 * stored for them.
+	 *
+	 * @var array<string,string>
+	 */
+	const PRIMARY_FOCUS_SLUGS = array(
 		'high_end_residential_architecture'  => 'Arquitetura residencial de alto padrão',
 		'interior_design'                    => 'Design de interiores',
 		'corporate_hospitality_architecture' => 'Arquitetura corporativa / hospitalidade',
@@ -411,24 +426,27 @@ final class Admin_Rest {
 			$data[ $field ] = Members::get( $user->ID, $field );
 		}
 
-		// Partner stores are shown by their text, not their ID.
+		// Partner stores: their revenda's text (as resellerN, the fields the
+		// screen reads) and status ("pending" needs curation).
 		$resellers = array();
 		foreach ( Members::RESELLER_FIELDS as $field ) {
-			$data[ $field ] = Members::get( $user->ID, $field . '_title' );
-
-			$reseller_id = (int) Members::get( $user->ID, $field );
-			if ( '' === $data[ $field ] && ! $reseller_id ) {
+			$data[ $field ] = '';
+		}
+		foreach ( Members::reseller_ids( $user->ID ) as $index => $reseller_id ) {
+			$title = Members::reseller_title( $reseller_id );
+			if ( '' === $title || ! isset( Members::RESELLER_FIELDS[ $index ] ) ) {
 				continue;
 			}
-			// A store linked to a revenda shows its status: "pending" needs curation.
-			$status      = $reseller_id ? (string) get_post_status( $reseller_id ) : '';
-			$resellers[] = array(
+			$field          = Members::RESELLER_FIELDS[ count( $resellers ) ];
+			$data[ $field ] = $title;
+			$status         = (string) get_post_status( $reseller_id );
+			$resellers[]    = array(
 				'field'   => $field,
-				'title'   => $data[ $field ],
+				'title'   => $title,
 				'id'      => $reseller_id,
 				'status'  => $status,
 				'pending' => 'pending' === $status,
-				'url'     => $reseller_id ? (string) get_edit_post_link( $reseller_id, 'raw' ) : '',
+				'url'     => (string) get_edit_post_link( $reseller_id, 'raw' ),
 			);
 		}
 		$data['resellers'] = $resellers;

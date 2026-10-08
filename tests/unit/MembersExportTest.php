@@ -28,16 +28,30 @@ final class MembersExportTest extends TestCase {
 	public function test_row_has_labels_masked_document_and_reseller_text(): void {
 		$meta = array(
 			'billing_company'  => '=HYPERLINK("x")',
-			'primary_focus'    => 'interior_design',
+			'primary_focus'    => 'Design de interiores',
 			'billing_cnpj'     => '11222333000181',
 			'billing_state'    => 'MG',
 			'billing_city'     => 'Belo Horizonte',
 			'billing_phone'    => '+5531987654321',
 			'billing_postcode' => '30130000',
-			'reseller1_title'  => 'Loja · MG BH',
-			'reseller3_title'  => 'Casa, Banho · SP',
+			'reseller_ids'     => '4,5',
 		);
 		Functions\when( 'get_date_from_gmt' )->returnArg( 1 );
+		Functions\when( 'absint' )->alias( static fn( $v ) => abs( (int) $v ) );
+		Functions\when( 'get_post' )->alias(
+			static function ( $id ) {
+				$titles = array( 4 => 'Loja', 5 => 'Casa, Banho' );
+				return isset( $titles[ $id ] ) ? new \WP_Post( array( 'ID' => $id, 'post_type' => 'revendas', 'post_status' => 'publish', 'post_title' => $titles[ $id ] ) ) : null;
+			}
+		);
+		Functions\when( 'get_the_terms' )->alias(
+			static function ( $id, $taxonomy ) {
+				if ( 'estados' === $taxonomy ) {
+					return array( (object) array( 'slug' => 4 === $id ? 'mg' : 'sp', 'name' => '' ) );
+				}
+				return 4 === $id ? array( (object) array( 'slug' => 'bh', 'name' => 'BH' ) ) : false;
+			}
+		);
 		Functions\when( 'get_user_meta' )->alias(
 			static function ( $id, $key ) use ( $meta ) {
 				return $meta[ $key ] ?? '';

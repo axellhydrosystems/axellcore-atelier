@@ -28,10 +28,10 @@ final class Admin_Notices {
 	const PAGES = array( Member::ADMIN_PAGE, Members_Export::PAGE, Settings::PAGE, Resellers_Admin::ADMIN_PAGE );
 
 	/**
-	 * Other screens (ids) without them: the users' list, profile and edit,
-	 * and Settings > General.
+	 * Other screens (ids) without them: the users' list, new user, profile
+	 * and edit, and Settings > General.
 	 */
-	const SCREENS = array( 'users', 'profile', 'user-edit', 'options-general' );
+	const SCREENS = array( 'users', 'user', 'profile', 'user-edit', 'options-general' );
 
 	/**
 	 * Notice hooks.

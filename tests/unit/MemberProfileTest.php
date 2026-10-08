@@ -40,12 +40,7 @@ final class MemberProfileTest extends TestCase {
 		$_POST      = array();
 		$this->meta = array(
 			'billing_company' => 'Old studio',
-			'reseller1'       => '42',
-			'reseller1_title' => 'Loja A · RS Caxias do Sul',
-			'reseller2'       => '',
-			'reseller2_title' => 'Loja texto - SP Campinas',
-			'reseller3'       => '77',
-			'reseller3_title' => 'Loja pendente - RS Caxias do Sul',
+			'reseller_ids'    => '42,77',
 			'billing_cpf'     => '52998224725',
 		);
 		Functions\stubTranslationFunctions();
@@ -79,7 +74,7 @@ final class MemberProfileTest extends TestCase {
 		);
 		Functions\when( 'get_post' )->alias(
 			static function ( $id ) {
-				return isset( self::POSTS[ $id ] ) ? new \WP_Post( array( 'ID' => $id, 'post_title' => self::POSTS[ $id ][2] ) ) : null;
+				return isset( self::POSTS[ $id ] ) ? new \WP_Post( array( 'ID' => $id, 'post_type' => self::POSTS[ $id ][0], 'post_status' => self::POSTS[ $id ][1], 'post_title' => self::POSTS[ $id ][2] ) ) : null;
 			}
 		);
 		Functions\when( 'get_the_terms' )->alias(
@@ -285,7 +280,6 @@ final class MemberProfileTest extends TestCase {
 				array(
 					array( '', '' ),
 					array( 50, 'whatever the browser sent' ),
-					array( '', 'Loja texto - SP Campinas' ),
 					array( 77, 'Loja pendente - RS Caxias do Sul' ),
 					array( 50, 'Nova · RS Caxias do Sul' ),
 				)
@@ -293,13 +287,8 @@ final class MemberProfileTest extends TestCase {
 		);
 
 		$this->assertFalse( $errors->has_errors() );
-		$this->assertSame( '50', $this->meta['reseller1'] );
-		$this->assertSame( 'Nova · RS Caxias do Sul', $this->meta['reseller1_title'], 'The title comes from the reseller.' );
-		$this->assertArrayNotHasKey( 'reseller2', $this->meta, 'A store given by text has no ID.' );
-		$this->assertSame( 'Loja texto - SP Campinas', $this->meta['reseller2_title'] );
-		$this->assertSame( '77', $this->meta['reseller3'], 'A pending reseller the member had stays.' );
-		$this->assertArrayNotHasKey( 'reseller4', $this->meta, 'The repeated reseller counts once.' );
-		$this->assertArrayNotHasKey( 'reseller5_title', $this->meta );
+		$this->assertSame( '50,77', $this->meta['reseller_ids'], 'IDs only, in order, once each; a pending one the member had stays.' );
+		$this->assertCount( 0, preg_grep( '/^reseller\d/', array_keys( $this->meta ) ), 'No per-position keys.' );
 	}
 
 	public function test_a_store_must_be_a_registered_reseller(): void {
@@ -307,9 +296,26 @@ final class MemberProfileTest extends TestCase {
 			$errors = $this->save( self::stores( array( $row ) ) + array( 'aa_member_company' => 'New studio' ) );
 
 			$this->assertSame( array( 'aa_invalid_reseller' ), $errors->get_error_codes() );
-			$this->assertSame( '42', $this->meta['reseller1'] );
+			$this->assertSame( '42,77', $this->meta['reseller_ids'] );
 			$this->assertSame( 'Old studio', $this->meta['billing_company'] );
 		}
+	}
+
+	public function test_stores_are_shown_with_their_revendas_text(): void {
+		$user     = new \WP_User();
+		$user->ID = 9;
+		ob_start();
+		Member_Profile::instance()->add_member_meta_fields( $user );
+		$html = (string) ob_get_clean();
+
+		$this->assertStringContainsString( 'value="Loja A · RS Caxias do Sul"', $html );
+		$this->assertStringContainsString( 'value="Loja pendente · RS Caxias do Sul"', $html );
+	}
+
+	public function test_main_practice_is_stored_by_its_label(): void {
+		$this->save( array( 'aa_member_primary_focus' => 'Design de interiores' ) );
+
+		$this->assertSame( 'Design de interiores', $this->meta['primary_focus'] );
 	}
 
 	public function test_after_an_error_the_form_shows_what_was_sent_and_marks_the_field(): void {

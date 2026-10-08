@@ -97,12 +97,19 @@ final class Members {
 	);
 
 	/**
-	 * Partner store slots. Each slot stores its ID (`resellerN`, empty for
-	 * free text) and the text shown to the user (`resellerN_title`).
+	 * The form's partner store fields: each sends a revenda ID (`resellerN`)
+	 * and its text (`resellerN_title`, a "Nome - UF Cidade" for a store not
+	 * in the list). Stored together as RESELLER_META.
 	 *
 	 * @var string[]
 	 */
 	const RESELLER_FIELDS = array( 'reseller1', 'reseller2', 'reseller3', 'reseller4', 'reseller5' );
+
+	/**
+	 * Meta key of the partner stores: their revenda IDs, in order, separated
+	 * by commas ("2625,2802"). Their text always comes from the revenda.
+	 */
+	const RESELLER_META = 'reseller_ids';
 
 	/**
 	 * Meta keys of the member fields that WooCommerce also has, as its
@@ -262,9 +269,15 @@ final class Members {
 		}
 
 		foreach ( self::RESELLER_FIELDS as $field ) {
-			$id = absint( $params[ $field ] ?? 0 );
+			$id    = absint( $params[ $field ] ?? 0 );
+			$title = trim( sanitize_text_field( (string) ( $params[ $field . '_title' ] ?? '' ) ) );
 			if ( $id && ( Resellers::POST_TYPE !== get_post_type( $id ) || 'publish' !== get_post_status( $id ) ) ) {
 				return self::field_error( 'aa_invalid_reseller', __( 'Choose a reseller from the list.', 'axellcore-atelierclub' ), $field . '_title' );
+			}
+			// A store given by text becomes a pending revenda: only
+			// "Nome - UF Cidade" can (the form's custom store composes it).
+			if ( ! $id && '' !== $title && null === Reseller_Store::parse_store_text( $title ) ) {
+				return self::field_error( 'aa_invalid_store', __( 'Enter the store as "Name - UF City".', 'axellcore-atelierclub' ), $field . '_title' );
 			}
 		}
 
@@ -317,23 +330,17 @@ final class Members {
 			'billing_email'      => $email,
 		);
 
-		// The stores filled in, moved up to the first positions (store 1 and
-		// store 3 are saved as reseller1 and reseller2).
-		foreach ( self::submitted_resellers( $params ) as $index => $store ) {
-			$field = self::RESELLER_FIELDS[ $index ];
-			$id    = $store['id'];
-			// Custom store: a text "Nome - UF Cidade" that matches becomes a
-			// pending revenda (Reseller_Store), and its ID is kept.
-			if ( 0 === $id ) {
-				$id = (int) apply_filters( 'axellcore_atelierclub_reseller_text', 0, $store['title'] );
-			}
-			$meta[ $field ]            = $id > 0 ? (string) $id : '';
-			$meta[ $field . '_title' ] = $store['title'];
-		}
-
 		foreach ( $meta as $key => $value ) {
 			update_user_meta( $user_id, $key, $value );
 		}
+
+		// The stores filled in, in order, by their revenda: a store given by
+		// text ("Nome - UF Cidade") becomes a pending one (Reseller_Store).
+		$ids = array();
+		foreach ( self::submitted_resellers( $params ) as $store ) {
+			$ids[] = $store['id'] ? $store['id'] : (int) apply_filters( 'axellcore_atelierclub_reseller_text', 0, $store['title'] );
+		}
+		self::set_reseller_ids( $user_id, $ids );
 
 		return array(
 			'success' => true,
@@ -444,12 +451,58 @@ final class Members {
 			case 'country':
 				$value = strtoupper( $value );
 				break;
+			case 'primary_focus':
+				// The form sends its option value: stored by its label.
+				$value = Admin_Rest::PRIMARY_FOCUS_SLUGS[ $value ] ?? $value;
+				break;
 		}
 		if ( '' === $value ) {
 			delete_user_meta( $user_id, self::meta_key( $field ) );
 		} else {
 			update_user_meta( $user_id, self::meta_key( $field ), $value );
 		}
+	}
+
+	/**
+	 * The member's partner stores: revenda IDs, in order.
+	 *
+	 * @param int $user_id User ID.
+	 * @return int[]
+	 */
+	public static function reseller_ids( $user_id ) {
+		$ids = array_map( 'absint', explode( ',', (string) get_user_meta( $user_id, self::RESELLER_META, true ) ) );
+		return array_values( array_filter( $ids ) );
+	}
+
+	/**
+	 * Store the partner stores (once each, in order, five at most); none
+	 * deletes the meta.
+	 *
+	 * @param int   $user_id User ID.
+	 * @param int[] $ids     Revenda IDs.
+	 */
+	public static function set_reseller_ids( $user_id, array $ids ) {
+		$ids = array_slice( array_values( array_unique( array_filter( array_map( 'absint', $ids ) ) ) ), 0, count( self::RESELLER_FIELDS ) );
+		if ( $ids ) {
+			update_user_meta( $user_id, self::RESELLER_META, implode( ',', $ids ) );
+		} else {
+			delete_user_meta( $user_id, self::RESELLER_META );
+		}
+	}
+
+	/**
+	 * A partner store's text, from its revenda (published or pending), as
+	 * the form's search shows it: '' when the revenda no longer exists.
+	 *
+	 * @param int $id Revenda ID.
+	 * @return string
+	 */
+	public static function reseller_title( $id ) {
+		$post = $id ? get_post( (int) $id ) : null;
+		if ( ! $post instanceof \WP_Post || Resellers::POST_TYPE !== $post->post_type || 'trash' === $post->post_status ) {
+			return '';
+		}
+		return Label_Template::render( $post, Form_Directives::RESELLER_TEMPLATE );
 	}
 
 	/**

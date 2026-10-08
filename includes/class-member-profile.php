@@ -199,7 +199,7 @@ final class Member_Profile {
 					'br_revenue_id' => array(
 						'label'       => $labels['br_revenue_id'],
 						'mask'        => 'document',
-						'description' => __( 'Checked for its check digits and unique among members; the registration type follows it.', 'axellcore-atelierclub' ),
+						'description' => __( 'Only a valid one is allowed, and it must be unique among members.', 'axellcore-atelierclub' ),
 					),
 				),
 			),
@@ -703,59 +703,44 @@ final class Member_Profile {
 	 */
 	private static function stored_resellers( $user_id ) {
 		$out = array();
-		foreach ( Members::RESELLER_FIELDS as $field ) {
-			$id    = (string) get_user_meta( $user_id, $field, true );
-			$out[] = array(
-				'id'    => '0' === $id ? '' : $id,
-				'title' => (string) get_user_meta( $user_id, $field . '_title', true ),
-			);
+		foreach ( Members::reseller_ids( $user_id ) as $id ) {
+			$title = Members::reseller_title( $id );
+			if ( '' !== $title ) {
+				$out[] = array(
+					'id'    => (string) $id,
+					'title' => $title,
+				);
+			}
 		}
 		return $out;
 	}
 
 	/**
-	 * Partner stores: a registered (published) reseller, or one the member
-	 * already had (a pending one, or a store given by text on the form);
-	 * nothing typed by hand. Empty positions move the next ones up, a
-	 * repeated reseller counts once.
+	 * Partner stores: a registered (published) revenda, or one the member
+	 * already had (a pending one, from a store given by text on the form);
+	 * nothing typed by hand. Stored as their IDs (Members::RESELLER_META):
+	 * empty positions move the next ones up, a repeated one counts once.
 	 *
 	 * @param int                                 $user_id User.
 	 * @param list<array{id:string,title:string}> $rows    Stores sent.
 	 */
 	private function check_resellers( $user_id, $rows ) {
-		$stored = self::stored_resellers( $user_id );
-		$kept   = array();
-		$seen   = array();
+		$stored = array_column( self::stored_resellers( $user_id ), 'id' );
+		$ids    = array();
 		foreach ( $rows as $index => $row ) {
-			if ( '' !== $row['id'] ) {
-				$id            = (int) $row['id'];
-				$stored_titles = array_column( array_filter( $stored, static fn( $s ) => (string) $id === $s['id'] ), 'title' );
-				if ( Resellers::POST_TYPE === get_post_type( $id ) && 'publish' === get_post_status( $id ) ) {
-					$title = Label_Template::render( get_post( $id ), Form_Directives::RESELLER_TEMPLATE );
-				} elseif ( $stored_titles ) {
-					$title = (string) $stored_titles[0];
-				} else {
-					$this->errors[ 'resellers:' . $index ] = array( 'aa_invalid_reseller', __( 'Choose a reseller from the list.', 'axellcore-atelierclub' ) );
-					continue;
-				}
-				if ( isset( $seen[ $id ] ) ) {
-					continue;
-				}
-				$seen[ $id ] = true;
-				$kept[]      = array( (string) $id, $title );
-			} elseif ( '' !== $row['title'] ) {
-				$text_only = array_filter( $stored, static fn( $s ) => '' === $s['id'] && $s['title'] === $row['title'] );
-				if ( ! $text_only ) {
-					$this->errors[ 'resellers:' . $index ] = array( 'aa_invalid_reseller', __( 'Choose a reseller from the list.', 'axellcore-atelierclub' ) );
-					continue;
-				}
-				$kept[] = array( '', $row['title'] );
+			if ( '' === $row['id'] && '' === $row['title'] ) {
+				continue;
 			}
+			$id = (int) $row['id'];
+			// A published revenda, or one the member already had (pending).
+			$known = Resellers::POST_TYPE === get_post_type( $id ) && 'publish' === get_post_status( $id );
+			if ( ! $id || ! ( $known || in_array( (string) $id, $stored, true ) ) ) {
+				$this->errors[ 'resellers:' . $index ] = array( 'aa_invalid_reseller', __( 'Choose a reseller from the list.', 'axellcore-atelierclub' ) );
+				continue;
+			}
+			$ids[] = $id;
 		}
-		foreach ( Members::RESELLER_FIELDS as $index => $field ) {
-			$this->pending[ $field ]            = isset( $kept[ $index ] ) ? $kept[ $index ][0] : null;
-			$this->pending[ $field . '_title' ] = isset( $kept[ $index ] ) ? $kept[ $index ][1] : null;
-		}
+		$this->pending[ Members::RESELLER_META ] = implode( ',', array_unique( $ids ) );
 	}
 
 	/**
