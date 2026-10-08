@@ -93,6 +93,10 @@ final class Form_Block {
 			$processor->set_attribute( 'data-wp-on--submit', 'actions.submit' );
 			$processor->set_attribute( 'novalidate', true );
 		}
+		// An address typed without https:// gets it on leaving the field.
+		if ( null === $processor->get_attribute( 'data-wp-on--focusout' ) ) {
+			$processor->set_attribute( 'data-wp-on--focusout', 'actions.completeUrl' );
+		}
 
 		wp_interactivity_state(
 			'axell/autocomplete',

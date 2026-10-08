@@ -37,6 +37,19 @@ const controlOf = (
 const serverState = (): { restUrl: string } =>
 	state as unknown as { restUrl: string };
 
+/**
+ * An address typed without a scheme ("site.com.br") gets https://, as the
+ * server stores it, so the field's own url check accepts it.
+ *
+ * @param input Field.
+ */
+const completeUrl = ( input: HTMLInputElement ) => {
+	const value = input.value.trim();
+	if ( value && ! /^[a-z][a-z0-9+.-]*:\/\//i.test( value ) ) {
+		input.value = 'https://' + value.replace( /^\/+/, '' );
+	}
+};
+
 const { state } = store( 'axell/form', {
 	state: {
 		get isSubmitting(): boolean {
@@ -50,11 +63,23 @@ const { state } = store( 'axell/form', {
 		},
 	},
 	actions: {
+		completeUrl( event: FocusEvent ) {
+			const input = event.target as HTMLInputElement;
+			if ( input instanceof HTMLInputElement && input.type === 'url' ) {
+				completeUrl( input );
+			}
+		},
+
 		*submit( event: SubmitEvent ): Generator< unknown, void, unknown > {
 			event.preventDefault();
 
 			const form = event.currentTarget as HTMLFormElement;
 			const context = getContext< FormContext >();
+
+			// Sent with Enter, before leaving the address field.
+			form.querySelectorAll< HTMLInputElement >(
+				'input[type="url"]'
+			).forEach( completeUrl );
 
 			if ( context.status === 'submitting' || ! form.reportValidity() ) {
 				return;
