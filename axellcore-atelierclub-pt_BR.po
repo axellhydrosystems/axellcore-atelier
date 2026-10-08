@@ -1,0 +1,4172 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: axellcore-atelierclub 0.5.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/axellcore-atelierclub\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: Portuguese (Brazil) <pt_BR@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-09-22T21:04:14+00:00\n"
+"PO-Revision-Date: 2026-10-08T20:15:14+00:00\n"
+"Language: pt_BR\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Domain: axellcore-atelierclub\n"
+"X-Generator: WP-CLI 2.12.0\n"
+
+#. Plugin Name of the plugin
+#: axellcore-atelierclub.php
+msgid "Axellcore — Atelier Club"
+msgstr "Axellcore — Atelier Club"
+
+#. Description of the plugin
+#: axellcore-atelierclub.php
+msgid "Self-contained landing page (FSE template + core blocks + a custom application-form block) for the Atelier Axell Club invite program."
+msgstr "Landing page autocontida (template FSE + blocos nativos + um bloco customizado de formulário de adesão) para o programa por convite Atelier Axell Club."
+
+#. Author of the plugin
+#: axellcore-atelierclub.php
+msgid "Axell"
+msgstr "Axell"
+
+#: includes/class-template-loader.php:108
+msgid "Atelier — Blank Canvas"
+msgstr "Atelier — Página em Branco"
+
+#: includes/class-template-loader.php:109
+msgid "Self-contained canvas for the Atelier Axell Club landing page. No header/footer template parts — the page content renders alone."
+msgstr "Tela autocontida para a landing page do Atelier Axell Club. Sem partes de template de cabeçalho/rodapé — o conteúdo da página é renderizado sozinho."
+
+#: includes/class-settings.php:1001
+#: build/form/form-input/index.js:1
+#: includes/blocks/form/form-control/index.js:46
+#: includes/blocks/form/form-input/index.js:55
+msgid "Text"
+msgstr "Texto"
+
+#: includes/class-members-export.php:79
+#: build/admin/members/index.js:175
+#: build/admin/resellers/index.js:175
+#: build/admin/resellers/index.js:184
+#: build/form/form-input/index.js:1
+#: includes/blocks/form/form-control/index.js:47
+#: includes/blocks/form/form-input/index.js:56
+msgid "Email"
+msgstr "E-mail"
+
+#: build/form/form-input/index.js:1
+#: includes/blocks/form/form-control/index.js:48
+#: includes/blocks/form/form-input/index.js:57
+msgid "URL"
+msgstr "URL"
+
+#: includes/class-members-export.php:91
+#: includes/class-notifications.php:351
+#: build/admin/members/index.js:184
+#: build/form/form-input/index.js:1
+#: includes/blocks/form/form-control/index.js:49
+#: includes/blocks/form/form-input/index.js:58
+msgid "Number"
+msgstr "Número"
+
+#: includes/class-members-export.php:81
+#: includes/class-notifications.php:343
+#: build/admin/resellers/index.js:175
+#: build/form/form-control/index.js:1
+#: build/form/form-input/index.js:1
+#: includes/blocks/form/form-control/index.js:50
+#: includes/blocks/form/form-control/index.js:61
+#: includes/blocks/form/form-input/index.js:59
+#: includes/blocks/form/form-input/index.js:70
+msgid "Phone"
+msgstr "Telefone"
+
+#: build/form/form-input/index.js:1
+#: includes/blocks/form/form-control/index.js:51
+#: includes/blocks/form/form-input/index.js:60
+msgid "Textarea"
+msgstr "Área de texto"
+
+#: build/form/form-input/index.js:1
+#: includes/blocks/form/form-control/index.js:52
+#: includes/blocks/form/form-input/index.js:61
+msgid "Select (options)"
+msgstr "Select (opções)"
+
+#: build/form/form-check/index.js:1
+#: build/form/form-input/index.js:1
+#: includes/blocks/form/form-control/index.js:53
+#: includes/blocks/form/form-input/index.js:62
+msgid "Checkbox"
+msgstr "Checkbox"
+
+#: build/form/form-control-country/index.js:1
+#: build/form/form-input/index.js:1
+#: includes/blocks/form/form-control/index.js:54
+#: includes/blocks/form/form-input/index.js:63
+msgid "Hidden"
+msgstr "Oculto"
+
+#: build/form/form-control/index.js:1
+#: build/form/form-input/index.js:1
+#: includes/blocks/form/form-control/index.js:58
+#: includes/blocks/form/form-input/index.js:67
+msgid "— none —"
+msgstr "— nenhuma —"
+
+#: includes/class-members-export.php:86
+#: includes/class-notifications.php:349
+#: build/admin/members/index.js:175
+#: build/form/form-control/index.js:1
+#: build/form/form-input/index.js:1
+#: includes/blocks/form/form-control/index.js:59
+#: includes/blocks/form/form-input/index.js:68
+msgid "CPF / CNPJ"
+msgstr "CPF / CNPJ"
+
+#: build/form/form-control/index.js:1
+#: build/form/form-input/index.js:1
+#: includes/blocks/form/form-control/index.js:60
+#: includes/blocks/form/form-input/index.js:69
+msgid "CEP (postal code)"
+msgstr "CEP"
+
+#: build/form/form-control/index.js:1
+#: build/form/form-input/index.js:1
+#: build/form/form-select/index.js:1
+#: includes/blocks/form/form-control/index.js:177
+#: includes/blocks/form/form-input/index.js:209
+msgid "Select an option"
+msgstr "Selecione uma opção"
+
+#: build/form/form-input/index.js:1
+#: build/form/form-label/index.js:1
+#: includes/blocks/form/form-input/index.js:323
+#: includes/blocks/form/form-label/index.js:93
+msgid "Field label…"
+msgstr "Rótulo do campo…"
+
+#: build/form/form-control-br-revenue-id-legal/index.js:1
+#: build/form/form-control-br-revenue-id-person/index.js:1
+#: build/form/form-control-br-revenue-id/index.js:1
+#: build/form/form-control-city/index.js:1
+#: build/form/form-control-country/index.js:1
+#: build/form/form-control-phone/index.js:1
+#: build/form/form-control-postal/index.js:1
+#: build/form/form-control-reseller/index.js:1
+#: build/form/form-control-state/index.js:1
+#: build/form/form-input/index.js:1
+#: includes/blocks/form/form-input/index.js:335
+msgid "Field"
+msgstr "Campo"
+
+#: build/form/form-input/index.js:1
+#: includes/blocks/form/form-control/index.js:215
+#: includes/blocks/form/form-input/index.js:337
+#: includes/blocks/form/form-submission-notification/index.js:67
+msgid "Type"
+msgstr "Tipo"
+
+#: build/form/form-input/index.js:1
+#: includes/blocks/form/form-input/index.js:450
+msgid "Field name (name attribute)"
+msgstr "Nome do campo (atributo name)"
+
+#: build/form/form-input/index.js:1
+#: includes/blocks/form/form-input/index.js:346
+msgid "Variant"
+msgstr "Variante"
+
+#: build/form/form-input/index.js:1
+#: includes/blocks/form/form-input/index.js:349
+msgid "Default"
+msgstr "Padrão"
+
+#: build/form/form-input/index.js:1
+#: includes/blocks/form/form-input/index.js:350
+msgid "Consent (LGPD)"
+msgstr "Consentimento (LGPD)"
+
+#: build/form/form-control-br-revenue-id-legal/index.js:1
+#: build/form/form-control-br-revenue-id-person/index.js:1
+#: build/form/form-control-br-revenue-id/index.js:1
+#: build/form/form-control-city/index.js:1
+#: build/form/form-control-country/index.js:1
+#: build/form/form-control-phone/index.js:1
+#: build/form/form-control-postal/index.js:1
+#: build/form/form-control-reseller/index.js:1
+#: build/form/form-control-state/index.js:1
+#: build/form/form-control/index.js:1
+#: build/form/form-input/index.js:1
+#: build/form/form-select/index.js:1
+#: includes/blocks/form/form-input/index.js:360
+msgid "Placeholder"
+msgstr "Placeholder"
+
+#: build/form/form-control/index.js:1
+#: build/form/form-input/index.js:1
+#: includes/blocks/form/form-control/index.js:224
+#: includes/blocks/form/form-input/index.js:368
+msgid "Value"
+msgstr "Valor"
+
+#: build/form/form-check/index.js:1
+#: build/form/form-input/index.js:1
+#: includes/blocks/form/form-control/index.js:232
+#: includes/blocks/form/form-input/index.js:376
+msgid "Checked by default"
+msgstr "Marcado por padrão"
+
+#: build/form/form-check/index.js:1
+#: build/form/form-control-br-revenue-id-legal/index.js:1
+#: build/form/form-control-br-revenue-id-person/index.js:1
+#: build/form/form-control-br-revenue-id/index.js:1
+#: build/form/form-control-city/index.js:1
+#: build/form/form-control-country/index.js:1
+#: build/form/form-control-phone/index.js:1
+#: build/form/form-control-postal/index.js:1
+#: build/form/form-control-reseller/index.js:1
+#: build/form/form-control-state/index.js:1
+#: build/form/form-control/index.js:1
+#: build/form/form-input/index.js:1
+#: build/form/form-label/index.js:1
+#: build/form/form-select/index.js:1
+#: includes/blocks/form/form-control/index.js:241
+#: includes/blocks/form/form-input/index.js:385
+msgid "Required"
+msgstr "Obrigatório"
+
+#: build/form/form-input/index.js:1
+#: includes/blocks/form/form-input/index.js:394
+msgid "Hint text (optional)"
+msgstr "Texto de ajuda (opcional)"
+
+#: build/form/form-control/index.js:1
+#: build/form/form-input/index.js:1
+#: includes/blocks/form/form-control/index.js:249
+#: includes/blocks/form/form-input/index.js:402
+msgid "Options (one per line: Label|value)"
+msgstr "Opções (uma por linha: Rótulo|valor)"
+
+#: build/form/form-control/index.js:1
+#: build/form/form-input/index.js:1
+#: includes/blocks/form/form-control/index.js:250
+#: includes/blocks/form/form-input/index.js:403
+msgid "E.g.: Individual · CPF|cpf"
+msgstr "Ex.: Pessoa Física · CPF|cpf"
+
+#: build/form/form-control/index.js:1
+#: build/form/form-input/index.js:1
+#: includes/blocks/form/form-control/index.js:268
+#: includes/blocks/form/form-input/index.js:421
+msgid "Input mask (advanced)"
+msgstr "Máscara de entrada (avançado)"
+
+#: build/form/form-control/index.js:1
+#: build/form/form-input/index.js:1
+#: includes/blocks/form/form-control/index.js:270
+#: includes/blocks/form/form-input/index.js:423
+msgid "Mask"
+msgstr "Máscara"
+
+#: build/form/form-control/index.js:1
+#: build/form/form-input/index.js:1
+#: includes/blocks/form/form-control/index.js:279
+#: includes/blocks/form/form-input/index.js:432
+msgid "Field (name) that decides CPF vs. CNPJ"
+msgstr "Campo (name) que define CPF ou CNPJ"
+
+#: build/form/form-control/index.js:1
+#: build/form/form-input/index.js:1
+#: includes/blocks/form/form-control/index.js:280
+#: includes/blocks/form/form-input/index.js:433
+msgid "Name of the select field whose value (\"cpf\"/\"cnpj\") drives this mask."
+msgstr "Nome do campo select cujo valor (\"cpf\"/\"cnpj\") controla esta máscara."
+
+#: build/form/form-input/block.json
+#: includes/blocks/form/form-input/block.json
+#: src/form/form-input/block.json
+msgctxt "block title"
+msgid "Atelier Form Field"
+msgstr "Campo de Formulário do Atelier"
+
+#: build/form/form-control/block.json
+#: build/form/form-input/block.json
+#: includes/blocks/form/form-control/block.json
+#: includes/blocks/form/form-input/block.json
+#: src/form/form-control/block.json
+#: src/form/form-input/block.json
+msgctxt "block keyword"
+msgid "input"
+msgstr "campo"
+
+#: build/form/form-control/block.json
+#: build/form/form-group/block.json
+#: build/form/form-input/block.json
+#: build/form/form-label/block.json
+#: build/form/form-select/block.json
+#: includes/blocks/form/form-control/block.json
+#: includes/blocks/form/form-input/block.json
+#: includes/blocks/form/form-label/block.json
+#: src/form/form-control/block.json
+#: src/form/form-group/block.json
+#: src/form/form-input/block.json
+#: src/form/form-label/block.json
+#: src/form/form-select/block.json
+msgctxt "block keyword"
+msgid "field"
+msgstr "campo"
+
+#: build/form/form-atelier/block.json
+#: build/form/form-check/block.json
+#: build/form/form-control-br-revenue-id-legal/block.json
+#: build/form/form-control-br-revenue-id-person/block.json
+#: build/form/form-control-br-revenue-id/block.json
+#: build/form/form-control-city/block.json
+#: build/form/form-control-country/block.json
+#: build/form/form-control-phone/block.json
+#: build/form/form-control-postal/block.json
+#: build/form/form-control-reseller/block.json
+#: build/form/form-control-state/block.json
+#: build/form/form-control/block.json
+#: build/form/form-fieldset/block.json
+#: build/form/form-group/block.json
+#: build/form/form-input/block.json
+#: build/form/form-label/block.json
+#: build/form/form-select/block.json
+#: build/form/form-submission-notification/block.json
+#: build/form/form-text/block.json
+#: build/form/form/block.json
+#: includes/blocks/form/form-control/block.json
+#: includes/blocks/form/form-fieldset/block.json
+#: includes/blocks/form/form-input/block.json
+#: includes/blocks/form/form-label/block.json
+#: includes/blocks/form/form-submission-notification/block.json
+#: includes/blocks/form/form/block.json
+#: src/form/form-atelier/block.json
+#: src/form/form-check/block.json
+#: src/form/form-control-br-revenue-id-legal/block.json
+#: src/form/form-control-br-revenue-id-person/block.json
+#: src/form/form-control-br-revenue-id/block.json
+#: src/form/form-control-city/block.json
+#: src/form/form-control-country/block.json
+#: src/form/form-control-phone/block.json
+#: src/form/form-control-postal/block.json
+#: src/form/form-control-reseller/block.json
+#: src/form/form-control-state/block.json
+#: src/form/form-control/block.json
+#: src/form/form-fieldset/block.json
+#: src/form/form-group/block.json
+#: src/form/form-input/block.json
+#: src/form/form-label/block.json
+#: src/form/form-select/block.json
+#: src/form/form-submission-notification/block.json
+#: src/form/form-text/block.json
+#: src/form/form/block.json
+msgctxt "block keyword"
+msgid "form"
+msgstr "formulário"
+
+#: includes/blocks/form/form/block.json
+msgctxt "block title"
+msgid "Atelier Form"
+msgstr "Formulário do Atelier"
+
+#: build/form/form-atelier/block.json
+#: includes/blocks/form/form/block.json
+#: src/form/form-atelier/block.json
+msgctxt "block keyword"
+msgid "application"
+msgstr "adesão"
+
+#: includes/class-activator.php:52
+msgid "Atelier — Header"
+msgstr "Atelier — Cabeçalho"
+
+#: includes/class-activator.php:59
+msgid "Atelier — Footer"
+msgstr "Atelier — Rodapé"
+
+#: includes/class-activator.php:313
+#: includes/class-icons.php:73
+msgid "Atelier Axell Club"
+msgstr "Atelier Axell Club"
+
+#: includes/class-blocks.php:121
+#: includes/class-design-tokens.php:243
+#: build/chapters/chapter/index.js:1
+#: includes/blocks/chapters/chapter/index.js:69
+msgid "Chapter"
+msgstr "Capítulo"
+
+#: includes/class-icons.php:74
+msgid "Icons used by the Atelier Axell Club landing page."
+msgstr "Ícones usados pela landing page do Atelier Axell Club."
+
+#: includes/class-icons.php:132
+msgid "Lock"
+msgstr "Cadeado"
+
+#: includes/class-icons.php:152
+msgid "Clock"
+msgstr "Relógio"
+
+#: build/chapters/chapter/index.js:1
+#: includes/blocks/chapters/chapter/index.js:78
+msgid "Chapter name…"
+msgstr "Nome do capítulo…"
+
+#: build/chapters/chapter/block.json
+#: includes/blocks/chapters/chapter/block.json
+#: src/chapters/chapter/block.json
+msgctxt "block title"
+msgid "Atelier Chapter"
+msgstr "Atelier — Capítulo"
+
+#: build/chapters/chapter/block.json
+#: includes/blocks/chapters/chapter/block.json
+#: src/chapters/chapter/block.json
+msgctxt "block description"
+msgid "One numbered chapter. The 'Capítulo NN' prefix is generated automatically (CSS counter, not stored text) — reordering chapters in the editor renumbers them without editing any content. Only the label after the number, and the chapter's own content, are stored."
+msgstr "Um capítulo numerado. O prefixo \"Capítulo NN\" é gerado automaticamente (contador CSS, não é texto armazenado) — reordenar capítulos no editor os renumera sem editar nenhum conteúdo. Apenas o rótulo após o número, e o conteúdo do próprio capítulo, são armazenados."
+
+#: build/chapters/chapter/block.json
+#: build/chapters/chapters/block.json
+#: includes/blocks/chapters/chapter/block.json
+#: includes/blocks/chapters/chapters/block.json
+#: src/chapters/chapter/block.json
+#: src/chapters/chapters/block.json
+msgctxt "block keyword"
+msgid "chapter"
+msgstr "capítulo"
+
+#: build/chapters/chapters/block.json
+#: includes/blocks/chapters/chapters/block.json
+#: src/chapters/chapters/block.json
+msgctxt "block title"
+msgid "Atelier Chapters"
+msgstr "Atelier — Capítulos"
+
+#: build/chapters/chapters/block.json
+#: includes/blocks/chapters/chapters/block.json
+#: src/chapters/chapters/block.json
+msgctxt "block description"
+msgid "Groups the page's numbered chapters (axellcore/chapter) and establishes the auto-numbering scope — reordering, adding, or removing a chapter renumbers the rest automatically (CSS counter, not stored text)."
+msgstr "Agrupa os capítulos numerados da página (axellcore/chapter) e estabelece o escopo de numeração automática — reordenar, adicionar ou remover um capítulo renumera os demais automaticamente (contador CSS, não é texto armazenado)."
+
+#: build/chapters/chapters/block.json
+#: includes/blocks/chapters/chapters/block.json
+#: src/chapters/chapters/block.json
+msgctxt "block keyword"
+msgid "numbering"
+msgstr "numeração"
+
+#: includes/class-locations.php:114
+msgid "Locations"
+msgstr "Localizações"
+
+#: includes/class-locations.php:115
+#: build/admin/resellers/index.js:184
+msgid "Location"
+msgstr "Localização"
+
+#: includes/class-locations.php:204
+#: includes/data/countries.php:47
+msgid "Brazil"
+msgstr "Brasil"
+
+#: includes/class-member.php:403
+#: includes/class-member.php:413
+#: includes/class-member.php:414
+#: includes/class-member.php:425
+#: includes/class-settings.php:246
+#: includes/class-settings.php:731
+msgid "Members"
+msgstr "Membros"
+
+#. translators: %s: form field name.
+#: includes/class-members.php:237
+#, php-format
+msgid "Missing required field: %s"
+msgstr "Campo obrigatório ausente: %s"
+
+#: includes/class-admin-rest.php:271
+#: includes/class-members.php:245
+#: includes/class-members.php:775
+#: includes/class-resellers-rest.php:374
+msgid "Invalid email address."
+msgstr "Endereço de e-mail inválido."
+
+#: includes/class-members.php:386
+#: includes/class-members.php:776
+msgid "Invalid state/city."
+msgstr "Estado/cidade inválido."
+
+#: includes/class-members.php:322
+msgid "Could not save your application."
+msgstr "Não foi possível salvar seu cadastro."
+
+#: build/form/form-control/index.js:1
+#: build/form/form-input/index.js:1
+#: includes/blocks/form/form-control/index.js:258
+#: includes/blocks/form/form-input/index.js:411
+msgid "Field (name) that populates these options"
+msgstr "Campo (name) que popula estas opções"
+
+#: build/form/form-control/index.js:1
+#: build/form/form-input/index.js:1
+#: includes/blocks/form/form-control/index.js:259
+#: includes/blocks/form/form-input/index.js:412
+msgid "Leave empty for a static list. If set, this select starts empty/disabled and assets/js/frontend.js fetches its options from the REST cities endpoint whenever that field changes."
+msgstr "Deixe vazio para uma lista estática. Se definido, este select começa vazio/desabilitado e assets/js/frontend.js busca suas opções no endpoint REST de cidades sempre que esse campo mudar."
+
+#: includes/blocks/form/form/block.json
+msgctxt "block description"
+msgid "Self-contained <form> wrapper for the Atelier Axell Club application form. Submits to the plugin's REST endpoint, which creates an aa_member post and resolves its Country/State/City taxonomy term."
+msgstr "Wrapper <form> autocontido para o formulário de adesão do Atelier Axell Club. Envia para o endpoint REST do plugin, que cria um post aa_member e resolve sua taxonomy de País/Estado/Cidade."
+
+#: build/form/form-control-country/index.js:1
+#: build/form/form-control/index.js:1
+#: build/form/form-input/index.js:1
+#: includes/blocks/form/form-control/index.js:111
+#: includes/blocks/form/form-input/index.js:255
+msgid "Hidden field"
+msgstr "Campo oculto"
+
+#: build/form/form-input/index.js:1
+#: build/form/form-label/index.js:1
+#: includes/blocks/form/form-input/index.js:321
+#: includes/blocks/form/form-label/index.js:61
+#: includes/blocks/form/form-label/index.js:91
+msgid "Label"
+msgstr "Rótulo"
+
+#: build/form/form-input/index.js:1
+#: build/form/form-label/index.js:1
+#: includes/blocks/form/form-input/index.js:321
+#: includes/blocks/form/form-label/index.js:91
+msgid "Empty label"
+msgstr "Rótulo vazio"
+
+#: build/form/form-input/index.js:1
+#: includes/blocks/form/form-input/index.js:452
+msgid "Leave empty to derive it from the label automatically."
+msgstr "Deixe em branco para derivar automaticamente do rótulo."
+
+#: build/form/form-input/variations.js:1
+#: includes/blocks/form/form-input/variations.js:24
+msgid "Text Input"
+msgstr "Campo de texto"
+
+#: build/form/form-control/variations.js:1
+#: build/form/form-input/variations.js:1
+#: includes/blocks/form/form-control/variations.js:23
+#: includes/blocks/form/form-input/variations.js:25
+msgid "A generic text input."
+msgstr "Um campo de texto genérico."
+
+#: build/form/form-input/variations.js:1
+#: includes/blocks/form/form-input/variations.js:33
+msgid "Email Input"
+msgstr "Campo de e-mail"
+
+#: build/form/form-control/variations.js:1
+#: build/form/form-input/variations.js:1
+#: includes/blocks/form/form-control/variations.js:32
+#: includes/blocks/form/form-input/variations.js:34
+msgid "Used for email addresses."
+msgstr "Usado para endereços de e-mail."
+
+#: build/form/form-input/variations.js:1
+#: includes/blocks/form/form-input/variations.js:42
+msgid "URL Input"
+msgstr "Campo de URL"
+
+#: build/form/form-control/variations.js:1
+#: build/form/form-input/variations.js:1
+#: includes/blocks/form/form-control/variations.js:41
+#: includes/blocks/form/form-input/variations.js:43
+msgid "Used for URLs."
+msgstr "Usado para URLs."
+
+#: build/form/form-input/variations.js:1
+#: includes/blocks/form/form-input/variations.js:51
+msgid "Phone Input"
+msgstr "Campo de telefone"
+
+#: build/form/form-control/variations.js:1
+#: build/form/form-input/variations.js:1
+#: includes/blocks/form/form-control/variations.js:50
+#: includes/blocks/form/form-input/variations.js:52
+msgid "Used for phone numbers."
+msgstr "Usado para números de telefone."
+
+#: build/form/form-input/variations.js:1
+#: includes/blocks/form/form-input/variations.js:60
+msgid "Number Input"
+msgstr "Campo numérico"
+
+#: build/form/form-control/variations.js:1
+#: build/form/form-input/variations.js:1
+#: includes/blocks/form/form-control/variations.js:59
+#: includes/blocks/form/form-input/variations.js:61
+msgid "A numeric input."
+msgstr "Um campo numérico."
+
+#: build/form/form-input/variations.js:1
+#: includes/blocks/form/form-input/variations.js:69
+msgid "Textarea Input"
+msgstr "Área de texto"
+
+#: build/form/form-control/variations.js:1
+#: build/form/form-input/variations.js:1
+#: includes/blocks/form/form-control/variations.js:68
+#: includes/blocks/form/form-input/variations.js:70
+msgid "A textarea input for multiple lines of text."
+msgstr "Uma área de texto para múltiplas linhas."
+
+#: build/form/form-input/variations.js:1
+#: includes/blocks/form/form-input/variations.js:78
+msgid "Select Input"
+msgstr "Campo de seleção"
+
+#: build/form/form-control/variations.js:1
+#: build/form/form-input/variations.js:1
+#: includes/blocks/form/form-control/variations.js:77
+#: includes/blocks/form/form-input/variations.js:79
+msgid "A dropdown with a fixed or dynamically-sourced list of options."
+msgstr "Uma lista suspensa com opções fixas ou carregadas dinamicamente."
+
+#: build/form/form-input/variations.js:1
+#: includes/blocks/form/form-input/variations.js:87
+msgid "Checkbox Input"
+msgstr "Checkbox"
+
+#: build/form/form-input/variations.js:1
+#: includes/blocks/form/form-control/variations.js:86
+#: includes/blocks/form/form-input/variations.js:88
+msgid "A simple checkbox input."
+msgstr "Um checkbox simples."
+
+#: build/form/form-input/variations.js:1
+#: includes/blocks/form/form-input/variations.js:96
+msgid "Hidden Input"
+msgstr "Campo oculto"
+
+#: build/form/form-control/variations.js:1
+#: build/form/form-input/variations.js:1
+#: includes/blocks/form/form-control/variations.js:95
+#: includes/blocks/form/form-input/variations.js:97
+msgid "A hidden input field."
+msgstr "Um campo de formulário oculto."
+
+#: includes/blocks/form/form-submission-notification/index.js:65
+msgid "Notification"
+msgstr "Notificação"
+
+#: includes/blocks/form/form-submission-notification/index.js:70
+msgid "Success"
+msgstr "Sucesso"
+
+#: includes/blocks/form/form-submission-notification/index.js:71
+msgid "Error"
+msgstr "Erro"
+
+#: build/form/form-submission-notification/block.json
+#: includes/blocks/form/form-submission-notification/block.json
+#: src/form/form-submission-notification/block.json
+msgctxt "block title"
+msgid "Atelier Form Notification"
+msgstr "Notificação do Formulário do Atelier"
+
+#: build/form/form-submission-notification/block.json
+#: includes/blocks/form/form-submission-notification/block.json
+#: src/form/form-submission-notification/block.json
+msgctxt "block description"
+msgid "A success or error message shown after the application form is submitted via REST. Starts hidden; assets/js/frontend.js toggles it visible based on the fetch() result — see this plugin's CLAUDE.md for why this differs from Gutenberg's removed core/form-submission-notification block (which relied on a full-page reload + ?wp-form-result= GET param)."
+msgstr "Mensagem de sucesso ou erro exibida após o envio do formulário de inscrição via REST. Começa oculta; assets/js/frontend.js a torna visível de acordo com o resultado do fetch() — veja o CLAUDE.md deste plugin para entender por que isso difere do bloco core/form-submission-notification removido do Gutenberg (que dependia de recarregar a página inteira + parâmetro GET ?wp-form-result=)."
+
+#: build/form/form-submission-notification/block.json
+#: includes/blocks/form/form-submission-notification/block.json
+#: src/form/form-submission-notification/block.json
+msgctxt "block keyword"
+msgid "notification"
+msgstr "notificação"
+
+#: build/form/form-submission-notification/block.json
+#: includes/blocks/form/form-submission-notification/block.json
+#: src/form/form-submission-notification/block.json
+msgctxt "block keyword"
+msgid "feedback"
+msgstr "feedback"
+
+#: build/form/form-submission-notification/block.json
+#: includes/blocks/form/form-submission-notification/block.json
+#: src/form/form-submission-notification/block.json
+msgctxt "block keyword"
+msgid "message"
+msgstr "mensagem"
+
+#: build/form/form-control/index.js:1
+#: build/form/form-input/index.js:1
+#: includes/blocks/form/form-control/index.js:153
+#: includes/blocks/form/form-input/index.js:188
+msgid "Optional placeholder text"
+msgstr "Texto de marcação opcional"
+
+#: build/form/form-control/index.js:1
+#: build/form/form-input/index.js:1
+#: includes/blocks/form/form-control/index.js:154
+#: includes/blocks/form/form-input/index.js:189
+msgid "Optional placeholder…"
+msgstr "Texto de marcação opcional…"
+
+#: build/form/form-control/index.js:1
+#: includes/blocks/form/form-control/index.js:213
+msgid "Control"
+msgstr "Campo"
+
+#: build/form/form-check/index.js:1
+#: build/form/form-control-br-revenue-id-legal/index.js:1
+#: build/form/form-control-br-revenue-id-person/index.js:1
+#: build/form/form-control-br-revenue-id/index.js:1
+#: build/form/form-control-city/index.js:1
+#: build/form/form-control-country/index.js:1
+#: build/form/form-control-phone/index.js:1
+#: build/form/form-control-postal/index.js:1
+#: build/form/form-control-reseller/index.js:1
+#: build/form/form-control-state/index.js:1
+#: build/form/form-control/index.js:1
+#: includes/blocks/form/form-control/index.js:292
+msgid "ID"
+msgstr "ID"
+
+#: includes/blocks/form/form-control/index.js:294
+msgid "Matches the paired form-label block’s \"For\" field. Also used as the fallback name attribute when Name is left empty."
+msgstr "Corresponde ao campo \"For\" do bloco form-label pareado. Também usado como atributo name de fallback quando Nome fica em branco."
+
+#: build/form/form-control-br-revenue-id-legal/index.js:1
+#: build/form/form-control-br-revenue-id-person/index.js:1
+#: build/form/form-control-br-revenue-id/index.js:1
+#: build/form/form-control-city/index.js:1
+#: build/form/form-control-country/index.js:1
+#: build/form/form-control-phone/index.js:1
+#: build/form/form-control-postal/index.js:1
+#: build/form/form-control-reseller/index.js:1
+#: build/form/form-control-state/index.js:1
+#: build/form/form-control/index.js:1
+#: includes/blocks/form/form-control/index.js:300
+msgid "Name (name attribute)"
+msgstr "Nome (atributo name)"
+
+#: build/form/form-control/index.js:1
+#: includes/blocks/form/form-control/index.js:302
+msgid "Leave empty to reuse the ID."
+msgstr "Deixe em branco para reaproveitar o ID."
+
+#: includes/blocks/form/form-control/variations.js:22
+msgid "Text Control"
+msgstr "Campo de texto"
+
+#: includes/blocks/form/form-control/variations.js:31
+msgid "Email Control"
+msgstr "Campo de e-mail"
+
+#: includes/blocks/form/form-control/variations.js:40
+msgid "URL Control"
+msgstr "Campo de URL"
+
+#: includes/blocks/form/form-control/variations.js:49
+msgid "Phone Control"
+msgstr "Campo de telefone"
+
+#: includes/blocks/form/form-control/variations.js:58
+msgid "Number Control"
+msgstr "Campo numérico"
+
+#: includes/blocks/form/form-control/variations.js:67
+msgid "Textarea Control"
+msgstr "Área de texto"
+
+#: includes/blocks/form/form-control/variations.js:76
+msgid "Select Control"
+msgstr "Campo de seleção"
+
+#: includes/blocks/form/form-control/variations.js:85
+msgid "Checkbox Control"
+msgstr "Checkbox"
+
+#: includes/blocks/form/form-control/variations.js:94
+msgid "Hidden Control"
+msgstr "Campo oculto"
+
+#: includes/class-design-tokens.php:238
+#: build/form/form-label/index.js:1
+#: includes/blocks/form/form-label/index.js:63
+msgid "Visually hidden"
+msgstr "Visualmente oculto"
+
+#: build/form/form-label/index.js:1
+#: includes/blocks/form/form-label/index.js:64
+msgid "Keeps the label readable by screen readers while hiding it visually — useful when the field’s purpose is already clear from context (e.g. a placeholder-only search box)."
+msgstr "Mantém o rótulo legível para leitores de tela ao mesmo tempo em que o oculta visualmente — útil quando o propósito do campo já fica claro pelo contexto (ex.: uma busca que só usa placeholder)."
+
+#: build/form/form-label/index.js:1
+#: includes/blocks/form/form-label/index.js:76
+msgid "For"
+msgstr "For"
+
+#: build/form/form-label/index.js:1
+#: includes/blocks/form/form-label/index.js:78
+msgid "The id of the axell/form-control this label belongs to."
+msgstr "O id do axell/form-control ao qual este rótulo pertence."
+
+#: build/form/form-control/block.json
+#: includes/blocks/form/form-control/block.json
+#: src/form/form-control/block.json
+msgctxt "block title"
+msgid "Form Control"
+msgstr "Campo do Formulário"
+
+#: includes/blocks/form/form-control/block.json
+msgctxt "block description"
+msgid "The actual input/select/textarea of a form field — text, email, tel, number, textarea, select, checkbox, or hidden, with optional input masking (CPF/CNPJ, CEP, phone). Pair with an axell/form-label sibling (same id/for) for the visible label — see this plugin's CLAUDE.md."
+msgstr "O input/select/textarea real de um campo de formulário — texto, e-mail, telefone, número, área de texto, seleção, checkbox ou oculto, com máscara opcional (CPF/CNPJ, CEP, telefone). Combine com um axell/form-label irmão (mesmo id/for) para o rótulo visível — veja o CLAUDE.md deste plugin."
+
+#: build/form/form-control/block.json
+#: build/form/form-group/block.json
+#: includes/blocks/form/form-control/block.json
+#: src/form/form-control/block.json
+#: src/form/form-group/block.json
+msgctxt "block keyword"
+msgid "control"
+msgstr "campo"
+
+#: includes/blocks/form/form-fieldset/block.json
+msgctxt "block title"
+msgid "Form Fieldset"
+msgstr "Grupo do Formulário"
+
+#: build/form/form-fieldset/block.json
+#: includes/blocks/form/form-fieldset/block.json
+#: src/form/form-fieldset/block.json
+msgctxt "block description"
+msgid "Groups a set of related form fields inside a real <fieldset>, with an optional <legend>."
+msgstr "Agrupa um conjunto de campos relacionados dentro de um <fieldset> real, com <legend> opcional."
+
+#: build/form/form-fieldset/block.json
+#: includes/blocks/form/form-fieldset/block.json
+#: src/form/form-fieldset/block.json
+msgctxt "block keyword"
+msgid "fieldset"
+msgstr "fieldset"
+
+#: build/form/form-fieldset/block.json
+#: includes/blocks/form/form-fieldset/block.json
+#: src/form/form-fieldset/block.json
+msgctxt "block keyword"
+msgid "legend"
+msgstr "legenda"
+
+#: build/form/form-fieldset/block.json
+#: build/form/form-group/block.json
+#: includes/blocks/form/form-fieldset/block.json
+#: src/form/form-fieldset/block.json
+#: src/form/form-group/block.json
+msgctxt "block keyword"
+msgid "group"
+msgstr "grupo"
+
+#: build/form/form-input/block.json
+#: includes/blocks/form/form-input/block.json
+#: src/form/form-input/block.json
+msgctxt "block description"
+msgid "Deprecated — superseded by axell/form-label + axell/form-control (see this plugin's CLAUDE.md). Kept registered, hidden from the inserter, so any pre-existing content using it keeps rendering/editing correctly."
+msgstr "Descontinuado — substituído por axell/form-label + axell/form-control (veja o CLAUDE.md deste plugin). Mantido registrado, oculto do inseridor, para que qualquer conteúdo já existente continue renderizando/editando corretamente."
+
+#: includes/blocks/form/form-label/block.json
+msgctxt "block title"
+msgid "Form Label"
+msgstr "Rótulo do Formulário"
+
+#: build/form/form-group/block.json
+#: build/form/form-label/block.json
+#: includes/blocks/form/form-label/block.json
+#: src/form/form-group/block.json
+#: src/form/form-label/block.json
+msgctxt "block keyword"
+msgid "label"
+msgstr "rótulo"
+
+#: build/form/form-submission-notification/index.js:1
+msgid "Submission success notification"
+msgstr "Notificação de sucesso do envio"
+
+#: build/form/form-submission-notification/index.js:1
+msgid "Submission error notification"
+msgstr "Notificação de erro do envio"
+
+#: build/form/form-submission-notification/index.js:1
+msgid "Your form has been submitted successfully."
+msgstr "Seu formulário foi enviado com sucesso."
+
+#: build/form/form-submission-notification/index.js:1
+msgid "There was an error submitting your form."
+msgstr "Houve um erro ao enviar seu formulário."
+
+#: includes/class-admin-rest.php:260
+msgid "Name cannot be empty."
+msgstr "O nome não pode ficar vazio."
+
+#: includes/class-admin-rest.php:353
+msgid "Member not found."
+msgstr "Membro não encontrado."
+
+#: includes/class-design-tokens.php:235
+msgid "Primary"
+msgstr "Primário"
+
+#: includes/class-design-tokens.php:236
+msgid "Bronze hover"
+msgstr "Bronze ao passar o mouse"
+
+#: includes/class-design-tokens.php:237
+msgid "Ivory"
+msgstr "Marfim"
+
+#: includes/class-form-block.php:223
+#: build/form/form/index.js:1
+msgid "Leave this field empty"
+msgstr "Deixe este campo vazio"
+
+#: includes/class-form-submission.php:119
+msgid "Form not found."
+msgstr "Formulário não encontrado."
+
+#: includes/class-icons.php:93
+msgid "Arrow"
+msgstr "Seta"
+
+#: includes/class-members.php:680
+#: includes/class-members.php:785
+#: includes/class-places.php:568
+#: includes/class-rest.php:183
+msgid "Too many attempts. Try again in a few minutes."
+msgstr "Muitas tentativas. Tente novamente em alguns minutos."
+
+#: includes/class-template-loader.php:120
+msgid "Atelier — Section"
+msgstr "Atelier — Seção"
+
+#: includes/class-template-loader.php:121
+msgid "One styled section of the Atelier landing page on its own: the page content on the design background, without header or footer."
+msgstr "Uma seção estilizada da landing do Atelier sozinha: o conteúdo da página sobre o fundo do design, sem cabeçalho nem rodapé."
+
+#. translators: %s: timezone detail, e.g. "(CEST) Europe/Madrid" or "UTC+3".
+#: build/admin/members/index.js:175
+msgid "Could not load members."
+msgstr "Não foi possível carregar os membros."
+
+#: includes/class-members-export.php:75
+#: includes/class-settings.php:922
+#: build/admin/members/index.js:175
+#: build/admin/members/index.js:184
+#: build/admin/resellers/index.js:175
+#: build/admin/resellers/index.js:184
+msgid "Status"
+msgstr "Status"
+
+#. translators: %d: Number of fields that need attention
+#: build/admin/members/index.js:184
+msgid "Could not load this member."
+msgstr "Não foi possível carregar este membro."
+
+#: build/admin/members/index.js:175
+#: build/admin/resellers/index.js:175
+#: build/admin/resellers/index.js:184
+#: build/form/form-check/index.js:1
+#: build/form/form-control-reseller/index.js:1
+#: build/form/form-control/index.js:1
+msgid "Name"
+msgstr "Nome"
+
+#: build/form/form-control-reseller/index.js:1
+#: build/form/form-control/index.js:1
+msgid "Autocomplete (posts)"
+msgstr "Autocomplete (posts)"
+
+#: build/form/form-control/index.js:1
+msgid "Matches the paired label block’s \"For\" field. Also used as the fallback name attribute when Name is left empty."
+msgstr "Corresponde ao campo \"For\" do bloco de rótulo pareado. Também é usado como atributo name quando o Name fica vazio."
+
+#: build/form/form-control/index.js:1
+msgid "Source post type"
+msgstr "Tipo de post de origem"
+
+#: build/form/form-control/index.js:1
+msgid "Choose…"
+msgstr "Escolha…"
+
+#: build/form/form-control/index.js:1
+msgid "Label template"
+msgstr "Modelo do rótulo"
+
+#: build/form/form-control/index.js:1
+msgid "Tokens: [post_title], [tax:cidades], [tax:estados:uf], [meta:key]"
+msgstr "Tokens: [post_title], [tax:cidades], [tax:estados:uf], [meta:key]"
+
+#: build/form/form-control/variations.js:1
+msgid "Form Control (text)"
+msgstr "Controle de formulário (texto)"
+
+#: build/form/form-control/variations.js:1
+msgid "Form Control (email)"
+msgstr "Controle de formulário (e-mail)"
+
+#: build/form/form-control/variations.js:1
+msgid "Form Control (url)"
+msgstr "Controle de formulário (URL)"
+
+#: build/form/form-control/variations.js:1
+msgid "Form Control (tel)"
+msgstr "Controle de formulário (telefone)"
+
+#: build/form/form-control/variations.js:1
+msgid "Form Control (number)"
+msgstr "Controle de formulário (número)"
+
+#: build/form/form-control/variations.js:1
+msgid "Form Control (textarea)"
+msgstr "Controle de formulário (área de texto)"
+
+#: build/form/form-control/variations.js:1
+msgid "Form Control (select)"
+msgstr "Controle de formulário (seleção)"
+
+#: build/form/form-control/variations.js:1
+msgid "Form Control (hidden)"
+msgstr "Controle de formulário (oculto)"
+
+#: build/form/form-fieldset/index.js:1
+#: includes/blocks/form/form-fieldset/index.js:87
+msgid "Remove legend"
+msgstr "Remover legenda"
+
+#: build/form/form-fieldset/index.js:1
+#: includes/blocks/form/form-fieldset/index.js:87
+msgid "Add legend"
+msgstr "Adicionar legenda"
+
+#: build/form/form-fieldset/index.js:1
+#: includes/blocks/form/form-fieldset/index.js:74
+msgid "Legend…"
+msgstr "Legenda…"
+
+#: build/form/form-select/index.js:1
+msgid "Select"
+msgstr "Seleção"
+
+#: build/form/form-select/index.js:1
+msgid "Options"
+msgstr "Opções"
+
+#: build/inline-icon/index.js:1
+msgid "Icon library"
+msgstr "Biblioteca de ícones"
+
+#: build/inline-icon/index.js:1
+msgid "No results found."
+msgstr "Nenhum resultado encontrado."
+
+#: build/inline-icon/index.js:1
+msgid "All"
+msgstr "Todos"
+
+#: build/inline-icon/index.js:1
+msgid "Loading…"
+msgstr "Carregando…"
+
+#: build/inline-icon/index.js:1
+msgid "Inline icon"
+msgstr "Ícone embutido"
+
+#: build/form/form-atelier/index.js:1
+#: build/form/form-control-country/index.js:1
+#: build/form/form/index.js:1
+#: build/reveal/index.js:1
+msgid "None"
+msgstr "Nenhum"
+
+#: build/reveal/index.js:1
+msgid "Whole block"
+msgstr "Bloco inteiro"
+
+#: build/reveal/index.js:1
+msgid "Each child"
+msgstr "Cada filho"
+
+#: build/reveal/index.js:1
+msgid "Reveal on scroll"
+msgstr "Revelar ao rolar"
+
+#: build/reveal/index.js:1
+msgid "Animate on scroll"
+msgstr "Animar ao rolar"
+
+#: build/reveal/index.js:1
+msgid "Whole block fades in as one. Each child fades in on its own, for card grids and lists."
+msgstr "Bloco inteiro: aparece de uma vez. Cada filho: cada item aparece por conta própria, para grades de cartões e listas."
+
+#: includes/blocks/form/form/index.js:102
+msgid "Fieldset (plain)"
+msgstr "Fieldset (simples)"
+
+#: includes/blocks/form/form/index.js:103
+msgid "A plain grouping wrapper rendered as a real <fieldset> — no legend. For a fieldset with a toggleable legend, use the Form Fieldset block instead."
+msgstr "Um agrupamento simples renderizado como um <fieldset> de verdade, sem legenda. Para um fieldset com legenda opcional, use o bloco Fieldset."
+
+#: includes/blocks/form/form/index.js:113
+msgid "Legend (plain)"
+msgstr "Legenda (simples)"
+
+#: includes/blocks/form/form/index.js:114
+msgid "A plain wrapper rendered as a real <legend> — for hand-composing a fieldset from plain groups instead of the Form Fieldset block."
+msgstr "Um contêiner simples renderizado como um <legend> de verdade, para montar um fieldset à mão com grupos simples em vez do bloco Fieldset."
+
+#: build/form/form-atelier/block.json
+#: src/form/form-atelier/block.json
+msgctxt "block title"
+msgid "Form Atelier"
+msgstr "Form Atelier"
+
+#: build/form/form-atelier/block.json
+#: src/form/form-atelier/block.json
+msgctxt "block keyword"
+msgid "atelier"
+msgstr "atelier"
+
+#: build/form/form-check/block.json
+#: src/form/form-check/block.json
+msgctxt "block title"
+msgid "Form Check"
+msgstr "Caixa de seleção de formulário"
+
+#: build/form/form-check/block.json
+#: src/form/form-check/block.json
+msgctxt "block description"
+msgid "A checkbox with its own label text (links allowed), such as a consent or terms acceptance. Stands alone: it does not sit in an axell/form-group."
+msgstr "Uma caixa de seleção com o próprio texto (links permitidos), como um consentimento ou o aceite de termos. Fica sozinha: não vai dentro de um axell/form-group."
+
+#: build/form/form-check/block.json
+#: src/form/form-check/block.json
+msgctxt "block keyword"
+msgid "checkbox"
+msgstr "caixa de seleção"
+
+#: build/form/form-check/block.json
+#: src/form/form-check/block.json
+msgctxt "block keyword"
+msgid "consent"
+msgstr "consentimento"
+
+#: build/form/form-check/block.json
+#: src/form/form-check/block.json
+msgctxt "block keyword"
+msgid "check"
+msgstr "marcar"
+
+#: build/form/form-control-br-revenue-id-legal/block.json
+#: src/form/form-control-br-revenue-id-legal/block.json
+msgctxt "block title"
+msgid "Form Control (CNPJ)"
+msgstr "Controle de formulário (CNPJ)"
+
+#: build/form/form-control-br-revenue-id-legal/block.json
+#: build/form/form-control-br-revenue-id-person/block.json
+#: build/form/form-control-br-revenue-id/block.json
+#: src/form/form-control-br-revenue-id-legal/block.json
+#: src/form/form-control-br-revenue-id-person/block.json
+#: src/form/form-control-br-revenue-id/block.json
+msgctxt "block keyword"
+msgid "cpf"
+msgstr "cpf"
+
+#: build/form/form-control-br-revenue-id-legal/block.json
+#: build/form/form-control-br-revenue-id-person/block.json
+#: build/form/form-control-br-revenue-id/block.json
+#: src/form/form-control-br-revenue-id-legal/block.json
+#: src/form/form-control-br-revenue-id-person/block.json
+#: src/form/form-control-br-revenue-id/block.json
+msgctxt "block keyword"
+msgid "cnpj"
+msgstr "cnpj"
+
+#: build/form/form-control-br-revenue-id-person/block.json
+#: src/form/form-control-br-revenue-id-person/block.json
+msgctxt "block title"
+msgid "Form Control (CPF)"
+msgstr "Controle de formulário (CPF)"
+
+#: build/form/form-control-phone/block.json
+#: src/form/form-control-phone/block.json
+msgctxt "block keyword"
+msgid "phone"
+msgstr "fone"
+
+#: build/form/form-control-phone/block.json
+#: src/form/form-control-phone/block.json
+msgctxt "block keyword"
+msgid "tel"
+msgstr "tel"
+
+#: build/form/form-control-reseller/block.json
+#: src/form/form-control-reseller/block.json
+msgctxt "block keyword"
+msgid "autocomplete"
+msgstr "autocompletar"
+
+#: build/form/form-control/block.json
+#: src/form/form-control/block.json
+msgctxt "block description"
+msgid "The actual input/select/textarea of a form field — text, email, tel, number, textarea, select, or hidden, with optional input masking (CPF/CNPJ, CEP, phone). Pair with an axell/form-label sibling (same id/for) for the visible label — see this plugin's CLAUDE.md."
+msgstr "O input, select ou textarea de um campo de formulário: texto, e-mail, telefone, número, área de texto, seleção ou oculto, com máscara opcional (CPF/CNPJ, CEP, telefone). Use com um axell/form-label irmão (mesmo id/for) para o rótulo visível."
+
+#: build/form/form-fieldset/block.json
+#: src/form/form-fieldset/block.json
+msgctxt "block title"
+msgid "Fieldset"
+msgstr "Fieldset"
+
+#: build/form/form-group/block.json
+#: src/form/form-group/block.json
+msgctxt "block title"
+msgid "Form Group"
+msgstr "Grupo de formulário"
+
+#: build/form/form-label/block.json
+#: src/form/form-label/block.json
+msgctxt "block title"
+msgid "Label"
+msgstr "Rótulo"
+
+#: build/form/form-label/block.json
+#: includes/blocks/form/form-label/block.json
+#: src/form/form-label/block.json
+msgctxt "block description"
+msgid "A form field's label, associated with its axell/form-control sibling via a matching id/for pair. Can be visually hidden (still read by screen readers) via the \"Visually hidden\" toggle. A required-field asterisk, if wanted, is just part of the label's own text content (e.g. embed a styled span directly) — not a separate attribute."
+msgstr "O rótulo de um campo, associado ao axell/form-control irmão por um par id/for. Pode ficar visualmente oculto (ainda lido por leitores de tela) com a opção \"Visualmente oculto\". O asterisco de campo obrigatório faz parte do próprio texto do rótulo, não é um atributo à parte."
+
+#: build/form/form-select/block.json
+#: src/form/form-select/block.json
+msgctxt "block title"
+msgid "Form Select"
+msgstr "Seleção de formulário"
+
+#: build/form/form-select/block.json
+#: src/form/form-select/block.json
+msgctxt "block description"
+msgid "A select field with a list of options, placed inside an axell/form-group next to its axell/form-label."
+msgstr "Um campo de seleção com uma lista de opções, dentro de um axell/form-group ao lado do seu axell/form-label."
+
+#: build/form/form-select/block.json
+#: src/form/form-select/block.json
+msgctxt "block keyword"
+msgid "select"
+msgstr "seleção"
+
+#: build/form/form-select/block.json
+#: src/form/form-select/block.json
+msgctxt "block keyword"
+msgid "dropdown"
+msgstr "menu suspenso"
+
+#: build/form/form-select/block.json
+#: src/form/form-select/block.json
+msgctxt "block keyword"
+msgid "options"
+msgstr "opções"
+
+#: build/form/form-text/block.json
+#: src/form/form-text/block.json
+msgctxt "block title"
+msgid "Form Text"
+msgstr "Texto de formulário"
+
+#: build/form/form-text/block.json
+#: src/form/form-text/block.json
+msgctxt "block description"
+msgid "Help text for a form field: a paragraph (rich text, links allowed) placed inside an axell/form-group."
+msgstr "Texto de ajuda de um campo: um parágrafo (texto formatado, links permitidos) dentro de um axell/form-group."
+
+#: build/form/form-text/block.json
+#: src/form/form-text/block.json
+msgctxt "block keyword"
+msgid "text"
+msgstr "texto"
+
+#: build/form/form-text/block.json
+#: src/form/form-text/block.json
+msgctxt "block keyword"
+msgid "help"
+msgstr "ajuda"
+
+#: build/form/form-text/block.json
+#: src/form/form-text/block.json
+msgctxt "block keyword"
+msgid "hint"
+msgstr "dica"
+
+#: build/form/form-text/block.json
+#: src/form/form-text/block.json
+msgctxt "block keyword"
+msgid "paragraph"
+msgstr "parágrafo"
+
+#: build/form/form/block.json
+#: src/form/form/block.json
+msgctxt "block title"
+msgid "Form"
+msgstr "Formulário"
+
+#: build/sticky-header/block.json
+#: src/sticky-header/block.json
+msgctxt "block title"
+msgid "Sticky Header"
+msgstr "Cabeçalho fixo"
+
+#: build/sticky-header/block.json
+#: src/sticky-header/block.json
+msgctxt "block description"
+msgid "A group that stays fixed at the top of the viewport and changes its padding and background once the page scrolls past 40px. Its inner blocks are the header content."
+msgstr "Um grupo que fica fixo no topo da janela e muda o espaçamento e o fundo quando a página rola mais de 40px. Os blocos internos são o conteúdo do cabeçalho."
+
+#: build/sticky-header/block.json
+#: src/sticky-header/block.json
+msgctxt "block keyword"
+msgid "header"
+msgstr "cabeçalho"
+
+#: build/sticky-header/block.json
+#: src/sticky-header/block.json
+msgctxt "block keyword"
+msgid "sticky"
+msgstr "fixo"
+
+#: build/sticky-header/block.json
+#: src/sticky-header/block.json
+msgctxt "block keyword"
+msgid "fixed"
+msgstr "fixado"
+
+#: build/sticky-header/block.json
+#: src/sticky-header/block.json
+msgctxt "block keyword"
+msgid "navigation"
+msgstr "navegação"
+
+#: build/sticky-header/block.json
+#: src/sticky-header/block.json
+msgctxt "block keyword"
+msgid "nav"
+msgstr "nav"
+
+#: includes/class-design-tokens.php:242
+msgid "Sticky on desktop"
+msgstr "Fixa ao rolar (desktop)"
+
+#: includes/class-design-tokens.php:241
+msgid "Eyebrow"
+msgstr "Sobretítulo"
+
+#: includes/class-icons.php:103
+msgid "Arrow (large)"
+msgstr "Seta (grande)"
+
+#: includes/class-design-tokens.php:244
+msgid "Pillars"
+msgstr "Pilares"
+
+#: includes/class-icons.php:124
+msgid "Lock (outline)"
+msgstr "Cadeado (contorno)"
+
+#: includes/class-design-tokens.php:250
+msgid "Stone"
+msgstr "Pedra"
+
+#: includes/class-design-tokens.php:245
+msgid "Protagonists"
+msgstr "Protagonistas"
+
+#: includes/class-design-tokens.php:246
+msgid "Promises"
+msgstr "Promessas"
+
+#: includes/class-design-tokens.php:248
+msgid "Steps"
+msgstr "Passos"
+
+#: includes/class-icons.php:113
+msgid "Arrow (small)"
+msgstr "Seta (pequena)"
+
+#: includes/class-design-tokens.php:239
+msgid "Tier"
+msgstr "Nível"
+
+#: includes/class-design-tokens.php:240
+msgid "Tier (locked)"
+msgstr "Nível (bloqueado)"
+
+#: includes/class-icons.php:144
+msgid "Clock (outline)"
+msgstr "Relógio (contorno)"
+
+#: includes/class-design-tokens.php:247
+msgid "Benefits"
+msgstr "Benefícios"
+
+#: includes/class-design-tokens.php:249
+msgid "Channels"
+msgstr "Canais"
+
+#: includes/class-admin-rest.php:275
+#: includes/class-members.php:298
+#: includes/class-members.php:782
+msgid "This e-mail is already registered."
+msgstr "Este e-mail já está cadastrado."
+
+#: includes/class-admin-rest.php:332
+#: includes/class-resellers-rest.php:321
+msgid "Invalid status."
+msgstr "Status inválido."
+
+#: includes/class-design-tokens.php:251
+msgid "Footer"
+msgstr "Rodapé"
+
+#: includes/class-member.php:404
+#: includes/class-settings.php:215
+msgid "Atelier"
+msgstr "Atelier"
+
+#: includes/class-members-export.php:77
+msgid "Login"
+msgstr "Login"
+
+#: build/form/form-group/block.json
+#: src/form/form-group/block.json
+msgctxt "block description"
+msgid "A form field: an axell/form-label and an axell/form-control (or axell/form-select), inserted together, with an optional axell/form-text. A plain block: its width comes from the layout around it (a core/group grid in the fieldset)."
+msgstr "Um campo de formulário: um axell/form-label e um axell/form-control (ou axell/form-select) inseridos juntos, com um axell/form-text opcional. Um bloco simples: a largura vem do layout em volta (uma grade core/group no fieldset)."
+
+#: includes/class-form-directives.php:682
+#: includes/class-form-directives.php:840
+#: build/form/form-control-reseller/index.js:1
+#: build/form/form-control/index.js:1
+msgid "Select state"
+msgstr "Selecione UF"
+
+#: includes/class-form-directives.php:802
+#: includes/class-form-directives.php:837
+#: includes/class-form-directives.php:848
+#: includes/class-members-export.php:88
+#: includes/class-notifications.php:355
+#: build/form/form-control-reseller/index.js:1
+#: build/form/form-control/index.js:1
+msgid "State code"
+msgstr "UF"
+
+#: includes/class-form-directives.php:834
+msgid "Store name"
+msgstr "Nome da loja"
+
+#: includes/class-form-directives.php:835
+#: build/form/form-control-reseller/index.js:1
+#: build/form/form-control/index.js:1
+msgid "Back to search"
+msgstr "Voltar à busca"
+
+#: includes/class-form-directives.php:839
+#: includes/class-members-export.php:89
+#: includes/class-notifications.php:356
+#: includes/class-resellers.php:131
+#: build/admin/resellers/index.js:175
+#: build/admin/resellers/index.js:184
+#: build/form/form-control-reseller/index.js:1
+#: build/form/form-control/index.js:1
+msgid "City"
+msgstr "Cidade"
+
+#: includes/class-form-submission.php:85
+msgid "Member (user)"
+msgstr "Membro (usuário)"
+
+#. translators: %s: date and time of the submission.
+#: includes/class-form-submission.php:306
+#, php-format
+msgid "Form submission %s"
+msgstr "Envio de formulário %s"
+
+#: includes/class-form-submission.php:353
+msgid "New form submission"
+msgstr "Novo envio de formulário"
+
+#: includes/class-member-profile.php:433
+#: includes/class-member.php:362
+#: includes/class-resellers-rest.php:53
+#: build/form/form-atelier/index.js:1
+#: build/form/form/index.js:1
+msgid "Pending"
+msgstr "Pendente"
+
+#: includes/class-member.php:363
+#: includes/class-member.php:376
+#: includes/class-settings.php:928
+msgid "Member"
+msgstr "Membro"
+
+#: includes/class-member.php:374
+msgid "Pending Member"
+msgstr "Membro Pendente"
+
+#: includes/class-member.php:430
+#: includes/class-members-export.php:130
+msgid "Export"
+msgstr "Exportar"
+
+#: includes/class-members-export.php:76
+#: build/admin/members/index.js:175
+#: build/admin/members/index.js:184
+msgid "Submitted on"
+msgstr "Enviado em"
+
+#: includes/class-members-export.php:78
+#: includes/class-notifications.php:339
+#: build/admin/members/index.js:184
+msgid "Full name"
+msgstr "Nome completo"
+
+#: includes/class-members-export.php:80
+msgid "Office / Studio"
+msgstr "Escritório / Ateliê"
+
+#: includes/class-members-export.php:82
+#: includes/class-notifications.php:344
+#: build/admin/members/index.js:184
+msgid "Registration (CAU / CREA / ABD)"
+msgstr "Registro (CAU / CREA / ABD)"
+
+#: includes/class-members-export.php:83
+#: includes/class-notifications.php:345
+#: build/admin/members/index.js:184
+msgid "Main practice"
+msgstr "Atuação principal"
+
+#: includes/class-members-export.php:84
+#: includes/class-notifications.php:346
+#: build/admin/members/index.js:184
+msgid "Portfolio (URL)"
+msgstr "Portfólio (URL)"
+
+#: includes/class-members-export.php:85
+#: includes/class-notifications.php:347
+#: build/admin/members/index.js:184
+msgid "Registration type"
+msgstr "Tipo de cadastro"
+
+#: includes/class-members-export.php:87
+#: includes/class-resellers.php:140
+#: build/admin/resellers/index.js:175
+#: build/admin/resellers/index.js:184
+#: build/form/form-control-city/index.js:1
+#: build/form/form-control-country/index.js:1
+#: build/form/form-control-phone/index.js:1
+#: build/form/form-control-postal/index.js:1
+#: build/form/form-control-state/index.js:1
+msgid "Country"
+msgstr "País"
+
+#: includes/class-members-export.php:90
+#: includes/class-notifications.php:350
+msgid "Street"
+msgstr "Logradouro"
+
+#: includes/class-members-export.php:92
+#: includes/class-notifications.php:352
+msgid "Address line 2"
+msgstr "Complemento"
+
+#: includes/class-members-export.php:93
+#: includes/class-notifications.php:353
+#: build/admin/members/index.js:184
+msgid "Neighborhood"
+msgstr "Bairro"
+
+#: includes/class-members-export.php:94
+#: includes/class-notifications.php:354
+#: build/admin/members/index.js:184
+msgid "Landmark"
+msgstr "Referência"
+
+#: includes/class-members-export.php:95
+#: includes/class-notifications.php:357
+msgid "Postal code"
+msgstr "CEP"
+
+#: includes/class-members-export.php:97
+#: build/admin/members/index.js:184
+msgid "Partner stores"
+msgstr "Lojas parceiras"
+
+#: includes/class-members-export.php:118
+#: build/admin/members/index.js:184
+msgid "Individual · CPF"
+msgstr "Pessoa Física · CPF"
+
+#: includes/class-members-export.php:119
+#: build/admin/members/index.js:184
+msgid "Company · CNPJ"
+msgstr "Pessoa Jurídica · CNPJ"
+
+#: includes/class-members-export.php:129
+#: includes/class-members-export.php:178
+msgid "Export members"
+msgstr "Exportar membros"
+
+#: includes/class-members-export.php:164
+msgid "Something went wrong. Please try again."
+msgstr "Ocorreu um erro. Tente novamente."
+
+#: includes/class-members-export.php:175
+msgid "You do not have permission to access this page."
+msgstr "Você não tem permissão para acessar esta página."
+
+#: includes/class-members-export.php:180
+msgid "Export members to a CSV file"
+msgstr "Exportar membros para um arquivo CSV"
+
+#: includes/class-members-export.php:181
+msgid "Generates and downloads a CSV file with the list of members."
+msgstr "Gera e baixa um arquivo CSV com a lista de membros."
+
+#: includes/class-members-export.php:188
+msgid "Which columns to export?"
+msgstr "Quais colunas exportar?"
+
+#: includes/class-members-export.php:188
+msgid "Export the default columns"
+msgstr "Exportar as colunas padrão"
+
+#: includes/class-members-export.php:189
+msgid "Which statuses to export?"
+msgstr "Quais status exportar?"
+
+#: includes/class-members-export.php:189
+msgid "Export all statuses"
+msgstr "Exportar todos os status"
+
+#: includes/class-members-export.php:190
+msgid "Registered since"
+msgstr "Cadastrados desde"
+
+#: includes/class-members-export.php:192
+msgid "Includes the chosen day. Empty exports from the first registration. To export only the new ones, choose the day of the last export (registrations of that day may repeat)."
+msgstr "Inclui o dia escolhido. Vazio exporta desde o primeiro cadastro. Para exportar só os novos, escolha o dia da última exportação (cadastros desse dia podem se repetir)."
+
+#: includes/class-members-export.php:194
+msgid "Which states to export?"
+msgstr "Quais UFs exportar?"
+
+#: includes/class-members-export.php:194
+msgid "Export all states"
+msgstr "Exportar todas as UFs"
+
+#: includes/class-members-export.php:195
+msgid "Which cities to export?"
+msgstr "Quais cidades exportar?"
+
+#: includes/class-members-export.php:195
+msgid "Export all cities"
+msgstr "Exportar todas as cidades"
+
+#: includes/class-members-export.php:197
+msgid "Which practices to export?"
+msgstr "Quais atuações exportar?"
+
+#: includes/class-members-export.php:197
+msgid "Export all practices"
+msgstr "Exportar todas as atuações"
+
+#: includes/class-members-export.php:201
+msgid "Generate CSV"
+msgstr "Gerar CSV"
+
+#: includes/class-members-export.php:265
+#: includes/class-members-export.php:546
+msgid "You do not have permission to do this."
+msgstr "Você não tem permissão para fazer isso."
+
+#: includes/class-members-export.php:275
+msgid "The export expired. Start again."
+msgstr "A exportação expirou. Comece de novo."
+
+#: includes/class-members-export.php:552
+msgid "The export file is no longer available."
+msgstr "O arquivo da exportação não está mais disponível."
+
+#: includes/class-resellers-admin.php:109
+#: includes/class-resellers-admin.php:158
+#: includes/class-resellers.php:95
+#: build/form/form-control/index.js:1
+msgid "Resellers"
+msgstr "Revendas"
+
+#: includes/class-resellers-admin.php:110
+#: includes/class-resellers.php:97
+msgid "All resellers"
+msgstr "Todas as revendas"
+
+#: includes/class-resellers-admin.php:118
+#: includes/class-resellers-admin.php:119
+#: includes/class-resellers-admin.php:158
+#: includes/class-resellers-admin.php:164
+#: includes/class-resellers.php:98
+msgid "Add reseller"
+msgstr "Adicionar revenda"
+
+#: includes/class-resellers-rest.php:52
+msgctxt "reseller status"
+msgid "Published"
+msgstr "Publicada"
+
+#: includes/class-resellers-rest.php:54
+#: build/form/form-atelier/index.js:1
+#: build/form/form/index.js:1
+msgid "Draft"
+msgstr "Rascunho"
+
+#: includes/class-resellers-rest.php:273
+#: includes/class-resellers-rest.php:314
+msgid "The name is required."
+msgstr "O nome é obrigatório."
+
+#: includes/class-resellers-rest.php:351
+msgid "Could not move to the trash."
+msgstr "Não foi possível mover para a lixeira."
+
+#: includes/class-resellers-rest.php:405
+msgid "Reseller not found."
+msgstr "Revenda não encontrada."
+
+#: includes/class-resellers.php:96
+#: build/admin/resellers/index.js:184
+msgid "Reseller"
+msgstr "Revenda"
+
+#: includes/class-resellers.php:99
+msgid "Edit reseller"
+msgstr "Editar revenda"
+
+#: includes/class-resellers.php:124
+msgid "States"
+msgstr "Estados"
+
+#: includes/class-member-profile.php:532
+#: includes/class-resellers.php:130
+msgid "Cities"
+msgstr "Cidades"
+
+#: includes/class-resellers.php:132
+msgid "All cities"
+msgstr "Todas as cidades"
+
+#: includes/class-resellers.php:139
+msgid "Countries"
+msgstr "Países"
+
+#: includes/class-resellers.php:141
+msgid "All countries"
+msgstr "Todos os países"
+
+#: build/admin/members/index.js:175
+msgid "Practice"
+msgstr "Atuação"
+
+#: includes/class-settings.php:487
+#: build/admin/members/index.js:175
+msgid "View"
+msgstr "Ver"
+
+#: build/admin/members/index.js:175
+msgid "No registrations found."
+msgstr "Nenhum cadastro encontrado."
+
+#: build/admin/members/index.js:184
+msgid "Professional email"
+msgstr "E-mail profissional"
+
+#: build/admin/members/index.js:184
+msgid "CPF or CNPJ"
+msgstr "CPF ou CNPJ"
+
+#: build/admin/members/index.js:184
+msgid "Registration"
+msgstr "Cadastro"
+
+#: build/admin/members/index.js:184
+msgid "Authorship"
+msgstr "Autoria"
+
+#: build/admin/members/index.js:184
+msgid "Document"
+msgstr "Documento"
+
+#: build/admin/members/index.js:184
+msgid "Office address"
+msgstr "Endereço do escritório"
+
+#: build/admin/members/index.js:184
+msgid "← All registrations"
+msgstr "← Todos os cadastros"
+
+#: build/admin/members/index.js:184
+msgid "Status updated."
+msgstr "Status atualizado."
+
+#: build/admin/members/index.js:184
+#: build/admin/resellers/index.js:184
+msgid "Could not save."
+msgstr "Não foi possível salvar."
+
+#: build/admin/members/index.js:184
+msgid "Pending curation"
+msgstr "Pendente de curadoria"
+
+#: includes/class-member-profile.php:589
+#: build/admin/members/index.js:184
+msgid "Open store"
+msgstr "Abrir loja"
+
+#. translators: %s: timezone detail, e.g. "(CEST) Europe/Madrid" or "UTC+3".
+#: build/admin/resellers/index.js:175
+msgid "Could not load the resellers."
+msgstr "Não foi possível carregar as revendas."
+
+#: build/admin/resellers/index.js:175
+#: build/admin/resellers/index.js:184
+msgid "State"
+msgstr "Estado"
+
+#: build/admin/resellers/index.js:175
+#: build/admin/resellers/index.js:184
+msgid "Website"
+msgstr "Site"
+
+#: build/admin/resellers/index.js:175
+msgid "Date"
+msgstr "Data"
+
+#: includes/class-settings.php:485
+#: build/admin/resellers/index.js:175
+msgid "Edit"
+msgstr "Editar"
+
+#: build/admin/resellers/index.js:175
+#: build/admin/resellers/index.js:184
+msgid "Move to trash"
+msgstr "Mover para a lixeira"
+
+#: build/admin/resellers/index.js:175
+msgid "No resellers found."
+msgstr "Nenhuma revenda encontrada."
+
+#. translators: %d: Number of fields that need attention
+#: build/admin/resellers/index.js:184
+msgid "Could not load the reseller."
+msgstr "Não foi possível carregar a revenda."
+
+#: build/admin/resellers/index.js:184
+msgid "Address"
+msgstr "Endereço"
+
+#: build/admin/resellers/index.js:184
+msgid "Phone 1"
+msgstr "Telefone 1"
+
+#: build/admin/resellers/index.js:184
+msgid "Phone 2"
+msgstr "Telefone 2"
+
+#: build/admin/resellers/index.js:184
+msgid "Contact"
+msgstr "Contato"
+
+#: build/admin/resellers/index.js:184
+msgid "← All resellers"
+msgstr "← Todas as revendas"
+
+#: build/admin/resellers/index.js:184
+msgid "Reseller updated."
+msgstr "Revenda atualizada."
+
+#: build/admin/resellers/index.js:184
+msgid "Reseller created."
+msgstr "Revenda criada."
+
+#: build/admin/resellers/index.js:184
+msgid "Save"
+msgstr "Salvar"
+
+#: build/admin/resellers/index.js:184
+msgid "Create reseller"
+msgstr "Criar revenda"
+
+#: build/form/form-atelier/index.js:1
+#: build/form/form/index.js:1
+msgid "Published"
+msgstr "Publicado"
+
+#: build/form/form-atelier/index.js:1
+#: build/form/form/index.js:1
+msgid "Private"
+msgstr "Privado"
+
+#: build/form/form-atelier/index.js:1
+#: build/form/form/index.js:1
+msgid "Submission actions"
+msgstr "Ações de envio"
+
+#: build/form/form-atelier/index.js:1
+#: build/form/form/index.js:1
+msgid "Save to"
+msgstr "Gravar em"
+
+#: build/form/form-atelier/index.js:1
+#: build/form/form/index.js:1
+msgid "Set by this block: each submission becomes a registration."
+msgstr "Definido por este bloco: cada envio vira um cadastro."
+
+#: build/form/form-atelier/index.js:1
+#: build/form/form/index.js:1
+msgid "Each submission becomes a post of this type. None: nothing is saved."
+msgstr "Cada envio vira um post deste tipo. Nenhum: não grava."
+
+#: build/form/form-atelier/index.js:1
+#: build/form/form/index.js:1
+msgid "Post status"
+msgstr "Status do post"
+
+#: build/form/form-atelier/index.js:1
+#: build/form/form/index.js:1
+msgid "Title field (name)"
+msgstr "Campo do título (name)"
+
+#: build/form/form-atelier/index.js:1
+#: build/form/form/index.js:1
+msgid "Name of the field whose value becomes the post title."
+msgstr "Name do campo cujo valor vira o título do post."
+
+#: build/form/form-atelier/index.js:1
+#: build/form/form/index.js:1
+msgid "Send email"
+msgstr "Enviar e-mail"
+
+#: build/form/form-atelier/index.js:1
+#: build/form/form/index.js:1
+msgid "To"
+msgstr "Para"
+
+#: build/form/form-atelier/index.js:1
+#: build/form/form/index.js:1
+msgid "Separate several emails with commas. Empty: the administrator's email."
+msgstr "Separe vários e-mails por vírgula. Em branco: e-mail do administrador."
+
+#: includes/class-settings.php:986
+#: build/form/form-atelier/index.js:1
+#: build/form/form/index.js:1
+msgid "Subject"
+msgstr "Assunto"
+
+#: build/form/form-atelier/index.js:1
+#: build/form/form/index.js:1
+msgid "Message"
+msgstr "Mensagem"
+
+#: build/form/form-atelier/index.js:1
+#: build/form/form/index.js:1
+msgid "Tags: {a field's name}, for example {nome}, and {all_fields} with every field."
+msgstr "Tags: {name de um campo}, por exemplo {nome}, e {all_fields} com todos os campos."
+
+#: build/form/form-check/index.js:1
+#: build/form/form-control-br-revenue-id-legal/index.js:1
+#: build/form/form-control-br-revenue-id-person/index.js:1
+#: build/form/form-control-br-revenue-id/index.js:1
+#: build/form/form-control-reseller/index.js:1
+msgid "Empty uses the ID."
+msgstr "Em branco usa o ID."
+
+#: build/form/form-check/index.js:1
+msgid "Consent text…"
+msgstr "Texto do aceite…"
+
+#: build/form/form-control-br-revenue-id/index.js:1
+msgid "Type field (name)"
+msgstr "Campo do tipo (name)"
+
+#: build/form/form-control-br-revenue-id/index.js:1
+msgid "Name of the field that sets CPF or CNPJ (values cpf or cnpj), for example tipoDoc. Empty: the type comes from the number's length."
+msgstr "Name do campo que define CPF ou CNPJ (valores cpf ou cnpj), por exemplo tipoDoc. Em branco, o tipo sai pelo tamanho do número."
+
+#: build/form/form-control-city/index.js:1
+msgid "State field (name)"
+msgstr "Campo do estado (name)"
+
+#: build/form/form-control-city/index.js:1
+#: build/form/form-control-phone/index.js:1
+#: build/form/form-control-postal/index.js:1
+#: build/form/form-control-state/index.js:1
+msgid "Country set by"
+msgstr "País definido por"
+
+#: build/form/form-control-city/index.js:1
+#: build/form/form-control-phone/index.js:1
+#: build/form/form-control-postal/index.js:1
+#: build/form/form-control-state/index.js:1
+msgid "Selection"
+msgstr "Seleção"
+
+#: build/form/form-control-city/index.js:1
+#: build/form/form-control-phone/index.js:1
+#: build/form/form-control-postal/index.js:1
+#: build/form/form-control-state/index.js:1
+msgid "Country field (name)"
+msgstr "Campo do país (name)"
+
+#: build/form/form-control-city/index.js:1
+#: build/form/form-control-phone/index.js:1
+#: build/form/form-control-postal/index.js:1
+#: build/form/form-control-state/index.js:1
+msgid "Other"
+msgstr "Outro"
+
+#: build/form/form-control-city/index.js:1
+msgid "Autocomplete search"
+msgstr "Busca com autocomplete"
+
+#: build/form/form-control-city/index.js:1
+msgid "In Brazil, the name is typed and the city is picked from a filtered list of the state's cities, instead of a select."
+msgstr "No Brasil, digita-se o nome e escolhe-se a cidade da UF numa lista filtrada, em vez de um select."
+
+#: build/form/form-control-country/index.js:1
+msgid "Value sent in the hidden field."
+msgstr "Valor enviado no campo oculto."
+
+#: build/form/form-control-country/index.js:1
+msgid "Country already selected when the form opens."
+msgstr "País já selecionado ao abrir o formulário."
+
+#: build/form/form-control-country/index.js:1
+msgid "Choose a country for the hidden field."
+msgstr "Escolha um país para o campo oculto."
+
+#: build/form/form-control-country/index.js:1
+msgid "Sends the country in a hidden field, without the select."
+msgstr "Envia o país num campo oculto, sem o select."
+
+#: build/form/form-control-phone/index.js:1
+msgid "Phone type"
+msgstr "Tipo de telefone"
+
+#: build/form/form-control-phone/index.js:1
+msgid "Both"
+msgstr "Ambos"
+
+#: build/form/form-control-phone/index.js:1
+msgid "Mobile"
+msgstr "Celular"
+
+#: build/form/form-control-phone/index.js:1
+msgid "Landline"
+msgstr "Fixo"
+
+#: build/form/form-control-phone/index.js:1
+msgid "Only for Brazilian numbers: a mobile has 11 digits and starts with 9 after the area code; a landline has 10 and starts with 2 to 5. In the US the number does not tell the type."
+msgstr "Só vale para números do Brasil: celular tem 11 dígitos e começa com 9 depois do DDD; fixo tem 10 e começa de 2 a 5. Nos EUA o número não indica o tipo."
+
+#: build/form/form-control-reseller/index.js:1
+msgid "Allow \"Add not found\""
+msgstr "Aceitar \"Adicionar não encontrada\""
+
+#: build/form/form-control-reseller/index.js:1
+msgid "Shows the option and the Name, State and City fields to register a new reseller."
+msgstr "Mostra a opção e os campos Nome, UF e Cidade para cadastrar uma revenda nova."
+
+#: build/form/form-control/index.js:1
+msgid "Autocomplete (browser)"
+msgstr "Autocomplete (navegador)"
+
+#: build/form/form-control/index.js:1
+msgid "HTML autocomplete attribute: the browser suggests saved data."
+msgstr "Atributo autocomplete do HTML: o navegador sugere dados salvos."
+
+#: build/form/form-control/index.js:1
+msgid "Allow \"Not found\""
+msgstr "Aceitar \"Não encontrada\""
+
+#: build/form/form-control/index.js:1
+msgid "Shows the option and a free text field for whoever does not find it."
+msgstr "Mostra a opção e um campo de texto livre para quem não encontrar."
+
+#: build/form/form-label/index.js:1
+msgid "Shows that the related input is required."
+msgstr "Exibe indicação que o input relacionado é required."
+
+#: build/form/form-select/index.js:1
+msgid "One per line: label|value (without |, the label is the value)."
+msgstr "Uma por linha: rótulo|valor (sem | usa o rótulo como valor)."
+
+#: build/form/form-text/index.js:1
+msgid "Help text…"
+msgstr "Texto de ajuda…"
+
+#: build/form/form-atelier/block.json
+#: src/form/form-atelier/block.json
+msgctxt "block description"
+msgid "Atelier Axell Club application form: saves each submission as a member registration and comes with every field and text."
+msgstr "Formulário de adesão do Atelier Axell Club: grava cada envio como cadastro de membro e já vem com todos os campos e textos."
+
+#: build/form/form-atelier/block.json
+#: src/form/form-atelier/block.json
+msgctxt "block keyword"
+msgid "member"
+msgstr "membro"
+
+#: build/form/form-control-br-revenue-id-legal/block.json
+#: src/form/form-control-br-revenue-id-legal/block.json
+msgctxt "block description"
+msgid "CNPJ field (company), with the CNPJ mask."
+msgstr "Campo de CNPJ (pessoa jurídica), com máscara de CNPJ."
+
+#: build/form/form-control-br-revenue-id-legal/block.json
+#: build/form/form-control-br-revenue-id-person/block.json
+#: build/form/form-control-br-revenue-id/block.json
+#: src/form/form-control-br-revenue-id-legal/block.json
+#: src/form/form-control-br-revenue-id-person/block.json
+#: src/form/form-control-br-revenue-id/block.json
+msgctxt "block keyword"
+msgid "document"
+msgstr "documento"
+
+#: build/form/form-control-br-revenue-id-person/block.json
+#: src/form/form-control-br-revenue-id-person/block.json
+msgctxt "block description"
+msgid "CPF field (individual), with the CPF mask."
+msgstr "Campo de CPF (pessoa física), com máscara de CPF."
+
+#: build/form/form-control-br-revenue-id/block.json
+#: src/form/form-control-br-revenue-id/block.json
+msgctxt "block description"
+msgid "CPF or CNPJ field, with the Brazilian mask."
+msgstr "Campo de CPF ou CNPJ, com máscara brasileira."
+
+#: build/form/form-control-city/block.json
+#: src/form/form-control-city/block.json
+msgctxt "block description"
+msgid "City: a list by state in Brazil; free text in the US and other countries."
+msgstr "Cidade: lista pela UF no Brasil; texto livre nos EUA e em outros países."
+
+#: build/form/form-control-city/block.json
+#: build/form/form-control-country/block.json
+#: build/form/form-control-postal/block.json
+#: build/form/form-control-state/block.json
+#: src/form/form-control-city/block.json
+#: src/form/form-control-country/block.json
+#: src/form/form-control-postal/block.json
+#: src/form/form-control-state/block.json
+msgctxt "block keyword"
+msgid "address"
+msgstr "endereço"
+
+#: build/form/form-control-city/block.json
+#: build/form/form-control-country/block.json
+#: build/form/form-control-postal/block.json
+#: build/form/form-control-state/block.json
+#: src/form/form-control-city/block.json
+#: src/form/form-control-country/block.json
+#: src/form/form-control-postal/block.json
+#: src/form/form-control-state/block.json
+msgctxt "block keyword"
+msgid "country"
+msgstr "país"
+
+#: build/form/form-control-city/block.json
+#: build/form/form-control-country/block.json
+#: build/form/form-control-postal/block.json
+#: build/form/form-control-state/block.json
+#: src/form/form-control-city/block.json
+#: src/form/form-control-country/block.json
+#: src/form/form-control-postal/block.json
+#: src/form/form-control-state/block.json
+msgctxt "block keyword"
+msgid "state"
+msgstr "estado"
+
+#: build/form/form-control-city/block.json
+#: build/form/form-control-country/block.json
+#: build/form/form-control-postal/block.json
+#: build/form/form-control-state/block.json
+#: src/form/form-control-city/block.json
+#: src/form/form-control-country/block.json
+#: src/form/form-control-postal/block.json
+#: src/form/form-control-state/block.json
+msgctxt "block keyword"
+msgid "city"
+msgstr "cidade"
+
+#: build/form/form-control-city/block.json
+#: build/form/form-control-country/block.json
+#: build/form/form-control-postal/block.json
+#: build/form/form-control-state/block.json
+#: src/form/form-control-city/block.json
+#: src/form/form-control-country/block.json
+#: src/form/form-control-postal/block.json
+#: src/form/form-control-state/block.json
+msgctxt "block keyword"
+msgid "zip"
+msgstr "cep"
+
+#: build/form/form-control-country/block.json
+#: src/form/form-control-country/block.json
+msgctxt "block description"
+msgid "Country select: Brazil (BR), United States (US) or Other (unset)."
+msgstr "Seleção de país: Brasil (BR), Estados Unidos (US) ou Outro (sem definir)."
+
+#: build/form/form-control-phone/block.json
+#: src/form/form-control-phone/block.json
+msgctxt "block description"
+msgid "Phone with the mask of its country (Brazil, US or other)."
+msgstr "Telefone com máscara conforme o país (Brasil, EUA ou outro)."
+
+#: build/form/form-control-phone/block.json
+#: src/form/form-control-phone/block.json
+msgctxt "block keyword"
+msgid "telephone"
+msgstr "telefone"
+
+#: build/form/form-control-postal/block.json
+#: src/form/form-control-postal/block.json
+msgctxt "block description"
+msgid "Postal or ZIP code: the mask of its country."
+msgstr "CEP ou ZIP code: máscara conforme o país."
+
+#: build/form/form-control-reseller/block.json
+#: src/form/form-control-reseller/block.json
+msgctxt "block description"
+msgid "Reseller search field: picks a registered reseller or adds a new one (Name, State and City)."
+msgstr "Campo de busca de revendas: escolhe uma revenda cadastrada ou adiciona uma nova (Nome, UF e Cidade)."
+
+#: build/form/form-control-reseller/block.json
+#: src/form/form-control-reseller/block.json
+msgctxt "block keyword"
+msgid "reseller"
+msgstr "revenda"
+
+#: build/form/form-control-reseller/block.json
+#: src/form/form-control-reseller/block.json
+msgctxt "block keyword"
+msgid "resellers"
+msgstr "revendas"
+
+#: build/form/form-control-reseller/block.json
+#: src/form/form-control-reseller/block.json
+msgctxt "block keyword"
+msgid "store"
+msgstr "loja"
+
+#: build/form/form-control-state/block.json
+#: src/form/form-control-state/block.json
+msgctxt "block description"
+msgid "State: a list of states in Brazil or the US; free text for another country."
+msgstr "Estado: lista de UFs no Brasil ou de estados nos EUA; texto livre para outro país."
+
+#: build/form/form/block.json
+#: src/form/form/block.json
+msgctxt "block description"
+msgid "Block form with optional submission actions: save as a post of a chosen type and send an email."
+msgstr "Formulário de blocos com ações de envio opcionais: gravar como post de um tipo escolhido e enviar e-mail."
+
+#: build/form/form/block.json
+#: src/form/form/block.json
+msgctxt "block keyword"
+msgid "contact"
+msgstr "contato"
+
+#: build/form/form-control-br-revenue-id/block.json
+#: src/form/form-control-br-revenue-id/block.json
+msgctxt "block title"
+msgid "Form Control (CPF or CNPJ)"
+msgstr "Controle de formulário (CPF ou CNPJ)"
+
+#: build/form/form-control-city/block.json
+#: src/form/form-control-city/block.json
+msgctxt "block title"
+msgid "Form Control (City)"
+msgstr "Controle de formulário (Cidade)"
+
+#: build/form/form-control-country/block.json
+#: src/form/form-control-country/block.json
+msgctxt "block title"
+msgid "Form Control (Country)"
+msgstr "Controle de formulário (País)"
+
+#: build/form/form-control-phone/block.json
+#: src/form/form-control-phone/block.json
+msgctxt "block title"
+msgid "Form Control (Phone)"
+msgstr "Controle de formulário (Telefone)"
+
+#: build/form/form-control-postal/block.json
+#: src/form/form-control-postal/block.json
+msgctxt "block title"
+msgid "Form Control (Postal code / ZIP)"
+msgstr "Controle de formulário (CEP / ZIP)"
+
+#: build/form/form-control-reseller/block.json
+#: src/form/form-control-reseller/block.json
+msgctxt "block title"
+msgid "Form Control (Reseller)"
+msgstr "Controle de formulário (revenda)"
+
+#: build/form/form-control-state/block.json
+#: src/form/form-control-state/block.json
+msgctxt "block title"
+msgid "Form Control (State)"
+msgstr "Controle de formulário (Estado)"
+
+#. Plugin URI of the plugin
+#: axellcore-atelierclub.php
+msgid "https://github.com/axellhydrosystems/axellcore-atelierclub"
+msgstr "https://github.com/axellhydrosystems/axellcore-atelierclub"
+
+#: includes/class-settings.php:193
+#: includes/class-settings.php:736
+msgid "Atelier settings"
+msgstr "Configurações do Atelier"
+
+#: includes/class-settings.php:194
+msgid "Settings"
+msgstr "Configurações"
+
+#: includes/class-settings.php:250
+msgid "New members"
+msgstr "Novos membros"
+
+#: includes/class-settings.php:531
+msgid "Create new members as pending"
+msgstr "Criar novos membros como pendentes"
+
+#: includes/class-settings.php:532
+msgid "When on, an application creates a pending member who waits for approval. When off, it creates the member already approved."
+msgstr "Quando ligado, uma solicitação cria um membro pendente, que aguarda aprovação. Quando desligado, cria o membro já aprovado."
+
+#: includes/class-document.php:124
+msgid "Invalid CPF."
+msgstr "CPF inválido."
+
+#: includes/class-document.php:123
+msgid "Invalid CNPJ."
+msgstr "CNPJ inválido."
+
+#: includes/class-member-profile.php:681
+#: includes/class-members.php:270
+#: includes/class-members.php:777
+msgid "Enter a phone number with area code."
+msgstr "Informe um telefone com DDD."
+
+#: includes/class-member-profile.php:685
+#: includes/class-members.php:273
+#: includes/class-members.php:778
+msgid "Enter a CEP with 8 digits."
+msgstr "Informe um CEP com 8 dígitos."
+
+#: includes/class-member-profile.php:790
+#: includes/class-members.php:288
+#: includes/class-members.php:781
+msgid "Choose a reseller from the list."
+msgstr "Escolha uma revenda da lista."
+
+#: includes/class-members.php:774
+msgid "Fill in the required fields."
+msgstr "Preencha os campos obrigatórios."
+
+#: includes/class-document.php:135
+msgid "This CNPJ is already registered."
+msgstr "Este CNPJ já está cadastrado."
+
+#: includes/class-document.php:136
+msgid "This CPF is already registered."
+msgstr "Este CPF já está cadastrado."
+
+#: includes/class-classic-template.php:64
+msgid "Atelier Club"
+msgstr "Atelier Club"
+
+#: includes/class-settings.php:235
+msgid "Page"
+msgstr "Página"
+
+#: includes/class-settings.php:239
+msgid "Atelier page"
+msgstr "Página do Atelier"
+
+#: includes/class-settings.php:476
+msgid "— Select —"
+msgstr "— Selecione —"
+
+#: includes/class-settings.php:780
+msgid "Create Atelier page"
+msgstr "Criar página do Atelier"
+
+#: includes/class-settings.php:781
+msgid "Creates a page with the Atelier landing content and makes it the Atelier page."
+msgstr "Cria uma página com o conteúdo da landing do Atelier e a define como a página do Atelier."
+
+#: includes/class-notifications.php:577
+#: includes/class-places.php:294
+#: includes/class-settings.php:1027
+msgid "Sorry, you are not allowed to do that."
+msgstr "Você não tem permissão para fazer isso."
+
+#: includes/class-settings.php:1033
+msgid "Atelier page created."
+msgstr "Página do Atelier criada."
+
+#: includes/class-settings.php:1035
+msgid "Could not create the Atelier page."
+msgstr "Não foi possível criar a página do Atelier."
+
+#: includes/class-settings.php:492
+msgid "The page of the Atelier landing: its slug can change. With a block theme, use the Atelier Club template on it. Empty, no page is the Atelier page."
+msgstr "A página da landing do Atelier: o slug dela pode mudar. Com um tema de blocos, use nela o modelo Atelier Club. Vazio, nenhuma página é a do Atelier."
+
+#: includes/class-settings.php:117
+msgid "Atelier Page"
+msgstr "Página Atelier"
+
+#. translators: %d: partner store position, 1 to 5.
+#: includes/class-member-profile.php:583
+#, php-format
+msgid "Partner store %d"
+msgstr "Loja parceira %d"
+
+#: includes/class-member-profile.php:194
+msgid "Select an option…"
+msgstr "Selecione uma opção…"
+
+#: includes/data/countries.php:15
+msgid "Afghanistan"
+msgstr "Afeganistão"
+
+#: includes/data/countries.php:16
+msgid "Åland Islands"
+msgstr "Ilhas Aland"
+
+#: includes/data/countries.php:17
+msgid "Albania"
+msgstr "Albânia"
+
+#: includes/data/countries.php:18
+msgid "Algeria"
+msgstr "Argélia"
+
+#: includes/data/countries.php:19
+msgid "American Samoa"
+msgstr "Samoa Americana"
+
+#: includes/data/countries.php:20
+msgid "Andorra"
+msgstr "Andorra"
+
+#: includes/data/countries.php:21
+msgid "Angola"
+msgstr "Angola"
+
+#: includes/data/countries.php:22
+msgid "Anguilla"
+msgstr "Anguilla"
+
+#: includes/data/countries.php:23
+msgid "Antarctica"
+msgstr "Antártica"
+
+#: includes/data/countries.php:24
+msgid "Antigua and Barbuda"
+msgstr "Antígua e Barbuda"
+
+#: includes/data/countries.php:25
+msgid "Argentina"
+msgstr "Argentina"
+
+#: includes/data/countries.php:26
+msgid "Armenia"
+msgstr "Armênia"
+
+#: includes/data/countries.php:27
+msgid "Aruba"
+msgstr "Aruba"
+
+#: includes/data/countries.php:28
+msgid "Australia"
+msgstr "Austrália"
+
+#: includes/data/countries.php:29
+msgid "Austria"
+msgstr "Áustria"
+
+#: includes/data/countries.php:30
+msgid "Azerbaijan"
+msgstr "Azerbaijão"
+
+#: includes/data/countries.php:31
+msgid "Bahamas"
+msgstr "Bahamas"
+
+#: includes/data/countries.php:32
+msgid "Bahrain"
+msgstr "Barém"
+
+#: includes/data/countries.php:33
+msgid "Bangladesh"
+msgstr "Bangladesh"
+
+#: includes/data/countries.php:34
+msgid "Barbados"
+msgstr "Barbados"
+
+#: includes/data/countries.php:35
+msgid "Belarus"
+msgstr "Bielorrússia"
+
+#: includes/data/countries.php:36
+msgid "Belgium"
+msgstr "Bélgica"
+
+#: includes/data/countries.php:37
+msgid "Belau"
+msgstr "Belau"
+
+#: includes/data/countries.php:38
+msgid "Belize"
+msgstr "Belize"
+
+#: includes/data/countries.php:39
+msgid "Benin"
+msgstr "Benim"
+
+#: includes/data/countries.php:40
+msgid "Bermuda"
+msgstr "Bermudas"
+
+#: includes/data/countries.php:41
+msgid "Bhutan"
+msgstr "Butão"
+
+#: includes/data/countries.php:42
+msgid "Bolivia"
+msgstr "Bolívia"
+
+#: includes/data/countries.php:43
+msgid "Bonaire, Saint Eustatius and Saba"
+msgstr "Bonaire, Santo Eustáquio e Saba"
+
+#: includes/data/countries.php:44
+msgid "Bosnia and Herzegovina"
+msgstr "Bósnia e Herzegovina"
+
+#: includes/data/countries.php:45
+msgid "Botswana"
+msgstr "Botsuana"
+
+#: includes/data/countries.php:46
+msgid "Bouvet Island"
+msgstr "Ilha Bouvet"
+
+#: includes/data/countries.php:48
+msgid "British Indian Ocean Territory"
+msgstr "Território Britânico do Oceano Índico"
+
+#: includes/data/countries.php:49
+msgid "Brunei"
+msgstr "Brunei"
+
+#: includes/data/countries.php:50
+msgid "Bulgaria"
+msgstr "Bulgária"
+
+#: includes/data/countries.php:51
+msgid "Burkina Faso"
+msgstr "Burquina Fasso"
+
+#: includes/data/countries.php:52
+msgid "Burundi"
+msgstr "Burúndi"
+
+#: includes/data/countries.php:53
+msgid "Cambodia"
+msgstr "Camboja"
+
+#: includes/data/countries.php:54
+msgid "Cameroon"
+msgstr "Camarões"
+
+#: includes/data/countries.php:55
+msgid "Canada"
+msgstr "Canadá"
+
+#: includes/data/countries.php:56
+msgid "Cape Verde"
+msgstr "Cabo Verde"
+
+#: includes/data/countries.php:57
+msgid "Cayman Islands"
+msgstr "Ilhas Cayman"
+
+#: includes/data/countries.php:58
+msgid "Central African Republic"
+msgstr "República da África Central"
+
+#: includes/data/countries.php:59
+msgid "Chad"
+msgstr "Chade"
+
+#: includes/data/countries.php:60
+msgid "Chile"
+msgstr "Chile"
+
+#: includes/data/countries.php:61
+msgid "China"
+msgstr "China"
+
+#: includes/data/countries.php:62
+msgid "Christmas Island"
+msgstr "Ilha Christmas"
+
+#: includes/data/countries.php:63
+msgid "Cocos (Keeling) Islands"
+msgstr "Ilhas Cocos"
+
+#: includes/data/countries.php:64
+msgid "Colombia"
+msgstr "Colômbia"
+
+#: includes/data/countries.php:65
+msgid "Comoros"
+msgstr "Comores"
+
+#: includes/data/countries.php:66
+msgid "Congo (Brazzaville)"
+msgstr "Congo (Brazzaville)"
+
+#: includes/data/countries.php:67
+msgid "Congo (Kinshasa)"
+msgstr "Congo (Kinshasa)"
+
+#: includes/data/countries.php:68
+msgid "Cook Islands"
+msgstr "Ilhas Cook"
+
+#: includes/data/countries.php:69
+msgid "Costa Rica"
+msgstr "Costa Rica"
+
+#: includes/data/countries.php:70
+msgid "Croatia"
+msgstr "Croácia"
+
+#: includes/data/countries.php:71
+msgid "Cuba"
+msgstr "Cuba"
+
+#: includes/data/countries.php:72
+msgid "Cura&ccedil;ao"
+msgstr "Cura&ccedil;ao"
+
+#: includes/data/countries.php:73
+msgid "Cyprus"
+msgstr "Chipre"
+
+#: includes/data/countries.php:74
+msgid "Czech Republic"
+msgstr "República Checa"
+
+#: includes/data/countries.php:75
+msgid "Denmark"
+msgstr "Dinamarca"
+
+#: includes/data/countries.php:76
+msgid "Djibouti"
+msgstr "Djibouti"
+
+#: includes/data/countries.php:77
+msgid "Dominica"
+msgstr "Dominica"
+
+#: includes/data/countries.php:78
+msgid "Dominican Republic"
+msgstr "República Dominicana"
+
+#: includes/data/countries.php:79
+msgid "Ecuador"
+msgstr "Equador"
+
+#: includes/data/countries.php:80
+msgid "Egypt"
+msgstr "Egito"
+
+#: includes/data/countries.php:81
+msgid "El Salvador"
+msgstr "El Salvador"
+
+#: includes/data/countries.php:82
+msgid "Equatorial Guinea"
+msgstr "Guiné Equatorial"
+
+#: includes/data/countries.php:83
+msgid "Eritrea"
+msgstr "Eritreia"
+
+#: includes/data/countries.php:84
+msgid "Estonia"
+msgstr "Estônia"
+
+#: includes/data/countries.php:85
+msgid "Ethiopia"
+msgstr "Etiópia"
+
+#: includes/data/countries.php:86
+msgid "Falkland Islands"
+msgstr "Ilhas Malvinas"
+
+#: includes/data/countries.php:87
+msgid "Faroe Islands"
+msgstr "Ilhas Feroe"
+
+#: includes/data/countries.php:88
+msgid "Fiji"
+msgstr "Fiji"
+
+#: includes/data/countries.php:89
+msgid "Finland"
+msgstr "Finlândia"
+
+#: includes/data/countries.php:90
+msgid "France"
+msgstr "França"
+
+#: includes/data/countries.php:91
+msgid "French Guiana"
+msgstr "Guiana Francesa"
+
+#: includes/data/countries.php:92
+msgid "French Polynesia"
+msgstr "Polinésia Francesa"
+
+#: includes/data/countries.php:93
+msgid "French Southern Territories"
+msgstr "Território das Terras Austrais e Antárcticas Francesas"
+
+#: includes/data/countries.php:94
+msgid "Gabon"
+msgstr "Gabão"
+
+#: includes/data/countries.php:95
+msgid "Gambia"
+msgstr "Gâmbia"
+
+#: includes/data/countries.php:96
+msgid "Georgia"
+msgstr "Geórgia"
+
+#: includes/data/countries.php:97
+msgid "Germany"
+msgstr "Alemanha"
+
+#: includes/data/countries.php:98
+msgid "Ghana"
+msgstr "Gana"
+
+#: includes/data/countries.php:99
+msgid "Gibraltar"
+msgstr "Gibraltar"
+
+#: includes/data/countries.php:100
+msgid "Greece"
+msgstr "Grécia"
+
+#: includes/data/countries.php:101
+msgid "Greenland"
+msgstr "Groenlândia"
+
+#: includes/data/countries.php:102
+msgid "Grenada"
+msgstr "Granada"
+
+#: includes/data/countries.php:103
+msgid "Guadeloupe"
+msgstr "Guadalupe"
+
+#: includes/data/countries.php:104
+msgid "Guam"
+msgstr "Guam"
+
+#: includes/data/countries.php:105
+msgid "Guatemala"
+msgstr "Guatemala"
+
+#: includes/data/countries.php:106
+msgid "Guernsey"
+msgstr "Guernsey"
+
+#: includes/data/countries.php:107
+msgid "Guinea"
+msgstr "Guiné"
+
+#: includes/data/countries.php:108
+msgid "Guinea-Bissau"
+msgstr "Guiné-Bissau"
+
+#: includes/data/countries.php:109
+msgid "Guyana"
+msgstr "Guiana"
+
+#: includes/data/countries.php:110
+msgid "Haiti"
+msgstr "Haiti"
+
+#: includes/data/countries.php:111
+msgid "Heard Island and McDonald Islands"
+msgstr "Ilha Heard e Ilhas McDonald"
+
+#: includes/data/countries.php:112
+msgid "Honduras"
+msgstr "Honduras"
+
+#: includes/data/countries.php:113
+msgid "Hong Kong"
+msgstr "Hong Kong"
+
+#: includes/data/countries.php:114
+msgid "Hungary"
+msgstr "Hungria"
+
+#: includes/data/countries.php:115
+msgid "Iceland"
+msgstr "Islândia"
+
+#: includes/data/countries.php:116
+msgid "India"
+msgstr "Índia"
+
+#: includes/data/countries.php:117
+msgid "Indonesia"
+msgstr "Indonésia"
+
+#: includes/data/countries.php:118
+msgid "Iran"
+msgstr "Irã"
+
+#: includes/data/countries.php:119
+msgid "Iraq"
+msgstr "Iraque"
+
+#: includes/data/countries.php:120
+msgid "Ireland"
+msgstr "Irlanda"
+
+#: includes/data/countries.php:121
+msgid "Isle of Man"
+msgstr "Ilha de Man"
+
+#: includes/data/countries.php:122
+msgid "Israel"
+msgstr "Israel"
+
+#: includes/data/countries.php:123
+msgid "Italy"
+msgstr "Itália"
+
+#: includes/data/countries.php:124
+msgid "Ivory Coast"
+msgstr "Costa do Marfim"
+
+#: includes/data/countries.php:125
+msgid "Jamaica"
+msgstr "Jamaica"
+
+#: includes/data/countries.php:126
+msgid "Japan"
+msgstr "Japão"
+
+#: includes/data/countries.php:127
+msgid "Jersey"
+msgstr "Jersey"
+
+#: includes/data/countries.php:128
+msgid "Jordan"
+msgstr "Jordânia"
+
+#: includes/data/countries.php:129
+msgid "Kazakhstan"
+msgstr "Cazaquistão"
+
+#: includes/data/countries.php:130
+msgid "Kenya"
+msgstr "Quênia"
+
+#: includes/data/countries.php:131
+msgid "Kiribati"
+msgstr "Quiribáti"
+
+#: includes/data/countries.php:132
+msgid "Kosovo"
+msgstr "Kosovo"
+
+#: includes/data/countries.php:133
+msgid "Kuwait"
+msgstr "Kuweit"
+
+#: includes/data/countries.php:134
+msgid "Kyrgyzstan"
+msgstr "Quirguistão"
+
+#: includes/data/countries.php:135
+msgid "Laos"
+msgstr "Laos"
+
+#: includes/data/countries.php:136
+msgid "Latvia"
+msgstr "Látvia"
+
+#: includes/data/countries.php:137
+msgid "Lebanon"
+msgstr "Líbano"
+
+#: includes/data/countries.php:138
+msgid "Lesotho"
+msgstr "Lesoto"
+
+#: includes/data/countries.php:139
+msgid "Liberia"
+msgstr "Libéria"
+
+#: includes/data/countries.php:140
+msgid "Libya"
+msgstr "Líbia"
+
+#: includes/data/countries.php:141
+msgid "Liechtenstein"
+msgstr "Liechtenstein"
+
+#: includes/data/countries.php:142
+msgid "Lithuania"
+msgstr "Lituânia"
+
+#: includes/data/countries.php:143
+msgid "Luxembourg"
+msgstr "Luxemburgo"
+
+#: includes/data/countries.php:144
+msgid "Macao"
+msgstr "Macao"
+
+#: includes/data/countries.php:145
+msgid "North Macedonia"
+msgstr "Macedônia do Norte"
+
+#: includes/data/countries.php:146
+msgid "Madagascar"
+msgstr "Madagascar"
+
+#: includes/data/countries.php:147
+msgid "Malawi"
+msgstr "Malawi"
+
+#: includes/data/countries.php:148
+msgid "Malaysia"
+msgstr "Malásia"
+
+#: includes/data/countries.php:149
+msgid "Maldives"
+msgstr "Maldivas"
+
+#: includes/data/countries.php:150
+msgid "Mali"
+msgstr "Mali"
+
+#: includes/data/countries.php:151
+msgid "Malta"
+msgstr "Malta"
+
+#: includes/data/countries.php:152
+msgid "Marshall Islands"
+msgstr "Ilhas Marshall"
+
+#: includes/data/countries.php:153
+msgid "Martinique"
+msgstr "Martinica"
+
+#: includes/data/countries.php:154
+msgid "Mauritania"
+msgstr "Mauritânia"
+
+#: includes/data/countries.php:155
+msgid "Mauritius"
+msgstr "Maurício"
+
+#: includes/data/countries.php:156
+msgid "Mayotte"
+msgstr "Mayotte"
+
+#: includes/data/countries.php:157
+msgid "Mexico"
+msgstr "México"
+
+#: includes/data/countries.php:158
+msgid "Micronesia"
+msgstr "Micronésia"
+
+#: includes/data/countries.php:159
+msgid "Moldova"
+msgstr "Moldávia"
+
+#: includes/data/countries.php:160
+msgid "Monaco"
+msgstr "Mônaco"
+
+#: includes/data/countries.php:161
+msgid "Mongolia"
+msgstr "Mongólia"
+
+#: includes/data/countries.php:162
+msgid "Montenegro"
+msgstr "Montenegro"
+
+#: includes/data/countries.php:163
+msgid "Montserrat"
+msgstr "Montserrat"
+
+#: includes/data/countries.php:164
+msgid "Morocco"
+msgstr "Marrocos"
+
+#: includes/data/countries.php:165
+msgid "Mozambique"
+msgstr "Moçambique"
+
+#: includes/data/countries.php:166
+msgid "Myanmar"
+msgstr "República da União de Myanmar"
+
+#: includes/data/countries.php:167
+msgid "Namibia"
+msgstr "Namíbia"
+
+#: includes/data/countries.php:168
+msgid "Nauru"
+msgstr "Nauru"
+
+#: includes/data/countries.php:169
+msgid "Nepal"
+msgstr "Nepal"
+
+#: includes/data/countries.php:170
+msgid "Netherlands"
+msgstr "Holanda"
+
+#: includes/data/countries.php:171
+msgid "New Caledonia"
+msgstr "Nova Caledónia"
+
+#: includes/data/countries.php:172
+msgid "New Zealand"
+msgstr "Nova Zelândia"
+
+#: includes/data/countries.php:173
+msgid "Nicaragua"
+msgstr "Nicarágua"
+
+#: includes/data/countries.php:174
+msgid "Niger"
+msgstr "Níger"
+
+#: includes/data/countries.php:175
+msgid "Nigeria"
+msgstr "Nigéria"
+
+#: includes/data/countries.php:176
+msgid "Niue"
+msgstr "Niue"
+
+#: includes/data/countries.php:177
+msgid "Norfolk Island"
+msgstr "Ilha Norfolk"
+
+#: includes/data/countries.php:178
+msgid "Northern Mariana Islands"
+msgstr "Comunidade das Ilhas Marianas Setentrionais"
+
+#: includes/data/countries.php:179
+msgid "North Korea"
+msgstr "Coréia do Norte"
+
+#: includes/data/countries.php:180
+msgid "Norway"
+msgstr "Noruega"
+
+#: includes/data/countries.php:181
+msgid "Oman"
+msgstr "Omã"
+
+#: includes/data/countries.php:182
+msgid "Pakistan"
+msgstr "Paquistão"
+
+#: includes/data/countries.php:183
+msgid "Palestinian Territory"
+msgstr "Território Palestino"
+
+#: includes/data/countries.php:184
+msgid "Panama"
+msgstr "Panamá"
+
+#: includes/data/countries.php:185
+msgid "Papua New Guinea"
+msgstr "Papua-Nova Guiné"
+
+#: includes/data/countries.php:186
+msgid "Paraguay"
+msgstr "Paraguai"
+
+#: includes/data/countries.php:187
+msgid "Peru"
+msgstr "Peru"
+
+#: includes/data/countries.php:188
+msgid "Philippines"
+msgstr "Filipinas"
+
+#: includes/data/countries.php:189
+msgid "Pitcairn"
+msgstr "Ilhas Pitcairn"
+
+#: includes/data/countries.php:190
+msgid "Poland"
+msgstr "Polônia"
+
+#: includes/data/countries.php:191
+msgid "Portugal"
+msgstr "Portugal"
+
+#: includes/data/countries.php:192
+msgid "Puerto Rico"
+msgstr "Porto Rico"
+
+#: includes/data/countries.php:193
+msgid "Qatar"
+msgstr "Catar"
+
+#: includes/data/countries.php:194
+msgid "Reunion"
+msgstr "Reunião"
+
+#: includes/data/countries.php:195
+msgid "Romania"
+msgstr "Romênia"
+
+#: includes/data/countries.php:196
+msgid "Russia"
+msgstr "Rússia"
+
+#: includes/data/countries.php:197
+msgid "Rwanda"
+msgstr "Ruanda"
+
+#: includes/data/countries.php:198
+msgid "Saint Barth&eacute;lemy"
+msgstr "São Bartolomeu"
+
+#: includes/data/countries.php:199
+msgid "Saint Helena"
+msgstr "Santa Helena"
+
+#: includes/data/countries.php:200
+msgid "Saint Kitts and Nevis"
+msgstr "São Cristóvão e Nevis"
+
+#: includes/data/countries.php:201
+msgid "Saint Lucia"
+msgstr "Santa Lúcia"
+
+#: includes/data/countries.php:202
+msgid "Saint Martin (French part)"
+msgstr "Ilha de São Martinho (República Francesa)"
+
+#: includes/data/countries.php:203
+msgid "Saint Martin (Dutch part)"
+msgstr "Saint Martin (parte Holandesa)"
+
+#: includes/data/countries.php:204
+msgid "Saint Pierre and Miquelon"
+msgstr "Saint-Pierre e Miquelon"
+
+#: includes/data/countries.php:205
+msgid "Saint Vincent and the Grenadines"
+msgstr "São Vicente e Granadinas"
+
+#: includes/data/countries.php:206
+msgid "San Marino"
+msgstr "San Marino"
+
+#: includes/data/countries.php:207
+msgid "S&atilde;o Tom&eacute; and Pr&iacute;ncipe"
+msgstr "S&atilde;o Tom&eacute; e Pr&iacute;ncipe"
+
+#: includes/data/countries.php:208
+msgid "Saudi Arabia"
+msgstr "Arábia Saudita"
+
+#: includes/data/countries.php:209
+msgid "Senegal"
+msgstr "Senegal"
+
+#: includes/data/countries.php:210
+msgid "Serbia"
+msgstr "Sérvia"
+
+#: includes/data/countries.php:211
+msgid "Seychelles"
+msgstr "Seychelles"
+
+#: includes/data/countries.php:212
+msgid "Sierra Leone"
+msgstr "Serra Leoa"
+
+#: includes/data/countries.php:213
+msgid "Singapore"
+msgstr "Cingapura"
+
+#: includes/data/countries.php:214
+msgid "Slovakia"
+msgstr "Eslováquia"
+
+#: includes/data/countries.php:215
+msgid "Slovenia"
+msgstr "Eslovenia"
+
+#: includes/data/countries.php:216
+msgid "Solomon Islands"
+msgstr "Ilhas Salomão"
+
+#: includes/data/countries.php:217
+msgid "Somalia"
+msgstr "Somália"
+
+#: includes/data/countries.php:218
+msgid "South Africa"
+msgstr "África do Sul"
+
+#: includes/data/countries.php:219
+msgid "South Georgia/Sandwich Islands"
+msgstr "Ilhas Geórgia do Sul e Sandwich do Sul"
+
+#: includes/data/countries.php:220
+msgid "South Korea"
+msgstr "Coréia do Sul"
+
+#: includes/data/countries.php:221
+msgid "South Sudan"
+msgstr "Sudão do Sul"
+
+#: includes/data/countries.php:222
+msgid "Spain"
+msgstr "Espanha"
+
+#: includes/data/countries.php:223
+msgid "Sri Lanka"
+msgstr "Sri Lanka"
+
+#: includes/data/countries.php:224
+msgid "Sudan"
+msgstr "Sudão"
+
+#: includes/data/countries.php:225
+msgid "Suriname"
+msgstr "Suriname"
+
+#: includes/data/countries.php:226
+msgid "Svalbard and Jan Mayen"
+msgstr "Svalbard e Jan Mayen"
+
+#: includes/data/countries.php:227
+msgid "Eswatini"
+msgstr "Eswatini"
+
+#: includes/data/countries.php:228
+msgid "Sweden"
+msgstr "Suécia"
+
+#: includes/data/countries.php:229
+msgid "Switzerland"
+msgstr "Suiça"
+
+#: includes/data/countries.php:230
+msgid "Syria"
+msgstr "Síria"
+
+#: includes/data/countries.php:231
+msgid "Taiwan"
+msgstr "Taiwan"
+
+#: includes/data/countries.php:232
+msgid "Tajikistan"
+msgstr "Tajiquistão"
+
+#: includes/data/countries.php:233
+msgid "Tanzania"
+msgstr "Tanzânia"
+
+#: includes/data/countries.php:234
+msgid "Thailand"
+msgstr "Tailândia"
+
+#: includes/data/countries.php:235
+msgid "Timor-Leste"
+msgstr "Timor-Leste"
+
+#: includes/data/countries.php:236
+msgid "Togo"
+msgstr "Togo"
+
+#: includes/data/countries.php:237
+msgid "Tokelau"
+msgstr "Tokelau"
+
+#: includes/data/countries.php:238
+msgid "Tonga"
+msgstr "Tonga"
+
+#: includes/data/countries.php:239
+msgid "Trinidad and Tobago"
+msgstr "Trinidad e Tobago"
+
+#: includes/data/countries.php:240
+msgid "Tunisia"
+msgstr "Tunísia"
+
+#: includes/data/countries.php:241
+msgid "Türkiye"
+msgstr "Turquia"
+
+#: includes/data/countries.php:242
+msgid "Turkmenistan"
+msgstr "Turcomenistão"
+
+#: includes/data/countries.php:243
+msgid "Turks and Caicos Islands"
+msgstr "Ilhas Turcas e Caicos"
+
+#: includes/data/countries.php:244
+msgid "Tuvalu"
+msgstr "Tuvalu"
+
+#: includes/data/countries.php:245
+msgid "Uganda"
+msgstr "Uganda"
+
+#: includes/data/countries.php:246
+msgid "Ukraine"
+msgstr "Ucrânia"
+
+#: includes/data/countries.php:247
+msgid "United Arab Emirates"
+msgstr "Emirados Árabes Unidos"
+
+#: includes/data/countries.php:248
+msgid "United Kingdom (UK)"
+msgstr "Reino Unido (UK)"
+
+#: includes/data/countries.php:249
+msgid "United States (US)"
+msgstr "Estados Unidos"
+
+#: includes/data/countries.php:250
+msgid "United States (US) Minor Outlying Islands"
+msgstr "Ilhas Menores Distantes, Estados Unidos da América (EUA)"
+
+#: includes/data/countries.php:251
+msgid "Uruguay"
+msgstr "Uruguai"
+
+#: includes/data/countries.php:252
+msgid "Uzbekistan"
+msgstr "Uzbequistão"
+
+#: includes/data/countries.php:253
+msgid "Vanuatu"
+msgstr "Vanuatu"
+
+#: includes/data/countries.php:254
+msgid "Vatican"
+msgstr "Vaticano"
+
+#: includes/data/countries.php:255
+msgid "Venezuela"
+msgstr "Venezuela"
+
+#: includes/data/countries.php:256
+msgid "Vietnam"
+msgstr "Vietnã"
+
+#: includes/data/countries.php:257
+msgid "Virgin Islands (British)"
+msgstr "Ilhas Virgens Britânicas"
+
+#: includes/data/countries.php:258
+msgid "Virgin Islands (US)"
+msgstr "Ilhas Virgens (EUA)"
+
+#: includes/data/countries.php:259
+msgid "Wallis and Futuna"
+msgstr "Wallis e Futuna"
+
+#: includes/data/countries.php:260
+msgid "Western Sahara"
+msgstr "Saara Ocidental"
+
+#: includes/data/countries.php:261
+msgid "Samoa"
+msgstr "Samoa"
+
+#: includes/data/countries.php:262
+msgid "Yemen"
+msgstr "Iémen"
+
+#: includes/data/countries.php:263
+msgid "Zambia"
+msgstr "Zâmbia"
+
+#: includes/data/countries.php:264
+msgid "Zimbabwe"
+msgstr "Zimbábue"
+
+#: includes/class-member-profile.php:587
+msgid "Pending curation."
+msgstr "Pendente de curadoria."
+
+#: includes/class-member-profile.php:591
+msgid "Remove"
+msgstr "Remover"
+
+#: includes/class-member-profile.php:689
+msgid "Choose an option from the list."
+msgstr "Escolha uma opção da lista."
+
+#: build/admin/members/index.js:184
+msgid "Stores"
+msgstr "Lojas"
+
+#: includes/class-member-profile.php:182
+msgid "Atelier: Authorship"
+msgstr "Atelier: Autoria"
+
+#: includes/class-member-profile.php:199
+msgid "Atelier: Document"
+msgstr "Atelier: Documento"
+
+#: includes/class-member-profile.php:217
+msgid "Atelier: Office address"
+msgstr "Atelier: Endereço do escritório"
+
+#: includes/class-member-profile.php:249
+msgid "Atelier: Partner stores"
+msgstr "Atelier: Lojas parceiras"
+
+#: includes/class-member-profile.php:671
+#: includes/class-members.php:257
+msgid "Only Brazil is accepted."
+msgstr "Só o Brasil é aceito."
+
+#: includes/class-enhanced-select.php:212
+#: includes/class-member-profile.php:508
+msgid "Search"
+msgstr "Buscar"
+
+#: includes/class-enhanced-select.php:236
+#: includes/class-member-profile.php:509
+msgid "No matches found"
+msgstr "Nenhum resultado encontrado"
+
+#: includes/class-member-profile.php:581
+msgid "Store name · city"
+msgstr "Nome da loja · cidade"
+
+#: includes/class-member-profile.php:285
+#: includes/class-notifications.php:341
+#: build/admin/members/index.js:175
+#: build/admin/members/index.js:184
+msgctxt "WooCommerce field"
+msgid "Company"
+msgstr "Empresa"
+
+#: includes/class-member-profile.php:286
+#: build/admin/members/index.js:175
+#: build/admin/members/index.js:184
+msgctxt "WooCommerce field"
+msgid "Phone"
+msgstr "Telefone"
+
+#: includes/class-member-profile.php:287
+msgctxt "WooCommerce field"
+msgid "Country / Region"
+msgstr "País"
+
+#: includes/class-member-profile.php:288
+#: build/admin/members/index.js:184
+msgctxt "WooCommerce field"
+msgid "Address line 1"
+msgstr "Endereço linha 1"
+
+#: includes/class-member-profile.php:289
+#: build/admin/members/index.js:184
+msgctxt "WooCommerce field"
+msgid "Address line 2"
+msgstr "Endereço linha 2"
+
+#: includes/class-member-profile.php:290
+#: build/admin/members/index.js:175
+#: build/admin/members/index.js:184
+msgctxt "WooCommerce field"
+msgid "State / County"
+msgstr "Estado"
+
+#: includes/class-member-profile.php:291
+#: build/admin/members/index.js:175
+#: build/admin/members/index.js:184
+msgctxt "WooCommerce field"
+msgid "City"
+msgstr "Cidade"
+
+#: includes/class-member-profile.php:292
+#: build/admin/members/index.js:184
+msgctxt "WooCommerce field"
+msgid "Postcode / ZIP"
+msgstr "CEP"
+
+#: includes/class-members.php:293
+msgid "Enter the store as \"Name - UF City\"."
+msgstr "Informe a loja como \"Nome - UF Cidade\"."
+
+#: includes/class-member-profile.php:212
+msgid "Only a valid one is allowed, and it must be unique among members."
+msgstr "Permite apenas válido e precisa ser único entre os membros."
+
+#. translators: %s: user's display name.
+#: includes/class-member.php:240
+#, php-format
+msgid "Approve %s"
+msgstr "Aprovar %s"
+
+#: includes/class-member.php:241
+#: includes/class-member.php:274
+msgid "Approve"
+msgstr "Aprovar"
+
+#: includes/class-member.php:312
+msgid "Sorry, you are not allowed to edit this user."
+msgstr "Você não tem permissão para editar este usuário."
+
+#: includes/class-member.php:337
+msgid "Member approved."
+msgstr "Membro aprovado."
+
+#. translators: %d: number of members approved.
+#: includes/class-member.php:339
+#, php-format
+msgid "%d member approved."
+msgid_plural "%d members approved."
+msgstr[0] "%d membro aprovado."
+msgstr[1] "%d membros aprovados."
+
+#: includes/class-member.php:146
+msgid "Your membership application is under review. You will be told once it is approved."
+msgstr "Sua solicitação de adesão está em análise. Você será avisado quando for aprovada."
+
+#: includes/class-member.php:148
+msgid "Members' access to the dashboard is turned off."
+msgstr "O acesso dos membros ao painel está desativado."
+
+#: includes/class-settings.php:259
+msgid "Dashboard access"
+msgstr "Acesso ao painel"
+
+#: includes/class-settings.php:544
+msgid "Allow members to log in"
+msgstr "Permitir que membros entrem no painel"
+
+#: includes/class-settings.php:545
+msgid "Approved members can log in and reset their password. Pending members never can."
+msgstr "Membros aprovados podem entrar e redefinir a senha. Membros pendentes nunca."
+
+#: includes/class-notifications.php:104
+msgid "New application (team)"
+msgstr "Nova solicitação (equipe)"
+
+#: includes/class-notifications.php:104
+msgid "Sent to the team when someone applies on the form."
+msgstr "Enviado à equipe quando alguém se cadastra pelo formulário."
+
+#: includes/class-notifications.php:105
+#: includes/class-notifications.php:130
+msgid "Application received"
+msgstr "Solicitação recebida"
+
+#: includes/class-notifications.php:105
+msgid "Sent to whoever applies, when the member is created as pending."
+msgstr "Enviado a quem se cadastra, quando o membro é criado como pendente."
+
+#: includes/class-notifications.php:106
+msgid "Welcome"
+msgstr "Boas-vindas"
+
+#: includes/class-notifications.php:106
+msgid "Sent to whoever applies, when the member is created already approved."
+msgstr "Enviado a quem se cadastra, quando o membro é criado já aprovado."
+
+#: includes/class-notifications.php:107
+#: includes/class-notifications.php:142
+msgid "Membership approved"
+msgstr "Adesão aprovada"
+
+#: includes/class-notifications.php:107
+msgid "Sent to a pending member once approved."
+msgstr "Enviado a um membro pendente quando é aprovado."
+
+#. translators: {fullname} and the other {placeholders} are replaced when sending; keep them as they are.
+#: includes/class-notifications.php:123
+msgid "New membership application: {fullname}"
+msgstr "Nova solicitação de adesão: {fullname}"
+
+#: includes/class-notifications.php:124
+msgid "New membership application"
+msgstr "Nova solicitação de adesão"
+
+#: includes/class-notifications.php:129
+msgid "We received your application, {first_name}"
+msgstr "Recebemos sua solicitação, {first_name}"
+
+#: includes/class-notifications.php:136
+msgid "Welcome to the Atelier"
+msgstr "Boas-vindas ao Atelier"
+
+#: includes/class-notifications.php:340
+msgid "First name"
+msgstr "Primeiro nome"
+
+#: includes/class-notifications.php:342
+#: includes/class-settings.php:920
+msgid "E-mail"
+msgstr "E-mail"
+
+#: includes/class-notifications.php:358
+msgid "Partner stores, one per line"
+msgstr "Lojas parceiras, uma por linha"
+
+#: includes/class-notifications.php:359
+msgid "The member on Atelier > Members (team e-mail)"
+msgstr "O membro em Atelier > Membros (e-mail da equipe)"
+
+#: includes/class-notifications.php:361
+msgid "The Atelier page"
+msgstr "A página do Atelier"
+
+#: includes/class-notifications.php:362
+msgid "Site name"
+msgstr "Nome do site"
+
+#: includes/class-notifications.php:363
+msgid "Site address"
+msgstr "Endereço do site"
+
+#: includes/class-notifications.php:364
+msgid "Today's date"
+msgstr "Data de hoje"
+
+#: includes/class-notifications.php:582
+msgid "Unknown e-mail."
+msgstr "E-mail desconhecido."
+
+#. translators: %s: the invalid e-mail addresses.
+#: includes/class-settings.php:461
+#, php-format
+msgid "Left out, not valid e-mail addresses: %s"
+msgstr "Deixados de fora, por não serem e-mails válidos: %s"
+
+#: includes/class-settings.php:730
+msgid "General"
+msgstr "Geral"
+
+#: includes/class-settings.php:732
+#: includes/class-settings.php:961
+msgid "E-mails"
+msgstr "E-mails"
+
+#: includes/class-settings.php:737
+msgid "Settings sections"
+msgstr "Seções das configurações"
+
+#: includes/class-settings.php:921
+msgid "Recipient"
+msgstr "Destinatário"
+
+#: includes/class-settings.php:923
+msgid "Actions"
+msgstr "Ações"
+
+#: includes/class-settings.php:936
+msgid "Enabled"
+msgstr "Ativado"
+
+#: includes/class-settings.php:936
+msgid "Disabled"
+msgstr "Desativado"
+
+#: includes/class-settings.php:937
+msgid "Manage"
+msgstr "Gerenciar"
+
+#: includes/class-settings.php:968
+msgid "Enable/Disable"
+msgstr "Ativar/desativar"
+
+#: includes/class-settings.php:972
+msgid "Enable this e-mail"
+msgstr "Ativar este e-mail"
+
+#: includes/class-settings.php:978
+msgid "Recipients"
+msgstr "Destinatários"
+
+#: includes/class-settings.php:982
+msgid "One or more e-mail addresses, separated by commas. Empty, the site's admin e-mail."
+msgstr "Um ou mais endereços de e-mail, separados por vírgula. Vazio, usa o e-mail de administração do site."
+
+#: includes/class-settings.php:987
+msgid "E-mail heading"
+msgstr "Título do e-mail"
+
+#: includes/class-settings.php:1004
+msgid "Plain text: a blank line starts a paragraph and addresses become links. Sent as an HTML e-mail in the Atelier's colors."
+msgstr "Texto simples: uma linha em branco começa um parágrafo, e os endereços viram links. É enviado como e-mail HTML nas cores do Atelier."
+
+#: includes/class-settings.php:1006
+msgid "Placeholders"
+msgstr "Marcadores"
+
+#: includes/class-settings.php:1013
+msgid "Preview"
+msgstr "Pré-visualização"
+
+#: includes/class-settings.php:1015
+msgid "Open the preview"
+msgstr "Abrir a pré-visualização"
+
+#: includes/class-settings.php:1016
+msgid "The saved e-mail, with a sample member."
+msgstr "O e-mail salvo, com um membro de exemplo."
+
+#: includes/class-notifications.php:224
+msgid "The Axell World"
+msgstr "The Axell World"
+
+#: includes/class-notifications.php:348
+msgid "CPF or CNPJ, as the document is"
+msgstr "CPF ou CNPJ, conforme o documento"
+
+#: includes/class-settings.php:803
+msgid "This image is an SVG: Gmail and other e-mail clients do not show SVG. Prefer a PNG."
+msgstr "Esta imagem é um SVG: o Gmail e outros programas de e-mail não mostram SVG. Prefira um PNG."
+
+#: includes/class-settings.php:807
+msgid "E-mail header"
+msgstr "Cabeçalho dos e-mails"
+
+#: includes/class-settings.php:809
+#: includes/class-settings.php:810
+msgid "Logo"
+msgstr "Logo"
+
+#: includes/class-settings.php:817
+msgid "None: the brand in text"
+msgstr "Nenhum: a marca em texto"
+
+#: includes/class-settings.php:228
+msgid "Description"
+msgstr "Descrição"
+
+#: includes/class-settings.php:826
+msgid "Use the site's logo"
+msgstr "Usar o logo do site"
+
+#: includes/class-settings.php:827
+msgid "The theme has no logo (Appearance > Customize > Site Identity)."
+msgstr "O tema não tem logo (Aparência > Personalizar > Identidade do site)."
+
+#: includes/class-settings.php:840
+msgid "Choose image"
+msgstr "Escolher imagem"
+
+#: includes/class-settings.php:835
+msgid "Image (by default, the Atelier logo)"
+msgstr "Imagem (por padrão, o logo do Atelier)"
+
+#: includes/class-settings.php:842
+msgid "Use the default"
+msgstr "Usar o padrão"
+
+#: includes/class-notifications.php:125
+msgid ""
+"A new application to {atelier_name} has arrived.\n"
+"\n"
+"Name: {fullname}\n"
+"Company: {company}\n"
+"E-mail: {email}\n"
+"Phone: {phone}\n"
+"Registration (CAU / CREA / ABD): {professional_registration}\n"
+"Main practice: {primary_focus}\n"
+"Portfolio (URL): {url}\n"
+"\n"
+"Registration type: {profile_type}\n"
+"{document_label}: {document}\n"
+"\n"
+"Street: {address_street}\n"
+"Number: {address_number}\n"
+"Address line 2: {address_2}\n"
+"Neighborhood: {neighborhood}\n"
+"Landmark: {landmark}\n"
+"City: {state} {city}\n"
+"Postal code: {postal}\n"
+"\n"
+"Partner stores:\n"
+"{stores}\n"
+"\n"
+"Review the application: {member_admin_url}"
+msgstr ""
+"Chegou uma nova solicitação de adesão ao {atelier_name}.\n"
+"\n"
+"Nome: {fullname}\n"
+"Empresa: {company}\n"
+"E-mail: {email}\n"
+"Telefone: {phone}\n"
+"Registro (CAU / CREA / ABD): {professional_registration}\n"
+"Atuação principal: {primary_focus}\n"
+"Portfólio (URL): {url}\n"
+"\n"
+"Tipo de cadastro: {profile_type}\n"
+"{document_label}: {document}\n"
+"\n"
+"Logradouro: {address_street}\n"
+"Número: {address_number}\n"
+"Complemento: {address_2}\n"
+"Bairro: {neighborhood}\n"
+"Referência: {landmark}\n"
+"Cidade: {state} {city}\n"
+"CEP: {postal}\n"
+"\n"
+"Lojas parceiras:\n"
+"{stores}\n"
+"\n"
+"Analise a solicitação: {member_admin_url}"
+
+#: includes/class-notifications.php:131
+msgid ""
+"Hello, {first_name}.\n"
+"\n"
+"We received your application to {atelier_name}. Our curators will review it, and we will let you know by e-mail as soon as it is approved.\n"
+"\n"
+"Thank you for your interest.\n"
+"{atelier_name}"
+msgstr ""
+"Olá, {first_name}.\n"
+"\n"
+"Recebemos sua solicitação de adesão ao {atelier_name}. Nossa curadoria vai analisá-la, e avisaremos por e-mail assim que for aprovada.\n"
+"\n"
+"Obrigado pelo interesse.\n"
+"{atelier_name}"
+
+#: includes/class-notifications.php:135
+msgid "Welcome to {atelier_name}, {first_name}"
+msgstr "Boas-vindas ao {atelier_name}, {first_name}"
+
+#: includes/class-notifications.php:141
+msgid "Your {atelier_name} membership is approved"
+msgstr "Sua adesão ao {atelier_name} foi aprovada"
+
+#: includes/class-notifications.php:223
+msgctxt "Atelier name"
+msgid "Atelier Axell"
+msgstr "Atelier Axell"
+
+#: includes/class-notifications.php:360
+#: includes/class-settings.php:219
+msgid "Atelier name"
+msgstr "Nome do Atelier"
+
+#: includes/class-members.php:732
+msgid "Enter a valid address, such as https://yoursite.com.br."
+msgstr "Informe um endereço válido, como https://seusite.com.br."
+
+#: includes/class-settings.php:916
+msgid "E-mails sent by the Atelier. Each one is on until turned off; manage one to edit its subject, heading and text."
+msgstr "E-mails enviados pelo Atelier. Cada um fica ativado até ser desativado; gerencie um para editar o assunto, o título e o texto."
+
+#: includes/class-notifications.php:137
+msgid ""
+"Hello, {first_name}.\n"
+"\n"
+"Your membership in {atelier_name} is confirmed. From now on you are part of a circle of architects and designers who specify Axell.\n"
+"\n"
+"{atelier_name}"
+msgstr ""
+"Olá, {first_name}.\n"
+"\n"
+"Sua adesão ao {atelier_name} está confirmada. A partir de agora você faz parte de um círculo de arquitetos e designers que especificam Axell.\n"
+"\n"
+"{atelier_name}"
+
+#: includes/class-notifications.php:143
+msgid ""
+"Hello, {first_name}.\n"
+"\n"
+"Good news: our curators approved your application, and you are now a member of {atelier_name}.\n"
+"\n"
+"{atelier_name}"
+msgstr ""
+"Olá, {first_name}.\n"
+"\n"
+"Boa notícia: nossa curadoria aprovou sua solicitação, e agora você é membro do {atelier_name}.\n"
+"\n"
+"{atelier_name}"
+
+#: includes/class-settings.php:852
+msgid "Logo width"
+msgstr "Largura do logo"
+
+#. translators: 1: the logo's width in px, 2: twice that width.
+#: includes/class-settings.php:861
+#, php-format
+msgid "Shown at the top of every e-mail, %1$dpx wide. Use an image %2$dpx wide (twice the size) so it stays sharp on high-resolution screens. A PNG works in every e-mail client."
+msgstr "Aparece no topo de todos os e-mails, com %1$d px de largura. Use uma imagem com %2$d px de largura (o dobro) para ela ficar nítida em telas de alta resolução. Um PNG funciona em todos os programas de e-mail."
+
+#: includes/class-settings.php:986
+msgid "The line shown in the inbox, before the e-mail is opened. Accepts placeholders."
+msgstr "A linha que aparece na caixa de entrada, antes de abrir o e-mail. Aceita marcadores."
+
+#: includes/class-settings.php:987
+msgid "The large title at the top of the opened e-mail, below the logo. Accepts placeholders."
+msgstr "O título grande no topo do e-mail aberto, abaixo do logo. Aceita marcadores."
+
+#: includes/class-member-profile.php:254
+msgid "Search the registered resellers by name."
+msgstr "Busque as revendas cadastradas pelo nome."
+
+#: includes/class-member-profile.php:422
+msgid "Member approved"
+msgstr "Membro aprovado"
+
+#: includes/class-member-profile.php:423
+msgid "This member has been approved."
+msgstr "Este membro já foi aprovado."
+
+#: includes/class-member-profile.php:429
+msgid "Approve member"
+msgstr "Aprovar membro"
+
+#: includes/class-member-profile.php:431
+#: includes/class-member-profile.php:434
+msgid "This application is pending approval."
+msgstr "Este cadastro está pendente de aprovação."
+
+#: includes/class-member-profile.php:438
+msgid "Atelier: Status"
+msgstr "Atelier: Status"
+
+#: includes/class-member-profile.php:439
+msgid "Membership"
+msgstr "Adesão"
+
+#: includes/class-members.php:786
+msgid "We could not confirm you are not a robot. Please try again."
+msgstr "Não foi possível confirmar que você não é um robô. Tente novamente."
+
+#: includes/class-settings.php:305
+msgid "reCAPTCHA on the forms"
+msgstr "reCAPTCHA nos formulários"
+
+#: includes/class-settings.php:306
+msgid "Protection"
+msgstr "Proteção"
+
+#: includes/class-settings.php:307
+msgid "Version"
+msgstr "Versão"
+
+#: includes/class-settings.php:308
+msgid "Local addresses"
+msgstr "Endereços locais"
+
+#: includes/class-settings.php:326
+msgid "reCAPTCHA v2"
+msgstr "reCAPTCHA v2"
+
+#. translators: 1: Link opening tag, 2: Link closing tag.
+#: includes/class-settings.php:328
+#, php-format
+msgid "%1$sreCAPTCHA v2%2$s is a free service by Google that protects your website from spam and abuse. It does this while letting your valid users pass through with ease."
+msgstr "O %1$sreCAPTCHA v2%2$s é um serviço gratuito do Google que protege o seu site contra spam e abuso, sem dificultar a passagem dos usuários legítimos."
+
+#: includes/class-settings.php:333
+msgid "reCAPTCHA v3"
+msgstr "reCAPTCHA v3"
+
+#. translators: 1: Link opening tag, 2: Link closing tag.
+#: includes/class-settings.php:335
+#, php-format
+msgid "%1$sreCAPTCHA v3%2$s is a free service by Google that protects your website from spam and abuse. It does this while letting your valid users pass through with ease."
+msgstr "O %1$sreCAPTCHA v3%2$s é um serviço gratuito do Google que protege o seu site contra spam e abuso, sem dificultar a passagem dos usuários legítimos."
+
+#: includes/class-settings.php:344
+msgid "Site key"
+msgstr "Chave do site"
+
+#: includes/class-settings.php:345
+msgid "Secret key"
+msgstr "Chave secreta"
+
+#: includes/class-settings.php:347
+msgid "Score threshold"
+msgstr "Limiar de pontuação"
+
+#. translators: %s: the placeholder, {atelier_name}.
+#: includes/class-settings.php:506
+#, php-format
+msgid "Used by the e-mails' %s placeholder and as their header's brand in text."
+msgstr "Usado pelo marcador %s dos e-mails e como marca em texto do cabeçalho deles."
+
+#: includes/class-settings.php:519
+msgid "Below the name in the e-mails' header, when it has no logo."
+msgstr "Abaixo do nome no cabeçalho dos e-mails, quando ele não usa logo."
+
+#: includes/class-settings.php:557
+msgid "Enable reCAPTCHA on the forms"
+msgstr "Ativar o reCAPTCHA nos formulários"
+
+#: includes/class-settings.php:558
+msgid "A submission is only accepted after Google confirms it, with the keys of the version chosen below."
+msgstr "Um envio só é aceito depois que o Google o confirma, com as chaves da versão escolhida abaixo."
+
+#: includes/class-settings.php:568
+msgid "reCAPTCHA v3 (invisible, a score)"
+msgstr "reCAPTCHA v3 (invisível, por pontuação)"
+
+#: includes/class-settings.php:569
+msgid "reCAPTCHA v2 (\"I'm not a robot\" box)"
+msgstr "reCAPTCHA v2 (caixa “Não sou um robô”)"
+
+#: includes/class-settings.php:586
+msgid "Disable on localhost and 127.0.0.1"
+msgstr "Desativar em localhost e 127.0.0.1"
+
+#: includes/class-settings.php:587
+msgid "When the site address is http(s)://localhost or http(s)://127.0.0.1, with or without a port, the forms have no reCAPTCHA."
+msgstr "Quando o endereço do site é http(s)://localhost ou http(s)://127.0.0.1, com ou sem porta, os formulários ficam sem reCAPTCHA."
+
+#: includes/class-settings.php:668
+msgid "Score threshold should be a value between 0 and 1, default: 0.5"
+msgstr "O limiar de pontuação deve ser um valor entre 0 e 1. Padrão: 0,5"
+
+#: includes/class-settings.php:733
+msgid "Integrations"
+msgstr "Integrações"
+
+#: includes/class-settings.php:279
+msgid "Google Maps Platform"
+msgstr "Plataforma Google Maps"
+
+#. translators: 1: Link opening tag, 2: Link closing tag.
+#: includes/class-settings.php:285
+#, php-format
+msgid "Google Maps Platform suggests addresses while the street is typed (Places API New) and fills in the address fields. For more details, visit Google Maps' %1$sUsing API Keys%2$s page."
+msgstr "A Plataforma Google Maps sugere endereços enquanto a rua é digitada (Places API New) e preenche os campos do endereço. Para mais detalhes, veja a página %1$sComo usar chaves de API%2$s do Google Maps."
+
+#: includes/class-settings.php:293
+msgid "Address autocomplete"
+msgstr "Preenchimento de endereço"
+
+#: includes/class-settings.php:294
+msgid "API key"
+msgstr "Chave de API"
+
+#: includes/class-settings.php:599
+msgid "Suggest Google addresses while the street is typed"
+msgstr "Sugerir endereços do Google ao digitar a rua"
+
+#: includes/class-settings.php:600
+msgid "On the application form and on the user profile. Choosing an address fills in street, number, neighborhood, state, city and CEP. Needs the API key below, with the Places API (New) enabled."
+msgstr "No formulário de adesão e no perfil do usuário. Escolher um endereço preenche rua, número, bairro, estado, cidade e CEP. Precisa da chave de API abaixo, com a Places API (New) ativada."
+
+#. translators: 1: Link opening tag, 2: Link closing tag.
+#: includes/class-settings.php:603
+#, php-format
+msgid "Costs: the Google Cloud project needs a billing account with a payment method. Google charges for the suggestions and the addresses looked up beyond the free monthly limit, at the prices on %1$sPlaces API usage and billing%2$s. Set quotas and budget alerts in Google Cloud to cap the cost."
+msgstr "Custos: o projeto no Google Cloud precisa de uma conta de faturamento com um método de pagamento. O Google cobra pelas sugestões e pelos endereços consultados acima do limite gratuito mensal, pelos valores em %1$sUso e faturamento da Places API%2$s. Defina cotas e alertas de orçamento no Google Cloud para limitar o custo."
+
+#: includes/class-places.php:386
+msgid "Address not found."
+msgstr "Endereço não encontrado."
+
+#: includes/class-settings.php:295
+msgid "Cache"
+msgstr "Cache"
+
+#. translators: %d: number of cached answers deleted.
+#: includes/class-settings.php:622
+#, php-format
+msgid "%d cached answer deleted."
+msgid_plural "%d cached answers deleted."
+msgstr[0] "%d resposta em cache apagada."
+msgstr[1] "%d respostas em cache apagadas."
+
+#: includes/class-settings.php:632
+msgid "Clear address cache"
+msgstr "Limpar cache de endereços"
+
+#. translators: %d: number of cached answers.
+#: includes/class-settings.php:636
+#, php-format
+msgid "%d answer cached."
+msgid_plural "%d answers cached."
+msgstr[0] "%d resposta em cache."
+msgstr[1] "%d respostas em cache."
+
+#: includes/class-settings.php:638
+msgid "Suggestions and addresses already asked are kept for a day, so the same search is not charged again. They expire on their own."
+msgstr "Sugestões e endereços já consultados ficam guardados por um dia, para a mesma busca não ser cobrada de novo. Eles expiram sozinhos."
+
+#: includes/class-places.php:227
+msgid "Searching addresses…"
+msgstr "Buscando endereços…"
+
+#: includes/class-places.php:228
+msgid "No address found."
+msgstr "Nenhum endereço encontrado."
