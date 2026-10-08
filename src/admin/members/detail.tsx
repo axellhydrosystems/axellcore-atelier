@@ -4,7 +4,7 @@ import { DataForm } from '@wordpress/dataviews';
 import type { Field, Form, FormField } from '@wordpress/dataviews';
 import { Notice } from '@wordpress/components';
 import { fetchCities, fetchMember, saveMember } from './api';
-import { formatDocument } from './types';
+import { formatDocument, formatPhone, formatPostal } from './types';
 import type { MemberDetail, MemberReseller, SelectOption } from './types';
 
 type Draft = Record< string, string >;
@@ -92,6 +92,7 @@ export default function MemberDetailView( {
 				readOnly: true,
 				label: __( 'Phone', 'axellcore-atelierclub' ),
 				type: 'telephone',
+				getValue: ( { item } ) => formatPhone( item.phone ?? '' ),
 			},
 			{
 				id: 'company',
@@ -207,6 +208,7 @@ export default function MemberDetailView( {
 				readOnly: true,
 				label: __( 'Postal code', 'axellcore-atelierclub' ),
 				type: 'text',
+				getValue: ( { item } ) => formatPostal( item.postal ?? '' ),
 			},
 			{
 				id: 'resellers',

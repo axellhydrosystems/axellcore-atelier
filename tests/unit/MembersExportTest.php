@@ -27,12 +27,13 @@ final class MembersExportTest extends TestCase {
 
 	public function test_row_has_labels_masked_document_and_reseller_text(): void {
 		$meta = array(
-			'company'          => '=HYPERLINK("x")',
+			'billing_company'  => '=HYPERLINK("x")',
 			'primary_focus'    => 'interior_design',
-			'profile_type'     => 'legal_entity',
-			'br_revenue_id'    => '11222333000181',
-			'state'            => 'MG',
-			'city'             => 'Belo Horizonte',
+			'billing_cnpj'     => '11222333000181',
+			'billing_state'    => 'MG',
+			'billing_city'     => 'Belo Horizonte',
+			'billing_phone'    => '+5531987654321',
+			'billing_postcode' => '30130000',
 			'reseller1_title'  => 'Loja · MG BH',
 			'reseller3_title'  => 'Casa, Banho · SP',
 		);
@@ -48,10 +49,10 @@ final class MembersExportTest extends TestCase {
 		$user->display_name    = 'Beatriz Lima';
 		$user->user_email      = 'contato@limainteriores.com';
 
-		$row = Members_Export::row_for( $user, array( 'id', 'status', 'fullname', 'company', 'primary_focus', 'profile_type', 'br_revenue_id', 'city', 'resellers' ) );
+		$row = Members_Export::row_for( $user, array( 'id', 'status', 'fullname', 'company', 'primary_focus', 'profile_type', 'br_revenue_id', 'city', 'resellers', 'phone', 'postal' ) );
 
 		$this->assertSame(
-			array( '4', 'Member', 'Beatriz Lima', "'=HYPERLINK(\"x\")", 'Design de interiores', 'Company · CNPJ', '11.222.333/0001-81', 'Belo Horizonte', 'Loja · MG BH, Casa\\, Banho · SP' ),
+			array( '4', 'Member', 'Beatriz Lima', "'=HYPERLINK(\"x\")", 'Design de interiores', 'Company · CNPJ', '11.222.333/0001-81', 'Belo Horizonte', 'Loja · MG BH, Casa\\, Banho · SP', '(31) 98765-4321', '30130-000' ),
 			$row
 		);
 	}
@@ -62,6 +63,7 @@ final class MembersExportTest extends TestCase {
 
 	public function test_cpf_is_masked(): void {
 		$this->assertSame( '529.982.247-25', Members_Export::format_document( '52998224725' ) );
+		$this->assertSame( '12.ABC.345/01DE-35', Members_Export::format_document( '12ABC34501DE35' ), 'Alphanumeric CNPJ.' );
 	}
 
 	public function test_default_columns_leave_out_the_technical_ones(): void {

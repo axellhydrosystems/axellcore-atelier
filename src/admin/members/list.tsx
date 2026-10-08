@@ -5,7 +5,7 @@ import type { Action, Field, View } from '@wordpress/dataviews';
 import { Notice } from '@wordpress/components';
 import { fetchMembers } from './api';
 import type { ListQuery, ListResult } from './api';
-import { formatDocument } from './types';
+import { formatDocument, formatPhone } from './types';
 import type { MemberSummary } from './types';
 
 const DEFAULT_VIEW: View = {
@@ -160,6 +160,7 @@ export default function MembersList( {
 				id: 'phone',
 				label: __( 'Phone', 'axellcore-atelierclub' ),
 				type: 'telephone',
+				getValue: ( { item } ) => formatPhone( item.phone ?? '' ),
 				enableSorting: false,
 			},
 			{

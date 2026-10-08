@@ -49,6 +49,13 @@ final class Member_Profile {
 	private $user_id = 0;
 
 	/**
+	 * User the screen shows (user-edit.php's user_id, or the current user).
+	 *
+	 * @var int
+	 */
+	private $screen_user = 0;
+
+	/**
 	 * Values sent in the last save, shown again when it fails.
 	 *
 	 * @var array<string,mixed>
@@ -56,7 +63,8 @@ final class Member_Profile {
 	private $posted = array();
 
 	/**
-	 * Meta to write once the save has no errors (null deletes).
+	 * Fields to write once the save has no errors, through Members::put()
+	 * (null or '' deletes).
 	 *
 	 * @var array<string,mixed>
 	 */
@@ -99,6 +107,9 @@ final class Member_Profile {
 	 * Show and save the fields with the user.
 	 */
 	public function load() {
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- which user the screen shows, no action.
+		$this->screen_user = isset( $_REQUEST['user_id'] ) ? absint( $_REQUEST['user_id'] ) : get_current_user_id();
+		add_filter( 'woocommerce_customer_meta_fields', array( $this, 'woocommerce_customer_fields' ) );
 		add_action( 'show_user_profile', array( $this, 'add_member_meta_fields' ) );
 		add_action( 'edit_user_profile', array( $this, 'add_member_meta_fields' ) );
 		add_action( 'personal_options_update', array( $this, 'save_member_meta_fields' ) );
@@ -122,6 +133,10 @@ final class Member_Profile {
 				'template'   => Form_Directives::RESELLER_TEMPLATE,
 			)
 		);
+		wp_interactivity_state(
+			'axell/member-city',
+			array( 'citiesUrl' => rest_url( Rest::NAMESPACE . '/cities' ) )
+		);
 	}
 
 	/**
@@ -142,15 +157,99 @@ final class Member_Profile {
 	}
 
 	/**
-	 * The member fields, by fieldset: meta key => label, description, type
-	 * (select, resellers or text), options.
+	 * The member fields, by fieldset, in the order of the form: field =>
+	 * label, description, type (select, city, resellers or text), options,
+	 * disabled, mask (phone, postal, document). Name, e-mail and site are
+	 * WordPress's own fields on the same screen.
 	 *
-	 * @param int $user_id User being edited (the state field depends on its country).
+	 * @param int $user_id User being edited.
 	 * @return array<string,array{title:string,fields:array<string,array<string,mixed>>}>
 	 */
 	public function get_member_meta_fields( $user_id = 0 ) {
-		$labels  = Members_Export::columns();
-		$country = $this->country( $user_id );
+		$labels    = Members_Export::columns();
+		$fieldsets = array(
+			'authorship' => array(
+				'title'  => __( 'Atelier: Authorship', 'axellcore-atelierclub' ),
+				'fields' => array(
+					'company'                   => array( 'label' => $labels['company'] ),
+					'phone'                     => array(
+						'label' => $labels['phone'],
+						'mask'  => 'phone',
+					),
+					'professional_registration' => array( 'label' => $labels['professional_registration'] ),
+					'primary_focus'             => array(
+						'label'   => $labels['primary_focus'],
+						'type'    => 'select',
+						'options' => array( '' => __( 'Select an option…', 'axellcore-atelierclub' ) ) + Admin_Rest::PRIMARY_FOCUS_OPTIONS,
+					),
+				),
+			),
+			'document'   => array(
+				'title'  => __( 'Atelier: Document', 'axellcore-atelierclub' ),
+				'fields' => array(
+					// Never stored: it follows the CPF/CNPJ (Members::profile_type_of()).
+					'profile_type'  => array(
+						'label'    => $labels['profile_type'],
+						'type'     => 'select',
+						'disabled' => true,
+						'options'  => array( '' => '' ) + Members_Export::profile_types(),
+					),
+					'br_revenue_id' => array(
+						'label'       => $labels['br_revenue_id'],
+						'mask'        => 'document',
+						'description' => __( 'Checked for its check digits and unique among members; the registration type follows it.', 'axellcore-atelierclub' ),
+					),
+				),
+			),
+			'address'    => array(
+				'title'  => __( 'Atelier: Office address', 'axellcore-atelierclub' ),
+				'fields' => array(
+					// Brazil only: shown with every country, never editable.
+					'country'        => array(
+						'label'    => $labels['country'],
+						'type'     => 'select',
+						'disabled' => true,
+						'options'  => Locations::instance()->countries(),
+					),
+					'address_street' => array( 'label' => $labels['address_street'] ),
+					'address_number' => array( 'label' => $labels['address_number'] ),
+					'address_2'      => array( 'label' => $labels['address_2'] ),
+					'neighborhood'   => array( 'label' => $labels['neighborhood'] ),
+					'landmark'       => array( 'label' => $labels['landmark'] ),
+					'state'          => array(
+						'label'   => $labels['state'],
+						'type'    => 'select',
+						'options' => array( '' => '' ) + Locations::instance()->states(),
+					),
+					'city'           => array(
+						'label' => $labels['city'],
+						'type'  => 'city',
+					),
+					'postal'         => array(
+						'label' => $labels['postal'],
+						'mask'  => 'postal',
+					),
+				),
+			),
+			'resellers'  => array(
+				'title'  => __( 'Atelier: Partner stores', 'axellcore-atelierclub' ),
+				'fields' => array(
+					'resellers' => array(
+						'label'       => $labels['resellers'],
+						'type'        => 'resellers',
+						'description' => __( 'Search the registered resellers by name. Leaving a store empty moves the next ones up.', 'axellcore-atelierclub' ),
+					),
+				),
+			),
+		);
+
+		// With WooCommerce, a customer who is not a member keeps its billing
+		// fields in WooCommerce's own section: here only what it lacks.
+		if ( self::woocommerce() && ! self::is_member( $user_id ) ) {
+			foreach ( $fieldsets as $key => $fieldset ) {
+				$fieldsets[ $key ]['fields'] = array_diff_key( $fieldset['fields'], self::woocommerce_fields() );
+			}
+		}
 
 		/**
 		 * Member fields on the user edit screens, by fieldset.
@@ -158,76 +257,58 @@ final class Member_Profile {
 		 * @param array $fieldsets Fieldsets.
 		 * @param int   $user_id   User being edited.
 		 */
-		return apply_filters(
-			'axellcore_atelierclub_member_meta_fields',
-			array(
-				'authorship' => array(
-					'title'  => __( 'Atelier: authorship', 'axellcore-atelierclub' ),
-					'fields' => array(
-						'company'                   => array( 'label' => $labels['company'] ),
-						'phone'                     => array( 'label' => $labels['phone'] ),
-						'professional_registration' => array( 'label' => $labels['professional_registration'] ),
-						'primary_focus'             => array(
-							'label'   => $labels['primary_focus'],
-							'type'    => 'select',
-							'options' => array( '' => __( 'Select an option…', 'axellcore-atelierclub' ) ) + Admin_Rest::PRIMARY_FOCUS_OPTIONS,
-						),
-					),
-				),
-				'document'   => array(
-					'title'  => __( 'Atelier: document', 'axellcore-atelierclub' ),
-					'fields' => array(
-						'profile_type'  => array(
-							'label'   => $labels['profile_type'],
-							'type'    => 'select',
-							'options' => array( '' => __( 'Select an option…', 'axellcore-atelierclub' ) ) + Members_Export::profile_types(),
-						),
-						'br_revenue_id' => array(
-							'label'       => $labels['br_revenue_id'],
-							'description' => __( 'Checked for its check digits and the registration type, and unique among members.', 'axellcore-atelierclub' ),
-						),
-					),
-				),
-				'address'    => array(
-					'title'  => __( 'Atelier: office address', 'axellcore-atelierclub' ),
-					'fields' => array(
-						'country'        => array(
-							'label'   => $labels['country'],
-							'type'    => 'select',
-							'options' => Locations::instance()->countries(),
-						),
-						'postal'         => array( 'label' => $labels['postal'] ),
-						'address_street' => array( 'label' => $labels['address_street'] ),
-						'address_number' => array( 'label' => $labels['address_number'] ),
-						'address_2'      => array( 'label' => $labels['address_2'] ),
-						'neighborhood'   => array( 'label' => $labels['neighborhood'] ),
-						'landmark'       => array( 'label' => $labels['landmark'] ),
-						'state'          => 'BR' === $country
-							? array(
-								'label'   => $labels['state'],
-								'type'    => 'select',
-								'options' => array( '' => '—' ) + Locations::instance()->states(),
-							)
-							: array( 'label' => $labels['state'] ),
-						'city'           => array(
-							'label'       => $labels['city'],
-							'description' => __( 'In Brazil, a city of the chosen state.', 'axellcore-atelierclub' ),
-						),
-					),
-				),
-				'resellers'  => array(
-					'title'  => __( 'Atelier: partner stores', 'axellcore-atelierclub' ),
-					'fields' => array(
-						'resellers' => array(
-							'label'       => $labels['resellers'],
-							'type'        => 'resellers',
-							'description' => __( 'Search the registered resellers by name. Leaving a store empty moves the next ones up.', 'axellcore-atelierclub' ),
-						),
-					),
-				),
-			),
-			$user_id
-		);
+		return apply_filters( 'axellcore_atelierclub_member_meta_fields', $fieldsets, $user_id );
+	}
+
+	/**
+	 * Whether WooCommerce is active.
+	 *
+	 * @return bool
+	 */
+	private static function woocommerce() {
+		/**
+		 * Whether WooCommerce is active, for the member fields it shares.
+		 *
+		 * @param bool $active Default: the WooCommerce class exists.
+		 */
+		return (bool) apply_filters( 'axellcore_atelierclub_woocommerce_active', class_exists( 'WooCommerce' ) );
+	}
+
+	/**
+	 * Whether a user is a member (approved or pending).
+	 *
+	 * @param int $user_id User.
+	 * @return bool
+	 */
+	private static function is_member( $user_id ) {
+		$user = $user_id ? get_userdata( $user_id ) : false;
+		return $user instanceof \WP_User && (bool) array_intersect( array_keys( Member::roles() ), (array) $user->roles );
+	}
+
+	/**
+	 * The member fields WooCommerce's billing section also has (field =>
+	 * its meta key).
+	 *
+	 * @return array<string,string>
+	 */
+	private static function woocommerce_fields() {
+		return array_diff_key( Members::META, array_flip( array( 'address_number', 'neighborhood' ) ) );
+	}
+
+	/**
+	 * WooCommerce's billing section, for a member: without the fields this
+	 * screen edits (and the billing name, kept from the user's name).
+	 *
+	 * @param array $fieldsets WooCommerce's customer fieldsets.
+	 * @return array
+	 */
+	public function woocommerce_customer_fields( $fieldsets ) {
+		if ( ! is_array( $fieldsets ) || ! isset( $fieldsets['billing']['fields'] ) || ! self::is_member( $this->screen_user ) ) {
+			return $fieldsets;
+		}
+		$ours                           = array_merge( array_values( self::woocommerce_fields() ), array( 'billing_first_name', 'billing_last_name' ) );
+		$fieldsets['billing']['fields'] = array_diff_key( $fieldsets['billing']['fields'], array_flip( $ours ) );
+		return $fieldsets;
 	}
 
 	/**
@@ -240,6 +321,9 @@ final class Member_Profile {
 			return;
 		}
 		foreach ( $this->get_member_meta_fields( $user->ID ) as $fieldset_key => $fieldset ) {
+			if ( ! $fieldset['fields'] ) {
+				continue;
+			}
 			printf( '<h2>%s</h2><table class="form-table" id="%s">', esc_html( $fieldset['title'] ), esc_attr( 'fieldset-aa-' . $fieldset_key ) );
 			foreach ( $fieldset['fields'] as $key => $field ) {
 				// The stores mark the wrong position themselves (print_resellers()).
@@ -248,19 +332,31 @@ final class Member_Profile {
 				$error = 'resellers' === $type ? '' : ( $this->errors[ $key ][1] ?? '' );
 				$label = 'resellers' === $type ? $id . '_0' : $id;
 				$attrs = '' !== $error ? sprintf( ' aria-invalid="true" aria-describedby="%s-error"', esc_attr( $id ) ) : '';
+				if ( ! empty( $field['disabled'] ) ) {
+					$attrs .= ' disabled';
+				}
 
 				printf( '<tr%s><th><label for="%s">%s</label></th><td>', '' !== $error ? ' class="form-required form-invalid"' : '', esc_attr( $label ), esc_html( (string) $field['label'] ) );
 				if ( 'resellers' === $type ) {
 					$this->print_resellers( $user->ID );
+				} elseif ( 'city' === $type ) {
+					$this->print_city( $id, $this->value( $user->ID, $key ), $attrs );
 				} elseif ( 'select' === $type ) {
 					$value = $this->value( $user->ID, $key );
-					printf( '<select name="%1$s" id="%1$s" style="width: 25em;"%2$s>', esc_attr( $id ), $attrs ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $attrs is escaped above.
+					printf( '<select name="%1$s" id="%1$s" style="width: 25em;"%2$s%3$s>', esc_attr( $id ), $attrs, 'state' === $key ? ' data-wp-interactive="axell/member-city" data-wp-on--change="actions.onState"' : '' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $attrs is escaped above.
 					foreach ( (array) $field['options'] as $option => $option_label ) {
 						printf( '<option value="%1$s"%2$s>%3$s</option>', esc_attr( (string) $option ), selected( $value, (string) $option, false ), esc_html( (string) $option_label ) );
 					}
 					echo '</select>';
 				} else {
-					printf( '<input type="text" name="%1$s" id="%1$s" value="%2$s" class="regular-text"%3$s />', esc_attr( $id ), esc_attr( $this->value( $user->ID, $key ) ), $attrs ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- $attrs is escaped above.
+					$mask = (string) ( $field['mask'] ?? '' );
+					printf(
+						'<input type="text" name="%1$s" id="%1$s" value="%2$s" class="regular-text"%3$s%4$s />',
+						esc_attr( $id ),
+						esc_attr( $this->value( $user->ID, $key ) ),
+						$attrs, // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped above.
+						'' !== $mask ? sprintf( ' inputmode="%s" data-wp-interactive="axell/member-fields" data-wp-on--input="actions.mask" data-mask="%s"', 'document' === $mask ? 'text' : 'numeric', esc_attr( $mask ) ) : '' // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped here.
+					);
 				}
 				if ( '' !== $error ) {
 					printf( '<p class="description aa-member-error" id="%s-error">%s</p>', esc_attr( $id ), esc_html( $error ) );
@@ -272,6 +368,40 @@ final class Member_Profile {
 			}
 			echo '</table>';
 		}
+	}
+
+	/**
+	 * The city: a search over the cities of the chosen state (the same list
+	 * and endpoint as the form), as the form's city field.
+	 *
+	 * @param string $id    Field id and name.
+	 * @param string $value City.
+	 * @param string $attrs Extra attributes (escaped).
+	 */
+	private function print_city( $id, $value, $attrs ) {
+		printf(
+			'<div class="aa-member-city" data-wp-interactive="axell/member-city" data-wp-context="%5$s" data-wp-on--focusout="actions.onFocusOut">'
+				. '<input type="text" name="%1$s" id="%1$s" value="%2$s" class="regular-text" role="combobox" aria-autocomplete="list" aria-controls="%1$s-list" aria-expanded="false" autocomplete="off"%3$s'
+				. ' data-wp-bind--value="context.value" data-wp-bind--aria-expanded="state.isOpen" data-wp-bind--aria-activedescendant="state.activeId" data-wp-on--input="actions.onInput" data-wp-on--keydown="actions.onKeydown"/>'
+				. '<ul id="%1$s-list" class="aa-member-store__list" role="listbox" hidden tabindex="-1" aria-label="%4$s" data-wp-bind--hidden="!state.isOpen">'
+				. '<template data-wp-each--option="context.options" data-wp-each-key="context.option"><li role="option" data-wp-bind--id="state.optionId" data-wp-bind--aria-selected="state.isActive" data-wp-text="context.option" data-wp-on--mousedown="actions.pick"></li></template>'
+				. '</ul></div>',
+			esc_attr( $id ),
+			esc_attr( $value ),
+			$attrs, // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped by the caller.
+			esc_attr__( 'Cities', 'axellcore-atelierclub' ),
+			esc_attr(
+				(string) wp_json_encode(
+					array(
+						// Bound, or a new render would put back the value it was loaded with.
+						'value'   => $value,
+						'options' => array(),
+						'open'    => false,
+						'active'  => -1,
+					)
+				)
+			)
+		);
 	}
 
 	/**
@@ -390,22 +520,36 @@ final class Member_Profile {
 		}
 		// phpcs:enable WordPress.Security.NonceVerification.Missing
 
-		// The state field follows the country sent.
-		foreach ( $this->get_member_meta_fields( $user_id ) as $fieldset ) {
-			foreach ( $fieldset['fields'] as $key => $field ) {
-				if ( ! array_key_exists( $key, $this->posted ) || in_array( $key, array( 'br_revenue_id', 'state', 'city', 'resellers' ), true ) ) {
-					continue;
-				}
-				if ( 'select' === ( $field['type'] ?? '' ) && ! array_key_exists( $this->posted[ $key ], (array) $field['options'] ) ) {
-					$this->errors[ $key ] = array( 'aa_invalid_option', __( 'Choose an option from the list.', 'axellcore-atelierclub' ) );
-					continue;
-				}
-				$this->pending[ $key ] = $this->posted[ $key ];
+		// Brazil only: the country is never sent (disabled); another one is refused.
+		if ( isset( $fields['country'] ) ) {
+			if ( isset( $this->posted['country'] ) && 'BR' !== strtoupper( $this->posted['country'] ) ) {
+				$this->errors['country'] = array( 'aa_invalid_country', __( 'Only Brazil is accepted.', 'axellcore-atelierclub' ) );
 			}
+			$this->pending['country'] = 'BR';
+		}
+
+		foreach ( $fields as $key => $field ) {
+			if ( ! array_key_exists( $key, $this->posted ) || ! empty( $field['disabled'] ) || in_array( $key, array( 'br_revenue_id', 'state', 'city', 'resellers' ), true ) ) {
+				continue;
+			}
+			if ( 'phone' === $key && '' !== $this->posted[ $key ] && ! preg_match( '/^\d{2}(9\d{8}|[2-5]\d{7})$/', Format::phone_national( $this->posted[ $key ] ) ) ) {
+				$this->errors[ $key ] = array( 'aa_invalid_phone', __( 'Enter a phone number with area code.', 'axellcore-atelierclub' ) );
+				continue;
+			}
+			if ( 'postal' === $key && '' !== $this->posted[ $key ] && ! preg_match( '/^\d{8}$/', Format::digits( $this->posted[ $key ] ) ) ) {
+				$this->errors[ $key ] = array( 'aa_invalid_postal', __( 'Enter a CEP with 8 digits.', 'axellcore-atelierclub' ) );
+				continue;
+			}
+			if ( 'select' === ( $field['type'] ?? '' ) && ! array_key_exists( $this->posted[ $key ], (array) $field['options'] ) ) {
+				$this->errors[ $key ] = array( 'aa_invalid_option', __( 'Choose an option from the list.', 'axellcore-atelierclub' ) );
+				continue;
+			}
+			$this->pending[ $key ] = $this->posted[ $key ];
 		}
 
 		if ( isset( $this->posted['br_revenue_id'] ) ) {
-			$valid = Members::validate_document_for( $user_id, $this->posted['br_revenue_id'], $this->posted['profile_type'] ?? (string) get_user_meta( $user_id, 'profile_type', true ) );
+			// The type follows the number (11 characters CPF, 14 CNPJ).
+			$valid = Members::validate_document_for( $user_id, $this->posted['br_revenue_id'], '' );
 			if ( is_wp_error( $valid ) ) {
 				$this->errors['br_revenue_id'] = array( (string) $valid->get_error_code(), $valid->get_error_message() );
 			} else {
@@ -420,7 +564,7 @@ final class Member_Profile {
 				$this->pending['state'] = '';
 				$this->pending['city']  = '';
 			} else {
-				$location = Members::location( $this->country( $user_id ), $state, $city );
+				$location = Members::location( 'BR', $state, $city );
 				if ( is_wp_error( $location ) ) {
 					$this->errors['city'] = array( (string) $location->get_error_code(), $location->get_error_message() );
 				} else {
@@ -537,43 +681,39 @@ final class Member_Profile {
 		if ( $errors->has_errors() ) {
 			return;
 		}
-		foreach ( $this->pending as $key => $value ) {
-			if ( null === $value ) {
-				delete_user_meta( $this->user_id, $key );
-			} else {
-				update_user_meta( $this->user_id, $key, $value );
-			}
+		foreach ( $this->pending as $field => $value ) {
+			Members::put( $this->user_id, $field, (string) $value );
 		}
 	}
 
 	/**
 	 * A member field's value as shown: what was sent when the save failed,
-	 * the stored one otherwise (the country defaults to Brazil).
+	 * the stored one otherwise, with its mask (phone, CEP, CPF/CNPJ). The
+	 * country is always Brazil; the profile type follows the CPF/CNPJ.
 	 *
 	 * @param int    $user_id User.
-	 * @param string $key     Meta key.
+	 * @param string $key     Field.
 	 * @return string
 	 */
 	private function value( $user_id, $key ) {
+		if ( 'country' === $key ) {
+			return 'BR';
+		}
+		if ( 'profile_type' === $key ) {
+			return Members::profile_type_of( $this->value( $user_id, 'br_revenue_id' ) );
+		}
 		if ( isset( $this->posted[ $key ] ) && is_string( $this->posted[ $key ] ) ) {
 			return $this->posted[ $key ];
 		}
-		return 'country' === $key ? $this->country( $user_id ) : (string) get_user_meta( $user_id, $key, true );
-	}
-
-	/**
-	 * The member's country code: the one sent, else the stored one, Brazil
-	 * by default (as the form).
-	 *
-	 * @param int $user_id User.
-	 * @return string
-	 */
-	private function country( $user_id ) {
-		$country = isset( $this->posted['country'] ) ? (string) $this->posted['country'] : '';
-		if ( '' === $country && $user_id ) {
-			$country = (string) get_user_meta( $user_id, 'country', true );
+		$value = Members::get( $user_id, $key );
+		switch ( $key ) {
+			case 'phone':
+				return Format::phone( $value );
+			case 'postal':
+				return Format::postcode( $value );
+			case 'br_revenue_id':
+				return Format::document( $value );
 		}
-		$country = strtoupper( $country );
-		return '' !== $country ? $country : 'BR';
+		return $value;
 	}
 }

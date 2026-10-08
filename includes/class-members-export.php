@@ -229,7 +229,7 @@ final class Members_Export {
 	private static function existing_values( $field ) {
 		$values = array();
 		foreach ( self::member_ids() as $user_id ) {
-			$value = (string) get_user_meta( $user_id, $field, true );
+			$value = Members::get( $user_id, $field );
 			if ( '' !== $value ) {
 				$values[ $value ] = $value;
 			}
@@ -339,7 +339,7 @@ final class Members_Export {
 		) as $field => $key ) {
 			if ( $args[ $key ] ) {
 				$meta_query[] = array(
-					'key'     => $field,
+					'key'     => Members::meta_key( $field ),
 					'value'   => $args[ $key ],
 					'compare' => 'IN',
 				);
@@ -405,7 +405,7 @@ final class Members_Export {
 	 * @return string[]
 	 */
 	public static function row_for( \WP_User $user, array $columns ) {
-		$meta  = static fn( $key ) => (string) get_user_meta( $user->ID, $key, true );
+		$meta  = static fn( $key ) => Members::get( $user->ID, $key );
 		$roles = Member::roles();
 		$role  = in_array( Member::ROLE, (array) $user->roles, true ) ? Member::ROLE : Member::ROLE_PENDING;
 
@@ -425,7 +425,9 @@ final class Members_Export {
 		$values['city']          = $meta( 'city' );
 		$values['primary_focus'] = Admin_Rest::PRIMARY_FOCUS_OPTIONS[ $values['primary_focus'] ] ?? $values['primary_focus'];
 		$values['profile_type']  = self::profile_types()[ $values['profile_type'] ] ?? $values['profile_type'];
-		$values['br_revenue_id'] = self::format_document( $values['br_revenue_id'] );
+		$values['br_revenue_id'] = Format::document( $values['br_revenue_id'] );
+		$values['phone']         = Format::phone( $values['phone'] );
+		$values['postal']        = Format::postcode( $values['postal'] );
 		$values['resellers']     = self::join_values(
 			array_map( static fn( $field ) => $meta( $field . '_title' ), Members::RESELLER_FIELDS )
 		);
@@ -438,19 +440,13 @@ final class Members_Export {
 	}
 
 	/**
-	 * CPF (11 digits) or CNPJ (14 digits) with its mask.
+	 * CPF or CNPJ (the alphanumeric one too) with its mask.
 	 *
-	 * @param string $digits Document digits.
+	 * @param string $document Stored document.
 	 * @return string
 	 */
-	public static function format_document( $digits ) {
-		if ( preg_match( '/^(\d{3})(\d{3})(\d{3})(\d{2})$/', $digits, $m ) ) {
-			return "$m[1].$m[2].$m[3]-$m[4]";
-		}
-		if ( preg_match( '/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})$/', $digits, $m ) ) {
-			return "$m[1].$m[2].$m[3]/$m[4]-$m[5]";
-		}
-		return $digits;
+	public static function format_document( $document ) {
+		return Format::document( $document );
 	}
 
 	/**

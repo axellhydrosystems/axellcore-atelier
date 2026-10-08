@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-08T13:29:19+00:00\n"
+"POT-Creation-Date: 2026-10-08T14:22:47+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: axellcore-atelierclub\n"
@@ -51,25 +51,25 @@ msgstr ""
 msgid "Name cannot be empty."
 msgstr ""
 
-#: includes/class-admin-rest.php:248
-#: includes/class-members.php:199
-#: includes/class-members.php:503
+#: includes/class-admin-rest.php:251
+#: includes/class-members.php:231
+#: includes/class-members.php:693
 #: includes/class-resellers-rest.php:374
 msgid "Invalid email address."
 msgstr ""
 
-#: includes/class-admin-rest.php:252
-#: includes/class-members.php:235
-#: includes/class-members.php:510
+#: includes/class-admin-rest.php:255
+#: includes/class-members.php:272
+#: includes/class-members.php:700
 msgid "This e-mail is already registered."
 msgstr ""
 
-#: includes/class-admin-rest.php:301
+#: includes/class-admin-rest.php:308
 #: includes/class-resellers-rest.php:321
 msgid "Invalid status."
 msgstr ""
 
-#: includes/class-admin-rest.php:320
+#: includes/class-admin-rest.php:327
 msgid "Member not found."
 msgstr ""
 
@@ -274,70 +274,87 @@ msgstr ""
 msgid "Brazil"
 msgstr ""
 
-#: includes/class-member-profile.php:165
-msgid "Atelier: authorship"
+#: includes/class-member-profile.php:172
+msgid "Atelier: Authorship"
 msgstr ""
 
-#: includes/class-member-profile.php:173
 #: includes/class-member-profile.php:183
 msgid "Select an option…"
 msgstr ""
 
-#: includes/class-member-profile.php:178
-msgid "Atelier: document"
+#: includes/class-member-profile.php:188
+msgid "Atelier: Document"
 msgstr ""
 
-#: includes/class-member-profile.php:187
-msgid "Checked for its check digits and the registration type, and unique among members."
+#: includes/class-member-profile.php:200
+msgid "Checked for its check digits and unique among members; the registration type follows it."
 msgstr ""
 
-#: includes/class-member-profile.php:192
-msgid "Atelier: office address"
+#: includes/class-member-profile.php:205
+msgid "Atelier: Office address"
 msgstr ""
 
-#: includes/class-member-profile.php:214
-msgid "In Brazil, a city of the chosen state."
+#: includes/class-member-profile.php:235
+msgid "Atelier: Partner stores"
 msgstr ""
 
-#: includes/class-member-profile.php:219
-msgid "Atelier: partner stores"
-msgstr ""
-
-#: includes/class-member-profile.php:224
+#: includes/class-member-profile.php:240
 msgid "Search the registered resellers by name. Leaving a store empty moves the next ones up."
 msgstr ""
 
-#: includes/class-member-profile.php:309
+#: includes/class-member-profile.php:392
+#: includes/class-resellers.php:130
+msgid "Cities"
+msgstr ""
+
+#: includes/class-member-profile.php:439
 msgid "Search reseller…"
 msgstr ""
 
 #. translators: %d: partner store position, 1 to 5.
-#: includes/class-member-profile.php:311
+#: includes/class-member-profile.php:441
 #, php-format
 msgid "Partner store %d"
 msgstr ""
 
-#: includes/class-member-profile.php:315
+#: includes/class-member-profile.php:445
 msgid "Pending curation."
 msgstr ""
 
-#: includes/class-member-profile.php:317
+#: includes/class-member-profile.php:447
 #: build/admin/members/index.js:184
 msgid "Open store"
 msgstr ""
 
-#: includes/class-member-profile.php:319
+#: includes/class-member-profile.php:449
 msgid "Remove"
 msgstr ""
 
-#: includes/class-member-profile.php:397
+#: includes/class-member-profile.php:524
+#: includes/class-members.php:237
+msgid "Only Brazil is accepted."
+msgstr ""
+
+#: includes/class-member-profile.php:534
+#: includes/class-members.php:250
+#: includes/class-members.php:695
+msgid "Enter a phone number with area code."
+msgstr ""
+
+#: includes/class-member-profile.php:538
+#: includes/class-members.php:253
+#: includes/class-members.php:696
+msgid "Enter a CEP with 8 digits."
+msgstr ""
+
+#: includes/class-member-profile.php:542
 msgid "Choose an option from the list."
 msgstr ""
 
-#: includes/class-member-profile.php:498
-#: includes/class-member-profile.php:509
-#: includes/class-members.php:230
-#: includes/class-members.php:509
+#: includes/class-member-profile.php:643
+#: includes/class-member-profile.php:654
+#: includes/class-members.php:267
+#: includes/class-members.php:699
 msgid "Choose a reseller from the list."
 msgstr ""
 
@@ -588,7 +605,7 @@ msgid "Generate CSV"
 msgstr ""
 
 #: includes/class-members-export.php:265
-#: includes/class-members-export.php:550
+#: includes/class-members-export.php:546
 msgid "You do not have permission to do this."
 msgstr ""
 
@@ -596,42 +613,32 @@ msgstr ""
 msgid "The export expired. Start again."
 msgstr ""
 
-#: includes/class-members-export.php:556
+#: includes/class-members-export.php:552
 msgid "The export file is no longer available."
 msgstr ""
 
 #. translators: %s: form field name.
-#: includes/class-members.php:191
+#: includes/class-members.php:223
 #, php-format
 msgid "Missing required field: %s"
 msgstr ""
 
-#: includes/class-members.php:213
-#: includes/class-members.php:505
-msgid "Enter a phone number with area code."
-msgstr ""
-
-#: includes/class-members.php:216
-#: includes/class-members.php:506
-msgid "Enter a CEP with 8 digits."
-msgstr ""
-
-#: includes/class-members.php:256
+#: includes/class-members.php:296
 msgid "Could not save your application."
 msgstr ""
 
-#: includes/class-members.php:309
-#: includes/class-members.php:504
+#: includes/class-members.php:359
+#: includes/class-members.php:694
 msgid "Invalid state/city."
 msgstr ""
 
-#: includes/class-members.php:417
-#: includes/class-members.php:513
+#: includes/class-members.php:607
+#: includes/class-members.php:703
 #: includes/class-rest.php:183
 msgid "Too many attempts. Try again in a few minutes."
 msgstr ""
 
-#: includes/class-members.php:502
+#: includes/class-members.php:692
 msgid "Fill in the required fields."
 msgstr ""
 
@@ -690,10 +697,6 @@ msgstr ""
 
 #: includes/class-resellers.php:124
 msgid "States"
-msgstr ""
-
-#: includes/class-resellers.php:130
-msgid "Cities"
 msgstr ""
 
 #: includes/class-resellers.php:132

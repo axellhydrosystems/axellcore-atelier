@@ -199,7 +199,8 @@ final class MembersTest extends TestCase {
 		Functions\when( 'email_exists' )->justReturn( false );
 		Functions\expect( 'get_users' )->once()->andReturnUsing(
 			function ( $args ) {
-				$this->assertSame( '52998224725', $args['meta_value'] );
+				$this->assertSame( array( 'billing_cpf', 'billing_cnpj' ), array_column( array_slice( $args['meta_query'], 1 ), 'key' ) );
+				$this->assertSame( '52998224725', $args['meta_query'][0 + 1]['value'] );
 				return array( 3 );
 			}
 		);
@@ -234,16 +235,30 @@ final class MembersTest extends TestCase {
 				return true;
 			}
 		);
+		Functions\when( 'delete_user_meta' )->justReturn( true );
+		$params             = $this->valid_params();
+		$params['fullname'] = 'Ana Maria  Souza';
+		$params['company']  = 'Estúdio Ana';
 
-		$result = Members::instance()->create_from_params( $this->valid_params() );
+		$result = Members::instance()->create_from_params( $params );
 
 		$this->assertSame( array( 'success' => true, 'id' => 42 ), $result );
 		$this->assertSame( 'ana', $user['user_login'] );
 		$this->assertSame( 'member_pending', $user['role'] );
-		$this->assertSame( 'Campinas', $meta['city'] );
-		$this->assertSame( 'SP', $meta['state'] );
-		$this->assertSame( '52998224725', $meta['br_revenue_id'] );
-		$this->assertArrayNotHasKey( 'aa_city', $meta );
+		$this->assertSame( 'Ana Maria  Souza', $user['display_name'] );
+		$this->assertSame( array( 'Ana', 'Maria  Souza' ), array( $user['first_name'], $user['last_name'] ) );
+		$this->assertSame( array( 'Ana', 'Maria  Souza' ), array( $meta['billing_first_name'], $meta['billing_last_name'] ) );
+		$this->assertSame( 'ana@escritorio.com.br', $meta['billing_email'] );
+		$this->assertSame( 'Estúdio Ana', $meta['billing_company'] );
+		$this->assertSame( 'Campinas', $meta['billing_city'] );
+		$this->assertSame( 'SP', $meta['billing_state'] );
+		$this->assertSame( 'BR', $meta['billing_country'] );
+		$this->assertSame( '+5511987654321', $meta['billing_phone'], 'Digits with +55.' );
+		$this->assertSame( '01001000', $meta['billing_postcode'], 'Digits only.' );
+		$this->assertSame( '52998224725', $meta['billing_cpf'] );
+		$this->assertArrayNotHasKey( 'billing_cnpj', $meta );
+		$this->assertArrayNotHasKey( 'profile_type', $meta, 'The type follows the document.' );
+		$this->assertArrayNotHasKey( 'company', $meta );
 	}
 
 	public function test_application_creates_an_approved_member_when_pending_is_off(): void {
@@ -257,6 +272,7 @@ final class MembersTest extends TestCase {
 		Functions\when( 'wp_generate_password' )->justReturn( 'secret' );
 		Functions\when( 'absint' )->alias( 'intval' );
 		Functions\when( 'update_user_meta' )->justReturn( true );
+		Functions\when( 'delete_user_meta' )->justReturn( true );
 		$user = array();
 		Functions\expect( 'wp_insert_user' )->once()->andReturnUsing(
 			static function ( $data ) use ( &$user ) {

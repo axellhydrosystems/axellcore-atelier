@@ -73,10 +73,10 @@ final class Members {
 	);
 
 	/**
-	 * Optional text fields, stored (sanitize_text_field) as user meta
-	 * under the field name, named as the adesão form names them. `email` and `url`
-	 * are handled separately (their own sanitizers); `state`/`city` by the
-	 * location-resolution step, not stored as plain meta.
+	 * Member fields kept as user meta, named as the adesão form (and the REST
+	 * API) names them; Members::put() stores each under its meta key (META).
+	 * `email` and `url` are user fields; `state`/`city` go through the
+	 * location step; `profile_type` is never stored, it follows the CPF/CNPJ.
 	 *
 	 * @var string[]
 	 */
@@ -103,6 +103,38 @@ final class Members {
 	 * @var string[]
 	 */
 	const RESELLER_FIELDS = array( 'reseller1', 'reseller2', 'reseller3', 'reseller4', 'reseller5' );
+
+	/**
+	 * Meta keys of the member fields that WooCommerce also has, as its
+	 * customers' billing data (WC_Customer_Data_Store), and the number and
+	 * neighbourhood as the Brazilian Market plugin keeps them. The fields not
+	 * listed keep their own name as meta key.
+	 *
+	 * @var array<string,string>
+	 */
+	const META = array(
+		'company'        => 'billing_company',
+		'phone'          => 'billing_phone',
+		'country'        => 'billing_country',
+		'address_street' => 'billing_address_1',
+		'address_number' => 'billing_number',
+		'address_2'      => 'billing_address_2',
+		'neighborhood'   => 'billing_neighborhood',
+		'state'          => 'billing_state',
+		'city'           => 'billing_city',
+		'postal'         => 'billing_postcode',
+	);
+
+	/**
+	 * The CPF/CNPJ field is stored, as the Brazilian Market plugin does, under
+	 * one of two keys by its type; the other is removed.
+	 *
+	 * @var array<string,string>
+	 */
+	const DOCUMENT_META = array(
+		'cpf'  => 'billing_cpf',
+		'cnpj' => 'billing_cnpj',
+	);
 
 	/**
 	 * Singleton instance.
@@ -199,14 +231,19 @@ final class Members {
 			return self::field_error( 'aa_invalid_email', __( 'Invalid email address.', 'axellcore-atelierclub' ), 'email' );
 		}
 
-		$country  = strtoupper( trim( (string) ( $params['country'] ?? '' ) ) );
-		$location = self::location( '' !== $country ? $country : 'BR', (string) $params['state'], (string) $params['city'] );
+		// Brazil only: the form's country is fixed.
+		$country = strtoupper( trim( (string) ( $params['country'] ?? '' ) ) );
+		if ( '' !== $country && 'BR' !== $country ) {
+			return self::field_error( 'aa_invalid_country', __( 'Only Brazil is accepted.', 'axellcore-atelierclub' ), 'country' );
+		}
+		$country  = 'BR';
+		$location = self::location( $country, (string) $params['state'], (string) $params['city'] );
 		if ( is_wp_error( $location ) ) {
 			return $location;
 		}
 		list( $uf, $city ) = $location;
 
-		if ( '' === $country || 'BR' === $country ) {
+		if ( 'BR' === $country ) {
 			// The rules of the form's masks (form-address/view.ts): a mobile
 			// has 9 after the area code, a landline starts with 2 to 5.
 			if ( ! preg_match( '/^\d{2}(9\d{8}|[2-5]\d{7})$/', self::digits( (string) $params['phone'] ) ) ) {
@@ -240,9 +277,12 @@ final class Members {
 		}
 
 		$fullname = sanitize_text_field( $params['fullname'] );
+		$name     = self::name_meta( $fullname );
 		$user_id  = wp_insert_user(
 			array(
 				'user_login'   => self::username_for( $email ),
+				'first_name'   => $name['first_name'],
+				'last_name'    => $name['last_name'],
 				'user_email'   => $email,
 				// Never shown: the member sets a password when access is granted.
 				'user_pass'    => wp_generate_password( 24 ),
@@ -256,16 +296,26 @@ final class Members {
 			return new \WP_Error( 'aa_insert_failed', __( 'Could not save your application.', 'axellcore-atelierclub' ), array( 'status' => 500 ) );
 		}
 
-		$meta = array(
+		$fields = array(
+			'country'       => $country,
 			'state'         => $uf,
 			'city'          => $city,
 			'br_revenue_id' => $document,
 		);
 		foreach ( self::TEXT_META_FIELDS as $field ) {
-			if ( 'br_revenue_id' !== $field && ! empty( $params[ $field ] ) ) {
-				$meta[ $field ] = sanitize_text_field( $params[ $field ] );
+			if ( ! isset( $fields[ $field ] ) && ! empty( $params[ $field ] ) ) {
+				$fields[ $field ] = sanitize_text_field( $params[ $field ] );
 			}
 		}
+		foreach ( $fields as $field => $value ) {
+			self::put( $user_id, $field, $value );
+		}
+		// WooCommerce's billing name and e-mail, as its checkout keeps them.
+		$meta = array(
+			'billing_first_name' => $name['billing_first_name'],
+			'billing_last_name'  => $name['billing_last_name'],
+			'billing_email'      => $email,
+		);
 
 		// The stores filled in, moved up to the first positions (store 1 and
 		// store 3 are saved as reseller1 and reseller2).
@@ -333,6 +383,140 @@ final class Members {
 	}
 
 	/**
+	 * The meta key of a member field.
+	 *
+	 * @param string $field Field name (form / REST).
+	 * @return string
+	 */
+	public static function meta_key( $field ) {
+		return self::META[ $field ] ?? $field;
+	}
+
+	/**
+	 * A member field as stored ('' when unset). The CPF/CNPJ comes from its
+	 * key by type, the profile type from the CPF/CNPJ.
+	 *
+	 * @param int    $user_id User ID.
+	 * @param string $field   Field name.
+	 * @return string
+	 */
+	public static function get( $user_id, $field ) {
+		if ( 'br_revenue_id' === $field ) {
+			return self::document_of( $user_id );
+		}
+		if ( 'profile_type' === $field ) {
+			return self::profile_type_of( self::document_of( $user_id ) );
+		}
+		return (string) get_user_meta( $user_id, self::meta_key( $field ), true );
+	}
+
+	/**
+	 * Store a checked member field in its stored format (the phone with
+	 * +55, the CEP and the CPF/CNPJ without masks); an empty value deletes
+	 * it. The profile type is never stored.
+	 *
+	 * @param int    $user_id User ID.
+	 * @param string $field   Field name.
+	 * @param string $value   Value.
+	 */
+	public static function put( $user_id, $field, $value ) {
+		$value = trim( (string) $value );
+		switch ( $field ) {
+			case 'profile_type':
+				return;
+			case 'br_revenue_id':
+				$document = Document::normalize( $value );
+				$type     = '' !== $document ? Document::type_for( $document, '' ) : '';
+				foreach ( self::DOCUMENT_META as $document_type => $key ) {
+					if ( $document_type === $type ) {
+						update_user_meta( $user_id, $key, $document );
+					} else {
+						delete_user_meta( $user_id, $key );
+					}
+				}
+				return;
+			case 'phone':
+				$value = Format::phone_store( $value );
+				break;
+			case 'postal':
+				$value = Format::digits( $value );
+				break;
+			case 'country':
+				$value = strtoupper( $value );
+				break;
+		}
+		if ( '' === $value ) {
+			delete_user_meta( $user_id, self::meta_key( $field ) );
+		} else {
+			update_user_meta( $user_id, self::meta_key( $field ), $value );
+		}
+	}
+
+	/**
+	 * The member's CPF/CNPJ (normalized), '' when none.
+	 *
+	 * @param int $user_id User ID.
+	 * @return string
+	 */
+	public static function document_of( $user_id ) {
+		foreach ( self::DOCUMENT_META as $key ) {
+			$document = (string) get_user_meta( $user_id, $key, true );
+			if ( '' !== $document ) {
+				return $document;
+			}
+		}
+		return '';
+	}
+
+	/**
+	 * The profile type a CPF/CNPJ means: individual for a valid CPF,
+	 * legal_entity for a valid CNPJ, '' otherwise.
+	 *
+	 * @param string $document CPF/CNPJ, masked or not.
+	 * @return string
+	 */
+	public static function profile_type_of( $document ) {
+		$document = Document::normalize( $document );
+		if ( '' === $document ) {
+			return '';
+		}
+		$type = Document::type_for( $document, '' );
+		if ( ! Document::is_valid( $document, $type ) ) {
+			return '';
+		}
+		return 'cpf' === $type ? 'individual' : 'legal_entity';
+	}
+
+	/**
+	 * A full name split as first name (the first word) and last name (the
+	 * rest).
+	 *
+	 * @param string $fullname Full name.
+	 * @return array{0:string,1:string}
+	 */
+	public static function split_name( $fullname ) {
+		$parts = preg_split( '/\s+/', trim( (string) $fullname ), 2 );
+		return array( (string) ( $parts[0] ?? '' ), (string) ( $parts[1] ?? '' ) );
+	}
+
+	/**
+	 * The name meta of a full name: first and last name, and the same as
+	 * WooCommerce's billing name.
+	 *
+	 * @param string $fullname Full name.
+	 * @return array<string,string>
+	 */
+	public static function name_meta( $fullname ) {
+		list( $first, $last ) = self::split_name( $fullname );
+		return array(
+			'first_name'         => $first,
+			'last_name'          => $last,
+			'billing_first_name' => $first,
+			'billing_last_name'  => $last,
+		);
+	}
+
+	/**
 	 * Whether a member user already has this CPF/CNPJ.
 	 *
 	 * @param string $document Normalized CPF/CNPJ (Document::normalize()).
@@ -340,10 +524,16 @@ final class Members {
 	 * @return bool
 	 */
 	public static function document_exists( $document, $exclude = 0 ) {
+		$keys = array();
+		foreach ( self::DOCUMENT_META as $key ) {
+			$keys[] = array(
+				'key'   => $key,
+				'value' => $document,
+			);
+		}
 		$ids = get_users(
 			array(
-				'meta_key'   => 'br_revenue_id', // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key -- uniqueness check on one key.
-				'meta_value' => $document, // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_value -- uniqueness check on one key.
+				'meta_query' => array_merge( array( 'relation' => 'OR' ), $keys ), // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_query -- uniqueness check on two keys.
 				'exclude'    => $exclude ? array( $exclude ) : array(),
 				'number'     => 1,
 				'fields'     => 'ID',
@@ -467,7 +657,7 @@ final class Members {
 	 * @return string
 	 */
 	public static function digits( $value ) {
-		return (string) preg_replace( '/\D+/', '', $value );
+		return Format::digits( $value );
 	}
 
 	/**

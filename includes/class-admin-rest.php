@@ -186,7 +186,7 @@ final class Admin_Rest {
 		if ( 'title' === $request['orderby'] ) {
 			$args['orderby'] = 'display_name';
 		} elseif ( 'state' === $request['orderby'] ) {
-			$args['meta_key'] = 'state'; // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key -- admin-only list, small dataset.
+			$args['meta_key'] = Members::meta_key( 'state' ); // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_meta_key -- admin-only list, small dataset.
 			$args['orderby']  = 'meta_value';
 		} else {
 			$args['orderby'] = 'registered';
@@ -241,6 +241,9 @@ final class Admin_Rest {
 			}
 			$userdata['display_name'] = $fullname;
 			$userdata['nickname']     = $fullname;
+			$name                     = Members::name_meta( $fullname );
+			$userdata['first_name']   = $name['first_name'];
+			$userdata['last_name']    = $name['last_name'];
 		}
 		if ( isset( $params['email'] ) ) {
 			$email = sanitize_email( $this->param_string( $params, 'email' ) );
@@ -262,35 +265,39 @@ final class Admin_Rest {
 				return $updated;
 			}
 		}
+		if ( isset( $name ) ) {
+			update_user_meta( $user->ID, 'billing_first_name', $name['billing_first_name'] );
+			update_user_meta( $user->ID, 'billing_last_name', $name['billing_last_name'] );
+		}
 
 		if ( isset( $params['br_revenue_id'] ) ) {
 			$document = Members::validate_document_for(
 				$user->ID,
 				$this->param_string( $params, 'br_revenue_id' ),
-				isset( $params['profile_type'] ) ? $this->param_string( $params, 'profile_type' ) : $this->meta( $user->ID, 'profile_type' )
+				'' // The type follows the CPF/CNPJ.
 			);
 			if ( is_wp_error( $document ) ) {
 				return $document;
 			}
-			$this->store_meta( $user->ID, 'br_revenue_id', $document );
+			Members::put( $user->ID, 'br_revenue_id', $document );
 		}
 
 		if ( isset( $params['state'] ) || isset( $params['city'] ) ) {
 			$location = Members::location(
-				'' !== $this->meta( $user->ID, 'country' ) ? $this->meta( $user->ID, 'country' ) : 'BR',
-				isset( $params['state'] ) ? $this->param_string( $params, 'state' ) : $this->meta( $user->ID, 'state' ),
-				isset( $params['city'] ) ? $this->param_string( $params, 'city' ) : $this->meta( $user->ID, 'city' )
+				'BR',
+				isset( $params['state'] ) ? $this->param_string( $params, 'state' ) : Members::get( $user->ID, 'state' ),
+				isset( $params['city'] ) ? $this->param_string( $params, 'city' ) : Members::get( $user->ID, 'city' )
 			);
 			if ( is_wp_error( $location ) ) {
 				return $location;
 			}
-			$this->store_meta( $user->ID, 'state', $location[0] );
-			$this->store_meta( $user->ID, 'city', $location[1] );
+			Members::put( $user->ID, 'state', $location[0] );
+			Members::put( $user->ID, 'city', $location[1] );
 		}
 
 		foreach ( Members::TEXT_META_FIELDS as $field ) {
-			if ( 'br_revenue_id' !== $field && isset( $params[ $field ] ) ) {
-				$this->store_meta( $user->ID, $field, sanitize_text_field( $this->param_string( $params, $field ) ) );
+			if ( ! in_array( $field, array( 'br_revenue_id', 'profile_type', 'country' ), true ) && isset( $params[ $field ] ) ) {
+				Members::put( $user->ID, $field, sanitize_text_field( $this->param_string( $params, $field ) ) );
 			}
 		}
 
@@ -333,7 +340,7 @@ final class Admin_Rest {
 
 		if ( '' !== $request['state'] ) {
 			$clauses[] = array(
-				'key'   => 'state',
+				'key'   => Members::meta_key( 'state' ),
 				'value' => strtoupper( $request['state'] ),
 			);
 		}
@@ -367,13 +374,13 @@ final class Admin_Rest {
 		return array(
 			'id'            => $user->ID,
 			'fullname'      => $user->display_name,
-			'company'       => $this->meta( $user->ID, 'company' ),
+			'company'       => Members::get( $user->ID, 'company' ),
 			'email'         => $user->user_email,
-			'phone'         => $this->meta( $user->ID, 'phone' ),
-			'primary_focus' => $this->meta( $user->ID, 'primary_focus' ),
-			'state'         => $this->meta( $user->ID, 'state' ),
-			'city'          => $this->meta( $user->ID, 'city' ),
-			'br_revenue_id' => $this->meta( $user->ID, 'br_revenue_id' ),
+			'phone'         => Members::get( $user->ID, 'phone' ),
+			'primary_focus' => Members::get( $user->ID, 'primary_focus' ),
+			'state'         => Members::get( $user->ID, 'state' ),
+			'city'          => Members::get( $user->ID, 'city' ),
+			'br_revenue_id' => Members::get( $user->ID, 'br_revenue_id' ),
 			// user_registered is UTC; the list shows the site's time.
 			'data'          => get_date_from_gmt( (string) $user->user_registered ),
 			'status'        => $this->status( $user ),
@@ -393,23 +400,23 @@ final class Admin_Rest {
 			'email'    => $user->user_email,
 			'login'    => $user->user_login,
 			'url'      => $user->user_url,
-			'state'    => $this->meta( $user->ID, 'state' ),
-			'city'     => $this->meta( $user->ID, 'city' ),
+			'state'    => Members::get( $user->ID, 'state' ),
+			'city'     => Members::get( $user->ID, 'city' ),
 			// Read-only text: the site's date and time formats and timezone.
 			'data'     => (string) wp_date( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), (int) strtotime( $user->user_registered . ' UTC' ) ),
 			'status'   => $this->status( $user ),
 		);
 
 		foreach ( Members::TEXT_META_FIELDS as $field ) {
-			$data[ $field ] = $this->meta( $user->ID, $field );
+			$data[ $field ] = Members::get( $user->ID, $field );
 		}
 
 		// Partner stores are shown by their text, not their ID.
 		$resellers = array();
 		foreach ( Members::RESELLER_FIELDS as $field ) {
-			$data[ $field ] = $this->meta( $user->ID, $field . '_title' );
+			$data[ $field ] = Members::get( $user->ID, $field . '_title' );
 
-			$reseller_id = (int) $this->meta( $user->ID, $field );
+			$reseller_id = (int) Members::get( $user->ID, $field );
 			if ( '' === $data[ $field ] && ! $reseller_id ) {
 				continue;
 			}
@@ -429,16 +436,6 @@ final class Admin_Rest {
 		return $data;
 	}
 
-	/**
-	 * One member field (user meta under its name), '' when unset.
-	 *
-	 * @param int    $user_id User ID.
-	 * @param string $name    Field name.
-	 * @return string
-	 */
-	private function meta( int $user_id, string $name ) {
-		return (string) get_user_meta( $user_id, $name, true );
-	}
 
 	/**
 	 * Read a scalar request param as a string, '' when absent or non-scalar.
@@ -449,20 +446,5 @@ final class Admin_Rest {
 	 */
 	private function param_string( array $params, string $key ) {
 		return isset( $params[ $key ] ) && is_scalar( $params[ $key ] ) ? (string) $params[ $key ] : '';
-	}
-
-	/**
-	 * Write or (for an empty value) delete one member field.
-	 *
-	 * @param int    $user_id User ID.
-	 * @param string $name    Field name.
-	 * @param string $value   Sanitized value.
-	 */
-	private function store_meta( int $user_id, string $name, string $value ) {
-		if ( '' === $value ) {
-			delete_user_meta( $user_id, $name );
-			return;
-		}
-		update_user_meta( $user_id, $name, $value );
 	}
 }

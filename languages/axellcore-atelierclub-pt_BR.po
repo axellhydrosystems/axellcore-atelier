@@ -482,24 +482,24 @@ msgid "Members"
 msgstr "Membros"
 
 #. translators: %s: form field name.
-#: includes/class-members.php:191
+#: includes/class-members.php:223
 #, php-format
 msgid "Missing required field: %s"
 msgstr "Campo obrigatório ausente: %s"
 
-#: includes/class-admin-rest.php:248
-#: includes/class-members.php:199
-#: includes/class-members.php:503
+#: includes/class-admin-rest.php:251
+#: includes/class-members.php:231
+#: includes/class-members.php:693
 #: includes/class-resellers-rest.php:374
 msgid "Invalid email address."
 msgstr "Endereço de e-mail inválido."
 
-#: includes/class-members.php:309
-#: includes/class-members.php:504
+#: includes/class-members.php:359
+#: includes/class-members.php:694
 msgid "Invalid state/city."
 msgstr "Estado/cidade inválido."
 
-#: includes/class-members.php:256
+#: includes/class-members.php:296
 msgid "Could not save your application."
 msgstr "Não foi possível salvar seu cadastro."
 
@@ -915,7 +915,7 @@ msgstr "Houve um erro ao enviar seu formulário."
 msgid "Name cannot be empty."
 msgstr "O nome não pode ficar vazio."
 
-#: includes/class-admin-rest.php:320
+#: includes/class-admin-rest.php:327
 msgid "Member not found."
 msgstr "Membro não encontrado."
 
@@ -944,8 +944,8 @@ msgstr "Formulário não encontrado."
 msgid "Arrow"
 msgstr "Seta"
 
-#: includes/class-members.php:417
-#: includes/class-members.php:513
+#: includes/class-members.php:607
+#: includes/class-members.php:703
 #: includes/class-rest.php:183
 msgid "Too many attempts. Try again in a few minutes."
 msgstr "Muitas tentativas. Tente novamente em alguns minutos."
@@ -1425,13 +1425,13 @@ msgstr "Benefícios"
 msgid "Channels"
 msgstr "Canais"
 
-#: includes/class-admin-rest.php:252
-#: includes/class-members.php:235
-#: includes/class-members.php:510
+#: includes/class-admin-rest.php:255
+#: includes/class-members.php:272
+#: includes/class-members.php:700
 msgid "This e-mail is already registered."
 msgstr "Este e-mail já está cadastrado."
 
-#: includes/class-admin-rest.php:301
+#: includes/class-admin-rest.php:308
 #: includes/class-resellers-rest.php:321
 msgid "Invalid status."
 msgstr "Status inválido."
@@ -1690,7 +1690,7 @@ msgid "Generate CSV"
 msgstr "Gerar CSV"
 
 #: includes/class-members-export.php:265
-#: includes/class-members-export.php:550
+#: includes/class-members-export.php:546
 msgid "You do not have permission to do this."
 msgstr "Você não tem permissão para fazer isso."
 
@@ -1698,7 +1698,7 @@ msgstr "Você não tem permissão para fazer isso."
 msgid "The export expired. Start again."
 msgstr "A exportação expirou. Comece de novo."
 
-#: includes/class-members-export.php:556
+#: includes/class-members-export.php:552
 msgid "The export file is no longer available."
 msgstr "O arquivo da exportação não está mais disponível."
 
@@ -1759,6 +1759,7 @@ msgstr "Editar revenda"
 msgid "States"
 msgstr "Estados"
 
+#: includes/class-member-profile.php:392
 #: includes/class-resellers.php:130
 msgid "Cities"
 msgstr "Cidades"
@@ -1833,7 +1834,7 @@ msgstr "Não foi possível salvar."
 msgid "Pending curation"
 msgstr "Pendente de curadoria"
 
-#: includes/class-member-profile.php:317
+#: includes/class-member-profile.php:447
 #: build/admin/members/index.js:184
 msgid "Open store"
 msgstr "Abrir loja"
@@ -2367,24 +2368,26 @@ msgstr "CPF inválido."
 msgid "Invalid CNPJ."
 msgstr "CNPJ inválido."
 
-#: includes/class-members.php:213
-#: includes/class-members.php:505
+#: includes/class-member-profile.php:534
+#: includes/class-members.php:250
+#: includes/class-members.php:695
 msgid "Enter a phone number with area code."
 msgstr "Informe um telefone com DDD."
 
-#: includes/class-members.php:216
-#: includes/class-members.php:506
+#: includes/class-member-profile.php:538
+#: includes/class-members.php:253
+#: includes/class-members.php:696
 msgid "Enter a CEP with 8 digits."
 msgstr "Informe um CEP com 8 dígitos."
 
-#: includes/class-member-profile.php:498
-#: includes/class-member-profile.php:509
-#: includes/class-members.php:230
-#: includes/class-members.php:509
+#: includes/class-member-profile.php:643
+#: includes/class-member-profile.php:654
+#: includes/class-members.php:267
+#: includes/class-members.php:699
 msgid "Choose a reseller from the list."
 msgstr "Escolha uma revenda da lista."
 
-#: includes/class-members.php:502
+#: includes/class-members.php:692
 msgid "Fill in the required fields."
 msgstr "Preencha os campos obrigatórios."
 
@@ -2441,39 +2444,14 @@ msgid "Atelier Page"
 msgstr "Página Atelier"
 
 #. translators: %d: partner store position, 1 to 5.
-#: includes/class-member-profile.php:311
+#: includes/class-member-profile.php:441
 #, php-format
 msgid "Partner store %d"
 msgstr "Loja parceira %d"
 
-#: includes/class-member-profile.php:165
-msgid "Atelier: authorship"
-msgstr "Atelier: autoria"
-
-#: includes/class-member-profile.php:173
 #: includes/class-member-profile.php:183
 msgid "Select an option…"
 msgstr "Selecione uma opção…"
-
-#: includes/class-member-profile.php:178
-msgid "Atelier: document"
-msgstr "Atelier: documento"
-
-#: includes/class-member-profile.php:187
-msgid "Checked for its check digits and the registration type, and unique among members."
-msgstr "Conferido pelos dígitos verificadores e pelo tipo de cadastro, e único entre os membros."
-
-#: includes/class-member-profile.php:192
-msgid "Atelier: office address"
-msgstr "Atelier: endereço do escritório"
-
-#: includes/class-member-profile.php:214
-msgid "In Brazil, a city of the chosen state."
-msgstr "No Brasil, uma cidade do estado escolhido."
-
-#: includes/class-member-profile.php:219
-msgid "Atelier: partner stores"
-msgstr "Atelier: lojas parceiras"
 
 #: includes/data/countries.php:15
 msgid "Afghanistan"
@@ -3471,26 +3449,51 @@ msgstr "Zâmbia"
 msgid "Zimbabwe"
 msgstr "Zimbábue"
 
-#: includes/class-member-profile.php:224
+#: includes/class-member-profile.php:240
 msgid "Search the registered resellers by name. Leaving a store empty moves the next ones up."
 msgstr "Busque as revendas cadastradas pelo nome. Deixar uma loja vazia faz as seguintes subirem."
 
-#: includes/class-member-profile.php:309
+#: includes/class-member-profile.php:439
 msgid "Search reseller…"
 msgstr "Buscar revenda…"
 
-#: includes/class-member-profile.php:315
+#: includes/class-member-profile.php:445
 msgid "Pending curation."
 msgstr "Pendente de curadoria."
 
-#: includes/class-member-profile.php:319
+#: includes/class-member-profile.php:449
 msgid "Remove"
 msgstr "Remover"
 
-#: includes/class-member-profile.php:397
+#: includes/class-member-profile.php:542
 msgid "Choose an option from the list."
 msgstr "Escolha uma opção da lista."
 
 #: build/admin/members/index.js:184
 msgid "Stores"
 msgstr "Lojas"
+
+#: includes/class-member-profile.php:172
+msgid "Atelier: Authorship"
+msgstr "Atelier: Autoria"
+
+#: includes/class-member-profile.php:188
+msgid "Atelier: Document"
+msgstr "Atelier: Documento"
+
+#: includes/class-member-profile.php:200
+msgid "Checked for its check digits and unique among members; the registration type follows it."
+msgstr "Conferido pelos dígitos verificadores e único entre os membros; o tipo de cadastro acompanha o número."
+
+#: includes/class-member-profile.php:205
+msgid "Atelier: Office address"
+msgstr "Atelier: Endereço do escritório"
+
+#: includes/class-member-profile.php:235
+msgid "Atelier: Partner stores"
+msgstr "Atelier: Lojas parceiras"
+
+#: includes/class-member-profile.php:524
+#: includes/class-members.php:237
+msgid "Only Brazil is accepted."
+msgstr "Só o Brasil é aceito."

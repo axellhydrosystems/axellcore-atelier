@@ -5,6 +5,7 @@
  * position shows once the one before has a store, as on the form.
  */
 import { store, getContext } from '@wordpress/interactivity';
+import './fields';
 
 interface Option {
 	id: number;
