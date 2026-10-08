@@ -18,6 +18,10 @@ The Atelier Axell Club landing (`/atelier`) built from native WordPress blocks: 
 
 == Changelog ==
 
+= 0.6.0 =
+* User profile: Google's address suggestions on the street field, as on the application form (with Google Maps' dark gray logo on the light screen). Choosing an address fills in street, number, complement, neighborhood, state and city (its exact name, without opening its list) and CEP; nothing is saved until "Update User".
+* Address suggestions: the street field keeps what was typed and the street chosen (a value set by the server came back on every render); neighborhood and CEP follow the address chosen, and a complement an earlier address filled in goes with it (one typed by hand stays).
+
 = 0.5.0 =
 * Atelier > Settings > Integrations: reCAPTCHA v3 (default) or v2 on the forms, each with its keys and the v3 score threshold, checked with Google before anything is stored; on by default once the keys are filled, and off on localhost and 127.0.0.1 unless unchecked.
 * Atelier > Settings > Integrations: Google Maps Platform (Places API New) with the API key, a note on its billing and costs, and the address cache with "Clear address cache".
