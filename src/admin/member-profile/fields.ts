@@ -86,6 +86,8 @@ const profileType = ( value: string ) => {
 store( 'axell/member-fields', {
 	actions: {
 		// "Approve member": the profile saved as "Update User", with approval.
+		// A click on that button, not requestSubmit(): user-profile.js only
+		// skips its "changes will be lost" warning after that click.
 		approve( event: MouseEvent ) {
 			const form = ( event.currentTarget as HTMLElement ).closest(
 				'form'
@@ -94,9 +96,9 @@ store( 'axell/member-fields', {
 				'aa-member-approve'
 			) as HTMLInputElement | null;
 			const submit = form?.querySelector< HTMLInputElement >( '#submit' );
-			if ( form && flag ) {
+			if ( submit && flag ) {
 				flag.value = '1';
-				form.requestSubmit( submit ?? undefined );
+				submit.click();
 			}
 		},
 
