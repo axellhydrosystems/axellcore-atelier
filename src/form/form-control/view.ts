@@ -48,6 +48,38 @@ interface CityOption {
 const DEBOUNCE_MS = 250;
 const MAX_CITIES = 20;
 const NOT_FOUND_LABEL = 'Adicionar não encontrada';
+const NOT_CHOSEN = 'Escolha uma loja da lista ou adicione uma não encontrada.';
+const NOT_AN_OPTION = 'Escolha uma opção da lista.';
+const INCOMPLETE_STORE = 'Informe nome, UF e cidade da loja.';
+
+/**
+ * Mark the widget's field when what it holds would not be sent: text typed
+ * without choosing an item, or a custom store without name, UF or city. The
+ * form's reportValidity() then stops the submission (and the server refuses
+ * such a store too). Nothing is cleared, so the member sees what to fix.
+ *
+ * @param context Autocomplete context.
+ * @param widget  The widget's region element.
+ */
+function validate( context: AutocompleteContext, widget: HTMLElement ) {
+	const search = widget.querySelector< HTMLInputElement >(
+		'input[role="combobox"]:not([data-field])'
+	);
+	const name = widget.querySelector< HTMLInputElement >(
+		'[data-field="name"]'
+	);
+	search?.setCustomValidity( '' );
+	name?.setCustomValidity( '' );
+	if ( context.custom ) {
+		if ( ! composeTitle( context ) ) {
+			name?.setCustomValidity( INCOMPLETE_STORE );
+		}
+	} else if ( ! context.selectedId && context.query.trim() ) {
+		search?.setCustomValidity(
+			context.allowNotFound ? NOT_CHOSEN : NOT_AN_OPTION
+		);
+	}
+}
 
 /**
  * optionsUrl is provided by includes/class-form-block.php (wp_interactivity_state).
@@ -169,6 +201,12 @@ function choose(
 	}
 	context.open = false;
 	context.activeIndex = -1;
+	const widget = from?.closest< HTMLElement >(
+		'[data-wp-interactive="axell/autocomplete"]'
+	);
+	if ( widget ) {
+		validate( context, widget );
+	}
 }
 
 const { state } = store( 'axell/autocomplete', {
@@ -176,6 +214,7 @@ const { state } = store( 'axell/autocomplete', {
 	actions: {
 		*onInput( event: Event ): Generator< unknown, void, unknown > {
 			const input = event.target as HTMLInputElement;
+			input.setCustomValidity( '' );
 			const context = getContext< AutocompleteContext >();
 			const query = input.value;
 
@@ -227,6 +266,7 @@ const { state } = store( 'axell/autocomplete', {
 
 		onCustomInput( event: Event ) {
 			const input = event.target as HTMLInputElement;
+			input.setCustomValidity( '' );
 			const context = getContext< AutocompleteContext >();
 			context.customName = input.value;
 			context.title = composeTitle( context );
@@ -479,16 +519,12 @@ const { state } = store( 'axell/autocomplete', {
 				return;
 			}
 			const context = getContext< AutocompleteContext >();
-			// Leaving without a valid choice (no item picked, no custom store) clears the text.
-			if ( ! context.selectedId && ! context.custom ) {
-				context.query = '';
-				context.text = '';
-				context.title = '';
-				context.options = [];
-				context.loading = false;
-			}
+			// Leaving without a valid choice keeps the text and marks the field
+			// (the submission stops there) instead of dropping it unseen.
+			context.loading = false;
 			context.open = false;
 			context.activeIndex = -1;
+			validate( context, wrapper );
 		},
 	},
 

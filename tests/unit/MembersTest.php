@@ -197,6 +197,7 @@ final class MembersTest extends TestCase {
 		Filters\expectApplied( 'axellcore_atelierclub_reseller_text' )->once()->with( 0, 'Loja Nova - SC Joinville' )->andReturn( 900 );
 		$params                    = $this->valid_params();
 		$params['primary_focus']   = 'interior_design';
+		// Store 2 left empty: the stores move up on the server.
 		$params['reseller1_title'] = 'Loja Nova - SC Joinville';
 		$params['reseller3']       = '2625';
 		$params['reseller3_title'] = 'A Casa · RS Caxias do Sul';
@@ -204,7 +205,7 @@ final class MembersTest extends TestCase {
 		Members::instance()->create_from_params( $params );
 
 		$this->assertSame( 'Design de interiores', $meta['primary_focus'], 'Stored by its label.' );
-		$this->assertSame( '900,2625', $meta['reseller_ids'] );
+		$this->assertSame( '900,2625', $meta['reseller_ids'], 'Store 3 after store 1: no gap.' );
 		$this->assertCount( 0, preg_grep( '/^reseller\d/', array_keys( $meta ) ), 'No per-position keys or texts.' );
 	}
 

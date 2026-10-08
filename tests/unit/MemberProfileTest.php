@@ -291,6 +291,22 @@ final class MemberProfileTest extends TestCase {
 		$this->assertCount( 0, preg_grep( '/^reseller\d/', array_keys( $this->meta ) ), 'No per-position keys.' );
 	}
 
+	public function test_an_empty_store_between_others_leaves_no_gap(): void {
+		$errors = $this->save(
+			self::stores(
+				array(
+					array( 42, 'Loja A · RS Caxias do Sul' ),
+					array( '', '' ),
+					array( '', '' ),
+					array( 50, 'Nova · RS Caxias do Sul' ),
+				)
+			)
+		);
+
+		$this->assertFalse( $errors->has_errors() );
+		$this->assertSame( '42,50', $this->meta['reseller_ids'] );
+	}
+
 	public function test_a_store_must_be_a_registered_reseller(): void {
 		foreach ( array( array( 99, 'Sobre' ), array( '', 'Typed by hand' ) ) as $row ) {
 			$errors = $this->save( self::stores( array( $row ) ) + array( 'aa_member_company' => 'New studio' ) );
