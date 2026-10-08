@@ -1,7 +1,9 @@
 <?php
 /**
- * The Atelier admin screens and the block editor without other plugins'
- * and the theme's notices (promotions, rating requests, onboarding):
+ * The Atelier admin screens, the users' screens (list, profile, user edit:
+ * the member fields), the resellers' screens (list and edit) and the block
+ * editor without other plugins' and the theme's notices (promotions, rating
+ * requests, onboarding):
  * WordPress's and this plugin's notices stay. In the block editor they
  * showed for a moment before the editor replaced them.
  *
@@ -23,6 +25,11 @@ final class Admin_Notices {
 	 * Admin page slugs of the Atelier menu.
 	 */
 	const PAGES = array( Member::ADMIN_PAGE, Members_Export::PAGE, Settings::PAGE, Resellers_Admin::ADMIN_PAGE );
+
+	/**
+	 * Other screens (ids) without them: the users' list, profile and edit.
+	 */
+	const SCREENS = array( 'users', 'profile', 'user-edit' );
 
 	/**
 	 * Notice hooks.
@@ -62,13 +69,29 @@ final class Admin_Notices {
 	}
 
 	/**
+	 * Whether the screen is one without other plugins' notices: the block
+	 * editor, the users' screens, the resellers' list and edit.
+	 *
+	 * @param \WP_Screen|null $screen Current screen.
+	 * @return bool
+	 */
+	private static function is_quiet_screen( $screen ) {
+		if ( ! $screen instanceof \WP_Screen ) {
+			return false;
+		}
+		return $screen->is_block_editor()
+			|| in_array( $screen->id, self::SCREENS, true )
+			|| Resellers::POST_TYPE === $screen->post_type;
+	}
+
+	/**
 	 * On an Atelier screen or in the block editor, unhook the notices not
 	 * from WordPress or this plugin.
 	 */
 	public function remove_foreign() {
 		$page   = isset( $_GET['page'] ) ? sanitize_key( wp_unslash( $_GET['page'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Only picks the screen.
 		$screen = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
-		if ( ! in_array( $page, self::PAGES, true ) && ! ( $screen && $screen->is_block_editor() ) ) {
+		if ( ! in_array( $page, self::PAGES, true ) && ! self::is_quiet_screen( $screen ) ) {
 			return;
 		}
 		$keep    = array(
