@@ -1,7 +1,8 @@
 <?php
 /**
  * The Atelier admin screens, the users' screens (list, profile, user edit:
- * the member fields), the resellers' screens (list and edit) and the block
+ * the member fields), Settings > General, the resellers' screens (list and
+ * edit) and the block
  * editor without other plugins' and the theme's notices (promotions, rating
  * requests, onboarding):
  * WordPress's and this plugin's notices stay. In the block editor they
@@ -27,9 +28,10 @@ final class Admin_Notices {
 	const PAGES = array( Member::ADMIN_PAGE, Members_Export::PAGE, Settings::PAGE, Resellers_Admin::ADMIN_PAGE );
 
 	/**
-	 * Other screens (ids) without them: the users' list, profile and edit.
+	 * Other screens (ids) without them: the users' list, profile and edit,
+	 * and Settings > General.
 	 */
-	const SCREENS = array( 'users', 'profile', 'user-edit' );
+	const SCREENS = array( 'users', 'profile', 'user-edit', 'options-general' );
 
 	/**
 	 * Notice hooks.
