@@ -949,7 +949,7 @@ msgstr "Seta"
 
 #: includes/class-members.php:680
 #: includes/class-members.php:785
-#: includes/class-places.php:568
+#: includes/class-places.php:597
 #: includes/class-rest.php:183
 msgid "Too many attempts. Try again in a few minutes."
 msgstr "Muitas tentativas. Tente novamente em alguns minutos."
@@ -1512,7 +1512,7 @@ msgstr "Envio de formulário %s"
 msgid "New form submission"
 msgstr "Novo envio de formulário"
 
-#: includes/class-member-profile.php:433
+#: includes/class-member-profile.php:452
 #: includes/class-member.php:362
 #: includes/class-resellers-rest.php:53
 #: build/form/form-atelier/index.js:1
@@ -1772,7 +1772,7 @@ msgstr "Editar revenda"
 msgid "States"
 msgstr "Estados"
 
-#: includes/class-member-profile.php:532
+#: includes/class-member-profile.php:551
 #: includes/class-resellers.php:130
 msgid "Cities"
 msgstr "Cidades"
@@ -1843,7 +1843,7 @@ msgstr "Não foi possível salvar."
 msgid "Pending curation"
 msgstr "Pendente de curadoria"
 
-#: includes/class-member-profile.php:589
+#: includes/class-member-profile.php:608
 #: build/admin/members/index.js:184
 msgid "Open store"
 msgstr "Abrir loja"
@@ -2378,19 +2378,19 @@ msgstr "CPF inválido."
 msgid "Invalid CNPJ."
 msgstr "CNPJ inválido."
 
-#: includes/class-member-profile.php:681
+#: includes/class-member-profile.php:700
 #: includes/class-members.php:270
 #: includes/class-members.php:777
 msgid "Enter a phone number with area code."
 msgstr "Informe um telefone com DDD."
 
-#: includes/class-member-profile.php:685
+#: includes/class-member-profile.php:704
 #: includes/class-members.php:273
 #: includes/class-members.php:778
 msgid "Enter a CEP with 8 digits."
 msgstr "Informe um CEP com 8 dígitos."
 
-#: includes/class-member-profile.php:790
+#: includes/class-member-profile.php:809
 #: includes/class-members.php:288
 #: includes/class-members.php:781
 msgid "Choose a reseller from the list."
@@ -2433,7 +2433,7 @@ msgid "Creates a page with the Atelier landing content and makes it the Atelier 
 msgstr "Cria uma página com o conteúdo da landing do Atelier e a define como a página do Atelier."
 
 #: includes/class-notifications.php:577
-#: includes/class-places.php:294
+#: includes/class-places.php:323
 #: includes/class-settings.php:1027
 msgid "Sorry, you are not allowed to do that."
 msgstr "Você não tem permissão para fazer isso."
@@ -2455,7 +2455,7 @@ msgid "Atelier Page"
 msgstr "Página Atelier"
 
 #. translators: %d: partner store position, 1 to 5.
-#: includes/class-member-profile.php:583
+#: includes/class-member-profile.php:602
 #, php-format
 msgid "Partner store %d"
 msgstr "Loja parceira %d"
@@ -3460,15 +3460,15 @@ msgstr "Zâmbia"
 msgid "Zimbabwe"
 msgstr "Zimbábue"
 
-#: includes/class-member-profile.php:587
+#: includes/class-member-profile.php:606
 msgid "Pending curation."
 msgstr "Pendente de curadoria."
 
-#: includes/class-member-profile.php:591
+#: includes/class-member-profile.php:610
 msgid "Remove"
 msgstr "Remover"
 
-#: includes/class-member-profile.php:689
+#: includes/class-member-profile.php:708
 msgid "Choose an option from the list."
 msgstr "Escolha uma opção da lista."
 
@@ -3492,22 +3492,22 @@ msgstr "Atelier: Endereço do escritório"
 msgid "Atelier: Partner stores"
 msgstr "Atelier: Lojas parceiras"
 
-#: includes/class-member-profile.php:671
+#: includes/class-member-profile.php:690
 #: includes/class-members.php:257
 msgid "Only Brazil is accepted."
 msgstr "Só o Brasil é aceito."
 
 #: includes/class-enhanced-select.php:212
-#: includes/class-member-profile.php:508
+#: includes/class-member-profile.php:527
 msgid "Search"
 msgstr "Buscar"
 
 #: includes/class-enhanced-select.php:236
-#: includes/class-member-profile.php:509
+#: includes/class-member-profile.php:528
 msgid "No matches found"
 msgstr "Nenhum resultado encontrado"
 
-#: includes/class-member-profile.php:581
+#: includes/class-member-profile.php:600
 msgid "Store name · city"
 msgstr "Nome da loja · cidade"
 
@@ -3980,28 +3980,28 @@ msgstr "O título grande no topo do e-mail aberto, abaixo do logo. Aceita marcad
 msgid "Search the registered resellers by name."
 msgstr "Busque as revendas cadastradas pelo nome."
 
-#: includes/class-member-profile.php:422
+#: includes/class-member-profile.php:441
 msgid "Member approved"
 msgstr "Membro aprovado"
 
-#: includes/class-member-profile.php:423
+#: includes/class-member-profile.php:442
 msgid "This member has been approved."
 msgstr "Este membro já foi aprovado."
 
-#: includes/class-member-profile.php:429
+#: includes/class-member-profile.php:448
 msgid "Approve member"
 msgstr "Aprovar membro"
 
-#: includes/class-member-profile.php:431
-#: includes/class-member-profile.php:434
+#: includes/class-member-profile.php:450
+#: includes/class-member-profile.php:453
 msgid "This application is pending approval."
 msgstr "Este cadastro está pendente de aprovação."
 
-#: includes/class-member-profile.php:438
+#: includes/class-member-profile.php:457
 msgid "Atelier: Status"
 msgstr "Atelier: Status"
 
-#: includes/class-member-profile.php:439
+#: includes/class-member-profile.php:458
 msgid "Membership"
 msgstr "Adesão"
 
@@ -4131,7 +4131,7 @@ msgstr "No formulário de adesão e no perfil do usuário. Escolher um endereço
 msgid "Costs: the Google Cloud project needs a billing account with a payment method. Google charges for the suggestions and the addresses looked up beyond the free monthly limit, at the prices on %1$sPlaces API usage and billing%2$s. Set quotas and budget alerts in Google Cloud to cap the cost."
 msgstr "Custos: o projeto no Google Cloud precisa de uma conta de faturamento com um método de pagamento. O Google cobra pelas sugestões e pelos endereços consultados acima do limite gratuito mensal, pelos valores em %1$sUso e faturamento da Places API%2$s. Defina cotas e alertas de orçamento no Google Cloud para limitar o custo."
 
-#: includes/class-places.php:386
+#: includes/class-places.php:415
 msgid "Address not found."
 msgstr "Endereço não encontrado."
 
@@ -4163,10 +4163,10 @@ msgstr[1] "%d respostas em cache."
 msgid "Suggestions and addresses already asked are kept for a day, so the same search is not charged again. They expire on their own."
 msgstr "Sugestões e endereços já consultados ficam guardados por um dia, para a mesma busca não ser cobrada de novo. Eles expiram sozinhos."
 
-#: includes/class-places.php:227
+#: includes/class-places.php:256
 msgid "Searching addresses…"
 msgstr "Buscando endereços…"
 
-#: includes/class-places.php:228
+#: includes/class-places.php:257
 msgid "No address found."
 msgstr "Nenhum endereço encontrado."
