@@ -85,6 +85,21 @@ const profileType = ( value: string ) => {
 
 store( 'axell/member-fields', {
 	actions: {
+		// "Approve member": the profile saved as "Update User", with approval.
+		approve( event: MouseEvent ) {
+			const form = ( event.currentTarget as HTMLElement ).closest(
+				'form'
+			);
+			const flag = document.getElementById(
+				'aa-member-approve'
+			) as HTMLInputElement | null;
+			const submit = form?.querySelector< HTMLInputElement >( '#submit' );
+			if ( form && flag ) {
+				flag.value = '1';
+				form.requestSubmit( submit ?? undefined );
+			}
+		},
+
 		mask( event: Event ) {
 			const input = event.target as HTMLInputElement;
 			switch ( input.dataset.mask ) {

@@ -79,6 +79,14 @@ final class Member_Profile {
 	private $errors = array();
 
 	/**
+	 * Whether the last save also approves the pending member ("Approve
+	 * member": the profile saved with approval).
+	 *
+	 * @var bool
+	 */
+	private $approve = false;
+
+	/**
 	 * Get the singleton instance.
 	 *
 	 * @return Member_Profile
@@ -117,7 +125,7 @@ final class Member_Profile {
 		// WordPress's "Website": https:// when typed without, and a valid address.
 		add_action( 'user_profile_update_errors', array( $this, 'check_site_url' ), 10, 3 );
 		// Last, to know whether WordPress's own fields have errors too.
-		add_action( 'user_profile_update_errors', array( $this, 'report_errors' ), PHP_INT_MAX );
+		add_action( 'user_profile_update_errors', array( $this, 'report_errors' ), PHP_INT_MAX, 3 );
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue' ) );
 	}
 
@@ -414,8 +422,13 @@ final class Member_Profile {
 			$button = sprintf( '<button type="button" class="button" disabled>%s</button>', esc_html__( 'Member approved', 'axellcore-atelierclub' ) );
 			$help   = __( 'This member has been approved.', 'axellcore-atelierclub' );
 		} elseif ( Member::can_approve( $user->ID ) ) {
-			$button = sprintf( '<a class="button" href="%1$s">%2$s</a>', esc_url( Member::approve_url( $user->ID ) ), esc_html__( 'Approve member', 'axellcore-atelierclub' ) );
-			$help   = __( 'This application is pending approval. Approving lets the member in and sends the "Membership approved" e-mail, when it is on. Save any changes on this screen first.', 'axellcore-atelierclub' );
+			// Saves the profile, as "Update User", and approves: not a submit
+			// button, so Enter in a field keeps saving without approving.
+			$button = sprintf(
+				'<input type="hidden" name="aa_member_approve" id="aa-member-approve" value="0"><button type="button" class="button" data-wp-interactive="axell/member-fields" data-wp-on--click="actions.approve">%s</button>',
+				esc_html__( 'Approve member', 'axellcore-atelierclub' )
+			);
+			$help   = __( 'This application is pending approval.', 'axellcore-atelierclub' );
 		} else {
 			$button = sprintf( '<button type="button" class="button" disabled>%s</button>', esc_html__( 'Pending', 'axellcore-atelierclub' ) );
 			$help   = __( 'This application is pending approval.', 'axellcore-atelierclub' );
@@ -629,6 +642,11 @@ final class Member_Profile {
 		$this->posted  = array();
 		$this->pending = array();
 		$this->errors  = array();
+		$user          = get_userdata( $user_id );
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing -- WordPress checked the user form's nonce.
+		$this->approve = isset( $_POST['aa_member_approve'] ) && '1' === $_POST['aa_member_approve']
+			&& $user instanceof \WP_User && in_array( Member::ROLE_PENDING, (array) $user->roles, true )
+			&& Member::can_approve( $user_id );
 
 		// phpcs:disable WordPress.Security.NonceVerification.Missing -- WordPress checked the user form's nonce (update-user_{id}) before these hooks.
 		$fields = array();
@@ -802,9 +820,11 @@ final class Member_Profile {
 	 * Add the fields' errors to WordPress's (shown above the form), and write
 	 * the fields only when there are none, ours or WordPress's.
 	 *
-	 * @param \WP_Error $errors WordPress's errors for the user form.
+	 * @param \WP_Error      $errors WordPress's errors for the user form.
+	 * @param bool           $update Whether an existing user is saved.
+	 * @param \stdClass|null $user   User data about to be saved (by reference).
 	 */
-	public function report_errors( $errors ) {
+	public function report_errors( $errors, $update = true, $user = null ) {
 		if ( ! $this->user_id || ! $errors instanceof \WP_Error ) {
 			return;
 		}
@@ -816,6 +836,23 @@ final class Member_Profile {
 		}
 		foreach ( $this->pending as $field => $value ) {
 			Members::put( $this->user_id, $field, (string) $value );
+		}
+		if ( $this->approve && is_object( $user ) ) {
+			// WordPress saves the role right after (wp_update_user): the
+			// member role, not the pending one still chosen in "Role".
+			$user->role = Member::ROLE;
+			$user_id    = $this->user_id;
+			add_action(
+				'profile_update',
+				static function ( $updated ) use ( $user_id ) {
+					if ( (int) $updated === $user_id ) {
+						/** This action is documented in includes/class-member.php */
+						do_action( 'axellcore_atelierclub_member_approved', $user_id );
+					}
+				}
+			);
+			// Back on the profile, "Member approved." with WordPress's notice.
+			add_filter( 'wp_redirect', static fn( $location ) => add_query_arg( Member::APPROVED_ARG, 1, $location ) );
 		}
 	}
 

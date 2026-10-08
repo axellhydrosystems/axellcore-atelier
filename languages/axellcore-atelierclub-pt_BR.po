@@ -1509,7 +1509,7 @@ msgstr "Envio de formulário %s"
 msgid "New form submission"
 msgstr "Novo envio de formulário"
 
-#: includes/class-member-profile.php:420
+#: includes/class-member-profile.php:433
 #: includes/class-member.php:362
 #: includes/class-resellers-rest.php:53
 #: build/form/form-atelier/index.js:1
@@ -1769,7 +1769,7 @@ msgstr "Editar revenda"
 msgid "States"
 msgstr "Estados"
 
-#: includes/class-member-profile.php:519
+#: includes/class-member-profile.php:532
 #: includes/class-resellers.php:130
 msgid "Cities"
 msgstr "Cidades"
@@ -1840,7 +1840,7 @@ msgstr "Não foi possível salvar."
 msgid "Pending curation"
 msgstr "Pendente de curadoria"
 
-#: includes/class-member-profile.php:576
+#: includes/class-member-profile.php:589
 #: build/admin/members/index.js:184
 msgid "Open store"
 msgstr "Abrir loja"
@@ -2375,19 +2375,19 @@ msgstr "CPF inválido."
 msgid "Invalid CNPJ."
 msgstr "CNPJ inválido."
 
-#: includes/class-member-profile.php:663
+#: includes/class-member-profile.php:681
 #: includes/class-members.php:263
 #: includes/class-members.php:770
 msgid "Enter a phone number with area code."
 msgstr "Informe um telefone com DDD."
 
-#: includes/class-member-profile.php:667
+#: includes/class-member-profile.php:685
 #: includes/class-members.php:266
 #: includes/class-members.php:771
 msgid "Enter a CEP with 8 digits."
 msgstr "Informe um CEP com 8 dígitos."
 
-#: includes/class-member-profile.php:772
+#: includes/class-member-profile.php:790
 #: includes/class-members.php:281
 #: includes/class-members.php:774
 msgid "Choose a reseller from the list."
@@ -2451,12 +2451,12 @@ msgid "Atelier Page"
 msgstr "Página Atelier"
 
 #. translators: %d: partner store position, 1 to 5.
-#: includes/class-member-profile.php:570
+#: includes/class-member-profile.php:583
 #, php-format
 msgid "Partner store %d"
 msgstr "Loja parceira %d"
 
-#: includes/class-member-profile.php:186
+#: includes/class-member-profile.php:194
 msgid "Select an option…"
 msgstr "Selecione uma opção…"
 
@@ -3456,15 +3456,15 @@ msgstr "Zâmbia"
 msgid "Zimbabwe"
 msgstr "Zimbábue"
 
-#: includes/class-member-profile.php:574
+#: includes/class-member-profile.php:587
 msgid "Pending curation."
 msgstr "Pendente de curadoria."
 
-#: includes/class-member-profile.php:578
+#: includes/class-member-profile.php:591
 msgid "Remove"
 msgstr "Remover"
 
-#: includes/class-member-profile.php:671
+#: includes/class-member-profile.php:689
 msgid "Choose an option from the list."
 msgstr "Escolha uma opção da lista."
 
@@ -3472,40 +3472,40 @@ msgstr "Escolha uma opção da lista."
 msgid "Stores"
 msgstr "Lojas"
 
-#: includes/class-member-profile.php:174
+#: includes/class-member-profile.php:182
 msgid "Atelier: Authorship"
 msgstr "Atelier: Autoria"
 
-#: includes/class-member-profile.php:191
+#: includes/class-member-profile.php:199
 msgid "Atelier: Document"
 msgstr "Atelier: Documento"
 
-#: includes/class-member-profile.php:209
+#: includes/class-member-profile.php:217
 msgid "Atelier: Office address"
 msgstr "Atelier: Endereço do escritório"
 
-#: includes/class-member-profile.php:241
+#: includes/class-member-profile.php:249
 msgid "Atelier: Partner stores"
 msgstr "Atelier: Lojas parceiras"
 
-#: includes/class-member-profile.php:653
+#: includes/class-member-profile.php:671
 #: includes/class-members.php:250
 msgid "Only Brazil is accepted."
 msgstr "Só o Brasil é aceito."
 
-#: includes/class-member-profile.php:495
+#: includes/class-member-profile.php:508
 msgid "Search"
 msgstr "Buscar"
 
-#: includes/class-member-profile.php:496
+#: includes/class-member-profile.php:509
 msgid "No matches found"
 msgstr "Nenhum resultado encontrado"
 
-#: includes/class-member-profile.php:568
+#: includes/class-member-profile.php:581
 msgid "Store name · city"
 msgstr "Nome da loja · cidade"
 
-#: includes/class-member-profile.php:277
+#: includes/class-member-profile.php:285
 #: includes/class-notifications.php:341
 #: build/admin/members/index.js:175
 #: build/admin/members/index.js:184
@@ -3513,45 +3513,45 @@ msgctxt "WooCommerce field"
 msgid "Company"
 msgstr "Empresa"
 
-#: includes/class-member-profile.php:278
+#: includes/class-member-profile.php:286
 #: build/admin/members/index.js:175
 #: build/admin/members/index.js:184
 msgctxt "WooCommerce field"
 msgid "Phone"
 msgstr "Telefone"
 
-#: includes/class-member-profile.php:279
+#: includes/class-member-profile.php:287
 msgctxt "WooCommerce field"
 msgid "Country / Region"
 msgstr "País"
 
-#: includes/class-member-profile.php:280
+#: includes/class-member-profile.php:288
 #: build/admin/members/index.js:184
 msgctxt "WooCommerce field"
 msgid "Address line 1"
 msgstr "Endereço linha 1"
 
-#: includes/class-member-profile.php:281
+#: includes/class-member-profile.php:289
 #: build/admin/members/index.js:184
 msgctxt "WooCommerce field"
 msgid "Address line 2"
 msgstr "Endereço linha 2"
 
-#: includes/class-member-profile.php:282
+#: includes/class-member-profile.php:290
 #: build/admin/members/index.js:175
 #: build/admin/members/index.js:184
 msgctxt "WooCommerce field"
 msgid "State / County"
 msgstr "Estado"
 
-#: includes/class-member-profile.php:283
+#: includes/class-member-profile.php:291
 #: build/admin/members/index.js:175
 #: build/admin/members/index.js:184
 msgctxt "WooCommerce field"
 msgid "City"
 msgstr "Cidade"
 
-#: includes/class-member-profile.php:284
+#: includes/class-member-profile.php:292
 #: build/admin/members/index.js:184
 msgctxt "WooCommerce field"
 msgid "Postcode / ZIP"
@@ -3561,7 +3561,7 @@ msgstr "CEP"
 msgid "Enter the store as \"Name - UF City\"."
 msgstr "Informe a loja como \"Nome - UF Cidade\"."
 
-#: includes/class-member-profile.php:204
+#: includes/class-member-profile.php:212
 msgid "Only a valid one is allowed, and it must be unique among members."
 msgstr "Permite apenas válido e precisa ser único entre os membros."
 
@@ -3980,34 +3980,31 @@ msgstr "A linha que aparece na caixa de entrada, antes de abrir o e-mail. Aceita
 msgid "The large title at the top of the opened e-mail, below the logo. Accepts placeholders."
 msgstr "O título grande no topo do e-mail aberto, abaixo do logo. Aceita marcadores."
 
-#: includes/class-member-profile.php:246
+#: includes/class-member-profile.php:254
 msgid "Search the registered resellers by name."
 msgstr "Busque as revendas cadastradas pelo nome."
 
-#: includes/class-member-profile.php:414
+#: includes/class-member-profile.php:422
 msgid "Member approved"
 msgstr "Membro aprovado"
 
-#: includes/class-member-profile.php:415
+#: includes/class-member-profile.php:423
 msgid "This member has been approved."
 msgstr "Este membro já foi aprovado."
 
-#: includes/class-member-profile.php:417
+#: includes/class-member-profile.php:429
 msgid "Approve member"
 msgstr "Aprovar membro"
 
-#: includes/class-member-profile.php:418
-msgid "This application is pending approval. Approving lets the member in and sends the \"Membership approved\" e-mail, when it is on. Save any changes on this screen first."
-msgstr "Este cadastro está pendente de aprovação. Aprovar libera o membro e envia o e-mail \"Adesão aprovada\", se estiver ativado. Salve antes as alterações desta tela."
-
-#: includes/class-member-profile.php:421
+#: includes/class-member-profile.php:431
+#: includes/class-member-profile.php:434
 msgid "This application is pending approval."
 msgstr "Este cadastro está pendente de aprovação."
 
-#: includes/class-member-profile.php:425
+#: includes/class-member-profile.php:438
 msgid "Atelier: Status"
 msgstr "Atelier: Status"
 
-#: includes/class-member-profile.php:426
+#: includes/class-member-profile.php:439
 msgid "Membership"
 msgstr "Adesão"

@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-08T17:25:02+00:00\n"
+"POT-Creation-Date: 2026-10-08T17:29:59+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: axellcore-atelierclub\n"
@@ -272,35 +272,35 @@ msgstr ""
 msgid "Brazil"
 msgstr ""
 
-#: includes/class-member-profile.php:174
+#: includes/class-member-profile.php:182
 msgid "Atelier: Authorship"
 msgstr ""
 
-#: includes/class-member-profile.php:186
+#: includes/class-member-profile.php:194
 msgid "Select an option…"
 msgstr ""
 
-#: includes/class-member-profile.php:191
+#: includes/class-member-profile.php:199
 msgid "Atelier: Document"
 msgstr ""
 
-#: includes/class-member-profile.php:204
+#: includes/class-member-profile.php:212
 msgid "Only a valid one is allowed, and it must be unique among members."
 msgstr ""
 
-#: includes/class-member-profile.php:209
+#: includes/class-member-profile.php:217
 msgid "Atelier: Office address"
 msgstr ""
 
-#: includes/class-member-profile.php:241
+#: includes/class-member-profile.php:249
 msgid "Atelier: Partner stores"
 msgstr ""
 
-#: includes/class-member-profile.php:246
+#: includes/class-member-profile.php:254
 msgid "Search the registered resellers by name."
 msgstr ""
 
-#: includes/class-member-profile.php:277
+#: includes/class-member-profile.php:285
 #: includes/class-notifications.php:341
 #: build/admin/members/index.js:175
 #: build/admin/members/index.js:184
@@ -308,67 +308,68 @@ msgctxt "WooCommerce field"
 msgid "Company"
 msgstr ""
 
-#: includes/class-member-profile.php:278
+#: includes/class-member-profile.php:286
 #: build/admin/members/index.js:175
 #: build/admin/members/index.js:184
 msgctxt "WooCommerce field"
 msgid "Phone"
 msgstr ""
 
-#: includes/class-member-profile.php:279
+#: includes/class-member-profile.php:287
 msgctxt "WooCommerce field"
 msgid "Country / Region"
 msgstr ""
 
-#: includes/class-member-profile.php:280
+#: includes/class-member-profile.php:288
 #: build/admin/members/index.js:184
 msgctxt "WooCommerce field"
 msgid "Address line 1"
 msgstr ""
 
-#: includes/class-member-profile.php:281
+#: includes/class-member-profile.php:289
 #: build/admin/members/index.js:184
 msgctxt "WooCommerce field"
 msgid "Address line 2"
 msgstr ""
 
-#: includes/class-member-profile.php:282
+#: includes/class-member-profile.php:290
 #: build/admin/members/index.js:175
 #: build/admin/members/index.js:184
 msgctxt "WooCommerce field"
 msgid "State / County"
 msgstr ""
 
-#: includes/class-member-profile.php:283
+#: includes/class-member-profile.php:291
 #: build/admin/members/index.js:175
 #: build/admin/members/index.js:184
 msgctxt "WooCommerce field"
 msgid "City"
 msgstr ""
 
-#: includes/class-member-profile.php:284
+#: includes/class-member-profile.php:292
 #: build/admin/members/index.js:184
 msgctxt "WooCommerce field"
 msgid "Postcode / ZIP"
 msgstr ""
 
-#: includes/class-member-profile.php:414
+#: includes/class-member-profile.php:422
 msgid "Member approved"
 msgstr ""
 
-#: includes/class-member-profile.php:415
+#: includes/class-member-profile.php:423
 msgid "This member has been approved."
 msgstr ""
 
-#: includes/class-member-profile.php:417
+#: includes/class-member-profile.php:429
 msgid "Approve member"
 msgstr ""
 
-#: includes/class-member-profile.php:418
-msgid "This application is pending approval. Approving lets the member in and sends the \"Membership approved\" e-mail, when it is on. Save any changes on this screen first."
+#: includes/class-member-profile.php:431
+#: includes/class-member-profile.php:434
+msgid "This application is pending approval."
 msgstr ""
 
-#: includes/class-member-profile.php:420
+#: includes/class-member-profile.php:433
 #: includes/class-member.php:362
 #: includes/class-resellers-rest.php:53
 #: build/form/form-atelier/index.js:1
@@ -376,76 +377,72 @@ msgstr ""
 msgid "Pending"
 msgstr ""
 
-#: includes/class-member-profile.php:421
-msgid "This application is pending approval."
-msgstr ""
-
-#: includes/class-member-profile.php:425
+#: includes/class-member-profile.php:438
 msgid "Atelier: Status"
 msgstr ""
 
-#: includes/class-member-profile.php:426
+#: includes/class-member-profile.php:439
 msgid "Membership"
 msgstr ""
 
-#: includes/class-member-profile.php:495
+#: includes/class-member-profile.php:508
 msgid "Search"
 msgstr ""
 
-#: includes/class-member-profile.php:496
+#: includes/class-member-profile.php:509
 msgid "No matches found"
 msgstr ""
 
-#: includes/class-member-profile.php:519
+#: includes/class-member-profile.php:532
 #: includes/class-resellers.php:130
 msgid "Cities"
 msgstr ""
 
-#: includes/class-member-profile.php:568
+#: includes/class-member-profile.php:581
 msgid "Store name · city"
 msgstr ""
 
 #. translators: %d: partner store position, 1 to 5.
-#: includes/class-member-profile.php:570
+#: includes/class-member-profile.php:583
 #, php-format
 msgid "Partner store %d"
 msgstr ""
 
-#: includes/class-member-profile.php:574
+#: includes/class-member-profile.php:587
 msgid "Pending curation."
 msgstr ""
 
-#: includes/class-member-profile.php:576
+#: includes/class-member-profile.php:589
 #: build/admin/members/index.js:184
 msgid "Open store"
 msgstr ""
 
-#: includes/class-member-profile.php:578
+#: includes/class-member-profile.php:591
 msgid "Remove"
 msgstr ""
 
-#: includes/class-member-profile.php:653
+#: includes/class-member-profile.php:671
 #: includes/class-members.php:250
 msgid "Only Brazil is accepted."
 msgstr ""
 
-#: includes/class-member-profile.php:663
+#: includes/class-member-profile.php:681
 #: includes/class-members.php:263
 #: includes/class-members.php:770
 msgid "Enter a phone number with area code."
 msgstr ""
 
-#: includes/class-member-profile.php:667
+#: includes/class-member-profile.php:685
 #: includes/class-members.php:266
 #: includes/class-members.php:771
 msgid "Enter a CEP with 8 digits."
 msgstr ""
 
-#: includes/class-member-profile.php:671
+#: includes/class-member-profile.php:689
 msgid "Choose an option from the list."
 msgstr ""
 
-#: includes/class-member-profile.php:772
+#: includes/class-member-profile.php:790
 #: includes/class-members.php:281
 #: includes/class-members.php:774
 msgid "Choose a reseller from the list."

@@ -102,10 +102,11 @@ final class MemberProfileTest extends TestCase {
 			}
 		);
 		Functions\when( 'get_users' )->justReturn( array() );
+		Functions\when( 'get_userdata' )->justReturn( false );
 
 		// The singleton keeps the last save (for the form shown after it).
 		$profile = Member_Profile::instance();
-		foreach ( array( 'user_id' => 0, 'posted' => array(), 'pending' => array(), 'errors' => array() ) as $name => $value ) {
+		foreach ( array( 'user_id' => 0, 'posted' => array(), 'pending' => array(), 'errors' => array(), 'approve' => false ) as $name => $value ) {
 			$property = new \ReflectionProperty( $profile, $name );
 			$property->setValue( $profile, $value );
 		}
@@ -393,7 +394,8 @@ final class MemberProfileTest extends TestCase {
 		$html = $this->profile_html( array( 'member_pending' ) );
 
 		$this->assertStringContainsString( '<h2>Atelier: Status</h2>', $html );
-		$this->assertStringContainsString( '<a class="button" href="https://example.com/wp-admin/users.php?action=aa-approve&user=9&_wpnonce=aa-approve-user_9">Approve member</a>', $html );
+		$this->assertStringContainsString( '<input type="hidden" name="aa_member_approve" id="aa-member-approve" value="0"><button type="button" class="button" data-wp-interactive="axell/member-fields" data-wp-on--click="actions.approve">Approve member</button>', $html );
+		$this->assertStringContainsString( 'This application is pending approval.</p>', $html );
 	}
 
 	public function test_status_of_an_approved_member_is_a_disabled_button(): void {
@@ -405,5 +407,47 @@ final class MemberProfileTest extends TestCase {
 
 	public function test_no_status_for_other_users(): void {
 		$this->assertStringNotContainsString( 'Atelier: Status', $this->profile_html( array( 'administrator' ) ) );
+	}
+
+	/**
+	 * Save the profile as WordPress does, with the user data object.
+	 *
+	 * @param array<string,mixed> $post  Form fields.
+	 * @param string[]            $roles The user's roles.
+	 * @return \stdClass The user data WordPress would save.
+	 */
+	private function save_as_profile( array $post, array $roles ): \stdClass {
+		$user        = new \WP_User();
+		$user->ID    = 9;
+		$user->roles = $roles;
+		Functions\when( 'get_userdata' )->justReturn( $user );
+		$_POST = $post;
+		Member_Profile::instance()->save_member_meta_fields( 9 );
+		$data       = new \stdClass();
+		$data->ID   = 9;
+		$data->role = $roles[0];
+		Member_Profile::instance()->report_errors( new \WP_Error(), true, $data );
+		return $data;
+	}
+
+	public function test_approve_member_saves_the_profile_and_approves(): void {
+		$data = $this->save_as_profile( array( 'aa_member_approve' => '1', 'aa_member_company' => 'New studio' ), array( 'member_pending' ) );
+
+		$this->assertSame( 'New studio', $this->meta['billing_company'] );
+		$this->assertSame( 'member', $data->role, 'WordPress saves the member role.' );
+		$this->assertTrue( has_action( 'profile_update' ) !== false, 'The approval event fires once saved.' );
+	}
+
+	public function test_no_approval_with_an_error_without_the_flag_or_permission(): void {
+		$data = $this->save_as_profile( array( 'aa_member_approve' => '1', 'aa_member_br_revenue_id' => '111.111.111-11' ), array( 'member_pending' ) );
+		$this->assertSame( 'member_pending', $data->role, 'An error: nothing saved, still pending.' );
+
+		$data = $this->save_as_profile( array( 'aa_member_approve' => '0', 'aa_member_company' => 'X' ), array( 'member_pending' ) );
+		$this->assertSame( 'member_pending', $data->role, 'Update User alone does not approve.' );
+
+		Functions\when( 'current_user_can' )->justReturn( false );
+		Functions\when( 'apply_filters' )->returnArg( 2 );
+		$data = $this->save_as_profile( array( 'aa_member_approve' => '1' ), array( 'member_pending' ) );
+		$this->assertSame( 'member_pending', $data->role, 'Who cannot approve does not.' );
 	}
 }
