@@ -230,10 +230,6 @@ final class Classic_Styles {
 	 * @param string $hook Action name.
 	 */
 	private function remove_builder_output( $hook ) {
-		global $wp_filter;
-		if ( empty( $wp_filter[ $hook ] ) ) {
-			return;
-		}
 		/**
 		 * Plugin folder prefixes of page builders whose output is left out of
 		 * the Atelier page under a classic theme.
@@ -245,40 +241,17 @@ final class Classic_Styles {
 		foreach ( $prefixes as $prefix ) {
 			$dirs[] = wp_normalize_path( WP_PLUGIN_DIR ) . '/' . $prefix;
 		}
-		foreach ( $wp_filter[ $hook ]->callbacks as $priority => $callbacks ) {
-			foreach ( $callbacks as $callback ) {
-				$file = self::callback_file( $callback['function'] );
+		Callbacks::remove(
+			$hook,
+			static function ( $file ) use ( $dirs ) {
 				foreach ( $dirs as $dir ) {
-					if ( '' !== $file && 0 === strpos( $file, $dir ) ) {
-						remove_action( $hook, $callback['function'], $priority );
-						break;
+					if ( 0 === strpos( $file, $dir ) ) {
+						return true;
 					}
 				}
+				return false;
 			}
-		}
-	}
-
-	/**
-	 * File a callback is defined in, or '' when it can't be told.
-	 *
-	 * @param callable|mixed $callback Callback.
-	 * @return string
-	 */
-	private static function callback_file( $callback ) {
-		try {
-			if ( is_array( $callback ) && 2 === count( $callback ) ) {
-				$reflection = new \ReflectionMethod( $callback[0], $callback[1] );
-			} elseif ( is_string( $callback ) && false !== strpos( $callback, '::' ) ) {
-				$reflection = new \ReflectionMethod( $callback );
-			} elseif ( $callback instanceof \Closure || is_string( $callback ) ) {
-				$reflection = new \ReflectionFunction( $callback );
-			} else {
-				return '';
-			}
-		} catch ( \ReflectionException $e ) {
-			return '';
-		}
-		return wp_normalize_path( (string) $reflection->getFileName() );
+		);
 	}
 
 	/**

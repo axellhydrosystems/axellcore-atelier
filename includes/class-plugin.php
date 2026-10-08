@@ -93,5 +93,6 @@ final class Plugin {
 		Classic_Styles::instance()->register_hooks();
 		Reveal::instance()->register_hooks();
 		Weglot::instance()->register_hooks();
+		Admin_Notices::instance()->register_hooks();
 	}
 }
