@@ -52,6 +52,22 @@ final class Classic_Template {
 	 */
 	public function register_hooks() {
 		add_filter( 'template_include', array( $this, 'include_template' ), 99 );
+		add_filter( 'theme_page_templates', array( $this, 'page_templates' ) );
+	}
+
+	/**
+	 * The Atelier template in a classic theme's list of page templates: the
+	 * editor (and the REST API) keep only listed templates, so saving the page
+	 * set it back to the default one.
+	 *
+	 * @param array<string,string> $templates Template slug => name.
+	 * @return array<string,string>
+	 */
+	public function page_templates( $templates ) {
+		if ( ! wp_is_block_theme() ) {
+			$templates[ Plugin::TEMPLATE_SLUG ] = __( 'Atelier Club', 'axellcore-atelierclub' );
+		}
+		return $templates;
 	}
 
 	/**

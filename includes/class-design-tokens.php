@@ -147,7 +147,8 @@ final class Design_Tokens {
 				return true;
 			}
 		}
-		return false;
+		// Under a classic theme the page is served by its slug.
+		return Classic_Template::is_active();
 	}
 
 	/**
