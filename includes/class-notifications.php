@@ -122,13 +122,13 @@ final class Notifications {
 				return array(
 					'subject' => __( 'Welcome to {atelier_name}, {first_name}', 'axellcore-atelierclub' ),
 					'heading' => __( 'Welcome to the Atelier', 'axellcore-atelierclub' ),
-					'body'    => __( "Hello, {first_name}.\n\nYour membership in {atelier_name} is confirmed. From now on you are part of a circle of architects and designers who specify Axell.\n\nGet to know the club: {atelier_url}\n\n{atelier_name}", 'axellcore-atelierclub' ),
+					'body'    => __( "Hello, {first_name}.\n\nYour membership in {atelier_name} is confirmed. From now on you are part of a circle of architects and designers who specify Axell.\n\n{atelier_name}", 'axellcore-atelierclub' ),
 				);
 			case 'member_approved':
 				return array(
 					'subject' => __( 'Your {atelier_name} membership is approved', 'axellcore-atelierclub' ),
 					'heading' => __( 'Membership approved', 'axellcore-atelierclub' ),
-					'body'    => __( "Hello, {first_name}.\n\nGood news: our curators approved your application, and you are now a member of {atelier_name}.\n\nGet to know the club: {atelier_url}\n\n{atelier_name}", 'axellcore-atelierclub' ),
+					'body'    => __( "Hello, {first_name}.\n\nGood news: our curators approved your application, and you are now a member of {atelier_name}.\n\n{atelier_name}", 'axellcore-atelierclub' ),
 				);
 		}
 		return array(
