@@ -79,6 +79,22 @@ final class Settings {
 		add_action( 'admin_menu', array( $this, 'register_page' ), 30 );
 		add_action( 'admin_init', array( $this, 'register_settings' ) );
 		add_action( 'admin_post_' . self::CREATE_ACTION, array( $this, 'handle_create_page' ) );
+		add_filter( 'display_post_states', array( $this, 'post_state' ), 10, 2 );
+	}
+
+	/**
+	 * "— Atelier Page" after the Atelier page's title in the pages list, as
+	 * WordPress marks the front page.
+	 *
+	 * @param array<string,string> $states Post states.
+	 * @param \WP_Post|mixed       $post   Post.
+	 * @return array<string,string>
+	 */
+	public function post_state( $states, $post ) {
+		if ( self::is_page( $post ) ) {
+			$states['axellcore_atelierclub_page'] = __( 'Atelier Page', 'axellcore-atelierclub' );
+		}
+		return $states;
 	}
 
 	/**

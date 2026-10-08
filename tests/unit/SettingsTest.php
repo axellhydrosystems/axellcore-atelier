@@ -64,6 +64,22 @@ final class SettingsTest extends TestCase {
 		$this->assertNull( Settings::page() );
 	}
 
+	public function test_post_state_marks_only_the_atelier_page(): void {
+		Functions\when( 'get_option' )->justReturn( array( 'page_id' => 12 ) );
+		Functions\when( 'get_post' )->alias(
+			static function ( $post ) {
+				if ( $post instanceof \WP_Post ) {
+					return $post;
+				}
+				return 12 === (int) $post ? new \WP_Post( array( 'ID' => 12 ) ) : null;
+			}
+		);
+		$front = array( 'page_on_front' => 'Front Page' );
+
+		$this->assertSame( $front + array( 'axellcore_atelierclub_page' => 'Atelier Page' ), Settings::instance()->post_state( $front, new \WP_Post( array( 'ID' => 12 ) ) ) );
+		$this->assertSame( $front, Settings::instance()->post_state( $front, new \WP_Post( array( 'ID' => 13 ) ) ) );
+	}
+
 	public function test_is_page(): void {
 		Functions\when( 'get_option' )->justReturn( array( 'page_id' => 12 ) );
 		Functions\when( 'get_post' )->alias(

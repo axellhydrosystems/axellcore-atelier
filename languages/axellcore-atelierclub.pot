@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-08T10:26:57+00:00\n"
+"POT-Creation-Date: 2026-10-08T11:00:47+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: axellcore-atelierclub\n"
@@ -42,7 +42,7 @@ msgstr ""
 msgid "Atelier — Footer"
 msgstr ""
 
-#: includes/class-activator.php:307
+#: includes/class-activator.php:312
 #: includes/class-icons.php:73
 msgid "Atelier Axell Club"
 msgstr ""
@@ -74,7 +74,7 @@ msgid "Member not found."
 msgstr ""
 
 #: includes/class-blocks.php:121
-#: includes/class-design-tokens.php:203
+#: includes/class-design-tokens.php:243
 #: build/chapters/chapter/index.js:1
 #: includes/blocks/chapters/chapter/index.js:69
 msgid "Chapter"
@@ -84,69 +84,69 @@ msgstr ""
 msgid "Atelier Club"
 msgstr ""
 
-#: includes/class-design-tokens.php:195
+#: includes/class-design-tokens.php:235
 msgid "Primary"
 msgstr ""
 
-#: includes/class-design-tokens.php:196
+#: includes/class-design-tokens.php:236
 msgid "Bronze hover"
 msgstr ""
 
-#: includes/class-design-tokens.php:197
+#: includes/class-design-tokens.php:237
 msgid "Ivory"
 msgstr ""
 
-#: includes/class-design-tokens.php:198
+#: includes/class-design-tokens.php:238
 #: build/form/form-label/index.js:1
 #: includes/blocks/form/form-label/index.js:63
 msgid "Visually hidden"
 msgstr ""
 
-#: includes/class-design-tokens.php:199
+#: includes/class-design-tokens.php:239
 msgid "Tier"
 msgstr ""
 
-#: includes/class-design-tokens.php:200
+#: includes/class-design-tokens.php:240
 msgid "Tier (locked)"
 msgstr ""
 
-#: includes/class-design-tokens.php:201
+#: includes/class-design-tokens.php:241
 msgid "Eyebrow"
 msgstr ""
 
-#: includes/class-design-tokens.php:202
+#: includes/class-design-tokens.php:242
 msgid "Sticky on desktop"
 msgstr ""
 
-#: includes/class-design-tokens.php:204
+#: includes/class-design-tokens.php:244
 msgid "Pillars"
 msgstr ""
 
-#: includes/class-design-tokens.php:205
+#: includes/class-design-tokens.php:245
 msgid "Protagonists"
 msgstr ""
 
-#: includes/class-design-tokens.php:206
+#: includes/class-design-tokens.php:246
 msgid "Promises"
 msgstr ""
 
-#: includes/class-design-tokens.php:207
+#: includes/class-design-tokens.php:247
 msgid "Benefits"
 msgstr ""
 
-#: includes/class-design-tokens.php:208
+#: includes/class-design-tokens.php:248
 msgid "Steps"
 msgstr ""
 
-#: includes/class-design-tokens.php:209
+#: includes/class-design-tokens.php:249
 msgid "Channels"
 msgstr ""
 
-#: includes/class-design-tokens.php:210
+#: includes/class-design-tokens.php:250
 msgid "Stone"
 msgstr ""
 
-#: includes/class-design-tokens.php:211
+#: includes/class-design-tokens.php:251
 msgid "Footer"
 msgstr ""
 
@@ -293,7 +293,7 @@ msgstr ""
 #: includes/class-member.php:123
 #: includes/class-member.php:124
 #: includes/class-member.php:135
-#: includes/class-settings.php:188
+#: includes/class-settings.php:204
 msgid "Members"
 msgstr ""
 
@@ -645,70 +645,74 @@ msgstr ""
 msgid "All countries"
 msgstr ""
 
-#: includes/class-settings.php:155
-#: includes/class-settings.php:262
+#: includes/class-settings.php:95
+msgid "Atelier Page"
+msgstr ""
+
+#: includes/class-settings.php:171
+#: includes/class-settings.php:278
 msgid "Atelier settings"
 msgstr ""
 
-#: includes/class-settings.php:156
+#: includes/class-settings.php:172
 msgid "Settings"
 msgstr ""
 
-#: includes/class-settings.php:177
+#: includes/class-settings.php:193
 msgid "Page"
 msgstr ""
 
-#: includes/class-settings.php:181
+#: includes/class-settings.php:197
 msgid "Atelier page"
 msgstr ""
 
-#: includes/class-settings.php:192
+#: includes/class-settings.php:208
 msgid "New members"
 msgstr ""
 
-#: includes/class-settings.php:225
+#: includes/class-settings.php:241
 msgid "— Select —"
 msgstr ""
 
-#: includes/class-settings.php:234
+#: includes/class-settings.php:250
 #: build/admin/resellers/index.js:175
 msgid "Edit"
 msgstr ""
 
-#: includes/class-settings.php:236
+#: includes/class-settings.php:252
 #: build/admin/members/index.js:175
 msgid "View"
 msgstr ""
 
-#: includes/class-settings.php:241
+#: includes/class-settings.php:257
 msgid "The page of the Atelier landing: its slug can change. With a block theme, use the Atelier Club template on it. Empty, no page is the Atelier page."
 msgstr ""
 
-#: includes/class-settings.php:253
+#: includes/class-settings.php:269
 msgid "Create new members as pending"
 msgstr ""
 
-#: includes/class-settings.php:254
+#: includes/class-settings.php:270
 msgid "When on, an application creates a pending member who waits for approval. When off, it creates the member already approved."
 msgstr ""
 
-#: includes/class-settings.php:278
+#: includes/class-settings.php:294
 msgid "Create Atelier page"
 msgstr ""
 
-#: includes/class-settings.php:279
+#: includes/class-settings.php:295
 msgid "Creates a page with the Atelier landing content and makes it the Atelier page."
 msgstr ""
 
-#: includes/class-settings.php:288
+#: includes/class-settings.php:304
 msgid "Sorry, you are not allowed to do that."
 msgstr ""
 
-#: includes/class-settings.php:294
+#: includes/class-settings.php:310
 msgid "Atelier page created."
 msgstr ""
 
-#: includes/class-settings.php:296
+#: includes/class-settings.php:312
 msgid "Could not create the Atelier page."
 msgstr ""
 
