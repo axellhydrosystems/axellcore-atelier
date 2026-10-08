@@ -54,6 +54,24 @@ final class Places {
 	const CACHE_TTL = 86400;
 
 	/**
+	 * The view module (src/places/view.ts) and its stylesheet.
+	 */
+	const HANDLE = 'axellcore-atelierclub-places';
+
+	/**
+	 * The street field that searches, and the fields an address fills in.
+	 */
+	const FORM_FIELDS = array(
+		'street'       => 'address_street',
+		'number'       => 'address_number',
+		'complement'   => 'address_2',
+		'neighborhood' => 'neighborhood',
+		'state'        => 'state',
+		'city'         => 'city',
+		'postal'       => 'postal',
+	);
+
+	/**
 	 * The admin-post action of "Clear address cache".
 	 */
 	const CLEAR_ACTION = 'axellcore_atelierclub_places_clear';
@@ -95,6 +113,85 @@ final class Places {
 		add_action( 'rest_api_init', array( $this, 'register_routes' ) );
 		add_action( 'admin_post_' . self::CLEAR_ACTION, array( $this, 'handle_clear_cache' ) );
 		add_filter( 'removable_query_args', array( $this, 'removable_query_args' ) );
+		add_action( 'init', array( $this, 'register_assets' ) );
+		add_filter( 'render_block_axell/form-control', array( $this, 'decorate_street' ), 20 );
+	}
+
+	/**
+	 * The view module and its stylesheet, enqueued by the street field.
+	 */
+	public function register_assets() {
+		wp_register_script_module(
+			self::HANDLE,
+			AXELLCORE_ATELIERCLUB_URL . 'build/places/view.js',
+			array( array( 'id' => '@wordpress/interactivity' ) ),
+			AXELLCORE_ATELIERCLUB_VERSION
+		);
+		wp_register_style( self::HANDLE, AXELLCORE_ATELIERCLUB_URL . 'build/places/style-frontend.css', array(), AXELLCORE_ATELIERCLUB_VERSION );
+	}
+
+	/**
+	 * The street field of a form, as a search: Google's suggestions below it
+	 * (with Google Maps' attribution, required without a map), and choosing
+	 * one fills in the address fields (src/places/view.ts).
+	 *
+	 * @param string $content Block HTML.
+	 * @return string
+	 */
+	public function decorate_street( $content ) {
+		if ( is_admin() || ! self::active() ) {
+			return $content;
+		}
+		$p = new \WP_HTML_Tag_Processor( $content );
+		if ( ! $p->next_tag( array( 'tag_name' => 'INPUT' ) ) || self::FORM_FIELDS['street'] !== $p->get_attribute( 'name' ) ) {
+			return $content;
+		}
+
+		$list = self::FORM_FIELDS['street'] . '-places';
+		foreach ( array(
+			'role'                        => 'combobox',
+			// A combobox: no browser autofill over the suggestions.
+			'autocomplete'                => Form_Directives::NO_AUTOFILL,
+			'aria-autocomplete'           => 'list',
+			'aria-controls'               => $list,
+			'aria-expanded'               => 'false',
+			'data-wp-bind--aria-expanded' => 'state.isOpen',
+			'data-wp-on--input'           => 'actions.search',
+			'data-wp-on--keydown'         => 'actions.keydown',
+		) as $name => $value ) {
+			$p->set_attribute( $name, $value );
+		}
+
+		wp_enqueue_script_module( self::HANDLE );
+		wp_enqueue_style( self::HANDLE );
+		wp_interactivity_state( 'axell/places', self::client_state() );
+
+		$context = array(
+			'fields' => self::FORM_FIELDS,
+			'items'  => array(),
+			'open'   => false,
+			'active' => -1,
+			'typed'  => '',
+		);
+		return sprintf(
+			'<div class="aa-places-search" data-wp-interactive="axell/places" data-wp-context="%1$s" data-wp-on--focusout="actions.close">%2$s<div class="aa-places-popup" hidden data-wp-bind--hidden="!state.isOpen"><ul id="%3$s" role="listbox" tabindex="-1" data-wp-on--click="actions.pick" data-wp-on--mousedown="actions.keepFocus" data-wp-watch="callbacks.render"></ul><p class="aa-places-attribution" aria-hidden="true">Google Maps</p></div></div>',
+			esc_attr( (string) wp_json_encode( $context ) ),
+			trim( $p->get_updated_html() ),
+			esc_attr( $list )
+		);
+	}
+
+	/**
+	 * What the view module needs: the routes and the shortest input.
+	 *
+	 * @return array<string,mixed>
+	 */
+	public static function client_state() {
+		return array(
+			'autocompleteUrl' => rest_url( Rest::NAMESPACE . '/places/autocomplete' ),
+			'detailsUrl'      => rest_url( Rest::NAMESPACE . '/places/details' ),
+			'minInput'        => self::MIN_INPUT,
+		);
 	}
 
 	/**

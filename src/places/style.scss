@@ -1,0 +1,58 @@
+/* Google's address suggestions under the street field (src/places/view.ts):
+   the city and reseller searches' look, with Google Maps' attribution. */
+:where(.aa-places-search) {
+	position: relative;
+}
+
+:where(.aa-places-popup) {
+	position: absolute;
+	top: 100%;
+	left: 0;
+	right: 0;
+	z-index: 10;
+	border: 1px solid var(--aa-listbox-border, color-mix(in srgb, currentColor 35%, transparent));
+	background: var(--aa-listbox-bg, Canvas);
+	color: var(--aa-listbox-color, CanvasText);
+	font: var(--aa-listbox-font, inherit);
+}
+
+:where(.aa-places-popup [role='listbox']) {
+	max-height: 16em;
+	overflow-y: auto;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+:where(.aa-places-popup [role='option']) {
+	display: flex;
+	flex-direction: column;
+	gap: 0.125em;
+	padding: var(--aa-listbox-option-padding, 0.5em 0.75em);
+	cursor: pointer;
+
+	&[aria-selected='true'],
+
+	&:hover {
+		background: var(--aa-listbox-active-bg, color-mix(in srgb, currentColor 12%, transparent));
+		color: var(--aa-listbox-active-color, inherit);
+	}
+}
+
+:where(.aa-places-secondary) {
+	font-size: 0.85em;
+	opacity: 0.75;
+}
+
+:where(.aa-places-attribution) {
+	margin: 0;
+	padding: 0.375em 0.75em;
+	border-top: 1px solid color-mix(in srgb, currentColor 15%, transparent);
+	font-size: 0.75em;
+	text-align: right;
+	opacity: 0.75;
+}
+
+.aa-places-search [hidden] {
+	display: none !important;
+}
