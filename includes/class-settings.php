@@ -282,7 +282,7 @@ final class Settings {
 			$id                      = $id && wp_attachment_is_image( $id ) ? $id : 0;
 			$values['email_logo_id'] = Notifications::default_logo_id() === $id ? 0 : $id;
 		}
-		foreach ( array( 'brand', 'tagline' ) as $field ) {
+		foreach ( array( 'atelier_name', 'brand', 'tagline' ) as $field ) {
 			$key = 'email_' . $field;
 			if ( array_key_exists( $key, $input ) && is_scalar( $input[ $key ] ) ) {
 				$value          = self::clean_text( (string) $input[ $key ], false );
@@ -524,7 +524,16 @@ final class Settings {
 		};
 
 		printf( '<h2>%s</h2>', esc_html__( 'E-mail header', 'axellcore-atelierclub' ) );
-		echo '<table class="form-table" role="presentation"><tbody><tr><th scope="row">' . esc_html__( 'Logo', 'axellcore-atelierclub' ) . '</th><td><fieldset class="aa-email-logo">';
+		echo '<table class="form-table" role="presentation"><tbody>';
+		printf(
+			'<tr><th scope="row"><label for="aa-email-atelier-name">%1$s</label></th><td><input type="text" class="regular-text" id="aa-email-atelier-name" name="%2$s" value="%3$s"><p class="description">%4$s</p></td></tr>',
+			esc_html__( 'Atelier name', 'axellcore-atelierclub' ),
+			$name( 'email_atelier_name' ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped by $name.
+			esc_attr( Notifications::atelier_name() ),
+			/* translators: %s: the placeholder, {atelier_name}. */
+			esc_html( sprintf( __( 'Used by the %s placeholder.', 'axellcore-atelierclub' ), '{atelier_name}' ) )
+		);
+		echo '<tr><th scope="row">' . esc_html__( 'Logo', 'axellcore-atelierclub' ) . '</th><td><fieldset class="aa-email-logo">';
 		printf( '<legend class="screen-reader-text">%s</legend>', esc_html__( 'Logo', 'axellcore-atelierclub' ) );
 
 		// None: the brand in text.

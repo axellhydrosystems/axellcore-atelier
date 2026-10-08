@@ -113,6 +113,7 @@ final class SettingsTest extends TestCase {
 	private function stub_texts( array $saved ): void {
 		Functions\when( 'get_option' )->justReturn( $saved );
 		Functions\when( '__' )->returnArg( 1 );
+		Functions\when( '_x' )->returnArg( 1 );
 		Functions\when( 'sanitize_text_field' )->alias( 'trim' );
 		Functions\when( 'sanitize_textarea_field' )->returnArg( 1 );
 		Functions\when( 'is_email' )->alias( static fn( $e ) => false !== strpos( (string) $e, '@' ) );
@@ -180,6 +181,8 @@ final class SettingsTest extends TestCase {
 		$this->assertSame( 0, $values['email_logo_id'], 'Not an image.' );
 		$this->assertSame( '', $values['email_brand'], 'Equal to the default.' );
 		$this->assertSame( 'Outro', $values['email_tagline'] );
+		$this->assertSame( '', Settings::instance()->sanitize( array( 'email_atelier_name' => 'Atelier Axell' ) )['email_atelier_name'], 'The default is not stored.' );
+		$this->assertSame( 'Atelier Axell Club', Settings::instance()->sanitize( array( 'email_atelier_name' => 'Atelier Axell Club' ) )['email_atelier_name'] );
 		$this->assertSame( 0, Settings::instance()->sanitize( array( 'email_logo_id' => '30' ) )['email_logo_id'], 'The bundled logo is the default: not stored.' );
 		Functions\when( 'wp_attachment_is_image' )->justReturn( true );
 		$this->assertSame( 31, Settings::instance()->sanitize( array( 'email_logo_id' => '31' ) )['email_logo_id'] );

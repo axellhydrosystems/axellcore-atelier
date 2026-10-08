@@ -35,6 +35,7 @@ final class NotificationsTest extends TestCase {
 		$this->settings = array();
 		$this->sent     = array();
 		Functions\when( '__' )->returnArg( 1 );
+		Functions\when( '_x' )->returnArg( 1 );
 		Functions\stubEscapeFunctions();
 		Functions\when( 'get_option' )->alias(
 			function ( $name, $default = false ) {
@@ -134,7 +135,7 @@ final class NotificationsTest extends TestCase {
 		Notifications::instance()->member_created( 6 );
 
 		$this->assertCount( 1, $this->sent, 'The team e-mail is off.' );
-		$this->assertSame( 'Welcome to the Atelier Axell Club, Ana', $this->sent[0][1] );
+		$this->assertSame( 'Welcome to Atelier Axell, Ana', $this->sent[0][1] );
 
 		$this->settings = array();
 		Notifications::instance()->member_created( 6 );
@@ -142,12 +143,23 @@ final class NotificationsTest extends TestCase {
 		$this->assertCount( 1, $this->sent, 'All off: nothing more.' );
 	}
 
+	public function test_atelier_name_by_default_or_as_saved(): void {
+		$email = Notifications::compose( 'member_approved', Notifications::member_vars( 6 ) );
+		$this->assertStringContainsString( 'you are now a member of Atelier Axell.', $email['text'] );
+		$this->assertStringContainsString( 'target="_blank">Atelier Axell</a></p>', $email['html'], 'The footer.' );
+
+		$this->settings['email_atelier_name'] = 'Atelier Axell Club';
+		$email = Notifications::compose( 'member_approved', Notifications::member_vars( 6 ) );
+		$this->assertSame( 'Your Atelier Axell Club membership is approved', $email['subject'] );
+		$this->assertStringContainsString( 'target="_blank">Atelier Axell Club</a></p>', $email['html'] );
+	}
+
 	public function test_approval_sends_the_approved_e_mail(): void {
 		$this->enable( 'member_approved' );
 
 		Notifications::instance()->member_approved( 6 );
 
-		$this->assertSame( 'Your Atelier Axell Club membership is approved', $this->sent[0][1] );
+		$this->assertSame( 'Your Atelier Axell membership is approved', $this->sent[0][1] );
 	}
 
 	public function test_team_e_mail_has_type_document_label_and_uf_city(): void {

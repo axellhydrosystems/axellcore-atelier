@@ -110,25 +110,25 @@ final class Notifications {
 					/* translators: {fullname} and the other {placeholders} are replaced when sending; keep them as they are. */
 					'subject' => __( 'New membership application: {fullname}', 'axellcore-atelierclub' ),
 					'heading' => __( 'New membership application', 'axellcore-atelierclub' ),
-					'body'    => __( "A new application to the Atelier Axell Club has arrived.\n\nName: {fullname}\nCompany: {company}\nE-mail: {email}\nPhone: {phone}\nRegistration (CAU / CREA / ABD): {professional_registration}\nMain practice: {primary_focus}\nPortfolio (URL): {url}\n\nRegistration type: {profile_type}\n{document_label}: {document}\n\nStreet: {address_street}\nNumber: {address_number}\nAddress line 2: {address_2}\nNeighborhood: {neighborhood}\nLandmark: {landmark}\nCity: {state} {city}\nPostal code: {postal}\n\nPartner stores:\n{stores}\n\nReview the application: {member_admin_url}", 'axellcore-atelierclub' ),
+					'body'    => __( "A new application to {atelier_name} has arrived.\n\nName: {fullname}\nCompany: {company}\nE-mail: {email}\nPhone: {phone}\nRegistration (CAU / CREA / ABD): {professional_registration}\nMain practice: {primary_focus}\nPortfolio (URL): {url}\n\nRegistration type: {profile_type}\n{document_label}: {document}\n\nStreet: {address_street}\nNumber: {address_number}\nAddress line 2: {address_2}\nNeighborhood: {neighborhood}\nLandmark: {landmark}\nCity: {state} {city}\nPostal code: {postal}\n\nPartner stores:\n{stores}\n\nReview the application: {member_admin_url}", 'axellcore-atelierclub' ),
 				);
 			case 'member_pending':
 				return array(
 					'subject' => __( 'We received your application, {first_name}', 'axellcore-atelierclub' ),
 					'heading' => __( 'Application received', 'axellcore-atelierclub' ),
-					'body'    => __( "Hello, {first_name}.\n\nWe received your application to the Atelier Axell Club. Our curators will review it, and we will let you know by e-mail as soon as it is approved.\n\nThank you for your interest.\nAtelier Axell", 'axellcore-atelierclub' ),
+					'body'    => __( "Hello, {first_name}.\n\nWe received your application to {atelier_name}. Our curators will review it, and we will let you know by e-mail as soon as it is approved.\n\nThank you for your interest.\n{atelier_name}", 'axellcore-atelierclub' ),
 				);
 			case 'member_created':
 				return array(
-					'subject' => __( 'Welcome to the Atelier Axell Club, {first_name}', 'axellcore-atelierclub' ),
+					'subject' => __( 'Welcome to {atelier_name}, {first_name}', 'axellcore-atelierclub' ),
 					'heading' => __( 'Welcome to the Atelier', 'axellcore-atelierclub' ),
-					'body'    => __( "Hello, {first_name}.\n\nYour membership in the Atelier Axell Club is confirmed. From now on you are part of a circle of architects and designers who specify Axell.\n\nGet to know the club: {atelier_url}\n\nAtelier Axell", 'axellcore-atelierclub' ),
+					'body'    => __( "Hello, {first_name}.\n\nYour membership in {atelier_name} is confirmed. From now on you are part of a circle of architects and designers who specify Axell.\n\nGet to know the club: {atelier_url}\n\n{atelier_name}", 'axellcore-atelierclub' ),
 				);
 			case 'member_approved':
 				return array(
-					'subject' => __( 'Your Atelier Axell Club membership is approved', 'axellcore-atelierclub' ),
+					'subject' => __( 'Your {atelier_name} membership is approved', 'axellcore-atelierclub' ),
 					'heading' => __( 'Membership approved', 'axellcore-atelierclub' ),
-					'body'    => __( "Hello, {first_name}.\n\nGood news: our curators approved your application, and you are now a member of the Atelier Axell Club.\n\nGet to know the club: {atelier_url}\n\nAtelier Axell", 'axellcore-atelierclub' ),
+					'body'    => __( "Hello, {first_name}.\n\nGood news: our curators approved your application, and you are now a member of {atelier_name}.\n\nGet to know the club: {atelier_url}\n\n{atelier_name}", 'axellcore-atelierclub' ),
 				);
 		}
 		return array(
@@ -194,14 +194,26 @@ final class Notifications {
 	}
 
 	/**
+	 * The Atelier's name ({atelier_name}): as saved, else the default in the
+	 * site's language.
+	 *
+	 * @return string
+	 */
+	public static function atelier_name() {
+		$saved = (string) Settings::get( 'email_atelier_name' );
+		return '' !== $saved ? $saved : self::site_brand_default( 'atelier_name' );
+	}
+
+	/**
 	 * The brand's defaults, in the current language.
 	 *
-	 * @return array{brand:string,tagline:string}
+	 * @return array{brand:string,atelier_name:string,tagline:string}
 	 */
 	public static function brand_defaults() {
 		return array(
-			'brand'   => __( 'Atelier Axell', 'axellcore-atelierclub' ),
-			'tagline' => __( 'The Axell World', 'axellcore-atelierclub' ),
+			'brand'        => __( 'Atelier Axell', 'axellcore-atelierclub' ),
+			'atelier_name' => _x( 'Atelier Axell', 'Atelier name', 'axellcore-atelierclub' ),
+			'tagline'      => __( 'The Axell World', 'axellcore-atelierclub' ),
 		);
 	}
 
@@ -325,6 +337,7 @@ final class Notifications {
 			'{postal}'                    => __( 'Postal code', 'axellcore-atelierclub' ),
 			'{stores}'                    => __( 'Partner stores, one per line', 'axellcore-atelierclub' ),
 			'{member_admin_url}'          => __( 'The member on Atelier > Members (team e-mail)', 'axellcore-atelierclub' ),
+			'{atelier_name}'              => __( 'Atelier name', 'axellcore-atelierclub' ),
 			'{atelier_url}'               => __( 'The Atelier page', 'axellcore-atelierclub' ),
 			'{site_name}'                 => __( 'Site name', 'axellcore-atelierclub' ),
 			'{site_url}'                  => __( 'Site address', 'axellcore-atelierclub' ),
@@ -398,10 +411,11 @@ final class Notifications {
 	public static function site_vars() {
 		$page = Settings::page();
 		return array(
-			'{site_name}'   => wp_specialchars_decode( (string) get_bloginfo( 'name' ), ENT_QUOTES ),
-			'{site_url}'    => home_url( '/' ),
-			'{atelier_url}' => $page ? (string) get_permalink( $page ) : home_url( '/' ),
-			'{date}'        => (string) wp_date( (string) get_option( 'date_format' ) ),
+			'{site_name}'    => wp_specialchars_decode( (string) get_bloginfo( 'name' ), ENT_QUOTES ),
+			'{site_url}'     => home_url( '/' ),
+			'{atelier_name}' => self::atelier_name(),
+			'{atelier_url}'  => $page ? (string) get_permalink( $page ) : home_url( '/' ),
+			'{date}'         => (string) wp_date( (string) get_option( 'date_format' ) ),
 		);
 	}
 

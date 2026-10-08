@@ -36,7 +36,7 @@ $site_name    = wp_specialchars_decode( (string) get_bloginfo( 'name' ), ENT_QUO
 									<table border="0" cellpadding="0" cellspacing="0" width="100%" id="template_footer" role="presentation">
 										<tr>
 											<td valign="top" id="credit" style="<?php echo esc_attr( $styles['footer'] ); ?>">
-												<p class="aa-muted" style="<?php echo esc_attr( $styles['credit'] ); ?>"><?php echo esc_html( $site_name ); ?> · <a class="aa-link" href="<?php echo esc_url( $atelier_url ); ?>" style="<?php echo esc_attr( $styles['credit_link'] ); ?>" target="_blank">Atelier Axell Club</a></p>
+												<p class="aa-muted" style="<?php echo esc_attr( $styles['credit'] ); ?>"><?php echo esc_html( $site_name ); ?> · <a class="aa-link" href="<?php echo esc_url( $atelier_url ); ?>" style="<?php echo esc_attr( $styles['credit_link'] ); ?>" target="_blank"><?php echo esc_html( Axellcore_Atelierclub\Notifications::atelier_name() ); ?></a></p>
 											</td>
 										</tr>
 									</table>
