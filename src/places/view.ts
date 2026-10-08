@@ -32,6 +32,8 @@ interface Fields {
 interface Address {
 	address_street: string;
 	address_number: string;
+	/** An apartment or room Google knows ("ap 103"). */
+	address_2: string;
 	neighborhood: string;
 	city: string;
 	state: string;
@@ -47,16 +49,20 @@ interface PlacesContext {
 	typed: string;
 	/** Session token: from the first search to the address chosen. */
 	session?: string;
+	/** Waiting for Google's suggestions. */
+	loading: boolean;
 }
 
 interface PlacesState {
 	autocompleteUrl: string;
 	detailsUrl: string;
 	minInput: number;
+	/** "Searching addresses…", translated. */
+	searching: string;
 }
 
 /** Time without typing before asking for suggestions. */
-const DEBOUNCE_MS = 350;
+const DEBOUNCE_MS = 200;
 
 /** How long the city waits for the state's cities. */
 const CITIES_WAIT_MS = 5000;
@@ -136,8 +142,9 @@ const setCity = async ( form: HTMLFormElement, name: string, city: string ) => {
 };
 
 /**
- * Fill in the form with an address; the cursor goes to the number when the
- * address has none, else to the complement.
+ * Fill in the form with an address. The cursor goes to the first of number,
+ * complement, neighborhood and CEP still empty (the complement when all are
+ * filled), for the visitor to check or complete.
  *
  * @param form    Form.
  * @param fields  Field names.
@@ -154,16 +161,20 @@ const fill = async (
 		street.value = address.address_street;
 	}
 	setField( fieldOf( form, fields.number ), address.address_number );
+	if ( address.address_2 ) {
+		setField( fieldOf( form, fields.complement ), address.address_2 );
+	}
 	if ( address.neighborhood ) {
 		setField( fieldOf( form, fields.neighborhood ), address.neighborhood );
 	}
 	if ( address.postal ) {
 		setField( fieldOf( form, fields.postal ), address.postal );
 	}
-	const next = fieldOf(
-		form,
-		address.address_number ? fields.complement : fields.number
-	);
+	const next =
+		[ fields.number, fields.complement, fields.neighborhood, fields.postal ]
+			.map( ( name ) => fieldOf( form, name ) )
+			.find( ( el ) => el && ! el.value ) ??
+		fieldOf( form, fields.complement );
 	next?.focus();
 	if ( address.state ) {
 		setField( fieldOf( form, fields.state ), address.state, 'change' );
@@ -178,7 +189,12 @@ const { state } = store( 'axell/places', {
 	state: {
 		get isOpen(): boolean {
 			const context = getContext< PlacesContext >();
-			return context.open && context.items.length > 0;
+			return (
+				context.open && ! context.loading && context.items.length > 0
+			);
+		},
+		get isSearching(): boolean {
+			return getContext< PlacesContext >().loading;
 		},
 	},
 	actions: {
@@ -191,12 +207,14 @@ const { state } = store( 'axell/places', {
 			if ( typed.trim().length < server().minInput ) {
 				context.items = [];
 				context.open = false;
+				context.loading = false;
 				return;
 			}
 			yield sleep( DEBOUNCE_MS );
 			if ( context.typed !== typed ) {
 				return;
 			}
+			context.loading = true;
 			context.session = context.session || sessionToken();
 			const url = new URL( server().autocompleteUrl );
 			url.searchParams.set( 'input', typed.trim() );
@@ -209,9 +227,11 @@ const { state } = store( 'axell/places', {
 				if ( context.typed === typed ) {
 					context.items = Array.isArray( items ) ? items : [];
 					context.open = true;
+					context.loading = false;
 				}
 			} catch {
 				context.items = [];
+				context.loading = false;
 			}
 		},
 
@@ -266,6 +286,7 @@ const { state } = store( 'axell/places', {
 			const context = getContext< PlacesContext >();
 			context.open = false;
 			context.active = -1;
+			context.loading = false;
 		},
 	},
 	callbacks: {

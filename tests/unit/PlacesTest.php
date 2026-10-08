@@ -70,6 +70,7 @@ final class PlacesTest extends TestCase {
 			array(
 				'address_street' => 'Rua XV de Novembro',
 				'address_number' => '1200',
+				'address_2'      => '',
 				'neighborhood'   => 'Centro',
 				'city'           => 'Curitiba',
 				'state'          => 'PR',
@@ -77,6 +78,18 @@ final class PlacesTest extends TestCase {
 			),
 			$fields
 		);
+	}
+
+	public function test_an_apartment_is_the_complement(): void {
+		$fields = Places::fields(
+			array(
+				self::component( 'ap 103', 'ap 103', array( 'subpremise' ) ),
+				self::component( '34', '34', array( 'street_number' ) ),
+				self::component( 'Rua Antônio Meras Sagas', 'R. Antônio Meras Sagas', array( 'route' ) ),
+			)
+		);
+		$this->assertSame( 'ap 103', $fields['address_2'] );
+		$this->assertSame( '34', $fields['address_number'] );
 	}
 
 	public function test_missing_parts_stay_empty(): void {
@@ -90,6 +103,7 @@ final class PlacesTest extends TestCase {
 		);
 
 		$this->assertSame( '', $fields['address_number'], 'No number: the cursor goes to Number.' );
+		$this->assertSame( '', $fields['address_2'] );
 		$this->assertSame( '', $fields['neighborhood'] );
 		$this->assertSame( 'São Paulo', $fields['city'], 'The locality when there is no level 2.' );
 		$this->assertSame( 'SP', $fields['state'] );

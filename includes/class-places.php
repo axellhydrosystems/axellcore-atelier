@@ -167,14 +167,15 @@ final class Places {
 		wp_interactivity_state( 'axell/places', self::client_state() );
 
 		$context = array(
-			'fields' => self::FORM_FIELDS,
-			'items'  => array(),
-			'open'   => false,
-			'active' => -1,
-			'typed'  => '',
+			'fields'  => self::FORM_FIELDS,
+			'items'   => array(),
+			'open'    => false,
+			'active'  => -1,
+			'typed'   => '',
+			'loading' => false,
 		);
 		return sprintf(
-			'<div class="aa-places-search" data-wp-interactive="axell/places" data-wp-context="%1$s" data-wp-on--focusout="actions.close">%2$s<div class="aa-places-popup" hidden data-wp-bind--hidden="!state.isOpen"><ul id="%3$s" role="listbox" tabindex="-1" data-wp-on--click="actions.pick" data-wp-on--mousedown="actions.keepFocus" data-wp-watch="callbacks.render"></ul><p class="aa-places-attribution" aria-hidden="true">Google Maps</p></div></div>',
+			'<div class="aa-places-search" data-wp-interactive="axell/places" data-wp-context="%1$s" data-wp-on--focusout="actions.close">%2$s<p class="aa-places-popup aa-places-status" role="status" hidden data-wp-bind--hidden="!state.isSearching" data-wp-text="state.searching"></p><div class="aa-places-popup" hidden data-wp-bind--hidden="!state.isOpen"><ul id="%3$s" role="listbox" tabindex="-1" data-wp-on--click="actions.pick" data-wp-on--mousedown="actions.keepFocus" data-wp-watch="callbacks.render"></ul><p class="aa-places-attribution" aria-hidden="true">Google Maps</p></div></div>',
 			esc_attr( (string) wp_json_encode( $context ) ),
 			trim( $p->get_updated_html() ),
 			esc_attr( $list )
@@ -191,6 +192,7 @@ final class Places {
 			'autocompleteUrl' => rest_url( Rest::NAMESPACE . '/places/autocomplete' ),
 			'detailsUrl'      => rest_url( Rest::NAMESPACE . '/places/details' ),
 			'minInput'        => self::MIN_INPUT,
+			'searching'       => __( 'Searching addresses…', 'axellcore-atelierclub' ),
 		);
 	}
 
@@ -469,8 +471,9 @@ final class Places {
 
 	/**
 	 * Google's address components as the form's fields: street, number,
-	 * neighborhood, city, state (UF) and CEP (8 digits, or empty when Google
-	 * has only its prefix).
+	 * complement (an apartment or room Google knows, "ap 103"), neighborhood,
+	 * city, state (UF) and CEP (8 digits, or empty when Google has only its
+	 * prefix).
 	 *
 	 * @param array $components addressComponents ({ longText, shortText, types }).
 	 * @return array<string,string>
@@ -493,6 +496,7 @@ final class Places {
 		return array(
 			'address_street' => $part( array( 'route' ) ),
 			'address_number' => $part( array( 'street_number' ) ),
+			'address_2'      => $part( array( 'subpremise' ) ),
 			'neighborhood'   => $part( array( 'sublocality_level_1', 'sublocality', 'neighborhood' ) ),
 			'city'           => $part( array( 'administrative_area_level_2', 'locality' ) ),
 			'state'          => 2 === strlen( $state ) ? $state : '',

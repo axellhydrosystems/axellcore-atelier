@@ -949,7 +949,7 @@ msgstr "Seta"
 
 #: includes/class-members.php:680
 #: includes/class-members.php:785
-#: includes/class-places.php:430
+#: includes/class-places.php:531
 #: includes/class-rest.php:183
 msgid "Too many attempts. Try again in a few minutes."
 msgstr "Muitas tentativas. Tente novamente em alguns minutos."
@@ -2432,7 +2432,7 @@ msgid "Creates a page with the Atelier landing content and makes it the Atelier 
 msgstr "Cria uma página com o conteúdo da landing do Atelier e a define como a página do Atelier."
 
 #: includes/class-notifications.php:577
-#: includes/class-places.php:162
+#: includes/class-places.php:261
 #: includes/class-settings.php:1027
 msgid "Sorry, you are not allowed to do that."
 msgstr "Você não tem permissão para fazer isso."
@@ -4128,7 +4128,7 @@ msgstr "No formulário de adesão e no perfil do usuário. Escolher um endereço
 msgid "Costs: the Google Cloud project needs a billing account with a payment method. Google charges for the suggestions and the addresses looked up beyond the free monthly limit, at the prices on %1$sPlaces API usage and billing%2$s. Set quotas and budget alerts in Google Cloud to cap the cost."
 msgstr "Custos: o projeto no Google Cloud precisa de uma conta de faturamento com um método de pagamento. O Google cobra pelas sugestões e pelos endereços consultados acima do limite gratuito mensal, pelos valores em %1$sUso e faturamento da Places API%2$s. Defina cotas e alertas de orçamento no Google Cloud para limitar o custo."
 
-#: includes/class-places.php:262
+#: includes/class-places.php:361
 msgid "Address not found."
 msgstr "Endereço não encontrado."
 
@@ -4159,3 +4159,7 @@ msgstr[1] "%d respostas em cache."
 #: includes/class-settings.php:638
 msgid "Suggestions and addresses already asked are kept for a day, so the same search is not charged again. They expire on their own."
 msgstr "Sugestões e endereços já consultados ficam guardados por um dia, para a mesma busca não ser cobrada de novo. Eles expiram sozinhos."
+
+#: includes/class-places.php:195
+msgid "Searching addresses…"
+msgstr "Buscando endereços…"
