@@ -58,9 +58,18 @@ final class Resellers_Admin {
 	private function __construct() {}
 
 	/**
-	 * Register hooks (none with JetEngine, which owns the screens).
+	 * Register hooks, once every plugin is loaded: none with JetEngine, which
+	 * owns the screens (this plugin loads before jet-engine, so checking at
+	 * boot always missed it).
 	 */
 	public function register_hooks() {
+		add_action( 'plugins_loaded', array( $this, 'register_screens' ) );
+	}
+
+	/**
+	 * The revendas screens, unless JetEngine is active.
+	 */
+	public function register_screens() {
 		if ( Resellers::jet_engine_active() ) {
 			return;
 		}
