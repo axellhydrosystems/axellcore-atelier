@@ -89,6 +89,25 @@ final class Member {
 		add_filter( 'determine_current_user', array( $this, 'current_user' ), 99 );
 		add_filter( 'allow_password_reset', array( $this, 'allow_password_reset' ), 10, 2 );
 		add_filter( 'wp_is_application_passwords_available_for_user', array( $this, 'application_passwords' ), 10, 2 );
+		// User Switching: no "Switch To" a blocked user (after its own filter).
+		add_filter( 'map_meta_cap', array( $this, 'no_switch_to_blocked' ), 20, 4 );
+	}
+
+	/**
+	 * No switching to a blocked user (the User Switching plugin's
+	 * switch_to_user): its session would not count, and the links go away.
+	 *
+	 * @param string[] $caps    Required capabilities.
+	 * @param string   $cap     Capability checked.
+	 * @param int      $user_id Current user.
+	 * @param array    $args    Arguments: the target user first.
+	 * @return string[]
+	 */
+	public function no_switch_to_blocked( $caps, $cap, $user_id, $args ) {
+		if ( 'switch_to_user' === $cap && ! empty( $args[0] ) && ! self::can_access( (int) $args[0] ) ) {
+			return array( 'do_not_allow' );
+		}
+		return $caps;
 	}
 
 	/**

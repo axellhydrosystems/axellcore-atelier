@@ -189,4 +189,15 @@ final class MemberTest extends TestCase {
 
 		$this->assertSame( array( 'edit', Member::APPROVE_ACTION ), array_keys( $actions ) );
 	}
+
+	public function test_no_switching_to_a_blocked_user(): void {
+		Functions\when( 'get_option' )->justReturn( array() );
+		$pending = self::user( array( Member::ROLE_PENDING ), 5 );
+		$other   = self::user( array( 'subscriber' ), 8 );
+		Functions\when( 'get_userdata' )->alias( static fn( $id ) => 5 === $id ? $pending : $other );
+
+		$this->assertSame( array( 'do_not_allow' ), Member::instance()->no_switch_to_blocked( array( 'edit_users' ), 'switch_to_user', 1, array( 5 ) ) );
+		$this->assertSame( array( 'edit_users' ), Member::instance()->no_switch_to_blocked( array( 'edit_users' ), 'switch_to_user', 1, array( 8 ) ) );
+		$this->assertSame( array( 'edit_users' ), Member::instance()->no_switch_to_blocked( array( 'edit_users' ), 'edit_user', 1, array( 5 ) ), 'Other capabilities pass.' );
+	}
 }
