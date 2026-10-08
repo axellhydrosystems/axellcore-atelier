@@ -127,6 +127,17 @@
 	list-style: none;
 }
 
+/* Inside another list's region (the custom store panel), that list's rules
+   for [role="listbox"] stay off this one: it flows in the popup. */
+.aa-select .aa-select__popup [role="listbox"] {
+	position: static;
+	inset: auto;
+	width: auto;
+	border: 0;
+	background: none;
+	box-shadow: none;
+}
+
 /* A list without a filter takes the focus: its highlighted option shows it,
    not the theme's ring over the list's border. */
 .aa-select__popup [role="listbox"]:focus {
