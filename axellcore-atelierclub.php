@@ -66,6 +66,7 @@ require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-resellers-rest.php';
 require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-resellers-admin.php';
 require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-template-parts.php';
 require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-callbacks.php';
+require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-cache.php';
 require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-classic-template.php';
 require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-classic-styles.php';
 require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-reveal.php';
@@ -74,6 +75,8 @@ require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-admin-notices.php';
 require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-activator.php';
 
 register_activation_hook( AXELLCORE_ATELIERCLUB_FILE, array( 'Axellcore_Atelierclub\\Activator', 'activate' ) );
+// Pages change back without the plugin: page caches must not keep its HTML.
+register_deactivation_hook( AXELLCORE_ATELIERCLUB_FILE, array( 'Axellcore_Atelierclub\\Cache', 'purge' ) );
 
 // SelfDirectory: updates from the GitHub releases of the Plugin URI repository,
 // in the Plugins screen, and their pt_BR language packs. A git submodule,

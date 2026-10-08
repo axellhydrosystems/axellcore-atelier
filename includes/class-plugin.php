@@ -94,5 +94,6 @@ final class Plugin {
 		Reveal::instance()->register_hooks();
 		Weglot::instance()->register_hooks();
 		Admin_Notices::instance()->register_hooks();
+		Cache::register_hooks();
 	}
 }

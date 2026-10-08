@@ -78,6 +78,11 @@ final class Activator {
 
 		// Revendas from content/revendas.csv, once, without JetEngine.
 		Resellers_Import::maybe_run();
+
+		// Page caches keep the HTML from before the plugin; this version is
+		// purged for now (Cache::purge_after_update() won't repeat it).
+		update_option( Cache::VERSION_OPTION, AXELLCORE_ATELIERCLUB_VERSION );
+		Cache::purge();
 	}
 
 	/**
