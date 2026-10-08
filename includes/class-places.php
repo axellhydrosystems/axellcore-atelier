@@ -54,6 +54,17 @@ final class Places {
 	const CACHE_TTL = 86400;
 
 	/**
+	 * The admin-post action of "Clear address cache".
+	 */
+	const CLEAR_ACTION = 'axellcore_atelierclub_places_clear';
+
+	/**
+	 * Prefixes of the cached answers (suggestions, addresses), after
+	 * "_transient_" in the options table.
+	 */
+	const CACHE_PREFIXES = array( 'axell_places_s_', 'axell_places_d_' );
+
+	/**
 	 * Singleton instance.
 	 *
 	 * @var Places|null
@@ -82,6 +93,78 @@ final class Places {
 	 */
 	public function register_hooks() {
 		add_action( 'rest_api_init', array( $this, 'register_routes' ) );
+		add_action( 'admin_post_' . self::CLEAR_ACTION, array( $this, 'handle_clear_cache' ) );
+		add_filter( 'removable_query_args', array( $this, 'removable_query_args' ) );
+	}
+
+	/**
+	 * The address bar drops the "cleared" notice's argument once shown.
+	 *
+	 * @param string[] $args Arguments WordPress removes.
+	 * @return string[]
+	 */
+	public function removable_query_args( $args ) {
+		$args[] = 'aa-places-cleared';
+		return $args;
+	}
+
+	/**
+	 * The cached answers' option names (their timeouts follow them).
+	 *
+	 * @return string[]
+	 */
+	private static function cached_options() {
+		global $wpdb;
+		$names = array();
+		foreach ( self::CACHE_PREFIXES as $prefix ) {
+			$like  = $wpdb->esc_like( '_transient_' . $prefix ) . '%';
+			$names = array_merge( $names, (array) $wpdb->get_col( $wpdb->prepare( "SELECT option_name FROM {$wpdb->options} WHERE option_name LIKE %s", $like ) ) ); // phpcs:ignore WordPress.DB.DirectDatabaseQuery -- transients by prefix; there is no API for that.
+		}
+		return $names;
+	}
+
+	/**
+	 * How many answers are cached.
+	 *
+	 * @return int
+	 */
+	public static function cache_count() {
+		return count( self::cached_options() );
+	}
+
+	/**
+	 * Delete the cached answers; the rate limit counts stay.
+	 *
+	 * @return int How many were deleted.
+	 */
+	public static function clear_cache() {
+		$names = self::cached_options();
+		foreach ( $names as $name ) {
+			delete_transient( substr( $name, strlen( '_transient_' ) ) );
+		}
+		return count( $names );
+	}
+
+	/**
+	 * The address of "Clear address cache" (nonce included).
+	 *
+	 * @return string
+	 */
+	public static function clear_cache_url() {
+		return wp_nonce_url( add_query_arg( 'action', self::CLEAR_ACTION, admin_url( 'admin-post.php' ) ), self::CLEAR_ACTION );
+	}
+
+	/**
+	 * Admin-post: clear the cache, back to the Integrations tab with the count.
+	 */
+	public function handle_clear_cache() {
+		if ( ! current_user_can( 'manage_options' ) ) {
+			wp_die( esc_html__( 'Sorry, you are not allowed to do that.', 'axellcore-atelierclub' ), 403 );
+		}
+		check_admin_referer( self::CLEAR_ACTION );
+		$deleted = self::clear_cache();
+		wp_safe_redirect( add_query_arg( 'aa-places-cleared', $deleted, Settings::url( 'integrations' ) ) );
+		exit;
 	}
 
 	/**

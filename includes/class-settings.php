@@ -292,6 +292,7 @@ final class Settings {
 		);
 		add_settings_field( 'places_enabled', __( 'Address autocomplete', 'axellcore-atelierclub' ), array( $this, 'render_places_enabled' ), $page, 'places', array( 'label_for' => self::OPTION . '-places_enabled' ) );
 		add_settings_field( 'places_api_key', __( 'API key', 'axellcore-atelierclub' ), array( $this, 'render_key' ), $page, 'places', array( 'label_for' => self::OPTION . '-places_api_key' ) );
+		add_settings_field( 'places_cache', __( 'Cache', 'axellcore-atelierclub' ), array( $this, 'render_places_cache' ), $page, 'places' );
 	}
 
 	/**
@@ -602,6 +603,39 @@ final class Settings {
 				esc_html__( 'Costs: the Google Cloud project needs a billing account with a payment method. Google charges for the suggestions and the addresses looked up beyond the free monthly limit, at the prices on %1$sPlaces API usage and billing%2$s. Set quotas and budget alerts in Google Cloud to cap the cost.', 'axellcore-atelierclub' ),
 				'<a href="https://developers.google.com/maps/documentation/places/web-service/usage-and-billing" target="_blank" rel="noopener noreferrer">',
 				'</a>'
+			)
+		);
+	}
+
+	/**
+	 * The address cache: how many answers it holds and "Clear address cache"
+	 * (a link to admin-post: the settings form cannot hold another form).
+	 */
+	public function render_places_cache() {
+		$cleared = isset( $_GET['aa-places-cleared'] ) ? absint( $_GET['aa-places-cleared'] ) : null; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- only shows the result.
+		if ( null !== $cleared ) {
+			printf(
+				'<div class="notice notice-success inline"><p>%s</p></div>',
+				esc_html(
+					sprintf(
+						/* translators: %d: number of cached answers deleted. */
+						_n( '%d cached answer deleted.', '%d cached answers deleted.', $cleared, 'axellcore-atelierclub' ),
+						$cleared
+					)
+				)
+			);
+		}
+		$count = Places::cache_count();
+		printf(
+			'<p><a class="button" href="%1$s">%2$s</a></p><p class="description">%3$s</p>',
+			esc_url( Places::clear_cache_url() ),
+			esc_html__( 'Clear address cache', 'axellcore-atelierclub' ),
+			esc_html(
+				sprintf(
+					/* translators: %d: number of cached answers. */
+					_n( '%d answer cached.', '%d answers cached.', $count, 'axellcore-atelierclub' ),
+					$count
+				) . ' ' . __( 'Suggestions and addresses already asked are kept for a day, so the same search is not charged again. They expire on their own.', 'axellcore-atelierclub' )
 			)
 		);
 	}

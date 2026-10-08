@@ -37,7 +37,7 @@ msgstr "Atelier — Página em Branco"
 msgid "Self-contained canvas for the Atelier Axell Club landing page. No header/footer template parts — the page content renders alone."
 msgstr "Tela autocontida para a landing page do Atelier Axell Club. Sem partes de template de cabeçalho/rodapé — o conteúdo da página é renderizado sozinho."
 
-#: includes/class-settings.php:967
+#: includes/class-settings.php:1001
 #: build/form/form-input/index.js:1
 #: includes/blocks/form/form-control/index.js:46
 #: includes/blocks/form/form-input/index.js:55
@@ -480,7 +480,7 @@ msgstr "Brasil"
 #: includes/class-member.php:414
 #: includes/class-member.php:425
 #: includes/class-settings.php:246
-#: includes/class-settings.php:697
+#: includes/class-settings.php:731
 msgid "Members"
 msgstr "Membros"
 
@@ -949,7 +949,7 @@ msgstr "Seta"
 
 #: includes/class-members.php:680
 #: includes/class-members.php:785
-#: includes/class-places.php:347
+#: includes/class-places.php:430
 #: includes/class-rest.php:183
 msgid "Too many attempts. Try again in a few minutes."
 msgstr "Muitas tentativas. Tente novamente em alguns minutos."
@@ -968,7 +968,7 @@ msgid "Could not load members."
 msgstr "Não foi possível carregar os membros."
 
 #: includes/class-members-export.php:75
-#: includes/class-settings.php:888
+#: includes/class-settings.php:922
 #: build/admin/members/index.js:175
 #: build/admin/members/index.js:184
 #: build/admin/resellers/index.js:175
@@ -1521,7 +1521,7 @@ msgstr "Pendente"
 
 #: includes/class-member.php:363
 #: includes/class-member.php:376
-#: includes/class-settings.php:894
+#: includes/class-settings.php:928
 msgid "Member"
 msgstr "Membro"
 
@@ -1792,7 +1792,7 @@ msgstr "Todos os países"
 msgid "Practice"
 msgstr "Atuação"
 
-#: includes/class-settings.php:486
+#: includes/class-settings.php:487
 #: build/admin/members/index.js:175
 msgid "View"
 msgstr "Ver"
@@ -1866,7 +1866,7 @@ msgstr "Site"
 msgid "Date"
 msgstr "Data"
 
-#: includes/class-settings.php:484
+#: includes/class-settings.php:485
 #: build/admin/resellers/index.js:175
 msgid "Edit"
 msgstr "Editar"
@@ -1981,7 +1981,7 @@ msgstr "Para"
 msgid "Separate several emails with commas. Empty: the administrator's email."
 msgstr "Separe vários e-mails por vírgula. Em branco: e-mail do administrador."
 
-#: includes/class-settings.php:952
+#: includes/class-settings.php:986
 #: build/form/form-atelier/index.js:1
 #: build/form/form/index.js:1
 msgid "Subject"
@@ -2349,7 +2349,7 @@ msgid "https://github.com/axellhydrosystems/axellcore-atelierclub"
 msgstr "https://github.com/axellhydrosystems/axellcore-atelierclub"
 
 #: includes/class-settings.php:193
-#: includes/class-settings.php:702
+#: includes/class-settings.php:736
 msgid "Atelier settings"
 msgstr "Configurações do Atelier"
 
@@ -2361,11 +2361,11 @@ msgstr "Configurações"
 msgid "New members"
 msgstr "Novos membros"
 
-#: includes/class-settings.php:530
+#: includes/class-settings.php:531
 msgid "Create new members as pending"
 msgstr "Criar novos membros como pendentes"
 
-#: includes/class-settings.php:531
+#: includes/class-settings.php:532
 msgid "When on, an application creates a pending member who waits for approval. When off, it creates the member already approved."
 msgstr "Quando ligado, uma solicitação cria um membro pendente, que aguarda aprovação. Quando desligado, cria o membro já aprovado."
 
@@ -2419,32 +2419,33 @@ msgstr "Página"
 msgid "Atelier page"
 msgstr "Página do Atelier"
 
-#: includes/class-settings.php:475
+#: includes/class-settings.php:476
 msgid "— Select —"
 msgstr "— Selecione —"
 
-#: includes/class-settings.php:746
+#: includes/class-settings.php:780
 msgid "Create Atelier page"
 msgstr "Criar página do Atelier"
 
-#: includes/class-settings.php:747
+#: includes/class-settings.php:781
 msgid "Creates a page with the Atelier landing content and makes it the Atelier page."
 msgstr "Cria uma página com o conteúdo da landing do Atelier e a define como a página do Atelier."
 
 #: includes/class-notifications.php:577
-#: includes/class-settings.php:993
+#: includes/class-places.php:162
+#: includes/class-settings.php:1027
 msgid "Sorry, you are not allowed to do that."
 msgstr "Você não tem permissão para fazer isso."
 
-#: includes/class-settings.php:999
+#: includes/class-settings.php:1033
 msgid "Atelier page created."
 msgstr "Página do Atelier criada."
 
-#: includes/class-settings.php:1001
+#: includes/class-settings.php:1035
 msgid "Could not create the Atelier page."
 msgstr "Não foi possível criar a página do Atelier."
 
-#: includes/class-settings.php:491
+#: includes/class-settings.php:492
 msgid "The page of the Atelier landing: its slug can change. With a block theme, use the Atelier Club template on it. Empty, no page is the Atelier page."
 msgstr "A página da landing do Atelier: o slug dela pode mudar. Com um tema de blocos, use nela o modelo Atelier Club. Vazio, nenhuma página é a do Atelier."
 
@@ -3606,11 +3607,11 @@ msgstr "O acesso dos membros ao painel está desativado."
 msgid "Dashboard access"
 msgstr "Acesso ao painel"
 
-#: includes/class-settings.php:543
+#: includes/class-settings.php:544
 msgid "Allow members to log in"
 msgstr "Permitir que membros entrem no painel"
 
-#: includes/class-settings.php:544
+#: includes/class-settings.php:545
 msgid "Approved members can log in and reset their password. Pending members never can."
 msgstr "Membros aprovados podem entrar e redefinir a senha. Membros pendentes nunca."
 
@@ -3670,7 +3671,7 @@ msgid "First name"
 msgstr "Primeiro nome"
 
 #: includes/class-notifications.php:342
-#: includes/class-settings.php:886
+#: includes/class-settings.php:920
 msgid "E-mail"
 msgstr "E-mail"
 
@@ -3703,81 +3704,81 @@ msgid "Unknown e-mail."
 msgstr "E-mail desconhecido."
 
 #. translators: %s: the invalid e-mail addresses.
-#: includes/class-settings.php:460
+#: includes/class-settings.php:461
 #, php-format
 msgid "Left out, not valid e-mail addresses: %s"
 msgstr "Deixados de fora, por não serem e-mails válidos: %s"
 
-#: includes/class-settings.php:696
+#: includes/class-settings.php:730
 msgid "General"
 msgstr "Geral"
 
-#: includes/class-settings.php:698
-#: includes/class-settings.php:927
+#: includes/class-settings.php:732
+#: includes/class-settings.php:961
 msgid "E-mails"
 msgstr "E-mails"
 
-#: includes/class-settings.php:703
+#: includes/class-settings.php:737
 msgid "Settings sections"
 msgstr "Seções das configurações"
 
-#: includes/class-settings.php:887
+#: includes/class-settings.php:921
 msgid "Recipient"
 msgstr "Destinatário"
 
-#: includes/class-settings.php:889
+#: includes/class-settings.php:923
 msgid "Actions"
 msgstr "Ações"
 
-#: includes/class-settings.php:902
+#: includes/class-settings.php:936
 msgid "Enabled"
 msgstr "Ativado"
 
-#: includes/class-settings.php:902
+#: includes/class-settings.php:936
 msgid "Disabled"
 msgstr "Desativado"
 
-#: includes/class-settings.php:903
+#: includes/class-settings.php:937
 msgid "Manage"
 msgstr "Gerenciar"
 
-#: includes/class-settings.php:934
+#: includes/class-settings.php:968
 msgid "Enable/Disable"
 msgstr "Ativar/desativar"
 
-#: includes/class-settings.php:938
+#: includes/class-settings.php:972
 msgid "Enable this e-mail"
 msgstr "Ativar este e-mail"
 
-#: includes/class-settings.php:944
+#: includes/class-settings.php:978
 msgid "Recipients"
 msgstr "Destinatários"
 
-#: includes/class-settings.php:948
+#: includes/class-settings.php:982
 msgid "One or more e-mail addresses, separated by commas. Empty, the site's admin e-mail."
 msgstr "Um ou mais endereços de e-mail, separados por vírgula. Vazio, usa o e-mail de administração do site."
 
-#: includes/class-settings.php:953
+#: includes/class-settings.php:987
 msgid "E-mail heading"
 msgstr "Título do e-mail"
 
-#: includes/class-settings.php:970
+#: includes/class-settings.php:1004
 msgid "Plain text: a blank line starts a paragraph and addresses become links. Sent as an HTML e-mail in the Atelier's colors."
 msgstr "Texto simples: uma linha em branco começa um parágrafo, e os endereços viram links. É enviado como e-mail HTML nas cores do Atelier."
 
-#: includes/class-settings.php:972
+#: includes/class-settings.php:1006
 msgid "Placeholders"
 msgstr "Marcadores"
 
-#: includes/class-settings.php:979
+#: includes/class-settings.php:1013
 msgid "Preview"
 msgstr "Pré-visualização"
 
-#: includes/class-settings.php:981
+#: includes/class-settings.php:1015
 msgid "Open the preview"
 msgstr "Abrir a pré-visualização"
 
-#: includes/class-settings.php:982
+#: includes/class-settings.php:1016
 msgid "The saved e-mail, with a sample member."
 msgstr "O e-mail salvo, com um membro de exemplo."
 
@@ -3789,20 +3790,20 @@ msgstr "The Axell World"
 msgid "CPF or CNPJ, as the document is"
 msgstr "CPF ou CNPJ, conforme o documento"
 
-#: includes/class-settings.php:769
+#: includes/class-settings.php:803
 msgid "This image is an SVG: Gmail and other e-mail clients do not show SVG. Prefer a PNG."
 msgstr "Esta imagem é um SVG: o Gmail e outros programas de e-mail não mostram SVG. Prefira um PNG."
 
-#: includes/class-settings.php:773
+#: includes/class-settings.php:807
 msgid "E-mail header"
 msgstr "Cabeçalho dos e-mails"
 
-#: includes/class-settings.php:775
-#: includes/class-settings.php:776
+#: includes/class-settings.php:809
+#: includes/class-settings.php:810
 msgid "Logo"
 msgstr "Logo"
 
-#: includes/class-settings.php:783
+#: includes/class-settings.php:817
 msgid "None: the brand in text"
 msgstr "Nenhum: a marca em texto"
 
@@ -3810,23 +3811,23 @@ msgstr "Nenhum: a marca em texto"
 msgid "Description"
 msgstr "Descrição"
 
-#: includes/class-settings.php:792
+#: includes/class-settings.php:826
 msgid "Use the site's logo"
 msgstr "Usar o logo do site"
 
-#: includes/class-settings.php:793
+#: includes/class-settings.php:827
 msgid "The theme has no logo (Appearance > Customize > Site Identity)."
 msgstr "O tema não tem logo (Aparência > Personalizar > Identidade do site)."
 
-#: includes/class-settings.php:806
+#: includes/class-settings.php:840
 msgid "Choose image"
 msgstr "Escolher imagem"
 
-#: includes/class-settings.php:801
+#: includes/class-settings.php:835
 msgid "Image (by default, the Atelier logo)"
 msgstr "Imagem (por padrão, o logo do Atelier)"
 
-#: includes/class-settings.php:808
+#: includes/class-settings.php:842
 msgid "Use the default"
 msgstr "Usar o padrão"
 
@@ -3922,7 +3923,7 @@ msgstr "Nome do Atelier"
 msgid "Enter a valid address, such as https://yoursite.com.br."
 msgstr "Informe um endereço válido, como https://seusite.com.br."
 
-#: includes/class-settings.php:882
+#: includes/class-settings.php:916
 msgid "E-mails sent by the Atelier. Each one is on until turned off; manage one to edit its subject, heading and text."
 msgstr "E-mails enviados pelo Atelier. Cada um fica ativado até ser desativado; gerencie um para editar o assunto, o título e o texto."
 
@@ -3954,21 +3955,21 @@ msgstr ""
 "\n"
 "{atelier_name}"
 
-#: includes/class-settings.php:818
+#: includes/class-settings.php:852
 msgid "Logo width"
 msgstr "Largura do logo"
 
 #. translators: 1: the logo's width in px, 2: twice that width.
-#: includes/class-settings.php:827
+#: includes/class-settings.php:861
 #, php-format
 msgid "Shown at the top of every e-mail, %1$dpx wide. Use an image %2$dpx wide (twice the size) so it stays sharp on high-resolution screens. A PNG works in every e-mail client."
 msgstr "Aparece no topo de todos os e-mails, com %1$d px de largura. Use uma imagem com %2$d px de largura (o dobro) para ela ficar nítida em telas de alta resolução. Um PNG funciona em todos os programas de e-mail."
 
-#: includes/class-settings.php:952
+#: includes/class-settings.php:986
 msgid "The line shown in the inbox, before the e-mail is opened. Accepts placeholders."
 msgstr "A linha que aparece na caixa de entrada, antes de abrir o e-mail. Aceita marcadores."
 
-#: includes/class-settings.php:953
+#: includes/class-settings.php:987
 msgid "The large title at the top of the opened e-mail, below the logo. Accepts placeholders."
 msgstr "O título grande no topo do e-mail aberto, abaixo do logo. Aceita marcadores."
 
@@ -4005,93 +4006,93 @@ msgstr "Adesão"
 msgid "We could not confirm you are not a robot. Please try again."
 msgstr "Não foi possível confirmar que você não é um robô. Tente novamente."
 
-#: includes/class-settings.php:304
+#: includes/class-settings.php:305
 msgid "reCAPTCHA on the forms"
 msgstr "reCAPTCHA nos formulários"
 
-#: includes/class-settings.php:305
+#: includes/class-settings.php:306
 msgid "Protection"
 msgstr "Proteção"
 
-#: includes/class-settings.php:306
+#: includes/class-settings.php:307
 msgid "Version"
 msgstr "Versão"
 
-#: includes/class-settings.php:307
+#: includes/class-settings.php:308
 msgid "Local addresses"
 msgstr "Endereços locais"
 
-#: includes/class-settings.php:325
+#: includes/class-settings.php:326
 msgid "reCAPTCHA v2"
 msgstr "reCAPTCHA v2"
 
 #. translators: 1: Link opening tag, 2: Link closing tag.
-#: includes/class-settings.php:327
+#: includes/class-settings.php:328
 #, php-format
 msgid "%1$sreCAPTCHA v2%2$s is a free service by Google that protects your website from spam and abuse. It does this while letting your valid users pass through with ease."
 msgstr "O %1$sreCAPTCHA v2%2$s é um serviço gratuito do Google que protege o seu site contra spam e abuso, sem dificultar a passagem dos usuários legítimos."
 
-#: includes/class-settings.php:332
+#: includes/class-settings.php:333
 msgid "reCAPTCHA v3"
 msgstr "reCAPTCHA v3"
 
 #. translators: 1: Link opening tag, 2: Link closing tag.
-#: includes/class-settings.php:334
+#: includes/class-settings.php:335
 #, php-format
 msgid "%1$sreCAPTCHA v3%2$s is a free service by Google that protects your website from spam and abuse. It does this while letting your valid users pass through with ease."
 msgstr "O %1$sreCAPTCHA v3%2$s é um serviço gratuito do Google que protege o seu site contra spam e abuso, sem dificultar a passagem dos usuários legítimos."
 
-#: includes/class-settings.php:343
+#: includes/class-settings.php:344
 msgid "Site key"
 msgstr "Chave do site"
 
-#: includes/class-settings.php:344
+#: includes/class-settings.php:345
 msgid "Secret key"
 msgstr "Chave secreta"
 
-#: includes/class-settings.php:346
+#: includes/class-settings.php:347
 msgid "Score threshold"
 msgstr "Limiar de pontuação"
 
 #. translators: %s: the placeholder, {atelier_name}.
-#: includes/class-settings.php:505
+#: includes/class-settings.php:506
 #, php-format
 msgid "Used by the e-mails' %s placeholder and as their header's brand in text."
 msgstr "Usado pelo marcador %s dos e-mails e como marca em texto do cabeçalho deles."
 
-#: includes/class-settings.php:518
+#: includes/class-settings.php:519
 msgid "Below the name in the e-mails' header, when it has no logo."
 msgstr "Abaixo do nome no cabeçalho dos e-mails, quando ele não usa logo."
 
-#: includes/class-settings.php:556
+#: includes/class-settings.php:557
 msgid "Enable reCAPTCHA on the forms"
 msgstr "Ativar o reCAPTCHA nos formulários"
 
-#: includes/class-settings.php:557
+#: includes/class-settings.php:558
 msgid "A submission is only accepted after Google confirms it, with the keys of the version chosen below."
 msgstr "Um envio só é aceito depois que o Google o confirma, com as chaves da versão escolhida abaixo."
 
-#: includes/class-settings.php:567
+#: includes/class-settings.php:568
 msgid "reCAPTCHA v3 (invisible, a score)"
 msgstr "reCAPTCHA v3 (invisível, por pontuação)"
 
-#: includes/class-settings.php:568
+#: includes/class-settings.php:569
 msgid "reCAPTCHA v2 (\"I'm not a robot\" box)"
 msgstr "reCAPTCHA v2 (caixa “Não sou um robô”)"
 
-#: includes/class-settings.php:585
+#: includes/class-settings.php:586
 msgid "Disable on localhost and 127.0.0.1"
 msgstr "Desativar em localhost e 127.0.0.1"
 
-#: includes/class-settings.php:586
+#: includes/class-settings.php:587
 msgid "When the site address is http(s)://localhost or http(s)://127.0.0.1, with or without a port, the forms have no reCAPTCHA."
 msgstr "Quando o endereço do site é http(s)://localhost ou http(s)://127.0.0.1, com ou sem porta, os formulários ficam sem reCAPTCHA."
 
-#: includes/class-settings.php:634
+#: includes/class-settings.php:668
 msgid "Score threshold should be a value between 0 and 1, default: 0.5"
 msgstr "O limiar de pontuação deve ser um valor entre 0 e 1. Padrão: 0,5"
 
-#: includes/class-settings.php:699
+#: includes/class-settings.php:733
 msgid "Integrations"
 msgstr "Integrações"
 
@@ -4113,20 +4114,48 @@ msgstr "Preenchimento de endereço"
 msgid "API key"
 msgstr "Chave de API"
 
-#: includes/class-settings.php:598
+#: includes/class-settings.php:599
 msgid "Suggest Google addresses while the street is typed"
 msgstr "Sugerir endereços do Google ao digitar a rua"
 
-#: includes/class-settings.php:599
+#: includes/class-settings.php:600
 msgid "On the application form and on the user profile. Choosing an address fills in street, number, neighborhood, state, city and CEP. Needs the API key below, with the Places API (New) enabled."
 msgstr "No formulário de adesão e no perfil do usuário. Escolher um endereço preenche rua, número, bairro, estado, cidade e CEP. Precisa da chave de API abaixo, com a Places API (New) ativada."
 
 #. translators: 1: Link opening tag, 2: Link closing tag.
-#: includes/class-settings.php:602
+#: includes/class-settings.php:603
 #, php-format
 msgid "Costs: the Google Cloud project needs a billing account with a payment method. Google charges for the suggestions and the addresses looked up beyond the free monthly limit, at the prices on %1$sPlaces API usage and billing%2$s. Set quotas and budget alerts in Google Cloud to cap the cost."
 msgstr "Custos: o projeto no Google Cloud precisa de uma conta de faturamento com um método de pagamento. O Google cobra pelas sugestões e pelos endereços consultados acima do limite gratuito mensal, pelos valores em %1$sUso e faturamento da Places API%2$s. Defina cotas e alertas de orçamento no Google Cloud para limitar o custo."
 
-#: includes/class-places.php:179
+#: includes/class-places.php:262
 msgid "Address not found."
 msgstr "Endereço não encontrado."
+
+#: includes/class-settings.php:295
+msgid "Cache"
+msgstr "Cache"
+
+#. translators: %d: number of cached answers deleted.
+#: includes/class-settings.php:622
+#, php-format
+msgid "%d cached answer deleted."
+msgid_plural "%d cached answers deleted."
+msgstr[0] "%d resposta em cache apagada."
+msgstr[1] "%d respostas em cache apagadas."
+
+#: includes/class-settings.php:632
+msgid "Clear address cache"
+msgstr "Limpar cache de endereços"
+
+#. translators: %d: number of cached answers.
+#: includes/class-settings.php:636
+#, php-format
+msgid "%d answer cached."
+msgid_plural "%d answers cached."
+msgstr[0] "%d resposta em cache."
+msgstr[1] "%d respostas em cache."
+
+#: includes/class-settings.php:638
+msgid "Suggestions and addresses already asked are kept for a day, so the same search is not charged again. They expire on their own."
+msgstr "Sugestões e endereços já consultados ficam guardados por um dia, para a mesma busca não ser cobrada de novo. Eles expiram sozinhos."
