@@ -125,6 +125,11 @@
 	margin: 0;
 	padding: 0;
 	list-style: none;
+}
+
+/* A list without a filter takes the focus: its highlighted option shows it,
+   not the theme's ring over the list's border. */
+.aa-select__popup [role="listbox"]:focus {
 	outline: none;
 }
 
