@@ -52,7 +52,7 @@
 }
 
 /* Google Maps' logo, unmodified, with the clear space Google asks for
-   (10px above and on the sides, 5px below), 18px high. */
+   (10px above and on the sides, 5px below), 16px high (Google's least). */
 :where(.aa-places-attribution) {
 	display: flex;
 	justify-content: flex-end;
@@ -65,7 +65,7 @@
 :where(.aa-places-logo) {
 	display: block;
 	width: auto;
-	height: 18px;
+	height: 16px;
 }
 
 .aa-places-search [hidden] {

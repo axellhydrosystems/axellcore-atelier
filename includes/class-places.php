@@ -194,7 +194,8 @@ final class Places {
 
 	/**
 	 * Google Maps' attribution, required when its suggestions show without a
-	 * map: its logo, as Google gives it (no change), labelled "Google Maps".
+	 * map: its logo, as Google gives it (no change), labelled "Google Maps",
+	 * at the least height Google allows (16px of 16 to 19).
 	 *
 	 * @param string $background The list's background: dark or light.
 	 * @return string
@@ -208,7 +209,7 @@ final class Places {
 		$background = (string) apply_filters( 'axellcore_atelierclub_places_logo', $background );
 		$file       = self::LOGOS[ $background ] ?? self::LOGOS['dark'];
 		return sprintf(
-			'<img class="aa-places-logo" src="%s" alt="Google Maps" width="98" height="18" translate="no" decoding="async">',
+			'<img class="aa-places-logo" src="%s" alt="Google Maps" width="87" height="16" translate="no" decoding="async">',
 			esc_url( AXELLCORE_ATELIERCLUB_URL . $file )
 		);
 	}
