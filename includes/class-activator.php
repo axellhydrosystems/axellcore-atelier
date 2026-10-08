@@ -117,7 +117,11 @@ final class Activator {
 	 * @param array{path:string,title:string,template:string} $page Page entry.
 	 */
 	private static function create_descendant( array $page ) {
-		$full = self::landing_path() . '/' . $page['path'];
+		$base = self::landing_path();
+		if ( '' === $base ) {
+			return;
+		}
+		$full = $base . '/' . $page['path'];
 		if ( get_page_by_path( $full, OBJECT, 'page' ) instanceof \WP_Post ) {
 			return;
 		}
@@ -236,7 +240,8 @@ final class Activator {
 	 * @param string $content Block markup from content/pages/{path}.html.
 	 */
 	private static function sync_page( $path, $content ) {
-		$page = get_page_by_path( self::landing_path() . '/' . $path, OBJECT, 'page' );
+		$base = self::landing_path();
+		$page = '' === $base ? null : get_page_by_path( $base . '/' . $path, OBJECT, 'page' );
 		if ( ! $page instanceof \WP_Post || '' === $content || $content === $page->post_content ) {
 			return;
 		}
@@ -265,25 +270,23 @@ final class Activator {
 
 	/**
 	 * Path of the Atelier page (its slug can change, see Settings::page()),
-	 * which the pages under it are looked up by.
+	 * which the pages under it are looked up by; '' without one.
 	 *
 	 * @return string
 	 */
 	private static function landing_path() {
 		$page = Settings::page();
-		return $page ? get_page_uri( $page ) : self::PAGE_SLUG;
+		return $page ? (string) get_page_uri( $page ) : '';
 	}
 
 	/**
-	 * Create the Atelier page if there is none yet, and remember it.
+	 * On the first activation (the setting never existed): create the
+	 * Atelier page and choose it. Once set, even to none, activation leaves
+	 * it alone.
 	 */
 	private static function create_page() {
-		if ( Settings::page() ) {
-			return;
-		}
-		$page_id = self::create_landing();
-		if ( $page_id ) {
-			Settings::set_page_id( $page_id );
+		if ( Settings::never_configured() ) {
+			Settings::set_page_id( self::create_landing() );
 		}
 	}
 

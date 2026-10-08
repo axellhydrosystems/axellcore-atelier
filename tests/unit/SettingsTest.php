@@ -37,21 +37,29 @@ final class SettingsTest extends TestCase {
 		$this->assertSame( 12, Settings::page()->ID );
 	}
 
-	public function test_without_a_choice_page_is_the_atelier_slug_and_never_the_global_post(): void {
-		Functions\when( 'get_option' )->justReturn( array() );
-		// get_post( 0 ) would return the post being viewed.
+	public function test_without_a_choice_there_is_no_page(): void {
+		Functions\when( 'get_option' )->justReturn( array( 'page_id' => 0 ) );
+		// get_post( 0 ) would return the post being viewed; no guess by slug either.
 		Functions\expect( 'get_post' )->never();
-		Functions\when( 'get_page_by_path' )->justReturn( new \WP_Post( array( 'ID' => 5, 'post_name' => 'atelier' ) ) );
-		// Remembered, so a new slug later keeps it the Atelier page.
-		Functions\expect( 'update_option' )->once()->with( Settings::OPTION, array( 'page_id' => 5 ) );
+		Functions\expect( 'get_page_by_path' )->never();
 
-		$this->assertSame( 5, Settings::page()->ID );
+		$this->assertNull( Settings::page() );
+		$this->assertFalse( Settings::never_configured() );
 	}
 
-	public function test_a_trashed_choice_falls_back_to_the_slug(): void {
+	public function test_never_configured_until_the_page_setting_exists(): void {
+		Functions\when( 'get_option' )->justReturn( false );
+		$this->assertTrue( Settings::never_configured() );
+
+		Functions\when( 'get_option' )->justReturn( array( 'pending_on_create' => true ) );
+		$this->assertTrue( Settings::never_configured() );
+		$this->assertNull( Settings::page() );
+	}
+
+	public function test_a_trashed_choice_is_no_page(): void {
 		Functions\when( 'get_option' )->justReturn( array( 'page_id' => 12 ) );
 		Functions\when( 'get_post' )->justReturn( new \WP_Post( array( 'ID' => 12, 'post_status' => 'trash' ) ) );
-		Functions\when( 'get_page_by_path' )->justReturn( null );
+		Functions\expect( 'get_page_by_path' )->never();
 
 		$this->assertNull( Settings::page() );
 	}

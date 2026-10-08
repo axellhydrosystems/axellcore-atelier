@@ -385,7 +385,7 @@ msgstr "Atelier — Cabeçalho"
 msgid "Atelier — Footer"
 msgstr "Atelier — Rodapé"
 
-#: includes/class-activator.php:304
+#: includes/class-activator.php:307
 #: includes/class-icons.php:73
 msgid "Atelier Axell Club"
 msgstr "Atelier Axell Club"
@@ -476,7 +476,7 @@ msgstr "Brasil"
 #: includes/class-member.php:123
 #: includes/class-member.php:124
 #: includes/class-member.php:135
-#: includes/class-settings.php:177
+#: includes/class-settings.php:188
 msgid "Members"
 msgstr "Membros"
 
@@ -1782,7 +1782,7 @@ msgstr "Escritório"
 msgid "Practice"
 msgstr "Atuação"
 
-#: includes/class-settings.php:225
+#: includes/class-settings.php:236
 #: build/admin/members/index.js:175
 msgid "View"
 msgstr "Ver"
@@ -1875,7 +1875,7 @@ msgstr "Site"
 msgid "Date"
 msgstr "Data"
 
-#: includes/class-settings.php:223
+#: includes/class-settings.php:234
 #: build/admin/resellers/index.js:175
 msgid "Edit"
 msgstr "Editar"
@@ -2356,24 +2356,24 @@ msgstr "Controle de formulário (Estado)"
 msgid "https://github.com/axellhydrosystems/axellcore-atelierclub"
 msgstr "https://github.com/axellhydrosystems/axellcore-atelierclub"
 
-#: includes/class-settings.php:144
-#: includes/class-settings.php:251
+#: includes/class-settings.php:155
+#: includes/class-settings.php:262
 msgid "Atelier settings"
 msgstr "Configurações do Atelier"
 
-#: includes/class-settings.php:145
+#: includes/class-settings.php:156
 msgid "Settings"
 msgstr "Configurações"
 
-#: includes/class-settings.php:181
+#: includes/class-settings.php:192
 msgid "New members"
 msgstr "Novos membros"
 
-#: includes/class-settings.php:242
+#: includes/class-settings.php:253
 msgid "Create new members as pending"
 msgstr "Criar novos membros como pendentes"
 
-#: includes/class-settings.php:243
+#: includes/class-settings.php:254
 msgid "When on, an application creates a pending member who waits for approval. When off, it creates the member already approved."
 msgstr "Quando ligado, uma solicitação cria um membro pendente, que aguarda aprovação. Quando desligado, cria o membro já aprovado."
 
@@ -2416,38 +2416,38 @@ msgstr "Este CPF já está cadastrado."
 msgid "Atelier Club"
 msgstr "Atelier Club"
 
-#: includes/class-settings.php:166
+#: includes/class-settings.php:177
 msgid "Page"
 msgstr "Página"
 
-#: includes/class-settings.php:170
+#: includes/class-settings.php:181
 msgid "Atelier page"
 msgstr "Página do Atelier"
 
-#: includes/class-settings.php:214
+#: includes/class-settings.php:225
 msgid "— Select —"
 msgstr "— Selecione —"
 
-#: includes/class-settings.php:230
-msgid "The page of the Atelier landing: its slug can change. With a block theme, use the Atelier Club template on it."
-msgstr "A página da landing do Atelier: o slug dela pode mudar. Com um tema de blocos, use nela o modelo Atelier Club."
-
-#: includes/class-settings.php:267
+#: includes/class-settings.php:278
 msgid "Create Atelier page"
 msgstr "Criar página do Atelier"
 
-#: includes/class-settings.php:268
+#: includes/class-settings.php:279
 msgid "Creates a page with the Atelier landing content and makes it the Atelier page."
 msgstr "Cria uma página com o conteúdo da landing do Atelier e a define como a página do Atelier."
 
-#: includes/class-settings.php:277
+#: includes/class-settings.php:288
 msgid "Sorry, you are not allowed to do that."
 msgstr "Você não tem permissão para fazer isso."
 
-#: includes/class-settings.php:283
+#: includes/class-settings.php:294
 msgid "Atelier page created."
 msgstr "Página do Atelier criada."
 
-#: includes/class-settings.php:285
+#: includes/class-settings.php:296
 msgid "Could not create the Atelier page."
 msgstr "Não foi possível criar a página do Atelier."
+
+#: includes/class-settings.php:241
+msgid "The page of the Atelier landing: its slug can change. With a block theme, use the Atelier Club template on it. Empty, no page is the Atelier page."
+msgstr "A página da landing do Atelier: o slug dela pode mudar. Com um tema de blocos, use nela o modelo Atelier Club. Vazio, nenhuma página é a do Atelier."

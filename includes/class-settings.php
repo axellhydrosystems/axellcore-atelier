@@ -39,7 +39,7 @@ final class Settings {
 	const DEFAULTS = array(
 		// New members wait for approval (role member_pending).
 		'pending_on_create' => true,
-		// The Atelier page; 0 = the page with Activator::PAGE_SLUG.
+		// The Atelier page; 0 = none.
 		'page_id'           => 0,
 	);
 
@@ -82,9 +82,10 @@ final class Settings {
 	}
 
 	/**
-	 * The Atelier page: the one chosen in the settings, else (installs from
-	 * before the setting) the page with Activator::PAGE_SLUG. Its slug can
-	 * change; everything that needs the page asks here.
+	 * The Atelier page: the one chosen in Atelier > Settings, or null when
+	 * none is (the setting may be empty: then no page is the Atelier page,
+	 * nothing is guessed from slugs or IDs). Its slug can change; everything
+	 * that needs the page asks here.
 	 *
 	 * @return \WP_Post|null
 	 */
@@ -95,15 +96,18 @@ final class Settings {
 		if ( $page instanceof \WP_Post && 'page' === $page->post_type && 'trash' !== $page->post_status ) {
 			return $page;
 		}
-		$page = get_page_by_path( Activator::PAGE_SLUG, OBJECT, 'page' );
-		if ( ! $page instanceof \WP_Post ) {
-			return null;
-		}
-		if ( ! $page_id ) {
-			// Remember it, so renaming the page later keeps it the Atelier page.
-			self::set_page_id( $page->ID );
-		}
-		return $page;
+		return null;
+	}
+
+	/**
+	 * Whether the Atelier page was never set (activation then creates one).
+	 * An empty choice saved later counts as set.
+	 *
+	 * @return bool
+	 */
+	public static function never_configured() {
+		$values = get_option( self::OPTION, false );
+		return ! is_array( $values ) || ! array_key_exists( 'page_id', $values );
 	}
 
 	/**
@@ -234,7 +238,7 @@ final class Settings {
 		}
 		printf(
 			'<p class="description">%s</p>',
-			esc_html__( 'The page of the Atelier landing: its slug can change. With a block theme, use the Atelier Club template on it.', 'axellcore-atelierclub' )
+			esc_html__( 'The page of the Atelier landing: its slug can change. With a block theme, use the Atelier Club template on it. Empty, no page is the Atelier page.', 'axellcore-atelierclub' )
 		);
 	}
 
