@@ -75,14 +75,54 @@ final class Design_Tokens {
 	private function __construct() {}
 
 	/**
+	 * Whether this request may use the Atelier colors and fonts: the admin
+	 * (any block editor), REST, AJAX and WP-CLI always; the front end only on
+	 * an Atelier page (see detect_atelier()).
+	 *
+	 * @var bool
+	 */
+	private $in_scope = false;
+
+	/**
 	 * Hook the theme.json filter.
 	 */
 	public function register_hooks() {
 		add_filter( 'wp_theme_json_data_theme', array( $this, 'add_palette' ) );
 		add_filter( 'wp_theme_json_data_default', array( $this, 'add_font_families' ) );
+		// Before Classic_Styles (10), which builds the page's styles on wp.
+		add_action( 'wp', array( $this, 'detect_atelier' ), 5 );
+		add_action( 'rest_api_init', array( $this, 'enter_scope' ) );
 		add_action( 'init', array( $this, 'register_block_styles' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_text_rendering' ) );
 		add_filter( 'wp_preload_resources', array( $this, 'preload_fonts' ) );
+	}
+
+	/**
+	 * On the front end, once the query is known: an Atelier page gets the
+	 * Atelier colors and fonts, other pages never do.
+	 */
+	public function detect_atelier() {
+		if ( self::is_atelier_page() ) {
+			$this->enter_scope();
+		}
+	}
+
+	/**
+	 * Use the Atelier colors and fonts from here on, dropping theme.json data
+	 * computed without them earlier in the request.
+	 */
+	public function enter_scope() {
+		$this->in_scope = true;
+		wp_clean_theme_json_cache();
+	}
+
+	/**
+	 * Whether the Atelier colors and fonts apply to this request.
+	 *
+	 * @return bool
+	 */
+	private function in_scope() {
+		return $this->in_scope || is_admin() || wp_doing_ajax() || ( defined( 'WP_CLI' ) && WP_CLI );
 	}
 
 	/**
@@ -242,6 +282,9 @@ final class Design_Tokens {
 	 * @return \WP_Theme_JSON_Data
 	 */
 	public function add_palette( $theme_json ) {
+		if ( ! $this->in_scope() ) {
+			return $theme_json;
+		}
 		$data    = $theme_json->get_data();
 		$palette = $data['settings']['color']['palette'] ?? array();
 		$palette = isset( $palette['theme'] ) ? $palette['theme'] : $palette;
@@ -273,6 +316,9 @@ final class Design_Tokens {
 	 * @return \WP_Theme_JSON_Data
 	 */
 	public function add_font_families( $theme_json ) {
+		if ( ! $this->in_scope() ) {
+			return $theme_json;
+		}
 		$data     = $theme_json->get_data();
 		$families = $data['settings']['typography']['fontFamilies'] ?? array();
 		$families = isset( $families['default'] ) ? $families['default'] : $families;
