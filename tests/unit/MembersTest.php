@@ -179,7 +179,7 @@ final class MembersTest extends TestCase {
 
 		$result = Members::instance()->create_from_params( $params );
 
-		$this->assertSame( 'aa_invalid_document', $result->get_error_code() );
+		$this->assertSame( 'aa_invalid_cpf', $result->get_error_code() );
 		$this->assertSame( 400, $result->get_error_data()['status'] );
 	}
 
@@ -191,7 +191,7 @@ final class MembersTest extends TestCase {
 
 		$result = Members::instance()->create_from_params( $params );
 
-		$this->assertSame( 'aa_invalid_document', $result->get_error_code() );
+		$this->assertSame( 'aa_invalid_cnpj', $result->get_error_code() );
 	}
 
 	public function test_registered_document_is_rejected_with_409(): void {
@@ -206,7 +206,7 @@ final class MembersTest extends TestCase {
 
 		$result = Members::instance()->create_from_params( $this->valid_params() );
 
-		$this->assertSame( 'aa_document_exists', $result->get_error_code() );
+		$this->assertSame( 'aa_cpf_exists', $result->get_error_code() );
 		$this->assertSame( array( 'status' => 409, 'field' => 'br_revenue_id' ), $result->get_error_data() );
 	}
 

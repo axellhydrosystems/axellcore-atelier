@@ -99,6 +99,44 @@ final class Document {
 	}
 
 	/**
+	 * Type of a value: the given one, else by length (more than 11 is a CNPJ).
+	 *
+	 * @param string $value Typed or normalized value.
+	 * @param string $type  'cpf', 'cnpj' or ''.
+	 * @return string 'cpf' or 'cnpj'.
+	 */
+	public static function type_for( $value, $type = '' ) {
+		if ( 'cpf' === $type || 'cnpj' === $type ) {
+			return $type;
+		}
+		return strlen( self::normalize( $value ) ) > 11 ? 'cnpj' : 'cpf';
+	}
+
+	/**
+	 * Error code and message of an invalid document of a type.
+	 *
+	 * @param string $type 'cpf' or 'cnpj'.
+	 * @return array{0:string,1:string}
+	 */
+	public static function invalid_error( $type ) {
+		return 'cnpj' === $type
+			? array( 'aa_invalid_cnpj', __( 'Invalid CNPJ.', 'axellcore-atelierclub' ) )
+			: array( 'aa_invalid_cpf', __( 'Invalid CPF.', 'axellcore-atelierclub' ) );
+	}
+
+	/**
+	 * Error code and message of a document of a type already registered.
+	 *
+	 * @param string $type 'cpf' or 'cnpj'.
+	 * @return array{0:string,1:string}
+	 */
+	public static function registered_error( $type ) {
+		return 'cnpj' === $type
+			? array( 'aa_cnpj_exists', __( 'This CNPJ is already registered.', 'axellcore-atelierclub' ) )
+			: array( 'aa_cpf_exists', __( 'This CPF is already registered.', 'axellcore-atelierclub' ) );
+	}
+
+	/**
 	 * Mod-11 check digit shared by CPF and CNPJ.
 	 *
 	 * @param int[] $values  Values.

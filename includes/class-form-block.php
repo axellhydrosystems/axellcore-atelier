@@ -105,10 +105,11 @@ final class Form_Block {
 		wp_interactivity_state(
 			'axell/document',
 			array(
-				'documentUrl' => rest_url( Rest::NAMESPACE . '/document' ),
-				'invalidCpf'  => __( 'Invalid CPF.', 'axellcore-atelierclub' ),
-				'invalidCnpj' => __( 'Invalid CNPJ.', 'axellcore-atelierclub' ),
-				'registered'  => __( 'This CPF/CNPJ is already registered.', 'axellcore-atelierclub' ),
+				'documentUrl'    => rest_url( Rest::NAMESPACE . '/document' ),
+				'invalidCpf'     => Document::invalid_error( 'cpf' )[1],
+				'invalidCnpj'    => Document::invalid_error( 'cnpj' )[1],
+				'registeredCpf'  => Document::registered_error( 'cpf' )[1],
+				'registeredCnpj' => Document::registered_error( 'cnpj' )[1],
 			)
 		);
 

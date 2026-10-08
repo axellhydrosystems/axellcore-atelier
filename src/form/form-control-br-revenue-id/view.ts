@@ -45,7 +45,8 @@ interface DocumentServerState {
 	documentUrl: string;
 	invalidCpf: string;
 	invalidCnpj: string;
-	registered: string;
+	registeredCpf: string;
+	registeredCnpj: string;
 }
 const serverState = (): DocumentServerState =>
 	state as unknown as DocumentServerState;
@@ -111,7 +112,11 @@ const { state } = store( 'axell/document', {
 					: {};
 				// Only for the value checked: the visitor may have typed since.
 				if ( result.exists && input.value.trim() === value ) {
-					input.setCustomValidity( server.registered );
+					input.setCustomValidity(
+						type === 'cnpj'
+							? server.registeredCnpj
+							: server.registeredCpf
+					);
 				}
 			} catch {
 				// Offline or rate limited: the server checks again on submit.

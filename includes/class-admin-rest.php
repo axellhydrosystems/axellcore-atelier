@@ -265,12 +265,14 @@ final class Admin_Rest {
 
 		if ( isset( $params['br_revenue_id'] ) ) {
 			$document = Document::normalize( $this->param_string( $params, 'br_revenue_id' ) );
-			$type     = Document::type_of( isset( $params['profile_type'] ) ? $this->param_string( $params, 'profile_type' ) : $this->meta( $user->ID, 'profile_type' ) );
+			$type     = Document::type_for( $document, Document::type_of( isset( $params['profile_type'] ) ? $this->param_string( $params, 'profile_type' ) : $this->meta( $user->ID, 'profile_type' ) ) );
 			if ( '' !== $document && ! Document::is_valid( $document, $type ) ) {
-				return new \WP_Error( 'aa_invalid_document', __( 'Invalid CPF/CNPJ.', 'axellcore-atelierclub' ), array( 'status' => 400 ) );
+				list( $code, $message ) = Document::invalid_error( $type );
+				return new \WP_Error( $code, $message, array( 'status' => 400 ) );
 			}
 			if ( '' !== $document && Members::document_exists( $document, $user->ID ) ) {
-				return new \WP_Error( 'aa_document_exists', __( 'This CPF/CNPJ is already registered.', 'axellcore-atelierclub' ), array( 'status' => 409 ) );
+				list( $code, $message ) = Document::registered_error( $type );
+				return new \WP_Error( $code, $message, array( 'status' => 409 ) );
 			}
 			$this->store_meta( $user->ID, 'br_revenue_id', $document );
 		}

@@ -217,9 +217,11 @@ final class Members {
 			}
 		}
 
-		$document = Document::normalize( (string) $params['br_revenue_id'] );
-		if ( ! Document::is_valid( $document, Document::type_of( (string) $params['profile_type'] ) ) ) {
-			return self::field_error( 'aa_invalid_document', __( 'Invalid CPF/CNPJ.', 'axellcore-atelierclub' ), 'br_revenue_id' );
+		$document      = Document::normalize( (string) $params['br_revenue_id'] );
+		$document_type = Document::type_for( $document, Document::type_of( (string) $params['profile_type'] ) );
+		if ( ! Document::is_valid( $document, $document_type ) ) {
+			list( $code, $message ) = Document::invalid_error( $document_type );
+			return self::field_error( $code, $message, 'br_revenue_id' );
 		}
 
 		foreach ( self::RESELLER_FIELDS as $field ) {
@@ -233,7 +235,8 @@ final class Members {
 			return self::field_error( 'aa_email_exists', __( 'This e-mail is already registered.', 'axellcore-atelierclub' ), 'email', 409 );
 		}
 		if ( self::document_exists( $document ) ) {
-			return self::field_error( 'aa_document_exists', __( 'This CPF/CNPJ is already registered.', 'axellcore-atelierclub' ), 'br_revenue_id', 409 );
+			list( $code, $message ) = Document::registered_error( $document_type );
+			return self::field_error( $code, $message, 'br_revenue_id', 409 );
 		}
 
 		$fullname = sanitize_text_field( $params['fullname'] );
@@ -474,10 +477,12 @@ final class Members {
 			'aa_invalid_location' => __( 'Invalid state/city.', 'axellcore-atelierclub' ),
 			'aa_invalid_phone'    => __( 'Enter a phone number with area code.', 'axellcore-atelierclub' ),
 			'aa_invalid_postal'   => __( 'Enter a CEP with 8 digits.', 'axellcore-atelierclub' ),
-			'aa_invalid_document' => __( 'Invalid CPF/CNPJ.', 'axellcore-atelierclub' ),
+			'aa_invalid_cpf'      => Document::invalid_error( 'cpf' )[1],
+			'aa_invalid_cnpj'     => Document::invalid_error( 'cnpj' )[1],
 			'aa_invalid_reseller' => __( 'Choose a reseller from the list.', 'axellcore-atelierclub' ),
 			'aa_email_exists'     => __( 'This e-mail is already registered.', 'axellcore-atelierclub' ),
-			'aa_document_exists'  => __( 'This CPF/CNPJ is already registered.', 'axellcore-atelierclub' ),
+			'aa_cpf_exists'       => Document::registered_error( 'cpf' )[1],
+			'aa_cnpj_exists'      => Document::registered_error( 'cnpj' )[1],
 			'aa_rate_limited'     => __( 'Too many attempts. Try again in a few minutes.', 'axellcore-atelierclub' ),
 		);
 	}
