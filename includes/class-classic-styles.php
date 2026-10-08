@@ -91,6 +91,119 @@ final class Classic_Styles {
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue' ), PHP_INT_MAX );
 		add_action( 'wp_print_styles', array( $this, 'dequeue_foreign' ), PHP_INT_MAX );
 		add_action( 'wp_print_footer_scripts', array( $this, 'dequeue_foreign' ), 1 );
+		add_action( 'load-post.php', array( $this, 'activate_in_editor' ) );
+		add_filter( 'block_editor_settings_all', array( $this, 'editor_settings' ), PHP_INT_MAX, 2 );
+		add_action( 'enqueue_block_assets', array( $this, 'dequeue_foreign_editor_styles' ), PHP_INT_MAX );
+	}
+
+	/**
+	 * Editing the Atelier page under a classic theme: the same block theme
+	 * environment as its front end, so the canvas shows it as it renders.
+	 */
+	public function activate_in_editor() {
+		$post = get_post( isset( $_GET['post'] ) ? absint( $_GET['post'] ) : 0 ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Only picks the editor's styles.
+		if ( wp_is_block_theme() || ! self::is_atelier_post( $post ) ) {
+			return;
+		}
+		$this->active = true;
+		wp_clean_theme_json_cache();
+		// Core's layout and margins for themes without theme.json (840px
+		// blocks, 28px margins, 8px canvas padding): an empty style keeps
+		// wp-edit-blocks' dependency on it satisfied.
+		wp_deregister_style( 'wp-editor-classic-layout-styles' );
+		wp_register_style( 'wp-editor-classic-layout-styles', false, array(), AXELLCORE_ATELIERCLUB_VERSION );
+	}
+
+	/**
+	 * Whether a post is the Atelier landing page.
+	 *
+	 * @param \WP_Post|null $post Post.
+	 * @return bool
+	 */
+	private static function is_atelier_post( $post ) {
+		return $post instanceof \WP_Post && 'page' === $post->post_type && Activator::PAGE_SLUG === $post->post_name && 0 === (int) $post->post_parent;
+	}
+
+	/**
+	 * The editor's settings for the Atelier page: layout support, as with a
+	 * theme.json (otherwise groups get an inner container and no layout),
+	 * and the canvas styles of the front end: the full global stylesheet
+	 * and Twenty Twenty-Five's rules, without the Customizer CSS and the
+	 * classic theme's editor styles.
+	 *
+	 * @param array                    $settings Editor settings.
+	 * @param \WP_Block_Editor_Context $context  Editor context.
+	 * @return array
+	 */
+	public function editor_settings( $settings, $context ) {
+		if ( ! $this->active || ! isset( $context->post ) || ! self::is_atelier_post( $context->post ) ) {
+			return $settings;
+		}
+		$settings['supportsLayout'] = true;
+		// What core gives a block theme (wp_get_post_content_block_attributes()):
+		// the layout and gap of the template's Post Content, for the canvas root.
+		$attributes = self::post_content_attributes();
+		if ( $attributes ) {
+			$settings['postContentAttributes'] = $attributes;
+		}
+
+		$styles = array();
+		foreach ( (array) ( $settings['styles'] ?? array() ) as $style ) {
+			if ( empty( $style['isGlobalStyles'] ) ) {
+				continue;
+			}
+			if ( 'theme' === ( $style['__unstableType'] ?? '' ) ) {
+				$style['css'] = \WP_Theme_JSON_Resolver::get_merged_data()->get_stylesheet( array( 'styles' ), array( 'default', 'theme', 'custom' ) );
+			}
+			$styles[] = $style;
+		}
+		$styles[]           = array(
+			'css'            => (string) file_get_contents( AXELLCORE_ATELIERCLUB_PATH . self::THEME_CSS ) // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+				// The canvas shows the post alone (post-only mode) and gives
+				// its root the theme's root padding; on the page the template's
+				// Post Content has none.
+				. '.is-root-container.has-global-padding{padding-left:0;padding-right:0}'
+				. '.is-root-container.has-global-padding>.alignfull{margin-left:0;margin-right:0}'
+				// The text rendering the page gets from Design_Tokens.
+				. Design_Tokens::TEXT_RENDERING_CSS,
+			'__unstableType' => 'theme',
+			'isGlobalStyles' => false,
+		);
+		$settings['styles'] = $styles;
+		return $settings;
+	}
+
+	/**
+	 * Attributes of the Post Content block in the plugin's page template.
+	 *
+	 * @return array|null
+	 */
+	private static function post_content_attributes() {
+		$blocks = parse_blocks( (string) file_get_contents( AXELLCORE_ATELIERCLUB_PATH . 'templates/' . Plugin::TEMPLATE_SLUG . '.html' ) ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+		while ( $blocks ) {
+			$block = array_shift( $blocks );
+			if ( 'core/post-content' === $block['blockName'] ) {
+				return $block['attrs'];
+			}
+			$blocks = array_merge( $block['innerBlocks'], $blocks );
+		}
+		return null;
+	}
+
+	/**
+	 * In the editor of the Atelier page, the stylesheets of the theme and of
+	 * other plugins stay out of the canvas (the editor's own scripts stay).
+	 */
+	public function dequeue_foreign_editor_styles() {
+		if ( ! $this->active || ! is_admin() ) {
+			return;
+		}
+		wp_dequeue_style( 'classic-theme-styles' );
+		foreach ( wp_styles()->queue as $handle ) {
+			if ( ! self::is_own( wp_styles(), $handle ) ) {
+				wp_dequeue_style( $handle );
+			}
+		}
 	}
 
 	/**
