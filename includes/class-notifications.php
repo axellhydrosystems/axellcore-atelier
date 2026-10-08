@@ -122,7 +122,7 @@ final class Notifications {
 					/* translators: {fullname} and the other {placeholders} are replaced when sending; keep them as they are. */
 					'subject' => __( 'New membership application: {fullname}', 'axellcore-atelierclub' ),
 					'heading' => __( 'New membership application', 'axellcore-atelierclub' ),
-					'body'    => __( "A new application to {atelier_name} has arrived.\n\nName: {fullname}\nCompany: {company}\nE-mail: {email}\nPhone: {phone}\nRegistration (CAU / CREA / ABD): {professional_registration}\nMain practice: {primary_focus}\nPortfolio (URL): {url}\n\nRegistration type: {profile_type}\n{document_label}: {document}\n\nStreet: {address_street}\nNumber: {address_number}\nAddress line 2: {address_2}\nNeighborhood: {neighborhood}\nLandmark: {landmark}\nCity: {state} {city}\nPostal code: {postal}\n\nPartner stores:\n{stores}\n\nReview the application: {member_admin_url}", 'axellcore-atelierclub' ),
+					'body'    => __( "A new application to {atelier_name} has arrived.\n\nName: {fullname}\nCompany: {company}\nE-mail: {email}\nPhone: {phone}\nRegistration (CAU / CREA / ABD): {professional_registration}\nMain practice: {primary_focus}\nPortfolio (URL): {url}\n\nRegistration type: {profile_type}\n{document_label}: {document}\n\nStreet: {address_street}\nNumber: {address_number}\nAddress line 2: {address_2}\nNeighborhood: {neighborhood}\nLandmark: {landmark}\nCity: {state} {city}\nPostal code: {postal}\n\nPartner stores:\n{stores}\n\nConsent (LGPD):\n{consent}\n\nReview the application: {member_admin_url}", 'axellcore-atelierclub' ),
 				);
 			case 'member_pending':
 				return array(
@@ -356,6 +356,7 @@ final class Notifications {
 			'{city}'                      => __( 'City', 'axellcore-atelierclub' ),
 			'{postal}'                    => __( 'Postal code', 'axellcore-atelierclub' ),
 			'{stores}'                    => __( 'Partner stores, one per line', 'axellcore-atelierclub' ),
+			'{consent}'                   => __( 'Consent (LGPD): when, IP, page and the text accepted', 'axellcore-atelierclub' ),
 			'{member_admin_url}'          => __( 'The member on Atelier > Members (team e-mail)', 'axellcore-atelierclub' ),
 			'{atelier_name}'              => __( 'Atelier name', 'axellcore-atelierclub' ),
 			'{atelier_url}'               => __( 'The Atelier page', 'axellcore-atelierclub' ),
@@ -398,6 +399,7 @@ final class Notifications {
 			'{city}'                      => Members::get( $user_id, 'city' ),
 			'{postal}'                    => Format::postcode( Members::get( $user_id, 'postal' ) ),
 			'{stores}'                    => implode( "\n", $stores ),
+			'{consent}'                   => Members::consent_summary( $user_id ),
 		);
 		// An empty field reads as a dash ("Landmark: —").
 		$vars = array_map( static fn( $value ) => '' !== trim( (string) $value ) ? (string) $value : '—', $vars );

@@ -70,7 +70,7 @@ final class Members_Export {
 	 * @return array<string,string>
 	 */
 	public static function columns() {
-		$columns              = array(
+		$columns                 = array(
 			'id'                        => 'ID',
 			'status'                    => __( 'Status', 'axellcore-atelierclub' ),
 			'registered'                => __( 'Submitted on', 'axellcore-atelierclub' ),
@@ -94,7 +94,9 @@ final class Members_Export {
 			'landmark'                  => __( 'Landmark', 'axellcore-atelierclub' ),
 			'postal'                    => __( 'Postal code', 'axellcore-atelierclub' ),
 		);
-		$columns['resellers'] = __( 'Partner stores', 'axellcore-atelierclub' );
+		$columns['resellers']    = __( 'Partner stores', 'axellcore-atelierclub' );
+		$columns['consent_at']   = __( 'Consent on', 'axellcore-atelierclub' );
+		$columns['consent_text'] = __( 'Consent text', 'axellcore-atelierclub' );
 		return $columns;
 	}
 
@@ -431,6 +433,8 @@ final class Members_Export {
 		$values['resellers']     = self::join_values(
 			array_map( array( Members::class, 'reseller_title' ), Members::reseller_ids( $user->ID ) )
 		);
+		$values['consent_at']    = Members::consent_when( $user->ID );
+		$values['consent_text']  = Members::consent( $user->ID )['text'];
 
 		$row = array();
 		foreach ( $columns as $id ) {

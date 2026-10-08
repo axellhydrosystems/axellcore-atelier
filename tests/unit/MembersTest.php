@@ -21,6 +21,9 @@ final class MembersTest extends TestCase {
 		Functions\when( '__' )->returnArg( 1 );
 		// Settings saved: none (reCAPTCHA on, but without keys it does nothing).
 		Functions\when( 'get_option' )->justReturn( array() );
+		// The consent record (Members::record_consent()).
+		Functions\when( 'sanitize_textarea_field' )->alias( 'trim' );
+		Functions\when( 'esc_url_raw' )->returnArg( 1 );
 	}
 
 	protected function tearDown(): void {

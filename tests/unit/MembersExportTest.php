@@ -88,6 +88,8 @@ final class MembersExportTest extends TestCase {
 		$this->assertNotContains( 'login', $defaults );
 		$this->assertNotContains( 'country', $defaults );
 		$this->assertSame( 'fullname', $defaults[1] );
-		$this->assertSame( 'resellers', end( $defaults ) );
+		$this->assertContains( 'resellers', $defaults );
+		// The consent (LGPD) closes the row: when, and the text accepted.
+		$this->assertSame( array( 'consent_at', 'consent_text' ), array_slice( $defaults, -2 ) );
 	}
 }

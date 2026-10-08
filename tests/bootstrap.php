@@ -45,6 +45,7 @@ require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-format.php';
 require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-members.php';
 require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-settings.php';
 require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-recaptcha.php';
+require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-form-submission.php';
 require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-places.php';
 require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-enhanced-select.php';
 require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-admin-rest.php';

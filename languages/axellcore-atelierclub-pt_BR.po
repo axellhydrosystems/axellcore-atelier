@@ -182,6 +182,8 @@ msgstr "Variante"
 msgid "Default"
 msgstr "Padrão"
 
+#: includes/class-member-profile.php:463
+#: build/admin/members/index.js:184
 #: build/form/form-input/index.js:1
 #: includes/blocks/form/form-input/index.js:350
 msgid "Consent (LGPD)"
@@ -485,24 +487,24 @@ msgid "Members"
 msgstr "Membros"
 
 #. translators: %s: form field name.
-#: includes/class-members.php:237
+#: includes/class-members.php:253
 #, php-format
 msgid "Missing required field: %s"
 msgstr "Campo obrigatório ausente: %s"
 
 #: includes/class-admin-rest.php:271
-#: includes/class-members.php:245
-#: includes/class-members.php:775
+#: includes/class-members.php:261
+#: includes/class-members.php:880
 #: includes/class-resellers-rest.php:374
 msgid "Invalid email address."
 msgstr "Endereço de e-mail inválido."
 
-#: includes/class-members.php:386
-#: includes/class-members.php:776
+#: includes/class-members.php:408
+#: includes/class-members.php:881
 msgid "Invalid state/city."
 msgstr "Estado/cidade inválido."
 
-#: includes/class-members.php:322
+#: includes/class-members.php:338
 msgid "Could not save your application."
 msgstr "Não foi possível salvar seu cadastro."
 
@@ -947,8 +949,8 @@ msgstr "Formulário não encontrado."
 msgid "Arrow"
 msgstr "Seta"
 
-#: includes/class-members.php:680
 #: includes/class-members.php:785
+#: includes/class-members.php:890
 #: includes/class-places.php:597
 #: includes/class-rest.php:183
 msgid "Too many attempts. Try again in a few minutes."
@@ -1431,8 +1433,8 @@ msgid "Channels"
 msgstr "Canais"
 
 #: includes/class-admin-rest.php:275
-#: includes/class-members.php:298
-#: includes/class-members.php:782
+#: includes/class-members.php:314
+#: includes/class-members.php:887
 msgid "This e-mail is already registered."
 msgstr "Este e-mail já está cadastrado."
 
@@ -1503,12 +1505,12 @@ msgid "Member (user)"
 msgstr "Membro (usuário)"
 
 #. translators: %s: date and time of the submission.
-#: includes/class-form-submission.php:306
+#: includes/class-form-submission.php:348
 #, php-format
 msgid "Form submission %s"
 msgstr "Envio de formulário %s"
 
-#: includes/class-form-submission.php:353
+#: includes/class-form-submission.php:395
 msgid "New form submission"
 msgstr "Novo envio de formulário"
 
@@ -1531,7 +1533,7 @@ msgid "Pending Member"
 msgstr "Membro Pendente"
 
 #: includes/class-member.php:430
-#: includes/class-members-export.php:130
+#: includes/class-members-export.php:132
 msgid "Export"
 msgstr "Exportar"
 
@@ -1619,99 +1621,99 @@ msgstr "CEP"
 msgid "Partner stores"
 msgstr "Lojas parceiras"
 
-#: includes/class-members-export.php:118
+#: includes/class-members-export.php:120
 #: build/admin/members/index.js:184
 msgid "Individual · CPF"
 msgstr "Pessoa Física · CPF"
 
-#: includes/class-members-export.php:119
+#: includes/class-members-export.php:121
 #: build/admin/members/index.js:184
 msgid "Company · CNPJ"
 msgstr "Pessoa Jurídica · CNPJ"
 
-#: includes/class-members-export.php:129
-#: includes/class-members-export.php:178
+#: includes/class-members-export.php:131
+#: includes/class-members-export.php:180
 msgid "Export members"
 msgstr "Exportar membros"
 
-#: includes/class-members-export.php:164
+#: includes/class-members-export.php:166
 msgid "Something went wrong. Please try again."
 msgstr "Ocorreu um erro. Tente novamente."
 
-#: includes/class-members-export.php:175
+#: includes/class-members-export.php:177
 msgid "You do not have permission to access this page."
 msgstr "Você não tem permissão para acessar esta página."
 
-#: includes/class-members-export.php:180
+#: includes/class-members-export.php:182
 msgid "Export members to a CSV file"
 msgstr "Exportar membros para um arquivo CSV"
 
-#: includes/class-members-export.php:181
+#: includes/class-members-export.php:183
 msgid "Generates and downloads a CSV file with the list of members."
 msgstr "Gera e baixa um arquivo CSV com a lista de membros."
 
-#: includes/class-members-export.php:188
+#: includes/class-members-export.php:190
 msgid "Which columns to export?"
 msgstr "Quais colunas exportar?"
 
-#: includes/class-members-export.php:188
+#: includes/class-members-export.php:190
 msgid "Export the default columns"
 msgstr "Exportar as colunas padrão"
 
-#: includes/class-members-export.php:189
+#: includes/class-members-export.php:191
 msgid "Which statuses to export?"
 msgstr "Quais status exportar?"
 
-#: includes/class-members-export.php:189
+#: includes/class-members-export.php:191
 msgid "Export all statuses"
 msgstr "Exportar todos os status"
 
-#: includes/class-members-export.php:190
+#: includes/class-members-export.php:192
 msgid "Registered since"
 msgstr "Cadastrados desde"
 
-#: includes/class-members-export.php:192
+#: includes/class-members-export.php:194
 msgid "Includes the chosen day. Empty exports from the first registration. To export only the new ones, choose the day of the last export (registrations of that day may repeat)."
 msgstr "Inclui o dia escolhido. Vazio exporta desde o primeiro cadastro. Para exportar só os novos, escolha o dia da última exportação (cadastros desse dia podem se repetir)."
 
-#: includes/class-members-export.php:194
+#: includes/class-members-export.php:196
 msgid "Which states to export?"
 msgstr "Quais UFs exportar?"
 
-#: includes/class-members-export.php:194
+#: includes/class-members-export.php:196
 msgid "Export all states"
 msgstr "Exportar todas as UFs"
 
-#: includes/class-members-export.php:195
+#: includes/class-members-export.php:197
 msgid "Which cities to export?"
 msgstr "Quais cidades exportar?"
 
-#: includes/class-members-export.php:195
+#: includes/class-members-export.php:197
 msgid "Export all cities"
 msgstr "Exportar todas as cidades"
 
-#: includes/class-members-export.php:197
+#: includes/class-members-export.php:199
 msgid "Which practices to export?"
 msgstr "Quais atuações exportar?"
 
-#: includes/class-members-export.php:197
+#: includes/class-members-export.php:199
 msgid "Export all practices"
 msgstr "Exportar todas as atuações"
 
-#: includes/class-members-export.php:201
+#: includes/class-members-export.php:203
 msgid "Generate CSV"
 msgstr "Gerar CSV"
 
-#: includes/class-members-export.php:265
-#: includes/class-members-export.php:546
+#: includes/class-members-export.php:267
+#: includes/class-members-export.php:550
 msgid "You do not have permission to do this."
 msgstr "Você não tem permissão para fazer isso."
 
-#: includes/class-members-export.php:275
+#: includes/class-members-export.php:277
 msgid "The export expired. Start again."
 msgstr "A exportação expirou. Comece de novo."
 
-#: includes/class-members-export.php:552
+#: includes/class-members-export.php:556
 msgid "The export file is no longer available."
 msgstr "O arquivo da exportação não está mais disponível."
 
@@ -1772,7 +1774,7 @@ msgstr "Editar revenda"
 msgid "States"
 msgstr "Estados"
 
-#: includes/class-member-profile.php:551
+#: includes/class-member-profile.php:555
 #: includes/class-resellers.php:130
 msgid "Cities"
 msgstr "Cidades"
@@ -1843,7 +1845,7 @@ msgstr "Não foi possível salvar."
 msgid "Pending curation"
 msgstr "Pendente de curadoria"
 
-#: includes/class-member-profile.php:608
+#: includes/class-member-profile.php:612
 #: build/admin/members/index.js:184
 msgid "Open store"
 msgstr "Abrir loja"
@@ -2378,25 +2380,25 @@ msgstr "CPF inválido."
 msgid "Invalid CNPJ."
 msgstr "CNPJ inválido."
 
-#: includes/class-member-profile.php:700
-#: includes/class-members.php:270
-#: includes/class-members.php:777
+#: includes/class-member-profile.php:704
+#: includes/class-members.php:286
+#: includes/class-members.php:882
 msgid "Enter a phone number with area code."
 msgstr "Informe um telefone com DDD."
 
-#: includes/class-member-profile.php:704
-#: includes/class-members.php:273
-#: includes/class-members.php:778
+#: includes/class-member-profile.php:708
+#: includes/class-members.php:289
+#: includes/class-members.php:883
 msgid "Enter a CEP with 8 digits."
 msgstr "Informe um CEP com 8 dígitos."
 
-#: includes/class-member-profile.php:809
-#: includes/class-members.php:288
-#: includes/class-members.php:781
+#: includes/class-member-profile.php:813
+#: includes/class-members.php:304
+#: includes/class-members.php:886
 msgid "Choose a reseller from the list."
 msgstr "Escolha uma revenda da lista."
 
-#: includes/class-members.php:774
+#: includes/class-members.php:879
 msgid "Fill in the required fields."
 msgstr "Preencha os campos obrigatórios."
 
@@ -2432,7 +2434,7 @@ msgstr "Criar página do Atelier"
 msgid "Creates a page with the Atelier landing content and makes it the Atelier page."
 msgstr "Cria uma página com o conteúdo da landing do Atelier e a define como a página do Atelier."
 
-#: includes/class-notifications.php:577
+#: includes/class-notifications.php:579
 #: includes/class-places.php:323
 #: includes/class-settings.php:1027
 msgid "Sorry, you are not allowed to do that."
@@ -2455,7 +2457,7 @@ msgid "Atelier Page"
 msgstr "Página Atelier"
 
 #. translators: %d: partner store position, 1 to 5.
-#: includes/class-member-profile.php:602
+#: includes/class-member-profile.php:606
 #, php-format
 msgid "Partner store %d"
 msgstr "Loja parceira %d"
@@ -3460,15 +3462,15 @@ msgstr "Zâmbia"
 msgid "Zimbabwe"
 msgstr "Zimbábue"
 
-#: includes/class-member-profile.php:606
+#: includes/class-member-profile.php:610
 msgid "Pending curation."
 msgstr "Pendente de curadoria."
 
-#: includes/class-member-profile.php:610
+#: includes/class-member-profile.php:614
 msgid "Remove"
 msgstr "Remover"
 
-#: includes/class-member-profile.php:708
+#: includes/class-member-profile.php:712
 msgid "Choose an option from the list."
 msgstr "Escolha uma opção da lista."
 
@@ -3492,22 +3494,22 @@ msgstr "Atelier: Endereço do escritório"
 msgid "Atelier: Partner stores"
 msgstr "Atelier: Lojas parceiras"
 
-#: includes/class-member-profile.php:690
-#: includes/class-members.php:257
+#: includes/class-member-profile.php:694
+#: includes/class-members.php:273
 msgid "Only Brazil is accepted."
 msgstr "Só o Brasil é aceito."
 
 #: includes/class-enhanced-select.php:212
-#: includes/class-member-profile.php:527
+#: includes/class-member-profile.php:531
 msgid "Search"
 msgstr "Buscar"
 
 #: includes/class-enhanced-select.php:236
-#: includes/class-member-profile.php:528
+#: includes/class-member-profile.php:532
 msgid "No matches found"
 msgstr "Nenhum resultado encontrado"
 
-#: includes/class-member-profile.php:600
+#: includes/class-member-profile.php:604
 msgid "Store name · city"
 msgstr "Nome da loja · cidade"
 
@@ -3563,7 +3565,7 @@ msgctxt "WooCommerce field"
 msgid "Postcode / ZIP"
 msgstr "CEP"
 
-#: includes/class-members.php:293
+#: includes/class-members.php:309
 msgid "Enter the store as \"Name - UF City\"."
 msgstr "Informe a loja como \"Nome - UF Cidade\"."
 
@@ -3682,27 +3684,27 @@ msgstr "E-mail"
 msgid "Partner stores, one per line"
 msgstr "Lojas parceiras, uma por linha"
 
-#: includes/class-notifications.php:359
+#: includes/class-notifications.php:360
 msgid "The member on Atelier > Members (team e-mail)"
 msgstr "O membro em Atelier > Membros (e-mail da equipe)"
 
-#: includes/class-notifications.php:361
+#: includes/class-notifications.php:362
 msgid "The Atelier page"
 msgstr "A página do Atelier"
 
-#: includes/class-notifications.php:362
+#: includes/class-notifications.php:363
 msgid "Site name"
 msgstr "Nome do site"
 
-#: includes/class-notifications.php:363
+#: includes/class-notifications.php:364
 msgid "Site address"
 msgstr "Endereço do site"
 
-#: includes/class-notifications.php:364
+#: includes/class-notifications.php:365
 msgid "Today's date"
 msgstr "Data de hoje"
 
-#: includes/class-notifications.php:582
+#: includes/class-notifications.php:584
 msgid "Unknown e-mail."
 msgstr "E-mail desconhecido."
 
@@ -3834,60 +3836,6 @@ msgstr "Imagem (por padrão, o logo do Atelier)"
 msgid "Use the default"
 msgstr "Usar o padrão"
 
-#: includes/class-notifications.php:125
-msgid ""
-"A new application to {atelier_name} has arrived.\n"
-"\n"
-"Name: {fullname}\n"
-"Company: {company}\n"
-"E-mail: {email}\n"
-"Phone: {phone}\n"
-"Registration (CAU / CREA / ABD): {professional_registration}\n"
-"Main practice: {primary_focus}\n"
-"Portfolio (URL): {url}\n"
-"\n"
-"Registration type: {profile_type}\n"
-"{document_label}: {document}\n"
-"\n"
-"Street: {address_street}\n"
-"Number: {address_number}\n"
-"Address line 2: {address_2}\n"
-"Neighborhood: {neighborhood}\n"
-"Landmark: {landmark}\n"
-"City: {state} {city}\n"
-"Postal code: {postal}\n"
-"\n"
-"Partner stores:\n"
-"{stores}\n"
-"\n"
-"Review the application: {member_admin_url}"
-msgstr ""
-"Chegou uma nova solicitação de adesão ao {atelier_name}.\n"
-"\n"
-"Nome: {fullname}\n"
-"Empresa: {company}\n"
-"E-mail: {email}\n"
-"Telefone: {phone}\n"
-"Registro (CAU / CREA / ABD): {professional_registration}\n"
-"Atuação principal: {primary_focus}\n"
-"Portfólio (URL): {url}\n"
-"\n"
-"Tipo de cadastro: {profile_type}\n"
-"{document_label}: {document}\n"
-"\n"
-"Logradouro: {address_street}\n"
-"Número: {address_number}\n"
-"Complemento: {address_2}\n"
-"Bairro: {neighborhood}\n"
-"Referência: {landmark}\n"
-"Cidade: {state} {city}\n"
-"CEP: {postal}\n"
-"\n"
-"Lojas parceiras:\n"
-"{stores}\n"
-"\n"
-"Analise a solicitação: {member_admin_url}"
-
 #: includes/class-notifications.php:131
 msgid ""
 "Hello, {first_name}.\n"
@@ -3917,12 +3865,12 @@ msgctxt "Atelier name"
 msgid "Atelier Axell"
 msgstr "Atelier Axell"
 
-#: includes/class-notifications.php:360
+#: includes/class-notifications.php:361
 #: includes/class-settings.php:219
 msgid "Atelier name"
 msgstr "Nome do Atelier"
 
-#: includes/class-members.php:732
+#: includes/class-members.php:837
 msgid "Enter a valid address, such as https://yoursite.com.br."
 msgstr "Informe um endereço válido, como https://seusite.com.br."
 
@@ -3997,15 +3945,15 @@ msgstr "Aprovar membro"
 msgid "This application is pending approval."
 msgstr "Este cadastro está pendente de aprovação."
 
-#: includes/class-member-profile.php:457
+#: includes/class-member-profile.php:459
 msgid "Atelier: Status"
 msgstr "Atelier: Status"
 
-#: includes/class-member-profile.php:458
+#: includes/class-member-profile.php:460
 msgid "Membership"
 msgstr "Adesão"
 
-#: includes/class-members.php:786
+#: includes/class-members.php:891
 msgid "We could not confirm you are not a robot. Please try again."
 msgstr "Não foi possível confirmar que você não é um robô. Tente novamente."
 
@@ -4170,3 +4118,86 @@ msgstr "Buscando endereços…"
 #: includes/class-places.php:257
 msgid "No address found."
 msgstr "Nenhum endereço encontrado."
+
+#: includes/class-member-profile.php:464
+#: build/admin/members/index.js:184
+msgid "Not recorded (application sent before the consent was recorded)."
+msgstr "Não registrado (cadastro enviado antes do registro do consentimento)."
+
+#: includes/class-members-export.php:98
+msgid "Consent on"
+msgstr "Consentimento em"
+
+#: includes/class-members-export.php:99
+msgid "Consent text"
+msgstr "Texto do consentimento"
+
+#. translators: 1: date and time, 2: IP address, 3: page address.
+#: includes/class-members.php:603
+#, php-format
+msgid "Accepted on %1$s, IP %2$s, at %3$s"
+msgstr "Aceito em %1$s, IP %2$s, em %3$s"
+
+#: includes/class-notifications.php:125
+msgid ""
+"A new application to {atelier_name} has arrived.\n"
+"\n"
+"Name: {fullname}\n"
+"Company: {company}\n"
+"E-mail: {email}\n"
+"Phone: {phone}\n"
+"Registration (CAU / CREA / ABD): {professional_registration}\n"
+"Main practice: {primary_focus}\n"
+"Portfolio (URL): {url}\n"
+"\n"
+"Registration type: {profile_type}\n"
+"{document_label}: {document}\n"
+"\n"
+"Street: {address_street}\n"
+"Number: {address_number}\n"
+"Address line 2: {address_2}\n"
+"Neighborhood: {neighborhood}\n"
+"Landmark: {landmark}\n"
+"City: {state} {city}\n"
+"Postal code: {postal}\n"
+"\n"
+"Partner stores:\n"
+"{stores}\n"
+"\n"
+"Consent (LGPD):\n"
+"{consent}\n"
+"\n"
+"Review the application: {member_admin_url}"
+msgstr ""
+"Chegou uma nova solicitação de adesão ao {atelier_name}.\n"
+"\n"
+"Nome: {fullname}\n"
+"Empresa: {company}\n"
+"E-mail: {email}\n"
+"Telefone: {phone}\n"
+"Registro (CAU / CREA / ABD): {professional_registration}\n"
+"Atuação principal: {primary_focus}\n"
+"Portfólio (URL): {url}\n"
+"\n"
+"Tipo de cadastro: {profile_type}\n"
+"{document_label}: {document}\n"
+"\n"
+"Logradouro: {address_street}\n"
+"Número: {address_number}\n"
+"Complemento: {address_2}\n"
+"Bairro: {neighborhood}\n"
+"Referência: {landmark}\n"
+"Cidade: {state} {city}\n"
+"CEP: {postal}\n"
+"\n"
+"Lojas parceiras:\n"
+"{stores}\n"
+"\n"
+"Consentimento (LGPD):\n"
+"{consent}\n"
+"\n"
+"Analise a solicitação: {member_admin_url}"
+
+#: includes/class-notifications.php:359
+msgid "Consent (LGPD): when, IP, page and the text accepted"
+msgstr "Consentimento (LGPD): quando, IP, página e o texto aceito"

@@ -452,12 +452,16 @@ final class Member_Profile {
 			$button = sprintf( '<button type="button" class="button" disabled>%s</button>', esc_html__( 'Pending', 'axellcore-atelierclub' ) );
 			$help   = __( 'This application is pending approval.', 'axellcore-atelierclub' );
 		}
+		// The consent given on the form (LGPD), as recorded; read-only.
+		$consent = Members::consent_summary( $user->ID );
 		printf(
-			'<h2>%1$s</h2><table class="form-table" id="fieldset-aa-status" role="presentation"><tr><th scope="row">%2$s</th><td>%3$s<p class="description">%4$s</p></td></tr></table>',
+			'<h2>%1$s</h2><table class="form-table" id="fieldset-aa-status" role="presentation"><tr><th scope="row">%2$s</th><td>%3$s<p class="description">%4$s</p></td></tr><tr><th scope="row">%5$s</th><td><p class="aa-member-consent">%6$s</p></td></tr></table>',
 			esc_html__( 'Atelier: Status', 'axellcore-atelierclub' ),
 			esc_html__( 'Membership', 'axellcore-atelierclub' ),
 			$button, // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped above.
-			esc_html( $help )
+			esc_html( $help ),
+			esc_html__( 'Consent (LGPD)', 'axellcore-atelierclub' ),
+			'' !== $consent ? nl2br( esc_html( $consent ) ) : esc_html__( 'Not recorded (application sent before the consent was recorded).', 'axellcore-atelierclub' )
 		);
 	}
 

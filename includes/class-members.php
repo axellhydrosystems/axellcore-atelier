@@ -144,6 +144,21 @@ final class Members {
 	);
 
 	/**
+	 * The consent (LGPD) given on the form, as user meta: when (UTC), the
+	 * text accepted and its links (as the saved form had them), the address
+	 * and the page it was given from.
+	 *
+	 * @var array<string,string>
+	 */
+	const CONSENT_META = array(
+		'at'    => 'aa_consent_at',
+		'text'  => 'aa_consent_text',
+		'links' => 'aa_consent_links',
+		'ip'    => 'aa_consent_ip',
+		'url'   => 'aa_consent_url',
+	);
+
+	/**
 	 * Singleton instance.
 	 *
 	 * @var Members|null
@@ -181,8 +196,8 @@ final class Members {
 				if ( self::STORE !== $post_type ) {
 					return $handler;
 				}
-				return static function ( array $fields ) {
-					$result = Members::instance()->create_from_params( $fields );
+				return static function ( array $fields, array $settings = array() ) {
+					$result = Members::instance()->create_from_params( $fields, (array) ( $settings['consent'] ?? array() ) );
 					return is_wp_error( $result ) ? $result : (int) $result['id'];
 				};
 			},
@@ -219,16 +234,17 @@ final class Members {
 			return $limited;
 		}
 
-		return $this->create_from_params( $params );
+		return $this->create_from_params( $params, array( 'ip' => (string) $ip ) );
 	}
 
 	/**
 	 * Validate and store one application.
 	 *
 	 * @param array $params Submitted fields.
+	 * @param array $consent Terms of the consent given (record_consent()); none on the REST path.
 	 * @return array|\WP_Error Array with the new member ID, or an error.
 	 */
-	public function create_from_params( array $params ) {
+	public function create_from_params( array $params, array $consent = array() ) {
 		foreach ( self::REQUIRED_FIELDS as $field ) {
 			if ( empty( $params[ $field ] ) ) {
 				return self::field_error(
@@ -354,6 +370,12 @@ final class Members {
 			$ids[] = $store['id'] ? $store['id'] : (int) apply_filters( 'axellcore_atelierclub_reseller_text', 0, $store['title'] );
 		}
 		self::set_reseller_ids( $user_id, $ids );
+
+		// The consent box is required: its record goes with the member, before
+		// the e-mails (the team's shows it).
+		if ( ! empty( $params['consent'] ) ) {
+			self::record_consent( (int) $user_id, $consent );
+		}
 
 		/**
 		 * A member was created from the form (the e-mails go out here).
@@ -508,6 +530,89 @@ final class Members {
 		} else {
 			delete_user_meta( $user_id, self::RESELLER_META );
 		}
+	}
+
+	/**
+	 * Record a member's consent: now (UTC) and the terms given (text, links,
+	 * address, page).
+	 *
+	 * @param int                 $user_id Member.
+	 * @param array<string,mixed> $consent { text, links (string[]), ip, url }.
+	 */
+	public static function record_consent( $user_id, array $consent ) {
+		update_user_meta( $user_id, self::CONSENT_META['at'], gmdate( 'Y-m-d H:i:s' ) );
+		$values = array(
+			'text'  => sanitize_textarea_field( (string) ( $consent['text'] ?? '' ) ),
+			'links' => implode( "\n", array_map( 'esc_url_raw', (array) ( $consent['links'] ?? array() ) ) ),
+			'ip'    => sanitize_text_field( (string) ( $consent['ip'] ?? '' ) ),
+			'url'   => esc_url_raw( (string) ( $consent['url'] ?? '' ) ),
+		);
+		foreach ( $values as $key => $value ) {
+			if ( '' !== $value ) {
+				update_user_meta( $user_id, self::CONSENT_META[ $key ], $value );
+			}
+		}
+	}
+
+	/**
+	 * A member's consent record; 'at' is empty when none was recorded
+	 * (members from before it was).
+	 *
+	 * @param int $user_id Member.
+	 * @return array{at:string,text:string,links:string[],ip:string,url:string}
+	 */
+	public static function consent( $user_id ) {
+		$meta  = static fn( $key ) => (string) get_user_meta( $user_id, self::CONSENT_META[ $key ], true );
+		$links = '' !== $meta( 'links' ) ? explode( "\n", $meta( 'links' ) ) : array();
+		return array(
+			'at'    => $meta( 'at' ),
+			'text'  => $meta( 'text' ),
+			'links' => $links,
+			'ip'    => $meta( 'ip' ),
+			'url'   => $meta( 'url' ),
+		);
+	}
+
+	/**
+	 * When the member consented, in the site's date and time formats and
+	 * timezone; '' when not recorded.
+	 *
+	 * @param int $user_id Member.
+	 * @return string
+	 */
+	public static function consent_when( $user_id ) {
+		$at = self::consent( $user_id )['at'];
+		return '' === $at ? '' : (string) wp_date( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), (int) strtotime( $at . ' UTC' ) );
+	}
+
+	/**
+	 * The consent as text, for the team e-mail and the screens: when, from
+	 * where, the text accepted and its links. '' when not recorded.
+	 *
+	 * @param int $user_id Member.
+	 * @return string
+	 */
+	public static function consent_summary( $user_id ) {
+		$consent = self::consent( $user_id );
+		if ( '' === $consent['at'] ) {
+			return '';
+		}
+		$lines = array(
+			sprintf(
+				/* translators: 1: date and time, 2: IP address, 3: page address. */
+				__( 'Accepted on %1$s, IP %2$s, at %3$s', 'axellcore-atelierclub' ),
+				self::consent_when( $user_id ),
+				'' !== $consent['ip'] ? $consent['ip'] : '—',
+				'' !== $consent['url'] ? $consent['url'] : '—'
+			),
+		);
+		if ( '' !== $consent['text'] ) {
+			$lines[] = '“' . $consent['text'] . '”';
+		}
+		foreach ( $consent['links'] as $link ) {
+			$lines[] = $link;
+		}
+		return implode( "\n", $lines );
 	}
 
 	/**

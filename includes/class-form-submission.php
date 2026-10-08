@@ -139,6 +139,12 @@ final class Form_Submission {
 			'id'      => 0,
 		);
 
+		// The consent's terms as the saved form shows them (never the request's).
+		$settings['consent'] = self::consent_terms( $form ) + array(
+			'ip'  => (string) $ip,
+			'url' => (string) get_permalink( absint( $params['post_id'] ?? 0 ) ),
+		);
+
 		if ( '' !== $settings['storePostType'] ) {
 			$stored = self::store( $settings, $fields );
 			if ( is_wp_error( $stored ) ) {
@@ -247,6 +253,42 @@ final class Form_Submission {
 			'emailTo'       => (string) ( $attrs['emailTo'] ?? '' ),
 			'emailSubject'  => (string) ( $attrs['emailSubject'] ?? '' ),
 			'emailBody'     => (string) ( $attrs['emailBody'] ?? '' ),
+		);
+	}
+
+	/**
+	 * The consent checkbox's text and links in a saved form (the field named
+	 * "consent"): what the visitor read and accepted.
+	 *
+	 * @param array $block Parsed form block.
+	 * @return array{text:string,links:string[]}
+	 */
+	public static function consent_terms( array $block ) {
+		$html = (string) ( $block['innerHTML'] ?? '' );
+		if ( false !== strpos( $html, 'name="consent"' ) && preg_match( '#<label[^>]*>(.*?)</label>#s', $html, $label ) ) {
+			preg_match_all( '#href="([^"]*)"#', $label[1], $hrefs );
+			$text = html_entity_decode( wp_strip_all_tags( $label[1] ), ENT_QUOTES, 'UTF-8' );
+			return array(
+				'text'  => trim( (string) preg_replace( '/\s+/u', ' ', $text ) ),
+				'links' => array_values(
+					array_filter(
+						$hrefs[1],
+						static function ( $href ) {
+							return '' !== $href && '#' !== $href;
+						}
+					)
+				),
+			);
+		}
+		foreach ( (array) ( $block['innerBlocks'] ?? array() ) as $inner ) {
+			$terms = self::consent_terms( (array) $inner );
+			if ( '' !== $terms['text'] ) {
+				return $terms;
+			}
+		}
+		return array(
+			'text'  => '',
+			'links' => array(),
 		);
 	}
 

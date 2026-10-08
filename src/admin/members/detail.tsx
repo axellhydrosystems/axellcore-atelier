@@ -74,6 +74,18 @@ export default function MemberDetailView( {
 	const fields: Field< Draft >[] = useMemo(
 		() => [
 			{
+				id: 'consent',
+				readOnly: true,
+				label: __( 'Consent (LGPD)', 'axellcore-atelierclub' ),
+				type: 'text',
+				getValue: ( { item } ) =>
+					item.consent ||
+					__(
+						'Not recorded (application sent before the consent was recorded).',
+						'axellcore-atelierclub'
+					),
+			},
+			{
 				id: 'fullname',
 				readOnly: true,
 				label: __( 'Full name', 'axellcore-atelierclub' ),
@@ -292,6 +304,7 @@ export default function MemberDetailView( {
 		fields: [
 			card( 'status', __( 'Registration', 'axellcore-atelierclub' ), [
 				row( 'status-1', [ 'status', 'data' ] ),
+				'consent',
 			] ),
 			card( 'autoria', __( 'Authorship', 'axellcore-atelierclub' ), [
 				row( 'autoria-1', [ 'fullname', 'company' ] ),

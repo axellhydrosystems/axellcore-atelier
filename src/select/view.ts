@@ -100,11 +100,28 @@ const filtered = ( context: SelectContext ): Item[] => {
 	if ( ! query ) {
 		return context.items;
 	}
-	return context.items.filter(
-		( item ) =>
-			fold( textOf( context, item ) ).includes( query ) ||
-			( context.kind === 'uf' && fold( item.value ).startsWith( query ) )
-	);
+	// Best first: the UF itself ("sp"), a UF that starts so, a name that
+	// starts so, then a name that has it ("sp" never puts Espírito Santo
+	// before São Paulo). -1: no match.
+	const rank = ( item: Item ) => {
+		const text = fold( textOf( context, item ) );
+		const code = context.kind === 'uf' ? fold( item.value ) : '';
+		if ( code === query ) {
+			return 0;
+		}
+		if ( code && code.startsWith( query ) ) {
+			return 1;
+		}
+		if ( text.startsWith( query ) ) {
+			return 2;
+		}
+		return text.includes( query ) ? 3 : -1;
+	};
+	return context.items
+		.map( ( item, index ) => ( { item, index, rank: rank( item ) } ) )
+		.filter( ( entry ) => entry.rank >= 0 )
+		.sort( ( a, b ) => a.rank - b.rank || a.index - b.index )
+		.map( ( entry ) => entry.item );
 };
 
 const nativeOf = ( box: Element | null | undefined ) =>
