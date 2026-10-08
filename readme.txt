@@ -18,6 +18,18 @@ The Atelier Axell Club landing (`/atelier`) built from native WordPress blocks: 
 
 == Changelog ==
 
+= 0.4.0 =
+* Atelier > Settings: choose the Atelier page (its slug can change), on tabs (General, Members, E-mails) in the WooCommerce mold.
+* Member fields on the user edit and profile screens, in the application form's order, as WooCommerce's customer fields: saved all or nothing (the screen refilled with the error highlighted), masks for phone, CEP and CPF/CNPJ, searchable selects for state, main practice, profile type and country, city autocomplete, partner stores chosen from the resellers.
+* Member data in WooCommerce's billing keys: first and last name, phone as +55 and digits, CEP and document without masks, country Brazil only. The profile type is inferred from the document; the main practice is stored by its label; partner stores as reseller_ids, a store typed as text becoming a pending reseller.
+* Approval: "Approve" in the users' list (row and bulk) and an "Atelier: Status" group on the profile, whose "Approve member" saves the screen and approves, if there is no error.
+* Access: a pending member can never log in or reset the password; a member reaches the dashboard only when "Allow members to log in to the dashboard" is on. The member role has a subscriber's capabilities. No "Switch To" a blocked user.
+* Transactional e-mails (new application to the team, application pending, member created, membership approved), on by default, with subject, heading and text editable with placeholders, saved only when they differ from the site language's default. HTML template in the WooCommerce mold and the Atelier's colors, light or dark with the device, with a header logo (none, the site's or a custom one; the bundled Atelier logo by default) and its width, the Atelier name and a description.
+* Portfolio address: https:// added when typed without it, refused when not valid, on the form, the profile and the Members screen.
+* Application form: a store typed but not chosen stops the submission.
+* No other plugins' notices on the users', resellers' and Settings > General screens.
+* Design tokens and the Reveal stylesheet only on the Atelier pages; page caches purged when the plugin changes what pages show.
+
 = 0.3.0 =
 * Runs on a classic theme with page builders (hello-elementor, Elementor, JetEngine, Weglot, Yoast), as on production: /atelier and its editor render as on the block theme the bases were approved on (Twenty Twenty-Five's theme.json and the saved Site Editor styles, layout support, the template's Post Content, no theme or page builder assets, popups or "Edit with Elementor" switch), at 0.00% against the bases on the page and in the editor.
 * Header and footer editable as template parts in a classic theme (Appearance > Template Parts), the page rendering the saved parts.
