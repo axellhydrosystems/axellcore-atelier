@@ -1,8 +1,9 @@
 <?php
 /**
- * The Atelier admin screens without other plugins' and the theme's notices
- * (promotions, rating requests, onboarding): WordPress's and this plugin's
- * notices stay.
+ * The Atelier admin screens and the block editor without other plugins'
+ * and the theme's notices (promotions, rating requests, onboarding):
+ * WordPress's and this plugin's notices stay. In the block editor they
+ * showed for a moment before the editor replaced them.
  *
  * @package Axellcore_Atelierclub
  */
@@ -61,30 +62,39 @@ final class Admin_Notices {
 	}
 
 	/**
-	 * On an Atelier screen, unhook the notices not from WordPress or this plugin.
+	 * On an Atelier screen or in the block editor, unhook the notices not
+	 * from WordPress or this plugin.
 	 */
 	public function remove_foreign() {
-		$page = isset( $_GET['page'] ) ? sanitize_key( wp_unslash( $_GET['page'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Only picks the screen.
-		if ( ! in_array( $page, self::PAGES, true ) ) {
+		$page   = isset( $_GET['page'] ) ? sanitize_key( wp_unslash( $_GET['page'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Only picks the screen.
+		$screen = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
+		if ( ! in_array( $page, self::PAGES, true ) && ! ( $screen && $screen->is_block_editor() ) ) {
 			return;
 		}
-		$keep = array(
+		$keep    = array(
 			wp_normalize_path( ABSPATH . 'wp-admin/' ),
 			wp_normalize_path( ABSPATH . 'wp-includes/' ),
 			wp_normalize_path( AXELLCORE_ATELIERCLUB_PATH ),
 		);
-		foreach ( self::HOOKS as $hook ) {
-			Callbacks::remove(
-				$hook,
-				static function ( $file ) use ( $keep ) {
-					foreach ( $keep as $dir ) {
-						if ( 0 === strpos( $file, $dir ) ) {
-							return false;
-						}
-					}
-					return true;
+		$foreign = static function ( $file ) use ( $keep ) {
+			foreach ( $keep as $dir ) {
+				if ( 0 === strpos( $file, $dir ) ) {
+					return false;
 				}
-			);
+			}
+			return true;
+		};
+		foreach ( self::HOOKS as $hook ) {
+			Callbacks::remove( $hook, $foreign );
 		}
+		// Some notice libraries also print from the footer (Essential Addons'
+		// in the block editor): only callbacks named like notices, so other
+		// plugins' footer scripts stay.
+		Callbacks::remove(
+			'admin_footer',
+			static function ( $file, $callback ) use ( $foreign ) {
+				return $foreign( $file ) && false !== stripos( Callbacks::name( $callback ), 'notice' );
+			}
+		);
 	}
 }

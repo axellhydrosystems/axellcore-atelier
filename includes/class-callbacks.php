@@ -41,10 +41,23 @@ final class Callbacks {
 	}
 
 	/**
+	 * Name of a callback: its class and method, or its function.
+	 *
+	 * @param callable|mixed $callback Callback.
+	 * @return string
+	 */
+	public static function name( $callback ) {
+		if ( is_array( $callback ) && 2 === count( $callback ) ) {
+			return ( is_object( $callback[0] ) ? get_class( $callback[0] ) : (string) $callback[0] ) . '::' . (string) $callback[1];
+		}
+		return is_string( $callback ) ? $callback : '';
+	}
+
+	/**
 	 * Remove the callbacks of a hook that $drop picks by their file.
 	 *
 	 * @param string   $hook Hook name.
-	 * @param callable $drop Receives a callback's file, true to remove it.
+	 * @param callable $drop Receives a callback's file and the callback, true to remove it.
 	 */
 	public static function remove( $hook, callable $drop ) {
 		global $wp_filter;
@@ -54,7 +67,7 @@ final class Callbacks {
 		foreach ( $wp_filter[ $hook ]->callbacks as $priority => $callbacks ) {
 			foreach ( $callbacks as $callback ) {
 				$file = self::file( $callback['function'] );
-				if ( '' !== $file && $drop( $file ) ) {
+				if ( '' !== $file && $drop( $file, $callback['function'] ) ) {
 					remove_action( $hook, $callback['function'], $priority );
 				}
 			}
