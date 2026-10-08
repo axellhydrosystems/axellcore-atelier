@@ -47,6 +47,8 @@ interface PlacesContext {
 	active: number;
 	/** What was typed (a newer input drops an older answer). */
 	typed: string;
+	/** The field's value (bound: a render keeps what was typed or chosen). */
+	value: string;
 	/** Session token: from the first search to the address chosen. */
 	session?: string;
 	/** Waiting for Google's suggestions. */
@@ -84,21 +86,29 @@ const sessionToken = (): string =>
 
 const server = (): PlacesState => state as unknown as PlacesState;
 
-/** The editable field of a name in the form: not hidden, not disabled. */
+/**
+ * The editable field of a name in the form: not hidden, not disabled; or a
+ * select under a button that shows it (the profile's state).
+ *
+ * @param form Form.
+ * @param name Field name.
+ */
 const fieldOf = (
 	form: HTMLFormElement,
 	name: string
-): HTMLInputElement | HTMLSelectElement | undefined =>
-	Array.from(
+): HTMLInputElement | HTMLSelectElement | undefined => {
+	const fields = Array.from(
 		form.querySelectorAll< HTMLInputElement | HTMLSelectElement >(
 			`[name="${ CSS.escape( name ) }"]`
 		)
-	).find(
-		( el ) =>
-			( el as HTMLInputElement ).type !== 'hidden' &&
-			! el.hidden &&
-			! el.disabled
+	).filter(
+		( el ) => ( el as HTMLInputElement ).type !== 'hidden' && ! el.disabled
 	);
+	return (
+		fields.find( ( el ) => ! el.hidden ) ??
+		fields.find( ( el ) => el instanceof HTMLSelectElement )
+	);
+};
 
 /** Set a field as if typed: its input (or change) handlers follow. */
 const setField = (
@@ -130,7 +140,26 @@ const setCity = async ( form: HTMLFormElement, name: string, city: string ) => {
 			'[role="combobox"]:not([disabled])'
 		);
 	if ( ! search ) {
-		setField( fieldOf( form, name ), city );
+		const field = fieldOf( form, name );
+		if ( field?.getAttribute( 'role' ) === 'combobox' && field ) {
+			// A city search of its own (the profile's): typed, so it keeps the
+			// value; once its list opens, leaving it takes the city in full
+			// and closes the list.
+			setField( field, city );
+			for (
+				let waited = 0;
+				waited < CITIES_WAIT_MS &&
+				field.getAttribute( 'aria-expanded' ) !== 'true';
+				waited += 100
+			) {
+				await sleep( 100 );
+			}
+			field.dispatchEvent(
+				new FocusEvent( 'focusout', { bubbles: true } )
+			);
+			return;
+		}
+		setField( field, city );
 		return;
 	}
 	const address = store( 'axell/address' ).state as unknown as {
@@ -147,6 +176,9 @@ const setCity = async ( form: HTMLFormElement, name: string, city: string ) => {
 	setField( search, city );
 	search.dispatchEvent( new FocusEvent( 'focusout', { bubbles: true } ) );
 };
+
+/** The complement an address filled in, by form. */
+const filledComplement = new WeakMap< HTMLFormElement, string >();
 
 /**
  * Fill in the form with an address. The cursor goes to the first of number,
@@ -168,15 +200,21 @@ const fill = async (
 		street.value = address.address_street;
 	}
 	setField( fieldOf( form, fields.number ), address.address_number );
+	// The complement: Google's, or the visitor's own kept; one an earlier
+	// address filled in goes with that address.
+	const complement = fieldOf( form, fields.complement );
 	if ( address.address_2 ) {
-		setField( fieldOf( form, fields.complement ), address.address_2 );
+		setField( complement, address.address_2 );
+	} else if (
+		complement &&
+		complement.value === filledComplement.get( form )
+	) {
+		setField( complement, '' );
 	}
-	if ( address.neighborhood ) {
-		setField( fieldOf( form, fields.neighborhood ), address.neighborhood );
-	}
-	if ( address.postal ) {
-		setField( fieldOf( form, fields.postal ), address.postal );
-	}
+	filledComplement.set( form, address.address_2 );
+	// Neighborhood and CEP belong to the address chosen: empty when it has none.
+	setField( fieldOf( form, fields.neighborhood ), address.neighborhood );
+	setField( fieldOf( form, fields.postal ), address.postal );
 	const next =
 		[ fields.number, fields.complement, fields.neighborhood, fields.postal ]
 			.map( ( name ) => fieldOf( form, name ) )
@@ -219,6 +257,7 @@ const { state } = store( 'axell/places', {
 			const input = event.target as HTMLInputElement;
 			const typed = input.value;
 			context.typed = typed;
+			context.value = typed;
 			context.active = -1;
 			// After choosing, editing the street is just editing: the list
 			// comes back only once the field is cleared.
@@ -384,6 +423,9 @@ function choose( el: HTMLElement, index: number ) {
 		.then(
 			withScope( ( address: Address | null ) => {
 				if ( address ) {
+					// The street field shows the street, also after a render.
+					getContext< PlacesContext >().value =
+						address.address_street;
 					fill( form, fields, address );
 				}
 			} )

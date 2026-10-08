@@ -155,8 +155,31 @@ final class Places {
 		if ( ! $p->next_tag( array( 'tag_name' => 'INPUT' ) ) || self::FORM_FIELDS['street'] !== $p->get_attribute( 'name' ) ) {
 			return $content;
 		}
+		return self::search_field( $content, self::FORM_FIELDS );
+	}
 
-		$list = self::FORM_FIELDS['street'] . '-places';
+	/**
+	 * A street field as a search over Google's addresses: the first input of
+	 * the HTML becomes a combobox, with the list and Google Maps' logo under
+	 * it; choosing an address fills in the fields named in $fields (the
+	 * form's, or the profile's). Unchanged when the suggestions are off.
+	 *
+	 * @param string               $html       HTML with the street input.
+	 * @param array<string,string> $fields     Field names by role (FORM_FIELDS' keys).
+	 * @param string               $background The list's background: dark or light.
+	 * @param string               $modifier   An extra class of the wrapper.
+	 * @return string
+	 */
+	public static function search_field( $html, array $fields, $background = 'dark', $modifier = '' ) {
+		if ( ! self::active() ) {
+			return $html;
+		}
+		$p = new \WP_HTML_Tag_Processor( $html );
+		if ( ! $p->next_tag( array( 'tag_name' => 'INPUT' ) ) ) {
+			return $html;
+		}
+
+		$list = (string) ( $fields['street'] ?? 'street' ) . '-places';
 		foreach ( array(
 			'role'                        => 'combobox',
 			// A combobox: no browser autofill over the suggestions.
@@ -165,6 +188,9 @@ final class Places {
 			'aria-controls'               => $list,
 			'aria-expanded'               => 'false',
 			'data-wp-bind--aria-expanded' => 'state.isOpen',
+			// The value lives in the context: a value set by the server
+			// (the profile's) would come back on every render.
+			'data-wp-bind--value'         => 'context.value',
 			'data-wp-on--input'           => 'actions.search',
 			'data-wp-on--keydown'         => 'actions.keydown',
 		) as $name => $value ) {
@@ -176,7 +202,8 @@ final class Places {
 		wp_interactivity_state( 'axell/places', self::client_state() );
 
 		$context = array(
-			'fields'  => self::FORM_FIELDS,
+			'fields'  => $fields,
+			'value'   => (string) $p->get_attribute( 'value' ),
 			'items'   => array(),
 			'open'    => false,
 			'active'  => -1,
@@ -184,13 +211,15 @@ final class Places {
 			'loading' => false,
 		);
 		return sprintf(
-			'<div class="aa-places-search" data-wp-interactive="axell/places" data-wp-context="%1$s" data-wp-on--focusout="actions.close">%2$s<p class="aa-places-popup aa-places-status" role="status" hidden data-wp-bind--hidden="!state.hasStatus" data-wp-text="state.statusText"></p><div class="aa-places-popup" hidden data-wp-bind--hidden="!state.isOpen"><ul id="%3$s" role="listbox" tabindex="-1" data-wp-on--click="actions.pick" data-wp-on--mousedown="actions.keepFocus" data-wp-watch="callbacks.render"></ul><p class="aa-places-attribution">%4$s</p></div></div>',
+			'<div class="aa-places-search%5$s" data-wp-interactive="axell/places" data-wp-context="%1$s" data-wp-on--focusout="actions.close">%2$s<p class="aa-places-popup aa-places-status" role="status" hidden data-wp-bind--hidden="!state.hasStatus" data-wp-text="state.statusText"></p><div class="aa-places-popup" hidden data-wp-bind--hidden="!state.isOpen"><ul id="%3$s" role="listbox" tabindex="-1" data-wp-on--click="actions.pick" data-wp-on--mousedown="actions.keepFocus" data-wp-watch="callbacks.render"></ul><p class="aa-places-attribution">%4$s</p></div></div>',
 			esc_attr( (string) wp_json_encode( $context ) ),
 			trim( $p->get_updated_html() ),
 			esc_attr( $list ),
-			self::attribution() // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- built escaped.
+			self::attribution( $background ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- built escaped.
+			'' !== $modifier ? ' ' . esc_attr( $modifier ) : ''
 		);
 	}
+
 
 	/**
 	 * Google Maps' attribution, required when its suggestions show without a

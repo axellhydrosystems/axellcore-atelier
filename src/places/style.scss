@@ -69,6 +69,12 @@
 	height: 16px;
 }
 
+/* On the profile: as wide as its field (.regular-text), not the row. */
+:where(.aa-places-search--profile) {
+	display: inline-block;
+	vertical-align: top;
+}
+
 .aa-places-search [hidden] {
 	display: none !important;
 }

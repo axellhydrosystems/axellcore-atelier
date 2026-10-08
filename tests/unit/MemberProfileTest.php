@@ -103,6 +103,8 @@ final class MemberProfileTest extends TestCase {
 		);
 		Functions\when( 'get_users' )->justReturn( array() );
 		Functions\when( 'get_userdata' )->justReturn( false );
+		// Settings saved: none (Google's address suggestions without a key: off).
+		Functions\when( 'get_option' )->justReturn( array() );
 
 		// The singleton keeps the last save (for the form shown after it).
 		$profile = Member_Profile::instance();

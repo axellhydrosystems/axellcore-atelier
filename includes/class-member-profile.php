@@ -384,14 +384,19 @@ final class Member_Profile {
 					}
 					echo '</select>';
 				} else {
-					$mask = (string) ( $field['mask'] ?? '' );
-					printf(
+					$mask  = (string) ( $field['mask'] ?? '' );
+					$input = sprintf(
 						'<input type="text" name="%1$s" id="%1$s" value="%2$s" class="regular-text"%3$s%4$s />',
 						esc_attr( $id ),
 						esc_attr( $this->value( $user->ID, $key ) ),
-						$attrs, // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped above.
-						'' !== $mask ? sprintf( ' inputmode="%s" data-wp-interactive="axell/member-fields" data-wp-on--input="actions.mask" data-mask="%s"', 'document' === $mask ? 'text' : 'numeric', esc_attr( $mask ) ) : '' // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped here.
+						$attrs,
+						'' !== $mask ? sprintf( ' inputmode="%s" data-wp-interactive="axell/member-fields" data-wp-on--input="actions.mask" data-mask="%s"', 'document' === $mask ? 'text' : 'numeric', esc_attr( $mask ) ) : ''
 					);
+					// The street: Google's address suggestions, as on the form (Places).
+					if ( 'address_street' === $key && empty( $field['disabled'] ) ) {
+						$input = Places::search_field( $input, self::address_fields(), 'light', 'aa-places-search--profile' );
+					}
+					echo $input; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped above.
 				}
 				if ( '' !== $error ) {
 					printf( '<p class="description aa-member-error" id="%s-error">%s</p>', esc_attr( $id ), esc_html( $error ) );
@@ -404,6 +409,20 @@ final class Member_Profile {
 			echo '</table>';
 		}
 		$this->print_status( $user );
+	}
+
+	/**
+	 * The profile's address fields, by their role in Places' search.
+	 *
+	 * @return array<string,string>
+	 */
+	private static function address_fields() {
+		return array_map(
+			static function ( $key ) {
+				return self::PREFIX . $key;
+			},
+			Places::FORM_FIELDS
+		);
 	}
 
 	/**
