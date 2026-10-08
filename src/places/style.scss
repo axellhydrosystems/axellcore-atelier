@@ -51,13 +51,21 @@
 	opacity: 0.75;
 }
 
+/* Google Maps' logo, unmodified, with the clear space Google asks for
+   (10px above and on the sides, 5px below), 18px high. */
 :where(.aa-places-attribution) {
+	display: flex;
+	justify-content: flex-end;
 	margin: 0;
-	padding: 0.375em 0.75em;
+	padding: 10px 10px 5px;
 	border-top: 1px solid color-mix(in srgb, currentColor 15%, transparent);
-	font-size: 0.75em;
-	text-align: right;
-	opacity: 0.75;
+	line-height: 0;
+}
+
+:where(.aa-places-logo) {
+	display: block;
+	width: auto;
+	height: 18px;
 }
 
 .aa-places-search [hidden] {

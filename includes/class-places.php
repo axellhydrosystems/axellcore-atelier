@@ -72,6 +72,15 @@ final class Places {
 	);
 
 	/**
+	 * Google Maps' logo, from Google's attribution assets, unmodified: white
+	 * for a dark list, dark gray for a light one (98×18).
+	 */
+	const LOGOS = array(
+		'dark'  => 'assets/places/GoogleMaps_Logo_White.svg',
+		'light' => 'assets/places/GoogleMaps_Logo_DarkGray.svg',
+	);
+
+	/**
 	 * The admin-post action of "Clear address cache".
 	 */
 	const CLEAR_ACTION = 'axellcore_atelierclub_places_clear';
@@ -175,10 +184,32 @@ final class Places {
 			'loading' => false,
 		);
 		return sprintf(
-			'<div class="aa-places-search" data-wp-interactive="axell/places" data-wp-context="%1$s" data-wp-on--focusout="actions.close">%2$s<p class="aa-places-popup aa-places-status" role="status" hidden data-wp-bind--hidden="!state.hasStatus" data-wp-text="state.statusText"></p><div class="aa-places-popup" hidden data-wp-bind--hidden="!state.isOpen"><ul id="%3$s" role="listbox" tabindex="-1" data-wp-on--click="actions.pick" data-wp-on--mousedown="actions.keepFocus" data-wp-watch="callbacks.render"></ul><p class="aa-places-attribution" aria-hidden="true">Google Maps</p></div></div>',
+			'<div class="aa-places-search" data-wp-interactive="axell/places" data-wp-context="%1$s" data-wp-on--focusout="actions.close">%2$s<p class="aa-places-popup aa-places-status" role="status" hidden data-wp-bind--hidden="!state.hasStatus" data-wp-text="state.statusText"></p><div class="aa-places-popup" hidden data-wp-bind--hidden="!state.isOpen"><ul id="%3$s" role="listbox" tabindex="-1" data-wp-on--click="actions.pick" data-wp-on--mousedown="actions.keepFocus" data-wp-watch="callbacks.render"></ul><p class="aa-places-attribution">%4$s</p></div></div>',
 			esc_attr( (string) wp_json_encode( $context ) ),
 			trim( $p->get_updated_html() ),
-			esc_attr( $list )
+			esc_attr( $list ),
+			self::attribution() // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- built escaped.
+		);
+	}
+
+	/**
+	 * Google Maps' attribution, required when its suggestions show without a
+	 * map: its logo, as Google gives it (no change), labelled "Google Maps".
+	 *
+	 * @param string $background The list's background: dark or light.
+	 * @return string
+	 */
+	public static function attribution( $background = 'dark' ) {
+		/**
+		 * The background the address list shows the logo on.
+		 *
+		 * @param string $background dark (the Atelier) or light.
+		 */
+		$background = (string) apply_filters( 'axellcore_atelierclub_places_logo', $background );
+		$file       = self::LOGOS[ $background ] ?? self::LOGOS['dark'];
+		return sprintf(
+			'<img class="aa-places-logo" src="%s" alt="Google Maps" width="98" height="18" translate="no" decoding="async">',
+			esc_url( AXELLCORE_ATELIERCLUB_URL . $file )
 		);
 	}
 
