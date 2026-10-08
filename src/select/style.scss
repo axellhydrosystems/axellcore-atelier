@@ -51,6 +51,16 @@
 		cursor: default;
 		opacity: 0.6;
 	}
+
+	/* Focus as the form's fields: no ring, the line below in bronze. */
+	&:focus {
+		outline: none;
+	}
+
+	&:focus-visible,
+	&[aria-expanded="true"] {
+		border-bottom-color: var(--wp--preset--color--bronze-2, currentColor) !important;
+	}
 }
 
 :where(.aa-select__value) {
@@ -92,6 +102,11 @@
 
 	&::-webkit-search-cancel-button {
 		appearance: none;
+	}
+
+	&:focus {
+		outline: none;
+		border-bottom-color: var(--wp--preset--color--bronze-2, currentColor) !important;
 	}
 }
 

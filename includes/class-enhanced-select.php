@@ -207,7 +207,7 @@ final class Enhanced_Select {
 		);
 		$filter  = $search
 			? sprintf(
-				'<input type="search" class="aa-select__search" role="combobox" aria-autocomplete="list" aria-expanded="true" aria-controls="%1$s-options" aria-label="%2$s" placeholder="%2$s" autocomplete="off" data-wp-bind--value="context.query" data-wp-bind--aria-activedescendant="state.activeId" data-wp-on--input="actions.onSearch"/>',
+				'<input type="search" class="aa-select__search" data-field="search" role="combobox" aria-autocomplete="list" aria-expanded="true" aria-controls="%1$s-options" aria-label="%2$s" placeholder="%2$s" autocomplete="off" data-wp-bind--value="context.query" data-wp-bind--aria-activedescendant="state.activeId" data-wp-on--input="actions.onSearch"/>',
 				esc_attr( $id ),
 				esc_attr__( 'Search', 'axellcore-atelierclub' )
 			)

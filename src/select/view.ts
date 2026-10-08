@@ -248,7 +248,14 @@ const { state } = store( 'axell/select', {
 				( item ) => item.value === context.value
 			);
 			// The element now: getElement() has no scope in a timeout.
+			const popup =
+				box?.querySelector< HTMLElement >( '.aa-select__popup' );
+			popup?.style.removeProperty( 'min-width' );
 			setTimeout( () => {
+				// As wide as the whole list: filtering does not narrow it.
+				if ( popup ) {
+					popup.style.minWidth = `${ popup.offsetWidth }px`;
+				}
 				(
 					box?.querySelector< HTMLElement >( '.aa-select__search' ) ??
 					box?.querySelector< HTMLElement >( '[role="listbox"]' )
@@ -375,13 +382,38 @@ const { state } = store( 'axell/select', {
 			read( context, select );
 
 			// The button looks as the select (the block's or the page's styles).
+			const copyLooks = (
+				from: Element,
+				to: HTMLElement,
+				margins: boolean
+			) => {
+				const looks = getComputedStyle( from );
+				LOOKS.filter(
+					( property ) => margins || ! property.startsWith( 'margin' )
+				).forEach( ( property ) =>
+					to.style.setProperty(
+						property,
+						looks.getPropertyValue( property )
+					)
+				);
+			};
+			copyLooks( select, toggle, true );
+			// A select set in from a side (the custom store's UF on phones)
+			// keeps its width inside the cell.
 			const looks = getComputedStyle( select );
-			LOOKS.forEach( ( property ) =>
-				toggle.style.setProperty(
-					property,
-					looks.getPropertyValue( property )
-				)
-			);
+			const inset = [ 'margin-left', 'margin-right' ]
+				.map( ( side ) => looks.getPropertyValue( side ) )
+				.filter( ( value ) => parseFloat( value ) );
+			if ( inset.length ) {
+				toggle.style.width = `calc(100% - ${ inset.join( ' - ' ) })`;
+				// The list opens under the button, not under the cell.
+				box.querySelector< HTMLElement >(
+					'.aa-select__popup'
+				)?.style.setProperty(
+					'margin-left',
+					looks.getPropertyValue( 'margin-left' )
+				);
+			}
 			// The filter looks as the form's text fields: their classes (with
 			// the block's styles, focus included) and their own style.
 			const filter =
@@ -391,10 +423,10 @@ const { state } = store( 'axell/select', {
 			);
 			if ( filter && field ) {
 				filter.classList.add( ...Array.from( field.classList ) );
-				const style = field.getAttribute( 'style' );
-				if ( style ) {
-					filter.setAttribute( 'style', style );
-				}
+				// Their computed look too: rules of the region the select is in
+				// (the custom store panel's inputs) must not reach the filter.
+				copyLooks( field, filter, false );
+				filter.style.removeProperty( 'height' );
 			}
 			// Named by the select's label.
 			const label = select.id
