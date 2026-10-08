@@ -211,14 +211,16 @@ final class Activator {
 			if ( $id && '' !== $content ) {
 				$content = self::localize( $content );
 				if ( get_post_field( 'post_content', $id ) !== $content ) {
-					kses_remove_filters();
-					wp_update_post(
-						array(
-							'ID'           => $id,
-							'post_content' => wp_slash( $content ),
-						)
+					self::write_trusted(
+						function () use ( $id, $content ) {
+							return wp_update_post(
+								array(
+									'ID'           => $id,
+									'post_content' => wp_slash( $content ),
+								)
+							);
+						}
 					);
-					kses_init_filters();
 				}
 			}
 		}
@@ -238,14 +240,16 @@ final class Activator {
 			return;
 		}
 
-		kses_remove_filters();
-		wp_update_post(
-			array(
-				'ID'           => $page->ID,
-				'post_content' => wp_slash( $content ),
-			)
+		self::write_trusted(
+			function () use ( $page, $content ) {
+				return wp_update_post(
+					array(
+						'ID'           => $page->ID,
+						'post_content' => wp_slash( $content ),
+					)
+				);
+			}
 		);
-		kses_init_filters();
 	}
 
 	/**
@@ -337,7 +341,8 @@ final class Activator {
 	}
 
 	/**
-	 * Calls wp_insert_post(), with KSES bypassed for the duration of the call.
+	 * Calls wp_insert_post() through write_trusted(): no KSES and no block
+	 * CSS stripping for the duration of the call.
 	 *
 	 * All content inserted here is our own bundled, fully-trusted markup
 	 * (never user input) — it includes <select>/<input>/<form> tags that
@@ -349,10 +354,36 @@ final class Activator {
 	 * @return int|\WP_Error
 	 */
 	private static function insert_trusted_content( array $postarr ) {
+		return self::write_trusted(
+			function () use ( $postarr ) {
+				return wp_insert_post( $postarr, true );
+			}
+		);
+	}
+
+	/**
+	 * Runs a write of our bundled block markup without the content filters a
+	 * user without unfiltered_html / edit_css gets: KSES, and (WordPress 7.0+)
+	 * the filter that strips the blocks' `style.css`. Activation from WP-CLI
+	 * and the content syncs on a visitor's request run without such a user.
+	 * Afterwards both are set up again for the current user, as core does.
+	 *
+	 * @param callable $write Performs the write; its result is returned.
+	 * @return mixed
+	 */
+	public static function write_trusted( callable $write ) {
 		kses_remove_filters();
-		$result = wp_insert_post( $postarr, true );
-		kses_init_filters();
-		return $result;
+		if ( function_exists( 'wp_custom_css_remove_filters' ) ) {
+			wp_custom_css_remove_filters();
+		}
+		try {
+			return $write();
+		} finally {
+			kses_init();
+			if ( function_exists( 'wp_custom_css_kses_init' ) ) {
+				wp_custom_css_kses_init();
+			}
+		}
 	}
 
 	/**

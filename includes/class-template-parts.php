@@ -142,16 +142,19 @@ final class Template_Parts {
 			return;
 		}
 
-		// Trusted bundled markup (block CSS, inline icons): no kses, as the
-		// page sync (the request may have no user with unfiltered_html).
-		kses_remove_filters();
-		wp_update_post(
-			array(
-				'ID'           => (int) $template->wp_id,
-				'post_content' => wp_slash( $content ),
-			)
+		// Trusted bundled markup (block CSS, inline icons): no content
+		// filters, as the page sync (the request may have no user with
+		// unfiltered_html or edit_css).
+		Activator::write_trusted(
+			function () use ( $template, $content ) {
+				return wp_update_post(
+					array(
+						'ID'           => (int) $template->wp_id,
+						'post_content' => wp_slash( $content ),
+					)
+				);
+			}
 		);
-		kses_init_filters();
 	}
 
 	/**
