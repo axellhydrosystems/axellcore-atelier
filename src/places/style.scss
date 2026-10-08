@@ -52,12 +52,13 @@
 }
 
 /* Google Maps' logo, unmodified, with the clear space Google asks for
-   (10px above and on the sides, 5px below), 16px high (Google's least). */
+   (10px on every side; Google asks at least 10px above and on the sides,
+   5px below), 16px high (Google's least). */
 :where(.aa-places-attribution) {
 	display: flex;
 	justify-content: flex-end;
 	margin: 0;
-	padding: 10px 10px 5px;
+	padding: 10px;
 	border-top: 1px solid color-mix(in srgb, currentColor 15%, transparent);
 	line-height: 0;
 }
