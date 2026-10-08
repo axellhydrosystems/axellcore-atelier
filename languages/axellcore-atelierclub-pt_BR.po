@@ -38,8 +38,8 @@ msgid "Self-contained canvas for the Atelier Axell Club landing page. No header/
 msgstr "Tela autocontida para a landing page do Atelier Axell Club. Sem partes de template de cabeçalho/rodapé — o conteúdo da página é renderizado sozinho."
 
 #: build/form/form-input/index.js:1
-#: includes/blocks/form/form-control/index.js:57
-#: includes/blocks/form/form-input/index.js:67
+#: includes/blocks/form/form-control/index.js:46
+#: includes/blocks/form/form-input/index.js:55
 msgid "Text"
 msgstr "Texto"
 
@@ -48,22 +48,22 @@ msgstr "Texto"
 #: build/admin/resellers/index.js:175
 #: build/admin/resellers/index.js:184
 #: build/form/form-input/index.js:1
-#: includes/blocks/form/form-control/index.js:58
-#: includes/blocks/form/form-input/index.js:68
+#: includes/blocks/form/form-control/index.js:47
+#: includes/blocks/form/form-input/index.js:56
 msgid "Email"
 msgstr "E-mail"
 
 #: build/form/form-input/index.js:1
-#: includes/blocks/form/form-control/index.js:59
-#: includes/blocks/form/form-input/index.js:69
+#: includes/blocks/form/form-control/index.js:48
+#: includes/blocks/form/form-input/index.js:57
 msgid "URL"
 msgstr "URL"
 
 #: includes/class-members-export.php:91
 #: build/admin/members/index.js:184
 #: build/form/form-input/index.js:1
-#: includes/blocks/form/form-control/index.js:60
-#: includes/blocks/form/form-input/index.js:70
+#: includes/blocks/form/form-control/index.js:49
+#: includes/blocks/form/form-input/index.js:58
 msgid "Number"
 msgstr "Número"
 
@@ -73,43 +73,43 @@ msgstr "Número"
 #: build/admin/resellers/index.js:175
 #: build/form/form-control/index.js:1
 #: build/form/form-input/index.js:1
+#: includes/blocks/form/form-control/index.js:50
 #: includes/blocks/form/form-control/index.js:61
-#: includes/blocks/form/form-control/index.js:81
-#: includes/blocks/form/form-input/index.js:71
-#: includes/blocks/form/form-input/index.js:91
+#: includes/blocks/form/form-input/index.js:59
+#: includes/blocks/form/form-input/index.js:70
 msgid "Phone"
 msgstr "Telefone"
 
 #: build/form/form-input/index.js:1
-#: includes/blocks/form/form-control/index.js:62
-#: includes/blocks/form/form-input/index.js:72
+#: includes/blocks/form/form-control/index.js:51
+#: includes/blocks/form/form-input/index.js:60
 msgid "Textarea"
 msgstr "Área de texto"
 
 #: build/form/form-input/index.js:1
-#: includes/blocks/form/form-control/index.js:64
-#: includes/blocks/form/form-input/index.js:74
+#: includes/blocks/form/form-control/index.js:52
+#: includes/blocks/form/form-input/index.js:61
 msgid "Select (options)"
 msgstr "Select (opções)"
 
 #: build/form/form-check/index.js:1
 #: build/form/form-input/index.js:1
-#: includes/blocks/form/form-control/index.js:67
-#: includes/blocks/form/form-input/index.js:77
+#: includes/blocks/form/form-control/index.js:53
+#: includes/blocks/form/form-input/index.js:62
 msgid "Checkbox"
 msgstr "Checkbox"
 
 #: build/form/form-control-country/index.js:1
 #: build/form/form-input/index.js:1
-#: includes/blocks/form/form-control/index.js:68
-#: includes/blocks/form/form-input/index.js:78
+#: includes/blocks/form/form-control/index.js:54
+#: includes/blocks/form/form-input/index.js:63
 msgid "Hidden"
 msgstr "Oculto"
 
 #: build/form/form-control/index.js:1
 #: build/form/form-input/index.js:1
-#: includes/blocks/form/form-control/index.js:72
-#: includes/blocks/form/form-input/index.js:82
+#: includes/blocks/form/form-control/index.js:58
+#: includes/blocks/form/form-input/index.js:67
 msgid "— none —"
 msgstr "— nenhuma —"
 
@@ -117,30 +117,30 @@ msgstr "— nenhuma —"
 #: build/admin/members/index.js:175
 #: build/form/form-control/index.js:1
 #: build/form/form-input/index.js:1
-#: includes/blocks/form/form-control/index.js:74
-#: includes/blocks/form/form-input/index.js:84
+#: includes/blocks/form/form-control/index.js:59
+#: includes/blocks/form/form-input/index.js:68
 msgid "CPF / CNPJ"
 msgstr "CPF / CNPJ"
 
 #: build/form/form-control/index.js:1
 #: build/form/form-input/index.js:1
-#: includes/blocks/form/form-control/index.js:78
-#: includes/blocks/form/form-input/index.js:88
+#: includes/blocks/form/form-control/index.js:60
+#: includes/blocks/form/form-input/index.js:69
 msgid "CEP (postal code)"
 msgstr "CEP"
 
 #: build/form/form-control/index.js:1
 #: build/form/form-input/index.js:1
 #: build/form/form-select/index.js:1
-#: includes/blocks/form/form-control/index.js:220
-#: includes/blocks/form/form-input/index.js:253
+#: includes/blocks/form/form-control/index.js:177
+#: includes/blocks/form/form-input/index.js:209
 msgid "Select an option"
 msgstr "Selecione uma opção"
 
 #: build/form/form-input/index.js:1
 #: build/form/form-label/index.js:1
-#: includes/blocks/form/form-input/index.js:389
-#: includes/blocks/form/form-label/index.js:117
+#: includes/blocks/form/form-input/index.js:323
+#: includes/blocks/form/form-label/index.js:93
 msgid "Field label…"
 msgstr "Rótulo do campo…"
 
@@ -154,34 +154,34 @@ msgstr "Rótulo do campo…"
 #: build/form/form-control-reseller/index.js:1
 #: build/form/form-control-state/index.js:1
 #: build/form/form-input/index.js:1
-#: includes/blocks/form/form-input/index.js:402
+#: includes/blocks/form/form-input/index.js:335
 msgid "Field"
 msgstr "Campo"
 
 #: build/form/form-input/index.js:1
-#: includes/blocks/form/form-control/index.js:265
-#: includes/blocks/form/form-input/index.js:406
-#: includes/blocks/form/form-submission-notification/index.js:79
+#: includes/blocks/form/form-control/index.js:215
+#: includes/blocks/form/form-input/index.js:337
+#: includes/blocks/form/form-submission-notification/index.js:67
 msgid "Type"
 msgstr "Tipo"
 
 #: build/form/form-input/index.js:1
-#: includes/blocks/form/form-input/index.js:569
+#: includes/blocks/form/form-input/index.js:450
 msgid "Field name (name attribute)"
 msgstr "Nome do campo (atributo name)"
 
 #: build/form/form-input/index.js:1
-#: includes/blocks/form/form-input/index.js:415
+#: includes/blocks/form/form-input/index.js:346
 msgid "Variant"
 msgstr "Variante"
 
 #: build/form/form-input/index.js:1
-#: includes/blocks/form/form-input/index.js:419
+#: includes/blocks/form/form-input/index.js:349
 msgid "Default"
 msgstr "Padrão"
 
 #: build/form/form-input/index.js:1
-#: includes/blocks/form/form-input/index.js:426
+#: includes/blocks/form/form-input/index.js:350
 msgid "Consent (LGPD)"
 msgstr "Consentimento (LGPD)"
 
@@ -197,21 +197,21 @@ msgstr "Consentimento (LGPD)"
 #: build/form/form-control/index.js:1
 #: build/form/form-input/index.js:1
 #: build/form/form-select/index.js:1
-#: includes/blocks/form/form-input/index.js:441
+#: includes/blocks/form/form-input/index.js:360
 msgid "Placeholder"
 msgstr "Placeholder"
 
 #: build/form/form-control/index.js:1
 #: build/form/form-input/index.js:1
-#: includes/blocks/form/form-control/index.js:274
-#: includes/blocks/form/form-input/index.js:452
+#: includes/blocks/form/form-control/index.js:224
+#: includes/blocks/form/form-input/index.js:368
 msgid "Value"
 msgstr "Valor"
 
 #: build/form/form-check/index.js:1
 #: build/form/form-input/index.js:1
-#: includes/blocks/form/form-control/index.js:282
-#: includes/blocks/form/form-input/index.js:460
+#: includes/blocks/form/form-control/index.js:232
+#: includes/blocks/form/form-input/index.js:376
 msgid "Checked by default"
 msgstr "Marcado por padrão"
 
@@ -229,55 +229,55 @@ msgstr "Marcado por padrão"
 #: build/form/form-input/index.js:1
 #: build/form/form-label/index.js:1
 #: build/form/form-select/index.js:1
-#: includes/blocks/form/form-control/index.js:294
-#: includes/blocks/form/form-input/index.js:472
+#: includes/blocks/form/form-control/index.js:241
+#: includes/blocks/form/form-input/index.js:385
 msgid "Required"
 msgstr "Obrigatório"
 
 #: build/form/form-input/index.js:1
-#: includes/blocks/form/form-input/index.js:484
+#: includes/blocks/form/form-input/index.js:394
 msgid "Hint text (optional)"
 msgstr "Texto de ajuda (opcional)"
 
 #: build/form/form-control/index.js:1
 #: build/form/form-input/index.js:1
-#: includes/blocks/form/form-control/index.js:305
-#: includes/blocks/form/form-input/index.js:495
+#: includes/blocks/form/form-control/index.js:249
+#: includes/blocks/form/form-input/index.js:402
 msgid "Options (one per line: Label|value)"
 msgstr "Opções (uma por linha: Rótulo|valor)"
 
 #: build/form/form-control/index.js:1
 #: build/form/form-input/index.js:1
-#: includes/blocks/form/form-control/index.js:309
-#: includes/blocks/form/form-input/index.js:499
+#: includes/blocks/form/form-control/index.js:250
+#: includes/blocks/form/form-input/index.js:403
 msgid "E.g.: Individual · CPF|cpf"
 msgstr "Ex.: Pessoa Física · CPF|cpf"
 
 #: build/form/form-control/index.js:1
 #: build/form/form-input/index.js:1
-#: includes/blocks/form/form-control/index.js:339
-#: includes/blocks/form/form-input/index.js:529
+#: includes/blocks/form/form-control/index.js:268
+#: includes/blocks/form/form-input/index.js:421
 msgid "Input mask (advanced)"
 msgstr "Máscara de entrada (avançado)"
 
 #: build/form/form-control/index.js:1
 #: build/form/form-input/index.js:1
-#: includes/blocks/form/form-control/index.js:346
-#: includes/blocks/form/form-input/index.js:536
+#: includes/blocks/form/form-control/index.js:270
+#: includes/blocks/form/form-input/index.js:423
 msgid "Mask"
 msgstr "Máscara"
 
 #: build/form/form-control/index.js:1
 #: build/form/form-input/index.js:1
-#: includes/blocks/form/form-control/index.js:355
-#: includes/blocks/form/form-input/index.js:545
+#: includes/blocks/form/form-control/index.js:279
+#: includes/blocks/form/form-input/index.js:432
 msgid "Field (name) that decides CPF vs. CNPJ"
 msgstr "Campo (name) que define CPF ou CNPJ"
 
 #: build/form/form-control/index.js:1
 #: build/form/form-input/index.js:1
-#: includes/blocks/form/form-control/index.js:359
-#: includes/blocks/form/form-input/index.js:549
+#: includes/blocks/form/form-control/index.js:280
+#: includes/blocks/form/form-input/index.js:433
 msgid "Name of the select field whose value (\"cpf\"/\"cnpj\") drives this mask."
 msgstr "Nome do campo select cujo valor (\"cpf\"/\"cnpj\") controla esta máscara."
 
@@ -391,9 +391,9 @@ msgid "Atelier Axell Club"
 msgstr "Atelier Axell Club"
 
 #: includes/class-blocks.php:121
-#: includes/class-design-tokens.php:202
+#: includes/class-design-tokens.php:203
 #: build/chapters/chapter/index.js:1
-#: includes/blocks/chapters/chapter/index.js:75
+#: includes/blocks/chapters/chapter/index.js:69
 msgid "Chapter"
 msgstr "Capítulo"
 
@@ -410,7 +410,7 @@ msgid "Clock"
 msgstr "Relógio"
 
 #: build/chapters/chapter/index.js:1
-#: includes/blocks/chapters/chapter/index.js:88
+#: includes/blocks/chapters/chapter/index.js:78
 msgid "Chapter name…"
 msgstr "Nome do capítulo…"
 
@@ -504,15 +504,15 @@ msgstr "Não foi possível salvar seu cadastro."
 
 #: build/form/form-control/index.js:1
 #: build/form/form-input/index.js:1
-#: includes/blocks/form/form-control/index.js:322
-#: includes/blocks/form/form-input/index.js:512
+#: includes/blocks/form/form-control/index.js:258
+#: includes/blocks/form/form-input/index.js:411
 msgid "Field (name) that populates these options"
 msgstr "Campo (name) que popula estas opções"
 
 #: build/form/form-control/index.js:1
 #: build/form/form-input/index.js:1
-#: includes/blocks/form/form-control/index.js:326
-#: includes/blocks/form/form-input/index.js:516
+#: includes/blocks/form/form-control/index.js:259
+#: includes/blocks/form/form-input/index.js:412
 msgid "Leave empty for a static list. If set, this select starts empty/disabled and assets/js/frontend.js fetches its options from the REST cities endpoint whenever that field changes."
 msgstr "Deixe vazio para uma lista estática. Se definido, este select começa vazio/desabilitado e assets/js/frontend.js busca suas opções no endpoint REST de cidades sempre que esse campo mudar."
 
@@ -524,147 +524,147 @@ msgstr "Wrapper <form> autocontido para o formulário de adesão do Atelier Axel
 #: build/form/form-control-country/index.js:1
 #: build/form/form-control/index.js:1
 #: build/form/form-input/index.js:1
-#: includes/blocks/form/form-control/index.js:134
-#: includes/blocks/form/form-input/index.js:303
+#: includes/blocks/form/form-control/index.js:111
+#: includes/blocks/form/form-input/index.js:255
 msgid "Hidden field"
 msgstr "Campo oculto"
 
 #: build/form/form-input/index.js:1
 #: build/form/form-label/index.js:1
-#: includes/blocks/form/form-input/index.js:386
-#: includes/blocks/form/form-label/index.js:70
-#: includes/blocks/form/form-label/index.js:114
+#: includes/blocks/form/form-input/index.js:321
+#: includes/blocks/form/form-label/index.js:61
+#: includes/blocks/form/form-label/index.js:91
 msgid "Label"
 msgstr "Rótulo"
 
 #: build/form/form-input/index.js:1
 #: build/form/form-label/index.js:1
-#: includes/blocks/form/form-input/index.js:387
-#: includes/blocks/form/form-label/index.js:115
+#: includes/blocks/form/form-input/index.js:321
+#: includes/blocks/form/form-label/index.js:91
 msgid "Empty label"
 msgstr "Rótulo vazio"
 
 #: build/form/form-input/index.js:1
-#: includes/blocks/form/form-input/index.js:574
+#: includes/blocks/form/form-input/index.js:452
 msgid "Leave empty to derive it from the label automatically."
 msgstr "Deixe em branco para derivar automaticamente do rótulo."
 
 #: build/form/form-input/variations.js:1
-#: includes/blocks/form/form-input/variations.js:26
+#: includes/blocks/form/form-input/variations.js:24
 msgid "Text Input"
 msgstr "Campo de texto"
 
 #: build/form/form-control/variations.js:1
 #: build/form/form-input/variations.js:1
-#: includes/blocks/form/form-control/variations.js:25
-#: includes/blocks/form/form-input/variations.js:27
+#: includes/blocks/form/form-control/variations.js:23
+#: includes/blocks/form/form-input/variations.js:25
 msgid "A generic text input."
 msgstr "Um campo de texto genérico."
 
 #: build/form/form-input/variations.js:1
-#: includes/blocks/form/form-input/variations.js:35
+#: includes/blocks/form/form-input/variations.js:33
 msgid "Email Input"
 msgstr "Campo de e-mail"
 
 #: build/form/form-control/variations.js:1
 #: build/form/form-input/variations.js:1
-#: includes/blocks/form/form-control/variations.js:34
-#: includes/blocks/form/form-input/variations.js:36
+#: includes/blocks/form/form-control/variations.js:32
+#: includes/blocks/form/form-input/variations.js:34
 msgid "Used for email addresses."
 msgstr "Usado para endereços de e-mail."
 
 #: build/form/form-input/variations.js:1
-#: includes/blocks/form/form-input/variations.js:47
+#: includes/blocks/form/form-input/variations.js:42
 msgid "URL Input"
 msgstr "Campo de URL"
 
 #: build/form/form-control/variations.js:1
 #: build/form/form-input/variations.js:1
-#: includes/blocks/form/form-control/variations.js:46
-#: includes/blocks/form/form-input/variations.js:48
+#: includes/blocks/form/form-control/variations.js:41
+#: includes/blocks/form/form-input/variations.js:43
 msgid "Used for URLs."
 msgstr "Usado para URLs."
 
 #: build/form/form-input/variations.js:1
-#: includes/blocks/form/form-input/variations.js:56
+#: includes/blocks/form/form-input/variations.js:51
 msgid "Phone Input"
 msgstr "Campo de telefone"
 
 #: build/form/form-control/variations.js:1
 #: build/form/form-input/variations.js:1
-#: includes/blocks/form/form-control/variations.js:55
-#: includes/blocks/form/form-input/variations.js:57
+#: includes/blocks/form/form-control/variations.js:50
+#: includes/blocks/form/form-input/variations.js:52
 msgid "Used for phone numbers."
 msgstr "Usado para números de telefone."
 
 #: build/form/form-input/variations.js:1
-#: includes/blocks/form/form-input/variations.js:68
+#: includes/blocks/form/form-input/variations.js:60
 msgid "Number Input"
 msgstr "Campo numérico"
 
 #: build/form/form-control/variations.js:1
 #: build/form/form-input/variations.js:1
-#: includes/blocks/form/form-control/variations.js:67
-#: includes/blocks/form/form-input/variations.js:69
+#: includes/blocks/form/form-control/variations.js:59
+#: includes/blocks/form/form-input/variations.js:61
 msgid "A numeric input."
 msgstr "Um campo numérico."
 
 #: build/form/form-input/variations.js:1
-#: includes/blocks/form/form-input/variations.js:77
+#: includes/blocks/form/form-input/variations.js:69
 msgid "Textarea Input"
 msgstr "Área de texto"
 
 #: build/form/form-control/variations.js:1
 #: build/form/form-input/variations.js:1
-#: includes/blocks/form/form-control/variations.js:76
-#: includes/blocks/form/form-input/variations.js:78
+#: includes/blocks/form/form-control/variations.js:68
+#: includes/blocks/form/form-input/variations.js:70
 msgid "A textarea input for multiple lines of text."
 msgstr "Uma área de texto para múltiplas linhas."
 
 #: build/form/form-input/variations.js:1
-#: includes/blocks/form/form-input/variations.js:89
+#: includes/blocks/form/form-input/variations.js:78
 msgid "Select Input"
 msgstr "Campo de seleção"
 
 #: build/form/form-control/variations.js:1
 #: build/form/form-input/variations.js:1
-#: includes/blocks/form/form-control/variations.js:88
-#: includes/blocks/form/form-input/variations.js:90
+#: includes/blocks/form/form-control/variations.js:77
+#: includes/blocks/form/form-input/variations.js:79
 msgid "A dropdown with a fixed or dynamically-sourced list of options."
 msgstr "Uma lista suspensa com opções fixas ou carregadas dinamicamente."
 
 #: build/form/form-input/variations.js:1
-#: includes/blocks/form/form-input/variations.js:101
+#: includes/blocks/form/form-input/variations.js:87
 msgid "Checkbox Input"
 msgstr "Checkbox"
 
 #: build/form/form-input/variations.js:1
-#: includes/blocks/form/form-control/variations.js:100
-#: includes/blocks/form/form-input/variations.js:102
+#: includes/blocks/form/form-control/variations.js:86
+#: includes/blocks/form/form-input/variations.js:88
 msgid "A simple checkbox input."
 msgstr "Um checkbox simples."
 
 #: build/form/form-input/variations.js:1
-#: includes/blocks/form/form-input/variations.js:113
+#: includes/blocks/form/form-input/variations.js:96
 msgid "Hidden Input"
 msgstr "Campo oculto"
 
 #: build/form/form-control/variations.js:1
 #: build/form/form-input/variations.js:1
-#: includes/blocks/form/form-control/variations.js:112
-#: includes/blocks/form/form-input/variations.js:114
+#: includes/blocks/form/form-control/variations.js:95
+#: includes/blocks/form/form-input/variations.js:97
 msgid "A hidden input field."
 msgstr "Um campo de formulário oculto."
 
-#: includes/blocks/form/form-submission-notification/index.js:73
+#: includes/blocks/form/form-submission-notification/index.js:65
 msgid "Notification"
 msgstr "Notificação"
 
-#: includes/blocks/form/form-submission-notification/index.js:83
+#: includes/blocks/form/form-submission-notification/index.js:70
 msgid "Success"
 msgstr "Sucesso"
 
-#: includes/blocks/form/form-submission-notification/index.js:90
+#: includes/blocks/form/form-submission-notification/index.js:71
 msgid "Error"
 msgstr "Erro"
 
@@ -705,20 +705,20 @@ msgstr "mensagem"
 
 #: build/form/form-control/index.js:1
 #: build/form/form-input/index.js:1
-#: includes/blocks/form/form-control/index.js:180
-#: includes/blocks/form/form-input/index.js:216
+#: includes/blocks/form/form-control/index.js:153
+#: includes/blocks/form/form-input/index.js:188
 msgid "Optional placeholder text"
 msgstr "Texto de marcação opcional"
 
 #: build/form/form-control/index.js:1
 #: build/form/form-input/index.js:1
-#: includes/blocks/form/form-control/index.js:186
-#: includes/blocks/form/form-input/index.js:222
+#: includes/blocks/form/form-control/index.js:154
+#: includes/blocks/form/form-input/index.js:189
 msgid "Optional placeholder…"
 msgstr "Texto de marcação opcional…"
 
 #: build/form/form-control/index.js:1
-#: includes/blocks/form/form-control/index.js:261
+#: includes/blocks/form/form-control/index.js:213
 msgid "Control"
 msgstr "Campo"
 
@@ -733,11 +733,11 @@ msgstr "Campo"
 #: build/form/form-control-reseller/index.js:1
 #: build/form/form-control-state/index.js:1
 #: build/form/form-control/index.js:1
-#: includes/blocks/form/form-control/index.js:374
+#: includes/blocks/form/form-control/index.js:292
 msgid "ID"
 msgstr "ID"
 
-#: includes/blocks/form/form-control/index.js:376
+#: includes/blocks/form/form-control/index.js:294
 msgid "Matches the paired form-label block’s \"For\" field. Also used as the fallback name attribute when Name is left empty."
 msgstr "Corresponde ao campo \"For\" do bloco form-label pareado. Também usado como atributo name de fallback quando Nome fica em branco."
 
@@ -751,69 +751,69 @@ msgstr "Corresponde ao campo \"For\" do bloco form-label pareado. Também usado 
 #: build/form/form-control-reseller/index.js:1
 #: build/form/form-control-state/index.js:1
 #: build/form/form-control/index.js:1
-#: includes/blocks/form/form-control/index.js:385
+#: includes/blocks/form/form-control/index.js:300
 msgid "Name (name attribute)"
 msgstr "Nome (atributo name)"
 
 #: build/form/form-control/index.js:1
-#: includes/blocks/form/form-control/index.js:390
+#: includes/blocks/form/form-control/index.js:302
 msgid "Leave empty to reuse the ID."
 msgstr "Deixe em branco para reaproveitar o ID."
 
-#: includes/blocks/form/form-control/variations.js:24
+#: includes/blocks/form/form-control/variations.js:22
 msgid "Text Control"
 msgstr "Campo de texto"
 
-#: includes/blocks/form/form-control/variations.js:33
+#: includes/blocks/form/form-control/variations.js:31
 msgid "Email Control"
 msgstr "Campo de e-mail"
 
-#: includes/blocks/form/form-control/variations.js:45
+#: includes/blocks/form/form-control/variations.js:40
 msgid "URL Control"
 msgstr "Campo de URL"
 
-#: includes/blocks/form/form-control/variations.js:54
+#: includes/blocks/form/form-control/variations.js:49
 msgid "Phone Control"
 msgstr "Campo de telefone"
 
-#: includes/blocks/form/form-control/variations.js:66
+#: includes/blocks/form/form-control/variations.js:58
 msgid "Number Control"
 msgstr "Campo numérico"
 
-#: includes/blocks/form/form-control/variations.js:75
+#: includes/blocks/form/form-control/variations.js:67
 msgid "Textarea Control"
 msgstr "Área de texto"
 
-#: includes/blocks/form/form-control/variations.js:87
+#: includes/blocks/form/form-control/variations.js:76
 msgid "Select Control"
 msgstr "Campo de seleção"
 
-#: includes/blocks/form/form-control/variations.js:99
+#: includes/blocks/form/form-control/variations.js:85
 msgid "Checkbox Control"
 msgstr "Checkbox"
 
-#: includes/blocks/form/form-control/variations.js:111
+#: includes/blocks/form/form-control/variations.js:94
 msgid "Hidden Control"
 msgstr "Campo oculto"
 
-#: includes/class-design-tokens.php:197
+#: includes/class-design-tokens.php:198
 #: build/form/form-label/index.js:1
-#: includes/blocks/form/form-label/index.js:74
+#: includes/blocks/form/form-label/index.js:63
 msgid "Visually hidden"
 msgstr "Visualmente oculto"
 
 #: build/form/form-label/index.js:1
-#: includes/blocks/form/form-label/index.js:78
+#: includes/blocks/form/form-label/index.js:64
 msgid "Keeps the label readable by screen readers while hiding it visually — useful when the field’s purpose is already clear from context (e.g. a placeholder-only search box)."
 msgstr "Mantém o rótulo legível para leitores de tela ao mesmo tempo em que o oculta visualmente — útil quando o propósito do campo já fica claro pelo contexto (ex.: uma busca que só usa placeholder)."
 
 #: build/form/form-label/index.js:1
-#: includes/blocks/form/form-label/index.js:93
+#: includes/blocks/form/form-label/index.js:76
 msgid "For"
 msgstr "For"
 
 #: build/form/form-label/index.js:1
-#: includes/blocks/form/form-label/index.js:95
+#: includes/blocks/form/form-label/index.js:78
 msgid "The id of the axell/form-control this label belongs to."
 msgstr "O id do axell/form-control ao qual este rótulo pertence."
 
@@ -918,15 +918,15 @@ msgstr "O nome não pode ficar vazio."
 msgid "Member not found."
 msgstr "Membro não encontrado."
 
-#: includes/class-design-tokens.php:194
+#: includes/class-design-tokens.php:195
 msgid "Primary"
 msgstr "Primário"
 
-#: includes/class-design-tokens.php:195
+#: includes/class-design-tokens.php:196
 msgid "Bronze hover"
 msgstr "Bronze ao passar o mouse"
 
-#: includes/class-design-tokens.php:196
+#: includes/class-design-tokens.php:197
 msgid "Ivory"
 msgstr "Marfim"
 
@@ -1042,17 +1042,17 @@ msgid "Form Control (hidden)"
 msgstr "Controle de formulário (oculto)"
 
 #: build/form/form-fieldset/index.js:1
-#: includes/blocks/form/form-fieldset/index.js:97
+#: includes/blocks/form/form-fieldset/index.js:87
 msgid "Remove legend"
 msgstr "Remover legenda"
 
 #: build/form/form-fieldset/index.js:1
-#: includes/blocks/form/form-fieldset/index.js:98
+#: includes/blocks/form/form-fieldset/index.js:87
 msgid "Add legend"
 msgstr "Adicionar legenda"
 
 #: build/form/form-fieldset/index.js:1
-#: includes/blocks/form/form-fieldset/index.js:83
+#: includes/blocks/form/form-fieldset/index.js:74
 msgid "Legend…"
 msgstr "Legenda…"
 
@@ -1111,19 +1111,19 @@ msgstr "Animar ao rolar"
 msgid "Whole block fades in as one. Each child fades in on its own, for card grids and lists."
 msgstr "Bloco inteiro: aparece de uma vez. Cada filho: cada item aparece por conta própria, para grades de cartões e listas."
 
-#: includes/blocks/form/form/index.js:120
+#: includes/blocks/form/form/index.js:102
 msgid "Fieldset (plain)"
 msgstr "Fieldset (simples)"
 
-#: includes/blocks/form/form/index.js:121
+#: includes/blocks/form/form/index.js:103
 msgid "A plain grouping wrapper rendered as a real <fieldset> — no legend. For a fieldset with a toggleable legend, use the Form Fieldset block instead."
 msgstr "Um agrupamento simples renderizado como um <fieldset> de verdade, sem legenda. Para um fieldset com legenda opcional, use o bloco Fieldset."
 
-#: includes/blocks/form/form/index.js:134
+#: includes/blocks/form/form/index.js:113
 msgid "Legend (plain)"
 msgstr "Legenda (simples)"
 
-#: includes/blocks/form/form/index.js:135
+#: includes/blocks/form/form/index.js:114
 msgid "A plain wrapper rendered as a real <legend> — for hand-composing a fieldset from plain groups instead of the Form Fieldset block."
 msgstr "Um contêiner simples renderizado como um <legend> de verdade, para montar um fieldset à mão com grupos simples em vez do bloco Fieldset."
 
@@ -1364,11 +1364,11 @@ msgctxt "block keyword"
 msgid "nav"
 msgstr "nav"
 
-#: includes/class-design-tokens.php:201
+#: includes/class-design-tokens.php:202
 msgid "Sticky on desktop"
 msgstr "Fixa ao rolar (desktop)"
 
-#: includes/class-design-tokens.php:200
+#: includes/class-design-tokens.php:201
 msgid "Eyebrow"
 msgstr "Sobretítulo"
 
@@ -1376,7 +1376,7 @@ msgstr "Sobretítulo"
 msgid "Arrow (large)"
 msgstr "Seta (grande)"
 
-#: includes/class-design-tokens.php:203
+#: includes/class-design-tokens.php:204
 msgid "Pillars"
 msgstr "Pilares"
 
@@ -1384,19 +1384,19 @@ msgstr "Pilares"
 msgid "Lock (outline)"
 msgstr "Cadeado (contorno)"
 
-#: includes/class-design-tokens.php:209
+#: includes/class-design-tokens.php:210
 msgid "Stone"
 msgstr "Pedra"
 
-#: includes/class-design-tokens.php:204
+#: includes/class-design-tokens.php:205
 msgid "Protagonists"
 msgstr "Protagonistas"
 
-#: includes/class-design-tokens.php:205
+#: includes/class-design-tokens.php:206
 msgid "Promises"
 msgstr "Promessas"
 
-#: includes/class-design-tokens.php:207
+#: includes/class-design-tokens.php:208
 msgid "Steps"
 msgstr "Passos"
 
@@ -1404,11 +1404,11 @@ msgstr "Passos"
 msgid "Arrow (small)"
 msgstr "Seta (pequena)"
 
-#: includes/class-design-tokens.php:198
+#: includes/class-design-tokens.php:199
 msgid "Tier"
 msgstr "Nível"
 
-#: includes/class-design-tokens.php:199
+#: includes/class-design-tokens.php:200
 msgid "Tier (locked)"
 msgstr "Nível (bloqueado)"
 
@@ -1416,11 +1416,11 @@ msgstr "Nível (bloqueado)"
 msgid "Clock (outline)"
 msgstr "Relógio (contorno)"
 
-#: includes/class-design-tokens.php:206
+#: includes/class-design-tokens.php:207
 msgid "Benefits"
 msgstr "Benefícios"
 
-#: includes/class-design-tokens.php:208
+#: includes/class-design-tokens.php:209
 msgid "Channels"
 msgstr "Canais"
 
@@ -1435,7 +1435,7 @@ msgstr "Este e-mail já está cadastrado."
 msgid "Invalid status."
 msgstr "Status inválido."
 
-#: includes/class-design-tokens.php:210
+#: includes/class-design-tokens.php:211
 msgid "Footer"
 msgstr "Rodapé"
 
@@ -1701,22 +1701,22 @@ msgstr "A exportação expirou. Comece de novo."
 msgid "The export file is no longer available."
 msgstr "O arquivo da exportação não está mais disponível."
 
-#: includes/class-resellers-admin.php:100
-#: includes/class-resellers-admin.php:149
+#: includes/class-resellers-admin.php:109
+#: includes/class-resellers-admin.php:158
 #: includes/class-resellers.php:95
 #: build/form/form-control/index.js:1
 msgid "Resellers"
 msgstr "Revendas"
 
-#: includes/class-resellers-admin.php:101
+#: includes/class-resellers-admin.php:110
 #: includes/class-resellers.php:97
 msgid "All resellers"
 msgstr "Todas as revendas"
 
-#: includes/class-resellers-admin.php:109
-#: includes/class-resellers-admin.php:110
-#: includes/class-resellers-admin.php:149
-#: includes/class-resellers-admin.php:155
+#: includes/class-resellers-admin.php:118
+#: includes/class-resellers-admin.php:119
+#: includes/class-resellers-admin.php:158
+#: includes/class-resellers-admin.php:164
 #: includes/class-resellers.php:98
 msgid "Add reseller"
 msgstr "Adicionar revenda"
@@ -2409,3 +2409,7 @@ msgstr "Este CNPJ já está cadastrado."
 #: includes/class-document.php:136
 msgid "This CPF is already registered."
 msgstr "Este CPF já está cadastrado."
+
+#: includes/class-classic-template.php:68
+msgid "Atelier Club"
+msgstr "Atelier Club"

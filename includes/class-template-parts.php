@@ -64,6 +64,34 @@ final class Template_Parts {
 	 */
 	public function register_hooks() {
 		add_action( 'init', array( $this, 'maybe_sync' ), 20 );
+		add_filter( 'rest_post_dispatch', array( $this, 'author_text' ), 10, 3 );
+	}
+
+	/**
+	 * Author shown for the Atelier parts in the site editor. They are created
+	 * without a user, so WordPress shows the site's name; the templates
+	 * controller has no rest_prepare filter, hence the dispatched response.
+	 *
+	 * @param \WP_HTTP_Response|mixed $result  Response.
+	 * @param \WP_REST_Server         $server  Server.
+	 * @param \WP_REST_Request        $request Request.
+	 * @return \WP_HTTP_Response|mixed
+	 */
+	public function author_text( $result, $server, $request ) {
+		if ( ! $result instanceof \WP_HTTP_Response || 0 !== strpos( $request->get_route(), '/wp/v2/template-parts' ) ) {
+			return $result;
+		}
+		$data   = $result->get_data();
+		$single = is_array( $data ) && isset( $data['id'] );
+		$items  = $single ? array( $data ) : ( is_array( $data ) ? $data : array() );
+		foreach ( $items as $i => $item ) {
+			$slug = is_array( $item ) && isset( $item['id'] ) ? substr( (string) strstr( (string) $item['id'], '//' ), 2 ) : '';
+			if ( isset( self::PARTS[ $slug ] ) && array_key_exists( 'author_text', $item ) && empty( $item['author'] ) ) {
+				$items[ $i ]['author_text'] = 'Atelier Axell';
+			}
+		}
+		$result->set_data( $single ? $items[0] : $items );
+		return $result;
 	}
 
 	/**
@@ -90,6 +118,11 @@ final class Template_Parts {
 	 * @return string
 	 */
 	public function render( $slug ) {
+		// The part edited in the site's template parts editor, else the file.
+		$part = get_block_template( get_stylesheet() . '//' . $slug, 'wp_template_part' );
+		if ( $part && ! empty( $part->wp_id ) && '' !== trim( (string) $part->content ) ) {
+			return do_blocks( $part->content );
+		}
 		return do_blocks( $this->content( $slug ) );
 	}
 

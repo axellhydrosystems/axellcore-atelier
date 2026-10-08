@@ -92,6 +92,9 @@ final class Classic_Styles {
 		add_action( 'wp_print_styles', array( $this, 'dequeue_foreign' ), PHP_INT_MAX );
 		add_action( 'wp_print_footer_scripts', array( $this, 'dequeue_foreign' ), 1 );
 		add_action( 'load-post.php', array( $this, 'activate_in_editor' ) );
+		add_action( 'after_setup_theme', array( $this, 'support_template_parts' ), 20 );
+		add_action( 'load-site-editor.php', array( $this, 'activate_in_site_editor' ) );
+		add_action( 'admin_menu', array( $this, 'template_parts_menu' ) );
 		add_filter( 'block_editor_settings_all', array( $this, 'editor_settings' ), PHP_INT_MAX, 2 );
 		add_action( 'enqueue_block_assets', array( $this, 'dequeue_foreign_editor_styles' ), PHP_INT_MAX );
 	}
@@ -105,6 +108,50 @@ final class Classic_Styles {
 		if ( wp_is_block_theme() || ! self::is_atelier_post( $post ) ) {
 			return;
 		}
+		$this->start_editor();
+	}
+
+	/**
+	 * A classic theme gets the editor of template parts (Appearance →
+	 * Template Parts), where the Atelier header and footer are edited.
+	 */
+	public function support_template_parts() {
+		if ( ! wp_is_block_theme() ) {
+			add_theme_support( 'block-template-parts' );
+		}
+	}
+
+	/**
+	 * Appearance → Template Parts, straight to the list of template parts
+	 * (WordPress only reaches them through Patterns in a classic theme).
+	 */
+	public function template_parts_menu() {
+		if ( wp_is_block_theme() || ! current_theme_supports( 'block-template-parts' ) ) {
+			return;
+		}
+		add_submenu_page(
+			'themes.php',
+			__( 'Template Parts' ), // phpcs:ignore WordPress.WP.I18n.MissingArgDomain -- WordPress's own label, translated by core.
+			__( 'Template Parts' ), // phpcs:ignore WordPress.WP.I18n.MissingArgDomain -- WordPress's own label, translated by core.
+			'edit_theme_options',
+			'site-editor.php?p=/pattern&postType=wp_template_part&categoryId=all-parts'
+		);
+	}
+
+	/**
+	 * The template parts editor of a classic theme (its parts are the
+	 * Atelier header and footer): the same environment as the page.
+	 */
+	public function activate_in_site_editor() {
+		if ( ! wp_is_block_theme() ) {
+			$this->start_editor();
+		}
+	}
+
+	/**
+	 * The block theme environment in an editor screen.
+	 */
+	private function start_editor() {
 		$this->active = true;
 		wp_clean_theme_json_cache();
 		// Core's layout and margins for themes without theme.json (840px
@@ -139,13 +186,14 @@ final class Classic_Styles {
 	 * @return array
 	 */
 	public function editor_settings( $settings, $context ) {
-		if ( ! $this->active || ! isset( $context->post ) || ! self::is_atelier_post( $context->post ) ) {
+		$is_page = isset( $context->post ) && self::is_atelier_post( $context->post );
+		if ( ! $this->active || ! ( $is_page || 'core/edit-site' === $context->name ) ) {
 			return $settings;
 		}
 		$settings['supportsLayout'] = true;
 		// What core gives a block theme (wp_get_post_content_block_attributes()):
 		// the layout and gap of the template's Post Content, for the canvas root.
-		$attributes = self::post_content_attributes();
+		$attributes = $is_page ? self::post_content_attributes() : null;
 		if ( $attributes ) {
 			$settings['postContentAttributes'] = $attributes;
 		}
@@ -181,8 +229,11 @@ final class Classic_Styles {
 				// page (the space next to an inline icon, at line ends); the
 				// field being typed in keeps pre-wrap.
 				. '.rich-text:not(:focus){white-space-collapse:collapse!important}'
-				// The text rendering the page gets from Design_Tokens.
-				. Design_Tokens::TEXT_RENDERING_CSS,
+				// The text rendering the page gets from Design_Tokens, and its
+				// ink background (the header is transparent over it), over the
+				// theme's :root :where(body) background.
+				. Design_Tokens::TEXT_RENDERING_CSS
+				. '.editor-styles-wrapper.editor-styles-wrapper{background-color:var(--wp--preset--color--ink)}',
 			'__unstableType' => 'theme',
 			'isGlobalStyles' => false,
 		);
