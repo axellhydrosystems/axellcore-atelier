@@ -50,6 +50,8 @@ final class Settings {
 		'recaptcha_enabled'    => true,
 		'recaptcha_version'    => 'v3',
 		'recaptcha_skip_local' => true,
+		// Google's address suggestions (Places): on (it works once the key is filled).
+		'places_enabled'       => true,
 	);
 
 	/**
@@ -58,9 +60,10 @@ final class Settings {
 	const TABS = array( 'general', 'members', 'emails', 'integrations' );
 
 	/**
-	 * The reCAPTCHA keys (text fields of the Integrations tab), by version.
+	 * The keys of the Integrations tab (text fields): reCAPTCHA's and the
+	 * Google Maps Platform's.
 	 */
-	const RECAPTCHA_KEYS = array( 'recaptcha_site_key', 'recaptcha_secret_key', 'recaptcha_v3_site_key', 'recaptcha_v3_secret_key' );
+	const INTEGRATION_KEYS = array( 'recaptcha_site_key', 'recaptcha_secret_key', 'recaptcha_v3_site_key', 'recaptcha_v3_secret_key', 'places_api_key' );
 
 	/**
 	 * The admin-post action of "Create Atelier page".
@@ -261,6 +264,34 @@ final class Settings {
 		);
 
 		$this->register_recaptcha_settings();
+		$this->register_places_settings();
+	}
+
+	/**
+	 * Integrations tab: Google Maps Platform (address suggestions), as
+	 * Elementor's "Google Maps Embed API": an intro with a link, the key.
+	 */
+	private function register_places_settings() {
+		$page = self::PAGE . '-integrations';
+
+		add_settings_section(
+			'places',
+			__( 'Google Maps Platform', 'axellcore-atelierclub' ),
+			static function () {
+				printf(
+					'<p>%s</p>',
+					sprintf(
+						/* translators: 1: Link opening tag, 2: Link closing tag. */
+						esc_html__( 'Google Maps Platform suggests addresses while the street is typed (Places API New) and fills in the address fields. For more details, visit Google Maps\' %1$sUsing API Keys%2$s page.', 'axellcore-atelierclub' ),
+						'<a href="https://developers.google.com/maps/documentation/places/web-service/get-api-key" target="_blank" rel="noopener noreferrer">',
+						'</a>'
+					)
+				);
+			},
+			$page
+		);
+		add_settings_field( 'places_enabled', __( 'Address autocomplete', 'axellcore-atelierclub' ), array( $this, 'render_places_enabled' ), $page, 'places', array( 'label_for' => self::OPTION . '-places_enabled' ) );
+		add_settings_field( 'places_api_key', __( 'API key', 'axellcore-atelierclub' ), array( $this, 'render_key' ), $page, 'places', array( 'label_for' => self::OPTION . '-places_api_key' ) );
 	}
 
 	/**
@@ -309,8 +340,8 @@ final class Settings {
 			'v3' => 'recaptcha_v3_',
 		);
 		foreach ( $prefixes as $version => $prefix ) {
-			add_settings_field( $prefix . 'site_key', __( 'Site key', 'axellcore-atelierclub' ), array( $this, 'render_recaptcha_key' ), $page, 'recaptcha_' . $version, array( 'label_for' => self::OPTION . '-' . $prefix . 'site_key' ) );
-			add_settings_field( $prefix . 'secret_key', __( 'Secret key', 'axellcore-atelierclub' ), array( $this, 'render_recaptcha_key' ), $page, 'recaptcha_' . $version, array( 'label_for' => self::OPTION . '-' . $prefix . 'secret_key' ) );
+			add_settings_field( $prefix . 'site_key', __( 'Site key', 'axellcore-atelierclub' ), array( $this, 'render_key' ), $page, 'recaptcha_' . $version, array( 'label_for' => self::OPTION . '-' . $prefix . 'site_key' ) );
+			add_settings_field( $prefix . 'secret_key', __( 'Secret key', 'axellcore-atelierclub' ), array( $this, 'render_key' ), $page, 'recaptcha_' . $version, array( 'label_for' => self::OPTION . '-' . $prefix . 'secret_key' ) );
 		}
 		add_settings_field( 'recaptcha_v3_threshold', __( 'Score threshold', 'axellcore-atelierclub' ), array( $this, 'render_recaptcha_threshold' ), $page, 'recaptcha_v3', array( 'label_for' => self::OPTION . '-recaptcha_v3_threshold' ) );
 	}
@@ -328,7 +359,7 @@ final class Settings {
 		$input  = is_array( $input ) ? $input : array();
 		$values = get_option( self::OPTION, array() );
 		$values = is_array( $values ) ? $values : array();
-		foreach ( array( 'pending_on_create', 'members_can_log_in', 'recaptcha_enabled', 'recaptcha_skip_local' ) as $key ) {
+		foreach ( array( 'pending_on_create', 'members_can_log_in', 'recaptcha_enabled', 'recaptcha_skip_local', 'places_enabled' ) as $key ) {
 			if ( array_key_exists( $key, $input ) ) {
 				$values[ $key ] = ! empty( $input[ $key ] );
 			}
@@ -336,7 +367,7 @@ final class Settings {
 		if ( array_key_exists( 'recaptcha_version', $input ) ) {
 			$values['recaptcha_version'] = 'v2' === $input['recaptcha_version'] ? 'v2' : 'v3';
 		}
-		foreach ( self::RECAPTCHA_KEYS as $key ) {
+		foreach ( self::INTEGRATION_KEYS as $key ) {
 			if ( array_key_exists( $key, $input ) && is_scalar( $input[ $key ] ) ) {
 				$values[ $key ] = sanitize_text_field( (string) $input[ $key ] );
 			}
@@ -557,11 +588,24 @@ final class Settings {
 	}
 
 	/**
-	 * Text field: a reCAPTCHA key (its setting from the field's label_for).
+	 * Checkbox: Google's address suggestions on the forms and the profile.
+	 */
+	public function render_places_enabled() {
+		printf(
+			'<input type="hidden" name="%1$s[places_enabled]" value="0"><label><input type="checkbox" id="%1$s-places_enabled" name="%1$s[places_enabled]" value="1"%2$s> %3$s</label><p class="description">%4$s</p>',
+			esc_attr( self::OPTION ),
+			checked( (bool) self::get( 'places_enabled' ), true, false ),
+			esc_html__( 'Suggest Google addresses while the street is typed', 'axellcore-atelierclub' ),
+			esc_html__( 'On the application form and on the user profile. Choosing an address fills in street, number, neighborhood, state, city and CEP. Needs the API key below, with the Places API (New) enabled.', 'axellcore-atelierclub' )
+		);
+	}
+
+	/**
+	 * Text field: an integration key (its setting from the field's label_for).
 	 *
 	 * @param array $args Field arguments.
 	 */
-	public function render_recaptcha_key( $args ) {
+	public function render_key( $args ) {
 		$key = substr( (string) $args['label_for'], strlen( self::OPTION ) + 1 );
 		printf(
 			'<input type="text" class="regular-text code" id="%1$s-%2$s" name="%1$s[%2$s]" value="%3$s" autocomplete="off" spellcheck="false">',

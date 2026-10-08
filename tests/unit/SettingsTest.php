@@ -222,4 +222,15 @@ final class SettingsTest extends TestCase {
 		$this->assertTrue( Settings::DEFAULTS['recaptcha_skip_local'], 'Skips local addresses by default.' );
 		$this->assertTrue( Settings::DEFAULTS['recaptcha_enabled'], 'On by default (it needs the keys).' );
 	}
+
+	public function test_places_settings(): void {
+		$this->stub_texts( array( 'recaptcha_v3_site_key' => 'site' ) );
+
+		$values = Settings::instance()->sanitize( array( 'places_enabled' => '0', 'places_api_key' => '  key-123  ' ) );
+
+		$this->assertFalse( $values['places_enabled'] );
+		$this->assertSame( 'key-123', $values['places_api_key'] );
+		$this->assertSame( 'site', $values['recaptcha_v3_site_key'], 'The reCAPTCHA keys are kept.' );
+		$this->assertTrue( Settings::DEFAULTS['places_enabled'], 'On by default (it needs the key).' );
+	}
 }
