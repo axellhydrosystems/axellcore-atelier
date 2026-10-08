@@ -144,19 +144,20 @@ final class Members {
 	);
 
 	/**
-	 * The consent (LGPD) given on the form, as user meta: when (UTC), the
-	 * text accepted and its links (as the saved form had them), the address
-	 * and the page it was given from.
+	 * The consent (LGPD) given on the form: one user meta, one line of five
+	 * fields separated by "|": when (UTC, ISO 8601), IP, page, the text
+	 * accepted (its "\" and "|" escaped with "\") and its links, "label:url"
+	 * separated by "," (a label's "\", "|", "," and ":" escaped; a url's "|"
+	 * and "," percent-encoded). Read with CONSENT_PATTERN.
 	 *
-	 * @var array<string,string>
+	 * 2026-10-08T21:23:14Z|127.0.0.1|https://axell.com.br/atelier/|Li e concordo com o regulamento…|regulamento:https://axell.com.br/regulamento
 	 */
-	const CONSENT_META = array(
-		'at'    => 'aa_consent_at',
-		'text'  => 'aa_consent_text',
-		'links' => 'aa_consent_links',
-		'ip'    => 'aa_consent_ip',
-		'url'   => 'aa_consent_url',
-	);
+	const CONSENT_KEY = 'consent';
+
+	/**
+	 * The consent line's five fields: when, IP, page, text, links.
+	 */
+	const CONSENT_PATTERN = '/^([^|]*)\|([^|]*)\|([^|]*)\|((?:\\\\.|[^\\\\|])*)\|((?:\\\\.|[^\\\\|])*)$/su';
 
 	/**
 	 * Singleton instance.
@@ -533,43 +534,101 @@ final class Members {
 	}
 
 	/**
-	 * Record a member's consent: now (UTC) and the terms given (text, links,
-	 * address, page).
+	 * Record a member's consent: now (UTC) and the terms given, as the one
+	 * line of CONSENT_KEY.
 	 *
 	 * @param int                 $user_id Member.
-	 * @param array<string,mixed> $consent { text, links (string[]), ip, url }.
+	 * @param array<string,mixed> $consent { text, links ({label,url}[]), ip, url }.
 	 */
 	public static function record_consent( $user_id, array $consent ) {
-		update_user_meta( $user_id, self::CONSENT_META['at'], gmdate( 'Y-m-d H:i:s' ) );
-		$values = array(
-			'text'  => sanitize_textarea_field( (string) ( $consent['text'] ?? '' ) ),
-			'links' => implode( "\n", array_map( 'esc_url_raw', (array) ( $consent['links'] ?? array() ) ) ),
-			'ip'    => sanitize_text_field( (string) ( $consent['ip'] ?? '' ) ),
-			'url'   => esc_url_raw( (string) ( $consent['url'] ?? '' ) ),
-		);
-		foreach ( $values as $key => $value ) {
-			if ( '' !== $value ) {
-				update_user_meta( $user_id, self::CONSENT_META[ $key ], $value );
+		$links = array();
+		foreach ( (array) ( $consent['links'] ?? array() ) as $link ) {
+			$url = esc_url_raw( (string) ( $link['url'] ?? '' ) );
+			if ( '' !== $url ) {
+				$links[] = self::escape_consent( trim( (string) ( $link['label'] ?? '' ) ), '\\|,:' ) . ':' . str_replace( array( '|', ',' ), array( '%7C', '%2C' ), $url );
 			}
 		}
+		$line = implode(
+			'|',
+			array(
+				gmdate( 'Y-m-d\TH:i:s\Z' ),
+				str_replace( '|', '', sanitize_text_field( (string) ( $consent['ip'] ?? '' ) ) ),
+				str_replace( '|', '%7C', esc_url_raw( (string) ( $consent['url'] ?? '' ) ) ),
+				self::escape_consent( sanitize_text_field( (string) ( $consent['text'] ?? '' ) ), '\\|' ),
+				implode( ',', $links ),
+			)
+		);
+		update_user_meta( $user_id, self::CONSENT_KEY, $line );
 	}
 
 	/**
-	 * A member's consent record; 'at' is empty when none was recorded
-	 * (members from before it was).
+	 * Escape characters of a consent field with "\".
+	 *
+	 * @param string $value      Text.
+	 * @param string $characters Characters to escape ("\" first).
+	 * @return string
+	 */
+	private static function escape_consent( $value, $characters ) {
+		foreach ( str_split( $characters ) as $character ) {
+			$value = str_replace( $character, '\\' . $character, $value );
+		}
+		return $value;
+	}
+
+	/**
+	 * Undo escape_consent().
+	 *
+	 * @param string $value Escaped text.
+	 * @return string
+	 */
+	private static function unescape_consent( $value ) {
+		return (string) preg_replace( '/\\\\(.)/su', '$1', $value );
+	}
+
+	/**
+	 * A member's consent record, read from its line; 'at' is empty when none
+	 * was recorded (members from before it was) or the line is not one.
 	 *
 	 * @param int $user_id Member.
-	 * @return array{at:string,text:string,links:string[],ip:string,url:string}
+	 * @return array{at:string,ip:string,url:string,text:string,links:array<int,array{label:string,url:string}>}
 	 */
 	public static function consent( $user_id ) {
-		$meta  = static fn( $key ) => (string) get_user_meta( $user_id, self::CONSENT_META[ $key ], true );
-		$links = '' !== $meta( 'links' ) ? explode( "\n", $meta( 'links' ) ) : array();
+		return self::parse_consent( (string) get_user_meta( $user_id, self::CONSENT_KEY, true ) );
+	}
+
+	/**
+	 * A consent line as its fields.
+	 *
+	 * @param string $line CONSENT_KEY's value.
+	 * @return array{at:string,ip:string,url:string,text:string,links:array<int,array{label:string,url:string}>}
+	 */
+	public static function parse_consent( $line ) {
+		$none = array(
+			'at'    => '',
+			'ip'    => '',
+			'url'   => '',
+			'text'  => '',
+			'links' => array(),
+		);
+		if ( ! preg_match( self::CONSENT_PATTERN, $line, $fields ) || '' === $fields[1] ) {
+			return $none;
+		}
+		$links = array();
+		$items = '' !== $fields[5] ? preg_split( '/(?<!\\\\)(?:\\\\\\\\)*\K,/', $fields[5] ) : array();
+		foreach ( (array) $items as $item ) {
+			if ( preg_match( '/^((?:\\\\.|[^\\\\:])*):(.*)$/su', $item, $link ) ) {
+				$links[] = array(
+					'label' => self::unescape_consent( $link[1] ),
+					'url'   => str_replace( array( '%7C', '%2C' ), array( '|', ',' ), $link[2] ),
+				);
+			}
+		}
 		return array(
-			'at'    => $meta( 'at' ),
-			'text'  => $meta( 'text' ),
+			'at'    => $fields[1],
+			'ip'    => $fields[2],
+			'url'   => str_replace( '%7C', '|', $fields[3] ),
+			'text'  => self::unescape_consent( $fields[4] ),
 			'links' => $links,
-			'ip'    => $meta( 'ip' ),
-			'url'   => $meta( 'url' ),
 		);
 	}
 
@@ -582,7 +641,7 @@ final class Members {
 	 */
 	public static function consent_when( $user_id ) {
 		$at = self::consent( $user_id )['at'];
-		return '' === $at ? '' : (string) wp_date( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), (int) strtotime( $at . ' UTC' ) );
+		return '' === $at ? '' : (string) wp_date( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), (int) strtotime( $at ) );
 	}
 
 	/**
@@ -610,7 +669,7 @@ final class Members {
 			$lines[] = '“' . $consent['text'] . '”';
 		}
 		foreach ( $consent['links'] as $link ) {
-			$lines[] = $link;
+			$lines[] = ( '' !== $link['label'] ? $link['label'] . ': ' : '' ) . $link['url'];
 		}
 		return implode( "\n", $lines );
 	}

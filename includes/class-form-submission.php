@@ -258,26 +258,33 @@ final class Form_Submission {
 
 	/**
 	 * The consent checkbox's text and links in a saved form (the field named
-	 * "consent"): what the visitor read and accepted.
+	 * "consent"): what the visitor read and accepted. Each link is its text
+	 * (label) and address; "#" or empty addresses are left out.
 	 *
 	 * @param array $block Parsed form block.
-	 * @return array{text:string,links:string[]}
+	 * @return array{text:string,links:array<int,array{label:string,url:string}>}
 	 */
 	public static function consent_terms( array $block ) {
 		$html = (string) ( $block['innerHTML'] ?? '' );
 		if ( false !== strpos( $html, 'name="consent"' ) && preg_match( '#<label[^>]*>(.*?)</label>#s', $html, $label ) ) {
-			preg_match_all( '#href="([^"]*)"#', $label[1], $hrefs );
-			$text = html_entity_decode( wp_strip_all_tags( $label[1] ), ENT_QUOTES, 'UTF-8' );
+			$plain = static function ( $markup ) {
+				$text = html_entity_decode( wp_strip_all_tags( $markup ), ENT_QUOTES, 'UTF-8' );
+				return trim( (string) preg_replace( '/\s+/u', ' ', $text ) );
+			};
+			$links = array();
+			preg_match_all( '#<a\s[^>]*href="([^"]*)"[^>]*>(.*?)</a>#s', $label[1], $anchors, PREG_SET_ORDER );
+			foreach ( $anchors as $anchor ) {
+				$url = html_entity_decode( $anchor[1], ENT_QUOTES, 'UTF-8' );
+				if ( '' !== $url && '#' !== $url ) {
+					$links[] = array(
+						'label' => $plain( $anchor[2] ),
+						'url'   => $url,
+					);
+				}
+			}
 			return array(
-				'text'  => trim( (string) preg_replace( '/\s+/u', ' ', $text ) ),
-				'links' => array_values(
-					array_filter(
-						$hrefs[1],
-						static function ( $href ) {
-							return '' !== $href && '#' !== $href;
-						}
-					)
-				),
+				'text'  => $plain( $label[1] ),
+				'links' => $links,
 			);
 		}
 		foreach ( (array) ( $block['innerBlocks'] ?? array() ) as $inner ) {

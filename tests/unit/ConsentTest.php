@@ -65,42 +65,89 @@ final class ConsentTest extends TestCase {
 		$terms = Form_Submission::consent_terms( $form );
 
 		$this->assertSame( 'Li e concordo com o regulamento e com a Política de Privacidade.', $terms['text'] );
-		$this->assertSame( array( 'https://axell.com.br/regulamento' ), $terms['links'], 'A "#" link is no address.' );
+		$this->assertSame( array( array( 'label' => 'regulamento', 'url' => 'https://axell.com.br/regulamento' ) ), $terms['links'], 'A "#" link is no address.' );
 	}
 
 	public function test_a_form_without_consent_gives_no_terms(): void {
 		$this->assertSame( array( 'text' => '', 'links' => array() ), Form_Submission::consent_terms( array( 'innerHTML' => '<form><input name="email"/></form>' ) ) );
 	}
 
-	public function test_record_and_summary(): void {
-		$this->assertSame( '', Members::consent_summary( 7 ), 'Nothing recorded: no summary.' );
-
+	public function test_one_line_of_five_fields(): void {
 		Members::record_consent(
 			7,
 			array(
 				'text'  => 'Li e concordo.',
-				'links' => array( 'https://axell.com.br/regulamento' ),
+				'links' => array(
+					array( 'label' => 'regulamento', 'url' => 'http://axell.com.br/regulamento' ),
+					array( 'label' => 'Política de Privacidade', 'url' => 'https://axell.com.br/privacidade' ),
+				),
 				'ip'    => '203.0.113.9',
 				'url'   => 'https://axell.com.br/atelier/',
 			)
 		);
 
-		$this->assertMatchesRegularExpression( '/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/', $this->meta['aa_consent_at'], 'Stored in UTC.' );
-		$this->assertSame( 'Li e concordo.', $this->meta['aa_consent_text'] );
-		$this->assertSame( '203.0.113.9', $this->meta['aa_consent_ip'] );
+		$line = $this->meta['consent'];
+		$this->assertMatchesRegularExpression( Members::CONSENT_PATTERN, $line );
+		$this->assertMatchesRegularExpression( '/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z\|/', $line, 'When, in UTC (ISO 8601).' );
+		$this->assertStringEndsWith( '|203.0.113.9|https://axell.com.br/atelier/|Li e concordo.|regulamento:http://axell.com.br/regulamento,Política de Privacidade:https://axell.com.br/privacidade', $line );
+		$this->assertArrayNotHasKey( 'aa_consent_at', $this->meta, 'One meta only.' );
+
+		$consent = Members::consent( 7 );
+		$this->assertSame( '203.0.113.9', $consent['ip'] );
+		$this->assertSame( 'https://axell.com.br/atelier/', $consent['url'] );
+		$this->assertSame( 'Li e concordo.', $consent['text'] );
+		$this->assertSame( 'http://axell.com.br/regulamento', $consent['links'][0]['url'], 'The url keeps its ":".' );
+		$this->assertSame( 'Política de Privacidade', $consent['links'][1]['label'] );
+	}
+
+	public function test_escapes_read_back_the_same(): void {
+		Members::record_consent(
+			7,
+			array(
+				'text'  => 'Aceito A|B e C\\D.',
+				'links' => array( array( 'label' => 'termos: 1, 2|3', 'url' => 'https://x.com/a?b=1,2|3' ) ),
+			)
+		);
+
+		$line = $this->meta['consent'];
+		$this->assertStringContainsString( '|Aceito A\\|B e C\\\\D.|', $line, 'The text\'s "|" and "\\" are escaped.' );
+		$this->assertStringContainsString( '|termos\\: 1\\, 2\\|3:https://x.com/a?b=1%2C2%7C3', $line, 'A label\'s ":", "," and "|" escaped; a url\'s "," and "|" encoded.' );
+
+		$consent = Members::consent( 7 );
+		$this->assertSame( 'Aceito A|B e C\\D.', $consent['text'] );
+		$this->assertSame( array( array( 'label' => 'termos: 1, 2|3', 'url' => 'https://x.com/a?b=1,2|3' ) ), $consent['links'] );
+		$this->assertSame( '', $consent['ip'], 'No IP: an empty field.' );
+	}
+
+	public function test_no_links_leave_the_last_field_empty(): void {
+		Members::record_consent( 8, array( 'text' => 'Sim.' ) );
+
+		$this->assertStringEndsWith( '|||Sim.|', $this->meta['consent'] );
+		$this->assertSame( array(), Members::consent( 8 )['links'] );
+	}
+
+	public function test_nothing_or_a_broken_line_is_no_record(): void {
+		$this->assertSame( '', Members::consent( 9 )['at'] );
+		$this->assertSame( '', Members::consent_summary( 9 ) );
+		$this->meta['consent'] = 'not a consent line';
+		$this->assertSame( '', Members::consent( 9 )['at'] );
+	}
+
+	public function test_summary(): void {
+		Members::record_consent(
+			7,
+			array(
+				'text'  => 'Li e concordo.',
+				'links' => array( array( 'label' => 'regulamento', 'url' => 'https://axell.com.br/regulamento' ) ),
+				'ip'    => '203.0.113.9',
+				'url'   => 'https://axell.com.br/atelier/',
+			)
+		);
 
 		$summary = explode( "\n", Members::consent_summary( 7 ) );
 		$this->assertStringStartsWith( 'Accepted on ', $summary[0] );
 		$this->assertStringContainsString( 'IP 203.0.113.9, at https://axell.com.br/atelier/', $summary[0] );
 		$this->assertSame( '“Li e concordo.”', $summary[1] );
-		$this->assertSame( 'https://axell.com.br/regulamento', $summary[2] );
-	}
-
-	public function test_without_terms_only_the_moment_is_recorded(): void {
-		Members::record_consent( 8, array() );
-
-		$this->assertArrayHasKey( 'aa_consent_at', $this->meta );
-		$this->assertArrayNotHasKey( 'aa_consent_text', $this->meta );
-		$this->assertArrayNotHasKey( 'aa_consent_ip', $this->meta );
+		$this->assertSame( 'regulamento: https://axell.com.br/regulamento', $summary[2] );
 	}
 }
