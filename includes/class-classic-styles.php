@@ -112,6 +112,9 @@ final class Classic_Styles {
 		// wp-edit-blocks' dependency on it satisfied.
 		wp_deregister_style( 'wp-editor-classic-layout-styles' );
 		wp_register_style( 'wp-editor-classic-layout-styles', false, array(), AXELLCORE_ATELIERCLUB_VERSION );
+		// The page is edited here, not in a page builder: no "Edit with
+		// Elementor" switch or other builders' editor assets.
+		$this->remove_builder_output( 'enqueue_block_editor_assets' );
 	}
 
 	/**
@@ -166,6 +169,10 @@ final class Classic_Styles {
 				. '.is-root-container.has-global-padding>.alignfull{margin-left:0;margin-right:0}'
 				// Nor the room the editor adds below the last block.
 				. ':root :where(.editor-styles-wrapper)::after{height:0}'
+				// The editor makes every block position: relative, over the
+				// hero footer's own position: absolute (its custom CSS has less
+				// specificity): the hero is the cover at the top of the page.
+				. '.is-root-container>.wp-block-cover:first-child .wp-block-cover__inner-container>.wp-block-group.has-custom-css:last-child{position:absolute}'
 				// The text rendering the page gets from Design_Tokens.
 				. Design_Tokens::TEXT_RENDERING_CSS,
 			'__unstableType' => 'theme',
@@ -225,9 +232,9 @@ final class Classic_Styles {
 	}
 
 	/**
-	 * Remove what the theme and page builders print on a hook (Elementor
-	 * Pro's popups, for example): their stylesheets are dequeued, so it would
-	 * show unstyled. Analytics and other plugins keep their output.
+	 * Remove what the theme and page builders hook (Elementor Pro's popups
+	 * on the page, whose stylesheets are dequeued, or Elementor's switch in
+	 * the editor). Analytics and other plugins keep their output.
 	 *
 	 * @param string $hook Action name.
 	 */
