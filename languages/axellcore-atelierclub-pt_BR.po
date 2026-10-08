@@ -37,7 +37,7 @@ msgstr "Atelier — Página em Branco"
 msgid "Self-contained canvas for the Atelier Axell Club landing page. No header/footer template parts — the page content renders alone."
 msgstr "Tela autocontida para a landing page do Atelier Axell Club. Sem partes de template de cabeçalho/rodapé — o conteúdo da página é renderizado sozinho."
 
-#: includes/class-settings.php:739
+#: includes/class-settings.php:740
 #: build/form/form-input/index.js:1
 #: includes/blocks/form/form-control/index.js:46
 #: includes/blocks/form/form-input/index.js:55
@@ -2429,15 +2429,15 @@ msgid "Creates a page with the Atelier landing content and makes it the Atelier 
 msgstr "Cria uma página com o conteúdo da landing do Atelier e a define como a página do Atelier."
 
 #: includes/class-notifications.php:577
-#: includes/class-settings.php:765
+#: includes/class-settings.php:766
 msgid "Sorry, you are not allowed to do that."
 msgstr "Você não tem permissão para fazer isso."
 
-#: includes/class-settings.php:771
+#: includes/class-settings.php:772
 msgid "Atelier page created."
 msgstr "Página do Atelier criada."
 
-#: includes/class-settings.php:773
+#: includes/class-settings.php:774
 msgid "Could not create the Atelier page."
 msgstr "Não foi possível criar a página do Atelier."
 
@@ -3762,23 +3762,23 @@ msgstr "Um ou mais endereços de e-mail, separados por vírgula. Vazio, usa o e-
 msgid "E-mail heading"
 msgstr "Título do e-mail"
 
-#: includes/class-settings.php:742
+#: includes/class-settings.php:743
 msgid "Plain text: a blank line starts a paragraph and addresses become links. Sent as an HTML e-mail in the Atelier's colors."
 msgstr "Texto simples: uma linha em branco começa um parágrafo, e os endereços viram links. É enviado como e-mail HTML nas cores do Atelier."
 
-#: includes/class-settings.php:744
+#: includes/class-settings.php:745
 msgid "Placeholders"
 msgstr "Marcadores"
 
-#: includes/class-settings.php:751
+#: includes/class-settings.php:752
 msgid "Preview"
 msgstr "Pré-visualização"
 
-#: includes/class-settings.php:753
+#: includes/class-settings.php:754
 msgid "Open the preview"
 msgstr "Abrir a pré-visualização"
 
-#: includes/class-settings.php:754
+#: includes/class-settings.php:755
 msgid "The saved e-mail, with a sample member."
 msgstr "O e-mail salvo, com um membro de exemplo."
 
@@ -3974,3 +3974,11 @@ msgstr "Largura do logo"
 #, php-format
 msgid "Shown at the top of every e-mail, %1$dpx wide. Use an image %2$dpx wide (twice the size) so it stays sharp on high-resolution screens. A PNG works in every e-mail client."
 msgstr "Aparece no topo de todos os e-mails, com %1$d px de largura. Use uma imagem com %2$d px de largura (o dobro) para ela ficar nítida em telas de alta resolução. Um PNG funciona em todos os programas de e-mail."
+
+#: includes/class-settings.php:725
+msgid "The line shown in the inbox, before the e-mail is opened. Accepts placeholders."
+msgstr "A linha que aparece na caixa de entrada, antes de abrir o e-mail. Aceita marcadores."
+
+#: includes/class-settings.php:726
+msgid "The large title at the top of the opened e-mail, below the logo. Accepts placeholders."
+msgstr "O título grande no topo do e-mail aberto, abaixo do logo. Aceita marcadores."

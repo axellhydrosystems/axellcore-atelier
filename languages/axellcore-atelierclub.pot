@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-08T17:04:46+00:00\n"
+"POT-Creation-Date: 2026-10-08T17:17:30+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: axellcore-atelierclub\n"
@@ -920,7 +920,7 @@ msgid "Today's date"
 msgstr ""
 
 #: includes/class-notifications.php:577
-#: includes/class-settings.php:765
+#: includes/class-settings.php:766
 msgid "Sorry, you are not allowed to do that."
 msgstr ""
 
@@ -1194,42 +1194,50 @@ msgstr ""
 msgid "Subject"
 msgstr ""
 
+#: includes/class-settings.php:725
+msgid "The line shown in the inbox, before the e-mail is opened. Accepts placeholders."
+msgstr ""
+
 #: includes/class-settings.php:726
 msgid "E-mail heading"
 msgstr ""
 
-#: includes/class-settings.php:739
+#: includes/class-settings.php:726
+msgid "The large title at the top of the opened e-mail, below the logo. Accepts placeholders."
+msgstr ""
+
+#: includes/class-settings.php:740
 #: build/form/form-input/index.js:1
 #: includes/blocks/form/form-control/index.js:46
 #: includes/blocks/form/form-input/index.js:55
 msgid "Text"
 msgstr ""
 
-#: includes/class-settings.php:742
+#: includes/class-settings.php:743
 msgid "Plain text: a blank line starts a paragraph and addresses become links. Sent as an HTML e-mail in the Atelier's colors."
 msgstr ""
 
-#: includes/class-settings.php:744
+#: includes/class-settings.php:745
 msgid "Placeholders"
 msgstr ""
 
-#: includes/class-settings.php:751
+#: includes/class-settings.php:752
 msgid "Preview"
 msgstr ""
 
-#: includes/class-settings.php:753
+#: includes/class-settings.php:754
 msgid "Open the preview"
 msgstr ""
 
-#: includes/class-settings.php:754
+#: includes/class-settings.php:755
 msgid "The saved e-mail, with a sample member."
 msgstr ""
 
-#: includes/class-settings.php:771
+#: includes/class-settings.php:772
 msgid "Atelier page created."
 msgstr ""
 
-#: includes/class-settings.php:773
+#: includes/class-settings.php:774
 msgid "Could not create the Atelier page."
 msgstr ""
 

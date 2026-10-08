@@ -722,15 +722,16 @@ final class Settings {
 			);
 		}
 		foreach ( array(
-			'subject' => __( 'Subject', 'axellcore-atelierclub' ),
-			'heading' => __( 'E-mail heading', 'axellcore-atelierclub' ),
-		) as $field => $label ) {
+			'subject' => array( __( 'Subject', 'axellcore-atelierclub' ), __( 'The line shown in the inbox, before the e-mail is opened. Accepts placeholders.', 'axellcore-atelierclub' ) ),
+			'heading' => array( __( 'E-mail heading', 'axellcore-atelierclub' ), __( 'The large title at the top of the opened e-mail, below the logo. Accepts placeholders.', 'axellcore-atelierclub' ) ),
+		) as $field => list( $label, $help ) ) {
 			printf(
-				'<tr><th scope="row"><label for="%1$s">%2$s</label></th><td><input type="text" class="large-text" id="%1$s" name="%3$s" value="%4$s"></td></tr>',
+				'<tr><th scope="row"><label for="%1$s">%2$s</label></th><td><input type="text" class="large-text" id="%1$s" name="%3$s" value="%4$s" aria-describedby="%1$s-help"><p class="description" id="%1$s-help">%5$s</p></td></tr>',
 				$id( $field ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped by $id.
 				esc_html( $label ),
 				$name( $field ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped by $name.
-				esc_attr( $value( $field ) )
+				esc_attr( $value( $field ) ),
+				esc_html( $help )
 			);
 		}
 		printf(
