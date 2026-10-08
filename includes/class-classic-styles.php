@@ -173,6 +173,10 @@ final class Classic_Styles {
 				// hero footer's own position: absolute (its custom CSS has less
 				// specificity): the hero is the cover at the top of the page.
 				. '.is-root-container>.wp-block-cover:first-child .wp-block-cover__inner-container>.wp-block-group.has-custom-css:last-child{position:absolute}'
+				// Rich text sets white-space: pre-wrap in its style attribute, so
+				// the space before a button's inline icon shows; the page's
+				// nowrap drops it.
+				. '.wp-block-button__link.rich-text:has(.aa-inline-icon){white-space:nowrap!important}'
 				// The text rendering the page gets from Design_Tokens.
 				. Design_Tokens::TEXT_RENDERING_CSS,
 			'__unstableType' => 'theme',
