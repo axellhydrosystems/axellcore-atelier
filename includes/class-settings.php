@@ -592,11 +592,17 @@ final class Settings {
 	 */
 	public function render_places_enabled() {
 		printf(
-			'<input type="hidden" name="%1$s[places_enabled]" value="0"><label><input type="checkbox" id="%1$s-places_enabled" name="%1$s[places_enabled]" value="1"%2$s> %3$s</label><p class="description">%4$s</p>',
+			'<input type="hidden" name="%1$s[places_enabled]" value="0"><label><input type="checkbox" id="%1$s-places_enabled" name="%1$s[places_enabled]" value="1"%2$s> %3$s</label><p class="description">%4$s</p><p class="description">%5$s</p>',
 			esc_attr( self::OPTION ),
 			checked( (bool) self::get( 'places_enabled' ), true, false ),
 			esc_html__( 'Suggest Google addresses while the street is typed', 'axellcore-atelierclub' ),
-			esc_html__( 'On the application form and on the user profile. Choosing an address fills in street, number, neighborhood, state, city and CEP. Needs the API key below, with the Places API (New) enabled.', 'axellcore-atelierclub' )
+			esc_html__( 'On the application form and on the user profile. Choosing an address fills in street, number, neighborhood, state, city and CEP. Needs the API key below, with the Places API (New) enabled.', 'axellcore-atelierclub' ),
+			sprintf(
+				/* translators: 1: Link opening tag, 2: Link closing tag. */
+				esc_html__( 'Costs: the Google Cloud project needs a billing account with a payment method. Google charges for the suggestions and the addresses looked up beyond the free monthly limit, at the prices on %1$sPlaces API usage and billing%2$s. Set quotas and budget alerts in Google Cloud to cap the cost.', 'axellcore-atelierclub' ),
+				'<a href="https://developers.google.com/maps/documentation/places/web-service/usage-and-billing" target="_blank" rel="noopener noreferrer">',
+				'</a>'
+			)
 		);
 	}
 

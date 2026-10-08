@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-08T18:49:36+00:00\n"
+"POT-Creation-Date: 2026-10-08T18:51:57+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: axellcore-atelierclub\n"
@@ -485,7 +485,7 @@ msgstr[1] ""
 
 #: includes/class-member.php:363
 #: includes/class-member.php:376
-#: includes/class-settings.php:888
+#: includes/class-settings.php:894
 msgid "Member"
 msgstr ""
 
@@ -498,7 +498,7 @@ msgstr ""
 #: includes/class-member.php:414
 #: includes/class-member.php:425
 #: includes/class-settings.php:246
-#: includes/class-settings.php:691
+#: includes/class-settings.php:697
 msgid "Members"
 msgstr ""
 
@@ -513,7 +513,7 @@ msgid "Export"
 msgstr ""
 
 #: includes/class-members-export.php:75
-#: includes/class-settings.php:882
+#: includes/class-settings.php:888
 #: build/admin/members/index.js:175
 #: build/admin/members/index.js:184
 #: build/admin/resellers/index.js:175
@@ -913,7 +913,7 @@ msgid "First name"
 msgstr ""
 
 #: includes/class-notifications.php:342
-#: includes/class-settings.php:880
+#: includes/class-settings.php:886
 msgid "E-mail"
 msgstr ""
 
@@ -951,7 +951,7 @@ msgid "Today's date"
 msgstr ""
 
 #: includes/class-notifications.php:577
-#: includes/class-settings.php:987
+#: includes/class-settings.php:993
 msgid "Sorry, you are not allowed to do that."
 msgstr ""
 
@@ -1033,7 +1033,7 @@ msgid "Atelier Page"
 msgstr ""
 
 #: includes/class-settings.php:193
-#: includes/class-settings.php:696
+#: includes/class-settings.php:702
 msgid "Atelier settings"
 msgstr ""
 
@@ -1209,172 +1209,178 @@ msgstr ""
 msgid "On the application form and on the user profile. Choosing an address fills in street, number, neighborhood, state, city and CEP. Needs the API key below, with the Places API (New) enabled."
 msgstr ""
 
-#: includes/class-settings.php:628
+#. translators: 1: Link opening tag, 2: Link closing tag.
+#: includes/class-settings.php:602
+#, php-format
+msgid "Costs: the Google Cloud project needs a billing account with a payment method. Google charges for the suggestions and the addresses looked up beyond the free monthly limit, at the prices on %1$sPlaces API usage and billing%2$s. Set quotas and budget alerts in Google Cloud to cap the cost."
+msgstr ""
+
+#: includes/class-settings.php:634
 msgid "Score threshold should be a value between 0 and 1, default: 0.5"
 msgstr ""
 
-#: includes/class-settings.php:690
+#: includes/class-settings.php:696
 msgid "General"
 msgstr ""
 
-#: includes/class-settings.php:692
-#: includes/class-settings.php:921
+#: includes/class-settings.php:698
+#: includes/class-settings.php:927
 msgid "E-mails"
 msgstr ""
 
-#: includes/class-settings.php:693
+#: includes/class-settings.php:699
 msgid "Integrations"
 msgstr ""
 
-#: includes/class-settings.php:697
+#: includes/class-settings.php:703
 msgid "Settings sections"
 msgstr ""
 
-#: includes/class-settings.php:740
+#: includes/class-settings.php:746
 msgid "Create Atelier page"
 msgstr ""
 
-#: includes/class-settings.php:741
+#: includes/class-settings.php:747
 msgid "Creates a page with the Atelier landing content and makes it the Atelier page."
 msgstr ""
 
-#: includes/class-settings.php:763
+#: includes/class-settings.php:769
 msgid "This image is an SVG: Gmail and other e-mail clients do not show SVG. Prefer a PNG."
 msgstr ""
 
-#: includes/class-settings.php:767
+#: includes/class-settings.php:773
 msgid "E-mail header"
 msgstr ""
 
-#: includes/class-settings.php:769
-#: includes/class-settings.php:770
+#: includes/class-settings.php:775
+#: includes/class-settings.php:776
 msgid "Logo"
 msgstr ""
 
-#: includes/class-settings.php:777
+#: includes/class-settings.php:783
 msgid "None: the brand in text"
 msgstr ""
 
-#: includes/class-settings.php:786
+#: includes/class-settings.php:792
 msgid "Use the site's logo"
 msgstr ""
 
-#: includes/class-settings.php:787
+#: includes/class-settings.php:793
 msgid "The theme has no logo (Appearance > Customize > Site Identity)."
 msgstr ""
 
-#: includes/class-settings.php:795
+#: includes/class-settings.php:801
 msgid "Image (by default, the Atelier logo)"
 msgstr ""
 
-#: includes/class-settings.php:800
+#: includes/class-settings.php:806
 msgid "Choose image"
 msgstr ""
 
-#: includes/class-settings.php:802
+#: includes/class-settings.php:808
 msgid "Use the default"
 msgstr ""
 
-#: includes/class-settings.php:812
+#: includes/class-settings.php:818
 msgid "Logo width"
 msgstr ""
 
 #. translators: 1: the logo's width in px, 2: twice that width.
-#: includes/class-settings.php:821
+#: includes/class-settings.php:827
 #, php-format
 msgid "Shown at the top of every e-mail, %1$dpx wide. Use an image %2$dpx wide (twice the size) so it stays sharp on high-resolution screens. A PNG works in every e-mail client."
 msgstr ""
 
-#: includes/class-settings.php:876
+#: includes/class-settings.php:882
 msgid "E-mails sent by the Atelier. Each one is on until turned off; manage one to edit its subject, heading and text."
 msgstr ""
 
-#: includes/class-settings.php:881
+#: includes/class-settings.php:887
 msgid "Recipient"
 msgstr ""
 
-#: includes/class-settings.php:883
+#: includes/class-settings.php:889
 msgid "Actions"
 msgstr ""
 
-#: includes/class-settings.php:896
+#: includes/class-settings.php:902
 msgid "Enabled"
 msgstr ""
 
-#: includes/class-settings.php:896
+#: includes/class-settings.php:902
 msgid "Disabled"
 msgstr ""
 
-#: includes/class-settings.php:897
+#: includes/class-settings.php:903
 msgid "Manage"
 msgstr ""
 
-#: includes/class-settings.php:928
+#: includes/class-settings.php:934
 msgid "Enable/Disable"
 msgstr ""
 
-#: includes/class-settings.php:932
+#: includes/class-settings.php:938
 msgid "Enable this e-mail"
 msgstr ""
 
-#: includes/class-settings.php:938
+#: includes/class-settings.php:944
 msgid "Recipients"
 msgstr ""
 
-#: includes/class-settings.php:942
+#: includes/class-settings.php:948
 msgid "One or more e-mail addresses, separated by commas. Empty, the site's admin e-mail."
 msgstr ""
 
-#: includes/class-settings.php:946
+#: includes/class-settings.php:952
 #: build/form/form-atelier/index.js:1
 #: build/form/form/index.js:1
 msgid "Subject"
 msgstr ""
 
-#: includes/class-settings.php:946
+#: includes/class-settings.php:952
 msgid "The line shown in the inbox, before the e-mail is opened. Accepts placeholders."
 msgstr ""
 
-#: includes/class-settings.php:947
+#: includes/class-settings.php:953
 msgid "E-mail heading"
 msgstr ""
 
-#: includes/class-settings.php:947
+#: includes/class-settings.php:953
 msgid "The large title at the top of the opened e-mail, below the logo. Accepts placeholders."
 msgstr ""
 
-#: includes/class-settings.php:961
+#: includes/class-settings.php:967
 #: build/form/form-input/index.js:1
 #: includes/blocks/form/form-control/index.js:46
 #: includes/blocks/form/form-input/index.js:55
 msgid "Text"
 msgstr ""
 
-#: includes/class-settings.php:964
+#: includes/class-settings.php:970
 msgid "Plain text: a blank line starts a paragraph and addresses become links. Sent as an HTML e-mail in the Atelier's colors."
 msgstr ""
 
-#: includes/class-settings.php:966
+#: includes/class-settings.php:972
 msgid "Placeholders"
 msgstr ""
 
-#: includes/class-settings.php:973
+#: includes/class-settings.php:979
 msgid "Preview"
 msgstr ""
 
-#: includes/class-settings.php:975
+#: includes/class-settings.php:981
 msgid "Open the preview"
 msgstr ""
 
-#: includes/class-settings.php:976
+#: includes/class-settings.php:982
 msgid "The saved e-mail, with a sample member."
 msgstr ""
 
-#: includes/class-settings.php:993
+#: includes/class-settings.php:999
 msgid "Atelier page created."
 msgstr ""
 
-#: includes/class-settings.php:995
+#: includes/class-settings.php:1001
 msgid "Could not create the Atelier page."
 msgstr ""
 
