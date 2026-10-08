@@ -178,9 +178,10 @@ final class Member_Profile {
 					),
 					'professional_registration' => array( 'label' => $labels['professional_registration'] ),
 					'primary_focus'             => array(
-						'label'   => $labels['primary_focus'],
-						'type'    => 'select',
-						'options' => array( '' => __( 'Select an option…', 'axellcore-atelierclub' ) ) + Admin_Rest::PRIMARY_FOCUS_OPTIONS,
+						'label'      => $labels['primary_focus'],
+						'type'       => 'select',
+						'searchable' => true,
+						'options'    => array( '' => __( 'Select an option…', 'axellcore-atelierclub' ) ) + Admin_Rest::PRIMARY_FOCUS_OPTIONS,
 					),
 				),
 			),
@@ -189,10 +190,11 @@ final class Member_Profile {
 				'fields' => array(
 					// Never stored: it follows the CPF/CNPJ (Members::profile_type_of()).
 					'profile_type'  => array(
-						'label'    => $labels['profile_type'],
-						'type'     => 'select',
-						'disabled' => true,
-						'options'  => array( '' => '' ) + Members_Export::profile_types(),
+						'label'      => $labels['profile_type'],
+						'type'       => 'select',
+						'searchable' => true,
+						'disabled'   => true,
+						'options'    => array( '' => '' ) + Members_Export::profile_types(),
 					),
 					'br_revenue_id' => array(
 						'label'       => $labels['br_revenue_id'],
@@ -206,10 +208,11 @@ final class Member_Profile {
 				'fields' => array(
 					// Brazil only: shown with every country, never editable.
 					'country'        => array(
-						'label'    => $labels['country'],
-						'type'     => 'select',
-						'disabled' => true,
-						'options'  => Locations::instance()->countries(),
+						'label'      => $labels['country'],
+						'type'       => 'select',
+						'searchable' => true,
+						'disabled'   => true,
+						'options'    => Locations::instance()->countries(),
 					),
 					'address_street' => array( 'label' => $labels['address_street'] ),
 					'address_number' => array( 'label' => $labels['address_number'] ),
@@ -407,7 +410,9 @@ final class Member_Profile {
 	private function print_searchable_select( $id, $key, array $options, $value, $attrs ) {
 		$items = array();
 		foreach ( $options as $option => $label ) {
-			if ( '' !== (string) $option ) {
+			// An empty option with a text ("Select an option…") can be chosen
+			// again; one without stays out of the list.
+			if ( '' !== (string) $option || '' !== (string) $label ) {
 				$items[] = array(
 					'value' => (string) $option,
 					'label' => (string) $label,
@@ -430,19 +435,20 @@ final class Member_Profile {
 		);
 		// The state's change also clears the city (axell/member-city).
 		printf(
-			'<select name="%1$s" id="%1$s" style="width: 25em;"%2$s data-wp-bind--hidden="context.ready" data-wp-bind--value="context.value"%3$s>',
+			'<select name="%1$s" id="%1$s" style="width: 25em;"%2$s data-wp-bind--hidden="context.ready" data-wp-bind--value="context.value" data-wp-on--change="actions.onNativeChange"%3$s>',
 			esc_attr( $id ),
 			$attrs, // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped by the caller.
-			'state' === $key ? ' data-wp-on--change="axell/member-city::actions.onState"' : ''
+			'state' === $key ? ' data-wp-on--change---city="axell/member-city::actions.onState"' : ''
 		);
 		foreach ( $options as $option => $label ) {
 			printf( '<option value="%1$s"%2$s>%3$s</option>', esc_attr( (string) $option ), selected( $value, (string) $option, false ), esc_html( (string) $label ) );
 		}
 		echo '</select>';
 		printf(
-			'<button type="button" class="aa-member-select__toggle" hidden aria-haspopup="listbox" aria-expanded="false" aria-labelledby="%1$s-label %1$s-toggle" id="%1$s-toggle" data-wp-bind--hidden="!context.ready" data-wp-bind--aria-expanded="context.open" data-wp-on--click="actions.toggle"><span data-wp-text="state.shown">%2$s</span></button>',
+			'<button type="button" class="aa-member-select__toggle" hidden aria-haspopup="listbox" aria-expanded="false" aria-labelledby="%1$s-label %1$s-toggle" id="%1$s-toggle"%3$s data-wp-bind--hidden="!context.ready" data-wp-bind--aria-expanded="context.open" data-wp-on--click="actions.toggle"><span data-wp-text="state.shown">%2$s</span></button>',
 			esc_attr( $id ),
-			esc_html( (string) ( $options[ $value ] ?? '' ) )
+			esc_html( (string) ( $options[ $value ] ?? '' ) ),
+			false !== strpos( $attrs, ' disabled' ) ? ' disabled' : ''
 		);
 		printf(
 			'<div class="aa-member-select__popup" hidden data-wp-bind--hidden="!context.open">'

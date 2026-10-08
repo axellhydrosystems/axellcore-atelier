@@ -330,8 +330,9 @@ final class MemberProfileTest extends TestCase {
 		$this->assertStringContainsString( '<tr class="form-required form-invalid"><th><label for="aa_member_br_revenue_id" id="aa_member_br_revenue_id-label">', $html );
 		$this->assertStringContainsString( 'aria-describedby="aa_member_br_revenue_id-error"', $html );
 		$this->assertStringContainsString( 'id="aa_member_br_revenue_id-error">Invalid CPF.</p>', $html );
-		$this->assertMatchesRegularExpression( '/<select name="aa_member_profile_type" id="aa_member_profile_type"[^>]* disabled>\\s*<option value="" selected="selected">/', $html, 'An invalid number has no type.' );
-		$this->assertMatchesRegularExpression( '/<select name="aa_member_country"[^>]* disabled>/', $html );
+		$this->assertMatchesRegularExpression( '/<select name="aa_member_profile_type" id="aa_member_profile_type"[^>]* disabled[ >][^>]*>\\s*<option value="" selected="selected">/', $html, 'An invalid number has no type.' );
+		$this->assertMatchesRegularExpression( '/<select name="aa_member_country"[^>]* disabled[ >]/', $html );
+		$this->assertMatchesRegularExpression( '/<button type="button" class="aa-member-select__toggle"[^>]*id="aa_member_country-toggle" disabled/', $html );
 	}
 
 	public function test_stored_values_are_shown_with_their_masks(): void {

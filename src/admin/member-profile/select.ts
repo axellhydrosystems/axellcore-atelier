@@ -113,7 +113,11 @@ store( 'axell/member-select', {
 		},
 	},
 	actions: {
-		toggle() {
+		toggle( event: MouseEvent ) {
+			// A disabled field (as the native one) never opens.
+			if ( ( event.currentTarget as HTMLButtonElement ).disabled ) {
+				return;
+			}
 			const context = getContext< SelectContext >();
 			if ( context.open ) {
 				close( context, false );
@@ -220,6 +224,16 @@ store( 'axell/member-select', {
 					}
 				);
 			}, 0 );
+		},
+
+		onNativeChange( event: Event ) {
+			// Another script set the native select (the registration type
+			// follows the CPF/CNPJ): the button shows it.
+			const select = event.target as HTMLSelectElement;
+			const context = getContext< SelectContext >();
+			context.value = select.value;
+			context.label =
+				select.options[ select.selectedIndex ]?.textContent ?? '';
 		},
 
 		pick( event: MouseEvent ) {

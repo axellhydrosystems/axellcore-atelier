@@ -100,8 +100,12 @@ store( 'axell/member-fields', {
 					const type = document.getElementById(
 						'aa_member_profile_type'
 					) as HTMLSelectElement | null;
-					if ( type ) {
+					if ( type && type.value !== profileType( input.value ) ) {
 						type.value = profileType( input.value );
+						// Its button (axell/member-select) follows the change.
+						type.dispatchEvent(
+							new Event( 'change', { bubbles: true } )
+						);
 					}
 					break;
 				}
