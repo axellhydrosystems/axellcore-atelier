@@ -145,11 +145,9 @@ export default function MembersList( {
 					'axellcore-atelierclub'
 				),
 				type: 'text',
-				// UF is shown by its code (PR), not the state name.
-				elements: states.map( ( state ) => ( {
-					value: state.value,
-					label: state.value,
-				} ) ),
+				// Shown and filtered by the state's name (Paraná); the filter
+				// offers only the states that have members.
+				elements: states,
 				filterBy: { operators: [ 'is' ] },
 			},
 			{

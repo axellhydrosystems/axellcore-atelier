@@ -23,7 +23,7 @@ if ( config && heading ) {
 		mount(
 			heading,
 			<MembersList
-				states={ config.states }
+				states={ config.usedStates }
 				primaryFocus={ config.primaryFocus }
 				statuses={ config.statuses }
 				editUrl={ config.editUrl }

@@ -104,6 +104,8 @@ export interface MembersConfig {
 	listUrl: string;
 	editUrl: string;
 	states: SelectOption[];
+	/** States that have members (the list's filter). */
+	usedStates: SelectOption[];
 	primaryFocus: SelectOption[];
 	statuses: SelectOption[];
 	memberId: number;

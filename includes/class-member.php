@@ -516,15 +516,48 @@ final class Member {
 			);
 		};
 
+		// The list's state filter offers only the states that have members.
+		$used = self::used_states();
+
 		$page = admin_url( 'admin.php?page=' . self::ADMIN_PAGE );
 		return array(
 			'listUrl'      => $page,
 			'editUrl'      => $page . '&member=',
 			'memberId'     => $this->current_member_id(),
 			'states'       => $states,
+			'usedStates'   => array_values(
+				array_filter(
+					$states,
+					static function ( $state ) use ( $used ) {
+						return isset( $used[ $state['value'] ] );
+					}
+				)
+			),
 			'primaryFocus' => $options( Admin_Rest::PRIMARY_FOCUS_OPTIONS ),
 			'statuses'     => $options( self::roles() ),
 		);
+	}
+
+	/**
+	 * The states (UF) of the members, pending or approved, as keys.
+	 *
+	 * @return array<string,true>
+	 */
+	private static function used_states() {
+		$used = array();
+		$ids  = get_users(
+			array(
+				'role__in' => array_keys( self::roles() ),
+				'fields'   => 'ID',
+			)
+		);
+		foreach ( $ids as $id ) {
+			$uf = strtoupper( (string) Members::get( (int) $id, 'state' ) );
+			if ( '' !== $uf ) {
+				$used[ $uf ] = true;
+			}
+		}
+		return $used;
 	}
 
 	/**
