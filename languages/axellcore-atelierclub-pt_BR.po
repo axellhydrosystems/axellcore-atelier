@@ -3784,7 +3784,7 @@ msgstr "O e-mail salvo, com um membro de exemplo."
 
 #: includes/class-notifications.php:212
 msgid "The Axell World"
-msgstr "Universo Axell"
+msgstr "The Axell World"
 
 #: includes/class-notifications.php:326
 msgid "CPF or CNPJ, as the document is"
@@ -3822,10 +3822,6 @@ msgstr "O tema não tem logo (Aparência > Personalizar > Identidade do site)."
 #: includes/class-settings.php:574
 msgid "Choose image"
 msgstr "Escolher imagem"
-
-#: includes/class-settings.php:580
-msgid "Shown at the top of every e-mail, up to 200px wide. A PNG works in every e-mail client."
-msgstr "Aparece no topo de todos os e-mails, com até 200 px de largura. Um PNG funciona em todos os programas de e-mail."
 
 #: includes/class-settings.php:569
 msgid "Image (by default, the Atelier logo)"
@@ -3968,3 +3964,7 @@ msgstr ""
 "Boa notícia: nossa curadoria aprovou sua solicitação, e agora você é membro do {atelier_name}.\n"
 "\n"
 "{atelier_name}"
+
+#: includes/class-settings.php:580
+msgid "Shown at the top of every e-mail, 140px wide. A PNG works in every e-mail client."
+msgstr "Aparece no topo de todos os e-mails, com 140 px de largura. Um PNG funciona em todos os programas de e-mail."

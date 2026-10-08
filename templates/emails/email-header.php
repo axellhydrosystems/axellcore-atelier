@@ -59,7 +59,7 @@ list( $brand_text, $brand_tagline ) = Axellcore_Atelierclub\Notifications::brand
 										<tr>
 											<td id="template_header_image" style="<?php echo esc_attr( $styles['logo_cell'] ); ?>">
 												<?php if ( $email_logo ) : ?>
-													<p style="<?php echo esc_attr( $styles['logo'] ); ?>"><a href="<?php echo esc_url( $atelier_url ); ?>" style="<?php echo esc_attr( $styles['logo_link'] ); ?>" target="_blank"><img src="<?php echo esc_url( $email_logo[0] ); ?>" alt="<?php echo esc_attr( '' !== $brand_text ? $brand_text : get_bloginfo( 'name' ) ); ?>" width="200" style="<?php echo esc_attr( $styles['logo_img'] ); ?>"></a></p>
+													<p style="<?php echo esc_attr( $styles['logo'] ); ?>"><a href="<?php echo esc_url( $atelier_url ); ?>" style="<?php echo esc_attr( $styles['logo_link'] ); ?>" target="_blank"><img src="<?php echo esc_url( $email_logo[0] ); ?>" alt="<?php echo esc_attr( '' !== $brand_text ? $brand_text : get_bloginfo( 'name' ) ); ?>" width="140" style="<?php echo esc_attr( $styles['logo_img'] ); ?>"></a></p>
 												<?php else : ?>
 													<p class="email-logo-text aa-text" style="<?php echo esc_attr( $styles['logo'] ); ?>"><a class="aa-brand" href="<?php echo esc_url( $atelier_url ); ?>" style="<?php echo esc_attr( $styles['logo_link'] ); ?>" target="_blank"><?php echo esc_html( $brand_text ); ?></a></p>
 													<?php if ( '' !== $brand_tagline ) : ?>

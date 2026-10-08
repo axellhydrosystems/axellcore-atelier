@@ -577,7 +577,7 @@ final class Settings {
 			absint( $default_id ),
 			esc_url( $default_id ? (string) wp_get_attachment_image_url( $default_id, 'medium' ) : AXELLCORE_ATELIERCLUB_URL . Notifications::LOGO_FILE )
 		);
-		echo '<p class="description">' . esc_html__( 'Shown at the top of every e-mail, up to 200px wide. A PNG works in every e-mail client.', 'axellcore-atelierclub' ) . '</p>';
+		echo '<p class="description">' . esc_html__( 'Shown at the top of every e-mail, 140px wide. A PNG works in every e-mail client.', 'axellcore-atelierclub' ) . '</p>';
 		echo '</fieldset></td></tr></tbody></table>';
 		?>
 		<script>
