@@ -103,6 +103,9 @@ const { state } = store( 'axell/form', {
 		},
 	},
 	actions: {
+		clearInvalid( event: Event ) {
+			( event.target as Element ).removeAttribute?.( 'aria-invalid' );
+		},
 		completeUrl( event: FocusEvent ) {
 			const input = event.target as HTMLInputElement;
 			if ( input instanceof HTMLInputElement && input.type === 'url' ) {

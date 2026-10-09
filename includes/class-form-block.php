@@ -97,6 +97,13 @@ final class Form_Block {
 		if ( null === $processor->get_attribute( 'data-wp-on--focusout' ) ) {
 			$processor->set_attribute( 'data-wp-on--focusout', 'actions.completeUrl' );
 		}
+		// A field marked invalid (by the server or after a submission) loses
+		// the mark once edited.
+		foreach ( array( 'input', 'change' ) as $event ) {
+			if ( null === $processor->get_attribute( 'data-wp-on--' . $event ) ) {
+				$processor->set_attribute( 'data-wp-on--' . $event, 'actions.clearInvalid' );
+			}
+		}
 
 		wp_interactivity_state(
 			'axell/autocomplete',
