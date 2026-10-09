@@ -6,10 +6,10 @@
  * revenda is `&reseller=<id>`, a new one `&reseller=new`; the core screens
  * (edit.php, post-new.php, post.php) redirect there.
  *
- * @package Axellcore_Atelierclub
+ * @package Axellcore_Atelier
  */
 
-namespace Axellcore_Atelierclub;
+namespace Axellcore_Atelier;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -106,8 +106,8 @@ final class Resellers_Admin {
 
 		$this->hook = (string) add_submenu_page(
 			$parent,
-			__( 'Resellers', 'axellcore-atelierclub' ),
-			__( 'All resellers', 'axellcore-atelierclub' ),
+			__( 'Resellers', 'axellcore-atelier' ),
+			__( 'All resellers', 'axellcore-atelier' ),
 			$type->cap->edit_posts,
 			self::ADMIN_PAGE,
 			array( $this, 'render_admin_page' ),
@@ -115,8 +115,8 @@ final class Resellers_Admin {
 		);
 		add_submenu_page(
 			$parent,
-			__( 'Add reseller', 'axellcore-atelierclub' ),
-			__( 'Add reseller', 'axellcore-atelierclub' ),
+			__( 'Add reseller', 'axellcore-atelier' ),
+			__( 'Add reseller', 'axellcore-atelier' ),
 			$type->cap->create_posts,
 			self::ADMIN_PAGE . '&reseller=new',
 			'__return_null',
@@ -155,13 +155,13 @@ final class Resellers_Admin {
 	 */
 	public function render_admin_page() {
 		$reseller = $this->current_reseller();
-		$title    = 'new' === $reseller ? __( 'Add reseller', 'axellcore-atelierclub' ) : __( 'Resellers', 'axellcore-atelierclub' );
+		$title    = 'new' === $reseller ? __( 'Add reseller', 'axellcore-atelier' ) : __( 'Resellers', 'axellcore-atelier' );
 		echo '<div class="wrap"><h1 class="wp-heading-inline">' . esc_html( $title ) . '</h1>';
 		if ( ! $reseller ) {
 			printf(
 				' <a href="%s" class="page-title-action">%s</a>',
 				esc_url( self::url( 'new' ) ),
-				esc_html__( 'Add reseller', 'axellcore-atelierclub' )
+				esc_html__( 'Add reseller', 'axellcore-atelier' )
 			);
 		}
 		echo '<hr class="wp-header-end"></div>';
@@ -195,12 +195,12 @@ final class Resellers_Admin {
 		if ( ! $this->is_admin_page() ) {
 			return;
 		}
-		$asset_file = AXELLCORE_ATELIERCLUB_PATH . 'build/admin/resellers/index.asset.php';
+		$asset_file = AXELLCORE_ATELIER_PATH . 'build/admin/resellers/index.asset.php';
 		if ( ! file_exists( $asset_file ) ) {
 			return;
 		}
 		$asset  = require $asset_file;
-		$handle = 'axellcore-atelierclub-admin-resellers';
+		$handle = 'axellcore-atelier-admin-resellers';
 		wp_add_inline_script(
 			'wp-api-fetch',
 			'window.aaResellers = ' . wp_json_encode( $this->admin_config() ) . ';',
@@ -208,16 +208,16 @@ final class Resellers_Admin {
 		);
 		wp_enqueue_script(
 			$handle,
-			AXELLCORE_ATELIERCLUB_URL . 'build/admin/resellers/index.js',
+			AXELLCORE_ATELIER_URL . 'build/admin/resellers/index.js',
 			$asset['dependencies'],
 			$asset['version'],
 			true
 		);
 		// Translations of its __() strings: the plugin's languages/ or the installed language pack.
-		wp_set_script_translations( $handle, 'axellcore-atelierclub' );
+		wp_set_script_translations( $handle, 'axellcore-atelier' );
 		wp_enqueue_style(
 			$handle,
-			AXELLCORE_ATELIERCLUB_URL . 'build/admin/resellers/style-index.css',
+			AXELLCORE_ATELIER_URL . 'build/admin/resellers/style-index.css',
 			array( 'wp-components', Assets::admin_dataviews_style() ),
 			$asset['version']
 		);

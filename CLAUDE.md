@@ -1,4 +1,4 @@
-# axellcore-atelierclub — plugin notes for Claude
+# axellcore-atelier — plugin notes for Claude
 
 This file is plugin-scoped context, separate from `docs/ARCHITECTURE.md` (the
 session-status log of what's built/tested/pending). Put durable "why things
@@ -34,7 +34,7 @@ same license as this plugin) is vendored at
 
 - **Fixed REST submission target.** `axellcore/form` has no
   `submissionMethod`/email/custom-action Inspector like `core/form` does — we
-  always POST JSON to `/wp-json/axellcore-atelierclub/v1/members`
+  always POST JSON to `/wp-json/axellcore-atelier/v1/members`
   (`includes/class-rest.php`). The reference's email-vs-custom split doesn't
   apply here.
 - **Fixed dark visual design via `aa-` CSS classes**, not the reference's
@@ -278,9 +278,9 @@ import-export/`: `Axellcore_Exporter`, the export half of `Axellcore_Admin`,
 `Axellcore_Fields::csv_line()`/`escape_cell()`; the chip picker and batch
 loop of `assets/js/admin/import-export.js` in
 `src/admin/members-export/index.ts`). Export only. It never calls axellcore
-and every name is its own (AJAX `axellcore_atelierclub_members_export`,
-admin-post `axellcore_atelierclub_members_download`, nonce, handle,
-`window.aaMembersExport`, `uploads/axellcore-atelierclub-export/`, CSS
+and every name is its own (AJAX `axellcore_atelier_members_export`,
+admin-post `axellcore_atelier_members_download`, nonce, handle,
+`window.aaMembersExport`, `uploads/axellcore-atelier-export/`, CSS
 `aa-export-*`), so it works with or without axellcore active. Batches of
 100 users (`WP_User_Query` on both member roles), UTF-8 BOM, formula
 escaping; filters: status, "Cadastrados desde" (a day in the site timezone,
@@ -433,7 +433,7 @@ the JS).
 
 ## Content files (what activation reads)
 
-`Activator` creates `/atelier` from `content/atelier-page.html`, its child pages from `content/pages/{slug}.html` only when the `axellcore_atelierclub_create_child_pages` filter returns true (off by default, so a live site gets only the landing; a development site turns it on, e.g. in an mu-plugin), and the header/footer template parts from `content/header-part.html` / `content/footer-part.html`. The database is the source of truth: after editing those pages in the editor, run `bin/export-content.sh` to copy them back into `content/`. `bin/generate-content.py` no longer reproduces the live landing (it writes only `content/seed-content.html`, which nothing reads).
+`Activator` creates `/atelier` from `content/atelier-page.html`, its child pages from `content/pages/{slug}.html` only when the `axellcore_atelier_create_child_pages` filter returns true (off by default, so a live site gets only the landing; a development site turns it on, e.g. in an mu-plugin), and the header/footer template parts from `content/header-part.html` / `content/footer-part.html`. The database is the source of truth: after editing those pages in the editor, run `bin/export-content.sh` to copy them back into `content/`. `bin/generate-content.py` no longer reproduces the live landing (it writes only `content/seed-content.html`, which nothing reads).
 
 ## `axell/form` (generic) and `axell/form-atelier`
 
@@ -493,7 +493,7 @@ With JetEngine active nothing of that is registered: no admin and no import. Onl
 - **Content:** `/atelier` is the 13 styled section pages (hero to adesão) joined in order. `/atelier/<section>/` stays the source of each one: change a section there, then rebuild post 6 from them.
 - **Template parts:** `axellcore-header` and `axellcore-footer` hold the content of `/atelier/header/` and `/atelier/footer/`.
   - **Header:** its root is `axell/sticky-header`, fixed, with the mockup's `is-scrolled` state past 40px. The scrolled padding is `!important`, because the block's padding attribute is inline.
-- **`templates/atelier-club.html`:** renders like the section pages, with the theme's global styles and no legacy stylesheets.
+- **`templates/atelier.html`:** renders like the section pages, with the theme's global styles and no legacy stylesheets.
   - **Wrappers:** the template parts are `div`, and the semantic `<header>`/`<footer>` is their root block.
   - **Gaps:** a root group with `blockGap: 0` holds header, `main` and footer, and the `post-content` has `blockGap: 0`. Without them the theme's 1.2rem block gap separates the template parts and every section (+269px).
 - **Reveal:** set with `revealMode` on each section page, as the source's `.reveal`:
@@ -505,16 +505,16 @@ With JetEngine active nothing of that is registered: no admin and no import. Onl
 ## Releases, updates and translations (SelfDirectory, as axellcore)
 
 - **Updates:** `lib/selfdirectory` (git submodule, `fervidum/selfdirectory`) updates the plugin from the GitHub releases of its `Plugin URI` in the Plugins screen, and installs its language packs. After cloning: `git submodule update --init`.
-- **Plugin zip:** `axellcore-atelierclub.X.Y.Z.zip`, built by `release.yml` on a `X.Y.Z` tag. It is `git archive` plus the SelfDirectory class; `.gitattributes` `export-ignore` drops the dev files, `design/`, `src/` and `languages/`.
-- **Language packs:** `axellcore-atelierclub.X.Y.Z-pt_BR.zip`, holding the `.po`, the `.mo` and the JS `.json` catalogs. `language.yml` builds them from the orphan branch `language/X.Y.Z` and attaches them to the release.
-- **Source strings are English;** Portuguese lives only in `languages/axellcore-atelierclub-pt_BR.po`.
-- **Script translations:** every enqueued script with `__()` calls `wp_set_script_translations( $handle, 'axellcore-atelierclub' )` with no path, so the plugin's `languages/` (development) and the installed pack (`wp-content/languages/plugins`) both work. Block scripts get it from `block.json`.
+- **Plugin zip:** `axellcore-atelier.X.Y.Z.zip`, built by `release.yml` on a `X.Y.Z` tag. It is `git archive` plus the SelfDirectory class; `.gitattributes` `export-ignore` drops the dev files, `design/`, `src/` and `languages/`.
+- **Language packs:** `axellcore-atelier.X.Y.Z-pt_BR.zip`, holding the `.po`, the `.mo` and the JS `.json` catalogs. `language.yml` builds them from the orphan branch `language/X.Y.Z` and attaches them to the release.
+- **Source strings are English;** Portuguese lives only in `languages/axellcore-atelier-pt_BR.po`.
+- **Script translations:** every enqueued script with `__()` calls `wp_set_script_translations( $handle, 'axellcore-atelier' )` with no path, so the plugin's `languages/` (development) and the installed pack (`wp-content/languages/plugins`) both work. Block scripts get it from `block.json`.
 - **Process (run from the Studio site, `studio wp`):**
   1. Write the version's notes under `== Changelog ==` in `readme.txt`.
-  2. `studio wp --require=wp-content/plugins/axellcore-atelierclub/bin/release.php axc release X.Y.Z`. It:
+  2. `studio wp --require=wp-content/plugins/axellcore-atelier/bin/release.php axc release X.Y.Z`. It:
      - bumps the header, the constant and the `Stable tag`;
      - regenerates the POT, PO, MO and JSON, and **stops on untranslated strings**;
      - points `blueprint.json` at the `X.Y.Z` assets;
      - commits, tags and pushes; the tag runs `release.yml`.
-  3. `studio wp --require=… axc language` pushes `language/X.Y.Z`; `language.yml` attaches `axellcore-atelierclub.X.Y.Z-pt_BR.zip`.
+  3. `studio wp --require=… axc language` pushes `language/X.Y.Z`; `language.yml` attaches `axellcore-atelier.X.Y.Z-pt_BR.zip`.
 - **Playground (`blueprint.json`):** `setSiteLanguage` pt_BR, then unzip the pt_BR pack into `/wordpress/wp-content/languages/plugins`, then install the release zip. The language comes before the install so the activation runs in pt_BR. `blueprint-dev.json` installs the preview build, which still carries `languages/`.

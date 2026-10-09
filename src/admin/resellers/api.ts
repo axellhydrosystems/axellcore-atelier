@@ -1,7 +1,7 @@
 import apiFetch from '@wordpress/api-fetch';
 import type { Reseller } from './types';
 
-const BASE = '/axellcore-atelierclub/v1/admin/resellers';
+const BASE = '/axellcore-atelier/v1/admin/resellers';
 
 export interface ListQuery {
 	page: number;

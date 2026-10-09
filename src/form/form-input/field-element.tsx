@@ -111,13 +111,13 @@ export function FieldControl(
 			? {
 					'aria-label': __(
 						'Optional placeholder text',
-						'axellcore-atelierclub'
+						'axellcore-atelier'
 					),
 					placeholder: placeholder
 						? undefined
 						: __(
 								'Optional placeholder…',
-								'axellcore-atelierclub'
+								'axellcore-atelier'
 							),
 					value: placeholder,
 					onChange: (
@@ -150,7 +150,7 @@ export function FieldControl(
 			<select { ...common }>
 				<option value="">
 					{ placeholder ||
-						__( 'Select an option', 'axellcore-atelierclub' ) }
+						__( 'Select an option', 'axellcore-atelier' ) }
 				</option>
 				{ options.map( ( o, i ) => (
 					<option key={ i } value={ o.value }>
@@ -198,7 +198,7 @@ export function HiddenFieldPlaceholder() {
 				border: '1px dashed currentColor',
 			} }
 		>
-			{ __( 'Hidden field', 'axellcore-atelierclub' ) }
+			{ __( 'Hidden field', 'axellcore-atelier' ) }
 		</span>
 	);
 }

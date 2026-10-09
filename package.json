@@ -1,7 +1,7 @@
 {
-	"name": "axellcore-atelierclub",
+	"name": "axellcore-atelier",
 	"private": true,
-	"description": "Build tooling for axellcore-atelierclub's blocks (TypeScript/TSX via @wordpress/scripts).",
+	"description": "Build tooling for axellcore-atelier's blocks (TypeScript/TSX via @wordpress/scripts).",
 	"license": "GPL-2.0-or-later",
 	"scripts": {
 		"build": "WP_EXPERIMENTAL_MODULES=true wp-scripts build",

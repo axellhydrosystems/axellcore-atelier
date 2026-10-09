@@ -2,7 +2,7 @@
 /**
  * Brazilian states (UF => name), adapted from fervidum/f9brcities.
  *
- * @package Axellcore_Atelierclub
+ * @package Axellcore_Atelier
  */
 
 if ( ! defined( "ABSPATH" ) ) {

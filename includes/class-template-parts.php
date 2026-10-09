@@ -6,10 +6,10 @@
  * On block themes the files are synced into the theme's template parts
  * (axellcore-header / axellcore-footer) whenever their content changes.
  *
- * @package Axellcore_Atelierclub
+ * @package Axellcore_Atelier
  */
 
-namespace Axellcore_Atelierclub;
+namespace Axellcore_Atelier;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -23,7 +23,7 @@ final class Template_Parts {
 	/**
 	 * Option holding the hash of the files last synced into the theme.
 	 */
-	const SYNC_OPTION = 'axellcore_atelierclub_parts_hash';
+	const SYNC_OPTION = 'axellcore_atelier_parts_hash';
 
 	/**
 	 * Part slug => content file, relative to the plugin root.
@@ -104,7 +104,7 @@ final class Template_Parts {
 		if ( ! isset( self::PARTS[ $slug ] ) ) {
 			return '';
 		}
-		$path = AXELLCORE_ATELIERCLUB_PATH . self::PARTS[ $slug ];
+		$path = AXELLCORE_ATELIER_PATH . self::PARTS[ $slug ];
 		if ( ! is_readable( $path ) ) {
 			return '';
 		}

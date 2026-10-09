@@ -9,10 +9,10 @@
  * stores a field only when it differs from the default in the site's
  * language, so an untouched field follows the translation.
  *
- * @package Axellcore_Atelierclub
+ * @package Axellcore_Atelier
  */
 
-namespace Axellcore_Atelierclub;
+namespace Axellcore_Atelier;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -89,8 +89,8 @@ final class Notifications {
 	 * Register hooks.
 	 */
 	public function register_hooks() {
-		add_action( 'axellcore_atelierclub_member_created', array( $this, 'member_created' ) );
-		add_action( 'axellcore_atelierclub_member_approved', array( $this, 'member_approved' ) );
+		add_action( 'axellcore_atelier_member_created', array( $this, 'member_created' ) );
+		add_action( 'axellcore_atelier_member_approved', array( $this, 'member_approved' ) );
 		add_action( 'admin_post_' . self::PREVIEW_ACTION, array( $this, 'preview' ) );
 	}
 
@@ -101,10 +101,10 @@ final class Notifications {
 	 */
 	public static function titles() {
 		return array(
-			'team_new'        => array( __( 'New application (team)', 'axellcore-atelierclub' ), __( 'Sent to the team when someone applies on the form.', 'axellcore-atelierclub' ) ),
-			'member_pending'  => array( __( 'Application received', 'axellcore-atelierclub' ), __( 'Sent to whoever applies, when the member is created as pending.', 'axellcore-atelierclub' ) ),
-			'member_created'  => array( __( 'Welcome', 'axellcore-atelierclub' ), __( 'Sent to whoever applies, when the member is created already approved.', 'axellcore-atelierclub' ) ),
-			'member_approved' => array( __( 'Membership approved', 'axellcore-atelierclub' ), __( 'Sent to a pending member once approved.', 'axellcore-atelierclub' ) ),
+			'team_new'        => array( __( 'New application (team)', 'axellcore-atelier' ), __( 'Sent to the team when someone applies on the form.', 'axellcore-atelier' ) ),
+			'member_pending'  => array( __( 'Application received', 'axellcore-atelier' ), __( 'Sent to whoever applies, when the member is created as pending.', 'axellcore-atelier' ) ),
+			'member_created'  => array( __( 'Welcome', 'axellcore-atelier' ), __( 'Sent to whoever applies, when the member is created already approved.', 'axellcore-atelier' ) ),
+			'member_approved' => array( __( 'Membership approved', 'axellcore-atelier' ), __( 'Sent to a pending member once approved.', 'axellcore-atelier' ) ),
 		);
 	}
 
@@ -120,27 +120,27 @@ final class Notifications {
 			case 'team_new':
 				return array(
 					/* translators: {fullname} and the other {placeholders} are replaced when sending; keep them as they are. */
-					'subject' => __( 'New membership application: {fullname}', 'axellcore-atelierclub' ),
-					'heading' => __( 'New membership application', 'axellcore-atelierclub' ),
-					'body'    => __( "A new application to {atelier_name} has arrived.\n\nName: {fullname}\nCompany: {company}\nE-mail: {email}\nPhone: {phone}\nRegistration (CAU / CREA / ABD): {professional_registration}\nMain practice: {primary_focus}\nPortfolio (URL): {url}\n\nRegistration type: {profile_type}\n{document_label}: {document}\n\nStreet: {address_street}\nNumber: {address_number}\nAddress line 2: {address_2}\nNeighborhood: {neighborhood}\nLandmark: {landmark}\nCity: {state} {city}\nPostal code: {postal}\n\nPartner stores:\n{stores}\n\nConsent (LGPD):\n{consent}\n\nReview the application: {member_admin_url}", 'axellcore-atelierclub' ),
+					'subject' => __( 'New membership application: {fullname}', 'axellcore-atelier' ),
+					'heading' => __( 'New membership application', 'axellcore-atelier' ),
+					'body'    => __( "A new application to {atelier_name} has arrived.\n\nName: {fullname}\nCompany: {company}\nE-mail: {email}\nPhone: {phone}\nRegistration (CAU / CREA / ABD): {professional_registration}\nMain practice: {primary_focus}\nPortfolio (URL): {url}\n\nRegistration type: {profile_type}\n{document_label}: {document}\n\nStreet: {address_street}\nNumber: {address_number}\nAddress line 2: {address_2}\nNeighborhood: {neighborhood}\nLandmark: {landmark}\nCity: {state} {city}\nPostal code: {postal}\n\nPartner stores:\n{stores}\n\nConsent (LGPD):\n{consent}\n\nReview the application: {member_admin_url}", 'axellcore-atelier' ),
 				);
 			case 'member_pending':
 				return array(
-					'subject' => __( 'We received your application, {first_name}', 'axellcore-atelierclub' ),
-					'heading' => __( 'Application received', 'axellcore-atelierclub' ),
-					'body'    => __( "Hello, {first_name}.\n\nWe received your application to {atelier_name}. Our curators will review it, and we will let you know by e-mail as soon as it is approved.\n\nThank you for your interest.\n{atelier_name}", 'axellcore-atelierclub' ),
+					'subject' => __( 'We received your application, {first_name}', 'axellcore-atelier' ),
+					'heading' => __( 'Application received', 'axellcore-atelier' ),
+					'body'    => __( "Hello, {first_name}.\n\nWe received your application to {atelier_name}. Our curators will review it, and we will let you know by e-mail as soon as it is approved.\n\nThank you for your interest.\n{atelier_name}", 'axellcore-atelier' ),
 				);
 			case 'member_created':
 				return array(
-					'subject' => __( 'Welcome to {atelier_name}, {first_name}', 'axellcore-atelierclub' ),
-					'heading' => __( 'Welcome to the Atelier', 'axellcore-atelierclub' ),
-					'body'    => __( "Hello, {first_name}.\n\nYour membership in {atelier_name} is confirmed. From now on you are part of a circle of architects and designers who specify Axell.\n\n{atelier_name}", 'axellcore-atelierclub' ),
+					'subject' => __( 'Welcome to {atelier_name}, {first_name}', 'axellcore-atelier' ),
+					'heading' => __( 'Welcome to the Atelier', 'axellcore-atelier' ),
+					'body'    => __( "Hello, {first_name}.\n\nYour membership in {atelier_name} is confirmed. From now on you are part of a circle of architects and designers who specify Axell.\n\n{atelier_name}", 'axellcore-atelier' ),
 				);
 			case 'member_approved':
 				return array(
-					'subject' => __( 'Your {atelier_name} membership is approved', 'axellcore-atelierclub' ),
-					'heading' => __( 'Membership approved', 'axellcore-atelierclub' ),
-					'body'    => __( "Hello, {first_name}.\n\nGood news: our curators approved your application, and you are now a member of {atelier_name}.\n\n{atelier_name}", 'axellcore-atelierclub' ),
+					'subject' => __( 'Your {atelier_name} membership is approved', 'axellcore-atelier' ),
+					'heading' => __( 'Membership approved', 'axellcore-atelier' ),
+					'body'    => __( "Hello, {first_name}.\n\nGood news: our curators approved your application, and you are now a member of {atelier_name}.\n\n{atelier_name}", 'axellcore-atelier' ),
 				);
 		}
 		return array(
@@ -220,8 +220,8 @@ final class Notifications {
 	 */
 	public static function brand_defaults() {
 		return array(
-			'atelier_name' => _x( 'Atelier Axell', 'Atelier name', 'axellcore-atelierclub' ),
-			'tagline'      => __( 'The Axell World', 'axellcore-atelierclub' ),
+			'atelier_name' => _x( 'Atelier Axell', 'Atelier name', 'axellcore-atelier' ),
+			'tagline'      => __( 'The Axell World', 'axellcore-atelier' ),
 		);
 	}
 
@@ -297,7 +297,7 @@ final class Notifications {
 				$id = self::logo_id();
 				if ( ! $id ) {
 					// Not in the media library: the plugin's own file.
-					return array( AXELLCORE_ATELIERCLUB_URL . self::LOGO_FILE, 'image/png' );
+					return array( AXELLCORE_ATELIER_URL . self::LOGO_FILE, 'image/png' );
 				}
 				break;
 			default:
@@ -336,33 +336,33 @@ final class Notifications {
 	 */
 	public static function placeholder_help() {
 		return array(
-			'{fullname}'                  => __( 'Full name', 'axellcore-atelierclub' ),
-			'{first_name}'                => __( 'First name', 'axellcore-atelierclub' ),
-			'{company}'                   => _x( 'Company', 'WooCommerce field', 'axellcore-atelierclub' ),
-			'{email}'                     => __( 'E-mail', 'axellcore-atelierclub' ),
-			'{phone}'                     => __( 'Phone', 'axellcore-atelierclub' ),
-			'{professional_registration}' => __( 'Registration (CAU / CREA / ABD)', 'axellcore-atelierclub' ),
-			'{primary_focus}'             => __( 'Main practice', 'axellcore-atelierclub' ),
-			'{url}'                       => __( 'Portfolio (URL)', 'axellcore-atelierclub' ),
-			'{profile_type}'              => __( 'Registration type', 'axellcore-atelierclub' ),
-			'{document_label}'            => __( 'CPF or CNPJ, as the document is', 'axellcore-atelierclub' ),
-			'{document}'                  => __( 'CPF / CNPJ', 'axellcore-atelierclub' ),
-			'{address_street}'            => __( 'Street', 'axellcore-atelierclub' ),
-			'{address_number}'            => __( 'Number', 'axellcore-atelierclub' ),
-			'{address_2}'                 => __( 'Address line 2', 'axellcore-atelierclub' ),
-			'{neighborhood}'              => __( 'Neighborhood', 'axellcore-atelierclub' ),
-			'{landmark}'                  => __( 'Landmark', 'axellcore-atelierclub' ),
-			'{state}'                     => __( 'State code', 'axellcore-atelierclub' ),
-			'{city}'                      => __( 'City', 'axellcore-atelierclub' ),
-			'{postal}'                    => __( 'Postal code', 'axellcore-atelierclub' ),
-			'{stores}'                    => __( 'Partner stores, one per line', 'axellcore-atelierclub' ),
-			'{consent}'                   => __( 'Consent (LGPD): when, IP, page and the text accepted', 'axellcore-atelierclub' ),
-			'{member_admin_url}'          => __( 'The member on Atelier > Members (team e-mail)', 'axellcore-atelierclub' ),
-			'{atelier_name}'              => __( 'Atelier name', 'axellcore-atelierclub' ),
-			'{atelier_url}'               => __( 'The Atelier page', 'axellcore-atelierclub' ),
-			'{site_name}'                 => __( 'Site name', 'axellcore-atelierclub' ),
-			'{site_url}'                  => __( 'Site address', 'axellcore-atelierclub' ),
-			'{date}'                      => __( 'Today\'s date', 'axellcore-atelierclub' ),
+			'{fullname}'                  => __( 'Full name', 'axellcore-atelier' ),
+			'{first_name}'                => __( 'First name', 'axellcore-atelier' ),
+			'{company}'                   => _x( 'Company', 'WooCommerce field', 'axellcore-atelier' ),
+			'{email}'                     => __( 'E-mail', 'axellcore-atelier' ),
+			'{phone}'                     => __( 'Phone', 'axellcore-atelier' ),
+			'{professional_registration}' => __( 'Registration (CAU / CREA / ABD)', 'axellcore-atelier' ),
+			'{primary_focus}'             => __( 'Main practice', 'axellcore-atelier' ),
+			'{url}'                       => __( 'Portfolio (URL)', 'axellcore-atelier' ),
+			'{profile_type}'              => __( 'Registration type', 'axellcore-atelier' ),
+			'{document_label}'            => __( 'CPF or CNPJ, as the document is', 'axellcore-atelier' ),
+			'{document}'                  => __( 'CPF / CNPJ', 'axellcore-atelier' ),
+			'{address_street}'            => __( 'Street', 'axellcore-atelier' ),
+			'{address_number}'            => __( 'Number', 'axellcore-atelier' ),
+			'{address_2}'                 => __( 'Address line 2', 'axellcore-atelier' ),
+			'{neighborhood}'              => __( 'Neighborhood', 'axellcore-atelier' ),
+			'{landmark}'                  => __( 'Landmark', 'axellcore-atelier' ),
+			'{state}'                     => __( 'State code', 'axellcore-atelier' ),
+			'{city}'                      => __( 'City', 'axellcore-atelier' ),
+			'{postal}'                    => __( 'Postal code', 'axellcore-atelier' ),
+			'{stores}'                    => __( 'Partner stores, one per line', 'axellcore-atelier' ),
+			'{consent}'                   => __( 'Consent (LGPD): when, IP, page and the text accepted', 'axellcore-atelier' ),
+			'{member_admin_url}'          => __( 'The member on Atelier > Members (team e-mail)', 'axellcore-atelier' ),
+			'{atelier_name}'              => __( 'Atelier name', 'axellcore-atelier' ),
+			'{atelier_url}'               => __( 'The Atelier page', 'axellcore-atelier' ),
+			'{site_name}'                 => __( 'Site name', 'axellcore-atelier' ),
+			'{site_url}'                  => __( 'Site address', 'axellcore-atelier' ),
+			'{date}'                      => __( 'Today\'s date', 'axellcore-atelier' ),
 		);
 	}
 
@@ -467,7 +467,7 @@ final class Notifications {
 	 * The HTML e-mail: header, the text as paragraphs, footer
 	 * (templates/emails/, as WooCommerce's email-header.php and
 	 * email-footer.php; a theme can override them in
-	 * axellcore-atelierclub/emails/).
+	 * axellcore-atelier/emails/).
 	 *
 	 * @param string $heading Heading.
 	 * @param string $body    Plain text.
@@ -510,8 +510,8 @@ final class Notifications {
 	 * @return string
 	 */
 	public static function template( $file ) {
-		$theme = function_exists( 'locate_template' ) ? locate_template( 'axellcore-atelierclub/emails/' . $file ) : '';
-		return '' !== $theme ? $theme : AXELLCORE_ATELIERCLUB_PATH . 'templates/emails/' . $file;
+		$theme = function_exists( 'locate_template' ) ? locate_template( 'axellcore-atelier/emails/' . $file ) : '';
+		return '' !== $theme ? $theme : AXELLCORE_ATELIER_PATH . 'templates/emails/' . $file;
 	}
 
 	/**
@@ -537,7 +537,7 @@ final class Notifications {
 		$sent = wp_mail( $to, $email['subject'], $email['html'], array_merge( array( 'Content-Type: text/html; charset=UTF-8' ), $headers ) );
 		remove_action( 'phpmailer_init', $alt );
 		if ( ! $sent ) {
-			error_log( 'axellcore-atelierclub: e-mail ' . $key . ' not sent to ' . implode( ', ', $to ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- no UI here.
+			error_log( 'axellcore-atelier: e-mail ' . $key . ' not sent to ' . implode( ', ', $to ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- no UI here.
 		}
 		return (bool) $sent;
 	}
@@ -575,12 +575,12 @@ final class Notifications {
 	 */
 	public function preview() {
 		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_die( esc_html__( 'Sorry, you are not allowed to do that.', 'axellcore-atelierclub' ), 403 );
+			wp_die( esc_html__( 'Sorry, you are not allowed to do that.', 'axellcore-atelier' ), 403 );
 		}
 		check_admin_referer( self::PREVIEW_ACTION );
 		$key = isset( $_GET['email'] ) ? sanitize_key( wp_unslash( $_GET['email'] ) ) : '';
 		if ( ! isset( self::EMAILS[ $key ] ) ) {
-			wp_die( esc_html__( 'Unknown e-mail.', 'axellcore-atelierclub' ), 404 );
+			wp_die( esc_html__( 'Unknown e-mail.', 'axellcore-atelier' ), 404 );
 		}
 		// A hidden parameter, &user_id=ID: a member's own data instead of the sample's.
 		$user_id = isset( $_GET['user_id'] ) ? absint( $_GET['user_id'] ) : 0;
@@ -621,7 +621,7 @@ final class Notifications {
 			'{stores}'                    => "A Casa Acabamentos · RS Caxias do Sul\nCasa Blanca · RJ Niterói",
 			'{consent}'                   => sprintf(
 				/* translators: 1: date and time, 2: IP address, 3: page address. */
-				__( 'Accepted on %1$s, IP %2$s, at %3$s', 'axellcore-atelierclub' ),
+				__( 'Accepted on %1$s, IP %2$s, at %3$s', 'axellcore-atelier' ),
 				wp_date( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ) ),
 				'203.0.113.10',
 				Settings::page() ? (string) get_permalink( Settings::page() ) : home_url( '/' )

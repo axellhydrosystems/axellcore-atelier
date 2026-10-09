@@ -7,10 +7,10 @@
  * adds the Interactivity API directives to the block's first element, so the
  * saved content and the layout stay the same.
  *
- * @package Axellcore_Atelierclub
+ * @package Axellcore_Atelier
  */
 
-namespace Axellcore_Atelierclub;
+namespace Axellcore_Atelier;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -24,7 +24,7 @@ final class Reveal {
 	/**
 	 * Script module, store and handle.
 	 */
-	const HANDLE = 'axellcore-atelierclub-reveal';
+	const HANDLE = 'axellcore-atelier-reveal';
 
 	/**
 	 * Modes that add markup. `none` (the default) leaves the block untouched.
@@ -73,9 +73,9 @@ final class Reveal {
 	public function register_module() {
 		wp_register_script_module(
 			self::HANDLE,
-			AXELLCORE_ATELIERCLUB_URL . 'build/reveal/view.js',
+			AXELLCORE_ATELIER_URL . 'build/reveal/view.js',
 			array( array( 'id' => '@wordpress/interactivity' ) ),
-			AXELLCORE_ATELIERCLUB_VERSION
+			AXELLCORE_ATELIER_VERSION
 		);
 	}
 
@@ -90,9 +90,9 @@ final class Reveal {
 		}
 		wp_enqueue_style(
 			self::HANDLE,
-			AXELLCORE_ATELIERCLUB_URL . 'build/reveal/style-frontend.css',
+			AXELLCORE_ATELIER_URL . 'build/reveal/style-frontend.css',
 			array(),
-			AXELLCORE_ATELIERCLUB_VERSION
+			AXELLCORE_ATELIER_VERSION
 		);
 	}
 
@@ -100,7 +100,7 @@ final class Reveal {
 	 * Editor script that adds the Inspector control.
 	 */
 	public function enqueue_editor() {
-		$asset_file = AXELLCORE_ATELIERCLUB_PATH . 'build/reveal/index.asset.php';
+		$asset_file = AXELLCORE_ATELIER_PATH . 'build/reveal/index.asset.php';
 		if ( ! is_readable( $asset_file ) ) {
 			return;
 		}
@@ -108,13 +108,13 @@ final class Reveal {
 
 		wp_enqueue_script(
 			self::HANDLE . '-editor',
-			AXELLCORE_ATELIERCLUB_URL . 'build/reveal/index.js',
+			AXELLCORE_ATELIER_URL . 'build/reveal/index.js',
 			$asset['dependencies'],
 			$asset['version'],
 			true
 		);
 		// Translations of its __() strings: the plugin's languages/ or the installed language pack.
-		wp_set_script_translations( self::HANDLE . '-editor', 'axellcore-atelierclub' );
+		wp_set_script_translations( self::HANDLE . '-editor', 'axellcore-atelier' );
 	}
 
 	/**

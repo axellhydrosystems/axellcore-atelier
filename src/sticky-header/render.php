@@ -7,7 +7,7 @@
  * wrapper (compact padding and background, see style.scss). The class is
  * also set on load, so a page opened already scrolled starts in the right state.
  *
- * @package Axellcore_Atelierclub
+ * @package Axellcore_Atelier
  *
  * @var string $content Already-rendered inner blocks.
  */

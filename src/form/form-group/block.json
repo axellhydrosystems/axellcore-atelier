@@ -16,7 +16,7 @@
 		"control",
 		"form"
 	],
-	"textdomain": "axellcore-atelierclub",
+	"textdomain": "axellcore-atelier",
 	"supports": {
 		"anchor": true,
 		"html": false,

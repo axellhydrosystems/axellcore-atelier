@@ -1,13 +1,13 @@
 <?php
 /**
- * @package Axellcore_Atelierclub\Tests
+ * @package Axellcore_Atelier\Tests
  */
 
 declare( strict_types=1 );
 
-namespace Axellcore_Atelierclub\Tests;
+namespace Axellcore_Atelier\Tests;
 
-use Axellcore_Atelierclub\Settings;
+use Axellcore_Atelier\Settings;
 use Brain\Monkey;
 use Brain\Monkey\Functions;
 use PHPUnit\Framework\TestCase;
@@ -76,7 +76,7 @@ final class SettingsTest extends TestCase {
 		);
 		$front = array( 'page_on_front' => 'Front Page' );
 
-		$this->assertSame( $front + array( 'axellcore_atelierclub_page' => 'Atelier Page' ), Settings::instance()->post_state( $front, new \WP_Post( array( 'ID' => 12 ) ) ) );
+		$this->assertSame( $front + array( 'axellcore_atelier_page' => 'Atelier Page' ), Settings::instance()->post_state( $front, new \WP_Post( array( 'ID' => 12 ) ) ) );
 		$this->assertSame( $front, Settings::instance()->post_state( $front, new \WP_Post( array( 'ID' => 13 ) ) ) );
 	}
 
@@ -123,7 +123,7 @@ final class SettingsTest extends TestCase {
 
 	public function test_a_text_equal_to_the_default_is_not_stored(): void {
 		$this->stub_texts( array() );
-		$defaults = \Axellcore_Atelierclub\Notifications::defaults( 'member_pending' );
+		$defaults = \Axellcore_Atelier\Notifications::defaults( 'member_pending' );
 
 		$values = Settings::instance()->sanitize(
 			array(

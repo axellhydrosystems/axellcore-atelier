@@ -15,10 +15,10 @@ import { useSelectPreview } from './select-preview';
 import './editor.scss';
 
 const MASK_OPTIONS = [
-	{ label: __( '— none —', 'axellcore-atelierclub' ), value: '' },
-	{ label: __( 'CPF / CNPJ', 'axellcore-atelierclub' ), value: 'cpf-cnpj' },
-	{ label: __( 'CEP (postal code)', 'axellcore-atelierclub' ), value: 'cep' },
-	{ label: __( 'Phone', 'axellcore-atelierclub' ), value: 'phone' },
+	{ label: __( '— none —', 'axellcore-atelier' ), value: '' },
+	{ label: __( 'CPF / CNPJ', 'axellcore-atelier' ), value: 'cpf-cnpj' },
+	{ label: __( 'CEP (postal code)', 'axellcore-atelier' ), value: 'cep' },
+	{ label: __( 'Phone', 'axellcore-atelier' ), value: 'phone' },
 ];
 
 function optionsToText( options: FormControlOption[] ): string {
@@ -56,15 +56,15 @@ export default function Edit( {
 		<>
 			<InspectorControls>
 				<PanelBody
-					title={ __( 'Control', 'axellcore-atelierclub' ) }
+					title={ __( 'Control', 'axellcore-atelier' ) }
 					initialOpen
 				>
 					<TextControl
-						label={ __( 'ID', 'axellcore-atelierclub' ) }
+						label={ __( 'ID', 'axellcore-atelier' ) }
 						value={ attributes.id }
 						help={ __(
 							'Matches the paired label block’s "For" field. Also used as the fallback name attribute when Name is left empty.',
-							'axellcore-atelierclub'
+							'axellcore-atelier'
 						) }
 						onChange={ ( value: string ) =>
 							setAttributes( { id: value } )
@@ -73,12 +73,12 @@ export default function Edit( {
 					<TextControl
 						label={ __(
 							'Name (name attribute)',
-							'axellcore-atelierclub'
+							'axellcore-atelier'
 						) }
 						value={ attributes.name }
 						help={ __(
 							'Leave empty to reuse the ID.',
-							'axellcore-atelierclub'
+							'axellcore-atelier'
 						) }
 						onChange={ ( value: string ) =>
 							setAttributes( { name: value } )
@@ -86,7 +86,7 @@ export default function Edit( {
 					/>
 					{ attributes.type === 'hidden' && (
 						<TextControl
-							label={ __( 'Value', 'axellcore-atelierclub' ) }
+							label={ __( 'Value', 'axellcore-atelier' ) }
 							value={ attributes.value }
 							onChange={ ( value: string ) =>
 								setAttributes( { value } )
@@ -95,11 +95,11 @@ export default function Edit( {
 					) }
 					{ attributes.type !== 'hidden' && attributes.type !== 'autocomplete' && (
 						<SelectControl
-							label={ __( 'Autocomplete (browser)', 'axellcore-atelierclub' ) }
-							help={ __( 'HTML autocomplete attribute: the browser suggests saved data.', 'axellcore-atelierclub' ) }
+							label={ __( 'Autocomplete (browser)', 'axellcore-atelier' ) }
+							help={ __( 'HTML autocomplete attribute: the browser suggests saved data.', 'axellcore-atelier' ) }
 							value={ attributes.autofill }
 							options={ [
-								{ label: __( '— none —', 'axellcore-atelierclub' ), value: '' },
+								{ label: __( '— none —', 'axellcore-atelier' ), value: '' },
 								{ label: 'name', value: 'name' },
 								{ label: 'given-name', value: 'given-name' },
 								{ label: 'family-name', value: 'family-name' },
@@ -118,7 +118,7 @@ export default function Edit( {
 					) }
 					{ attributes.type === 'autocomplete' && (
 						<TextControl
-							label={ __( 'Placeholder', 'axellcore-atelierclub' ) }
+							label={ __( 'Placeholder', 'axellcore-atelier' ) }
 							value={ attributes.placeholder }
 							onChange={ ( value: string ) =>
 								setAttributes( { placeholder: value } )
@@ -129,7 +129,7 @@ export default function Edit( {
 							<ToggleControl
 								label={ __(
 									'Required',
-									'axellcore-atelierclub'
+									'axellcore-atelier'
 								) }
 								checked={ !! attributes.required }
 								onChange={ ( value: boolean ) =>
@@ -140,27 +140,27 @@ export default function Edit( {
 					{ attributes.type === 'autocomplete' && (
 						<>
 							<SelectControl
-								label={ __( 'Source post type', 'axellcore-atelierclub' ) }
+								label={ __( 'Source post type', 'axellcore-atelier' ) }
 								value={ attributes.sourcePostType }
 								options={ [
-									{ label: __( 'Choose…', 'axellcore-atelierclub' ), value: '' },
-									{ label: __( 'Resellers', 'axellcore-atelierclub' ), value: 'revendas' },
+									{ label: __( 'Choose…', 'axellcore-atelier' ), value: '' },
+									{ label: __( 'Resellers', 'axellcore-atelier' ), value: 'revendas' },
 								] as { label: string; value: string }[] }
 								onChange={ ( value: string ) =>
 									setAttributes( { sourcePostType: value } )
 								}
 							/>
 							<TextControl
-								label={ __( 'Label template', 'axellcore-atelierclub' ) }
-								help={ __( 'Tokens: [post_title], [tax:cidades], [tax:estados:uf], [meta:key]', 'axellcore-atelierclub' ) }
+								label={ __( 'Label template', 'axellcore-atelier' ) }
+								help={ __( 'Tokens: [post_title], [tax:cidades], [tax:estados:uf], [meta:key]', 'axellcore-atelier' ) }
 								value={ attributes.labelTemplate }
 								onChange={ ( value: string ) =>
 									setAttributes( { labelTemplate: value } )
 								}
 							/>
 							<ToggleControl
-								label={ __( 'Allow "Not found"', 'axellcore-atelierclub' ) }
-								help={ __( 'Shows the option and a free text field for whoever does not find it.', 'axellcore-atelierclub' ) }
+								label={ __( 'Allow "Not found"', 'axellcore-atelier' ) }
+								help={ __( 'Shows the option and a free text field for whoever does not find it.', 'axellcore-atelier' ) }
 								checked={ attributes.allowNotFound }
 								onChange={ ( value: boolean ) =>
 									setAttributes( { allowNotFound: value } )
@@ -174,11 +174,11 @@ export default function Edit( {
 							<TextareaControl
 								label={ __(
 									'Options (one per line: Label|value)',
-									'axellcore-atelierclub'
+									'axellcore-atelier'
 								) }
 								help={ __(
 									'E.g.: Individual · CPF|cpf',
-									'axellcore-atelierclub'
+									'axellcore-atelier'
 								) }
 								value={ optionsToText( attributes.options ) }
 								onChange={ ( value: string ) =>
@@ -190,11 +190,11 @@ export default function Edit( {
 							<TextControl
 								label={ __(
 									'Field (name) that populates these options',
-									'axellcore-atelierclub'
+									'axellcore-atelier'
 								) }
 								help={ __(
 									'Leave empty for a static list. If set, this select starts empty/disabled and assets/js/frontend.js fetches its options from the REST cities endpoint whenever that field changes.',
-									'axellcore-atelierclub'
+									'axellcore-atelier'
 								) }
 								value={ attributes.citiesSourceName }
 								onChange={ ( value: string ) =>
@@ -207,12 +207,12 @@ export default function Edit( {
 				<PanelBody
 					title={ __(
 						'Input mask (advanced)',
-						'axellcore-atelierclub'
+						'axellcore-atelier'
 					) }
 					initialOpen={ false }
 				>
 					<SelectControl
-						label={ __( 'Mask', 'axellcore-atelierclub' ) }
+						label={ __( 'Mask', 'axellcore-atelier' ) }
 						value={ attributes.mask }
 						options={ MASK_OPTIONS }
 						onChange={ ( value: string ) =>
@@ -223,11 +223,11 @@ export default function Edit( {
 						<TextControl
 							label={ __(
 								'Field (name) that decides CPF vs. CNPJ',
-								'axellcore-atelierclub'
+								'axellcore-atelier'
 							) }
 							help={ __(
 								'Name of the select field whose value ("cpf"/"cnpj") drives this mask.',
-								'axellcore-atelierclub'
+								'axellcore-atelier'
 							) }
 							value={ attributes.maskSourceName }
 							onChange={ ( value: string ) =>

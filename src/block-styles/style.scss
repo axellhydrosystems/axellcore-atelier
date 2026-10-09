@@ -87,7 +87,7 @@ p.is-style-eyebrow {
 // Core "Outline" buttons on the Atelier pages: the .btn-ghost hover (border
 // and text bronze-2) and the .btn transition. Scoped to the Atelier page
 // templates so the theme's own outline buttons elsewhere keep their look.
-:is(.page-template-atelier-section, .page-template-atelier-club) .wp-block-button.is-style-outline .wp-block-button__link {
+:is(.page-template-atelier-section, .page-template-atelier) .wp-block-button.is-style-outline .wp-block-button__link {
 	transition: all 0.4s ease;
 
 	&:hover {

@@ -6,10 +6,10 @@
  * roles and the Members admin page (the DataViews/DataForms app over those
  * users, src/admin/members/).
  *
- * @package Axellcore_Atelierclub
+ * @package Axellcore_Atelier
  */
 
-namespace Axellcore_Atelierclub;
+namespace Axellcore_Atelier;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -143,9 +143,9 @@ final class Member {
 			return $user;
 		}
 		if ( in_array( self::ROLE_PENDING, (array) $user->roles, true ) ) {
-			return new \WP_Error( 'aa_member_pending', __( 'Your membership application is under review. You will be told once it is approved.', 'axellcore-atelierclub' ) );
+			return new \WP_Error( 'aa_member_pending', __( 'Your membership application is under review. You will be told once it is approved.', 'axellcore-atelier' ) );
 		}
-		return new \WP_Error( 'aa_member_no_access', __( 'Members\' access to the dashboard is turned off.', 'axellcore-atelierclub' ) );
+		return new \WP_Error( 'aa_member_no_access', __( 'Members\' access to the dashboard is turned off.', 'axellcore-atelier' ) );
 	}
 
 	/**
@@ -201,7 +201,7 @@ final class Member {
 		 *
 		 * @param int $user_id Member.
 		 */
-		do_action( 'axellcore_atelierclub_member_approved', $user->ID );
+		do_action( 'axellcore_atelier_member_approved', $user->ID );
 		return true;
 	}
 
@@ -237,8 +237,8 @@ final class Member {
 			'<a href="%1$s" aria-label="%2$s">%3$s</a>',
 			esc_url( self::approve_url( $user->ID ) ),
 			/* translators: %s: user's display name. */
-			esc_attr( sprintf( __( 'Approve %s', 'axellcore-atelierclub' ), $user->display_name ) ),
-			esc_html__( 'Approve', 'axellcore-atelierclub' )
+			esc_attr( sprintf( __( 'Approve %s', 'axellcore-atelier' ), $user->display_name ) ),
+			esc_html__( 'Approve', 'axellcore-atelier' )
 		);
 		return $actions;
 	}
@@ -271,7 +271,7 @@ final class Member {
 	 */
 	public function bulk_actions( $actions ) {
 		if ( current_user_can( 'promote_users' ) ) {
-			$actions[ self::APPROVE_ACTION ] = __( 'Approve', 'axellcore-atelierclub' );
+			$actions[ self::APPROVE_ACTION ] = __( 'Approve', 'axellcore-atelier' );
 		}
 		return $actions;
 	}
@@ -309,7 +309,7 @@ final class Member {
 		// phpcs:enable WordPress.Security.NonceVerification.Recommended
 		check_admin_referer( self::APPROVE_ACTION . '-user_' . $user_id );
 		if ( ! self::can_approve( $user_id ) ) {
-			wp_die( esc_html__( 'Sorry, you are not allowed to edit this user.', 'axellcore-atelierclub' ), 403 );
+			wp_die( esc_html__( 'Sorry, you are not allowed to edit this user.', 'axellcore-atelier' ), 403 );
 		}
 		$approved = self::approve( $user_id ) ? 1 : 0;
 		$back     = wp_get_referer();
@@ -334,9 +334,9 @@ final class Member {
 			'<div class="notice notice-success is-dismissible"><p>%s</p></div>',
 			esc_html(
 				1 === $approved
-					? __( 'Member approved.', 'axellcore-atelierclub' )
+					? __( 'Member approved.', 'axellcore-atelier' )
 					/* translators: %d: number of members approved. */
-					: sprintf( _n( '%d member approved.', '%d members approved.', $approved, 'axellcore-atelierclub' ), $approved )
+					: sprintf( _n( '%d member approved.', '%d members approved.', $approved, 'axellcore-atelier' ), $approved )
 			)
 		);
 	}
@@ -359,8 +359,8 @@ final class Member {
 	 */
 	public static function roles() {
 		return array(
-			self::ROLE_PENDING => __( 'Pending', 'axellcore-atelierclub' ),
-			self::ROLE         => __( 'Member', 'axellcore-atelierclub' ),
+			self::ROLE_PENDING => __( 'Pending', 'axellcore-atelier' ),
+			self::ROLE         => __( 'Member', 'axellcore-atelier' ),
 		);
 	}
 
@@ -371,9 +371,9 @@ final class Member {
 	 */
 	public function register_roles() {
 		$roles = array(
-			self::ROLE_PENDING => array( __( 'Pending Member', 'axellcore-atelierclub' ), array() ),
+			self::ROLE_PENDING => array( __( 'Pending Member', 'axellcore-atelier' ), array() ),
 			self::ROLE         => array(
-				__( 'Member', 'axellcore-atelierclub' ),
+				__( 'Member', 'axellcore-atelier' ),
 				array(
 					'read'    => true,
 					'level_0' => true,
@@ -400,8 +400,8 @@ final class Member {
 	public function register_admin_page() {
 		// "Atelier" menu; its first item (same slug) is Members.
 		add_menu_page(
-			__( 'Members', 'axellcore-atelierclub' ),
-			__( 'Atelier', 'axellcore-atelierclub' ),
+			__( 'Members', 'axellcore-atelier' ),
+			__( 'Atelier', 'axellcore-atelier' ),
 			'list_users',
 			self::ADMIN_PAGE,
 			array( $this, 'render_admin_page' ),
@@ -410,8 +410,8 @@ final class Member {
 		);
 		add_submenu_page(
 			self::ADMIN_PAGE,
-			__( 'Members', 'axellcore-atelierclub' ),
-			__( 'Members', 'axellcore-atelierclub' ),
+			__( 'Members', 'axellcore-atelier' ),
+			__( 'Members', 'axellcore-atelier' ),
 			'list_users',
 			self::ADMIN_PAGE,
 			array( $this, 'render_admin_page' )
@@ -422,12 +422,12 @@ final class Member {
 	 * Page shell; the app mounts after its heading.
 	 */
 	public function render_admin_page() {
-		echo '<div class="wrap"><h1 class="wp-heading-inline">' . esc_html__( 'Members', 'axellcore-atelierclub' ) . '</h1>';
+		echo '<div class="wrap"><h1 class="wp-heading-inline">' . esc_html__( 'Members', 'axellcore-atelier' ) . '</h1>';
 		if ( ! $this->current_member_id() && current_user_can( Members_Export::CAPABILITY ) ) {
 			printf(
 				' <a href="%s" class="page-title-action">%s</a>',
 				esc_url( admin_url( 'admin.php?page=' . Members_Export::PAGE ) ),
-				esc_html__( 'Export', 'axellcore-atelierclub' )
+				esc_html__( 'Export', 'axellcore-atelier' )
 			);
 		}
 		echo '<hr class="wp-header-end"></div>';
@@ -460,13 +460,13 @@ final class Member {
 			return;
 		}
 
-		$asset_file = AXELLCORE_ATELIERCLUB_PATH . 'build/admin/members/index.asset.php';
+		$asset_file = AXELLCORE_ATELIER_PATH . 'build/admin/members/index.asset.php';
 		if ( ! file_exists( $asset_file ) ) {
 			return;
 		}
 		$asset = require $asset_file;
 
-		$handle = 'axellcore-atelierclub-admin-members';
+		$handle = 'axellcore-atelier-admin-members';
 		wp_add_inline_script(
 			'wp-api-fetch',
 			'window.aaMembers = ' . wp_json_encode( $this->admin_config() ) . ';',
@@ -474,16 +474,16 @@ final class Member {
 		);
 		wp_enqueue_script(
 			$handle,
-			AXELLCORE_ATELIERCLUB_URL . 'build/admin/members/index.js',
+			AXELLCORE_ATELIER_URL . 'build/admin/members/index.js',
 			$asset['dependencies'],
 			$asset['version'],
 			true
 		);
 		// Translations of its __() strings: the plugin's languages/ or the installed language pack.
-		wp_set_script_translations( $handle, 'axellcore-atelierclub' );
+		wp_set_script_translations( $handle, 'axellcore-atelier' );
 		wp_enqueue_style(
 			$handle,
-			AXELLCORE_ATELIERCLUB_URL . 'build/admin/members/style-index.css',
+			AXELLCORE_ATELIER_URL . 'build/admin/members/style-index.css',
 			array( 'wp-components', Assets::admin_dataviews_style() ),
 			$asset['version']
 		);

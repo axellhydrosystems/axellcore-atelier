@@ -3,7 +3,7 @@
  * Brazilian cities grouped by UF, keyed by IBGE municipality code,
  * adapted from fervidum/f9brcities.
  *
- * @package Axellcore_Atelierclub
+ * @package Axellcore_Atelier
  */
 
 if ( ! defined( "ABSPATH" ) ) {

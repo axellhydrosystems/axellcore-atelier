@@ -3,10 +3,10 @@
  * PHPStan bootstrap — defines plugin constants for static analysis.
  * Not loaded at runtime; only used by PHPStan.
  */
-define( 'AXELLCORE_ATELIERCLUB_VERSION', '0.0.0' );
-define( 'AXELLCORE_ATELIERCLUB_FILE', __DIR__ . '/axellcore-atelierclub.php' );
-define( 'AXELLCORE_ATELIERCLUB_PATH', __DIR__ . '/' );
-define( 'AXELLCORE_ATELIERCLUB_URL', 'http://example.com/wp-content/plugins/axellcore-atelierclub/' );
+define( 'AXELLCORE_ATELIER_VERSION', '0.0.0' );
+define( 'AXELLCORE_ATELIER_FILE', __DIR__ . '/axellcore-atelier.php' );
+define( 'AXELLCORE_ATELIER_PATH', __DIR__ . '/' );
+define( 'AXELLCORE_ATELIER_URL', 'http://example.com/wp-content/plugins/axellcore-atelier/' );
 
 // WP 7.1's Icons API (wp-includes/icons.php) isn't in php-stubs/wordpress-stubs
 // yet — stub the signatures so PHPStan can see them. Guarded so this file

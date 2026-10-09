@@ -11,49 +11,49 @@ export default function Edit( { attributes, setAttributes }: BlockEditProps< Add
 	return (
 		<>
 			<InspectorControls>
-				<PanelBody title={ __( 'Field', 'axellcore-atelierclub' ) } initialOpen>
+				<PanelBody title={ __( 'Field', 'axellcore-atelier' ) } initialOpen>
 					<TextControl
-						label={ __( 'ID', 'axellcore-atelierclub' ) }
+						label={ __( 'ID', 'axellcore-atelier' ) }
 						value={ attributes.id }
 						onChange={ ( value: string ) => setAttributes( { id: value } ) }
 					/>
 					<TextControl
-						label={ __( 'Name (name attribute)', 'axellcore-atelierclub' ) }
+						label={ __( 'Name (name attribute)', 'axellcore-atelier' ) }
 						value={ attributes.name }
 						onChange={ ( value: string ) => setAttributes( { name: value } ) }
 					/>
 					<TextControl
-						label={ __( 'Placeholder', 'axellcore-atelierclub' ) }
+						label={ __( 'Placeholder', 'axellcore-atelier' ) }
 						value={ attributes.placeholder }
 						onChange={ ( value: string ) => setAttributes( { placeholder: value } ) }
 					/>
 					<SelectControl
-						label={ __( 'Country', 'axellcore-atelierclub' ) }
+						label={ __( 'Country', 'axellcore-atelier' ) }
 						help={
 							attributes.hiddenField
-								? __( 'Value sent in the hidden field.', 'axellcore-atelierclub' )
-								: __( 'Country already selected when the form opens.', 'axellcore-atelierclub' )
+								? __( 'Value sent in the hidden field.', 'axellcore-atelier' )
+								: __( 'Country already selected when the form opens.', 'axellcore-atelier' )
 						}
 						value={ ( attributes.fixed as string ) || '' }
 						options={ [
-							{ label: __( 'None', 'axellcore-atelierclub' ), value: '' },
+							{ label: __( 'None', 'axellcore-atelier' ), value: '' },
 							{ label: 'Brasil', value: 'BR' },
 							{ label: 'Estados Unidos', value: 'US' },
 						] as { label: string; value: string }[] }
 						onChange={ ( value: string ) => setAttributes( { fixed: value } ) }
 					/>
 					<ToggleControl
-						label={ __( 'Hidden', 'axellcore-atelierclub' ) }
+						label={ __( 'Hidden', 'axellcore-atelier' ) }
 						help={
 							attributes.hiddenField && ! attributes.fixed
-								? __( 'Choose a country for the hidden field.', 'axellcore-atelierclub' )
-								: __( 'Sends the country in a hidden field, without the select.', 'axellcore-atelierclub' )
+								? __( 'Choose a country for the hidden field.', 'axellcore-atelier' )
+								: __( 'Sends the country in a hidden field, without the select.', 'axellcore-atelier' )
 						}
 						checked={ !! attributes.hiddenField }
 						onChange={ ( value: boolean ) => setAttributes( { hiddenField: value } ) }
 					/>
 					<ToggleControl
-						label={ __( 'Required', 'axellcore-atelierclub' ) }
+						label={ __( 'Required', 'axellcore-atelier' ) }
 						checked={ !! attributes.required }
 						onChange={ ( value: boolean ) => setAttributes( { required: value } ) }
 					/>

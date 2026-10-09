@@ -1,14 +1,14 @@
 <?php
 /**
- * @package Axellcore_Atelierclub\Tests
+ * @package Axellcore_Atelier\Tests
  */
 
 declare( strict_types=1 );
 
-namespace Axellcore_Atelierclub\Tests;
+namespace Axellcore_Atelier\Tests;
 
-use Axellcore_Atelierclub\Form_Submission;
-use Axellcore_Atelierclub\Members;
+use Axellcore_Atelier\Form_Submission;
+use Axellcore_Atelier\Members;
 use Brain\Monkey;
 use Brain\Monkey\Functions;
 use PHPUnit\Framework\TestCase;

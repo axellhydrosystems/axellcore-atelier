@@ -58,7 +58,7 @@ export function v2Save( { attributes }: BlockSaveProps< LegacyAttributes > ) {
 					name="website"
 					tabIndex={ -1 }
 					autoComplete="off"
-					aria-label={ __( 'Leave this field empty', 'axellcore-atelierclub' ) }
+					aria-label={ __( 'Leave this field empty', 'axellcore-atelier' ) }
 				/>
 			</div>
 			{ children }

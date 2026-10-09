@@ -26,7 +26,7 @@ async function run(label, mock) {
 	const errors = [];
 	page.on('pageerror', (e) => errors.push(String(e)));
 	const bodies = [];
-	await page.route('**/wp-json/axellcore-atelierclub/v1/members', (route) => {
+	await page.route('**/wp-json/axellcore-atelier/v1/members', (route) => {
 		bodies.push(route.request().postDataJSON());
 		return route.fulfill(mock);
 	});

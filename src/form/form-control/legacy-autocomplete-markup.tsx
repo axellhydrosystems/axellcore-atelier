@@ -40,7 +40,7 @@ export function autocompleteMarkup( args: AutocompleteMarkupArgs ) {
 					type="text"
 					className="wp-block-axell-form-control"
 					readOnly
-					placeholder={ placeholder || __( 'Autocomplete (posts)', 'axellcore-atelierclub' ) }
+					placeholder={ placeholder || __( 'Autocomplete (posts)', 'axellcore-atelier' ) }
 				/>
 			</div>
 		);
@@ -103,15 +103,15 @@ export function autocompleteMarkup( args: AutocompleteMarkupArgs ) {
 					<input
 						type="text"
 						data-field="name"
-						aria-label={ __( 'Name', 'axellcore-atelierclub' ) }
-						placeholder={ __( 'Name', 'axellcore-atelierclub' ) }
+						aria-label={ __( 'Name', 'axellcore-atelier' ) }
+						placeholder={ __( 'Name', 'axellcore-atelier' ) }
 						data-wp-bind--value="context.customName"
 						data-wp-on--input="actions.onCustomInput"
 					/>
 					<button
 						type="button"
 						className="aa-ac-back"
-						aria-label={ __( 'Back to search', 'axellcore-atelierclub' ) }
+						aria-label={ __( 'Back to search', 'axellcore-atelier' ) }
 						data-wp-on--click="actions.backToSearch"
 					>
 						<svg
@@ -131,7 +131,7 @@ export function autocompleteMarkup( args: AutocompleteMarkupArgs ) {
 					</button>
 				</div>
 				<select
-					aria-label={ __( 'State code', 'axellcore-atelierclub' ) }
+					aria-label={ __( 'State code', 'axellcore-atelier' ) }
 					data-wp-bind--value="context.customUf"
 					data-wp-on--change="actions.onCustomUf"
 				>
@@ -143,14 +143,14 @@ export function autocompleteMarkup( args: AutocompleteMarkupArgs ) {
 					) ) }
 				</select>
 				<select
-					aria-label={ __( 'City', 'axellcore-atelierclub' ) }
+					aria-label={ __( 'City', 'axellcore-atelier' ) }
 					data-field="city"
 					disabled
 					data-wp-bind--disabled="!context.customUf"
 					data-wp-on--change="actions.onCustomCity"
 					data-wp-watch="callbacks.renderCities"
 				>
-					<option value="">{ __( 'Select state', 'axellcore-atelierclub' ) }</option>
+					<option value="">{ __( 'Select state', 'axellcore-atelier' ) }</option>
 				</select>
 			</div>
 			<ul

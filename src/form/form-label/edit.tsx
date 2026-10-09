@@ -53,15 +53,15 @@ export default function Edit( {
 		<>
 			<InspectorControls>
 				<PanelBody
-					title={ __( 'Label', 'axellcore-atelierclub' ) }
+					title={ __( 'Label', 'axellcore-atelier' ) }
 					initialOpen
 				>
 					<TextControl
-					label={ __( 'For', 'axellcore-atelierclub' ) }
+					label={ __( 'For', 'axellcore-atelier' ) }
 					value={ attributes.for }
 					help={ __(
 						'The id of the axell/form-control this label belongs to.',
-						'axellcore-atelierclub'
+						'axellcore-atelier'
 					) }
 					onChange={ ( value: string ) =>
 						setAttributes( { for: value } )
@@ -70,11 +70,11 @@ export default function Edit( {
 					<ToggleControl
 						label={ __(
 							'Visually hidden',
-							'axellcore-atelierclub'
+							'axellcore-atelier'
 						) }
 						help={ __(
 							'Keeps the label readable by screen readers while hiding it visually — useful when the field’s purpose is already clear from context (e.g. a placeholder-only search box).',
-							'axellcore-atelierclub'
+							'axellcore-atelier'
 						) }
 						checked={ !! attributes.visuallyHidden }
 						onChange={ ( value: boolean ) =>
@@ -82,8 +82,8 @@ export default function Edit( {
 						}
 					/>
 					<ToggleControl
-						label={ __( 'Required', 'axellcore-atelierclub' ) }
-						help={ __( 'Shows that the related input is required.', 'axellcore-atelierclub' ) }
+						label={ __( 'Required', 'axellcore-atelier' ) }
+						help={ __( 'Shows that the related input is required.', 'axellcore-atelier' ) }
 						checked={ !! attributes.required }
 						onChange={ ( value: boolean ) =>
 							setAttributes( { required: value } )
@@ -103,11 +103,11 @@ export default function Edit( {
 				}
 				aria-label={
 					attributes.text
-						? __( 'Label', 'axellcore-atelierclub' )
-						: __( 'Empty label', 'axellcore-atelierclub' )
+						? __( 'Label', 'axellcore-atelier' )
+						: __( 'Empty label', 'axellcore-atelier' )
 				}
 				data-empty={ ! attributes.text }
-				placeholder={ __( 'Field label…', 'axellcore-atelierclub' ) }
+				placeholder={ __( 'Field label…', 'axellcore-atelier' ) }
 				allowedFormats={ [ 'core/bold', 'core/italic', 'core/link' ] }
 			/>
 		</>

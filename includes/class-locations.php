@@ -9,10 +9,10 @@
  * bloat wp_terms/wp_term_taxonomy for a taxonomy that, at this phase, only
  * needs the handful of locations members actually submit.
  *
- * @package Axellcore_Atelierclub
+ * @package Axellcore_Atelier
  */
 
-namespace Axellcore_Atelierclub;
+namespace Axellcore_Atelier;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -111,8 +111,8 @@ final class Locations {
 			array(),
 			array(
 				'labels'            => array(
-					'name'          => __( 'Locations', 'axellcore-atelierclub' ),
-					'singular_name' => __( 'Location', 'axellcore-atelierclub' ),
+					'name'          => __( 'Locations', 'axellcore-atelier' ),
+					'singular_name' => __( 'Location', 'axellcore-atelier' ),
 				),
 				'hierarchical'      => true,
 				'public'            => false,
@@ -136,7 +136,7 @@ final class Locations {
 	 */
 	public function states(): array {
 		if ( null === $this->states ) {
-			$this->states = include AXELLCORE_ATELIERCLUB_PATH . 'includes/data/br-states.php';
+			$this->states = include AXELLCORE_ATELIER_PATH . 'includes/data/br-states.php';
 		}
 		return $this->states;
 	}
@@ -149,7 +149,7 @@ final class Locations {
 	 */
 	public function countries(): array {
 		if ( null === $this->countries ) {
-			$countries = include AXELLCORE_ATELIERCLUB_PATH . 'includes/data/countries.php';
+			$countries = include AXELLCORE_ATELIER_PATH . 'includes/data/countries.php';
 			$countries = is_array( $countries ) ? $countries : array();
 			if ( class_exists( 'Collator' ) ) {
 				$collator = new \Collator( get_user_locale() );
@@ -170,7 +170,7 @@ final class Locations {
 	 */
 	public function cities_for_state( string $uf ): array {
 		if ( null === $this->cities ) {
-			$this->cities = include AXELLCORE_ATELIERCLUB_PATH . 'includes/data/br-cities.php';
+			$this->cities = include AXELLCORE_ATELIER_PATH . 'includes/data/br-cities.php';
 		}
 		return $this->cities[ strtoupper( $uf ) ] ?? array();
 	}
@@ -201,7 +201,7 @@ final class Locations {
 
 		$state_slug = strtolower( $uf );
 
-		$country_id = $this->get_or_create_term( __( 'Brazil', 'axellcore-atelierclub' ), self::COUNTRY_SLUG, 0 );
+		$country_id = $this->get_or_create_term( __( 'Brazil', 'axellcore-atelier' ), self::COUNTRY_SLUG, 0 );
 		$state_id   = $this->get_or_create_term( $states[ $uf ], self::COUNTRY_SLUG . '-' . $state_slug, $country_id );
 		$city_id    = $this->get_or_create_term( $city_name, self::COUNTRY_SLUG . '-' . $state_slug . '-' . sanitize_title( $city_name ), $state_id );
 

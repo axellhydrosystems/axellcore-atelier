@@ -7,5 +7,5 @@
  */
 return array(
 	'dependencies' => array( 'wp-blocks', 'wp-element', 'wp-block-editor' ),
-	'version'      => AXELLCORE_ATELIERCLUB_VERSION,
+	'version'      => AXELLCORE_ATELIER_VERSION,
 );

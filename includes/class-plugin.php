@@ -2,10 +2,10 @@
 /**
  * Loader: wires up the template, assets, and block registration classes.
  *
- * @package Axellcore_Atelierclub
+ * @package Axellcore_Atelier
  */
 
-namespace Axellcore_Atelierclub;
+namespace Axellcore_Atelier;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -26,14 +26,14 @@ final class Plugin {
 	 * (confirmed by reading wp-includes/block-template.php's resolve_block_template()
 	 * and class-wp-block-templates-registry.php's register() directly).
 	 */
-	const TEMPLATE_NAME = 'axellcore-atelierclub//atelier-club';
+	const TEMPLATE_NAME = 'axellcore-atelier//atelier';
 
 	/**
 	 * The bare slug half of TEMPLATE_NAME — what actually ends up in a page's
 	 * `_wp_page_template` post meta, and what `is_page_template()` must be
 	 * compared against. Used by the asset manager's dequeue/enqueue gate.
 	 */
-	const TEMPLATE_SLUG = 'atelier-club';
+	const TEMPLATE_SLUG = 'atelier';
 
 
 	/**

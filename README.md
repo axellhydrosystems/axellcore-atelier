@@ -1,4 +1,4 @@
-# Axellcore — Atelier Club
+# Atelier Axell
 
 **Contributors:** axell
 **Tags:** axell, atelier, landing-page, blocks
@@ -11,7 +11,7 @@
 
 Self-contained landing page (FSE template + core blocks + a custom application-form block) for the Atelier Axell Club invite program.
 
-[Preview the latest release in WordPress Playground](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/axellhydrosystems/axellcore-atelierclub/main/blueprint.json) · [Preview the latest `main` build](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/axellhydrosystems/axellcore-atelierclub/main/blueprint-dev.json)
+[Preview the latest release in WordPress Playground](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/axellhydrosystems/axellcore-atelier/main/blueprint.json) · [Preview the latest `main` build](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/axellhydrosystems/axellcore-atelier/main/blueprint-dev.json)
 
 ## Description
 
@@ -50,7 +50,7 @@ composer lint:fix          # PHPCBF auto-fix
 ### Architecture
 
 ```
-axellcore-atelierclub.php     # bootstrap: header, constants, requires, activation hook
+axellcore-atelier.php     # bootstrap: header, constants, requires, activation hook
 includes/
 ├── class-plugin.php          # loader — wires the other classes' hooks on boot()
 ├── class-template-loader.php # registers the "Atelier — Blank Canvas" FSE template
@@ -61,7 +61,7 @@ includes/
     ├── form/                 # axellcore/form — <form> wrapper (static block, InnerBlocks)
     └── form-input/           # axellcore/form-input — text/email/tel/select/checkbox/hidden field
 templates/
-└── atelier-club.html         # FSE template content: just <!-- wp:post-content /-->
+└── atelier.html         # FSE template content: just <!-- wp:post-content /-->
 assets/
 ├── css/{tokens,sections}.css # design tokens + component CSS, ported from the approved mockup, aa-* prefixed
 └── js/frontend.js            # nav scroll state, scroll-reveal, CPF/CNPJ/CEP/phone input masks

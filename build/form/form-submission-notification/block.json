@@ -16,7 +16,7 @@
     "feedback",
     "message"
   ],
-  "textdomain": "axellcore-atelierclub",
+  "textdomain": "axellcore-atelier",
   "attributes": {
     "type": {
       "type": "string",

@@ -1,13 +1,13 @@
 <?php
 /**
- * @package Axellcore_Atelierclub\Tests
+ * @package Axellcore_Atelier\Tests
  */
 
 declare( strict_types=1 );
 
-namespace Axellcore_Atelierclub\Tests;
+namespace Axellcore_Atelier\Tests;
 
-use Axellcore_Atelierclub\Members;
+use Axellcore_Atelier\Members;
 use Brain\Monkey;
 use Brain\Monkey\Filters;
 use Brain\Monkey\Functions;
@@ -217,7 +217,7 @@ final class MembersTest extends TestCase {
 			}
 		);
 		// The store given by text becomes a pending revenda (Reseller_Store).
-		Filters\expectApplied( 'axellcore_atelierclub_reseller_text' )->once()->with( 0, 'Loja Nova - SC Joinville' )->andReturn( 900 );
+		Filters\expectApplied( 'axellcore_atelier_reseller_text' )->once()->with( 0, 'Loja Nova - SC Joinville' )->andReturn( 900 );
 		$params                    = $this->valid_params();
 		$params['primary_focus']   = 'interior_design';
 		// Store 2 left empty: the stores move up on the server.

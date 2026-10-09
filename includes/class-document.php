@@ -4,10 +4,10 @@
  * including the alphanumeric CNPJ from 2026). The same rules as the form's
  * src/form/form-control-br-revenue-id/document.ts.
  *
- * @package Axellcore_Atelierclub
+ * @package Axellcore_Atelier
  */
 
-namespace Axellcore_Atelierclub;
+namespace Axellcore_Atelier;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -120,8 +120,8 @@ final class Document {
 	 */
 	public static function invalid_error( $type ) {
 		return 'cnpj' === $type
-			? array( 'aa_invalid_cnpj', __( 'Invalid CNPJ.', 'axellcore-atelierclub' ) )
-			: array( 'aa_invalid_cpf', __( 'Invalid CPF.', 'axellcore-atelierclub' ) );
+			? array( 'aa_invalid_cnpj', __( 'Invalid CNPJ.', 'axellcore-atelier' ) )
+			: array( 'aa_invalid_cpf', __( 'Invalid CPF.', 'axellcore-atelier' ) );
 	}
 
 	/**
@@ -132,8 +132,8 @@ final class Document {
 	 */
 	public static function registered_error( $type ) {
 		return 'cnpj' === $type
-			? array( 'aa_cnpj_exists', __( 'This CNPJ is already registered.', 'axellcore-atelierclub' ) )
-			: array( 'aa_cpf_exists', __( 'This CPF is already registered.', 'axellcore-atelierclub' ) );
+			? array( 'aa_cnpj_exists', __( 'This CNPJ is already registered.', 'axellcore-atelier' ) )
+			: array( 'aa_cpf_exists', __( 'This CPF is already registered.', 'axellcore-atelier' ) );
 	}
 
 	/**

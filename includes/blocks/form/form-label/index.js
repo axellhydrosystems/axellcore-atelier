@@ -58,10 +58,10 @@
 					null,
 					el(
 						PanelBody,
-						{ title: __( 'Label', 'axellcore-atelierclub' ), initialOpen: true },
+						{ title: __( 'Label', 'axellcore-atelier' ), initialOpen: true },
 						el( ToggleControl, {
-							label: __( 'Visually hidden', 'axellcore-atelierclub' ),
-							help: __( 'Keeps the label readable by screen readers while hiding it visually — useful when the field’s purpose is already clear from context (e.g. a placeholder-only search box).', 'axellcore-atelierclub' ),
+							label: __( 'Visually hidden', 'axellcore-atelier' ),
+							help: __( 'Keeps the label readable by screen readers while hiding it visually — useful when the field’s purpose is already clear from context (e.g. a placeholder-only search box).', 'axellcore-atelier' ),
 							checked: !! attributes.visuallyHidden,
 							onChange: function ( v ) {
 								setAttributes( { visuallyHidden: v } );
@@ -73,9 +73,9 @@
 					InspectorControls,
 					{ group: 'advanced' },
 					el( TextControl, {
-						label: __( 'For', 'axellcore-atelierclub' ),
+						label: __( 'For', 'axellcore-atelier' ),
 						value: attributes.for,
-						help: __( 'The id of the axell/form-control this label belongs to.', 'axellcore-atelierclub' ),
+						help: __( 'The id of the axell/form-control this label belongs to.', 'axellcore-atelier' ),
 						onChange: function ( v ) {
 							setAttributes( { for: v } );
 						},
@@ -88,9 +88,9 @@
 					onChange: function ( v ) {
 						setAttributes( { text: v } );
 					},
-					'aria-label': attributes.text ? __( 'Label', 'axellcore-atelierclub' ) : __( 'Empty label', 'axellcore-atelierclub' ),
+					'aria-label': attributes.text ? __( 'Label', 'axellcore-atelier' ) : __( 'Empty label', 'axellcore-atelier' ),
 					'data-empty': ! attributes.text,
-					placeholder: __( 'Field label…', 'axellcore-atelierclub' ),
+					placeholder: __( 'Field label…', 'axellcore-atelier' ),
 					allowedFormats: [ 'core/bold', 'core/italic', 'core/link' ],
 				} ) )
 			);

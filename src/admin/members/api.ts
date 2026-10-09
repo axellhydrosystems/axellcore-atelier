@@ -1,7 +1,7 @@
 import apiFetch from '@wordpress/api-fetch';
 import type { MemberDetail, MemberSummary, SelectOption } from './types';
 
-const BASE = '/axellcore-atelierclub/v1';
+const BASE = '/axellcore-atelier/v1';
 
 export interface ListQuery {
 	page: number;

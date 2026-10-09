@@ -8,10 +8,10 @@
  * The form blocks get the script and, for v2, the box (render filter); the
  * submission service checks the token with Google before anything is stored.
  *
- * @package Axellcore_Atelierclub
+ * @package Axellcore_Atelier
  */
 
-namespace Axellcore_Atelierclub;
+namespace Axellcore_Atelier;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -46,7 +46,7 @@ final class Recaptcha {
 	/**
 	 * Script handle.
 	 */
-	const SCRIPT = 'axellcore-atelierclub-recaptcha';
+	const SCRIPT = 'axellcore-atelier-recaptcha';
 
 	/**
 	 * The field Google's script fills with the token.

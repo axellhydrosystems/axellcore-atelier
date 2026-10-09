@@ -27,18 +27,18 @@ jobs:
             echo "✔  $label: $(grep -oE "$pattern" "$file" | head -1)"
           }
 
-          check_field "Plugin Name"       "Plugin Name:"                       "axellcore-atelierclub.php"
-          check_field "Version"           "Version:[[:space:]]*[0-9]+\.[0-9]"  "axellcore-atelierclub.php"
-          check_field "Requires at least" "Requires at least:[[:space:]]*[0-9]" "axellcore-atelierclub.php"
-          check_field "Requires PHP"      "Requires PHP:[[:space:]]*[0-9]"     "axellcore-atelierclub.php"
-          check_field "License"           "License:[[:space:]]*GPL"            "axellcore-atelierclub.php"
+          check_field "Plugin Name"       "Plugin Name:"                       "axellcore-atelier.php"
+          check_field "Version"           "Version:[[:space:]]*[0-9]+\.[0-9]"  "axellcore-atelier.php"
+          check_field "Requires at least" "Requires at least:[[:space:]]*[0-9]" "axellcore-atelier.php"
+          check_field "Requires PHP"      "Requires PHP:[[:space:]]*[0-9]"     "axellcore-atelier.php"
+          check_field "License"           "License:[[:space:]]*GPL"            "axellcore-atelier.php"
           check_field "readme Stable tag" "Stable tag:[[:space:]]*[0-9]+\.[0-9]" "readme.txt"
 
       - name: Version == Stable tag
         run: |
-          MAIN=$(grep -oP "(?<=Version:)[[:space:]]*\K\S+" axellcore-atelierclub.php)
+          MAIN=$(grep -oP "(?<=Version:)[[:space:]]*\K\S+" axellcore-atelier.php)
           README=$(grep -oP "(?<=Stable tag:)[[:space:]]*\K\S+" readme.txt)
-          [ "$MAIN" = "$README" ] && echo "✔  Version: $MAIN" || { echo "✗  Mismatch: axellcore-atelierclub.php=$MAIN readme.txt=$README"; exit 1; }
+          [ "$MAIN" = "$README" ] && echo "✔  Version: $MAIN" || { echo "✗  Mismatch: axellcore-atelier.php=$MAIN readme.txt=$README"; exit 1; }
 
   # ── PHPCS + WPCS + PHPCompatibility ──────────────────────────────────────────
   phpcs:

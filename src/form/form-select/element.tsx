@@ -24,7 +24,7 @@ export default function SelectElement(
 			aria-required={ required || undefined }
 		>
 			<option value="">
-				{ placeholder || __( 'Select an option', 'axellcore-atelierclub' ) }
+				{ placeholder || __( 'Select an option', 'axellcore-atelier' ) }
 			</option>
 			{ options.map( ( o, i ) => (
 				<option key={ i } value={ o.value }>

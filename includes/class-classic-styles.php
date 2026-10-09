@@ -16,10 +16,10 @@
  * that isn't WordPress's or this plugin's. Every other page of the site is
  * left as it is.
  *
- * @package Axellcore_Atelierclub
+ * @package Axellcore_Atelier
  */
 
-namespace Axellcore_Atelierclub;
+namespace Axellcore_Atelier;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -158,7 +158,7 @@ final class Classic_Styles {
 		// blocks, 28px margins, 8px canvas padding): an empty style keeps
 		// wp-edit-blocks' dependency on it satisfied.
 		wp_deregister_style( 'wp-editor-classic-layout-styles' );
-		wp_register_style( 'wp-editor-classic-layout-styles', false, array(), AXELLCORE_ATELIERCLUB_VERSION );
+		wp_register_style( 'wp-editor-classic-layout-styles', false, array(), AXELLCORE_ATELIER_VERSION );
 		// The page is edited here, not in a page builder: no "Edit with
 		// Elementor" switch or other builders' editor assets.
 		$this->remove_builder_output( 'enqueue_block_editor_assets' );
@@ -209,7 +209,7 @@ final class Classic_Styles {
 			$styles[] = $style;
 		}
 		$styles[]           = array(
-			'css'            => (string) file_get_contents( AXELLCORE_ATELIERCLUB_PATH . self::THEME_CSS ) // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+			'css'            => (string) file_get_contents( AXELLCORE_ATELIER_PATH . self::THEME_CSS ) // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
 				// The canvas shows the post alone (post-only mode) and gives
 				// its root the theme's root padding; on the page the template's
 				// Post Content has none.
@@ -249,7 +249,7 @@ final class Classic_Styles {
 	 * @return array|null
 	 */
 	private static function post_content_attributes() {
-		$blocks = parse_blocks( (string) file_get_contents( AXELLCORE_ATELIERCLUB_PATH . 'templates/' . Plugin::TEMPLATE_SLUG . '.html' ) ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+		$blocks = parse_blocks( (string) file_get_contents( AXELLCORE_ATELIER_PATH . 'templates/' . Plugin::TEMPLATE_SLUG . '.html' ) ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
 		while ( $blocks ) {
 			$block = array_shift( $blocks );
 			if ( 'core/post-content' === $block['blockName'] ) {
@@ -320,7 +320,7 @@ final class Classic_Styles {
 		 *
 		 * @param string[] $prefixes Default Elementor, Essential Addons and JetPlugins.
 		 */
-		$prefixes = (array) apply_filters( 'axellcore_atelierclub_classic_builder_plugins', array( 'elementor', 'essential-addons-for-elementor', 'jet-' ) );
+		$prefixes = (array) apply_filters( 'axellcore_atelier_classic_builder_plugins', array( 'elementor', 'essential-addons-for-elementor', 'jet-' ) );
 		$dirs     = array( wp_normalize_path( get_template_directory() ) . '/', wp_normalize_path( get_stylesheet_directory() ) . '/' );
 		foreach ( $prefixes as $prefix ) {
 			$dirs[] = wp_normalize_path( WP_PLUGIN_DIR ) . '/' . $prefix;
@@ -359,7 +359,7 @@ final class Classic_Styles {
 		if ( ! $this->active ) {
 			return $theme_json;
 		}
-		$data = json_decode( (string) file_get_contents( AXELLCORE_ATELIERCLUB_PATH . self::THEME_JSON ), true ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+		$data = json_decode( (string) file_get_contents( AXELLCORE_ATELIER_PATH . self::THEME_JSON ), true ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
 		return is_array( $data ) ? $theme_json->update_with( $data ) : $theme_json;
 	}
 
@@ -375,7 +375,7 @@ final class Classic_Styles {
 		if ( ! $this->active ) {
 			return $user_json;
 		}
-		$data = json_decode( (string) file_get_contents( AXELLCORE_ATELIERCLUB_PATH . self::USER_JSON ), true ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+		$data = json_decode( (string) file_get_contents( AXELLCORE_ATELIER_PATH . self::USER_JSON ), true ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
 		if ( ! is_array( $data ) ) {
 			return $user_json;
 		}
@@ -384,7 +384,7 @@ final class Classic_Styles {
 				foreach ( $family['fontFace'] ?? array() as $i => $face ) {
 					$srcs = array_map(
 						static function ( $src ) {
-							return 0 === strpos( (string) $src, 'assets/' ) ? AXELLCORE_ATELIERCLUB_URL . $src : $src;
+							return 0 === strpos( (string) $src, 'assets/' ) ? AXELLCORE_ATELIER_URL . $src : $src;
 						},
 						(array) $face['src']
 					);
@@ -422,8 +422,8 @@ final class Classic_Styles {
 		wp_enqueue_style( 'global-styles' );
 		wp_add_global_styles_for_blocks();
 
-		wp_register_style( self::HANDLE, false, array( 'global-styles' ), AXELLCORE_ATELIERCLUB_VERSION );
-		wp_add_inline_style( self::HANDLE, (string) file_get_contents( AXELLCORE_ATELIERCLUB_PATH . self::THEME_CSS ) ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+		wp_register_style( self::HANDLE, false, array( 'global-styles' ), AXELLCORE_ATELIER_VERSION );
+		wp_add_inline_style( self::HANDLE, (string) file_get_contents( AXELLCORE_ATELIER_PATH . self::THEME_CSS ) ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
 		wp_enqueue_style( self::HANDLE );
 		wp_dequeue_style( 'wp-emoji-styles' );
 
@@ -431,8 +431,8 @@ final class Classic_Styles {
 		// (wp_maybe_inline_styles(), as it does for block styles).
 		foreach ( wp_styles()->queue as $handle ) {
 			$item = wp_styles()->registered[ $handle ] ?? null;
-			if ( $item && is_string( $item->src ) && 0 === strpos( $item->src, AXELLCORE_ATELIERCLUB_URL ) && ! wp_styles()->get_data( $handle, 'path' ) ) {
-				$path = AXELLCORE_ATELIERCLUB_PATH . strtok( substr( $item->src, strlen( AXELLCORE_ATELIERCLUB_URL ) ), '?' );
+			if ( $item && is_string( $item->src ) && 0 === strpos( $item->src, AXELLCORE_ATELIER_URL ) && ! wp_styles()->get_data( $handle, 'path' ) ) {
+				$path = AXELLCORE_ATELIER_PATH . strtok( substr( $item->src, strlen( AXELLCORE_ATELIER_URL ) ), '?' );
 				if ( is_readable( $path ) ) {
 					wp_style_add_data( $handle, 'path', $path );
 				}
@@ -475,14 +475,14 @@ final class Classic_Styles {
 		if ( ! $item ) {
 			return false;
 		}
-		if ( 0 === strpos( $handle, 'axellcore-atelierclub-' ) ) {
+		if ( 0 === strpos( $handle, 'axellcore-atelier-' ) ) {
 			return true;
 		}
 		if ( ! $item->src ) {
 			return self::is_core_inline( $handle );
 		}
 		$src = (string) $item->src;
-		foreach ( array( includes_url(), admin_url(), '/wp-includes/', '/wp-admin/', AXELLCORE_ATELIERCLUB_URL ) as $prefix ) {
+		foreach ( array( includes_url(), admin_url(), '/wp-includes/', '/wp-admin/', AXELLCORE_ATELIER_URL ) as $prefix ) {
 			if ( 0 === strpos( $src, $prefix ) ) {
 				return true;
 			}

@@ -1,17 +1,17 @@
 <?php
 /**
- * REST endpoints for the Atelier Club application form:
- *  - GET  /axellcore-atelierclub/v1/cities?uf=SP  — cities for the state/
+ * REST endpoints for the Atelier Axell application form:
+ *  - GET  /axellcore-atelier/v1/cities?uf=SP  — cities for the state/
  *    city cascading select (assets/js/frontend.js), public/read-only.
- *  - POST /axellcore-atelierclub/v1/members        — the real form
+ *  - POST /axellcore-atelier/v1/members        — the real form
  *    submission handler: creates an `aa_member` post, resolves/assigns
  *    its Country > State > City term, and stores every other field as
  *    post meta.
  *
- * @package Axellcore_Atelierclub
+ * @package Axellcore_Atelier
  */
 
-namespace Axellcore_Atelierclub;
+namespace Axellcore_Atelier;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -25,7 +25,7 @@ final class Rest {
 	/**
 	 * REST namespace.
 	 */
-	const NAMESPACE = 'axellcore-atelierclub/v1';
+	const NAMESPACE = 'axellcore-atelier/v1';
 
 	/**
 	 * Singleton instance.
@@ -180,7 +180,7 @@ final class Rest {
 		$key   = 'axell_document_' . md5( Members::client_ip() );
 		$count = (int) get_transient( $key );
 		if ( $count >= self::DOCUMENT_LIMIT ) {
-			return new \WP_Error( 'aa_rate_limited', __( 'Too many attempts. Try again in a few minutes.', 'axellcore-atelierclub' ), array( 'status' => 429 ) );
+			return new \WP_Error( 'aa_rate_limited', __( 'Too many attempts. Try again in a few minutes.', 'axellcore-atelier' ), array( 'status' => 429 ) );
 		}
 		set_transient( $key, $count + 1, self::DOCUMENT_WINDOW );
 

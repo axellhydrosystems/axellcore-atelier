@@ -5,10 +5,10 @@
  * (var:preset|color|ink, var:preset|font-family|inter) instead of raw values,
  * and so they travel with the plugin to any install.
  *
- * @package Axellcore_Atelierclub
+ * @package Axellcore_Atelier
  */
 
-namespace Axellcore_Atelierclub;
+namespace Axellcore_Atelier;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -148,7 +148,7 @@ final class Design_Tokens {
 		}
 		foreach ( self::PRELOAD_FONTS as $file ) {
 			$resources[] = array(
-				'href'        => AXELLCORE_ATELIERCLUB_URL . 'assets/fonts/' . $file,
+				'href'        => AXELLCORE_ATELIER_URL . 'assets/fonts/' . $file,
 				'as'          => 'font',
 				'type'        => 'font/woff2',
 				'crossorigin' => 'anonymous',
@@ -198,7 +198,7 @@ final class Design_Tokens {
 		if ( ! self::is_atelier_page() ) {
 			return;
 		}
-		wp_register_style( 'aa-text-rendering', false, array(), AXELLCORE_ATELIERCLUB_VERSION );
+		wp_register_style( 'aa-text-rendering', false, array(), AXELLCORE_ATELIER_VERSION );
 		wp_enqueue_style( 'aa-text-rendering' );
 		wp_add_inline_style( 'aa-text-rendering', self::TEXT_RENDERING_CSS );
 	}
@@ -228,27 +228,27 @@ final class Design_Tokens {
 	 */
 	public function register_block_styles() {
 		$file = 'build/block-styles/style-frontend.css';
-		if ( ! file_exists( AXELLCORE_ATELIERCLUB_PATH . $file ) ) {
+		if ( ! file_exists( AXELLCORE_ATELIER_PATH . $file ) ) {
 			return;
 		}
 		$styles = array(
-			array( 'core/button', 'primary', __( 'Primary', 'axellcore-atelierclub' ) ),
-			array( 'core/navigation', 'bronze-hover', __( 'Bronze hover', 'axellcore-atelierclub' ) ),
-			array( 'core/image', 'ivory', __( 'Ivory', 'axellcore-atelierclub' ) ),
-			array( 'core/group', 'visually-hidden', __( 'Visually hidden', 'axellcore-atelierclub' ) ),
-			array( 'core/group', 'tier', __( 'Tier', 'axellcore-atelierclub' ) ),
-			array( 'core/group', 'tier-locked', __( 'Tier (locked)', 'axellcore-atelierclub' ) ),
-			array( 'core/paragraph', 'eyebrow', __( 'Eyebrow', 'axellcore-atelierclub' ) ),
-			array( 'core/column', 'sticky-desktop', __( 'Sticky on desktop', 'axellcore-atelierclub' ) ),
-			array( 'core/heading', 'chapter', __( 'Chapter', 'axellcore-atelierclub' ) ),
-			array( 'core/list', 'pillars', __( 'Pillars', 'axellcore-atelierclub' ) ),
-			array( 'core/list', 'protagonists', __( 'Protagonists', 'axellcore-atelierclub' ) ),
-			array( 'core/list', 'promises', __( 'Promises', 'axellcore-atelierclub' ) ),
-			array( 'core/list', 'benefits', __( 'Benefits', 'axellcore-atelierclub' ) ),
-			array( 'core/list', 'steps', __( 'Steps', 'axellcore-atelierclub' ) ),
-			array( 'core/list', 'channels', __( 'Channels', 'axellcore-atelierclub' ) ),
-			array( 'core/cover', 'stone', __( 'Stone', 'axellcore-atelierclub' ) ),
-			array( 'core/columns', 'footer', __( 'Footer', 'axellcore-atelierclub' ) ),
+			array( 'core/button', 'primary', __( 'Primary', 'axellcore-atelier' ) ),
+			array( 'core/navigation', 'bronze-hover', __( 'Bronze hover', 'axellcore-atelier' ) ),
+			array( 'core/image', 'ivory', __( 'Ivory', 'axellcore-atelier' ) ),
+			array( 'core/group', 'visually-hidden', __( 'Visually hidden', 'axellcore-atelier' ) ),
+			array( 'core/group', 'tier', __( 'Tier', 'axellcore-atelier' ) ),
+			array( 'core/group', 'tier-locked', __( 'Tier (locked)', 'axellcore-atelier' ) ),
+			array( 'core/paragraph', 'eyebrow', __( 'Eyebrow', 'axellcore-atelier' ) ),
+			array( 'core/column', 'sticky-desktop', __( 'Sticky on desktop', 'axellcore-atelier' ) ),
+			array( 'core/heading', 'chapter', __( 'Chapter', 'axellcore-atelier' ) ),
+			array( 'core/list', 'pillars', __( 'Pillars', 'axellcore-atelier' ) ),
+			array( 'core/list', 'protagonists', __( 'Protagonists', 'axellcore-atelier' ) ),
+			array( 'core/list', 'promises', __( 'Promises', 'axellcore-atelier' ) ),
+			array( 'core/list', 'benefits', __( 'Benefits', 'axellcore-atelier' ) ),
+			array( 'core/list', 'steps', __( 'Steps', 'axellcore-atelier' ) ),
+			array( 'core/list', 'channels', __( 'Channels', 'axellcore-atelier' ) ),
+			array( 'core/cover', 'stone', __( 'Stone', 'axellcore-atelier' ) ),
+			array( 'core/columns', 'footer', __( 'Footer', 'axellcore-atelier' ) ),
 		);
 		foreach ( $styles as list( $block, $name, $label ) ) {
 			register_block_style(
@@ -265,9 +265,9 @@ final class Design_Tokens {
 				$block,
 				array(
 					'handle' => 'aa-block-styles',
-					'src'    => AXELLCORE_ATELIERCLUB_URL . $file,
-					'path'   => AXELLCORE_ATELIERCLUB_PATH . $file,
-					'ver'    => (string) filemtime( AXELLCORE_ATELIERCLUB_PATH . $file ),
+					'src'    => AXELLCORE_ATELIER_URL . $file,
+					'path'   => AXELLCORE_ATELIER_PATH . $file,
+					'ver'    => (string) filemtime( AXELLCORE_ATELIER_PATH . $file ),
 				)
 			);
 		}
@@ -350,7 +350,7 @@ final class Design_Tokens {
 	 * @return array<int,array<string,string>>
 	 */
 	private function font_faces() {
-		$file = AXELLCORE_ATELIERCLUB_PATH . 'assets/fonts/font-faces.json';
+		$file = AXELLCORE_ATELIER_PATH . 'assets/fonts/font-faces.json';
 		if ( ! file_exists( $file ) ) {
 			return array();
 		}
@@ -359,7 +359,7 @@ final class Design_Tokens {
 			return array();
 		}
 		foreach ( $faces as &$face ) {
-			$face['src'] = array( AXELLCORE_ATELIERCLUB_URL . 'assets/fonts/' . basename( $face['src'] ) );
+			$face['src'] = array( AXELLCORE_ATELIER_URL . 'assets/fonts/' . basename( $face['src'] ) );
 		}
 		return $faces;
 	}

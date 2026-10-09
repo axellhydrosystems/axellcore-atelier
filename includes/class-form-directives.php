@@ -14,10 +14,10 @@
  * src/form/form-control-br-revenue-id/view.ts, src/form/form-control/view.ts,
  * src/form/form/view.ts).
  *
- * @package Axellcore_Atelierclub
+ * @package Axellcore_Atelier
  */
 
-namespace Axellcore_Atelierclub;
+namespace Axellcore_Atelier;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -679,7 +679,7 @@ final class Form_Directives {
 			'cityTyped'     => '',
 			'cityOpen'      => false,
 			'cityActive'    => -1,
-			'cityHint'      => __( 'Select state', 'axellcore-atelierclub' ),
+			'cityHint'      => __( 'Select state', 'axellcore-atelier' ),
 			'activeIndex'   => -1,
 			'options'       => array(),
 		);
@@ -799,7 +799,7 @@ final class Form_Directives {
 		);
 		$field = trim( $p->get_updated_html() );
 
-		$uf_options = '<option value="">' . esc_html__( 'State code', 'axellcore-atelierclub' ) . '</option>';
+		$uf_options = '<option value="">' . esc_html__( 'State code', 'axellcore-atelier' ) . '</option>';
 		foreach ( self::UF_CODES as $uf ) {
 			$uf_options .= sprintf( '<option value="%1$s">%1$s</option>', esc_attr( $uf ) );
 		}
@@ -831,13 +831,13 @@ final class Form_Directives {
 			// "Nome da loja", and an id without "name": with a plain "Nome",
 			// Chrome takes it for the person's name and autofills it despite
 			// autocomplete="off".
-			esc_attr__( 'Store name', 'axellcore-atelierclub' ),
-			esc_attr__( 'Back to search', 'axellcore-atelierclub' ),
+			esc_attr__( 'Store name', 'axellcore-atelier' ),
+			esc_attr__( 'Back to search', 'axellcore-atelier' ),
 			$search_icon,
-			esc_attr__( 'State code', 'axellcore-atelierclub' ),
+			esc_attr__( 'State code', 'axellcore-atelier' ),
 			$uf_options,
-			esc_attr__( 'City', 'axellcore-atelierclub' ),
-			esc_html__( 'Select state', 'axellcore-atelierclub' ),
+			esc_attr__( 'City', 'axellcore-atelier' ),
+			esc_html__( 'Select state', 'axellcore-atelier' ),
 			esc_attr( $list_id ),
 			esc_attr( self::NO_AUTOFILL ),
 			// The UF: a list with a filter, "SP · São Paulo" (Enhanced_Select).
@@ -845,7 +845,7 @@ final class Form_Directives {
 				sprintf(
 					'<select id="%1$s-custom-uf" aria-label="%2$s" data-wp-bind--value="context.customUf" data-wp-on--change="actions.onCustomUf">%3$s</select>',
 					esc_attr( $name ),
-					esc_attr__( 'State code', 'axellcore-atelierclub' ),
+					esc_attr__( 'State code', 'axellcore-atelier' ),
 					$uf_options
 				),
 				array(

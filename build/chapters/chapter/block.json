@@ -12,7 +12,7 @@
   "keywords": [
     "chapter"
   ],
-  "textdomain": "axellcore-atelierclub",
+  "textdomain": "axellcore-atelier",
   "attributes": {
     "label": {
       "type": "string",

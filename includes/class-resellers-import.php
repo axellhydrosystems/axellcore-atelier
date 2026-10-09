@@ -14,10 +14,10 @@
  * "Localização" (País > Estado > Cidade) and "Telefone" (comma separated)
  * are read too. No capability checks: activation can run without a user.
  *
- * @package Axellcore_Atelierclub
+ * @package Axellcore_Atelier
  */
 
-namespace Axellcore_Atelierclub;
+namespace Axellcore_Atelier;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -41,7 +41,7 @@ final class Resellers_Import {
 	/**
 	 * Option with the last import's summary.
 	 */
-	const OPTION = 'axellcore_atelierclub_resellers_import';
+	const OPTION = 'axellcore_atelier_resellers_import';
 
 	/**
 	 * Taxonomy per location level.
@@ -68,7 +68,7 @@ final class Resellers_Import {
 		if ( ! post_type_exists( Resellers::POST_TYPE ) || self::has_resellers() ) {
 			return null;
 		}
-		return self::run( AXELLCORE_ATELIERCLUB_PATH . self::FILE, AXELLCORE_ATELIERCLUB_PATH . self::TERMS_FILE );
+		return self::run( AXELLCORE_ATELIER_PATH . self::FILE, AXELLCORE_ATELIER_PATH . self::TERMS_FILE );
 	}
 
 	/**
@@ -119,7 +119,7 @@ final class Resellers_Import {
 				continue;
 			}
 			++$summary['failed'];
-			error_log( sprintf( 'axellcore-atelierclub: revenda row %d not imported.', $index + 2 ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- activation has no UI to report to.
+			error_log( sprintf( 'axellcore-atelier: revenda row %d not imported.', $index + 2 ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- activation has no UI to report to.
 		}
 
 		if ( $kses ) {

@@ -6,10 +6,10 @@
  * does not use axellcore, and every name (actions, nonce, handles, upload
  * folder, CSS) is its own, so both plugins can be active.
  *
- * @package Axellcore_Atelierclub
+ * @package Axellcore_Atelier
  */
 
-namespace Axellcore_Atelierclub;
+namespace Axellcore_Atelier;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -22,11 +22,11 @@ final class Members_Export {
 
 	const PAGE          = 'members-export';
 	const CAPABILITY    = 'list_users';
-	const NONCE         = 'axellcore-atelierclub-members-export';
-	const AJAX_ACTION   = 'axellcore_atelierclub_members_export';
-	const DOWNLOAD      = 'axellcore_atelierclub_members_download';
-	const HANDLE        = 'axellcore-atelierclub-members-export';
-	const UPLOAD_FOLDER = 'axellcore-atelierclub-export';
+	const NONCE         = 'axellcore-atelier-members-export';
+	const AJAX_ACTION   = 'axellcore_atelier_members_export';
+	const DOWNLOAD      = 'axellcore_atelier_members_download';
+	const HANDLE        = 'axellcore-atelier-members-export';
+	const UPLOAD_FOLDER = 'axellcore-atelier-export';
 	const PER_PAGE      = 100;
 
 	/**
@@ -72,31 +72,31 @@ final class Members_Export {
 	public static function columns() {
 		$columns                 = array(
 			'id'                        => 'ID',
-			'status'                    => __( 'Status', 'axellcore-atelierclub' ),
-			'registered'                => __( 'Submitted on', 'axellcore-atelierclub' ),
-			'login'                     => __( 'Login', 'axellcore-atelierclub' ),
-			'fullname'                  => __( 'Full name', 'axellcore-atelierclub' ),
-			'email'                     => __( 'Email', 'axellcore-atelierclub' ),
-			'company'                   => __( 'Office / Studio', 'axellcore-atelierclub' ),
-			'phone'                     => __( 'Phone', 'axellcore-atelierclub' ),
-			'professional_registration' => __( 'Registration (CAU / CREA / ABD)', 'axellcore-atelierclub' ),
-			'primary_focus'             => __( 'Main practice', 'axellcore-atelierclub' ),
-			'url'                       => __( 'Portfolio (URL)', 'axellcore-atelierclub' ),
-			'profile_type'              => __( 'Registration type', 'axellcore-atelierclub' ),
-			'br_revenue_id'             => __( 'CPF / CNPJ', 'axellcore-atelierclub' ),
-			'country'                   => __( 'Country', 'axellcore-atelierclub' ),
-			'state'                     => __( 'State code', 'axellcore-atelierclub' ),
-			'city'                      => __( 'City', 'axellcore-atelierclub' ),
-			'address_street'            => __( 'Street', 'axellcore-atelierclub' ),
-			'address_number'            => __( 'Number', 'axellcore-atelierclub' ),
-			'address_2'                 => __( 'Address line 2', 'axellcore-atelierclub' ),
-			'neighborhood'              => __( 'Neighborhood', 'axellcore-atelierclub' ),
-			'landmark'                  => __( 'Landmark', 'axellcore-atelierclub' ),
-			'postal'                    => __( 'Postal code', 'axellcore-atelierclub' ),
+			'status'                    => __( 'Status', 'axellcore-atelier' ),
+			'registered'                => __( 'Submitted on', 'axellcore-atelier' ),
+			'login'                     => __( 'Login', 'axellcore-atelier' ),
+			'fullname'                  => __( 'Full name', 'axellcore-atelier' ),
+			'email'                     => __( 'Email', 'axellcore-atelier' ),
+			'company'                   => __( 'Office / Studio', 'axellcore-atelier' ),
+			'phone'                     => __( 'Phone', 'axellcore-atelier' ),
+			'professional_registration' => __( 'Registration (CAU / CREA / ABD)', 'axellcore-atelier' ),
+			'primary_focus'             => __( 'Main practice', 'axellcore-atelier' ),
+			'url'                       => __( 'Portfolio (URL)', 'axellcore-atelier' ),
+			'profile_type'              => __( 'Registration type', 'axellcore-atelier' ),
+			'br_revenue_id'             => __( 'CPF / CNPJ', 'axellcore-atelier' ),
+			'country'                   => __( 'Country', 'axellcore-atelier' ),
+			'state'                     => __( 'State code', 'axellcore-atelier' ),
+			'city'                      => __( 'City', 'axellcore-atelier' ),
+			'address_street'            => __( 'Street', 'axellcore-atelier' ),
+			'address_number'            => __( 'Number', 'axellcore-atelier' ),
+			'address_2'                 => __( 'Address line 2', 'axellcore-atelier' ),
+			'neighborhood'              => __( 'Neighborhood', 'axellcore-atelier' ),
+			'landmark'                  => __( 'Landmark', 'axellcore-atelier' ),
+			'postal'                    => __( 'Postal code', 'axellcore-atelier' ),
 		);
-		$columns['resellers']    = __( 'Partner stores', 'axellcore-atelierclub' );
-		$columns['consent_at']   = __( 'Consent on', 'axellcore-atelierclub' );
-		$columns['consent_text'] = __( 'Consent text', 'axellcore-atelierclub' );
+		$columns['resellers']    = __( 'Partner stores', 'axellcore-atelier' );
+		$columns['consent_at']   = __( 'Consent on', 'axellcore-atelier' );
+		$columns['consent_text'] = __( 'Consent text', 'axellcore-atelier' );
 		return $columns;
 	}
 
@@ -117,8 +117,8 @@ final class Members_Export {
 	 */
 	public static function profile_types() {
 		return array(
-			'individual'   => __( 'Individual · CPF', 'axellcore-atelierclub' ),
-			'legal_entity' => __( 'Company · CNPJ', 'axellcore-atelierclub' ),
+			'individual'   => __( 'Individual · CPF', 'axellcore-atelier' ),
+			'legal_entity' => __( 'Company · CNPJ', 'axellcore-atelier' ),
 		);
 	}
 
@@ -128,8 +128,8 @@ final class Members_Export {
 	public function register_page() {
 		add_submenu_page(
 			Member::ADMIN_PAGE,
-			__( 'Export members', 'axellcore-atelierclub' ),
-			__( 'Export', 'axellcore-atelierclub' ),
+			__( 'Export members', 'axellcore-atelier' ),
+			__( 'Export', 'axellcore-atelier' ),
 			self::CAPABILITY,
 			self::PAGE,
 			array( $this, 'render_page' )
@@ -145,16 +145,16 @@ final class Members_Export {
 		if ( ! str_ends_with( (string) $hook_suffix, '_page_' . self::PAGE ) ) {
 			return;
 		}
-		$asset_file = AXELLCORE_ATELIERCLUB_PATH . 'build/admin/members-export/index.asset.php';
+		$asset_file = AXELLCORE_ATELIER_PATH . 'build/admin/members-export/index.asset.php';
 		if ( ! file_exists( $asset_file ) ) {
 			return;
 		}
 		$asset = require $asset_file;
 
-		wp_enqueue_style( self::HANDLE, AXELLCORE_ATELIERCLUB_URL . 'build/admin/members-export/style-index.css', array(), $asset['version'] );
-		wp_enqueue_script( self::HANDLE, AXELLCORE_ATELIERCLUB_URL . 'build/admin/members-export/index.js', $asset['dependencies'], $asset['version'], true );
+		wp_enqueue_style( self::HANDLE, AXELLCORE_ATELIER_URL . 'build/admin/members-export/style-index.css', array(), $asset['version'] );
+		wp_enqueue_script( self::HANDLE, AXELLCORE_ATELIER_URL . 'build/admin/members-export/index.js', $asset['dependencies'], $asset['version'], true );
 		// Translations of its __() strings: the plugin's languages/ or the installed language pack.
-		wp_set_script_translations( self::HANDLE, 'axellcore-atelierclub' );
+		wp_set_script_translations( self::HANDLE, 'axellcore-atelier' );
 		wp_localize_script(
 			self::HANDLE,
 			'aaMembersExport',
@@ -163,7 +163,7 @@ final class Members_Export {
 				'nonce'   => wp_create_nonce( self::NONCE ),
 				'action'  => self::AJAX_ACTION,
 				'i18n'    => array(
-					'error' => __( 'Something went wrong. Please try again.', 'axellcore-atelierclub' ),
+					'error' => __( 'Something went wrong. Please try again.', 'axellcore-atelier' ),
 				),
 			)
 		);
@@ -174,33 +174,33 @@ final class Members_Export {
 	 */
 	public function render_page() {
 		if ( ! current_user_can( self::CAPABILITY ) ) {
-			wp_die( esc_html__( 'You do not have permission to access this page.', 'axellcore-atelierclub' ), '', array( 'response' => 403 ) );
+			wp_die( esc_html__( 'You do not have permission to access this page.', 'axellcore-atelier' ), '', array( 'response' => 403 ) );
 		}
 
-		echo '<div class="wrap aa-export-wrap"><h1 class="wp-heading-inline">' . esc_html__( 'Export members', 'axellcore-atelierclub' ) . '</h1><hr class="wp-header-end">';
+		echo '<div class="wrap aa-export-wrap"><h1 class="wp-heading-inline">' . esc_html__( 'Export members', 'axellcore-atelier' ) . '</h1><hr class="wp-header-end">';
 		echo '<form id="aa-export" class="aa-export-card">';
-		echo '<h2 class="aa-export-card__title">' . esc_html__( 'Export members to a CSV file', 'axellcore-atelierclub' ) . '</h2>';
-		echo '<p class="aa-export-help">' . esc_html__( 'Generates and downloads a CSV file with the list of members.', 'axellcore-atelierclub' ) . '</p>';
+		echo '<h2 class="aa-export-card__title">' . esc_html__( 'Export members to a CSV file', 'axellcore-atelier' ) . '</h2>';
+		echo '<p class="aa-export-help">' . esc_html__( 'Generates and downloads a CSV file with the list of members.', 'axellcore-atelier' ) . '</p>';
 		echo '<div id="aa-export-fields">';
 
 		$columns = array();
 		foreach ( self::columns() as $id => $label ) {
 			$columns[ $id ] = $label;
 		}
-		self::select_row( 'aa-export-columns', 'columns[]', __( 'Which columns to export?', 'axellcore-atelierclub' ), __( 'Export the default columns', 'axellcore-atelierclub' ), $columns );
-		self::select_row( 'aa-export-statuses', 'statuses[]', __( 'Which statuses to export?', 'axellcore-atelierclub' ), __( 'Export all statuses', 'axellcore-atelierclub' ), Member::roles() );
-		echo '<div class="aa-export-row"><label for="aa-export-since">' . esc_html__( 'Registered since', 'axellcore-atelierclub' ) . '</label><div>';
+		self::select_row( 'aa-export-columns', 'columns[]', __( 'Which columns to export?', 'axellcore-atelier' ), __( 'Export the default columns', 'axellcore-atelier' ), $columns );
+		self::select_row( 'aa-export-statuses', 'statuses[]', __( 'Which statuses to export?', 'axellcore-atelier' ), __( 'Export all statuses', 'axellcore-atelier' ), Member::roles() );
+		echo '<div class="aa-export-row"><label for="aa-export-since">' . esc_html__( 'Registered since', 'axellcore-atelier' ) . '</label><div>';
 		echo '<input type="date" id="aa-export-since" name="since" max="' . esc_attr( wp_date( 'Y-m-d' ) ) . '" aria-describedby="aa-export-since-help">';
-		echo '<p class="aa-export-help" id="aa-export-since-help">' . esc_html__( 'Includes the chosen day. Empty exports from the first registration. To export only the new ones, choose the day of the last export (registrations of that day may repeat).', 'axellcore-atelierclub' ) . '</p>';
+		echo '<p class="aa-export-help" id="aa-export-since-help">' . esc_html__( 'Includes the chosen day. Empty exports from the first registration. To export only the new ones, choose the day of the last export (registrations of that day may repeat).', 'axellcore-atelier' ) . '</p>';
 		echo '</div></div>';
-		self::select_row( 'aa-export-states', 'states[]', __( 'Which states to export?', 'axellcore-atelierclub' ), __( 'Export all states', 'axellcore-atelierclub' ), self::existing_values( 'state' ) );
-		self::select_row( 'aa-export-cities', 'cities[]', __( 'Which cities to export?', 'axellcore-atelierclub' ), __( 'Export all cities', 'axellcore-atelierclub' ), self::existing_values( 'city' ) );
+		self::select_row( 'aa-export-states', 'states[]', __( 'Which states to export?', 'axellcore-atelier' ), __( 'Export all states', 'axellcore-atelier' ), self::existing_values( 'state' ) );
+		self::select_row( 'aa-export-cities', 'cities[]', __( 'Which cities to export?', 'axellcore-atelier' ), __( 'Export all cities', 'axellcore-atelier' ), self::existing_values( 'city' ) );
 		$focuses = array_intersect_key( Admin_Rest::PRIMARY_FOCUS_OPTIONS, self::existing_values( 'primary_focus' ) );
-		self::select_row( 'aa-export-focuses', 'focuses[]', __( 'Which practices to export?', 'axellcore-atelierclub' ), __( 'Export all practices', 'axellcore-atelierclub' ), $focuses );
+		self::select_row( 'aa-export-focuses', 'focuses[]', __( 'Which practices to export?', 'axellcore-atelier' ), __( 'Export all practices', 'axellcore-atelier' ), $focuses );
 
 		echo '</div>';
 		echo '<div id="aa-export-progress" hidden><div class="aa-export-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span></span></div><p id="aa-export-status" aria-live="polite"></p></div>';
-		echo '<div class="aa-export-actions"><button type="submit" class="button button-primary">' . esc_html__( 'Generate CSV', 'axellcore-atelierclub' ) . '</button></div>';
+		echo '<div class="aa-export-actions"><button type="submit" class="button button-primary">' . esc_html__( 'Generate CSV', 'axellcore-atelier' ) . '</button></div>';
 		echo '</form></div>';
 	}
 
@@ -264,7 +264,7 @@ final class Members_Export {
 	public function ajax_batch() {
 		check_ajax_referer( self::NONCE, 'security' );
 		if ( ! current_user_can( self::CAPABILITY ) ) {
-			wp_send_json_error( array( 'message' => __( 'You do not have permission to do this.', 'axellcore-atelierclub' ) ), 403 );
+			wp_send_json_error( array( 'message' => __( 'You do not have permission to do this.', 'axellcore-atelier' ) ), 403 );
 		}
 
 		$page  = isset( $_POST['page'] ) ? max( 1, absint( $_POST['page'] ) ) : 1;
@@ -274,7 +274,7 @@ final class Members_Export {
 		}
 		$path = self::path_for( $token );
 		if ( '' === $path || ( $page > 1 && ! is_file( $path ) ) ) {
-			wp_send_json_error( array( 'message' => __( 'The export expired. Start again.', 'axellcore-atelierclub' ) ) );
+			wp_send_json_error( array( 'message' => __( 'The export expired. Start again.', 'axellcore-atelier' ) ) );
 		}
 
 		$result = self::export_page(
@@ -547,13 +547,13 @@ final class Members_Export {
 	public function handle_download() {
 		$token = isset( $_GET['token'] ) ? sanitize_key( wp_unslash( $_GET['token'] ) ) : '';
 		if ( ! current_user_can( self::CAPABILITY ) ) {
-			wp_die( esc_html__( 'You do not have permission to do this.', 'axellcore-atelierclub' ), '', array( 'response' => 403 ) );
+			wp_die( esc_html__( 'You do not have permission to do this.', 'axellcore-atelier' ), '', array( 'response' => 403 ) );
 		}
 		check_admin_referer( self::DOWNLOAD . '-' . $token );
 
 		$path = self::path_for( $token );
 		if ( '' === $path || ! is_file( $path ) ) {
-			wp_die( esc_html__( 'The export file is no longer available.', 'axellcore-atelierclub' ), '', array( 'response' => 404 ) );
+			wp_die( esc_html__( 'The export file is no longer available.', 'axellcore-atelier' ), '', array( 'response' => 404 ) );
 		}
 
 		nocache_headers();

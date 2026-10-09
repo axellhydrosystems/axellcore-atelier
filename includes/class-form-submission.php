@@ -5,10 +5,10 @@
  * the form really has, then runs its optional actions: store as a post of the
  * chosen post type, and send an email.
  *
- * @package Axellcore_Atelierclub
+ * @package Axellcore_Atelier
  */
 
-namespace Axellcore_Atelierclub;
+namespace Axellcore_Atelier;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -82,7 +82,7 @@ final class Form_Submission {
 		$types = array(
 			array(
 				'value' => Members::STORE,
-				'label' => __( 'Member (user)', 'axellcore-atelierclub' ),
+				'label' => __( 'Member (user)', 'axellcore-atelier' ),
 			),
 		);
 		foreach ( get_post_types( array( 'show_ui' => true ), 'objects' ) as $type ) {
@@ -116,7 +116,7 @@ final class Form_Submission {
 
 		$form = self::find_form( absint( $params['post_id'] ?? 0 ), sanitize_key( $params['form_id'] ?? '' ) );
 		if ( null === $form ) {
-			return new \WP_Error( 'aa_form_not_found', __( 'Form not found.', 'axellcore-atelierclub' ), array( 'status' => 400 ) );
+			return new \WP_Error( 'aa_form_not_found', __( 'Form not found.', 'axellcore-atelier' ), array( 'status' => 400 ) );
 		}
 
 		// reCAPTCHA (Atelier → Settings → Integrations), before anything is stored.
@@ -353,7 +353,7 @@ final class Form_Submission {
 		$title = '' !== $settings['titleField'] && ! empty( $fields[ $settings['titleField'] ] )
 			? sanitize_text_field( $fields[ $settings['titleField'] ] )
 			/* translators: %s: date and time of the submission. */
-			: sprintf( __( 'Form submission %s', 'axellcore-atelierclub' ), wp_date( 'Y-m-d H:i' ) );
+			: sprintf( __( 'Form submission %s', 'axellcore-atelier' ), wp_date( 'Y-m-d H:i' ) );
 
 		$post_id = wp_insert_post(
 			array(
@@ -400,7 +400,7 @@ final class Form_Submission {
 			);
 		};
 
-		$subject = $replace( '' !== $settings['emailSubject'] ? $settings['emailSubject'] : __( 'New form submission', 'axellcore-atelierclub' ) );
+		$subject = $replace( '' !== $settings['emailSubject'] ? $settings['emailSubject'] : __( 'New form submission', 'axellcore-atelier' ) );
 		$body    = $replace( '' !== $settings['emailBody'] ? $settings['emailBody'] : '{all_fields}' );
 
 		$headers = array();

@@ -41,20 +41,20 @@ export default function Edit( {
 	return (
 		<>
 			<InspectorControls>
-				<PanelBody title={ __( 'Select', 'axellcore-atelierclub' ) } initialOpen>
+				<PanelBody title={ __( 'Select', 'axellcore-atelier' ) } initialOpen>
 					<ToggleControl
-						label={ __( 'Required', 'axellcore-atelierclub' ) }
+						label={ __( 'Required', 'axellcore-atelier' ) }
 						checked={ !! attributes.required }
 						onChange={ ( value: boolean ) => setAttributes( { required: value } ) }
 					/>
 					<TextControl
-						label={ __( 'Placeholder', 'axellcore-atelierclub' ) }
+						label={ __( 'Placeholder', 'axellcore-atelier' ) }
 						value={ attributes.placeholder }
 						onChange={ ( value: string ) => setAttributes( { placeholder: value } ) }
 					/>
 					<TextareaControl
-						label={ __( 'Options', 'axellcore-atelierclub' ) }
-						help={ __( 'One per line: label|value (without |, the label is the value).', 'axellcore-atelierclub' ) }
+						label={ __( 'Options', 'axellcore-atelier' ) }
+						help={ __( 'One per line: label|value (without |, the label is the value).', 'axellcore-atelier' ) }
 						value={ optionsToText( attributes.options ) }
 						onChange={ ( value: string ) => setAttributes( { options: textToOptions( value ) } ) }
 					/>

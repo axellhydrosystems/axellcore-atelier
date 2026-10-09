@@ -10,7 +10,7 @@
  * provides them with full hook-tracking support. Defining them here would
  * silently block that file (it uses function_exists() guards).
  *
- * @package Axellcore_Atelierclub\Tests
+ * @package Axellcore_Atelier\Tests
  */
 
 if ( ! function_exists( '__' ) ) {

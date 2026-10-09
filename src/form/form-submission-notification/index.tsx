@@ -57,7 +57,7 @@ const variations = [
 			notice(
 				'#00d084',
 				'#000000',
-				__( 'Your form has been submitted successfully.', 'axellcore-atelierclub' )
+				__( 'Your form has been submitted successfully.', 'axellcore-atelier' )
 			),
 		],
 	},
@@ -74,7 +74,7 @@ const variations = [
 			notice(
 				'#cf2e2e',
 				'#ffffff',
-				__( 'There was an error submitting your form.', 'axellcore-atelierclub' )
+				__( 'There was an error submitting your form.', 'axellcore-atelier' )
 			),
 		],
 	},

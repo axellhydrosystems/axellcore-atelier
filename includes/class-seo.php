@@ -2,10 +2,10 @@
 /**
  * Meta description for the Atelier pages, when no SEO plugin prints one.
  *
- * @package Axellcore_Atelierclub
+ * @package Axellcore_Atelier
  */
 
-namespace Axellcore_Atelierclub;
+namespace Axellcore_Atelier;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;

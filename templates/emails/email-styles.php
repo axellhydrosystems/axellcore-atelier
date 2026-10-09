@@ -5,9 +5,9 @@
  * light here; the header's <style> gives the dark ones for a device in dark
  * mode (the e-mail does not force either). System serif and sans fonts.
  *
- * A theme can override this file in axellcore-atelierclub/emails/.
+ * A theme can override this file in axellcore-atelier/emails/.
  *
- * @package Axellcore_Atelierclub
+ * @package Axellcore_Atelier
  */
 
 defined( 'ABSPATH' ) || exit;

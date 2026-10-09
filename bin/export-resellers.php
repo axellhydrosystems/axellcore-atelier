@@ -10,7 +10,7 @@
  * Usage, from the production copy:
  *   OUT=<plugin>/content studio wp eval-file <plugin>/bin/export-resellers.php
  *
- * @package Axellcore_Atelierclub
+ * @package Axellcore_Atelier
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

@@ -4,10 +4,10 @@
  * page content keeps its fields when saved without an unfiltered_html user
  * (e.g. from WP-CLI or a REST write by an editor).
  *
- * @package Axellcore_Atelierclub
+ * @package Axellcore_Atelier
  */
 
-namespace Axellcore_Atelierclub;
+namespace Axellcore_Atelier;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;

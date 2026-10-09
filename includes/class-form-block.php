@@ -6,10 +6,10 @@
  * What depends on the site is added here, per request: the admin-post URL for
  * the no-JavaScript submission, and the REST URL the store posts to.
  *
- * @package Axellcore_Atelierclub
+ * @package Axellcore_Atelier
  */
 
-namespace Axellcore_Atelierclub;
+namespace Axellcore_Atelier;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -128,7 +128,7 @@ final class Form_Block {
 				 *
 				 * @param string[] $countries Country codes. Default: Brazil.
 				 */
-				'cityCountries' => (array) apply_filters( 'axellcore_atelierclub_city_countries', array( 'BR' ) ),
+				'cityCountries' => (array) apply_filters( 'axellcore_atelier_city_countries', array( 'BR' ) ),
 			)
 		);
 
@@ -220,7 +220,7 @@ final class Form_Block {
 			esc_attr( (string) ( $block['attrs']['formId'] ?? '' ) )
 		);
 		if ( false === strpos( $html, 'name="' . Members::HONEYPOT_FIELD . '"' ) ) {
-			$fields .= '<div hidden><input type="text" name="' . esc_attr( Members::HONEYPOT_FIELD ) . '" tabindex="-1" autocomplete="off" aria-label="' . esc_attr__( 'Leave this field empty', 'axellcore-atelierclub' ) . '"/></div>';
+			$fields .= '<div hidden><input type="text" name="' . esc_attr( Members::HONEYPOT_FIELD ) . '" tabindex="-1" autocomplete="off" aria-label="' . esc_attr__( 'Leave this field empty', 'axellcore-atelier' ) . '"/></div>';
 		}
 
 		// Drop a saved action field (older forms had the members action).

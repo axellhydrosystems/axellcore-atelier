@@ -4,10 +4,10 @@
  * the CEP and the CPF/CNPJ without their masks (the CNPJ may have letters),
  * and the masks put back for display.
  *
- * @package Axellcore_Atelierclub
+ * @package Axellcore_Atelier
  */
 
-namespace Axellcore_Atelierclub;
+namespace Axellcore_Atelier;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;

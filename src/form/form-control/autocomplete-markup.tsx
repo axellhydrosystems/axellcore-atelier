@@ -33,7 +33,7 @@ export function autocompleteMarkup( args: AutocompleteMarkupArgs ) {
 				type="text"
 				readOnly
 				tabIndex={ -1 }
-				placeholder={ placeholder || __( 'Autocomplete (posts)', 'axellcore-atelierclub' ) }
+				placeholder={ placeholder || __( 'Autocomplete (posts)', 'axellcore-atelier' ) }
 			/>
 		);
 	}

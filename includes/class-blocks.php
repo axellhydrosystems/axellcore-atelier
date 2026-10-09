@@ -10,10 +10,10 @@
  * everything else as plain core blocks per the "minimize custom blocks"
  * direction.
  *
- * @package Axellcore_Atelierclub
+ * @package Axellcore_Atelier
  */
 
-namespace Axellcore_Atelierclub;
+namespace Axellcore_Atelier;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -66,30 +66,30 @@ final class Blocks {
 	 * selectors.
 	 */
 	public function register_blocks() {
-		register_block_type_from_metadata( AXELLCORE_ATELIERCLUB_PATH . 'build/form/form' );
-		register_block_type_from_metadata( AXELLCORE_ATELIERCLUB_PATH . 'build/form/form-atelier' );
-		register_block_type_from_metadata( AXELLCORE_ATELIERCLUB_PATH . 'build/form/form-input' ); // Deprecated, see its own header comment.
-		register_block_type_from_metadata( AXELLCORE_ATELIERCLUB_PATH . 'build/form/form-group' );
-		register_block_type_from_metadata( AXELLCORE_ATELIERCLUB_PATH . 'build/form/form-select' );
-		register_block_type_from_metadata( AXELLCORE_ATELIERCLUB_PATH . 'build/form/form-check' );
-		register_block_type_from_metadata( AXELLCORE_ATELIERCLUB_PATH . 'build/form/form-text' );
-		register_block_type_from_metadata( AXELLCORE_ATELIERCLUB_PATH . 'build/form/form-label' );
-		register_block_type_from_metadata( AXELLCORE_ATELIERCLUB_PATH . 'build/form/form-control' );
-		register_block_type_from_metadata( AXELLCORE_ATELIERCLUB_PATH . 'build/form/form-control-reseller' );
-		register_block_type_from_metadata( AXELLCORE_ATELIERCLUB_PATH . 'build/form/form-control-br-revenue-id' );
-		register_block_type_from_metadata( AXELLCORE_ATELIERCLUB_PATH . 'build/form/form-control-br-revenue-id-person' );
-		register_block_type_from_metadata( AXELLCORE_ATELIERCLUB_PATH . 'build/form/form-control-br-revenue-id-legal' );
-		register_block_type_from_metadata( AXELLCORE_ATELIERCLUB_PATH . 'build/form/form-control-country' );
-		register_block_type_from_metadata( AXELLCORE_ATELIERCLUB_PATH . 'build/form/form-control-state' );
-		register_block_type_from_metadata( AXELLCORE_ATELIERCLUB_PATH . 'build/form/form-control-city' );
-		register_block_type_from_metadata( AXELLCORE_ATELIERCLUB_PATH . 'build/form/form-control-postal' );
-		register_block_type_from_metadata( AXELLCORE_ATELIERCLUB_PATH . 'build/form/form-control-phone' );
-		register_block_type_from_metadata( AXELLCORE_ATELIERCLUB_PATH . 'build/form/form-fieldset' );
-		register_block_type_from_metadata( AXELLCORE_ATELIERCLUB_PATH . 'build/form/form-submission-notification' );
-		register_block_type_from_metadata( AXELLCORE_ATELIERCLUB_PATH . 'build/sticky-header' );
-		register_block_type_from_metadata( AXELLCORE_ATELIERCLUB_PATH . 'build/chapters/chapters' );
+		register_block_type_from_metadata( AXELLCORE_ATELIER_PATH . 'build/form/form' );
+		register_block_type_from_metadata( AXELLCORE_ATELIER_PATH . 'build/form/form-atelier' );
+		register_block_type_from_metadata( AXELLCORE_ATELIER_PATH . 'build/form/form-input' ); // Deprecated, see its own header comment.
+		register_block_type_from_metadata( AXELLCORE_ATELIER_PATH . 'build/form/form-group' );
+		register_block_type_from_metadata( AXELLCORE_ATELIER_PATH . 'build/form/form-select' );
+		register_block_type_from_metadata( AXELLCORE_ATELIER_PATH . 'build/form/form-check' );
+		register_block_type_from_metadata( AXELLCORE_ATELIER_PATH . 'build/form/form-text' );
+		register_block_type_from_metadata( AXELLCORE_ATELIER_PATH . 'build/form/form-label' );
+		register_block_type_from_metadata( AXELLCORE_ATELIER_PATH . 'build/form/form-control' );
+		register_block_type_from_metadata( AXELLCORE_ATELIER_PATH . 'build/form/form-control-reseller' );
+		register_block_type_from_metadata( AXELLCORE_ATELIER_PATH . 'build/form/form-control-br-revenue-id' );
+		register_block_type_from_metadata( AXELLCORE_ATELIER_PATH . 'build/form/form-control-br-revenue-id-person' );
+		register_block_type_from_metadata( AXELLCORE_ATELIER_PATH . 'build/form/form-control-br-revenue-id-legal' );
+		register_block_type_from_metadata( AXELLCORE_ATELIER_PATH . 'build/form/form-control-country' );
+		register_block_type_from_metadata( AXELLCORE_ATELIER_PATH . 'build/form/form-control-state' );
+		register_block_type_from_metadata( AXELLCORE_ATELIER_PATH . 'build/form/form-control-city' );
+		register_block_type_from_metadata( AXELLCORE_ATELIER_PATH . 'build/form/form-control-postal' );
+		register_block_type_from_metadata( AXELLCORE_ATELIER_PATH . 'build/form/form-control-phone' );
+		register_block_type_from_metadata( AXELLCORE_ATELIER_PATH . 'build/form/form-fieldset' );
+		register_block_type_from_metadata( AXELLCORE_ATELIER_PATH . 'build/form/form-submission-notification' );
+		register_block_type_from_metadata( AXELLCORE_ATELIER_PATH . 'build/sticky-header' );
+		register_block_type_from_metadata( AXELLCORE_ATELIER_PATH . 'build/chapters/chapters' );
 		register_block_type_from_metadata(
-			AXELLCORE_ATELIERCLUB_PATH . 'build/chapters/chapter',
+			AXELLCORE_ATELIER_PATH . 'build/chapters/chapter',
 			array( 'render_callback' => array( $this, 'render_chapter' ) )
 		);
 	}
@@ -118,7 +118,7 @@ final class Blocks {
 	public function render_chapter( $attributes, $content ) {
 		$processor = new \WP_HTML_Tag_Processor( $content );
 		if ( $processor->next_tag( array( 'class_name' => 'aa-chapter-tag' ) ) ) {
-			$processor->set_attribute( 'data-chapter', __( 'Chapter', 'axellcore-atelierclub' ) );
+			$processor->set_attribute( 'data-chapter', __( 'Chapter', 'axellcore-atelier' ) );
 			return $processor->get_updated_html();
 		}
 		return $content;

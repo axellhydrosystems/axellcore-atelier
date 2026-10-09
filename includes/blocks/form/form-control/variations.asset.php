@@ -8,5 +8,5 @@ return array(
 		'wp-blocks',
 		'wp-i18n',
 	),
-	'version'      => AXELLCORE_ATELIERCLUB_VERSION,
+	'version'      => AXELLCORE_ATELIER_VERSION,
 );

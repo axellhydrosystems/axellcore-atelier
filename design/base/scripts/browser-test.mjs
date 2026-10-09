@@ -29,7 +29,7 @@ async function scenario(name, width, mock) {
 	const errors = [];
 	page.on('pageerror', (e) => errors.push(String(e)));
 	if (mock) {
-		await page.route('**/wp-json/axellcore-atelierclub/v1/members', (route) => route.fulfill(mock));
+		await page.route('**/wp-json/axellcore-atelier/v1/members', (route) => route.fulfill(mock));
 	}
 	await page.goto(base, { waitUntil: 'load' });
 	await fillRequired(page);

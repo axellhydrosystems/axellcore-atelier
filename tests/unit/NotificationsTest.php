@@ -1,14 +1,14 @@
 <?php
 /**
- * @package Axellcore_Atelierclub\Tests
+ * @package Axellcore_Atelier\Tests
  */
 
 declare( strict_types=1 );
 
-namespace Axellcore_Atelierclub\Tests;
+namespace Axellcore_Atelier\Tests;
 
-use Axellcore_Atelierclub\Member;
-use Axellcore_Atelierclub\Notifications;
+use Axellcore_Atelier\Member;
+use Axellcore_Atelier\Notifications;
 use Brain\Monkey;
 use Brain\Monkey\Functions;
 use PHPUnit\Framework\TestCase;
@@ -39,7 +39,7 @@ final class NotificationsTest extends TestCase {
 		Functions\stubEscapeFunctions();
 		Functions\when( 'get_option' )->alias(
 			function ( $name, $default = false ) {
-				if ( 'axellcore_atelierclub_settings' === $name ) {
+				if ( 'axellcore_atelier_settings' === $name ) {
 					return $this->settings;
 				}
 				return 'admin_email' === $name ? 'admin@axell.com.br' : ( 'date_format' === $name ? 'd/m/Y' : $default );
@@ -194,7 +194,7 @@ final class NotificationsTest extends TestCase {
 		Functions\when( 'wp_get_attachment_image_url' )->alias( static fn( $id ) => $id ? "https://axell.com.br/logo-$id.png" : false );
 		Functions\when( 'get_post_mime_type' )->justReturn( 'image/png' );
 
-		$this->assertSame( array( 'http://example.com/wp-content/plugins/axellcore-atelierclub/assets/email/atelier-axell-email.png', 'image/png' ), Notifications::logo(), 'By default the bundled logo, from the plugin when not in the library.' );
+		$this->assertSame( array( 'http://example.com/wp-content/plugins/axellcore-atelier/assets/email/atelier-axell-email.png', 'image/png' ), Notifications::logo(), 'By default the bundled logo, from the plugin when not in the library.' );
 		Functions\when( 'get_posts' )->justReturn( array( 44 ) );
 		$this->assertSame( 'https://axell.com.br/logo-44.png', Notifications::logo()[0], 'From the library once imported.' );
 		$this->settings['email_logo'] = 'none';

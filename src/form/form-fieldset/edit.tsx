@@ -63,8 +63,8 @@ export default function Edit( {
 					icon="edit"
 					label={
 						showLegend
-							? __( 'Remove legend', 'axellcore-atelierclub' )
-							: __( 'Add legend', 'axellcore-atelierclub' )
+							? __( 'Remove legend', 'axellcore-atelier' )
+							: __( 'Add legend', 'axellcore-atelier' )
 					}
 					isPressed={ showLegend }
 					onClick={ toggleLegend }
@@ -78,7 +78,7 @@ export default function Edit( {
 						onChange={ ( value: string ) =>
 							setAttributes( { legend: value } )
 						}
-						placeholder={ __( 'Legend…', 'axellcore-atelierclub' ) }
+						placeholder={ __( 'Legend…', 'axellcore-atelier' ) }
 						allowedFormats={ [] }
 					/>
 				) }

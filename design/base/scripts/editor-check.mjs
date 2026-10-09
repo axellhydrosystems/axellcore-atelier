@@ -24,7 +24,7 @@ const report = await page.evaluate(() => {
 		revealAttributeSeen: withReveal.length,
 		modes: withReveal.reduce((acc, b) => (acc[b.attributes.revealMode] = (acc[b.attributes.revealMode] || 0) + 1, acc), {}),
 		sampleClientId: sample ? sample.clientId : null,
-		hasControlFilter: !!wp.hooks && typeof wp.hooks.hasFilter === 'function' && wp.hooks.hasFilter('editor.BlockEdit', 'axellcore-atelierclub/reveal-control'),
+		hasControlFilter: !!wp.hooks && typeof wp.hooks.hasFilter === 'function' && wp.hooks.hasFilter('editor.BlockEdit', 'axellcore-atelier/reveal-control'),
 	};
 });
 console.log(JSON.stringify({ ...report, errors: errors.slice(0, 3) }, null, 2));

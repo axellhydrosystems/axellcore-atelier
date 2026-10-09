@@ -6,7 +6,7 @@
 	"category": "text",
 	"description": "Self-contained <form> wrapper for the Atelier Axell Club application form. Submits to the plugin's REST endpoint, which creates an aa_member post and resolves its Country/State/City taxonomy term.",
 	"keywords": [ "form", "application" ],
-	"textdomain": "axellcore-atelierclub",
+	"textdomain": "axellcore-atelier",
 	"attributes": {
 		"submitsToRest": { "type": "boolean", "default": false }
 	},

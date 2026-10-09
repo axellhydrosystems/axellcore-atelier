@@ -2,18 +2,18 @@
 /**
  * Admin REST endpoints behind the Revendas dashboard (DataViews list and
  * DataForm detail, src/admin/resellers/), used when JetEngine is not active:
- *  - GET    /axellcore-atelierclub/v1/admin/resellers       — paginated, filterable list.
- *  - POST   /axellcore-atelierclub/v1/admin/resellers       — create.
- *  - GET    /axellcore-atelierclub/v1/admin/resellers/{id}  — one record.
- *  - POST   /axellcore-atelierclub/v1/admin/resellers/{id}  — partial update.
- *  - DELETE /axellcore-atelierclub/v1/admin/resellers/{id}  — move to the trash.
+ *  - GET    /axellcore-atelier/v1/admin/resellers       — paginated, filterable list.
+ *  - POST   /axellcore-atelier/v1/admin/resellers       — create.
+ *  - GET    /axellcore-atelier/v1/admin/resellers/{id}  — one record.
+ *  - POST   /axellcore-atelier/v1/admin/resellers/{id}  — partial update.
+ *  - DELETE /axellcore-atelier/v1/admin/resellers/{id}  — move to the trash.
  *
  * Permissions are the post type's capabilities.
  *
- * @package Axellcore_Atelierclub
+ * @package Axellcore_Atelier
  */
 
-namespace Axellcore_Atelierclub;
+namespace Axellcore_Atelier;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -49,9 +49,9 @@ final class Resellers_Rest {
 	 */
 	public static function statuses() {
 		return array(
-			'publish' => _x( 'Published', 'reseller status', 'axellcore-atelierclub' ),
-			'pending' => __( 'Pending', 'axellcore-atelierclub' ),
-			'draft'   => __( 'Draft', 'axellcore-atelierclub' ),
+			'publish' => _x( 'Published', 'reseller status', 'axellcore-atelier' ),
+			'pending' => __( 'Pending', 'axellcore-atelier' ),
+			'draft'   => __( 'Draft', 'axellcore-atelier' ),
 		);
 	}
 
@@ -270,7 +270,7 @@ final class Resellers_Rest {
 		$params = $this->params( $request );
 		$title  = sanitize_text_field( $this->param_string( $params, 'title' ) );
 		if ( '' === $title ) {
-			return new \WP_Error( 'aa_missing_field', __( 'The name is required.', 'axellcore-atelierclub' ), array( 'status' => 400 ) );
+			return new \WP_Error( 'aa_missing_field', __( 'The name is required.', 'axellcore-atelier' ), array( 'status' => 400 ) );
 		}
 		$status  = $this->param_string( $params, 'status' );
 		$post_id = wp_insert_post(
@@ -311,14 +311,14 @@ final class Resellers_Rest {
 		if ( isset( $params['title'] ) ) {
 			$title = sanitize_text_field( $this->param_string( $params, 'title' ) );
 			if ( '' === $title ) {
-				return new \WP_Error( 'aa_missing_field', __( 'The name is required.', 'axellcore-atelierclub' ), array( 'status' => 400 ) );
+				return new \WP_Error( 'aa_missing_field', __( 'The name is required.', 'axellcore-atelier' ), array( 'status' => 400 ) );
 			}
 			$postarr['post_title'] = $title;
 		}
 		if ( isset( $params['status'] ) ) {
 			$status = $this->param_string( $params, 'status' );
 			if ( ! isset( self::statuses()[ $status ] ) ) {
-				return new \WP_Error( 'aa_invalid_status', __( 'Invalid status.', 'axellcore-atelierclub' ), array( 'status' => 400 ) );
+				return new \WP_Error( 'aa_invalid_status', __( 'Invalid status.', 'axellcore-atelier' ), array( 'status' => 400 ) );
 			}
 			$postarr['post_status'] = $status;
 		}
@@ -348,7 +348,7 @@ final class Resellers_Rest {
 			return $post;
 		}
 		if ( ! wp_trash_post( $post->ID ) ) {
-			return new \WP_Error( 'aa_trash_failed', __( 'Could not move to the trash.', 'axellcore-atelierclub' ), array( 'status' => 500 ) );
+			return new \WP_Error( 'aa_trash_failed', __( 'Could not move to the trash.', 'axellcore-atelier' ), array( 'status' => 500 ) );
 		}
 		return rest_ensure_response( array( 'trashed' => true ) );
 	}
@@ -371,7 +371,7 @@ final class Resellers_Rest {
 			} elseif ( 'email' === $field && '' !== $value ) {
 				$value = sanitize_email( $value );
 				if ( ! is_email( $value ) ) {
-					return new \WP_Error( 'aa_invalid_email', __( 'Invalid email address.', 'axellcore-atelierclub' ), array( 'status' => 400 ) );
+					return new \WP_Error( 'aa_invalid_email', __( 'Invalid email address.', 'axellcore-atelier' ), array( 'status' => 400 ) );
 				}
 			} else {
 				$value = sanitize_text_field( $value );
@@ -402,7 +402,7 @@ final class Resellers_Rest {
 	private function reseller( int $id ) {
 		$post = get_post( $id );
 		if ( ! $post || Resellers::POST_TYPE !== $post->post_type || 'trash' === $post->post_status ) {
-			return new \WP_Error( 'aa_not_found', __( 'Reseller not found.', 'axellcore-atelierclub' ), array( 'status' => 404 ) );
+			return new \WP_Error( 'aa_not_found', __( 'Reseller not found.', 'axellcore-atelier' ), array( 'status' => 404 ) );
 		}
 		return $post;
 	}

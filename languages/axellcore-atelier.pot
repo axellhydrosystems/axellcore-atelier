@@ -2,35 +2,36 @@
 # This file is distributed under the GPL-2.0-or-later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Axellcore — Atelier Club 0.6.0\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/axellcore-atelierclub\n"
+"Project-Id-Version: Atelier Axell 0.6.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/axellcore-atelier\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-09T00:22:19+00:00\n"
+"POT-Creation-Date: 2026-10-09T01:18:05+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
-"X-Domain: axellcore-atelierclub\n"
+"X-Domain: axellcore-atelier\n"
 
 #. Plugin Name of the plugin
-#: axellcore-atelierclub.php
-msgid "Axellcore — Atelier Club"
+#: axellcore-atelier.php
+#: includes/class-classic-template.php:64
+msgid "Atelier Axell"
 msgstr ""
 
 #. Plugin URI of the plugin
-#: axellcore-atelierclub.php
-msgid "https://github.com/axellhydrosystems/axellcore-atelierclub"
+#: axellcore-atelier.php
+msgid "https://github.com/axellhydrosystems/axellcore-atelier"
 msgstr ""
 
 #. Description of the plugin
-#: axellcore-atelierclub.php
+#: axellcore-atelier.php
 msgid "Self-contained landing page (FSE template + core blocks + a custom application-form block) for the Atelier Axell Club invite program."
 msgstr ""
 
 #. Author of the plugin
-#: axellcore-atelierclub.php
+#: axellcore-atelier.php
 msgid "Axell"
 msgstr ""
 
@@ -78,10 +79,6 @@ msgstr ""
 #: build/chapters/chapter/index.js:1
 #: includes/blocks/chapters/chapter/index.js:69
 msgid "Chapter"
-msgstr ""
-
-#: includes/class-classic-template.php:64
-msgid "Atelier Club"
 msgstr ""
 
 #: includes/class-design-tokens.php:235
@@ -1203,7 +1200,7 @@ msgid "View"
 msgstr ""
 
 #: includes/class-settings.php:492
-msgid "The page of the Atelier landing: its slug can change. With a block theme, use the Atelier Club template on it. Empty, no page is the Atelier page."
+msgid "The page of the Atelier landing: its slug can change. With a block theme, use the Atelier Axell template on it. Empty, no page is the Atelier page."
 msgstr ""
 
 #. translators: %s: the placeholder, {atelier_name}.

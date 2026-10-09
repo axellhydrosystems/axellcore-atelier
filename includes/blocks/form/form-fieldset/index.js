@@ -71,7 +71,7 @@
 					onChange: function ( v ) {
 						setAttributes( { legend: v } );
 					},
-					placeholder: __( 'Legend…', 'axellcore-atelierclub' ),
+					placeholder: __( 'Legend…', 'axellcore-atelier' ),
 					allowedFormats: [],
 				} )
 				: null;
@@ -84,7 +84,7 @@
 					{ group: 'block' },
 					el( ToolbarButton, {
 						icon: 'edit',
-						label: showLegend ? __( 'Remove legend', 'axellcore-atelierclub' ) : __( 'Add legend', 'axellcore-atelierclub' ),
+						label: showLegend ? __( 'Remove legend', 'axellcore-atelier' ) : __( 'Add legend', 'axellcore-atelier' ),
 						isPressed: showLegend,
 						onClick: toggleLegend,
 					} )

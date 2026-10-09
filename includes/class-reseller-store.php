@@ -9,10 +9,10 @@
  * the state by its full name ("Rio Grande do Sul", slug from the name), the
  * city by its name.
  *
- * @package Axellcore_Atelierclub
+ * @package Axellcore_Atelier
  */
 
-namespace Axellcore_Atelierclub;
+namespace Axellcore_Atelier;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -32,7 +32,7 @@ final class Reseller_Store {
 	 * Register hooks.
 	 */
 	public static function register_hooks() {
-		add_filter( 'axellcore_atelierclub_reseller_text', array( self::class, 'reseller_from_text' ), 10, 2 );
+		add_filter( 'axellcore_atelier_reseller_text', array( self::class, 'reseller_from_text' ), 10, 2 );
 	}
 
 	/**

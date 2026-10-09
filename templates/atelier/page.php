@@ -3,13 +3,13 @@
  * Atelier landing page on classic themes (see Classic_Template and
  * Classic_Styles): the block template's markup, rendered before wp_head().
  *
- * @package Axellcore_Atelierclub
+ * @package Axellcore_Atelier
  */
 
-use Axellcore_Atelierclub\Classic_Template;
+use Axellcore_Atelier\Classic_Template;
 
 the_post();
-$axellcore_atelierclub_page = Classic_Template::render_page();
+$axellcore_atelier_page = Classic_Template::render_page();
 
 ?><!doctype html>
 <html <?php language_attributes(); ?>>
@@ -20,7 +20,7 @@ $axellcore_atelierclub_page = Classic_Template::render_page();
 </head>
 <body <?php body_class( 'aa-classic' ); ?>>
 <?php wp_body_open(); ?>
-<?php echo $axellcore_atelierclub_page; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- rendered blocks. ?>
+<?php echo $axellcore_atelier_page; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- rendered blocks. ?>
 <?php wp_footer(); ?>
 </body>
 </html>

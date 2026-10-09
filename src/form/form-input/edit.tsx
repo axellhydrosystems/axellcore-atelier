@@ -16,25 +16,25 @@ import type { FormInputAttributes, FormInputOption } from './types';
 import { FieldControl, FieldWrapper } from './field-element';
 
 const TYPE_OPTIONS = [
-	{ label: __( 'Text', 'axellcore-atelierclub' ), value: 'text' },
-	{ label: __( 'Email', 'axellcore-atelierclub' ), value: 'email' },
-	{ label: __( 'URL', 'axellcore-atelierclub' ), value: 'url' },
-	{ label: __( 'Number', 'axellcore-atelierclub' ), value: 'number' },
-	{ label: __( 'Phone', 'axellcore-atelierclub' ), value: 'tel' },
-	{ label: __( 'Textarea', 'axellcore-atelierclub' ), value: 'textarea' },
+	{ label: __( 'Text', 'axellcore-atelier' ), value: 'text' },
+	{ label: __( 'Email', 'axellcore-atelier' ), value: 'email' },
+	{ label: __( 'URL', 'axellcore-atelier' ), value: 'url' },
+	{ label: __( 'Number', 'axellcore-atelier' ), value: 'number' },
+	{ label: __( 'Phone', 'axellcore-atelier' ), value: 'tel' },
+	{ label: __( 'Textarea', 'axellcore-atelier' ), value: 'textarea' },
 	{
-		label: __( 'Select (options)', 'axellcore-atelierclub' ),
+		label: __( 'Select (options)', 'axellcore-atelier' ),
 		value: 'select',
 	},
-	{ label: __( 'Checkbox', 'axellcore-atelierclub' ), value: 'checkbox' },
-	{ label: __( 'Hidden', 'axellcore-atelierclub' ), value: 'hidden' },
+	{ label: __( 'Checkbox', 'axellcore-atelier' ), value: 'checkbox' },
+	{ label: __( 'Hidden', 'axellcore-atelier' ), value: 'hidden' },
 ];
 
 const MASK_OPTIONS = [
-	{ label: __( '— none —', 'axellcore-atelierclub' ), value: '' },
-	{ label: __( 'CPF / CNPJ', 'axellcore-atelierclub' ), value: 'cpf-cnpj' },
-	{ label: __( 'CEP (postal code)', 'axellcore-atelierclub' ), value: 'cep' },
-	{ label: __( 'Phone', 'axellcore-atelierclub' ), value: 'phone' },
+	{ label: __( '— none —', 'axellcore-atelier' ), value: '' },
+	{ label: __( 'CPF / CNPJ', 'axellcore-atelier' ), value: 'cpf-cnpj' },
+	{ label: __( 'CEP (postal code)', 'axellcore-atelier' ), value: 'cep' },
+	{ label: __( 'Phone', 'axellcore-atelier' ), value: 'phone' },
 ];
 
 function optionsToText( options: FormInputOption[] ): string {
@@ -85,11 +85,11 @@ export default function Edit( {
 			onChange={ ( v: string ) => setAttributes( { label: v } ) }
 			aria-label={
 				attributes.label
-					? __( 'Label', 'axellcore-atelierclub' )
-					: __( 'Empty label', 'axellcore-atelierclub' )
+					? __( 'Label', 'axellcore-atelier' )
+					: __( 'Empty label', 'axellcore-atelier' )
 			}
 			data-empty={ ! attributes.label }
-			placeholder={ __( 'Field label…', 'axellcore-atelierclub' ) }
+			placeholder={ __( 'Field label…', 'axellcore-atelier' ) }
 			allowedFormats={ [ 'core/bold', 'core/italic', 'core/link' ] }
 		/>
 	);
@@ -98,11 +98,11 @@ export default function Edit( {
 		<>
 			<InspectorControls>
 				<PanelBody
-					title={ __( 'Field', 'axellcore-atelierclub' ) }
+					title={ __( 'Field', 'axellcore-atelier' ) }
 					initialOpen
 				>
 					<SelectControl
-						label={ __( 'Type', 'axellcore-atelierclub' ) }
+						label={ __( 'Type', 'axellcore-atelier' ) }
 						value={ attributes.type }
 						options={ TYPE_OPTIONS }
 						onChange={ ( v: string ) =>
@@ -111,20 +111,20 @@ export default function Edit( {
 					/>
 					{ 'checkbox' === attributes.type && (
 						<SelectControl
-							label={ __( 'Variant', 'axellcore-atelierclub' ) }
+							label={ __( 'Variant', 'axellcore-atelier' ) }
 							value={ attributes.variant as 'field' | 'consent' }
 							options={ [
 								{
 									label: __(
 										'Default',
-										'axellcore-atelierclub'
+										'axellcore-atelier'
 									),
 									value: 'field',
 								},
 								{
 									label: __(
 										'Consent (LGPD)',
-										'axellcore-atelierclub'
+										'axellcore-atelier'
 									),
 									value: 'consent',
 								},
@@ -140,7 +140,7 @@ export default function Edit( {
 							<TextControl
 								label={ __(
 									'Placeholder',
-									'axellcore-atelierclub'
+									'axellcore-atelier'
 								) }
 								value={ attributes.placeholder }
 								onChange={ ( v: string ) =>
@@ -150,7 +150,7 @@ export default function Edit( {
 						) }
 					{ 'hidden' === attributes.type && (
 						<TextControl
-							label={ __( 'Value', 'axellcore-atelierclub' ) }
+							label={ __( 'Value', 'axellcore-atelier' ) }
 							value={ attributes.value }
 							onChange={ ( v: string ) =>
 								setAttributes( { value: v } )
@@ -161,7 +161,7 @@ export default function Edit( {
 						<ToggleControl
 							label={ __(
 								'Checked by default',
-								'axellcore-atelierclub'
+								'axellcore-atelier'
 							) }
 							checked={ !! attributes.checked }
 							onChange={ ( v: boolean ) =>
@@ -174,7 +174,7 @@ export default function Edit( {
 							<ToggleControl
 								label={ __(
 									'Required',
-									'axellcore-atelierclub'
+									'axellcore-atelier'
 								) }
 								checked={ !! attributes.required }
 								onChange={ ( v: boolean ) =>
@@ -187,7 +187,7 @@ export default function Edit( {
 							<TextControl
 								label={ __(
 									'Hint text (optional)',
-									'axellcore-atelierclub'
+									'axellcore-atelier'
 								) }
 								value={ attributes.hint }
 								onChange={ ( v: string ) =>
@@ -199,11 +199,11 @@ export default function Edit( {
 						<TextareaControl
 							label={ __(
 								'Options (one per line: Label|value)',
-								'axellcore-atelierclub'
+								'axellcore-atelier'
 							) }
 							help={ __(
 								'E.g.: Individual · CPF|cpf',
-								'axellcore-atelierclub'
+								'axellcore-atelier'
 							) }
 							value={ optionsToText( attributes.options ) }
 							onChange={ ( v: string ) =>
@@ -215,11 +215,11 @@ export default function Edit( {
 						<TextControl
 							label={ __(
 								'Field (name) that populates these options',
-								'axellcore-atelierclub'
+								'axellcore-atelier'
 							) }
 							help={ __(
 								'Leave empty for a static list. If set, this select starts empty/disabled and assets/js/frontend.js fetches its options from the REST cities endpoint whenever that field changes.',
-								'axellcore-atelierclub'
+								'axellcore-atelier'
 							) }
 							value={ attributes.citiesSourceName }
 							onChange={ ( v: string ) =>
@@ -231,12 +231,12 @@ export default function Edit( {
 				<PanelBody
 					title={ __(
 						'Input mask (advanced)',
-						'axellcore-atelierclub'
+						'axellcore-atelier'
 					) }
 					initialOpen={ false }
 				>
 					<SelectControl
-						label={ __( 'Mask', 'axellcore-atelierclub' ) }
+						label={ __( 'Mask', 'axellcore-atelier' ) }
 						value={ attributes.mask }
 						options={ MASK_OPTIONS }
 						onChange={ ( v: string ) =>
@@ -247,11 +247,11 @@ export default function Edit( {
 						<TextControl
 							label={ __(
 								'Field (name) that decides CPF vs. CNPJ',
-								'axellcore-atelierclub'
+								'axellcore-atelier'
 							) }
 							help={ __(
 								'Name of the select field whose value ("cpf"/"cnpj") drives this mask.',
-								'axellcore-atelierclub'
+								'axellcore-atelier'
 							) }
 							value={ attributes.maskSourceName }
 							onChange={ ( v: string ) =>
@@ -265,12 +265,12 @@ export default function Edit( {
 				<TextControl
 					label={ __(
 						'Field name (name attribute)',
-						'axellcore-atelierclub'
+						'axellcore-atelier'
 					) }
 					value={ attributes.name }
 					help={ __(
 						'Leave empty to derive it from the label automatically.',
-						'axellcore-atelierclub'
+						'axellcore-atelier'
 					) }
 					onChange={ ( v: string ) => setAttributes( { name: v } ) }
 				/>

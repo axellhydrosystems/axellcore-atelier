@@ -8,7 +8,7 @@
 	"ancestor": [ "axell/form" ],
 	"description": "A success or error message shown after the application form is submitted via REST. Starts hidden; assets/js/frontend.js toggles it visible based on the fetch() result — see this plugin's CLAUDE.md for why this differs from Gutenberg's removed core/form-submission-notification block (which relied on a full-page reload + ?wp-form-result= GET param).",
 	"keywords": [ "form", "notification", "feedback", "message" ],
-	"textdomain": "axellcore-atelierclub",
+	"textdomain": "axellcore-atelier",
 	"attributes": {
 		"type": { "type": "string", "default": "success" }
 	},

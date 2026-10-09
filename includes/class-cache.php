@@ -5,10 +5,10 @@
  * on production, among others) would otherwise keep serving the HTML from
  * before.
  *
- * @package Axellcore_Atelierclub
+ * @package Axellcore_Atelier
  */
 
-namespace Axellcore_Atelierclub;
+namespace Axellcore_Atelier;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -22,7 +22,7 @@ final class Cache {
 	/**
 	 * Option holding the plugin version the caches were last purged for.
 	 */
-	const VERSION_OPTION = 'axellcore_atelierclub_version';
+	const VERSION_OPTION = 'axellcore_atelier_version';
 
 	/**
 	 * Cache plugins: a function each exposes to purge everything, called
@@ -64,7 +64,7 @@ final class Cache {
 		 *
 		 * @param string[] $functions Default: WP Super Cache, WP Rocket, W3 Total Cache, SiteGround Optimizer.
 		 */
-		foreach ( (array) apply_filters( 'axellcore_atelierclub_cache_functions', self::FUNCTIONS ) as $function ) {
+		foreach ( (array) apply_filters( 'axellcore_atelier_cache_functions', self::FUNCTIONS ) as $function ) {
 			if ( is_string( $function ) && function_exists( $function ) ) {
 				self::attempt( $function );
 			}
@@ -86,7 +86,7 @@ final class Cache {
 		/**
 		 * Purge other caches when the plugin changes what pages show.
 		 */
-		do_action( 'axellcore_atelierclub_purge_cache' );
+		do_action( 'axellcore_atelier_purge_cache' );
 	}
 
 	/**
@@ -94,10 +94,10 @@ final class Cache {
 	 * the first request purges once.
 	 */
 	public static function purge_after_update() {
-		if ( get_option( self::VERSION_OPTION ) === AXELLCORE_ATELIERCLUB_VERSION ) {
+		if ( get_option( self::VERSION_OPTION ) === AXELLCORE_ATELIER_VERSION ) {
 			return;
 		}
-		update_option( self::VERSION_OPTION, AXELLCORE_ATELIERCLUB_VERSION );
+		update_option( self::VERSION_OPTION, AXELLCORE_ATELIER_VERSION );
 		self::purge();
 	}
 
@@ -125,7 +125,7 @@ final class Cache {
 			ob_start();
 			call_user_func( $callback );
 		} catch ( \Throwable $e ) {
-			error_log( 'axellcore-atelierclub: cache purge failed: ' . $e->getMessage() ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- no UI here.
+			error_log( 'axellcore-atelier: cache purge failed: ' . $e->getMessage() ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log -- no UI here.
 		} finally {
 			ob_end_clean();
 		}

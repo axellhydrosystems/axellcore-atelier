@@ -24,13 +24,13 @@ jobs:
         run: |
           tag="${GITHUB_REF_NAME}"
           mkdir -p /tmp/build
-          git archive HEAD --prefix=axellcore-atelierclub/ | tar xf - -C /tmp/build/
+          git archive HEAD --prefix=axellcore-atelier/ | tar xf - -C /tmp/build/
           git -C lib/selfdirectory archive HEAD \
-            --prefix=axellcore-atelierclub/lib/selfdirectory/ \
+            --prefix=axellcore-atelier/lib/selfdirectory/ \
             -- class-selfdirectory.php \
             | tar xf - -C /tmp/build/
-          cd /tmp/build && zip -qr "axellcore-atelierclub.${tag}.zip" axellcore-atelierclub
-          echo "zip=/tmp/build/axellcore-atelierclub.${tag}.zip" >> "$GITHUB_OUTPUT"
+          cd /tmp/build && zip -qr "axellcore-atelier.${tag}.zip" axellcore-atelier
+          echo "zip=/tmp/build/axellcore-atelier.${tag}.zip" >> "$GITHUB_OUTPUT"
 
       - name: Upload plugin zip to release
         uses: softprops/action-gh-release@v2

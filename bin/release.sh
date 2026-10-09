@@ -27,9 +27,9 @@ set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PLUGIN_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
-PLUGIN_FILE="$PLUGIN_DIR/axellcore-atelierclub.php"
+PLUGIN_FILE="$PLUGIN_DIR/axellcore-atelier.php"
 README_TXT="$PLUGIN_DIR/readme.txt"
-POT_FILE="$PLUGIN_DIR/languages/axellcore-atelierclub.pot"
+POT_FILE="$PLUGIN_DIR/languages/axellcore-atelier.pot"
 
 # ── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -77,18 +77,18 @@ if [[ "$CMD" == "language" ]]; then
 	require_cmd msgmerge
 
 	shopt -s nullglob
-	PO_FILES=( "$PLUGIN_DIR"/languages/axellcore-atelierclub-*.po )
+	PO_FILES=( "$PLUGIN_DIR"/languages/axellcore-atelier-*.po )
 	shopt -u nullglob
 
 	if [[ ${#PO_FILES[@]} -eq 0 ]]; then
-		echo "No languages/axellcore-atelierclub-*.po files yet — nothing to merge."
-		echo "Add one (e.g. axellcore-atelierclub-pt_BR.po) and re-run 'bin/release.sh language'."
+		echo "No languages/axellcore-atelier-*.po files yet — nothing to merge."
+		echo "Add one (e.g. axellcore-atelier-pt_BR.po) and re-run 'bin/release.sh language'."
 		exit 0
 	fi
 
 	MISSING_ALL=""
 	for PO in "${PO_FILES[@]}"; do
-		LOCALE=$(basename "$PO" .po | sed 's/^axellcore-atelierclub-//')
+		LOCALE=$(basename "$PO" .po | sed 's/^axellcore-atelier-//')
 		info "merging pot into $LOCALE"
 		msgmerge --update --backup=none --quiet "$PO" "$POT_FILE"
 
@@ -152,7 +152,7 @@ case "$BUMP" in
 esac
 
 echo ""
-echo "axellcore-atelierclub $CURRENT → $NEW_VERSION"
+echo "axellcore-atelier $CURRENT → $NEW_VERSION"
 echo ""
 
 cd "$PLUGIN_DIR"
@@ -165,10 +165,10 @@ fi
 
 # ── Bump version ─────────────────────────────────────────────────────────────
 
-info "bumping version in axellcore-atelierclub.php and readme.txt"
+info "bumping version in axellcore-atelier.php and readme.txt"
 
 sed -i '' "s/ \* Version:.*/ * Version:           ${NEW_VERSION}/" "$PLUGIN_FILE"
-sed -i '' "s/define( 'AXELLCORE_ATELIERCLUB_VERSION', '[^']*' )/define( 'AXELLCORE_ATELIERCLUB_VERSION', '${NEW_VERSION}' )/" "$PLUGIN_FILE"
+sed -i '' "s/define( 'AXELLCORE_ATELIER_VERSION', '[^']*' )/define( 'AXELLCORE_ATELIER_VERSION', '${NEW_VERSION}' )/" "$PLUGIN_FILE"
 sed -i '' "s/^Stable tag:.*/Stable tag: ${NEW_VERSION}/" "$README_TXT"
 
 if ! grep -q "^= ${NEW_VERSION} =" "$README_TXT"; then
@@ -200,9 +200,9 @@ fi
 # is exactly what happened from 0.1.0 through 0.1.2) → make-json (JS/editor
 # translation catalogs, generated from the now-current .po).
 
-info "generating axellcore-atelierclub.pot via wp i18n make-pot"
+info "generating axellcore-atelier.pot via wp i18n make-pot"
 wp i18n make-pot "$PLUGIN_DIR" "$POT_FILE" \
-	--domain=axellcore-atelierclub \
+	--domain=axellcore-atelier \
 	--exclude=vendor,node_modules,tests \
 	--quiet
 

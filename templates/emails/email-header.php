@@ -4,21 +4,21 @@
  * table with a 600px column, the brand in text (images such as the SVG logo
  * do not show in many e-mail clients), and the container with the heading.
  *
- * A theme can override this file in axellcore-atelierclub/emails/.
+ * A theme can override this file in axellcore-atelier/emails/.
  *
  * Variables: $heading (string), $styles (email-styles.php).
  *
- * @package Axellcore_Atelierclub
+ * @package Axellcore_Atelier
  */
 
 defined( 'ABSPATH' ) || exit;
 
-$atelier_page = Axellcore_Atelierclub\Settings::page();
+$atelier_page = Axellcore_Atelier\Settings::page();
 $atelier_url  = $atelier_page ? get_permalink( $atelier_page ) : home_url( '/' );
-$email_logo   = Axellcore_Atelierclub\Notifications::logo();
-$logo_width   = Axellcore_Atelierclub\Notifications::logo_width();
+$email_logo   = Axellcore_Atelier\Notifications::logo();
+$logo_width   = Axellcore_Atelier\Notifications::logo_width();
 
-list( $brand_text, $brand_tagline ) = Axellcore_Atelierclub\Notifications::brand();
+list( $brand_text, $brand_tagline ) = Axellcore_Atelier\Notifications::brand();
 ?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>

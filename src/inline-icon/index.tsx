@@ -38,7 +38,7 @@ function Edit( { value, onChange, isObjectActive }: EditProps ) {
 		<>
 			<RichTextToolbarButton
 				icon="star-filled"
-				title={ __( 'Inline icon', 'axellcore-atelierclub' ) }
+				title={ __( 'Inline icon', 'axellcore-atelier' ) }
 				onClick={ () => setIsOpen( true ) }
 				isActive={ isObjectActive }
 			/>
@@ -65,7 +65,7 @@ function Edit( { value, onChange, isObjectActive }: EditProps ) {
 }
 
 registerFormatType( NAME, {
-	title: __( 'Inline icon', 'axellcore-atelierclub' ),
+	title: __( 'Inline icon', 'axellcore-atelier' ),
 	tagName: 'img',
 	className: 'aa-inline-icon',
 	object: true,

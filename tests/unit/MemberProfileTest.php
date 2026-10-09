@@ -1,13 +1,13 @@
 <?php
 /**
- * @package Axellcore_Atelierclub\Tests
+ * @package Axellcore_Atelier\Tests
  */
 
 declare( strict_types=1 );
 
-namespace Axellcore_Atelierclub\Tests;
+namespace Axellcore_Atelier\Tests;
 
-use Axellcore_Atelierclub\Member_Profile;
+use Axellcore_Atelier\Member_Profile;
 use Brain\Monkey;
 use Brain\Monkey\Filters;
 use Brain\Monkey\Functions;
@@ -190,7 +190,7 @@ final class MemberProfileTest extends TestCase {
 	}
 
 	public function test_with_woocommerce_a_customer_keeps_its_billing_fields_there(): void {
-		Filters\expectApplied( 'axellcore_atelierclub_woocommerce_active' )->andReturn( true );
+		Filters\expectApplied( 'axellcore_atelier_woocommerce_active' )->andReturn( true );
 		Functions\when( 'get_userdata' )->justReturn( (object) array( 'roles' => array( 'customer' ) ) );
 
 		$fieldsets = Member_Profile::instance()->get_member_meta_fields( 9 );

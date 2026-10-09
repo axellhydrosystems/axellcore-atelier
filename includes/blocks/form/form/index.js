@@ -99,8 +99,8 @@
 	// variations can't provide).
 	blocks.registerBlockVariation( 'core/group', {
 		name: 'form-fieldset-group',
-		title: __( 'Fieldset (plain)', 'axellcore-atelierclub' ),
-		description: __( 'A plain grouping wrapper rendered as a real <fieldset> — no legend. For a fieldset with a toggleable legend, use the Form Fieldset block instead.', 'axellcore-atelierclub' ),
+		title: __( 'Fieldset (plain)', 'axellcore-atelier' ),
+		description: __( 'A plain grouping wrapper rendered as a real <fieldset> — no legend. For a fieldset with a toggleable legend, use the Form Fieldset block instead.', 'axellcore-atelier' ),
 		icon: 'editor-table',
 		attributes: { tagName: 'fieldset' },
 		scope: [ 'inserter', 'transform' ],
@@ -110,8 +110,8 @@
 	} );
 	blocks.registerBlockVariation( 'core/group', {
 		name: 'form-legend-group',
-		title: __( 'Legend (plain)', 'axellcore-atelierclub' ),
-		description: __( 'A plain wrapper rendered as a real <legend> — for hand-composing a fieldset from plain groups instead of the Form Fieldset block.', 'axellcore-atelierclub' ),
+		title: __( 'Legend (plain)', 'axellcore-atelier' ),
+		description: __( 'A plain wrapper rendered as a real <legend> — for hand-composing a fieldset from plain groups instead of the Form Fieldset block.', 'axellcore-atelier' ),
 		icon: 'editor-textcolor',
 		attributes: { tagName: 'legend' },
 		scope: [ 'inserter', 'transform' ],

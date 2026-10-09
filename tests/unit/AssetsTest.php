@@ -1,14 +1,14 @@
 <?php
 /**
- * @package Axellcore_Atelierclub\Tests
+ * @package Axellcore_Atelier\Tests
  */
 
 declare( strict_types=1 );
 
-namespace Axellcore_Atelierclub\Tests;
+namespace Axellcore_Atelier\Tests;
 
-use Axellcore_Atelierclub\Assets;
-use Axellcore_Atelierclub\Plugin;
+use Axellcore_Atelier\Assets;
+use Axellcore_Atelier\Plugin;
 use Brain\Monkey;
 use Brain\Monkey\Functions;
 use PHPUnit\Framework\TestCase;
@@ -50,14 +50,14 @@ final class AssetsTest extends TestCase {
 		// The landing uses the theme's global styles: no stylesheet of its own.
 		Functions\expect( 'wp_enqueue_style' )->never();
 		Functions\expect( 'wp_enqueue_script' )
-			->with( 'aa-frontend', \Mockery::type( 'string' ), array(), AXELLCORE_ATELIERCLUB_VERSION, \Mockery::type( 'array' ) )
+			->with( 'aa-frontend', \Mockery::type( 'string' ), array(), AXELLCORE_ATELIER_VERSION, \Mockery::type( 'array' ) )
 			->once();
 
-		Functions\when( 'rest_url' )->justReturn( 'https://example.com/wp-json/axellcore-atelierclub/v1' );
-		Functions\when( 'trailingslashit' )->justReturn( 'https://example.com/wp-json/axellcore-atelierclub/v1/' );
+		Functions\when( 'rest_url' )->justReturn( 'https://example.com/wp-json/axellcore-atelier/v1' );
+		Functions\when( 'trailingslashit' )->justReturn( 'https://example.com/wp-json/axellcore-atelier/v1/' );
 		Functions\when( 'esc_url_raw' )->returnArg( 1 );
 		Functions\expect( 'wp_localize_script' )
-			->with( 'aa-frontend', 'aaRest', array( 'root' => 'https://example.com/wp-json/axellcore-atelierclub/v1/' ) )
+			->with( 'aa-frontend', 'aaRest', array( 'root' => 'https://example.com/wp-json/axellcore-atelier/v1/' ) )
 			->once();
 
 		Assets::instance()->enqueue_frontend_assets();

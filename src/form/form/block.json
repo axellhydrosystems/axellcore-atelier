@@ -9,7 +9,7 @@
 		"form",
 		"contact"
 	],
-	"textdomain": "axellcore-atelierclub",
+	"textdomain": "axellcore-atelier",
 	"attributes": {
 		"formId": {
 			"type": "string",

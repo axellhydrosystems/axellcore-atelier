@@ -8,10 +8,10 @@
  * WordPress's and this plugin's notices stay. In the block editor they
  * showed for a moment before the editor replaced them.
  *
- * @package Axellcore_Atelierclub
+ * @package Axellcore_Atelier
  */
 
-namespace Axellcore_Atelierclub;
+namespace Axellcore_Atelier;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -100,7 +100,7 @@ final class Admin_Notices {
 		$keep    = array(
 			wp_normalize_path( ABSPATH . 'wp-admin/' ),
 			wp_normalize_path( ABSPATH . 'wp-includes/' ),
-			wp_normalize_path( AXELLCORE_ATELIERCLUB_PATH ),
+			wp_normalize_path( AXELLCORE_ATELIER_PATH ),
 		);
 		$foreign = static function ( $file ) use ( $keep ) {
 			foreach ( $keep as $dir ) {

@@ -1,5 +1,5 @@
 {
-	"name": "axell/axellcore-atelierclub",
+	"name": "axell/axellcore-atelier",
 	"description": "Atelier Axell Club — self-contained invite-club landing page (FSE template + core blocks + a custom application-form block).",
 	"type": "wordpress-plugin",
 	"license": "GPL-2.0-or-later",
@@ -18,7 +18,7 @@
 	},
 	"autoload-dev": {
 		"psr-4": {
-			"Axellcore_Atelierclub\\Tests\\": "tests/"
+			"Axellcore_Atelier\\Tests\\": "tests/"
 		}
 	},
 	"config": {

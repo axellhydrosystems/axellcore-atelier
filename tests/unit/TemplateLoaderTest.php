@@ -1,14 +1,14 @@
 <?php
 /**
- * @package Axellcore_Atelierclub\Tests
+ * @package Axellcore_Atelier\Tests
  */
 
 declare( strict_types=1 );
 
-namespace Axellcore_Atelierclub\Tests;
+namespace Axellcore_Atelier\Tests;
 
-use Axellcore_Atelierclub\Template_Loader;
-use Axellcore_Atelierclub\Plugin;
+use Axellcore_Atelier\Template_Loader;
+use Axellcore_Atelier\Plugin;
 use Brain\Monkey;
 use Brain\Monkey\Functions;
 use PHPUnit\Framework\TestCase;
@@ -87,8 +87,8 @@ final class TemplateLoaderTest extends TestCase {
 	 * `$current_template[0]->content` unconditionally and throws warnings.
 	 */
 	public function test_reindex_block_templates_restores_sequential_keys(): void {
-		$template                                     = (object) array( 'slug' => 'atelier-club' );
-		$keyed_by_plugin_slug                         = array( 'axellcore-atelierclub//atelier-club' => $template );
+		$template                                     = (object) array( 'slug' => 'atelier' );
+		$keyed_by_plugin_slug                         = array( 'axellcore-atelier//atelier' => $template );
 		$result                                        = Template_Loader::instance()->reindex_block_templates( $keyed_by_plugin_slug );
 
 		$this->assertSame( array( $template ), $result );

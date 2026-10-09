@@ -80,7 +80,7 @@ export default function MembersList( {
 						err?.message ??
 							__(
 								'Could not load members.',
-								'axellcore-atelierclub'
+								'axellcore-atelier'
 							)
 					);
 				}
@@ -111,7 +111,7 @@ export default function MembersList( {
 				id: 'fullname',
 				// Only state, practice and status are filtered on the server.
 				filterBy: false,
-				label: __( 'Name', 'axellcore-atelierclub' ),
+				label: __( 'Name', 'axellcore-atelier' ),
 				type: 'text',
 				enableHiding: false,
 			},
@@ -121,7 +121,7 @@ export default function MembersList( {
 				label: _x(
 					'Company',
 					'WooCommerce field',
-					'axellcore-atelierclub'
+					'axellcore-atelier'
 				),
 				type: 'text',
 				enableSorting: false,
@@ -132,7 +132,7 @@ export default function MembersList( {
 				label: _x(
 					'City',
 					'WooCommerce field',
-					'axellcore-atelierclub'
+					'axellcore-atelier'
 				),
 				type: 'text',
 				enableSorting: false,
@@ -142,7 +142,7 @@ export default function MembersList( {
 				label: _x(
 					'State / County',
 					'WooCommerce field',
-					'axellcore-atelierclub'
+					'axellcore-atelier'
 				),
 				type: 'text',
 				// Shown and filtered by the state's name (Paraná); the filter
@@ -152,7 +152,7 @@ export default function MembersList( {
 			},
 			{
 				id: 'primary_focus',
-				label: __( 'Practice', 'axellcore-atelierclub' ),
+				label: __( 'Practice', 'axellcore-atelier' ),
 				type: 'text',
 				enableSorting: false,
 				elements: primaryFocus,
@@ -161,7 +161,7 @@ export default function MembersList( {
 			{
 				id: 'email',
 				filterBy: false,
-				label: __( 'Email', 'axellcore-atelierclub' ),
+				label: __( 'Email', 'axellcore-atelier' ),
 				type: 'email',
 				enableSorting: false,
 			},
@@ -171,7 +171,7 @@ export default function MembersList( {
 				label: _x(
 					'Phone',
 					'WooCommerce field',
-					'axellcore-atelierclub'
+					'axellcore-atelier'
 				),
 				type: 'telephone',
 				getValue: ( { item } ) => formatPhone( item.phone ?? '' ),
@@ -180,7 +180,7 @@ export default function MembersList( {
 			{
 				id: 'br_revenue_id',
 				filterBy: false,
-				label: __( 'CPF / CNPJ', 'axellcore-atelierclub' ),
+				label: __( 'CPF / CNPJ', 'axellcore-atelier' ),
 				type: 'text',
 				getValue: ( { item } ) => formatDocument( item.br_revenue_id ),
 				enableSorting: false,
@@ -188,13 +188,13 @@ export default function MembersList( {
 			{
 				id: 'data',
 				filterBy: false,
-				label: __( 'Submitted on', 'axellcore-atelierclub' ),
+				label: __( 'Submitted on', 'axellcore-atelier' ),
 				type: 'datetime',
 				enableHiding: false,
 			},
 			{
 				id: 'status',
-				label: __( 'Status', 'axellcore-atelierclub' ),
+				label: __( 'Status', 'axellcore-atelier' ),
 				type: 'text',
 				enableSorting: false,
 				elements: statuses,
@@ -208,7 +208,7 @@ export default function MembersList( {
 		() => [
 			{
 				id: 'edit',
-				label: __( 'View', 'axellcore-atelierclub' ),
+				label: __( 'View', 'axellcore-atelier' ),
 				isPrimary: true,
 				callback: ( items ) => {
 					if ( items[ 0 ] ) {
@@ -246,7 +246,7 @@ export default function MembersList( {
 				} }
 				empty={ __(
 					'No registrations found.',
-					'axellcore-atelierclub'
+					'axellcore-atelier'
 				) }
 			/>
 		</>

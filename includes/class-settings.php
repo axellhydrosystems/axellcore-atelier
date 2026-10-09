@@ -4,10 +4,10 @@
  * WooCommerce's settings (General, Members, E-mails; the e-mails listed and
  * one section per e-mail).
  *
- * @package Axellcore_Atelierclub
+ * @package Axellcore_Atelier
  */
 
-namespace Axellcore_Atelierclub;
+namespace Axellcore_Atelier;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -21,7 +21,7 @@ final class Settings {
 	/**
 	 * Option name.
 	 */
-	const OPTION = 'axellcore_atelierclub_settings';
+	const OPTION = 'axellcore_atelier_settings';
 
 	/**
 	 * Admin page slug.
@@ -31,7 +31,7 @@ final class Settings {
 	/**
 	 * Settings group.
 	 */
-	const GROUP = 'axellcore_atelierclub_settings';
+	const GROUP = 'axellcore_atelier_settings';
 
 	/**
 	 * Defaults: the plugin's behavior before each setting existed.
@@ -68,7 +68,7 @@ final class Settings {
 	/**
 	 * The admin-post action of "Create Atelier page".
 	 */
-	const CREATE_ACTION = 'axellcore_atelierclub_create_page';
+	const CREATE_ACTION = 'axellcore_atelier_create_page';
 
 	/**
 	 * Singleton instance.
@@ -114,7 +114,7 @@ final class Settings {
 	 */
 	public function post_state( $states, $post ) {
 		if ( self::is_page( $post ) ) {
-			$states['axellcore_atelierclub_page'] = __( 'Atelier Page', 'axellcore-atelierclub' );
+			$states['axellcore_atelier_page'] = __( 'Atelier Page', 'axellcore-atelier' );
 		}
 		return $states;
 	}
@@ -190,8 +190,8 @@ final class Settings {
 	public function register_page() {
 		add_submenu_page(
 			Member::ADMIN_PAGE,
-			__( 'Atelier settings', 'axellcore-atelierclub' ),
-			__( 'Settings', 'axellcore-atelierclub' ),
+			__( 'Atelier settings', 'axellcore-atelier' ),
+			__( 'Settings', 'axellcore-atelier' ),
 			'manage_options',
 			self::PAGE,
 			array( $this, 'render_page' )
@@ -212,11 +212,11 @@ final class Settings {
 			)
 		);
 
-		add_settings_section( 'atelier', __( 'Atelier', 'axellcore-atelierclub' ), '__return_false', self::PAGE . '-general' );
+		add_settings_section( 'atelier', __( 'Atelier', 'axellcore-atelier' ), '__return_false', self::PAGE . '-general' );
 
 		add_settings_field(
 			'email_atelier_name',
-			__( 'Atelier name', 'axellcore-atelierclub' ),
+			__( 'Atelier name', 'axellcore-atelier' ),
 			array( $this, 'render_atelier_name' ),
 			self::PAGE . '-general',
 			'atelier',
@@ -225,29 +225,29 @@ final class Settings {
 
 		add_settings_field(
 			'email_tagline',
-			__( 'Description', 'axellcore-atelierclub' ),
+			__( 'Description', 'axellcore-atelier' ),
 			array( $this, 'render_tagline' ),
 			self::PAGE . '-general',
 			'atelier',
 			array( 'label_for' => self::OPTION . '-email_tagline' )
 		);
 
-		add_settings_section( 'page', __( 'Page', 'axellcore-atelierclub' ), '__return_false', self::PAGE . '-general' );
+		add_settings_section( 'page', __( 'Page', 'axellcore-atelier' ), '__return_false', self::PAGE . '-general' );
 
 		add_settings_field(
 			'page_id',
-			__( 'Atelier page', 'axellcore-atelierclub' ),
+			__( 'Atelier page', 'axellcore-atelier' ),
 			array( $this, 'render_page_id' ),
 			self::PAGE . '-general',
 			'page',
 			array( 'label_for' => self::OPTION . '-page_id' )
 		);
 
-		add_settings_section( 'members', __( 'Members', 'axellcore-atelierclub' ), '__return_false', self::PAGE . '-members' );
+		add_settings_section( 'members', __( 'Members', 'axellcore-atelier' ), '__return_false', self::PAGE . '-members' );
 
 		add_settings_field(
 			'pending_on_create',
-			__( 'New members', 'axellcore-atelierclub' ),
+			__( 'New members', 'axellcore-atelier' ),
 			array( $this, 'render_pending_on_create' ),
 			self::PAGE . '-members',
 			'members',
@@ -256,7 +256,7 @@ final class Settings {
 
 		add_settings_field(
 			'members_can_log_in',
-			__( 'Dashboard access', 'axellcore-atelierclub' ),
+			__( 'Dashboard access', 'axellcore-atelier' ),
 			array( $this, 'render_members_can_log_in' ),
 			self::PAGE . '-members',
 			'members',
@@ -276,13 +276,13 @@ final class Settings {
 
 		add_settings_section(
 			'places',
-			__( 'Google Maps Platform', 'axellcore-atelierclub' ),
+			__( 'Google Maps Platform', 'axellcore-atelier' ),
 			static function () {
 				printf(
 					'<p>%s</p>',
 					sprintf(
 						/* translators: 1: Link opening tag, 2: Link closing tag. */
-						esc_html__( 'Google Maps Platform suggests addresses while the street is typed (Places API New) and fills in the address fields. For more details, visit Google Maps\' %1$sUsing API Keys%2$s page.', 'axellcore-atelierclub' ),
+						esc_html__( 'Google Maps Platform suggests addresses while the street is typed (Places API New) and fills in the address fields. For more details, visit Google Maps\' %1$sUsing API Keys%2$s page.', 'axellcore-atelier' ),
 						'<a href="https://developers.google.com/maps/documentation/places/web-service/get-api-key" target="_blank" rel="noopener noreferrer">',
 						'</a>'
 					)
@@ -290,9 +290,9 @@ final class Settings {
 			},
 			$page
 		);
-		add_settings_field( 'places_enabled', __( 'Address autocomplete', 'axellcore-atelierclub' ), array( $this, 'render_places_enabled' ), $page, 'places', array( 'label_for' => self::OPTION . '-places_enabled' ) );
-		add_settings_field( 'places_api_key', __( 'API key', 'axellcore-atelierclub' ), array( $this, 'render_key' ), $page, 'places', array( 'label_for' => self::OPTION . '-places_api_key' ) );
-		add_settings_field( 'places_cache', __( 'Cache', 'axellcore-atelierclub' ), array( $this, 'render_places_cache' ), $page, 'places' );
+		add_settings_field( 'places_enabled', __( 'Address autocomplete', 'axellcore-atelier' ), array( $this, 'render_places_enabled' ), $page, 'places', array( 'label_for' => self::OPTION . '-places_enabled' ) );
+		add_settings_field( 'places_api_key', __( 'API key', 'axellcore-atelier' ), array( $this, 'render_key' ), $page, 'places', array( 'label_for' => self::OPTION . '-places_api_key' ) );
+		add_settings_field( 'places_cache', __( 'Cache', 'axellcore-atelier' ), array( $this, 'render_places_cache' ), $page, 'places' );
 	}
 
 	/**
@@ -302,10 +302,10 @@ final class Settings {
 	private function register_recaptcha_settings() {
 		$page = self::PAGE . '-integrations';
 
-		add_settings_section( 'recaptcha', __( 'reCAPTCHA on the forms', 'axellcore-atelierclub' ), '__return_false', $page );
-		add_settings_field( 'recaptcha_enabled', __( 'Protection', 'axellcore-atelierclub' ), array( $this, 'render_recaptcha_enabled' ), $page, 'recaptcha', array( 'label_for' => self::OPTION . '-recaptcha_enabled' ) );
-		add_settings_field( 'recaptcha_version', __( 'Version', 'axellcore-atelierclub' ), array( $this, 'render_recaptcha_version' ), $page, 'recaptcha', array( 'label_for' => self::OPTION . '-recaptcha_version' ) );
-		add_settings_field( 'recaptcha_skip_local', __( 'Local sites', 'axellcore-atelierclub' ), array( $this, 'render_recaptcha_skip_local' ), $page, 'recaptcha', array( 'label_for' => self::OPTION . '-recaptcha_skip_local' ) );
+		add_settings_section( 'recaptcha', __( 'reCAPTCHA on the forms', 'axellcore-atelier' ), '__return_false', $page );
+		add_settings_field( 'recaptcha_enabled', __( 'Protection', 'axellcore-atelier' ), array( $this, 'render_recaptcha_enabled' ), $page, 'recaptcha', array( 'label_for' => self::OPTION . '-recaptcha_enabled' ) );
+		add_settings_field( 'recaptcha_version', __( 'Version', 'axellcore-atelier' ), array( $this, 'render_recaptcha_version' ), $page, 'recaptcha', array( 'label_for' => self::OPTION . '-recaptcha_version' ) );
+		add_settings_field( 'recaptcha_skip_local', __( 'Local sites', 'axellcore-atelier' ), array( $this, 'render_recaptcha_skip_local' ), $page, 'recaptcha', array( 'label_for' => self::OPTION . '-recaptcha_skip_local' ) );
 
 		// Each version's intro, its name linked to Google's page (as Elementor's).
 		$intro = static function ( $text, $url ) {
@@ -323,16 +323,16 @@ final class Settings {
 
 		add_settings_section(
 			'recaptcha_v2',
-			__( 'reCAPTCHA v2', 'axellcore-atelierclub' ),
+			__( 'reCAPTCHA v2', 'axellcore-atelier' ),
 			/* translators: 1: Link opening tag, 2: Link closing tag. */
-			$intro( __( '%1$sreCAPTCHA v2%2$s is a free service by Google that protects your website from spam and abuse. It does this while letting your valid users pass through with ease.', 'axellcore-atelierclub' ), 'https://www.google.com/recaptcha/' ),
+			$intro( __( '%1$sreCAPTCHA v2%2$s is a free service by Google that protects your website from spam and abuse. It does this while letting your valid users pass through with ease.', 'axellcore-atelier' ), 'https://www.google.com/recaptcha/' ),
 			$page
 		);
 		add_settings_section(
 			'recaptcha_v3',
-			__( 'reCAPTCHA v3', 'axellcore-atelierclub' ),
+			__( 'reCAPTCHA v3', 'axellcore-atelier' ),
 			/* translators: 1: Link opening tag, 2: Link closing tag. */
-			$intro( __( '%1$sreCAPTCHA v3%2$s is a free service by Google that protects your website from spam and abuse. It does this while letting your valid users pass through with ease.', 'axellcore-atelierclub' ), 'https://www.google.com/recaptcha/intro/v3.html' ),
+			$intro( __( '%1$sreCAPTCHA v3%2$s is a free service by Google that protects your website from spam and abuse. It does this while letting your valid users pass through with ease.', 'axellcore-atelier' ), 'https://www.google.com/recaptcha/intro/v3.html' ),
 			$page
 		);
 
@@ -341,10 +341,10 @@ final class Settings {
 			'v3' => 'recaptcha_v3_',
 		);
 		foreach ( $prefixes as $version => $prefix ) {
-			add_settings_field( $prefix . 'site_key', __( 'Site key', 'axellcore-atelierclub' ), array( $this, 'render_key' ), $page, 'recaptcha_' . $version, array( 'label_for' => self::OPTION . '-' . $prefix . 'site_key' ) );
-			add_settings_field( $prefix . 'secret_key', __( 'Secret key', 'axellcore-atelierclub' ), array( $this, 'render_key' ), $page, 'recaptcha_' . $version, array( 'label_for' => self::OPTION . '-' . $prefix . 'secret_key' ) );
+			add_settings_field( $prefix . 'site_key', __( 'Site key', 'axellcore-atelier' ), array( $this, 'render_key' ), $page, 'recaptcha_' . $version, array( 'label_for' => self::OPTION . '-' . $prefix . 'site_key' ) );
+			add_settings_field( $prefix . 'secret_key', __( 'Secret key', 'axellcore-atelier' ), array( $this, 'render_key' ), $page, 'recaptcha_' . $version, array( 'label_for' => self::OPTION . '-' . $prefix . 'secret_key' ) );
 		}
-		add_settings_field( 'recaptcha_v3_threshold', __( 'Score threshold', 'axellcore-atelierclub' ), array( $this, 'render_recaptcha_threshold' ), $page, 'recaptcha_v3', array( 'label_for' => self::OPTION . '-recaptcha_v3_threshold' ) );
+		add_settings_field( 'recaptcha_v3_threshold', __( 'Score threshold', 'axellcore-atelier' ), array( $this, 'render_recaptcha_threshold' ), $page, 'recaptcha_v3', array( 'label_for' => self::OPTION . '-recaptcha_v3_threshold' ) );
 	}
 
 	/**
@@ -458,7 +458,7 @@ final class Settings {
 		}
 		if ( $invalid && function_exists( 'add_settings_error' ) ) {
 			/* translators: %s: the invalid e-mail addresses. */
-			add_settings_error( self::OPTION, 'invalid-recipients', sprintf( __( 'Left out, not valid e-mail addresses: %s', 'axellcore-atelierclub' ), implode( ', ', $invalid ) ) );
+			add_settings_error( self::OPTION, 'invalid-recipients', sprintf( __( 'Left out, not valid e-mail addresses: %s', 'axellcore-atelier' ), implode( ', ', $invalid ) ) );
 		}
 		return implode( ', ', array_unique( $valid ) );
 	}
@@ -473,7 +473,7 @@ final class Settings {
 				'name'              => esc_attr( self::OPTION ) . '[page_id]',
 				'id'                => esc_attr( self::OPTION ) . '-page_id',
 				'selected'          => $page ? (int) $page->ID : 0,
-				'show_option_none'  => esc_html__( '— Select —', 'axellcore-atelierclub' ),
+				'show_option_none'  => esc_html__( '— Select —', 'axellcore-atelier' ),
 				'option_none_value' => '0',
 				'post_status'       => array( 'publish', 'draft', 'private' ),
 			)
@@ -482,14 +482,14 @@ final class Settings {
 			printf(
 				' <a href="%1$s">%2$s</a> | <a href="%3$s">%4$s</a>',
 				esc_url( (string) get_edit_post_link( $page ) ),
-				esc_html__( 'Edit', 'axellcore-atelierclub' ),
+				esc_html__( 'Edit', 'axellcore-atelier' ),
 				esc_url( (string) get_permalink( $page ) ),
-				esc_html__( 'View', 'axellcore-atelierclub' )
+				esc_html__( 'View', 'axellcore-atelier' )
 			);
 		}
 		printf(
 			'<p class="description">%s</p>',
-			esc_html__( 'The page of the Atelier landing: its slug can change. With a block theme, use the Atelier Club template on it. Empty, no page is the Atelier page.', 'axellcore-atelierclub' )
+			esc_html__( 'The page of the Atelier landing: its slug can change. With a block theme, use the Atelier Axell template on it. Empty, no page is the Atelier page.', 'axellcore-atelier' )
 		);
 	}
 
@@ -503,7 +503,7 @@ final class Settings {
 			esc_attr( self::OPTION ),
 			esc_attr( Notifications::atelier_name() ),
 			/* translators: %s: the placeholder, {atelier_name}. */
-			esc_html( sprintf( __( 'Used by the e-mails\' %s placeholder and as their header\'s brand in text.', 'axellcore-atelierclub' ), '{atelier_name}' ) )
+			esc_html( sprintf( __( 'Used by the e-mails\' %s placeholder and as their header\'s brand in text.', 'axellcore-atelier' ), '{atelier_name}' ) )
 		);
 	}
 
@@ -516,7 +516,7 @@ final class Settings {
 			'<input type="text" class="regular-text" id="%1$s-email_tagline" name="%1$s[email_tagline]" value="%2$s"><p class="description">%3$s</p>',
 			esc_attr( self::OPTION ),
 			esc_attr( '' !== $saved ? $saved : Notifications::site_brand_default( 'tagline' ) ),
-			esc_html__( 'Below the name in the e-mails\' header, when it has no logo.', 'axellcore-atelierclub' )
+			esc_html__( 'Below the name in the e-mails\' header, when it has no logo.', 'axellcore-atelier' )
 		);
 	}
 
@@ -528,8 +528,8 @@ final class Settings {
 			'<input type="hidden" name="%1$s[pending_on_create]" value="0"><label><input type="checkbox" id="%1$s-pending_on_create" name="%1$s[pending_on_create]" value="1"%2$s> %3$s</label><p class="description">%4$s</p>',
 			esc_attr( self::OPTION ),
 			checked( (bool) self::get( 'pending_on_create' ), true, false ),
-			esc_html__( 'Create new members as pending', 'axellcore-atelierclub' ),
-			esc_html__( 'When on, an application creates a pending member who waits for approval. When off, it creates the member already approved.', 'axellcore-atelierclub' )
+			esc_html__( 'Create new members as pending', 'axellcore-atelier' ),
+			esc_html__( 'When on, an application creates a pending member who waits for approval. When off, it creates the member already approved.', 'axellcore-atelier' )
 		);
 	}
 
@@ -541,8 +541,8 @@ final class Settings {
 			'<input type="hidden" name="%1$s[members_can_log_in]" value="0"><label><input type="checkbox" id="%1$s-members_can_log_in" name="%1$s[members_can_log_in]" value="1"%2$s> %3$s</label><p class="description">%4$s</p>',
 			esc_attr( self::OPTION ),
 			checked( (bool) self::get( 'members_can_log_in' ), true, false ),
-			esc_html__( 'Allow members to log in', 'axellcore-atelierclub' ),
-			esc_html__( 'Approved members can log in and reset their password. Pending members never can.', 'axellcore-atelierclub' )
+			esc_html__( 'Allow members to log in', 'axellcore-atelier' ),
+			esc_html__( 'Approved members can log in and reset their password. Pending members never can.', 'axellcore-atelier' )
 		);
 	}
 
@@ -554,8 +554,8 @@ final class Settings {
 			'<input type="hidden" name="%1$s[recaptcha_enabled]" value="0"><label><input type="checkbox" id="%1$s-recaptcha_enabled" name="%1$s[recaptcha_enabled]" value="1"%2$s> %3$s</label><p class="description">%4$s</p>',
 			esc_attr( self::OPTION ),
 			checked( (bool) self::get( 'recaptcha_enabled' ), true, false ),
-			esc_html__( 'Enable reCAPTCHA on the forms', 'axellcore-atelierclub' ),
-			esc_html__( 'A submission is only accepted after Google confirms it, with the keys of the version chosen below.', 'axellcore-atelierclub' )
+			esc_html__( 'Enable reCAPTCHA on the forms', 'axellcore-atelier' ),
+			esc_html__( 'A submission is only accepted after Google confirms it, with the keys of the version chosen below.', 'axellcore-atelier' )
 		);
 	}
 
@@ -565,8 +565,8 @@ final class Settings {
 	public function render_recaptcha_version() {
 		$current = 'v2' === self::get( 'recaptcha_version' ) ? 'v2' : 'v3';
 		$options = array(
-			'v3' => __( 'reCAPTCHA v3 (invisible, a score)', 'axellcore-atelierclub' ),
-			'v2' => __( 'reCAPTCHA v2 ("I\'m not a robot" box)', 'axellcore-atelierclub' ),
+			'v3' => __( 'reCAPTCHA v3 (invisible, a score)', 'axellcore-atelier' ),
+			'v2' => __( 'reCAPTCHA v2 ("I\'m not a robot" box)', 'axellcore-atelier' ),
 		);
 		printf( '<select id="%1$s-recaptcha_version" name="%1$s[recaptcha_version]">', esc_attr( self::OPTION ) );
 		foreach ( $options as $value => $label ) {
@@ -583,8 +583,8 @@ final class Settings {
 			'<input type="hidden" name="%1$s[recaptcha_skip_local]" value="0"><label><input type="checkbox" id="%1$s-recaptcha_skip_local" name="%1$s[recaptcha_skip_local]" value="1"%2$s> %3$s</label><p class="description">%4$s</p>',
 			esc_attr( self::OPTION ),
 			checked( (bool) self::get( 'recaptcha_skip_local' ), true, false ),
-			esc_html__( 'Disable on local sites', 'axellcore-atelierclub' ),
-			esc_html__( 'Addresses on localhost, 127.0.0.1, .local and .test, and sites with the "local" environment type.', 'axellcore-atelierclub' )
+			esc_html__( 'Disable on local sites', 'axellcore-atelier' ),
+			esc_html__( 'Addresses on localhost, 127.0.0.1, .local and .test, and sites with the "local" environment type.', 'axellcore-atelier' )
 		);
 	}
 
@@ -596,11 +596,11 @@ final class Settings {
 			'<input type="hidden" name="%1$s[places_enabled]" value="0"><label><input type="checkbox" id="%1$s-places_enabled" name="%1$s[places_enabled]" value="1"%2$s> %3$s</label><p class="description">%4$s</p><p class="description">%5$s</p>',
 			esc_attr( self::OPTION ),
 			checked( (bool) self::get( 'places_enabled' ), true, false ),
-			esc_html__( 'Suggest Google addresses while the street is typed', 'axellcore-atelierclub' ),
-			esc_html__( 'On the application form and on the user profile. Choosing an address fills in street, number, neighborhood, state, city and CEP. Needs the API key below, with the Places API (New) enabled.', 'axellcore-atelierclub' ),
+			esc_html__( 'Suggest Google addresses while the street is typed', 'axellcore-atelier' ),
+			esc_html__( 'On the application form and on the user profile. Choosing an address fills in street, number, neighborhood, state, city and CEP. Needs the API key below, with the Places API (New) enabled.', 'axellcore-atelier' ),
 			sprintf(
 				/* translators: 1: Link opening tag, 2: Link closing tag. */
-				esc_html__( 'Costs: the Google Cloud project needs a billing account with a payment method. Google charges for the suggestions and the addresses looked up beyond the free monthly limit, at the prices on %1$sPlaces API usage and billing%2$s. Set quotas and budget alerts in Google Cloud to cap the cost.', 'axellcore-atelierclub' ),
+				esc_html__( 'Costs: the Google Cloud project needs a billing account with a payment method. Google charges for the suggestions and the addresses looked up beyond the free monthly limit, at the prices on %1$sPlaces API usage and billing%2$s. Set quotas and budget alerts in Google Cloud to cap the cost.', 'axellcore-atelier' ),
 				'<a href="https://developers.google.com/maps/documentation/places/web-service/usage-and-billing" target="_blank" rel="noopener noreferrer">',
 				'</a>'
 			)
@@ -619,7 +619,7 @@ final class Settings {
 				esc_html(
 					sprintf(
 						/* translators: %d: number of cached answers deleted. */
-						_n( '%d cached answer deleted.', '%d cached answers deleted.', $cleared, 'axellcore-atelierclub' ),
+						_n( '%d cached answer deleted.', '%d cached answers deleted.', $cleared, 'axellcore-atelier' ),
 						$cleared
 					)
 				)
@@ -629,13 +629,13 @@ final class Settings {
 		printf(
 			'<p><a class="button" href="%1$s">%2$s</a></p><p class="description">%3$s</p>',
 			esc_url( Places::clear_cache_url() ),
-			esc_html__( 'Clear address cache', 'axellcore-atelierclub' ),
+			esc_html__( 'Clear address cache', 'axellcore-atelier' ),
 			esc_html(
 				sprintf(
 					/* translators: %d: number of cached answers. */
-					_n( '%d answer cached.', '%d answers cached.', $count, 'axellcore-atelierclub' ),
+					_n( '%d answer cached.', '%d answers cached.', $count, 'axellcore-atelier' ),
 					$count
-				) . ' ' . __( 'Suggestions and addresses already asked are kept for a day, so the same search is not charged again. They expire on their own.', 'axellcore-atelierclub' )
+				) . ' ' . __( 'Suggestions and addresses already asked are kept for a day, so the same search is not charged again. They expire on their own.', 'axellcore-atelier' )
 			)
 		);
 	}
@@ -665,7 +665,7 @@ final class Settings {
 			esc_attr( self::OPTION ),
 			esc_attr( is_numeric( $value ) ? (string) $value : '' ),
 			esc_attr( (string) Recaptcha::THRESHOLD ),
-			esc_html__( 'Score threshold should be a value between 0 and 1, default: 0.5', 'axellcore-atelierclub' )
+			esc_html__( 'Score threshold should be a value between 0 and 1, default: 0.5', 'axellcore-atelier' )
 		);
 	}
 
@@ -727,14 +727,14 @@ final class Settings {
 		$tab     = self::current_tab();
 		$section = 'emails' === $tab ? self::current_section() : '';
 		$labels  = array(
-			'general'      => __( 'General', 'axellcore-atelierclub' ),
-			'members'      => __( 'Members', 'axellcore-atelierclub' ),
-			'emails'       => __( 'E-mails', 'axellcore-atelierclub' ),
-			'integrations' => __( 'Integrations', 'axellcore-atelierclub' ),
+			'general'      => __( 'General', 'axellcore-atelier' ),
+			'members'      => __( 'Members', 'axellcore-atelier' ),
+			'emails'       => __( 'E-mails', 'axellcore-atelier' ),
+			'integrations' => __( 'Integrations', 'axellcore-atelier' ),
 		);
 
-		echo '<div class="wrap"><h1>' . esc_html__( 'Atelier settings', 'axellcore-atelierclub' ) . '</h1>';
-		echo '<nav class="nav-tab-wrapper" aria-label="' . esc_attr__( 'Settings sections', 'axellcore-atelierclub' ) . '">';
+		echo '<div class="wrap"><h1>' . esc_html__( 'Atelier settings', 'axellcore-atelier' ) . '</h1>';
+		echo '<nav class="nav-tab-wrapper" aria-label="' . esc_attr__( 'Settings sections', 'axellcore-atelier' ) . '">';
 		foreach ( $labels as $slug => $label ) {
 			printf(
 				'<a href="%1$s" class="nav-tab%2$s"%3$s>%4$s</a>',
@@ -777,8 +777,8 @@ final class Settings {
 				esc_attr( self::CREATE_ACTION )
 			);
 			wp_nonce_field( self::CREATE_ACTION );
-			submit_button( __( 'Create Atelier page', 'axellcore-atelierclub' ), 'secondary', 'submit', false );
-			printf( '<p class="description">%s</p></form>', esc_html__( 'Creates a page with the Atelier landing content and makes it the Atelier page.', 'axellcore-atelierclub' ) );
+			submit_button( __( 'Create Atelier page', 'axellcore-atelier' ), 'secondary', 'submit', false );
+			printf( '<p class="description">%s</p></form>', esc_html__( 'Creates a page with the Atelier landing content and makes it the Atelier page.', 'axellcore-atelier' ) );
 		}
 		echo '</div>';
 	}
@@ -795,26 +795,26 @@ final class Settings {
 		$default_id = Notifications::default_logo_id();
 		$name       = static fn( $key ) => esc_attr( self::OPTION . '[' . $key . ']' );
 		$thumb      = static function ( $id ) {
-			$url = $id ? wp_get_attachment_image_url( $id, 'medium' ) : AXELLCORE_ATELIERCLUB_URL . Notifications::LOGO_FILE;
+			$url = $id ? wp_get_attachment_image_url( $id, 'medium' ) : AXELLCORE_ATELIER_URL . Notifications::LOGO_FILE;
 			return $url ? sprintf( '<img src="%s" alt="" style="display:block;max-width:200px;height:auto;margin:8px 0;background:#fff;padding:8px;border:1px solid #dcdcde;">', esc_url( $url ) ) : '';
 		};
 		$svg_note   = static function ( $id ) {
 			return $id && 'image/svg+xml' === get_post_mime_type( $id )
-				? '<p class="description">' . esc_html__( 'This image is an SVG: Gmail and other e-mail clients do not show SVG. Prefer a PNG.', 'axellcore-atelierclub' ) . '</p>'
+				? '<p class="description">' . esc_html__( 'This image is an SVG: Gmail and other e-mail clients do not show SVG. Prefer a PNG.', 'axellcore-atelier' ) . '</p>'
 				: '';
 		};
 
-		printf( '<h2>%s</h2>', esc_html__( 'E-mail header', 'axellcore-atelierclub' ) );
+		printf( '<h2>%s</h2>', esc_html__( 'E-mail header', 'axellcore-atelier' ) );
 		echo '<table class="form-table" role="presentation"><tbody>';
-		echo '<tr><th scope="row">' . esc_html__( 'Logo', 'axellcore-atelierclub' ) . '</th><td><fieldset class="aa-email-logo">';
-		printf( '<legend class="screen-reader-text">%s</legend>', esc_html__( 'Logo', 'axellcore-atelierclub' ) );
+		echo '<tr><th scope="row">' . esc_html__( 'Logo', 'axellcore-atelier' ) . '</th><td><fieldset class="aa-email-logo">';
+		printf( '<legend class="screen-reader-text">%s</legend>', esc_html__( 'Logo', 'axellcore-atelier' ) );
 
 		// None: the brand in text.
 		printf(
 			'<p><label><input type="radio" name="%1$s" value="none"%2$s> %3$s</label></p>',
 			$name( 'email_logo' ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped by $name.
 			checked( $choice, 'none', false ),
-			esc_html__( 'None: the brand in text', 'axellcore-atelierclub' )
+			esc_html__( 'None: the brand in text', 'axellcore-atelier' )
 		);
 
 		// The theme's logo, when there is one.
@@ -823,8 +823,8 @@ final class Settings {
 			$name( 'email_logo' ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped by $name.
 			checked( $choice, 'site', false ),
 			disabled( ! $site_id, true, false ),
-			esc_html__( 'Use the site\'s logo', 'axellcore-atelierclub' ),
-			$site_id ? $thumb( $site_id ) . $svg_note( $site_id ) : '<p class="description">' . esc_html__( 'The theme has no logo (Appearance > Customize > Site Identity).', 'axellcore-atelierclub' ) . '</p>' // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- built escaped above.
+			esc_html__( 'Use the site\'s logo', 'axellcore-atelier' ),
+			$site_id ? $thumb( $site_id ) . $svg_note( $site_id ) : '<p class="description">' . esc_html__( 'The theme has no logo (Appearance > Customize > Site Identity).', 'axellcore-atelier' ) . '</p>' // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- built escaped above.
 		);
 
 		// An image chosen in the media library.
@@ -832,16 +832,16 @@ final class Settings {
 			'<p><label><input type="radio" name="%1$s" value="custom"%2$s> %3$s</label></p><div class="aa-email-logo-custom" style="margin:0 0 4px 24px"><input type="hidden" name="%4$s" id="aa-email-logo-id" value="%5$d" data-default="%11$d" data-default-url="%12$s"><div id="aa-email-logo-preview">%6$s</div>%7$s<p><button type="button" class="button" id="aa-email-logo-choose">%8$s</button> <button type="button" class="button-link" id="aa-email-logo-remove"%9$s>%10$s</button></p></div>',
 			$name( 'email_logo' ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped by $name.
 			checked( $choice, 'custom', false ),
-			esc_html__( 'Image (by default, the Atelier logo)', 'axellcore-atelierclub' ),
+			esc_html__( 'Image (by default, the Atelier logo)', 'axellcore-atelier' ),
 			$name( 'email_logo_id' ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped by $name.
 			absint( $custom_id ),
 			$thumb( $custom_id ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- built escaped above.
 			$svg_note( $custom_id ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- built escaped above.
-			esc_html__( 'Choose image', 'axellcore-atelierclub' ),
+			esc_html__( 'Choose image', 'axellcore-atelier' ),
 			$custom_id !== $default_id ? '' : ' hidden',
-			esc_html__( 'Use the default', 'axellcore-atelierclub' ),
+			esc_html__( 'Use the default', 'axellcore-atelier' ),
 			absint( $default_id ),
-			esc_url( $default_id ? (string) wp_get_attachment_image_url( $default_id, 'medium' ) : AXELLCORE_ATELIERCLUB_URL . Notifications::LOGO_FILE )
+			esc_url( $default_id ? (string) wp_get_attachment_image_url( $default_id, 'medium' ) : AXELLCORE_ATELIER_URL . Notifications::LOGO_FILE )
 		);
 		echo '</fieldset></td></tr>';
 
@@ -849,7 +849,7 @@ final class Settings {
 		$width = Notifications::logo_width();
 		printf(
 			'<tr><th scope="row"><label for="aa-email-logo-width">%1$s</label></th><td><input type="number" class="small-text" id="aa-email-logo-width" name="%2$s" value="%3$s" placeholder="%4$d" min="%5$d" max="%6$d" step="1"> px<p class="description">%7$s</p></td></tr></tbody></table>',
-			esc_html__( 'Logo width', 'axellcore-atelierclub' ),
+			esc_html__( 'Logo width', 'axellcore-atelier' ),
 			$name( 'email_logo_width' ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped by $name.
 			esc_attr( (string) self::get( 'email_logo_width' ) ),
 			absint( Notifications::LOGO_WIDTH ),
@@ -858,7 +858,7 @@ final class Settings {
 			esc_html(
 				sprintf(
 					/* translators: 1: the logo's width in px, 2: twice that width. */
-					__( 'Shown at the top of every e-mail, %1$dpx wide. Use an image %2$dpx wide (twice the size) so it stays sharp on high-resolution screens. A PNG works in every e-mail client.', 'axellcore-atelierclub' ),
+					__( 'Shown at the top of every e-mail, %1$dpx wide. Use an image %2$dpx wide (twice the size) so it stays sharp on high-resolution screens. A PNG works in every e-mail client.', 'axellcore-atelier' ),
 					$width,
 					$width * 2
 				)
@@ -913,19 +913,19 @@ final class Settings {
 	 * The E-mails tab: the e-mails, as WooCommerce lists its own.
 	 */
 	private function render_email_list() {
-		printf( '<p>%s</p>', esc_html__( 'E-mails sent by the Atelier. Each one is on until turned off; manage one to edit its subject, heading and text.', 'axellcore-atelierclub' ) );
+		printf( '<p>%s</p>', esc_html__( 'E-mails sent by the Atelier. Each one is on until turned off; manage one to edit its subject, heading and text.', 'axellcore-atelier' ) );
 		echo '<table class="widefat striped aa-emails"><thead><tr>';
 		printf(
 			'<th scope="col">%1$s</th><th scope="col">%2$s</th><th scope="col">%3$s</th><th scope="col"><span class="screen-reader-text">%4$s</span></th>',
-			esc_html__( 'E-mail', 'axellcore-atelierclub' ),
-			esc_html__( 'Recipient', 'axellcore-atelierclub' ),
-			esc_html__( 'Status', 'axellcore-atelierclub' ),
-			esc_html__( 'Actions', 'axellcore-atelierclub' )
+			esc_html__( 'E-mail', 'axellcore-atelier' ),
+			esc_html__( 'Recipient', 'axellcore-atelier' ),
+			esc_html__( 'Status', 'axellcore-atelier' ),
+			esc_html__( 'Actions', 'axellcore-atelier' )
 		);
 		echo '</tr></thead><tbody>';
 		foreach ( Notifications::titles() as $key => list( $title, $description ) ) {
 			$url       = self::url( 'emails', $key );
-			$recipient = 'team' === Notifications::EMAILS[ $key ] ? implode( ', ', Notifications::team_recipients() ) : __( 'Member', 'axellcore-atelierclub' );
+			$recipient = 'team' === Notifications::EMAILS[ $key ] ? implode( ', ', Notifications::team_recipients() ) : __( 'Member', 'axellcore-atelier' );
 			$enabled   = Notifications::enabled( $key );
 			printf(
 				'<tr><td><a href="%1$s"><strong>%2$s</strong></a><p class="description">%3$s</p></td><td>%4$s</td><td>%5$s</td><td><a class="button" href="%1$s">%6$s</a></td></tr>',
@@ -933,8 +933,8 @@ final class Settings {
 				esc_html( $title ),
 				esc_html( $description ),
 				esc_html( $recipient ),
-				$enabled ? esc_html__( 'Enabled', 'axellcore-atelierclub' ) : esc_html__( 'Disabled', 'axellcore-atelierclub' ),
-				esc_html__( 'Manage', 'axellcore-atelierclub' )
+				$enabled ? esc_html__( 'Enabled', 'axellcore-atelier' ) : esc_html__( 'Disabled', 'axellcore-atelier' ),
+				esc_html__( 'Manage', 'axellcore-atelier' )
 			);
 		}
 		echo '</tbody></table>';
@@ -958,33 +958,33 @@ final class Settings {
 		printf(
 			'<p><a href="%1$s">&larr; %2$s</a></p><h2>%3$s</h2><p>%4$s</p>',
 			esc_url( self::url( 'emails' ) ),
-			esc_html__( 'E-mails', 'axellcore-atelierclub' ),
+			esc_html__( 'E-mails', 'axellcore-atelier' ),
 			esc_html( $titles[ $key ][0] ),
 			esc_html( $titles[ $key ][1] )
 		);
 		echo '<table class="form-table" role="presentation"><tbody>';
 		printf(
 			'<tr><th scope="row">%1$s</th><td><input type="hidden" name="%2$s" value="0"><label><input type="checkbox" id="%3$s" name="%2$s" value="1"%4$s> %5$s</label></td></tr>',
-			esc_html__( 'Enable/Disable', 'axellcore-atelierclub' ),
+			esc_html__( 'Enable/Disable', 'axellcore-atelier' ),
 			$name( 'enabled' ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped by $name.
 			$id( 'enabled' ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped by $id.
 			checked( Notifications::enabled( $key ), true, false ),
-			esc_html__( 'Enable this e-mail', 'axellcore-atelierclub' )
+			esc_html__( 'Enable this e-mail', 'axellcore-atelier' )
 		);
 		if ( 'team' === Notifications::EMAILS[ $key ] ) {
 			printf(
 				'<tr><th scope="row"><label for="%1$s">%2$s</label></th><td><input type="text" class="regular-text" id="%1$s" name="%3$s" value="%4$s" placeholder="%5$s"><p class="description">%6$s</p></td></tr>',
 				$id( 'to' ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped by $id.
-				esc_html__( 'Recipients', 'axellcore-atelierclub' ),
+				esc_html__( 'Recipients', 'axellcore-atelier' ),
 				$name( 'to' ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped by $name.
 				esc_attr( (string) self::get( Notifications::setting( $key, 'to' ) ) ),
 				esc_attr( (string) get_option( 'admin_email' ) ),
-				esc_html__( 'One or more e-mail addresses, separated by commas. Empty, the site\'s admin e-mail.', 'axellcore-atelierclub' )
+				esc_html__( 'One or more e-mail addresses, separated by commas. Empty, the site\'s admin e-mail.', 'axellcore-atelier' )
 			);
 		}
 		foreach ( array(
-			'subject' => array( __( 'Subject', 'axellcore-atelierclub' ), __( 'The line shown in the inbox, before the e-mail is opened. Accepts placeholders.', 'axellcore-atelierclub' ) ),
-			'heading' => array( __( 'E-mail heading', 'axellcore-atelierclub' ), __( 'The large title at the top of the opened e-mail, below the logo. Accepts placeholders.', 'axellcore-atelierclub' ) ),
+			'subject' => array( __( 'Subject', 'axellcore-atelier' ), __( 'The line shown in the inbox, before the e-mail is opened. Accepts placeholders.', 'axellcore-atelier' ) ),
+			'heading' => array( __( 'E-mail heading', 'axellcore-atelier' ), __( 'The large title at the top of the opened e-mail, below the logo. Accepts placeholders.', 'axellcore-atelier' ) ),
 		) as $field => list( $label, $help ) ) {
 			printf(
 				'<tr><th scope="row"><label for="%1$s">%2$s</label></th><td><input type="text" class="large-text" id="%1$s" name="%3$s" value="%4$s" aria-describedby="%1$s-help"><p class="description" id="%1$s-help">%5$s</p></td></tr>',
@@ -998,22 +998,22 @@ final class Settings {
 		printf(
 			'<tr><th scope="row"><label for="%1$s">%2$s</label></th><td><textarea class="large-text" rows="12" id="%1$s" name="%3$s" aria-describedby="%1$s-help">%4$s</textarea><p class="description" id="%1$s-help">%5$s</p></td></tr>',
 			$id( 'body' ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped by $id.
-			esc_html__( 'Text', 'axellcore-atelierclub' ),
+			esc_html__( 'Text', 'axellcore-atelier' ),
 			$name( 'body' ), // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped by $name.
 			esc_textarea( $value( 'body' ) ),
-			esc_html__( 'Plain text: a blank line starts a paragraph and addresses become links. Sent as an HTML e-mail in the Atelier\'s colors.', 'axellcore-atelierclub' )
+			esc_html__( 'Plain text: a blank line starts a paragraph and addresses become links. Sent as an HTML e-mail in the Atelier\'s colors.', 'axellcore-atelier' )
 		);
-		echo '<tr><th scope="row">' . esc_html__( 'Placeholders', 'axellcore-atelierclub' ) . '</th><td><ul class="aa-placeholders">';
+		echo '<tr><th scope="row">' . esc_html__( 'Placeholders', 'axellcore-atelier' ) . '</th><td><ul class="aa-placeholders">';
 		foreach ( Notifications::placeholder_help() as $tag => $meaning ) {
 			printf( '<li><code>%1$s</code> %2$s</li>', esc_html( $tag ), esc_html( $meaning ) );
 		}
 		echo '</ul></td></tr>';
 		printf(
 			'<tr><th scope="row">%1$s</th><td><a href="%2$s" target="_blank" rel="noopener">%3$s</a><p class="description">%4$s</p></td></tr>',
-			esc_html__( 'Preview', 'axellcore-atelierclub' ),
+			esc_html__( 'Preview', 'axellcore-atelier' ),
 			esc_url( self::preview_url( $key ) ),
-			esc_html__( 'Open the preview', 'axellcore-atelierclub' ),
-			esc_html__( 'The saved e-mail, with a sample member.', 'axellcore-atelierclub' )
+			esc_html__( 'Open the preview', 'axellcore-atelier' ),
+			esc_html__( 'The saved e-mail, with a sample member.', 'axellcore-atelier' )
 		);
 		echo '</tbody></table>';
 	}
@@ -1024,15 +1024,15 @@ final class Settings {
 	 */
 	public function handle_create_page() {
 		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_die( esc_html__( 'Sorry, you are not allowed to do that.', 'axellcore-atelierclub' ), 403 );
+			wp_die( esc_html__( 'Sorry, you are not allowed to do that.', 'axellcore-atelier' ), 403 );
 		}
 		check_admin_referer( self::CREATE_ACTION );
 		$page_id = Activator::create_landing();
 		if ( $page_id ) {
 			self::set_page_id( $page_id );
-			add_settings_error( self::OPTION, 'created', __( 'Atelier page created.', 'axellcore-atelierclub' ), 'success' );
+			add_settings_error( self::OPTION, 'created', __( 'Atelier page created.', 'axellcore-atelier' ), 'success' );
 		} else {
-			add_settings_error( self::OPTION, 'not-created', __( 'Could not create the Atelier page.', 'axellcore-atelierclub' ) );
+			add_settings_error( self::OPTION, 'not-created', __( 'Could not create the Atelier page.', 'axellcore-atelier' ) );
 		}
 		set_transient( 'settings_errors', get_settings_errors(), 30 );
 		wp_safe_redirect( add_query_arg( 'settings-updated', 'true', self::url( 'general' ) ) );

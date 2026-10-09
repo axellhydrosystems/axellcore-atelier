@@ -13,25 +13,25 @@ export default function Edit( {
 	return (
 		<>
 			<InspectorControls>
-				<PanelBody title={ __( 'Checkbox', 'axellcore-atelierclub' ) } initialOpen>
+				<PanelBody title={ __( 'Checkbox', 'axellcore-atelier' ) } initialOpen>
 					<TextControl
-						label={ __( 'ID', 'axellcore-atelierclub' ) }
+						label={ __( 'ID', 'axellcore-atelier' ) }
 						value={ attributes.id }
 						onChange={ ( value: string ) => setAttributes( { id: value } ) }
 					/>
 					<TextControl
-						label={ __( 'Name', 'axellcore-atelierclub' ) }
-						help={ __( 'Empty uses the ID.', 'axellcore-atelierclub' ) }
+						label={ __( 'Name', 'axellcore-atelier' ) }
+						help={ __( 'Empty uses the ID.', 'axellcore-atelier' ) }
 						value={ attributes.name }
 						onChange={ ( value: string ) => setAttributes( { name: value } ) }
 					/>
 					<ToggleControl
-						label={ __( 'Required', 'axellcore-atelierclub' ) }
+						label={ __( 'Required', 'axellcore-atelier' ) }
 						checked={ !! attributes.required }
 						onChange={ ( value: boolean ) => setAttributes( { required: value } ) }
 					/>
 					<ToggleControl
-						label={ __( 'Checked by default', 'axellcore-atelierclub' ) }
+						label={ __( 'Checked by default', 'axellcore-atelier' ) }
 						checked={ !! attributes.checked }
 						onChange={ ( value: boolean ) => setAttributes( { checked: value } ) }
 					/>
@@ -43,7 +43,7 @@ export default function Edit( {
 					tagName="label"
 					value={ attributes.text }
 					onChange={ ( value: string ) => setAttributes( { text: value } ) }
-					placeholder={ __( 'Consent text…', 'axellcore-atelierclub' ) }
+					placeholder={ __( 'Consent text…', 'axellcore-atelier' ) }
 					allowedFormats={ [ 'core/link', 'core/bold', 'core/italic' ] }
 				/>
 			</div>

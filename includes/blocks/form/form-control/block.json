@@ -7,7 +7,7 @@
 	"ancestor": [ "axell/form" ],
 	"description": "The actual input/select/textarea of a form field — text, email, tel, number, textarea, select, checkbox, or hidden, with optional input masking (CPF/CNPJ, CEP, phone). Pair with an axell/form-label sibling (same id/for) for the visible label — see this plugin's CLAUDE.md.",
 	"keywords": [ "input", "control", "field", "form" ],
-	"textdomain": "axellcore-atelierclub",
+	"textdomain": "axellcore-atelier",
 	"attributes": {
 		"type": { "type": "string", "default": "text" },
 		"id": { "type": "string", "default": "" },

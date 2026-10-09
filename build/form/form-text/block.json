@@ -12,7 +12,7 @@
     "paragraph",
     "form"
   ],
-  "textdomain": "axellcore-atelierclub",
+  "textdomain": "axellcore-atelier",
   "attributes": {
     "content": {
       "type": "rich-text",

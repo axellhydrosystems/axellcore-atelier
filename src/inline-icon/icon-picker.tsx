@@ -62,12 +62,12 @@ function IconGrid( {
 		<div className="wp-block-icon__inserter-grid">
 			{ ! icons.length ? (
 				<div className="wp-block-icon__inserter-grid-no-results">
-					<p>{ __( 'No results found.', 'axellcore-atelierclub' ) }</p>
+					<p>{ __( 'No results found.', 'axellcore-atelier' ) }</p>
 				</div>
 			) : (
 				<div
 					className="wp-block-icon__inserter-grid-icons-list"
-					aria-label={ __( 'Icon library', 'axellcore-atelierclub' ) }
+					aria-label={ __( 'Icon library', 'axellcore-atelier' ) }
 				>
 					{ shownIcons.map( ( icon ) => (
 						<Button
@@ -166,7 +166,7 @@ export default function IconPicker( { value, onSelect, onClose }: Props ) {
 	return (
 		<Modal
 			className="wp-block-icon__inserter-modal"
-			title={ __( 'Icon library', 'axellcore-atelierclub' ) }
+			title={ __( 'Icon library', 'axellcore-atelier' ) }
 			onRequestClose={ onClose }
 			isFullScreen
 		>
@@ -190,7 +190,7 @@ export default function IconPicker( { value, onSelect, onClose }: Props ) {
 					/>
 					<Tabs.List>
 						<Tabs.Tab value="">
-							{ __( 'All', 'axellcore-atelierclub' ) }
+							{ __( 'All', 'axellcore-atelier' ) }
 						</Tabs.Tab>
 						{ collections?.map( ( collection ) => (
 							<Tabs.Tab
@@ -216,7 +216,7 @@ export default function IconPicker( { value, onSelect, onClose }: Props ) {
 									role="status"
 									aria-label={ __(
 										'Loading…',
-										'axellcore-atelierclub'
+										'axellcore-atelier'
 									) }
 								>
 									<Spinner />

@@ -10,10 +10,10 @@
  * WordPress shows the form again in the same request, so the fields show
  * what was sent, the wrong ones marked.
  *
- * @package Axellcore_Atelierclub
+ * @package Axellcore_Atelier
  */
 
-namespace Axellcore_Atelierclub;
+namespace Axellcore_Atelier;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -32,7 +32,7 @@ final class Member_Profile {
 	/**
 	 * Script module handle of the partner stores picker.
 	 */
-	const HANDLE = 'axellcore-atelierclub-member-profile';
+	const HANDLE = 'axellcore-atelier-member-profile';
 
 	/**
 	 * Singleton instance.
@@ -133,8 +133,8 @@ final class Member_Profile {
 	 * The partner stores picker (Interactivity API) and its styles.
 	 */
 	public function enqueue() {
-		wp_enqueue_style( self::HANDLE, AXELLCORE_ATELIERCLUB_URL . 'build/admin/member-profile/style-index.css', array(), AXELLCORE_ATELIERCLUB_VERSION );
-		wp_enqueue_script_module( self::HANDLE, AXELLCORE_ATELIERCLUB_URL . 'build/admin/member-profile/view.js', array( array( 'id' => '@wordpress/interactivity' ) ), AXELLCORE_ATELIERCLUB_VERSION );
+		wp_enqueue_style( self::HANDLE, AXELLCORE_ATELIER_URL . 'build/admin/member-profile/style-index.css', array(), AXELLCORE_ATELIER_VERSION );
+		wp_enqueue_script_module( self::HANDLE, AXELLCORE_ATELIER_URL . 'build/admin/member-profile/view.js', array( array( 'id' => '@wordpress/interactivity' ) ), AXELLCORE_ATELIER_VERSION );
 		wp_interactivity_state(
 			'axell/member-stores',
 			array(
@@ -163,7 +163,7 @@ final class Member_Profile {
 		 * @param bool $can     Default: edit_user (as Atelier > Members).
 		 * @param int  $user_id User being edited.
 		 */
-		return (bool) apply_filters( 'axellcore_atelierclub_current_user_can_edit_member_meta_fields', current_user_can( 'edit_user', $user_id ), $user_id );
+		return (bool) apply_filters( 'axellcore_atelier_current_user_can_edit_member_meta_fields', current_user_can( 'edit_user', $user_id ), $user_id );
 	}
 
 	/**
@@ -179,7 +179,7 @@ final class Member_Profile {
 		$labels    = array_merge( Members_Export::columns(), self::woocommerce_labels() );
 		$fieldsets = array(
 			'authorship' => array(
-				'title'  => __( 'Atelier: Authorship', 'axellcore-atelierclub' ),
+				'title'  => __( 'Atelier: Authorship', 'axellcore-atelier' ),
 				'fields' => array(
 					'company'                   => array( 'label' => $labels['company'] ),
 					'phone'                     => array(
@@ -191,12 +191,12 @@ final class Member_Profile {
 						'label'      => $labels['primary_focus'],
 						'type'       => 'select',
 						'searchable' => true,
-						'options'    => array( '' => __( 'Select an option…', 'axellcore-atelierclub' ) ) + Admin_Rest::PRIMARY_FOCUS_OPTIONS,
+						'options'    => array( '' => __( 'Select an option…', 'axellcore-atelier' ) ) + Admin_Rest::PRIMARY_FOCUS_OPTIONS,
 					),
 				),
 			),
 			'document'   => array(
-				'title'  => __( 'Atelier: Document', 'axellcore-atelierclub' ),
+				'title'  => __( 'Atelier: Document', 'axellcore-atelier' ),
 				'fields' => array(
 					// Never stored: it follows the CPF/CNPJ (Members::profile_type_of()).
 					'profile_type'  => array(
@@ -209,12 +209,12 @@ final class Member_Profile {
 					'br_revenue_id' => array(
 						'label'       => $labels['br_revenue_id'],
 						'mask'        => 'document',
-						'description' => __( 'Only a valid one is allowed, and it must be unique among members.', 'axellcore-atelierclub' ),
+						'description' => __( 'Only a valid one is allowed, and it must be unique among members.', 'axellcore-atelier' ),
 					),
 				),
 			),
 			'address'    => array(
-				'title'  => __( 'Atelier: Office address', 'axellcore-atelierclub' ),
+				'title'  => __( 'Atelier: Office address', 'axellcore-atelier' ),
 				'fields' => array(
 					// Brazil only: shown with every country, never editable.
 					'country'        => array(
@@ -246,12 +246,12 @@ final class Member_Profile {
 				),
 			),
 			'resellers'  => array(
-				'title'  => __( 'Atelier: Partner stores', 'axellcore-atelierclub' ),
+				'title'  => __( 'Atelier: Partner stores', 'axellcore-atelier' ),
 				'fields' => array(
 					'resellers' => array(
 						'label'       => $labels['resellers'],
 						'type'        => 'resellers',
-						'description' => __( 'Search the registered resellers by name.', 'axellcore-atelierclub' ),
+						'description' => __( 'Search the registered resellers by name.', 'axellcore-atelier' ),
 					),
 				),
 			),
@@ -271,7 +271,7 @@ final class Member_Profile {
 		 * @param array $fieldsets Fieldsets.
 		 * @param int   $user_id   User being edited.
 		 */
-		return apply_filters( 'axellcore_atelierclub_member_meta_fields', $fieldsets, $user_id );
+		return apply_filters( 'axellcore_atelier_member_meta_fields', $fieldsets, $user_id );
 	}
 
 	/**
@@ -282,14 +282,14 @@ final class Member_Profile {
 	 */
 	public static function woocommerce_labels() {
 		return array(
-			'company'        => _x( 'Company', 'WooCommerce field', 'axellcore-atelierclub' ),
-			'phone'          => _x( 'Phone', 'WooCommerce field', 'axellcore-atelierclub' ),
-			'country'        => _x( 'Country / Region', 'WooCommerce field', 'axellcore-atelierclub' ),
-			'address_street' => _x( 'Address line 1', 'WooCommerce field', 'axellcore-atelierclub' ),
-			'address_2'      => _x( 'Address line 2', 'WooCommerce field', 'axellcore-atelierclub' ),
-			'state'          => _x( 'State / County', 'WooCommerce field', 'axellcore-atelierclub' ),
-			'city'           => _x( 'City', 'WooCommerce field', 'axellcore-atelierclub' ),
-			'postal'         => _x( 'Postcode / ZIP', 'WooCommerce field', 'axellcore-atelierclub' ),
+			'company'        => _x( 'Company', 'WooCommerce field', 'axellcore-atelier' ),
+			'phone'          => _x( 'Phone', 'WooCommerce field', 'axellcore-atelier' ),
+			'country'        => _x( 'Country / Region', 'WooCommerce field', 'axellcore-atelier' ),
+			'address_street' => _x( 'Address line 1', 'WooCommerce field', 'axellcore-atelier' ),
+			'address_2'      => _x( 'Address line 2', 'WooCommerce field', 'axellcore-atelier' ),
+			'state'          => _x( 'State / County', 'WooCommerce field', 'axellcore-atelier' ),
+			'city'           => _x( 'City', 'WooCommerce field', 'axellcore-atelier' ),
+			'postal'         => _x( 'Postcode / ZIP', 'WooCommerce field', 'axellcore-atelier' ),
 		);
 	}
 
@@ -304,7 +304,7 @@ final class Member_Profile {
 		 *
 		 * @param bool $active Default: the WooCommerce class exists.
 		 */
-		return (bool) apply_filters( 'axellcore_atelierclub_woocommerce_active', class_exists( 'WooCommerce' ) );
+		return (bool) apply_filters( 'axellcore_atelier_woocommerce_active', class_exists( 'WooCommerce' ) );
 	}
 
 	/**
@@ -438,30 +438,30 @@ final class Member_Profile {
 			return;
 		}
 		if ( in_array( Member::ROLE, $roles, true ) ) {
-			$button = sprintf( '<button type="button" class="button" disabled>%s</button>', esc_html__( 'Member approved', 'axellcore-atelierclub' ) );
-			$help   = __( 'This member has been approved.', 'axellcore-atelierclub' );
+			$button = sprintf( '<button type="button" class="button" disabled>%s</button>', esc_html__( 'Member approved', 'axellcore-atelier' ) );
+			$help   = __( 'This member has been approved.', 'axellcore-atelier' );
 		} elseif ( Member::can_approve( $user->ID ) ) {
 			// Saves the profile, as "Update User", and approves: not a submit
 			// button, so Enter in a field keeps saving without approving.
 			$button = sprintf(
 				'<input type="hidden" name="aa_member_approve" id="aa-member-approve" value="0"><button type="button" class="button" data-wp-interactive="axell/member-fields" data-wp-on--click="actions.approve">%s</button>',
-				esc_html__( 'Approve member', 'axellcore-atelierclub' )
+				esc_html__( 'Approve member', 'axellcore-atelier' )
 			);
-			$help   = __( 'This application is pending approval.', 'axellcore-atelierclub' );
+			$help   = __( 'This application is pending approval.', 'axellcore-atelier' );
 		} else {
-			$button = sprintf( '<button type="button" class="button" disabled>%s</button>', esc_html__( 'Pending', 'axellcore-atelierclub' ) );
-			$help   = __( 'This application is pending approval.', 'axellcore-atelierclub' );
+			$button = sprintf( '<button type="button" class="button" disabled>%s</button>', esc_html__( 'Pending', 'axellcore-atelier' ) );
+			$help   = __( 'This application is pending approval.', 'axellcore-atelier' );
 		}
 		// The consent given on the form (LGPD), as recorded; read-only.
 		$consent = Members::consent_summary( $user->ID );
 		printf(
 			'<h2>%1$s</h2><table class="form-table" id="fieldset-aa-status" role="presentation"><tr><th scope="row">%2$s</th><td>%3$s<p class="description">%4$s</p></td></tr><tr><th scope="row">%5$s</th><td><p class="aa-member-consent">%6$s</p></td></tr></table>',
-			esc_html__( 'Atelier: Status', 'axellcore-atelierclub' ),
-			esc_html__( 'Membership', 'axellcore-atelierclub' ),
+			esc_html__( 'Atelier: Status', 'axellcore-atelier' ),
+			esc_html__( 'Membership', 'axellcore-atelier' ),
 			$button, // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped above.
 			esc_html( $help ),
-			esc_html__( 'Consent (LGPD)', 'axellcore-atelierclub' ),
-			'' !== $consent ? nl2br( Format::text_links( esc_html( $consent ) ) ) : esc_html__( 'Not recorded (application sent before the consent was recorded).', 'axellcore-atelierclub' ) // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped, its links through esc_url().
+			esc_html__( 'Consent (LGPD)', 'axellcore-atelier' ),
+			'' !== $consent ? nl2br( Format::text_links( esc_html( $consent ) ) ) : esc_html__( 'Not recorded (application sent before the consent was recorded).', 'axellcore-atelier' ) // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped, its links through esc_url().
 		);
 	}
 
@@ -528,8 +528,8 @@ final class Member_Profile {
 				. '<li class="aa-member-select__none" data-wp-bind--hidden="state.hasResults" hidden>%3$s</li>'
 				. '</ul></div></div>',
 			esc_attr( $id ),
-			esc_attr__( 'Search', 'axellcore-atelierclub' ),
-			esc_html__( 'No matches found', 'axellcore-atelierclub' )
+			esc_attr__( 'Search', 'axellcore-atelier' ),
+			esc_html__( 'No matches found', 'axellcore-atelier' )
 		);
 	}
 
@@ -552,7 +552,7 @@ final class Member_Profile {
 			esc_attr( $id ),
 			esc_attr( $value ),
 			$attrs, // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped by the caller.
-			esc_attr__( 'Cities', 'axellcore-atelierclub' ),
+			esc_attr__( 'Cities', 'axellcore-atelier' ),
 			esc_attr(
 				(string) wp_json_encode(
 					array(
@@ -601,17 +601,17 @@ final class Member_Profile {
 				esc_attr( self::PREFIX . 'resellers' ),
 				$index,
 				esc_attr( $slot['title'] ),
-				esc_attr__( 'Store name · city', 'axellcore-atelierclub' ),
+				esc_attr__( 'Store name · city', 'axellcore-atelier' ),
 				/* translators: %d: partner store position, 1 to 5. */
-				$index > 0 ? sprintf( ' aria-label="%s"', esc_attr( sprintf( __( 'Partner store %d', 'axellcore-atelierclub' ), $index + 1 ) ) ) : '',
+				$index > 0 ? sprintf( ' aria-label="%s"', esc_attr( sprintf( __( 'Partner store %d', 'axellcore-atelier' ), $index + 1 ) ) ) : '',
 				'' !== $error ? sprintf( ' aria-invalid="true" aria-describedby="%s-error"', esc_attr( $id ) ) : '',
 				esc_attr( $slot['id'] ),
 				$slot['pending'] ? '' : ' hidden',
-				esc_html__( 'Pending curation.', 'axellcore-atelierclub' ),
+				esc_html__( 'Pending curation.', 'axellcore-atelier' ),
 				esc_url( $slot['url'] ),
-				esc_html__( 'Open store', 'axellcore-atelierclub' ),
+				esc_html__( 'Open store', 'axellcore-atelier' ),
 				'' === $slot['title'] ? ' hidden' : '',
-				esc_html__( 'Remove', 'axellcore-atelierclub' ),
+				esc_html__( 'Remove', 'axellcore-atelier' ),
 				'' !== $error ? sprintf( '<p class="description aa-member-error" id="%s-error" data-wp-bind--hidden="!state.isInvalid">%s</p>', esc_attr( $id ), esc_html( $error ) ) : ''
 			);
 		}
@@ -691,7 +691,7 @@ final class Member_Profile {
 		// Brazil only: the country is never sent (disabled); another one is refused.
 		if ( isset( $fields['country'] ) ) {
 			if ( isset( $this->posted['country'] ) && 'BR' !== strtoupper( $this->posted['country'] ) ) {
-				$this->errors['country'] = array( 'aa_invalid_country', __( 'Only Brazil is accepted.', 'axellcore-atelierclub' ) );
+				$this->errors['country'] = array( 'aa_invalid_country', __( 'Only Brazil is accepted.', 'axellcore-atelier' ) );
 			}
 			$this->pending['country'] = 'BR';
 		}
@@ -701,15 +701,15 @@ final class Member_Profile {
 				continue;
 			}
 			if ( 'phone' === $key && '' !== $this->posted[ $key ] && ! preg_match( '/^\d{2}(9\d{8}|[2-5]\d{7})$/', Format::phone_national( $this->posted[ $key ] ) ) ) {
-				$this->errors[ $key ] = array( 'aa_invalid_phone', __( 'Enter a phone number with area code.', 'axellcore-atelierclub' ) );
+				$this->errors[ $key ] = array( 'aa_invalid_phone', __( 'Enter a phone number with area code.', 'axellcore-atelier' ) );
 				continue;
 			}
 			if ( 'postal' === $key && '' !== $this->posted[ $key ] && ! preg_match( '/^\d{8}$/', Format::digits( $this->posted[ $key ] ) ) ) {
-				$this->errors[ $key ] = array( 'aa_invalid_postal', __( 'Enter a CEP with 8 digits.', 'axellcore-atelierclub' ) );
+				$this->errors[ $key ] = array( 'aa_invalid_postal', __( 'Enter a CEP with 8 digits.', 'axellcore-atelier' ) );
 				continue;
 			}
 			if ( 'select' === ( $field['type'] ?? '' ) && ! array_key_exists( $this->posted[ $key ], (array) $field['options'] ) ) {
-				$this->errors[ $key ] = array( 'aa_invalid_option', __( 'Choose an option from the list.', 'axellcore-atelierclub' ) );
+				$this->errors[ $key ] = array( 'aa_invalid_option', __( 'Choose an option from the list.', 'axellcore-atelier' ) );
 				continue;
 			}
 			$this->pending[ $key ] = $this->posted[ $key ];
@@ -810,7 +810,7 @@ final class Member_Profile {
 			// A published revenda, or one the member already had (pending).
 			$known = Resellers::POST_TYPE === get_post_type( $id ) && 'publish' === get_post_status( $id );
 			if ( ! $id || ! ( $known || in_array( (string) $id, $stored, true ) ) ) {
-				$this->errors[ 'resellers:' . $index ] = array( 'aa_invalid_reseller', __( 'Choose a reseller from the list.', 'axellcore-atelierclub' ) );
+				$this->errors[ 'resellers:' . $index ] = array( 'aa_invalid_reseller', __( 'Choose a reseller from the list.', 'axellcore-atelier' ) );
 				continue;
 			}
 			$ids[] = $id;
@@ -870,7 +870,7 @@ final class Member_Profile {
 				static function ( $updated ) use ( $user_id ) {
 					if ( (int) $updated === $user_id ) {
 						/** This action is documented in includes/class-member.php */
-						do_action( 'axellcore_atelierclub_member_approved', $user_id );
+						do_action( 'axellcore_atelier_member_approved', $user_id );
 					}
 				}
 			);

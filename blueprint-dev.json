@@ -37,7 +37,7 @@
 			"pluginData": {
 				"resource": "github.com",
 				"owner": "axellhydrosystems",
-				"repo": "axellcore-atelierclub",
+				"repo": "axellcore-atelier",
 				"workflow": {
 					"id": "pr-preview-build.yml",
 					"artifactName": "plugin-zip"

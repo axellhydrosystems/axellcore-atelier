@@ -5,10 +5,10 @@
  * The landing is Portuguese only and has its own header: Weglot's language
  * switcher, stylesheets, hreflang links and output buffer don't belong there.
  *
- * @package Axellcore_Atelierclub
+ * @package Axellcore_Atelier
  */
 
-namespace Axellcore_Atelierclub;
+namespace Axellcore_Atelier;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;

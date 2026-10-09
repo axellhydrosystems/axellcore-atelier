@@ -4,10 +4,10 @@
  * plus header and footer partials. Theme files named header-atelier.php and
  * footer-atelier.php take precedence over the plugin's (WooCommerce-style).
  *
- * @package Axellcore_Atelierclub
+ * @package Axellcore_Atelier
  */
 
-namespace Axellcore_Atelierclub;
+namespace Axellcore_Atelier;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -61,7 +61,7 @@ final class Classic_Template {
 	 */
 	public function page_templates( $templates ) {
 		if ( ! wp_is_block_theme() ) {
-			$templates[ Plugin::TEMPLATE_SLUG ] = __( 'Atelier Club', 'axellcore-atelierclub' );
+			$templates[ Plugin::TEMPLATE_SLUG ] = __( 'Atelier Axell', 'axellcore-atelier' );
 		}
 		return $templates;
 	}
@@ -86,7 +86,7 @@ final class Classic_Template {
 		if ( ! self::is_active() ) {
 			return $template;
 		}
-		return AXELLCORE_ATELIERCLUB_PATH . 'templates/atelier/page.php';
+		return AXELLCORE_ATELIER_PATH . 'templates/atelier/page.php';
 	}
 
 	/**
@@ -100,12 +100,12 @@ final class Classic_Template {
 		if ( $theme_file ) {
 			return $theme_file;
 		}
-		return (string) apply_filters( 'axellcore_atelier_template_path', AXELLCORE_ATELIERCLUB_PATH . 'templates/atelier/' . $file, $file );
+		return (string) apply_filters( 'axellcore_atelier_template_path', AXELLCORE_ATELIER_PATH . 'templates/atelier/' . $file, $file );
 	}
 
 	/**
 	 * The page as the block template renders it in a block theme
-	 * (templates/atelier-club.html inside .wp-site-blocks), with the header
+	 * (templates/atelier.html inside .wp-site-blocks), with the header
 	 * and footer partials in place of its template parts. Called before
 	 * wp_head(), as a block theme does, so the styles the blocks need are
 	 * printed in the head.
@@ -117,7 +117,7 @@ final class Classic_Template {
 			'axellcore-header' => 'header-atelier.php',
 			'axellcore-footer' => 'footer-atelier.php',
 		);
-		$markup = (string) file_get_contents( AXELLCORE_ATELIERCLUB_PATH . 'templates/' . Plugin::TEMPLATE_SLUG . '.html' ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+		$markup = (string) file_get_contents( AXELLCORE_ATELIER_PATH . 'templates/' . Plugin::TEMPLATE_SLUG . '.html' ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
 		$markup = (string) preg_replace_callback(
 			'#<!-- wp:template-part (\{.*?\}) /-->#',
 			static function ( $m ) use ( $parts ) {

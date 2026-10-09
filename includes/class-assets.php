@@ -5,10 +5,10 @@
  * section pages: the theme's global styles, block styles and presets (the
  * legacy isolated stylesheets are gone).
  *
- * @package Axellcore_Atelierclub
+ * @package Axellcore_Atelier
  */
 
-namespace Axellcore_Atelierclub;
+namespace Axellcore_Atelier;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -85,9 +85,9 @@ final class Assets {
 	private function enqueue_frontend_script() {
 		wp_enqueue_script(
 			'aa-frontend',
-			AXELLCORE_ATELIERCLUB_URL . 'assets/js/frontend.js',
+			AXELLCORE_ATELIER_URL . 'assets/js/frontend.js',
 			array(),
-			AXELLCORE_ATELIERCLUB_VERSION,
+			AXELLCORE_ATELIER_VERSION,
 			array(
 				'strategy'  => 'defer',
 				'in_footer' => true,
@@ -108,11 +108,11 @@ final class Assets {
 	 * @return string
 	 */
 	public static function admin_dataviews_style() {
-		$handle = 'axellcore-atelierclub-admin-dataviews';
-		$asset  = AXELLCORE_ATELIERCLUB_PATH . 'build/admin/dataviews/index.asset.php';
+		$handle = 'axellcore-atelier-admin-dataviews';
+		$asset  = AXELLCORE_ATELIER_PATH . 'build/admin/dataviews/index.asset.php';
 		if ( ! wp_style_is( $handle, 'registered' ) && file_exists( $asset ) ) {
 			$version = ( require $asset )['version'];
-			wp_register_style( $handle, AXELLCORE_ATELIERCLUB_URL . 'build/admin/dataviews/style-index.css', array( 'wp-components' ), $version );
+			wp_register_style( $handle, AXELLCORE_ATELIER_URL . 'build/admin/dataviews/style-index.css', array( 'wp-components' ), $version );
 		}
 		return $handle;
 	}

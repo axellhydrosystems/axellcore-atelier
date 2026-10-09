@@ -66,7 +66,7 @@
 				blockProps,
 				el(
 					'p',
-					{ className: 'aa-chapter-tag', 'data-chapter': __( 'Chapter', 'axellcore-atelierclub' ) },
+					{ className: 'aa-chapter-tag', 'data-chapter': __( 'Chapter', 'axellcore-atelier' ) },
 					el( RichText, {
 						tagName: 'span',
 						className: 'aa-chapter-label',
@@ -75,7 +75,7 @@
 							setAttributes( { label: label } );
 						},
 						allowedFormats: [],
-						placeholder: __( 'Chapter name…', 'axellcore-atelierclub' ),
+						placeholder: __( 'Chapter name…', 'axellcore-atelier' ),
 					} )
 				),
 				el( 'div', innerBlocksProps )

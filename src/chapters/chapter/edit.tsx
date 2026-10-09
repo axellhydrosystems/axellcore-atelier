@@ -65,7 +65,7 @@ export default function Edit( {
 		<div { ...blockProps }>
 			<p
 				className="aa-chapter-tag"
-				data-chapter={ __( 'Chapter', 'axellcore-atelierclub' ) }
+				data-chapter={ __( 'Chapter', 'axellcore-atelier' ) }
 			>
 				<RichText
 					tagName="span"
@@ -75,7 +75,7 @@ export default function Edit( {
 					allowedFormats={ [] }
 					placeholder={ __(
 						'Chapter name…',
-						'axellcore-atelierclub'
+						'axellcore-atelier'
 					) }
 				/>
 			</p>

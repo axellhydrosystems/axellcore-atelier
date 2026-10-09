@@ -6,7 +6,7 @@ const { chromium } = req('playwright-core');
 const { launchOptions } = await import(pathToFileURL(SK + '/browser.mjs').href);
 const browser = await chromium.launch({ ...launchOptions(), args: [ '--disable-gpu' ] });
 const page = await browser.newPage({ viewport: { width: 1440, height: 900 }, deviceScaleFactor: 1 });
-await page.route('**/wp-json/axellcore-atelierclub/v1/members', (route) => route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ success: true, id: 1 }) }));
+await page.route('**/wp-json/axellcore-atelier/v1/members', (route) => route.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ success: true, id: 1 }) }));
 await page.goto('http://localhost:8906/atelier/', { waitUntil: 'load' });
 await page.evaluate(() => document.fonts.ready);
 const form = page.locator('form[data-wp-interactive="axell/form"]').first();

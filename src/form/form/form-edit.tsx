@@ -44,10 +44,10 @@ interface FormEditOptions {
 }
 
 const STATUS_OPTIONS = [
-	{ label: __( 'Pending', 'axellcore-atelierclub' ), value: 'pending' },
-	{ label: __( 'Draft', 'axellcore-atelierclub' ), value: 'draft' },
-	{ label: __( 'Published', 'axellcore-atelierclub' ), value: 'publish' },
-	{ label: __( 'Private', 'axellcore-atelierclub' ), value: 'private' },
+	{ label: __( 'Pending', 'axellcore-atelier' ), value: 'pending' },
+	{ label: __( 'Draft', 'axellcore-atelier' ), value: 'draft' },
+	{ label: __( 'Published', 'axellcore-atelier' ), value: 'publish' },
+	{ label: __( 'Private', 'axellcore-atelier' ), value: 'private' },
 ];
 
 /** Short random id for formId. */
@@ -121,60 +121,60 @@ export function FormEdit(
 	return (
 		<>
 			<InspectorControls>
-				<PanelBody title={ __( 'Submission actions', 'axellcore-atelierclub' ) } initialOpen>
+				<PanelBody title={ __( 'Submission actions', 'axellcore-atelier' ) } initialOpen>
 					<SelectControl
-						label={ __( 'Save to', 'axellcore-atelierclub' ) }
+						label={ __( 'Save to', 'axellcore-atelier' ) }
 						help={
 							options.lockedStore
-								? __( 'Set by this block: each submission becomes a registration.', 'axellcore-atelierclub' )
-								: __( 'Each submission becomes a post of this type. None: nothing is saved.', 'axellcore-atelierclub' )
+								? __( 'Set by this block: each submission becomes a registration.', 'axellcore-atelier' )
+								: __( 'Each submission becomes a post of this type. None: nothing is saved.', 'axellcore-atelier' )
 						}
 						value={ attributes.storePostType }
 						disabled={ !! options.lockedStore }
 						options={
 							options.lockedStore
 								? [ { label: storeLabel, value: attributes.storePostType } ]
-								: [ { label: __( 'None', 'axellcore-atelierclub' ), value: '' }, ...postTypes ]
+								: [ { label: __( 'None', 'axellcore-atelier' ), value: '' }, ...postTypes ]
 						}
 						onChange={ ( value: string ) => setAttributes( { storePostType: value } ) }
 					/>
 					{ !! attributes.storePostType && ! options.lockedStore && (
 						<>
 							<SelectControl
-								label={ __( 'Post status', 'axellcore-atelierclub' ) }
+								label={ __( 'Post status', 'axellcore-atelier' ) }
 								value={ attributes.storeStatus }
 								options={ STATUS_OPTIONS }
 								onChange={ ( value: string ) => setAttributes( { storeStatus: value } ) }
 							/>
 							<TextControl
-								label={ __( 'Title field (name)', 'axellcore-atelierclub' ) }
-								help={ __( 'Name of the field whose value becomes the post title.', 'axellcore-atelierclub' ) }
+								label={ __( 'Title field (name)', 'axellcore-atelier' ) }
+								help={ __( 'Name of the field whose value becomes the post title.', 'axellcore-atelier' ) }
 								value={ attributes.titleField }
 								onChange={ ( value: string ) => setAttributes( { titleField: value } ) }
 							/>
 						</>
 					) }
 					<ToggleControl
-						label={ __( 'Send email', 'axellcore-atelierclub' ) }
+						label={ __( 'Send email', 'axellcore-atelier' ) }
 						checked={ !! attributes.sendEmail }
 						onChange={ ( value: boolean ) => setAttributes( { sendEmail: value } ) }
 					/>
 					{ attributes.sendEmail && (
 						<>
 							<TextControl
-								label={ __( 'To', 'axellcore-atelierclub' ) }
-								help={ __( 'Separate several emails with commas. Empty: the administrator\'s email.', 'axellcore-atelierclub' ) }
+								label={ __( 'To', 'axellcore-atelier' ) }
+								help={ __( 'Separate several emails with commas. Empty: the administrator\'s email.', 'axellcore-atelier' ) }
 								value={ attributes.emailTo }
 								onChange={ ( value: string ) => setAttributes( { emailTo: value } ) }
 							/>
 							<TextControl
-								label={ __( 'Subject', 'axellcore-atelierclub' ) }
+								label={ __( 'Subject', 'axellcore-atelier' ) }
 								value={ attributes.emailSubject }
 								onChange={ ( value: string ) => setAttributes( { emailSubject: value } ) }
 							/>
 							<TextareaControl
-								label={ __( 'Message', 'axellcore-atelierclub' ) }
-								help={ __( 'Tags: {a field\'s name}, for example {nome}, and {all_fields} with every field.', 'axellcore-atelierclub' ) }
+								label={ __( 'Message', 'axellcore-atelier' ) }
+								help={ __( 'Tags: {a field\'s name}, for example {nome}, and {all_fields} with every field.', 'axellcore-atelier' ) }
 								value={ attributes.emailBody }
 								rows={ 6 }
 								onChange={ ( value: string ) => setAttributes( { emailBody: value } ) }

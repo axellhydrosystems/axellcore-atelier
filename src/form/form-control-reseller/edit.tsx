@@ -12,31 +12,31 @@ export default function Edit( { attributes, setAttributes }: BlockEditProps< Res
 	return (
 		<>
 			<InspectorControls>
-				<PanelBody title={ __( 'Field', 'axellcore-atelierclub' ) } initialOpen>
+				<PanelBody title={ __( 'Field', 'axellcore-atelier' ) } initialOpen>
 					<TextControl
-						label={ __( 'ID', 'axellcore-atelierclub' ) }
+						label={ __( 'ID', 'axellcore-atelier' ) }
 						value={ attributes.id }
 						onChange={ ( value: string ) => setAttributes( { id: value } ) }
 					/>
 					<TextControl
-						label={ __( 'Name (name attribute)', 'axellcore-atelierclub' ) }
-						help={ __( 'Empty uses the ID.', 'axellcore-atelierclub' ) }
+						label={ __( 'Name (name attribute)', 'axellcore-atelier' ) }
+						help={ __( 'Empty uses the ID.', 'axellcore-atelier' ) }
 						value={ attributes.name }
 						onChange={ ( value: string ) => setAttributes( { name: value } ) }
 					/>
 					<TextControl
-						label={ __( 'Placeholder', 'axellcore-atelierclub' ) }
+						label={ __( 'Placeholder', 'axellcore-atelier' ) }
 						value={ attributes.placeholder }
 						onChange={ ( value: string ) => setAttributes( { placeholder: value } ) }
 					/>
 					<ToggleControl
-						label={ __( 'Required', 'axellcore-atelierclub' ) }
+						label={ __( 'Required', 'axellcore-atelier' ) }
 						checked={ !! attributes.required }
 						onChange={ ( value: boolean ) => setAttributes( { required: value } ) }
 					/>
 					<ToggleControl
-						label={ __( 'Allow "Add not found"', 'axellcore-atelierclub' ) }
-						help={ __( 'Shows the option and the Name, State and City fields to register a new reseller.', 'axellcore-atelierclub' ) }
+						label={ __( 'Allow "Add not found"', 'axellcore-atelier' ) }
+						help={ __( 'Shows the option and the Name, State and City fields to register a new reseller.', 'axellcore-atelier' ) }
 						checked={ !! attributes.allowNotFound }
 						onChange={ ( value: boolean ) => setAttributes( { allowNotFound: value } ) }
 					/>

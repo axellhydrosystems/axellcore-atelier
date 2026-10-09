@@ -4,10 +4,10 @@
  * icons in the editor with a generated mask stylesheet, and renders the SVG
  * on the front end. Ported from the profchoicecore plugin (modules/icons).
  *
- * @package Axellcore_Atelierclub
+ * @package Axellcore_Atelier
  */
 
-namespace Axellcore_Atelierclub;
+namespace Axellcore_Atelier;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 final class Inline_Icon {
 
-	const HANDLE = 'axellcore-atelierclub-inline-icon';
+	const HANDLE = 'axellcore-atelier-inline-icon';
 
 	/**
 	 * Register hooks.
@@ -38,14 +38,14 @@ final class Inline_Icon {
 	 * @return void
 	 */
 	public static function register_assets() {
-		$build = AXELLCORE_ATELIERCLUB_PATH . 'build/inline-icon/';
-		$url   = AXELLCORE_ATELIERCLUB_URL . 'build/inline-icon/';
+		$build = AXELLCORE_ATELIER_PATH . 'build/inline-icon/';
+		$url   = AXELLCORE_ATELIER_URL . 'build/inline-icon/';
 		if ( ! file_exists( $build . 'index.asset.php' ) ) {
 			return;
 		}
 		$asset = require $build . 'index.asset.php';
 		wp_register_script( self::HANDLE, $url . 'index.js', $asset['dependencies'], $asset['version'], true );
-		wp_set_script_translations( self::HANDLE, 'axellcore-atelierclub' );
+		wp_set_script_translations( self::HANDLE, 'axellcore-atelier' );
 		wp_register_style( self::HANDLE, $url . 'style-index.css', array(), $asset['version'] );
 		// Small enough for core to print inline instead of a render-blocking link.
 		wp_style_add_data( self::HANDLE, 'path', $build . 'style-index.css' );

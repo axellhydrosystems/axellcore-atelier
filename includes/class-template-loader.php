@@ -8,10 +8,10 @@
  * `template_include` — this uses core's register_block_template() (WP 6.7+),
  * confirmed present in wp-includes/block-template.php on this install.
  *
- * @package Axellcore_Atelierclub
+ * @package Axellcore_Atelier
  */
 
-namespace Axellcore_Atelierclub;
+namespace Axellcore_Atelier;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -96,7 +96,7 @@ final class Template_Loader {
 			return;
 		}
 
-		$template_path = AXELLCORE_ATELIERCLUB_PATH . 'templates/atelier-club.html';
+		$template_path = AXELLCORE_ATELIER_PATH . 'templates/atelier.html';
 
 		if ( ! file_exists( $template_path ) ) {
 			return;
@@ -105,8 +105,8 @@ final class Template_Loader {
 		register_block_template(
 			Plugin::TEMPLATE_NAME,
 			array(
-				'title'       => __( 'Atelier — Blank Canvas', 'axellcore-atelierclub' ),
-				'description' => __( 'Self-contained canvas for the Atelier Axell Club landing page. No header/footer template parts — the page content renders alone.', 'axellcore-atelierclub' ),
+				'title'       => __( 'Atelier — Blank Canvas', 'axellcore-atelier' ),
+				'description' => __( 'Self-contained canvas for the Atelier Axell Club landing page. No header/footer template parts — the page content renders alone.', 'axellcore-atelier' ),
 				'content'     => file_get_contents( $template_path ), // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
 				'post_types'  => array( 'page' ),
 			)
@@ -115,11 +115,11 @@ final class Template_Loader {
 		// Pages of one styled section (/atelier/<section>/): only the page
 		// content, on the page background of the design (body in the source).
 		register_block_template(
-			'axellcore-atelierclub//atelier-section',
+			'axellcore-atelier//atelier-section',
 			array(
-				'title'       => __( 'Atelier — Section', 'axellcore-atelierclub' ),
-				'description' => __( 'One styled section of the Atelier landing page on its own: the page content on the design background, without header or footer.', 'axellcore-atelierclub' ),
-				'content'     => file_get_contents( AXELLCORE_ATELIERCLUB_PATH . 'templates/atelier-section.html' ), // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+				'title'       => __( 'Atelier — Section', 'axellcore-atelier' ),
+				'description' => __( 'One styled section of the Atelier landing page on its own: the page content on the design background, without header or footer.', 'axellcore-atelier' ),
+				'content'     => file_get_contents( AXELLCORE_ATELIER_PATH . 'templates/atelier-section.html' ), // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
 				'post_types'  => array( 'page' ),
 			)
 		);
@@ -161,7 +161,7 @@ final class Template_Loader {
 	 * matches ONLY a plugin-registered template (no theme file, no saved
 	 * `wp_template`/`wp_template_part` post), the result comes back keyed by
 	 * the template's `plugin//slug` string — e.g.
-	 * `['axellcore-atelierclub//atelier-club' => WP_Block_Template]` — instead
+	 * `['axellcore-atelier//atelier' => WP_Block_Template]` — instead
 	 * of the sequential `[0 => WP_Block_Template]` every other code path in
 	 * core assumes.
 	 *

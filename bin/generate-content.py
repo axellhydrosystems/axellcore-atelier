@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """LEGACY: no longer used to build pages (see bin/export-content.sh and the
-section-by-section flow in .claude/skills). Generates the Atelier Club's page/header/footer Gutenberg block markup.
+section-by-section flow in .claude/skills). Generates the Atelier Axell's page/header/footer Gutenberg block markup.
 
 Source of truth for content/seed-content.html, content/header-part.html,
 and content/footer-part.html — those files are BUILD OUTPUT, not hand-edited
@@ -882,7 +882,7 @@ def apply_section():
                 def row3c():
                     # UF drives the Cidade select: choosing a state fetches
                     # and populates that state's cities (assets/js/frontend.js,
-                    # GET /axellcore-atelierclub/v1/cities?uf=XX — data adapted
+                    # GET /axellcore-atelier/v1/cities?uf=XX — data adapted
                     # from fervidum/f9brcities, see includes/data/br-*.php).
                     # UF must come first so it's usable before Cidade exists.
                     uf_options = [{"label": s, "value": s} for s in

@@ -1,10 +1,10 @@
 <?php
 /**
  * PHPUnit bootstrap — loads Brain\Monkey and minimal WP stubs, then requires
- * plugin files directly (not the axellcore-atelierclub.php entry point, so
+ * plugin files directly (not the axellcore-atelier.php entry point, so
  * Plugin::instance()->boot() is never auto-run in tests).
  *
- * @package Axellcore_Atelierclub\Tests
+ * @package Axellcore_Atelier\Tests
  * @license GPL-2.0-or-later
  */
 
@@ -25,39 +25,40 @@ require_once __DIR__ . '/stubs/functions.php';
 
 defined( 'ABSPATH' ) || define( 'ABSPATH', sys_get_temp_dir() . '/wordpress/' );
 defined( 'OBJECT' ) || define( 'OBJECT', 'OBJECT' );
-define( 'AXELLCORE_ATELIERCLUB_VERSION', '0.0.0-test' );
-define( 'AXELLCORE_ATELIERCLUB_FILE', dirname( __DIR__ ) . '/axellcore-atelierclub.php' );
-define( 'AXELLCORE_ATELIERCLUB_PATH', dirname( __DIR__ ) . '/' );
-define( 'AXELLCORE_ATELIERCLUB_URL', 'http://example.com/wp-content/plugins/axellcore-atelierclub/' );
+define( 'AXELLCORE_ATELIER_VERSION', '0.0.0-test' );
+define( 'AXELLCORE_ATELIER_FILE', dirname( __DIR__ ) . '/axellcore-atelier.php' );
+define( 'AXELLCORE_ATELIER_PATH', dirname( __DIR__ ) . '/' );
+define( 'AXELLCORE_ATELIER_URL', 'http://example.com/wp-content/plugins/axellcore-atelier/' );
 
 // ── Load plugin includes directly (skip the entry-point file's ->boot() call) ─
 
-require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-plugin.php';
-require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-template-loader.php';
-require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-assets.php';
-require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-classic-template.php';
-require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-template-parts.php';
-require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-blocks.php';
-require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-member.php';
-require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-locations.php';
-require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-document.php';
-require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-format.php';
-require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-members.php';
-require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-settings.php';
-require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-recaptcha.php';
-require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-form-submission.php';
-require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-places.php';
-require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-enhanced-select.php';
-require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-admin-rest.php';
-require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-members-export.php';
-require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-label-template.php';
-require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-form-directives.php';
-require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-member-profile.php';
-require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-notifications.php';
-require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-rest.php';
-require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-resellers.php';
-require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-reseller-store.php';
-require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-resellers-import.php';
-require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-activator.php';
-require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-cache.php';
-require_once AXELLCORE_ATELIERCLUB_PATH . 'includes/class-weglot.php';
+require_once AXELLCORE_ATELIER_PATH . 'includes/class-plugin.php';
+require_once AXELLCORE_ATELIER_PATH . 'includes/class-template-loader.php';
+require_once AXELLCORE_ATELIER_PATH . 'includes/class-assets.php';
+require_once AXELLCORE_ATELIER_PATH . 'includes/class-classic-template.php';
+require_once AXELLCORE_ATELIER_PATH . 'includes/class-template-parts.php';
+require_once AXELLCORE_ATELIER_PATH . 'includes/class-blocks.php';
+require_once AXELLCORE_ATELIER_PATH . 'includes/class-member.php';
+require_once AXELLCORE_ATELIER_PATH . 'includes/class-locations.php';
+require_once AXELLCORE_ATELIER_PATH . 'includes/class-document.php';
+require_once AXELLCORE_ATELIER_PATH . 'includes/class-format.php';
+require_once AXELLCORE_ATELIER_PATH . 'includes/class-members.php';
+require_once AXELLCORE_ATELIER_PATH . 'includes/class-settings.php';
+require_once AXELLCORE_ATELIER_PATH . 'includes/class-recaptcha.php';
+require_once AXELLCORE_ATELIER_PATH . 'includes/class-form-submission.php';
+require_once AXELLCORE_ATELIER_PATH . 'includes/class-places.php';
+require_once AXELLCORE_ATELIER_PATH . 'includes/class-enhanced-select.php';
+require_once AXELLCORE_ATELIER_PATH . 'includes/class-admin-rest.php';
+require_once AXELLCORE_ATELIER_PATH . 'includes/class-members-export.php';
+require_once AXELLCORE_ATELIER_PATH . 'includes/class-label-template.php';
+require_once AXELLCORE_ATELIER_PATH . 'includes/class-form-directives.php';
+require_once AXELLCORE_ATELIER_PATH . 'includes/class-member-profile.php';
+require_once AXELLCORE_ATELIER_PATH . 'includes/class-notifications.php';
+require_once AXELLCORE_ATELIER_PATH . 'includes/class-rest.php';
+require_once AXELLCORE_ATELIER_PATH . 'includes/class-resellers.php';
+require_once AXELLCORE_ATELIER_PATH . 'includes/class-reseller-store.php';
+require_once AXELLCORE_ATELIER_PATH . 'includes/class-resellers-import.php';
+require_once AXELLCORE_ATELIER_PATH . 'includes/class-activator.php';
+require_once AXELLCORE_ATELIER_PATH . 'includes/class-cache.php';
+require_once AXELLCORE_ATELIER_PATH . 'includes/class-weglot.php';
+require_once AXELLCORE_ATELIER_PATH . 'includes/class-rename.php';

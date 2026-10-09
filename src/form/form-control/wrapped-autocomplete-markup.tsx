@@ -42,7 +42,7 @@ export function wrappedAutocompleteMarkup( args: AutocompleteMarkupArgs ) {
 					type="text"
 					className="wp-block-axell-form-control"
 					readOnly
-					placeholder={ placeholder || __( 'Autocomplete (posts)', 'axellcore-atelierclub' ) }
+					placeholder={ placeholder || __( 'Autocomplete (posts)', 'axellcore-atelier' ) }
 				/>
 			</div>
 		);
@@ -78,13 +78,13 @@ export function wrappedAutocompleteMarkup( args: AutocompleteMarkupArgs ) {
 					<input
 						type="text"
 						data-field="name"
-						aria-label={ __( 'Name', 'axellcore-atelierclub' ) }
-						placeholder={ __( 'Name', 'axellcore-atelierclub' ) }
+						aria-label={ __( 'Name', 'axellcore-atelier' ) }
+						placeholder={ __( 'Name', 'axellcore-atelier' ) }
 					/>
 					<button
 						type="button"
 						className="aa-ac-back"
-						aria-label={ __( 'Back to search', 'axellcore-atelierclub' ) }
+						aria-label={ __( 'Back to search', 'axellcore-atelier' ) }
 					>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -103,7 +103,7 @@ export function wrappedAutocompleteMarkup( args: AutocompleteMarkupArgs ) {
 					</button>
 				</div>
 				<select
-					aria-label={ __( 'State code', 'axellcore-atelierclub' ) }
+					aria-label={ __( 'State code', 'axellcore-atelier' ) }
 				>
 					<option value="">UF</option>
 					{ UF_CODES.map( ( uf ) => (
@@ -113,11 +113,11 @@ export function wrappedAutocompleteMarkup( args: AutocompleteMarkupArgs ) {
 					) ) }
 				</select>
 				<select
-					aria-label={ __( 'City', 'axellcore-atelierclub' ) }
+					aria-label={ __( 'City', 'axellcore-atelier' ) }
 					data-field="city"
 					disabled
 				>
-					<option value="">{ __( 'Select state', 'axellcore-atelierclub' ) }</option>
+					<option value="">{ __( 'Select state', 'axellcore-atelier' ) }</option>
 				</select>
 			</div>
 			<ul

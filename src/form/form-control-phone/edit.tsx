@@ -18,28 +18,28 @@ export default function Edit( { attributes, setAttributes }: BlockEditProps< Add
 	return (
 		<>
 			<InspectorControls>
-				<PanelBody title={ __( 'Field', 'axellcore-atelierclub' ) } initialOpen>
+				<PanelBody title={ __( 'Field', 'axellcore-atelier' ) } initialOpen>
 					<TextControl
-						label={ __( 'ID', 'axellcore-atelierclub' ) }
+						label={ __( 'ID', 'axellcore-atelier' ) }
 						value={ attributes.id }
 						onChange={ ( value: string ) => setAttributes( { id: value } ) }
 					/>
 					<TextControl
-						label={ __( 'Name (name attribute)', 'axellcore-atelierclub' ) }
+						label={ __( 'Name (name attribute)', 'axellcore-atelier' ) }
 						value={ attributes.name }
 						onChange={ ( value: string ) => setAttributes( { name: value } ) }
 					/>
 					<TextControl
-						label={ __( 'Placeholder', 'axellcore-atelierclub' ) }
+						label={ __( 'Placeholder', 'axellcore-atelier' ) }
 						value={ attributes.placeholder }
 						onChange={ ( value: string ) => setAttributes( { placeholder: value } ) }
 					/>
 					<SelectControl
-						label={ __( 'Country set by', 'axellcore-atelierclub' ) }
+						label={ __( 'Country set by', 'axellcore-atelier' ) }
 						value={ ( attributes.countrySource as string ) || 'field' }
 						options={ [
-							{ label: __( 'Field', 'axellcore-atelierclub' ), value: 'field' },
-							{ label: __( 'Selection', 'axellcore-atelierclub' ), value: 'select' },
+							{ label: __( 'Field', 'axellcore-atelier' ), value: 'field' },
+							{ label: __( 'Selection', 'axellcore-atelier' ), value: 'select' },
 						] as { label: string; value: string }[] }
 						onChange={ ( value: string ) =>
 							setAttributes( value === 'select'
@@ -49,35 +49,35 @@ export default function Edit( { attributes, setAttributes }: BlockEditProps< Add
 					/>
 					{ ( attributes.countrySource || 'field' ) === 'field' ? (
 						<TextControl
-							label={ __( 'Country field (name)', 'axellcore-atelierclub' ) }
+							label={ __( 'Country field (name)', 'axellcore-atelier' ) }
 							value={ ( attributes.countryField as string ) || '' }
 							onChange={ ( value: string ) => setAttributes( { countryField: value } ) }
 						/>
 					) : (
 						<SelectControl
-							label={ __( 'Country', 'axellcore-atelierclub' ) }
+							label={ __( 'Country', 'axellcore-atelier' ) }
 							value={ chosenCountry( attributes.country as string | undefined ) }
 							options={ [
 								{ label: 'Brasil', value: 'BR' },
 								{ label: 'Estados Unidos', value: 'US' },
-								{ label: __( 'Other', 'axellcore-atelierclub' ), value: '' },
+								{ label: __( 'Other', 'axellcore-atelier' ), value: '' },
 							] as { label: string; value: string }[] }
 							onChange={ ( value: string ) => setAttributes( { country: value } ) }
 						/>
 					) }
 					<SelectControl
-						label={ __( 'Phone type', 'axellcore-atelierclub' ) }
+						label={ __( 'Phone type', 'axellcore-atelier' ) }
 						value={ ( attributes.lineType as string ) || 'both' }
 						options={ [
-							{ label: __( 'Both', 'axellcore-atelierclub' ), value: 'both' },
-							{ label: __( 'Mobile', 'axellcore-atelierclub' ), value: 'mobile' },
-							{ label: __( 'Landline', 'axellcore-atelierclub' ), value: 'landline' },
+							{ label: __( 'Both', 'axellcore-atelier' ), value: 'both' },
+							{ label: __( 'Mobile', 'axellcore-atelier' ), value: 'mobile' },
+							{ label: __( 'Landline', 'axellcore-atelier' ), value: 'landline' },
 						] as { label: string; value: string }[] }
-						help={ __( 'Only for Brazilian numbers: a mobile has 11 digits and starts with 9 after the area code; a landline has 10 and starts with 2 to 5. In the US the number does not tell the type.', 'axellcore-atelierclub' ) }
+						help={ __( 'Only for Brazilian numbers: a mobile has 11 digits and starts with 9 after the area code; a landline has 10 and starts with 2 to 5. In the US the number does not tell the type.', 'axellcore-atelier' ) }
 						onChange={ ( value: string ) => setAttributes( { lineType: value } ) }
 					/>
 					<ToggleControl
-						label={ __( 'Required', 'axellcore-atelierclub' ) }
+						label={ __( 'Required', 'axellcore-atelier' ) }
 						checked={ !! attributes.required }
 						onChange={ ( value: boolean ) => setAttributes( { required: value } ) }
 					/>

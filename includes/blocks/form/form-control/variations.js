@@ -19,8 +19,8 @@
 	var VARIATIONS = [
 		{
 			name: 'text',
-			title: __( 'Text Control', 'axellcore-atelierclub' ),
-			description: __( 'A generic text input.', 'axellcore-atelierclub' ),
+			title: __( 'Text Control', 'axellcore-atelier' ),
+			description: __( 'A generic text input.', 'axellcore-atelier' ),
 			attributes: { type: 'text' },
 			isDefault: true,
 			scope: [ 'inserter', 'transform' ],
@@ -28,8 +28,8 @@
 		},
 		{
 			name: 'email',
-			title: __( 'Email Control', 'axellcore-atelierclub' ),
-			description: __( 'Used for email addresses.', 'axellcore-atelierclub' ),
+			title: __( 'Email Control', 'axellcore-atelier' ),
+			description: __( 'Used for email addresses.', 'axellcore-atelier' ),
 			attributes: { type: 'email' },
 			isDefault: true,
 			scope: [ 'inserter', 'transform' ],
@@ -37,8 +37,8 @@
 		},
 		{
 			name: 'url',
-			title: __( 'URL Control', 'axellcore-atelierclub' ),
-			description: __( 'Used for URLs.', 'axellcore-atelierclub' ),
+			title: __( 'URL Control', 'axellcore-atelier' ),
+			description: __( 'Used for URLs.', 'axellcore-atelier' ),
 			attributes: { type: 'url' },
 			isDefault: true,
 			scope: [ 'inserter', 'transform' ],
@@ -46,8 +46,8 @@
 		},
 		{
 			name: 'tel',
-			title: __( 'Phone Control', 'axellcore-atelierclub' ),
-			description: __( 'Used for phone numbers.', 'axellcore-atelierclub' ),
+			title: __( 'Phone Control', 'axellcore-atelier' ),
+			description: __( 'Used for phone numbers.', 'axellcore-atelier' ),
 			attributes: { type: 'tel' },
 			isDefault: true,
 			scope: [ 'inserter', 'transform' ],
@@ -55,8 +55,8 @@
 		},
 		{
 			name: 'number',
-			title: __( 'Number Control', 'axellcore-atelierclub' ),
-			description: __( 'A numeric input.', 'axellcore-atelierclub' ),
+			title: __( 'Number Control', 'axellcore-atelier' ),
+			description: __( 'A numeric input.', 'axellcore-atelier' ),
 			attributes: { type: 'number' },
 			isDefault: true,
 			scope: [ 'inserter', 'transform' ],
@@ -64,8 +64,8 @@
 		},
 		{
 			name: 'textarea',
-			title: __( 'Textarea Control', 'axellcore-atelierclub' ),
-			description: __( 'A textarea input for multiple lines of text.', 'axellcore-atelierclub' ),
+			title: __( 'Textarea Control', 'axellcore-atelier' ),
+			description: __( 'A textarea input for multiple lines of text.', 'axellcore-atelier' ),
 			attributes: { type: 'textarea' },
 			isDefault: true,
 			scope: [ 'inserter', 'transform' ],
@@ -73,8 +73,8 @@
 		},
 		{
 			name: 'select',
-			title: __( 'Select Control', 'axellcore-atelierclub' ),
-			description: __( 'A dropdown with a fixed or dynamically-sourced list of options.', 'axellcore-atelierclub' ),
+			title: __( 'Select Control', 'axellcore-atelier' ),
+			description: __( 'A dropdown with a fixed or dynamically-sourced list of options.', 'axellcore-atelier' ),
 			attributes: { type: 'select' },
 			isDefault: true,
 			scope: [ 'inserter', 'transform' ],
@@ -82,8 +82,8 @@
 		},
 		{
 			name: 'checkbox',
-			title: __( 'Checkbox Control', 'axellcore-atelierclub' ),
-			description: __( 'A simple checkbox input.', 'axellcore-atelierclub' ),
+			title: __( 'Checkbox Control', 'axellcore-atelier' ),
+			description: __( 'A simple checkbox input.', 'axellcore-atelier' ),
 			attributes: { type: 'checkbox' },
 			isDefault: true,
 			scope: [ 'inserter', 'transform' ],
@@ -91,8 +91,8 @@
 		},
 		{
 			name: 'hidden',
-			title: __( 'Hidden Control', 'axellcore-atelierclub' ),
-			description: __( 'A hidden input field.', 'axellcore-atelierclub' ),
+			title: __( 'Hidden Control', 'axellcore-atelier' ),
+			description: __( 'A hidden input field.', 'axellcore-atelier' ),
 			icon: 'visibility',
 			attributes: { type: 'hidden' },
 			isDefault: true,

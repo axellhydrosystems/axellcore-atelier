@@ -25,13 +25,13 @@ const REVEAL_BLOCKS = [
 ];
 
 const REVEAL_OPTIONS: { label: string; value: RevealMode }[] = [
-	{ label: __( 'None', 'axellcore-atelierclub' ), value: 'none' },
+	{ label: __( 'None', 'axellcore-atelier' ), value: 'none' },
 	{
-		label: __( 'Whole block', 'axellcore-atelierclub' ),
+		label: __( 'Whole block', 'axellcore-atelier' ),
 		value: 'block',
 	},
 	{
-		label: __( 'Each child', 'axellcore-atelierclub' ),
+		label: __( 'Each child', 'axellcore-atelier' ),
 		value: 'items',
 	},
 ];
@@ -42,7 +42,7 @@ interface RevealAttributes {
 
 addFilter(
 	'blocks.registerBlockType',
-	'axellcore-atelierclub/reveal-attribute',
+	'axellcore-atelier/reveal-attribute',
 	( settings: Record< string, unknown >, name: string ) => {
 		if ( ! REVEAL_BLOCKS.includes( name ) ) {
 			return settings;
@@ -84,14 +84,14 @@ const withRevealControl = createHigherOrderComponent(
 						<PanelBody
 							title={ __(
 								'Reveal on scroll',
-								'axellcore-atelierclub'
+								'axellcore-atelier'
 							) }
 							initialOpen={ false }
 						>
 							<SelectControl
 								label={ __(
 									'Animate on scroll',
-									'axellcore-atelierclub'
+									'axellcore-atelier'
 								) }
 								value={ attributes.revealMode ?? 'none' }
 								options={ REVEAL_OPTIONS }
@@ -102,7 +102,7 @@ const withRevealControl = createHigherOrderComponent(
 								}
 								help={ __(
 									'Whole block fades in as one. Each child fades in on its own, for card grids and lists.',
-									'axellcore-atelierclub'
+									'axellcore-atelier'
 								) }
 								__next40pxDefaultSize
 								__nextHasNoMarginBottom
@@ -117,6 +117,6 @@ const withRevealControl = createHigherOrderComponent(
 
 addFilter(
 	'editor.BlockEdit',
-	'axellcore-atelierclub/reveal-control',
+	'axellcore-atelier/reveal-control',
 	withRevealControl
 );

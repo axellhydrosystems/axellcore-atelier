@@ -3,16 +3,16 @@
  * E-mail footer, in the mold of WooCommerce's email-footer.php: closes the
  * body and the container, and the credit (site name and the Atelier page).
  *
- * A theme can override this file in axellcore-atelierclub/emails/.
+ * A theme can override this file in axellcore-atelier/emails/.
  *
  * Variables: $styles (email-styles.php).
  *
- * @package Axellcore_Atelierclub
+ * @package Axellcore_Atelier
  */
 
 defined( 'ABSPATH' ) || exit;
 
-$atelier_page = Axellcore_Atelierclub\Settings::page();
+$atelier_page = Axellcore_Atelier\Settings::page();
 $atelier_url  = $atelier_page ? get_permalink( $atelier_page ) : home_url( '/' );
 $site_name    = wp_specialchars_decode( (string) get_bloginfo( 'name' ), ENT_QUOTES );
 ?>
@@ -36,7 +36,7 @@ $site_name    = wp_specialchars_decode( (string) get_bloginfo( 'name' ), ENT_QUO
 									<table border="0" cellpadding="0" cellspacing="0" width="100%" id="template_footer" role="presentation">
 										<tr>
 											<td valign="top" id="credit" style="<?php echo esc_attr( $styles['footer'] ); ?>">
-												<p class="aa-muted" style="<?php echo esc_attr( $styles['credit'] ); ?>"><?php echo esc_html( $site_name ); ?> · <a class="aa-link" href="<?php echo esc_url( $atelier_url ); ?>" style="<?php echo esc_attr( $styles['credit_link'] ); ?>" target="_blank"><?php echo esc_html( Axellcore_Atelierclub\Notifications::atelier_name() ); ?></a></p>
+												<p class="aa-muted" style="<?php echo esc_attr( $styles['credit'] ); ?>"><?php echo esc_html( $site_name ); ?> · <a class="aa-link" href="<?php echo esc_url( $atelier_url ); ?>" style="<?php echo esc_attr( $styles['credit_link'] ); ?>" target="_blank"><?php echo esc_html( Axellcore_Atelier\Notifications::atelier_name() ); ?></a></p>
 											</td>
 										</tr>
 									</table>

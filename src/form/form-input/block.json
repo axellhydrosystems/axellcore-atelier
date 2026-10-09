@@ -7,7 +7,7 @@
 	"ancestor": [ "axell/fieldset" ],
 	"description": "Deprecated — superseded by axell/form-label + axell/form-control (see this plugin's CLAUDE.md). Kept registered, hidden from the inserter, so any pre-existing content using it keeps rendering/editing correctly.",
 	"keywords": [ "input", "field", "form" ],
-	"textdomain": "axellcore-atelierclub",
+	"textdomain": "axellcore-atelier",
 	"attributes": {
 		"type": { "type": "string", "default": "text" },
 		"variant": { "type": "string", "default": "field" },

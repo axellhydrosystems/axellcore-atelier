@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Axellcore — Atelier Club 0.1.0\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/axellcore-atelierclub\n"
+"Project-Id-Version: Atelier Axell 0.1.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/axellcore-atelier\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Portuguese (Brazil) <pt_BR@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -11,21 +11,22 @@ msgstr ""
 "PO-Revision-Date: 2026-09-22 21:30+0000\n"
 "Language: pt_BR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Domain: axellcore-atelierclub\n"
+"X-Domain: axellcore-atelier\n"
 "X-Generator: WP-CLI 2.12.0\n"
 
 #. Plugin Name of the plugin
-#: axellcore-atelierclub.php
-msgid "Axellcore — Atelier Club"
-msgstr "Axellcore — Atelier Club"
+#: axellcore-atelier.php
+#: includes/class-classic-template.php:64
+msgid "Atelier Axell"
+msgstr "Atelier Axell"
 
 #. Description of the plugin
-#: axellcore-atelierclub.php
+#: axellcore-atelier.php
 msgid "Self-contained landing page (FSE template + core blocks + a custom application-form block) for the Atelier Axell Club invite program."
 msgstr "Landing page autocontida (template FSE + blocos nativos + um bloco customizado de formulário de adesão) para o programa por convite Atelier Axell Club."
 
 #. Author of the plugin
-#: axellcore-atelierclub.php
+#: axellcore-atelier.php
 msgid "Axell"
 msgstr "Axell"
 
@@ -2347,9 +2348,9 @@ msgid "Form Control (State)"
 msgstr "Controle de formulário (Estado)"
 
 #. Plugin URI of the plugin
-#: axellcore-atelierclub.php
-msgid "https://github.com/axellhydrosystems/axellcore-atelierclub"
-msgstr "https://github.com/axellhydrosystems/axellcore-atelierclub"
+#: axellcore-atelier.php
+msgid "https://github.com/axellhydrosystems/axellcore-atelier"
+msgstr "https://github.com/axellhydrosystems/axellcore-atelier"
 
 #: includes/class-settings.php:193
 #: includes/class-settings.php:736
@@ -2410,10 +2411,6 @@ msgstr "Este CNPJ já está cadastrado."
 msgid "This CPF is already registered."
 msgstr "Este CPF já está cadastrado."
 
-#: includes/class-classic-template.php:64
-msgid "Atelier Club"
-msgstr "Atelier Club"
-
 #: includes/class-settings.php:235
 msgid "Page"
 msgstr "Página"
@@ -2449,8 +2446,8 @@ msgid "Could not create the Atelier page."
 msgstr "Não foi possível criar a página do Atelier."
 
 #: includes/class-settings.php:492
-msgid "The page of the Atelier landing: its slug can change. With a block theme, use the Atelier Club template on it. Empty, no page is the Atelier page."
-msgstr "A página da landing do Atelier: o slug dela pode mudar. Com um tema de blocos, use nela o modelo Atelier Club. Vazio, nenhuma página é a do Atelier."
+msgid "The page of the Atelier landing: its slug can change. With a block theme, use the Atelier Axell template on it. Empty, no page is the Atelier page."
+msgstr "A página da landing do Atelier: o slug dela pode mudar. Com um tema de blocos, use nela o modelo Atelier Axell. Vazio, nenhuma página é a do Atelier."
 
 #: includes/class-settings.php:117
 msgid "Atelier Page"

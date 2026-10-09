@@ -70,7 +70,7 @@ export default function ResellersList( {
 						err?.message ??
 							__(
 								'Could not load the resellers.',
-								'axellcore-atelierclub'
+								'axellcore-atelier'
 							)
 					);
 				}
@@ -99,13 +99,13 @@ export default function ResellersList( {
 		() => [
 			{
 				id: 'title',
-				label: __( 'Name', 'axellcore-atelierclub' ),
+				label: __( 'Name', 'axellcore-atelier' ),
 				type: 'text',
 				enableHiding: false,
 			},
 			{
 				id: 'city',
-				label: __( 'City', 'axellcore-atelierclub' ),
+				label: __( 'City', 'axellcore-atelier' ),
 				type: 'text',
 				enableSorting: false,
 				elements: cityTerms,
@@ -117,7 +117,7 @@ export default function ResellersList( {
 			},
 			{
 				id: 'state',
-				label: __( 'State', 'axellcore-atelierclub' ),
+				label: __( 'State', 'axellcore-atelier' ),
 				type: 'text',
 				enableSorting: false,
 				elements: stateTerms,
@@ -129,31 +129,31 @@ export default function ResellersList( {
 			},
 			{
 				id: 'country',
-				label: __( 'Country', 'axellcore-atelierclub' ),
+				label: __( 'Country', 'axellcore-atelier' ),
 				type: 'text',
 				enableSorting: false,
 			},
 			{
 				id: 'phone_1',
-				label: __( 'Phone', 'axellcore-atelierclub' ),
+				label: __( 'Phone', 'axellcore-atelier' ),
 				type: 'telephone',
 				enableSorting: false,
 			},
 			{
 				id: 'email',
-				label: __( 'Email', 'axellcore-atelierclub' ),
+				label: __( 'Email', 'axellcore-atelier' ),
 				type: 'email',
 				enableSorting: false,
 			},
 			{
 				id: 'website',
-				label: __( 'Website', 'axellcore-atelierclub' ),
+				label: __( 'Website', 'axellcore-atelier' ),
 				type: 'url',
 				enableSorting: false,
 			},
 			{
 				id: 'status',
-				label: __( 'Status', 'axellcore-atelierclub' ),
+				label: __( 'Status', 'axellcore-atelier' ),
 				type: 'text',
 				enableSorting: false,
 				elements: statuses,
@@ -161,7 +161,7 @@ export default function ResellersList( {
 			},
 			{
 				id: 'date',
-				label: __( 'Date', 'axellcore-atelierclub' ),
+				label: __( 'Date', 'axellcore-atelier' ),
 				type: 'datetime',
 			},
 		],
@@ -172,7 +172,7 @@ export default function ResellersList( {
 		() => [
 			{
 				id: 'edit',
-				label: __( 'Edit', 'axellcore-atelierclub' ),
+				label: __( 'Edit', 'axellcore-atelier' ),
 				isPrimary: true,
 				callback: ( items ) => {
 					if ( items[ 0 ] ) {
@@ -182,7 +182,7 @@ export default function ResellersList( {
 			},
 			{
 				id: 'trash',
-				label: __( 'Move to trash', 'axellcore-atelierclub' ),
+				label: __( 'Move to trash', 'axellcore-atelier' ),
 				isDestructive: true,
 				supportsBulk: true,
 				callback: ( items ) => {
@@ -226,7 +226,7 @@ export default function ResellersList( {
 				isItemClickable={ () => true }
 				empty={ __(
 					'No resellers found.',
-					'axellcore-atelierclub'
+					'axellcore-atelier'
 				) }
 			/>
 		</>

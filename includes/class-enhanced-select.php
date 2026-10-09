@@ -10,10 +10,10 @@
  *
  * The state (UF) lists "SP · São Paulo" and its button shows "SP".
  *
- * @package Axellcore_Atelierclub
+ * @package Axellcore_Atelier
  */
 
-namespace Axellcore_Atelierclub;
+namespace Axellcore_Atelier;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -27,7 +27,7 @@ final class Enhanced_Select {
 	/**
 	 * The view module and its stylesheet.
 	 */
-	const HANDLE = 'axellcore-atelierclub-select';
+	const HANDLE = 'axellcore-atelier-select';
 
 	/**
 	 * Store namespace.
@@ -73,11 +73,11 @@ final class Enhanced_Select {
 	public function register_assets() {
 		wp_register_script_module(
 			self::HANDLE,
-			AXELLCORE_ATELIERCLUB_URL . 'build/select/view.js',
+			AXELLCORE_ATELIER_URL . 'build/select/view.js',
 			array( array( 'id' => '@wordpress/interactivity' ) ),
-			AXELLCORE_ATELIERCLUB_VERSION
+			AXELLCORE_ATELIER_VERSION
 		);
-		wp_register_style( self::HANDLE, AXELLCORE_ATELIERCLUB_URL . 'build/select/style-frontend.css', array(), AXELLCORE_ATELIERCLUB_VERSION );
+		wp_register_style( self::HANDLE, AXELLCORE_ATELIER_URL . 'build/select/style-frontend.css', array(), AXELLCORE_ATELIER_VERSION );
 	}
 
 	/**
@@ -93,7 +93,7 @@ final class Enhanced_Select {
 		 * @param array<string,array{search:bool,kind:string}> $fields Defaults: main practice, registration type, state.
 		 */
 		return (array) apply_filters(
-			'axellcore_atelierclub_enhanced_selects',
+			'axellcore_atelier_enhanced_selects',
 			array(
 				'primary_focus' => array(
 					'search' => true,
@@ -209,7 +209,7 @@ final class Enhanced_Select {
 			? sprintf(
 				'<input type="search" class="aa-select__search" data-field="search" role="combobox" aria-autocomplete="list" aria-expanded="true" aria-controls="%1$s-options" aria-label="%2$s" placeholder="%2$s" autocomplete="off" data-wp-bind--value="context.query" data-wp-bind--aria-activedescendant="state.activeId" data-wp-on--input="actions.onSearch"/>',
 				esc_attr( $id ),
-				esc_attr__( 'Search', 'axellcore-atelierclub' )
+				esc_attr__( 'Search', 'axellcore-atelier' )
 			)
 			: '';
 
@@ -233,7 +233,7 @@ final class Enhanced_Select {
 			esc_attr( $id ),
 			$filter, // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- built escaped above.
 			$search ? '' : ' data-wp-bind--aria-activedescendant="state.activeId"',
-			esc_html__( 'No matches found', 'axellcore-atelierclub' )
+			esc_html__( 'No matches found', 'axellcore-atelier' )
 		);
 	}
 

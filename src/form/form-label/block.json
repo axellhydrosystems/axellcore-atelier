@@ -10,7 +10,7 @@
 		"field",
 		"form"
 	],
-	"textdomain": "axellcore-atelierclub",
+	"textdomain": "axellcore-atelier",
 	"attributes": {
 		"text": {
 			"type": "rich-text",

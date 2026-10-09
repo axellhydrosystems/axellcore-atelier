@@ -3,10 +3,10 @@
  * Where hooked callbacks come from, to leave other plugins' output out of
  * the plugin's own pages.
  *
- * @package Axellcore_Atelierclub
+ * @package Axellcore_Atelier
  */
 
-namespace Axellcore_Atelierclub;
+namespace Axellcore_Atelier;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;

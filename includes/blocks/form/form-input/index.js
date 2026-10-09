@@ -52,22 +52,22 @@
 	);
 
 	var TYPE_OPTIONS = [
-		{ label: __( 'Text', 'axellcore-atelierclub' ), value: 'text' },
-		{ label: __( 'Email', 'axellcore-atelierclub' ), value: 'email' },
-		{ label: __( 'URL', 'axellcore-atelierclub' ), value: 'url' },
-		{ label: __( 'Number', 'axellcore-atelierclub' ), value: 'number' },
-		{ label: __( 'Phone', 'axellcore-atelierclub' ), value: 'tel' },
-		{ label: __( 'Textarea', 'axellcore-atelierclub' ), value: 'textarea' },
-		{ label: __( 'Select (options)', 'axellcore-atelierclub' ), value: 'select' },
-		{ label: __( 'Checkbox', 'axellcore-atelierclub' ), value: 'checkbox' },
-		{ label: __( 'Hidden', 'axellcore-atelierclub' ), value: 'hidden' },
+		{ label: __( 'Text', 'axellcore-atelier' ), value: 'text' },
+		{ label: __( 'Email', 'axellcore-atelier' ), value: 'email' },
+		{ label: __( 'URL', 'axellcore-atelier' ), value: 'url' },
+		{ label: __( 'Number', 'axellcore-atelier' ), value: 'number' },
+		{ label: __( 'Phone', 'axellcore-atelier' ), value: 'tel' },
+		{ label: __( 'Textarea', 'axellcore-atelier' ), value: 'textarea' },
+		{ label: __( 'Select (options)', 'axellcore-atelier' ), value: 'select' },
+		{ label: __( 'Checkbox', 'axellcore-atelier' ), value: 'checkbox' },
+		{ label: __( 'Hidden', 'axellcore-atelier' ), value: 'hidden' },
 	];
 
 	var MASK_OPTIONS = [
-		{ label: __( '— none —', 'axellcore-atelierclub' ), value: '' },
-		{ label: __( 'CPF / CNPJ', 'axellcore-atelierclub' ), value: 'cpf-cnpj' },
-		{ label: __( 'CEP (postal code)', 'axellcore-atelierclub' ), value: 'cep' },
-		{ label: __( 'Phone', 'axellcore-atelierclub' ), value: 'phone' },
+		{ label: __( '— none —', 'axellcore-atelier' ), value: '' },
+		{ label: __( 'CPF / CNPJ', 'axellcore-atelier' ), value: 'cpf-cnpj' },
+		{ label: __( 'CEP (postal code)', 'axellcore-atelier' ), value: 'cep' },
+		{ label: __( 'Phone', 'axellcore-atelier' ), value: 'phone' },
 	];
 
 	function optionsToText( options ) {
@@ -185,8 +185,8 @@
 		// Editor-only: type directly into the preview to set `placeholder`,
 		// same attribute/onChange shape the reference block uses.
 		var editableTextProps = ! isSave && {
-			'aria-label': __( 'Optional placeholder text', 'axellcore-atelierclub' ),
-			placeholder: placeholder ? undefined : __( 'Optional placeholder…', 'axellcore-atelierclub' ),
+			'aria-label': __( 'Optional placeholder text', 'axellcore-atelier' ),
+			placeholder: placeholder ? undefined : __( 'Optional placeholder…', 'axellcore-atelier' ),
 			value: placeholder,
 			onChange: function ( event ) {
 				setAttributes( { placeholder: event.target.value } );
@@ -206,7 +206,7 @@
 			return el(
 				'select',
 				common,
-				el( 'option', { value: '' }, placeholder || __( 'Select an option', 'axellcore-atelierclub' ) ),
+				el( 'option', { value: '' }, placeholder || __( 'Select an option', 'axellcore-atelier' ) ),
 				options.map( function ( o, i ) {
 					return el( 'option', { key: i, value: o.value }, o.label );
 				} )
@@ -252,7 +252,7 @@
 					border: '1px dashed currentColor',
 				},
 			},
-			__( 'Hidden field', 'axellcore-atelierclub' )
+			__( 'Hidden field', 'axellcore-atelier' )
 		);
 	}
 
@@ -318,9 +318,9 @@
 				onChange: function ( v ) {
 					setAttributes( { label: v } );
 				},
-				'aria-label': attributes.label ? __( 'Label', 'axellcore-atelierclub' ) : __( 'Empty label', 'axellcore-atelierclub' ),
+				'aria-label': attributes.label ? __( 'Label', 'axellcore-atelier' ) : __( 'Empty label', 'axellcore-atelier' ),
 				'data-empty': ! attributes.label,
-				placeholder: __( 'Field label…', 'axellcore-atelierclub' ),
+				placeholder: __( 'Field label…', 'axellcore-atelier' ),
 				allowedFormats: [ 'core/bold', 'core/italic', 'core/link' ],
 			} );
 
@@ -332,9 +332,9 @@
 					null,
 					el(
 						PanelBody,
-						{ title: __( 'Field', 'axellcore-atelierclub' ), initialOpen: true },
+						{ title: __( 'Field', 'axellcore-atelier' ), initialOpen: true },
 						el( SelectControl, {
-							label: __( 'Type', 'axellcore-atelierclub' ),
+							label: __( 'Type', 'axellcore-atelier' ),
 							value: attributes.type,
 							options: TYPE_OPTIONS,
 							onChange: function ( v ) {
@@ -343,11 +343,11 @@
 						} ),
 						'checkbox' === attributes.type &&
 							el( SelectControl, {
-								label: __( 'Variant', 'axellcore-atelierclub' ),
+								label: __( 'Variant', 'axellcore-atelier' ),
 								value: attributes.variant,
 								options: [
-									{ label: __( 'Default', 'axellcore-atelierclub' ), value: 'field' },
-									{ label: __( 'Consent (LGPD)', 'axellcore-atelierclub' ), value: 'consent' },
+									{ label: __( 'Default', 'axellcore-atelier' ), value: 'field' },
+									{ label: __( 'Consent (LGPD)', 'axellcore-atelier' ), value: 'consent' },
 								],
 								onChange: function ( v ) {
 									setAttributes( { variant: v } );
@@ -357,7 +357,7 @@
 							'checkbox' !== attributes.type &&
 							'hidden' !== attributes.type &&
 							el( TextControl, {
-								label: __( 'Placeholder', 'axellcore-atelierclub' ),
+								label: __( 'Placeholder', 'axellcore-atelier' ),
 								value: attributes.placeholder,
 								onChange: function ( v ) {
 									setAttributes( { placeholder: v } );
@@ -365,7 +365,7 @@
 							} ),
 						'hidden' === attributes.type &&
 							el( TextControl, {
-								label: __( 'Value', 'axellcore-atelierclub' ),
+								label: __( 'Value', 'axellcore-atelier' ),
 								value: attributes.value,
 								onChange: function ( v ) {
 									setAttributes( { value: v } );
@@ -373,7 +373,7 @@
 							} ),
 						'checkbox' === attributes.type &&
 							el( ToggleControl, {
-								label: __( 'Checked by default', 'axellcore-atelierclub' ),
+								label: __( 'Checked by default', 'axellcore-atelier' ),
 								checked: !! attributes.checked,
 								onChange: function ( v ) {
 									setAttributes( { checked: v } );
@@ -382,7 +382,7 @@
 						'hidden' !== attributes.type &&
 							'checkbox' !== attributes.type &&
 							el( ToggleControl, {
-								label: __( 'Required', 'axellcore-atelierclub' ),
+								label: __( 'Required', 'axellcore-atelier' ),
 								checked: !! attributes.required,
 								onChange: function ( v ) {
 									setAttributes( { required: v } );
@@ -391,7 +391,7 @@
 						'field' === attributes.variant &&
 							'hidden' !== attributes.type &&
 							el( TextControl, {
-								label: __( 'Hint text (optional)', 'axellcore-atelierclub' ),
+								label: __( 'Hint text (optional)', 'axellcore-atelier' ),
 								value: attributes.hint,
 								onChange: function ( v ) {
 									setAttributes( { hint: v } );
@@ -399,8 +399,8 @@
 							} ),
 						'select' === attributes.type &&
 							el( TextareaControl, {
-								label: __( 'Options (one per line: Label|value)', 'axellcore-atelierclub' ),
-								help: __( 'E.g.: Individual · CPF|cpf', 'axellcore-atelierclub' ),
+								label: __( 'Options (one per line: Label|value)', 'axellcore-atelier' ),
+								help: __( 'E.g.: Individual · CPF|cpf', 'axellcore-atelier' ),
 								value: optionsToText( attributes.options ),
 								onChange: function ( v ) {
 									setAttributes( { options: textToOptions( v ) } );
@@ -408,8 +408,8 @@
 							} ),
 						'select' === attributes.type &&
 							el( TextControl, {
-								label: __( 'Field (name) that populates these options', 'axellcore-atelierclub' ),
-								help: __( 'Leave empty for a static list. If set, this select starts empty/disabled and assets/js/frontend.js fetches its options from the REST cities endpoint whenever that field changes.', 'axellcore-atelierclub' ),
+								label: __( 'Field (name) that populates these options', 'axellcore-atelier' ),
+								help: __( 'Leave empty for a static list. If set, this select starts empty/disabled and assets/js/frontend.js fetches its options from the REST cities endpoint whenever that field changes.', 'axellcore-atelier' ),
 								value: attributes.citiesSourceName,
 								onChange: function ( v ) {
 									setAttributes( { citiesSourceName: v } );
@@ -418,9 +418,9 @@
 					),
 					el(
 						PanelBody,
-						{ title: __( 'Input mask (advanced)', 'axellcore-atelierclub' ), initialOpen: false },
+						{ title: __( 'Input mask (advanced)', 'axellcore-atelier' ), initialOpen: false },
 						el( SelectControl, {
-							label: __( 'Mask', 'axellcore-atelierclub' ),
+							label: __( 'Mask', 'axellcore-atelier' ),
 							value: attributes.mask,
 							options: MASK_OPTIONS,
 							onChange: function ( v ) {
@@ -429,8 +429,8 @@
 						} ),
 						'cpf-cnpj' === attributes.mask &&
 							el( TextControl, {
-								label: __( 'Field (name) that decides CPF vs. CNPJ', 'axellcore-atelierclub' ),
-								help: __( 'Name of the select field whose value ("cpf"/"cnpj") drives this mask.', 'axellcore-atelierclub' ),
+								label: __( 'Field (name) that decides CPF vs. CNPJ', 'axellcore-atelier' ),
+								help: __( 'Name of the select field whose value ("cpf"/"cnpj") drives this mask.', 'axellcore-atelier' ),
 								value: attributes.maskSourceName,
 								onChange: function ( v ) {
 									setAttributes( { maskSourceName: v } );
@@ -447,9 +447,9 @@
 					InspectorControls,
 					{ group: 'advanced' },
 					el( TextControl, {
-						label: __( 'Field name (name attribute)', 'axellcore-atelierclub' ),
+						label: __( 'Field name (name attribute)', 'axellcore-atelier' ),
 						value: attributes.name,
-						help: __( 'Leave empty to derive it from the label automatically.', 'axellcore-atelierclub' ),
+						help: __( 'Leave empty to derive it from the label automatically.', 'axellcore-atelier' ),
 						onChange: function ( v ) {
 							setAttributes( { name: v } );
 						},

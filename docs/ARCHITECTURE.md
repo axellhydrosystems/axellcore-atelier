@@ -1,4 +1,4 @@
-# Axellcore — Atelier Club: Architecture & Current Status
+# Atelier Axell: Architecture & Current Status
 
 This document exists because a lot changed in one working session without a
 commit checkpoint. It's a honest snapshot — what's solid and tested, what's
@@ -34,10 +34,10 @@ panel-editable afterward like any normal WordPress page.
 **Status: solid, tested.**
 
 - `includes/class-template-loader.php` registers the template
-  (`axellcore-atelierclub//atelier-club` — note: this internal registration
+  (`axellcore-atelier//atelier` — note: this internal registration
   name is unrelated to the page's URL slug, see §4 below) via
   `register_block_template()`.
-- `templates/atelier-club.html` is just:
+- `templates/atelier.html` is just:
   ```html
   <!-- wp:template-part {"slug":"axellcore-header","tagName":"header","area":"header"} /-->
   <!-- wp:post-content /-->
@@ -89,11 +89,11 @@ implemented yet**.
 ## 4. Group: URL & slugs — two different things, don't conflate them
 
 - **Page URL**: `/atelier` — `Activator::PAGE_SLUG`. Just renamed this
-  session from `/atelier-club`. Updated everywhere: Activator, both
+  session from `/atelier`. Updated everywhere: Activator, both
   Playground blueprints, the PR-preview workflow's inline blueprint, docs,
   and the actual local Studio page (`post_name` updated via `wp post
   update`).
-- **FSE template registration name**: `axellcore-atelierclub//atelier-club`
+- **FSE template registration name**: `axellcore-atelier//atelier`
   — `Plugin::TEMPLATE_NAME` / `Plugin::TEMPLATE_SLUG`. This is an internal
   WordPress template identifier (used for `_wp_page_template` postmeta and
   `is_page_template()` checks), **not a URL**. Deliberately left unchanged —
@@ -205,7 +205,7 @@ CSS build step. Don't hand-edit those three files directly; edit
    make-mo`. Fixed: both scripts now run `make-pot` → `update-po` (merges
    new strings into every shipped `.po`, preserving existing translations)
    → `make-mo` → `make-json`, in that order, and a `.mo` has been compiled
-   locally (`languages/axellcore-atelierclub-pt_BR.mo`).
+   locally (`languages/axellcore-atelier-pt_BR.mo`).
 2. **No `load_plugin_textdomain()` call anywhere.** Even with a valid `.mo`
    compiled, nothing was loading it — WordPress only auto-loads translations
    for plugins fetched from wordpress.org's own translation API, which this
@@ -217,9 +217,9 @@ CSS build step. Don't hand-edit those three files directly; edit
 
 All 62 current UI strings (46 as of `0.1.2`, +16 added this session for the
 chapters block and template-part titles) are translated in
-`languages/axellcore-atelierclub-pt_BR.po`, merged via `wp i18n update-po`
+`languages/axellcore-atelier-pt_BR.po`, merged via `wp i18n update-po`
 so none were lost. **Verified live**: `studio wp eval` confirms `__('Chapter',
-'axellcore-atelierclub')` resolves to `"Capítulo"` under the site's `pt_BR`
+'axellcore-atelier')` resolves to `"Capítulo"` under the site's `pt_BR`
 locale, and the actual page (screenshot-confirmed) renders "CAPÍTULO 01 ·
 CONVITE" — both the number and the word are genuinely runtime-generated, not
 stored text.
@@ -246,7 +246,7 @@ pt-br") is unrelated to the two bugs just fixed and remains fully open.
                                                  refactor, chapters CSS
  M assets/js/frontend.js                      — reveal selectors, CPF/CNPJ
                                                  validation + alphanumeric CNPJ
- M axellcore-atelierclub.php                  — load_plugin_textdomain() (i18n fix)
+ M axellcore-atelier.php                  — load_plugin_textdomain() (i18n fix)
  M bin/release.php                            — update-po + make-mo steps
  M bin/release.sh                             — update-po + make-mo steps
  M blueprint-dev.json                         — landingPage + permalink step
@@ -258,10 +258,10 @@ pt-br") is unrelated to the two bugs just fixed and remains fully open.
  M includes/class-blocks.php                  — registers chapters/chapter +
                                                  render_callback
  M includes/class-icons.php                   — fill-path icons (was stroke)
- M languages/axellcore-atelierclub-pt_BR.po   — 16 new strings translated
- M languages/axellcore-atelierclub.pot        — regenerated
+ M languages/axellcore-atelier-pt_BR.po   — 16 new strings translated
+ M languages/axellcore-atelier.pot        — regenerated
  M readme.txt                                 — /atelier references
- M templates/atelier-club.html                — template-part references
+ M templates/atelier.html                — template-part references
 ?? bin/generate-content.py                    — moved into the repo (was scratchpad)
 ?? content/footer-part.html                   — new (header/footer split out)
 ?? content/header-part.html                   — new
@@ -303,7 +303,7 @@ actual page copy).
 ## 10. Group: `/atelier-noclass` — an experiment, not a second production page
 
 `/atelier-noclass` (`bin/generate-noclass-content.py`,
-`templates/atelier-club-noclass.html`, `content/noclass-full.html`) proved
+`templates/atelier-noclass.html`, `content/noclass-full.html`) proved
 that this design is achievable almost entirely via native block style
 attributes instead of `aa-` CSS classes — see the
 `wp-native-block-styling` global skill (`~/.claude/skills/`) for the full,

@@ -9,10 +9,10 @@
  * Google is charged: short inputs are ignored, answers are cached and every
  * address is rate limited.
  *
- * @package Axellcore_Atelierclub
+ * @package Axellcore_Atelier
  */
 
-namespace Axellcore_Atelierclub;
+namespace Axellcore_Atelier;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -56,7 +56,7 @@ final class Places {
 	/**
 	 * The view module (src/places/view.ts) and its stylesheet.
 	 */
-	const HANDLE = 'axellcore-atelierclub-places';
+	const HANDLE = 'axellcore-atelier-places';
 
 	/**
 	 * The street field that searches, and the fields an address fills in.
@@ -83,7 +83,7 @@ final class Places {
 	/**
 	 * The admin-post action of "Clear address cache".
 	 */
-	const CLEAR_ACTION = 'axellcore_atelierclub_places_clear';
+	const CLEAR_ACTION = 'axellcore_atelier_places_clear';
 
 	/**
 	 * Prefixes of the cached answers (suggestions, addresses), after
@@ -132,11 +132,11 @@ final class Places {
 	public function register_assets() {
 		wp_register_script_module(
 			self::HANDLE,
-			AXELLCORE_ATELIERCLUB_URL . 'build/places/view.js',
+			AXELLCORE_ATELIER_URL . 'build/places/view.js',
 			array( array( 'id' => '@wordpress/interactivity' ) ),
-			AXELLCORE_ATELIERCLUB_VERSION
+			AXELLCORE_ATELIER_VERSION
 		);
-		wp_register_style( self::HANDLE, AXELLCORE_ATELIERCLUB_URL . 'build/places/style-frontend.css', array(), AXELLCORE_ATELIERCLUB_VERSION );
+		wp_register_style( self::HANDLE, AXELLCORE_ATELIER_URL . 'build/places/style-frontend.css', array(), AXELLCORE_ATELIER_VERSION );
 	}
 
 	/**
@@ -235,11 +235,11 @@ final class Places {
 		 *
 		 * @param string $background dark (the Atelier) or light.
 		 */
-		$background = (string) apply_filters( 'axellcore_atelierclub_places_logo', $background );
+		$background = (string) apply_filters( 'axellcore_atelier_places_logo', $background );
 		$file       = self::LOGOS[ $background ] ?? self::LOGOS['dark'];
 		return sprintf(
 			'<img class="aa-places-logo" src="%s" alt="Google Maps" width="87" height="16" translate="no" decoding="async">',
-			esc_url( AXELLCORE_ATELIERCLUB_URL . $file )
+			esc_url( AXELLCORE_ATELIER_URL . $file )
 		);
 	}
 
@@ -253,8 +253,8 @@ final class Places {
 			'autocompleteUrl' => rest_url( Rest::NAMESPACE . '/places/autocomplete' ),
 			'detailsUrl'      => rest_url( Rest::NAMESPACE . '/places/details' ),
 			'minInput'        => self::MIN_INPUT,
-			'searching'       => __( 'Searching addresses…', 'axellcore-atelierclub' ),
-			'notFound'        => __( 'No address found.', 'axellcore-atelierclub' ),
+			'searching'       => __( 'Searching addresses…', 'axellcore-atelier' ),
+			'notFound'        => __( 'No address found.', 'axellcore-atelier' ),
 		);
 	}
 
@@ -320,7 +320,7 @@ final class Places {
 	 */
 	public function handle_clear_cache() {
 		if ( ! current_user_can( 'manage_options' ) ) {
-			wp_die( esc_html__( 'Sorry, you are not allowed to do that.', 'axellcore-atelierclub' ), 403 );
+			wp_die( esc_html__( 'Sorry, you are not allowed to do that.', 'axellcore-atelier' ), 403 );
 		}
 		check_admin_referer( self::CLEAR_ACTION );
 		$deleted = self::clear_cache();
@@ -412,7 +412,7 @@ final class Places {
 	public function rest_details( \WP_REST_Request $request ) {
 		$address = self::address( (string) $request['id'], (string) $request['session'], Members::client_ip() );
 		if ( null === $address ) {
-			return new \WP_Error( 'aa_place_not_found', __( 'Address not found.', 'axellcore-atelierclub' ), array( 'status' => 404 ) );
+			return new \WP_Error( 'aa_place_not_found', __( 'Address not found.', 'axellcore-atelier' ), array( 'status' => 404 ) );
 		}
 		return rest_ensure_response( $address );
 	}
@@ -594,7 +594,7 @@ final class Places {
 		$key   = 'axell_places_' . md5( (string) $ip );
 		$count = (int) get_transient( $key );
 		if ( $count >= self::RATE_LIMIT ) {
-			return new \WP_Error( 'aa_rate_limited', __( 'Too many attempts. Try again in a few minutes.', 'axellcore-atelierclub' ), array( 'status' => 429 ) );
+			return new \WP_Error( 'aa_rate_limited', __( 'Too many attempts. Try again in a few minutes.', 'axellcore-atelier' ), array( 'status' => 429 ) );
 		}
 		set_transient( $key, $count + 1, self::RATE_WINDOW );
 		return true;

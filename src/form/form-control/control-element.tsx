@@ -26,7 +26,7 @@ export function HiddenFieldPlaceholder( { label }: { label?: string } = {} ) {
 				border: '1px dashed currentColor',
 			} }
 		>
-			{ label || __( 'Hidden field', 'axellcore-atelierclub' ) }
+			{ label || __( 'Hidden field', 'axellcore-atelier' ) }
 		</span>
 	);
 }
@@ -96,12 +96,12 @@ export default function ControlElement(
 		? {
 				'aria-label': __(
 					'Optional placeholder text',
-					'axellcore-atelierclub'
+					'axellcore-atelier'
 				),
 				placeholder:
 					editing?.active && placeholder
 						? undefined
-						: placeholder || __( 'Optional placeholder…', 'axellcore-atelierclub' ),
+						: placeholder || __( 'Optional placeholder…', 'axellcore-atelier' ),
 				value: editing && ! editing.active ? '' : placeholder,
 				onFocus: () => editing?.set( true ),
 				onBlur: () => editing?.set( false ),
@@ -153,7 +153,7 @@ export default function ControlElement(
 			<select { ...common }>
 				<option value="">
 					{ placeholder ||
-						__( 'Select an option', 'axellcore-atelierclub' ) }
+						__( 'Select an option', 'axellcore-atelier' ) }
 				</option>
 				{ options.map( ( o, i ) => (
 					<option key={ i } value={ o.value }>

@@ -6,7 +6,7 @@
 	"category": "theme",
 	"description": "A group that stays fixed at the top of the viewport and changes its padding and background once the page scrolls past 40px. Its inner blocks are the header content.",
 	"keywords": [ "header", "sticky", "fixed", "navigation", "nav" ],
-	"textdomain": "axellcore-atelierclub",
+	"textdomain": "axellcore-atelier",
 	"attributes": {},
 	"supports": {
 		"html": false,

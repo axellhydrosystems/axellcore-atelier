@@ -6,10 +6,10 @@
  * the same signature when JetEngine is not active, so content moves between
  * the two without changes. With JetEngine active nothing is registered here.
  *
- * @package Axellcore_Atelierclub
+ * @package Axellcore_Atelier
  */
 
-namespace Axellcore_Atelierclub;
+namespace Axellcore_Atelier;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -92,11 +92,11 @@ final class Resellers {
 			self::POST_TYPE,
 			array(
 				'labels'              => array(
-					'name'          => __( 'Resellers', 'axellcore-atelierclub' ),
-					'singular_name' => __( 'Reseller', 'axellcore-atelierclub' ),
-					'all_items'     => __( 'All resellers', 'axellcore-atelierclub' ),
-					'add_new_item'  => __( 'Add reseller', 'axellcore-atelierclub' ),
-					'edit_item'     => __( 'Edit reseller', 'axellcore-atelierclub' ),
+					'name'          => __( 'Resellers', 'axellcore-atelier' ),
+					'singular_name' => __( 'Reseller', 'axellcore-atelier' ),
+					'all_items'     => __( 'All resellers', 'axellcore-atelier' ),
+					'add_new_item'  => __( 'Add reseller', 'axellcore-atelier' ),
+					'edit_item'     => __( 'Edit reseller', 'axellcore-atelier' ),
 				),
 				'public'              => true,
 				'publicly_queryable'  => true,
@@ -121,24 +121,24 @@ final class Resellers {
 
 		$taxonomies = array(
 			self::TAX_STATE   => array(
-				'labels'    => array( 'name' => __( 'States', 'axellcore-atelierclub' ) ),
+				'labels'    => array( 'name' => __( 'States', 'axellcore-atelier' ) ),
 				'slug'      => 'estado',
 				'query_var' => false,
 			),
 			self::TAX_CITY    => array(
 				'labels'    => array(
-					'name'          => __( 'Cities', 'axellcore-atelierclub' ),
-					'singular_name' => __( 'City', 'axellcore-atelierclub' ),
-					'all_items'     => __( 'All cities', 'axellcore-atelierclub' ),
+					'name'          => __( 'Cities', 'axellcore-atelier' ),
+					'singular_name' => __( 'City', 'axellcore-atelier' ),
+					'all_items'     => __( 'All cities', 'axellcore-atelier' ),
 				),
 				'slug'      => 'cidade',
 				'query_var' => self::TAX_CITY,
 			),
 			self::TAX_COUNTRY => array(
 				'labels'    => array(
-					'name'          => __( 'Countries', 'axellcore-atelierclub' ),
-					'singular_name' => __( 'Country', 'axellcore-atelierclub' ),
-					'all_items'     => __( 'All countries', 'axellcore-atelierclub' ),
+					'name'          => __( 'Countries', 'axellcore-atelier' ),
+					'singular_name' => __( 'Country', 'axellcore-atelier' ),
+					'all_items'     => __( 'All countries', 'axellcore-atelier' ),
 				),
 				'slug'      => 'paises',
 				'query_var' => self::TAX_COUNTRY,

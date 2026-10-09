@@ -2,13 +2,13 @@
 /**
  * REST endpoint that feeds the autocomplete control of the form.
  *
- * GET /axellcore-atelierclub/v1/options?post_type=…&q=…&template=…
+ * GET /axellcore-atelier/v1/options?post_type=…&q=…&template=…
  * Returns [ { id, label }, … ] for published posts of an allowed post type.
  *
- * @package Axellcore_Atelierclub
+ * @package Axellcore_Atelier
  */
 
-namespace Axellcore_Atelierclub;
+namespace Axellcore_Atelier;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -58,7 +58,7 @@ final class Options_Rest {
 	 * @return string[]
 	 */
 	public static function allowed_post_types() {
-		return (array) apply_filters( 'axellcore_atelierclub_option_post_types', array( 'revendas' ) );
+		return (array) apply_filters( 'axellcore_atelier_option_post_types', array( 'revendas' ) );
 	}
 
 	/**

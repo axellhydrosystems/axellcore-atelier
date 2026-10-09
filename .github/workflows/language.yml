@@ -1,6 +1,6 @@
 name: Language
 
-# Language packs for SelfDirectory: axellcore-atelierclub.<version>-<locale>.zip
+# Language packs for SelfDirectory: axellcore-atelier.<version>-<locale>.zip
 # on the <version> release, built from the language/<version> orphan branch
 # (made by `wp --require=bin/release.php axc language`, which also dispatches
 # this workflow: a push to an orphan branch has no .github/ to run). Each pack
@@ -45,15 +45,15 @@ jobs:
           tag="${{ steps.ctx.outputs.tag }}"
           mkdir -p /tmp/langs
           files=""
-          for po in axellcore-atelierclub-*.po; do
+          for po in axellcore-atelier-*.po; do
             [ -f "$po" ] || continue
-            locale=$(basename "$po" .po | sed 's/^axellcore-atelierclub-//')
+            locale=$(basename "$po" .po | sed 's/^axellcore-atelier-//')
             work="/tmp/langs/${locale}"
             mkdir -p "$work"
             cp "$po" "$work/"
-            msgfmt "$po" -o "$work/axellcore-atelierclub-${locale}.mo"
-            cp axellcore-atelierclub-${locale}-*.json "$work/" 2>/dev/null || true
-            zip="/tmp/langs/axellcore-atelierclub.${tag}-${locale}.zip"
+            msgfmt "$po" -o "$work/axellcore-atelier-${locale}.mo"
+            cp axellcore-atelier-${locale}-*.json "$work/" 2>/dev/null || true
+            zip="/tmp/langs/axellcore-atelier.${tag}-${locale}.zip"
             (cd "$work" && zip -q "$zip" ./*)
             files="${files:+$files,}$zip"
           done

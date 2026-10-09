@@ -9,10 +9,10 @@
  * - [tax:taxonomy:uf]     slug of that term in upper case (e.g. [tax:estados:uf] => SC);
  * - [meta:key]            a post meta value.
  *
- * @package Axellcore_Atelierclub
+ * @package Axellcore_Atelier
  */
 
-namespace Axellcore_Atelierclub;
+namespace Axellcore_Atelier;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;

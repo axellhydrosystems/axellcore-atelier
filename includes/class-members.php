@@ -3,10 +3,10 @@
  * Member application: validation, storage, anti-spam, and the two ways the
  * form can submit (REST with JavaScript, admin-post without it).
  *
- * @package Axellcore_Atelierclub
+ * @package Axellcore_Atelier
  */
 
-namespace Axellcore_Atelierclub;
+namespace Axellcore_Atelier;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -251,7 +251,7 @@ final class Members {
 				return self::field_error(
 					'aa_missing_field',
 					/* translators: %s: form field name. */
-					sprintf( __( 'Missing required field: %s', 'axellcore-atelierclub' ), $field ),
+					sprintf( __( 'Missing required field: %s', 'axellcore-atelier' ), $field ),
 					$field
 				);
 			}
@@ -259,7 +259,7 @@ final class Members {
 
 		$email = sanitize_email( $params['email'] );
 		if ( '' === $email || ! is_email( $email ) ) {
-			return self::field_error( 'aa_invalid_email', __( 'Invalid email address.', 'axellcore-atelierclub' ), 'email' );
+			return self::field_error( 'aa_invalid_email', __( 'Invalid email address.', 'axellcore-atelier' ), 'email' );
 		}
 
 		// The portfolio: https:// added when missing, then a valid address.
@@ -271,7 +271,7 @@ final class Members {
 		// Brazil only: the form's country is fixed.
 		$country = strtoupper( trim( (string) ( $params['country'] ?? '' ) ) );
 		if ( '' !== $country && 'BR' !== $country ) {
-			return self::field_error( 'aa_invalid_country', __( 'Only Brazil is accepted.', 'axellcore-atelierclub' ), 'country' );
+			return self::field_error( 'aa_invalid_country', __( 'Only Brazil is accepted.', 'axellcore-atelier' ), 'country' );
 		}
 		$country  = 'BR';
 		$location = self::location( $country, (string) $params['state'], (string) $params['city'] );
@@ -284,10 +284,10 @@ final class Members {
 			// The rules of the form's masks (form-address/view.ts): a mobile
 			// has 9 after the area code, a landline starts with 2 to 5.
 			if ( ! preg_match( '/^\d{2}(9\d{8}|[2-5]\d{7})$/', self::digits( (string) $params['phone'] ) ) ) {
-				return self::field_error( 'aa_invalid_phone', __( 'Enter a phone number with area code.', 'axellcore-atelierclub' ), 'phone' );
+				return self::field_error( 'aa_invalid_phone', __( 'Enter a phone number with area code.', 'axellcore-atelier' ), 'phone' );
 			}
 			if ( ! preg_match( '/^\d{8}$/', self::digits( (string) $params['postal'] ) ) ) {
-				return self::field_error( 'aa_invalid_postal', __( 'Enter a CEP with 8 digits.', 'axellcore-atelierclub' ), 'postal' );
+				return self::field_error( 'aa_invalid_postal', __( 'Enter a CEP with 8 digits.', 'axellcore-atelier' ), 'postal' );
 			}
 		}
 
@@ -302,17 +302,17 @@ final class Members {
 			$id    = absint( $params[ $field ] ?? 0 );
 			$title = trim( sanitize_text_field( (string) ( $params[ $field . '_title' ] ?? '' ) ) );
 			if ( $id && ( Resellers::POST_TYPE !== get_post_type( $id ) || 'publish' !== get_post_status( $id ) ) ) {
-				return self::field_error( 'aa_invalid_reseller', __( 'Choose a reseller from the list.', 'axellcore-atelierclub' ), $field . '_title' );
+				return self::field_error( 'aa_invalid_reseller', __( 'Choose a reseller from the list.', 'axellcore-atelier' ), $field . '_title' );
 			}
 			// A store given by text becomes a pending revenda: only
 			// "Nome - UF Cidade" can (the form's custom store composes it).
 			if ( ! $id && '' !== $title && null === Reseller_Store::parse_store_text( $title ) ) {
-				return self::field_error( 'aa_invalid_store', __( 'Enter the store as "Name - UF City".', 'axellcore-atelierclub' ), $field . '_title' );
+				return self::field_error( 'aa_invalid_store', __( 'Enter the store as "Name - UF City".', 'axellcore-atelier' ), $field . '_title' );
 			}
 		}
 
 		if ( email_exists( $email ) ) {
-			return self::field_error( 'aa_email_exists', __( 'This e-mail is already registered.', 'axellcore-atelierclub' ), 'email', 409 );
+			return self::field_error( 'aa_email_exists', __( 'This e-mail is already registered.', 'axellcore-atelier' ), 'email', 409 );
 		}
 		if ( self::document_exists( $document ) ) {
 			list( $code, $message ) = Document::registered_error( $document_type );
@@ -336,7 +336,7 @@ final class Members {
 			)
 		);
 		if ( is_wp_error( $user_id ) ) {
-			return new \WP_Error( 'aa_insert_failed', __( 'Could not save your application.', 'axellcore-atelierclub' ), array( 'status' => 500 ) );
+			return new \WP_Error( 'aa_insert_failed', __( 'Could not save your application.', 'axellcore-atelier' ), array( 'status' => 500 ) );
 		}
 
 		$fields = array(
@@ -368,7 +368,7 @@ final class Members {
 		// text ("Nome - UF Cidade") becomes a pending one (Reseller_Store).
 		$ids = array();
 		foreach ( self::submitted_resellers( $params ) as $store ) {
-			$ids[] = $store['id'] ? $store['id'] : (int) apply_filters( 'axellcore_atelierclub_reseller_text', 0, $store['title'] );
+			$ids[] = $store['id'] ? $store['id'] : (int) apply_filters( 'axellcore_atelier_reseller_text', 0, $store['title'] );
 		}
 		self::set_reseller_ids( $user_id, $ids );
 
@@ -383,7 +383,7 @@ final class Members {
 		 *
 		 * @param int $user_id New member.
 		 */
-		do_action( 'axellcore_atelierclub_member_created', (int) $user_id );
+		do_action( 'axellcore_atelier_member_created', (int) $user_id );
 
 		return array(
 			'success' => true,
@@ -406,7 +406,7 @@ final class Members {
 		$country = strtoupper( trim( sanitize_text_field( $country ) ) );
 		$state   = trim( sanitize_text_field( $state ) );
 		$city    = trim( sanitize_text_field( $city ) );
-		$invalid = self::field_error( 'aa_invalid_location', __( 'Invalid state/city.', 'axellcore-atelierclub' ), 'city' );
+		$invalid = self::field_error( 'aa_invalid_location', __( 'Invalid state/city.', 'axellcore-atelier' ), 'city' );
 
 		if ( mb_strlen( $state ) < 2 || '' === $city ) {
 			return $invalid;
@@ -660,7 +660,7 @@ final class Members {
 		$lines = array(
 			sprintf(
 				/* translators: 1: date and time, 2: IP address, 3: page address. */
-				__( 'Accepted on %1$s, IP %2$s, at %3$s', 'axellcore-atelierclub' ),
+				__( 'Accepted on %1$s, IP %2$s, at %3$s', 'axellcore-atelier' ),
 				self::consent_when( $user_id ),
 				'' !== $consent['ip'] ? $consent['ip'] : '—',
 				'' !== $consent['url'] ? $consent['url'] : '—'
@@ -867,7 +867,7 @@ final class Members {
 		if ( $count >= self::RATE_LIMIT ) {
 			return new \WP_Error(
 				'aa_rate_limited',
-				__( 'Too many attempts. Try again in a few minutes.', 'axellcore-atelierclub' ),
+				__( 'Too many attempts. Try again in a few minutes.', 'axellcore-atelier' ),
 				array( 'status' => 429 )
 			);
 		}
@@ -919,7 +919,7 @@ final class Members {
 	 * @return string
 	 */
 	public static function invalid_url_message() {
-		return __( 'Enter a valid address, such as https://yoursite.com.br.', 'axellcore-atelierclub' );
+		return __( 'Enter a valid address, such as https://yoursite.com.br.', 'axellcore-atelier' );
 	}
 
 	/**
@@ -961,19 +961,19 @@ final class Members {
 	 */
 	public static function visitor_messages() {
 		return array(
-			'aa_missing_field'    => __( 'Fill in the required fields.', 'axellcore-atelierclub' ),
-			'aa_invalid_email'    => __( 'Invalid email address.', 'axellcore-atelierclub' ),
-			'aa_invalid_location' => __( 'Invalid state/city.', 'axellcore-atelierclub' ),
-			'aa_invalid_phone'    => __( 'Enter a phone number with area code.', 'axellcore-atelierclub' ),
-			'aa_invalid_postal'   => __( 'Enter a CEP with 8 digits.', 'axellcore-atelierclub' ),
+			'aa_missing_field'    => __( 'Fill in the required fields.', 'axellcore-atelier' ),
+			'aa_invalid_email'    => __( 'Invalid email address.', 'axellcore-atelier' ),
+			'aa_invalid_location' => __( 'Invalid state/city.', 'axellcore-atelier' ),
+			'aa_invalid_phone'    => __( 'Enter a phone number with area code.', 'axellcore-atelier' ),
+			'aa_invalid_postal'   => __( 'Enter a CEP with 8 digits.', 'axellcore-atelier' ),
 			'aa_invalid_cpf'      => Document::invalid_error( 'cpf' )[1],
 			'aa_invalid_cnpj'     => Document::invalid_error( 'cnpj' )[1],
-			'aa_invalid_reseller' => __( 'Choose a reseller from the list.', 'axellcore-atelierclub' ),
-			'aa_email_exists'     => __( 'This e-mail is already registered.', 'axellcore-atelierclub' ),
+			'aa_invalid_reseller' => __( 'Choose a reseller from the list.', 'axellcore-atelier' ),
+			'aa_email_exists'     => __( 'This e-mail is already registered.', 'axellcore-atelier' ),
 			'aa_cpf_exists'       => Document::registered_error( 'cpf' )[1],
 			'aa_cnpj_exists'      => Document::registered_error( 'cnpj' )[1],
-			'aa_rate_limited'     => __( 'Too many attempts. Try again in a few minutes.', 'axellcore-atelierclub' ),
-			'aa_recaptcha_failed' => __( 'We could not confirm you are not a robot. Please try again.', 'axellcore-atelierclub' ),
+			'aa_rate_limited'     => __( 'Too many attempts. Try again in a few minutes.', 'axellcore-atelier' ),
+			'aa_recaptcha_failed' => __( 'We could not confirm you are not a robot. Please try again.', 'axellcore-atelier' ),
 		);
 	}
 

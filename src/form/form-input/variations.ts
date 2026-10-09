@@ -26,8 +26,8 @@ function isType( type: string ) {
 const VARIATIONS: BlockVariation< Partial< FormInputAttributes > >[] = [
 	{
 		name: 'text',
-		title: __( 'Text Input', 'axellcore-atelierclub' ),
-		description: __( 'A generic text input.', 'axellcore-atelierclub' ),
+		title: __( 'Text Input', 'axellcore-atelier' ),
+		description: __( 'A generic text input.', 'axellcore-atelier' ),
 		attributes: { type: 'text' },
 		isDefault: true,
 		scope: [ 'inserter', 'transform' ],
@@ -35,8 +35,8 @@ const VARIATIONS: BlockVariation< Partial< FormInputAttributes > >[] = [
 	},
 	{
 		name: 'email',
-		title: __( 'Email Input', 'axellcore-atelierclub' ),
-		description: __( 'Used for email addresses.', 'axellcore-atelierclub' ),
+		title: __( 'Email Input', 'axellcore-atelier' ),
+		description: __( 'Used for email addresses.', 'axellcore-atelier' ),
 		attributes: { type: 'email' },
 		isDefault: true,
 		scope: [ 'inserter', 'transform' ],
@@ -44,8 +44,8 @@ const VARIATIONS: BlockVariation< Partial< FormInputAttributes > >[] = [
 	},
 	{
 		name: 'url',
-		title: __( 'URL Input', 'axellcore-atelierclub' ),
-		description: __( 'Used for URLs.', 'axellcore-atelierclub' ),
+		title: __( 'URL Input', 'axellcore-atelier' ),
+		description: __( 'Used for URLs.', 'axellcore-atelier' ),
 		attributes: { type: 'url' },
 		isDefault: true,
 		scope: [ 'inserter', 'transform' ],
@@ -53,8 +53,8 @@ const VARIATIONS: BlockVariation< Partial< FormInputAttributes > >[] = [
 	},
 	{
 		name: 'tel',
-		title: __( 'Phone Input', 'axellcore-atelierclub' ),
-		description: __( 'Used for phone numbers.', 'axellcore-atelierclub' ),
+		title: __( 'Phone Input', 'axellcore-atelier' ),
+		description: __( 'Used for phone numbers.', 'axellcore-atelier' ),
 		attributes: { type: 'tel' },
 		isDefault: true,
 		scope: [ 'inserter', 'transform' ],
@@ -62,8 +62,8 @@ const VARIATIONS: BlockVariation< Partial< FormInputAttributes > >[] = [
 	},
 	{
 		name: 'number',
-		title: __( 'Number Input', 'axellcore-atelierclub' ),
-		description: __( 'A numeric input.', 'axellcore-atelierclub' ),
+		title: __( 'Number Input', 'axellcore-atelier' ),
+		description: __( 'A numeric input.', 'axellcore-atelier' ),
 		attributes: { type: 'number' },
 		isDefault: true,
 		scope: [ 'inserter', 'transform' ],
@@ -71,10 +71,10 @@ const VARIATIONS: BlockVariation< Partial< FormInputAttributes > >[] = [
 	},
 	{
 		name: 'textarea',
-		title: __( 'Textarea Input', 'axellcore-atelierclub' ),
+		title: __( 'Textarea Input', 'axellcore-atelier' ),
 		description: __(
 			'A textarea input for multiple lines of text.',
-			'axellcore-atelierclub'
+			'axellcore-atelier'
 		),
 		attributes: { type: 'textarea' },
 		isDefault: true,
@@ -83,10 +83,10 @@ const VARIATIONS: BlockVariation< Partial< FormInputAttributes > >[] = [
 	},
 	{
 		name: 'select',
-		title: __( 'Select Input', 'axellcore-atelierclub' ),
+		title: __( 'Select Input', 'axellcore-atelier' ),
 		description: __(
 			'A dropdown with a fixed or dynamically-sourced list of options.',
-			'axellcore-atelierclub'
+			'axellcore-atelier'
 		),
 		attributes: { type: 'select' },
 		isDefault: true,
@@ -95,8 +95,8 @@ const VARIATIONS: BlockVariation< Partial< FormInputAttributes > >[] = [
 	},
 	{
 		name: 'checkbox',
-		title: __( 'Checkbox Input', 'axellcore-atelierclub' ),
-		description: __( 'A simple checkbox input.', 'axellcore-atelierclub' ),
+		title: __( 'Checkbox Input', 'axellcore-atelier' ),
+		description: __( 'A simple checkbox input.', 'axellcore-atelier' ),
 		attributes: { type: 'checkbox' },
 		isDefault: true,
 		scope: [ 'inserter', 'transform' ],
@@ -104,8 +104,8 @@ const VARIATIONS: BlockVariation< Partial< FormInputAttributes > >[] = [
 	},
 	{
 		name: 'hidden',
-		title: __( 'Hidden Input', 'axellcore-atelierclub' ),
-		description: __( 'A hidden input field.', 'axellcore-atelierclub' ),
+		title: __( 'Hidden Input', 'axellcore-atelier' ),
+		description: __( 'A hidden input field.', 'axellcore-atelier' ),
 		icon: 'visibility',
 		attributes: { type: 'hidden' },
 		isDefault: true,

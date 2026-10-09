@@ -3,17 +3,17 @@
  * Admin-only REST endpoints backing the Members dashboard (DataViews list
  * + DataForms detail, see src/admin/members/). Members are users with the
  * member_pending or member role; their fields are user meta named as the form fields:
- *  - GET  /axellcore-atelierclub/v1/admin/members       — paginated, filterable list.
- *  - GET  /axellcore-atelierclub/v1/admin/members/{id}  — full record.
- *  - POST /axellcore-atelierclub/v1/admin/members/{id}  — partial update.
+ *  - GET  /axellcore-atelier/v1/admin/members       — paginated, filterable list.
+ *  - GET  /axellcore-atelier/v1/admin/members/{id}  — full record.
+ *  - POST /axellcore-atelier/v1/admin/members/{id}  — partial update.
  *
  * Listing requires list_users; reading and updating one member, edit_user
  * on it. The list and the single-record read return the full CPF/CNPJ.
  *
- * @package Axellcore_Atelierclub
+ * @package Axellcore_Atelier
  */
 
-namespace Axellcore_Atelierclub;
+namespace Axellcore_Atelier;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -257,7 +257,7 @@ final class Admin_Rest {
 		if ( isset( $params['fullname'] ) ) {
 			$fullname = sanitize_text_field( $this->param_string( $params, 'fullname' ) );
 			if ( '' === $fullname ) {
-				return new \WP_Error( 'aa_missing_field', __( 'Name cannot be empty.', 'axellcore-atelierclub' ), array( 'status' => 400 ) );
+				return new \WP_Error( 'aa_missing_field', __( 'Name cannot be empty.', 'axellcore-atelier' ), array( 'status' => 400 ) );
 			}
 			$userdata['display_name'] = $fullname;
 			$userdata['nickname']     = $fullname;
@@ -268,11 +268,11 @@ final class Admin_Rest {
 		if ( isset( $params['email'] ) ) {
 			$email = sanitize_email( $this->param_string( $params, 'email' ) );
 			if ( '' === $email || ! is_email( $email ) ) {
-				return new \WP_Error( 'aa_invalid_email', __( 'Invalid email address.', 'axellcore-atelierclub' ), array( 'status' => 400 ) );
+				return new \WP_Error( 'aa_invalid_email', __( 'Invalid email address.', 'axellcore-atelier' ), array( 'status' => 400 ) );
 			}
 			$owner = email_exists( $email );
 			if ( $owner && (int) $owner !== $user->ID ) {
-				return new \WP_Error( 'aa_email_exists', __( 'This e-mail is already registered.', 'axellcore-atelierclub' ), array( 'status' => 409 ) );
+				return new \WP_Error( 'aa_email_exists', __( 'This e-mail is already registered.', 'axellcore-atelier' ), array( 'status' => 409 ) );
 			}
 			$userdata['user_email'] = $email;
 		}
@@ -329,7 +329,7 @@ final class Admin_Rest {
 		if ( isset( $params['status'] ) ) {
 			$role = $this->param_string( $params, 'status' );
 			if ( ! isset( Member::roles()[ $role ] ) ) {
-				return new \WP_Error( 'aa_invalid_status', __( 'Invalid status.', 'axellcore-atelierclub' ), array( 'status' => 400 ) );
+				return new \WP_Error( 'aa_invalid_status', __( 'Invalid status.', 'axellcore-atelier' ), array( 'status' => 400 ) );
 			}
 			if ( Member::ROLE === $role ) {
 				Member::approve( $user->ID );
@@ -350,7 +350,7 @@ final class Admin_Rest {
 	private function member_user( int $id ) {
 		$user = get_userdata( $id );
 		if ( ! $user || ! array_intersect( array_keys( Member::roles() ), $user->roles ) ) {
-			return new \WP_Error( 'aa_not_found', __( 'Member not found.', 'axellcore-atelierclub' ), array( 'status' => 404 ) );
+			return new \WP_Error( 'aa_not_found', __( 'Member not found.', 'axellcore-atelier' ), array( 'status' => 404 ) );
 		}
 		return $user;
 	}

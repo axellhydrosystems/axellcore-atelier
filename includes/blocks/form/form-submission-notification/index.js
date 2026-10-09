@@ -62,13 +62,13 @@
 					null,
 					el(
 						PanelBody,
-						{ title: __( 'Notification', 'axellcore-atelierclub' ) },
+						{ title: __( 'Notification', 'axellcore-atelier' ) },
 						el( SelectControl, {
-							label: __( 'Type', 'axellcore-atelierclub' ),
+							label: __( 'Type', 'axellcore-atelier' ),
 							value: attributes.type,
 							options: [
-								{ label: __( 'Success', 'axellcore-atelierclub' ), value: 'success' },
-								{ label: __( 'Error', 'axellcore-atelierclub' ), value: 'error' },
+								{ label: __( 'Success', 'axellcore-atelier' ), value: 'success' },
+								{ label: __( 'Error', 'axellcore-atelier' ), value: 'error' },
 							],
 							onChange: function ( v ) {
 								setAttributes( { type: v } );

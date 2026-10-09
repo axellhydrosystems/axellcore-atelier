@@ -8,10 +8,10 @@
  * separately from the page content, the same way a real block theme
  * organizes them (Site Editor → Patterns → Template Parts → Header/Footer).
  *
- * @package Axellcore_Atelierclub
+ * @package Axellcore_Atelier
  */
 
-namespace Axellcore_Atelierclub;
+namespace Axellcore_Atelier;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -30,13 +30,13 @@ final class Activator {
 
 	/**
 	 * Template part slugs — match the `slug` attribute on the
-	 * `core/template-part` blocks in templates/atelier-club.html.
+	 * `core/template-part` blocks in templates/atelier.html.
 	 */
 	const HEADER_SLUG = 'axellcore-header';
 	const FOOTER_SLUG = 'axellcore-footer';
 
 	/**
-	 * Create the Atelier Club page and its two template parts if they
+	 * Create the Atelier Axell page and its two template parts if they
 	 * aren't already there.
 	 *
 	 * Idempotent: safe to run on every activation (e.g. deactivate/reactivate)
@@ -49,16 +49,16 @@ final class Activator {
 
 		self::create_template_part(
 			self::HEADER_SLUG,
-			__( 'Atelier — Header', 'axellcore-atelierclub' ),
+			__( 'Atelier — Header', 'axellcore-atelier' ),
 			'header',
-			AXELLCORE_ATELIERCLUB_PATH . 'content/header-part.html'
+			AXELLCORE_ATELIER_PATH . 'content/header-part.html'
 		);
 
 		self::create_template_part(
 			self::FOOTER_SLUG,
-			__( 'Atelier — Footer', 'axellcore-atelierclub' ),
+			__( 'Atelier — Footer', 'axellcore-atelier' ),
 			'footer',
-			AXELLCORE_ATELIERCLUB_PATH . 'content/footer-part.html'
+			AXELLCORE_ATELIER_PATH . 'content/footer-part.html'
 		);
 
 		self::create_page();
@@ -71,7 +71,7 @@ final class Activator {
 		 *
 		 * @param bool $create Default false.
 		 */
-		if ( apply_filters( 'axellcore_atelierclub_create_child_pages', false ) ) {
+		if ( apply_filters( 'axellcore_atelier_create_child_pages', false ) ) {
 			foreach ( self::descendants() as $page ) {
 				self::create_descendant( $page );
 			}
@@ -82,7 +82,7 @@ final class Activator {
 
 		// Page caches keep the HTML from before the plugin; this version is
 		// purged for now (Cache::purge_after_update() won't repeat it).
-		update_option( Cache::VERSION_OPTION, AXELLCORE_ATELIERCLUB_VERSION );
+		update_option( Cache::VERSION_OPTION, AXELLCORE_ATELIER_VERSION );
 		Cache::purge();
 	}
 
@@ -95,7 +95,7 @@ final class Activator {
 	 * @return array<int,array{path:string,title:string,template:string}>
 	 */
 	private static function descendants() {
-		$file = AXELLCORE_ATELIERCLUB_PATH . 'content/pages.json';
+		$file = AXELLCORE_ATELIER_PATH . 'content/pages.json';
 		if ( ! file_exists( $file ) ) {
 			return array();
 		}
@@ -154,7 +154,7 @@ final class Activator {
 	/**
 	 * Option holding the hash of the page content files last synced.
 	 */
-	const PAGES_SYNC_OPTION = 'axellcore_atelierclub_pages_hash';
+	const PAGES_SYNC_OPTION = 'axellcore_atelier_pages_hash';
 
 	/**
 	 * Hook the content sync. Runs on every request, but only writes when a
@@ -271,7 +271,7 @@ final class Activator {
 	 * @return string
 	 */
 	private static function page_file( $path ) {
-		return AXELLCORE_ATELIERCLUB_PATH . 'content/pages/' . $path . '.html';
+		return AXELLCORE_ATELIER_PATH . 'content/pages/' . $path . '.html';
 	}
 
 	/**
@@ -298,7 +298,7 @@ final class Activator {
 
 	/**
 	 * A new page with the bundled landing (content/atelier-page.html) and the
-	 * Atelier Club template; its media and menus imported first (once). Used
+	 * Atelier Axell template; its media and menus imported first (once). Used
 	 * on activation and by Atelier > Settings > Create Atelier page.
 	 *
 	 * @return int Page ID, or 0.
@@ -310,10 +310,10 @@ final class Activator {
 		$page_id = self::insert_trusted_content(
 			array(
 				'post_type'    => 'page',
-				'post_title'   => __( 'Atelier Axell Club', 'axellcore-atelierclub' ),
+				'post_title'   => __( 'Atelier Axell Club', 'axellcore-atelier' ),
 				'post_name'    => self::PAGE_SLUG,
 				'post_status'  => 'publish',
-				'post_content' => self::read_content_file( AXELLCORE_ATELIERCLUB_PATH . 'content/atelier-page.html', '' ),
+				'post_content' => self::read_content_file( AXELLCORE_ATELIER_PATH . 'content/atelier-page.html', '' ),
 			)
 		);
 
@@ -459,7 +459,7 @@ final class Activator {
 	 * Post meta marking an attachment imported from content/media/ (value:
 	 * the file name), so it is found again instead of imported twice.
 	 */
-	const MEDIA_META = '_axellcore_atelierclub_media';
+	const MEDIA_META = '_axellcore_atelier_media';
 
 	/**
 	 * Map of exported attachment id => array{id:int,url:string,old_url:string}
@@ -477,7 +477,7 @@ final class Activator {
 	 * @return array<int,array{file:string,id:int,url:string,title:string,alt:string}>
 	 */
 	private static function media_entries() {
-		$file = AXELLCORE_ATELIERCLUB_PATH . 'content/media.json';
+		$file = AXELLCORE_ATELIER_PATH . 'content/media.json';
 		if ( ! file_exists( $file ) ) {
 			return array();
 		}
@@ -530,7 +530,7 @@ final class Activator {
 	private static function import_media() {
 		foreach ( self::media_entries() as $entry ) {
 			if ( ! self::find_media( $entry['file'] ) ) {
-				self::import_file( AXELLCORE_ATELIERCLUB_PATH . 'content/media/' . $entry['file'], $entry['title'], $entry['alt'] );
+				self::import_file( AXELLCORE_ATELIER_PATH . 'content/media/' . $entry['file'], $entry['title'], $entry['alt'] );
 			}
 		}
 		self::$media_map = null;
@@ -544,7 +544,7 @@ final class Activator {
 	 */
 	public static function import_email_logo() {
 		$id = self::find_media( basename( Notifications::LOGO_FILE ) );
-		return $id ? $id : self::import_file( AXELLCORE_ATELIERCLUB_PATH . Notifications::LOGO_FILE, 'Atelier Axell (e-mail)', 'Atelier Axell' );
+		return $id ? $id : self::import_file( AXELLCORE_ATELIER_PATH . Notifications::LOGO_FILE, 'Atelier Axell (e-mail)', 'Atelier Axell' );
 	}
 
 	/**
@@ -676,7 +676,7 @@ final class Activator {
 	 * Post meta marking a wp_navigation post created from content/navigation/
 	 * (value: the file name).
 	 */
-	const NAVIGATION_META = '_axellcore_atelierclub_navigation';
+	const NAVIGATION_META = '_axellcore_atelier_navigation';
 
 	/**
 	 * Navigation menus the content uses, from content/navigation.json (written
@@ -686,7 +686,7 @@ final class Activator {
 	 * @return array<int,array{file:string,id:int,title:string}>
 	 */
 	private static function navigation_entries() {
-		$file = AXELLCORE_ATELIERCLUB_PATH . 'content/navigation.json';
+		$file = AXELLCORE_ATELIER_PATH . 'content/navigation.json';
 		if ( ! file_exists( $file ) ) {
 			return array();
 		}
@@ -714,7 +714,7 @@ final class Activator {
 	 * @return string
 	 */
 	private static function navigation_file( $file ) {
-		return AXELLCORE_ATELIERCLUB_PATH . 'content/navigation/' . $file;
+		return AXELLCORE_ATELIER_PATH . 'content/navigation/' . $file;
 	}
 
 	/**

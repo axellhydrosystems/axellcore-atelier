@@ -11,7 +11,7 @@
 		"tel",
 		"form"
 	],
-	"textdomain": "axellcore-atelierclub",
+	"textdomain": "axellcore-atelier",
 	"attributes": {
 		"id": {
 			"type": "string",

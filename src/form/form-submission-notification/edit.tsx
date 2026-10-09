@@ -48,8 +48,8 @@ export default function Edit( {
 			...blockProps,
 			'data-aa-notice-type': attributes.type,
 			// Shown by the editor-only ::after overlay (form-editor.css), as in core.
-			'data-message-success': __( 'Submission success notification', 'axellcore-atelierclub' ),
-			'data-message-error': __( 'Submission error notification', 'axellcore-atelierclub' ),
+			'data-message-success': __( 'Submission success notification', 'axellcore-atelier' ),
+			'data-message-error': __( 'Submission error notification', 'axellcore-atelier' ),
 		},
 		{
 			allowedBlocks: ALLOWED_BLOCKS,
