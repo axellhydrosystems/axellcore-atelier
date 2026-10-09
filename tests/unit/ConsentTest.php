@@ -65,7 +65,20 @@ final class ConsentTest extends TestCase {
 		$terms = Form_Submission::consent_terms( $form );
 
 		$this->assertSame( 'Li e concordo com o regulamento e com a Política de Privacidade.', $terms['text'] );
-		$this->assertSame( array( array( 'label' => 'regulamento', 'url' => 'https://axell.com.br/regulamento' ) ), $terms['links'], 'A "#" link is no address.' );
+		$this->assertSame(
+			array(
+				array(
+					'label' => 'regulamento',
+					'url'   => 'https://axell.com.br/regulamento',
+				),
+				array(
+					'label' => 'Política',
+					'url'   => '#',
+				),
+			),
+			$terms['links'],
+			'A "#" link is kept as written.'
+		);
 	}
 
 	public function test_a_form_without_consent_gives_no_terms(): void {
