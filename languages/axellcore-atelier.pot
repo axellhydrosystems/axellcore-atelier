@@ -29,7 +29,7 @@ msgstr ""
 
 #. Description of the plugin
 #: axellcore-atelier.php
-msgid "Self-contained landing page (FSE template + core blocks + a custom application-form block) for the Atelier Axell invite program."
+msgid "Landing page and membership applications for Atelier Axell."
 msgstr ""
 
 #. Author of the plugin

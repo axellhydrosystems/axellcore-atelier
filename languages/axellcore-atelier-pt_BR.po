@@ -24,8 +24,8 @@ msgstr "Atelier Axell"
 
 #. Description of the plugin
 #: axellcore-atelier.php
-msgid "Self-contained landing page (FSE template + core blocks + a custom application-form block) for the Atelier Axell invite program."
-msgstr "Landing page autocontida (template FSE + blocos nativos + um bloco customizado de formulário de adesão) para o programa por convite Atelier Axell."
+msgid "Landing page and membership applications for Atelier Axell."
+msgstr "Landing page e adesões do Atelier Axell."
 
 #. Author of the plugin
 #: axellcore-atelier.php

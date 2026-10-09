@@ -9,7 +9,7 @@
 **License:** GPL-2.0-or-later
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html
 
-Self-contained landing page (FSE template + core blocks + a custom application-form block) for the Atelier Axell invite program.
+Landing page and membership applications for Atelier Axell.
 
 [Preview the latest release in WordPress Playground](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/axellhydrosystems/axellcore-atelier/main/blueprint.json) · [Preview the latest `main` build](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/axellhydrosystems/axellcore-atelier/main/blueprint-dev.json)
 
