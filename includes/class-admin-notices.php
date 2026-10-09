@@ -1,7 +1,7 @@
 <?php
 /**
  * The Atelier admin screens, the users' screens (list, profile, user edit:
- * the member fields), Settings > General, the resellers' screens (list and
+ * the member fields), Settings > General and Mail, the resellers' screens (list and
  * edit) and the block
  * editor without other plugins' and the theme's notices (promotions, rating
  * requests, onboarding):
@@ -29,9 +29,10 @@ final class Admin_Notices {
 
 	/**
 	 * Other screens (ids) without them: the users' list, new user, profile
-	 * and edit, and Settings > General.
+	 * and edit, Settings > General, and Settings > Mail (Camaleaunmail, the
+	 * site's e-mail plugin).
 	 */
-	const SCREENS = array( 'users', 'user', 'profile', 'user-edit', 'options-general' );
+	const SCREENS = array( 'users', 'user', 'profile', 'user-edit', 'options-general', 'settings_page_camaleaunmail' );
 
 	/**
 	 * Notice hooks.
