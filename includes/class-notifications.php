@@ -625,7 +625,7 @@ final class Notifications {
 				wp_date( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ) ),
 				'203.0.113.10',
 				Settings::page() ? (string) get_permalink( Settings::page() ) : home_url( '/' )
-			) . "\n“Li e concordo com o <a href=\"#\">regulamento do Atelier Axell Club</a> e com o tratamento dos meus dados conforme a Política de Privacidade e a LGPD.”",
+			) . "\n“Li e concordo com o <a href=\"#\">regulamento do Atelier Axell</a> e com o tratamento dos meus dados conforme a Política de Privacidade e a LGPD.”",
 			'{member_admin_url}'          => admin_url( 'admin.php?page=' . Member::ADMIN_PAGE ),
 		) + self::site_vars();
 	}

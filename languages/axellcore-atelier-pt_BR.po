@@ -18,13 +18,14 @@ msgstr ""
 #: axellcore-atelier.php
 #: includes/class-activator.php:313
 #: includes/class-classic-template.php:64
+#: includes/class-icons.php:73
 msgid "Atelier Axell"
 msgstr "Atelier Axell"
 
 #. Description of the plugin
 #: axellcore-atelier.php
-msgid "Self-contained landing page (FSE template + core blocks + a custom application-form block) for the Atelier Axell Club invite program."
-msgstr "Landing page autocontida (template FSE + blocos nativos + um bloco customizado de formulário de adesão) para o programa por convite Atelier Axell Club."
+msgid "Self-contained landing page (FSE template + core blocks + a custom application-form block) for the Atelier Axell invite program."
+msgstr "Landing page autocontida (template FSE + blocos nativos + um bloco customizado de formulário de adesão) para o programa por convite Atelier Axell."
 
 #. Author of the plugin
 #: axellcore-atelier.php
@@ -36,8 +37,8 @@ msgid "Atelier — Blank Canvas"
 msgstr "Atelier — Página em Branco"
 
 #: includes/class-template-loader.php:109
-msgid "Self-contained canvas for the Atelier Axell Club landing page. No header/footer template parts — the page content renders alone."
-msgstr "Tela autocontida para a landing page do Atelier Axell Club. Sem partes de template de cabeçalho/rodapé — o conteúdo da página é renderizado sozinho."
+msgid "Self-contained canvas for the Atelier Axell landing page. No header/footer template parts — the page content renders alone."
+msgstr "Tela autocontida para a landing page do Atelier Axell. Sem partes de template de cabeçalho/rodapé — o conteúdo da página é renderizado sozinho."
 
 #: includes/class-settings.php:1001
 #: build/form/form-input/index.js:1
@@ -391,10 +392,6 @@ msgstr "Atelier — Cabeçalho"
 msgid "Atelier — Footer"
 msgstr "Atelier — Rodapé"
 
-#: includes/class-icons.php:73
-msgid "Atelier Axell Club"
-msgstr "Atelier Axell Club"
-
 #: includes/class-blocks.php:121
 #: includes/class-design-tokens.php:243
 #: build/chapters/chapter/index.js:1
@@ -403,8 +400,8 @@ msgid "Chapter"
 msgstr "Capítulo"
 
 #: includes/class-icons.php:74
-msgid "Icons used by the Atelier Axell Club landing page."
-msgstr "Ícones usados pela landing page do Atelier Axell Club."
+msgid "Icons used by the Atelier Axell landing page."
+msgstr "Ícones usados pela landing page do Atelier Axell."
 
 #: includes/class-icons.php:132
 msgid "Lock"
@@ -525,8 +522,8 @@ msgstr "Deixe vazio para uma lista estática. Se definido, este select começa v
 
 #: includes/blocks/form/form/block.json
 msgctxt "block description"
-msgid "Self-contained <form> wrapper for the Atelier Axell Club application form. Submits to the plugin's REST endpoint, which creates an aa_member post and resolves its Country/State/City taxonomy term."
-msgstr "Wrapper <form> autocontido para o formulário de adesão do Atelier Axell Club. Envia para o endpoint REST do plugin, que cria um post aa_member e resolve sua taxonomy de País/Estado/Cidade."
+msgid "Self-contained <form> wrapper for the Atelier Axell application form. Submits to the plugin's REST endpoint, which creates an aa_member post and resolves its Country/State/City taxonomy term."
+msgstr "Wrapper <form> autocontido para o formulário de adesão do Atelier Axell. Envia para o endpoint REST do plugin, que cria um post aa_member e resolve sua taxonomy de País/Estado/Cidade."
 
 #: build/form/form-control-country/index.js:1
 #: build/form/form-control/index.js:1
@@ -2136,8 +2133,8 @@ msgstr "Texto de ajuda…"
 #: build/form/form-atelier/block.json
 #: src/form/form-atelier/block.json
 msgctxt "block description"
-msgid "Atelier Axell Club application form: saves each submission as a member registration and comes with every field and text."
-msgstr "Formulário de adesão do Atelier Axell Club: grava cada envio como cadastro de membro e já vem com todos os campos e textos."
+msgid "Atelier Axell application form: saves each submission as a member registration and comes with every field and text."
+msgstr "Formulário de adesão do Atelier Axell: grava cada envio como cadastro de membro e já vem com todos os campos e textos."
 
 #: build/form/form-atelier/block.json
 #: src/form/form-atelier/block.json

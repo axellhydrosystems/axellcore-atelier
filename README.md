@@ -9,13 +9,13 @@
 **License:** GPL-2.0-or-later
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html
 
-Self-contained landing page (FSE template + core blocks + a custom application-form block) for the Atelier Axell Club invite program.
+Self-contained landing page (FSE template + core blocks + a custom application-form block) for the Atelier Axell invite program.
 
 [Preview the latest release in WordPress Playground](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/axellhydrosystems/axellcore-atelier/main/blueprint.json) · [Preview the latest `main` build](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/axellhydrosystems/axellcore-atelier/main/blueprint-dev.json)
 
 ## Description
 
-Ships the Atelier Axell Club landing page as a plugin-owned FSE template (registered via `register_block_template()`, editable in the Site Editor, no theme header/footer) plus two small custom blocks (`axellcore/form`, `axellcore/form-input`) for the application form — every other section is composed from core WordPress blocks styled with the plugin's own `aa-`-prefixed stylesheet. On activation, the plugin provisions the `/atelier` page automatically if it doesn't already exist.
+Ships the Atelier Axell landing page as a plugin-owned FSE template (registered via `register_block_template()`, editable in the Site Editor, no theme header/footer) plus two small custom blocks (`axellcore/form`, `axellcore/form-input`) for the application form — every other section is composed from core WordPress blocks styled with the plugin's own `aa-`-prefixed stylesheet. On activation, the plugin provisions the `/atelier` page automatically if it doesn't already exist.
 
 ## Changelog
 

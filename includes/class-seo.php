@@ -19,7 +19,7 @@ final class Seo {
 	/**
 	 * Description of the landing page: the approved copy from the mockup.
 	 */
-	const LANDING_DESCRIPTION = 'O Atelier Axell Club é um clube por seleção. Para arquitetos e designers que transformam o banho em obra, o spa em poesia e o projeto em memória. Solicite sua adesão.';
+	const LANDING_DESCRIPTION = 'O Atelier Axell é um clube por seleção. Para arquitetos e designers que transformam o banho em obra, o spa em poesia e o projeto em memória. Solicite sua adesão.';
 
 	/**
 	 * Singleton instance.

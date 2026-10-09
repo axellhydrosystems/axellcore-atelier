@@ -70,8 +70,8 @@ final class Icons {
 		wp_register_icon_collection(
 			self::COLLECTION,
 			array(
-				'label'       => __( 'Atelier Axell Club', 'axellcore-atelier' ),
-				'description' => __( 'Icons used by the Atelier Axell Club landing page.', 'axellcore-atelier' ),
+				'label'       => __( 'Atelier Axell', 'axellcore-atelier' ),
+				'description' => __( 'Icons used by the Atelier Axell landing page.', 'axellcore-atelier' ),
 			)
 		);
 

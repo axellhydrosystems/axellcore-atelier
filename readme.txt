@@ -8,13 +8,13 @@ Stable tag: 0.6.0
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Self-contained landing page (FSE template + core blocks + a custom application-form block) for the Atelier Axell Club invite program.
+Self-contained landing page (FSE template + core blocks + a custom application-form block) for the Atelier Axell invite program.
 
 [Preview the latest release in WordPress Playground](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/axellhydrosystems/axellcore-atelier/main/blueprint.json) · [Preview the latest `main` build](https://playground.wordpress.net/?blueprint-url=https://raw.githubusercontent.com/axellhydrosystems/axellcore-atelier/main/blueprint-dev.json)
 
 == Description ==
 
-The Atelier Axell Club landing (`/atelier`) built from native WordPress blocks: every section is core blocks styled with block attributes, presets, the plugin's block styles and per-block custom CSS, matched pixel for pixel to the approved mockup. The header and footer are template parts. The application form is a family of `axell/form*` blocks (labels, controls, address with state and city, CPF/CNPJ, partner stores) with Interactivity API behaviour; each submission creates a pending member (a user), reviewed in Atelier > Members. Without JetEngine the plugin also registers the `revendas` post type with production's signature and imports the bundled revendas on activation.
+The Atelier Axell landing (`/atelier`) built from native WordPress blocks: every section is core blocks styled with block attributes, presets, the plugin's block styles and per-block custom CSS, matched pixel for pixel to the approved mockup. The header and footer are template parts. The application form is a family of `axell/form*` blocks (labels, controls, address with state and city, CPF/CNPJ, partner stores) with Interactivity API behaviour; each submission creates a pending member (a user), reviewed in Atelier > Members. Without JetEngine the plugin also registers the `revendas` post type with production's signature and imports the bundled revendas on activation.
 
 == Changelog ==
 

@@ -235,7 +235,7 @@ def hero_section():
                             paragraph(k, 'aa-k')
                             paragraph(v, 'aa-v')
                         group('aa-kv', row)
-                    kv('Programa', 'Atelier Axell Club')
+                    kv('Programa', 'Atelier Axell')
                     kv('Convite', 'Por seleção — apenas profissionais aprovados.')
                     kv('Três níveis', 'Signature · Alliance · Ambassador')
                 group('aa-hero-meta', meta, tag_name='aside')
@@ -259,7 +259,7 @@ def manifesto_section():
         def copy():
             paragraph('Há gestos no banho que merecem ser desenhados por <em>mãos especiais</em>.<br>Há projetos que pedem <em>cuidado de autor</em>.<br>E há profissionais que a Axell <em>reconhece por assinatura</em>.')
             paragraph('É preciso escolher como se escolhesse uma obra de arte para a própria casa — porque cada banheira, cada spa, cada detalhe carrega o gesto de quem escolheu. Arquitetos e designers escolhem por convicção. E reconhecemos isso.')
-            paragraph('O Atelier Axell Club é um clube por seleção. Discreto. Curado. Feito para os poucos profissionais que desenham projetos extraordinários com peças Axell — e transformam o produto em memória.')
+            paragraph('O Atelier Axell é um clube por seleção. Discreto. Curado. Feito para os poucos profissionais que desenham projetos extraordinários com peças Axell — e transformam o produto em memória.')
             paragraph('— Curadoria &amp; Assinatura Axell', 'aa-sig')
         column(None, side, className='aa-manifesto-side')
         column(None, copy, className='aa-manifesto-copy')
@@ -485,7 +485,7 @@ BENEFITS = [
     ('Consultoria de produto', 'Suporte técnico especializado para banheiras, spas e linhas completas.'),
     ('Lançamentos antecipados', 'Conhecimento de novidades antes do mercado, com pré-venda e amostras.'),
     ('Treinamentos exclusivos', 'Convites para workshops, aulas técnicas e imersões de produto na fábrica.'),
-    ('Selo digital de membro', 'Selo oficial Atelier Axell Club para site, redes sociais e materiais do escritório.'),
+    ('Selo digital de membro', 'Selo oficial Atelier Axell para site, redes sociais e materiais do escritório.'),
     ('Diretório de parceiros', 'Destaque em diretório público Axell com link direto para o seu portfólio.'),
     ('Placa de membro', 'Peça única, uma obra de arte em pedra, gravada com o nome do arquiteto.'),
 ]
@@ -599,7 +599,7 @@ def footer_section():
 
         def bottom():
             paragraph('© 2026 Axell. Todos os direitos reservados.')
-            paragraph('Atelier Axell Club · Edição Lumière · 2026', 'aa-edition')
+            paragraph('Atelier Axell · Edição Lumière · 2026', 'aa-edition')
         group('aa-footer-bottom', bottom, layout={"type": "flex", "justifyContent": "space-between"})
     def inner():
         group('aa-container', container)
@@ -910,7 +910,7 @@ def apply_section():
                 group('aa-partner-slots', partners)
             fieldset('04 — Lojas parceiras', section4)
 
-            consent_field('regulamento', 'Li e concordo com o <a href="#">regulamento do Atelier Axell Club</a> e com o tratamento dos meus dados conforme a Política de Privacidade e a LGPD.', required=True)
+            consent_field('regulamento', 'Li e concordo com o <a href="#">regulamento do Atelier Axell</a> e com o tratamento dos meus dados conforme a Política de Privacidade e a LGPD.', required=True)
 
             form_notification('success', [
                 'Sua solicitação foi enviada.',
@@ -927,7 +927,7 @@ def apply_section():
                 def submit_btn():
                     button('Enviar solicitação', 'aa-btn-primary aa-btn-lg', tag_name='button', btn_type='submit')
                 buttons_block('', submit_btn)
-                paragraph('Ao enviar, você concorda em receber comunicações do Atelier Axell Club. Cadastro sujeito à aprovação da curadoria Axell.', 'aa-fine')
+                paragraph('Ao enviar, você concorda em receber comunicações do Atelier Axell. Cadastro sujeito à aprovação da curadoria Axell.', 'aa-fine')
             group('aa-submit-row', submit_row)
 
             OUT.append('</form>')

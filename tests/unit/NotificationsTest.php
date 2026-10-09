@@ -157,10 +157,10 @@ final class NotificationsTest extends TestCase {
 		$this->assertStringContainsString( 'you are now a member of Atelier Axell.', $email['text'] );
 		$this->assertStringContainsString( 'target="_blank">Atelier Axell</a></p>', $email['html'], 'The footer.' );
 
-		$this->settings['email_atelier_name'] = 'Atelier Axell Club';
+		$this->settings['email_atelier_name'] = 'Atelier Lumière';
 		$email = Notifications::compose( 'member_approved', Notifications::member_vars( 6 ) );
-		$this->assertSame( 'Your Atelier Axell Club membership is approved', $email['subject'] );
-		$this->assertStringContainsString( 'target="_blank">Atelier Axell Club</a></p>', $email['html'] );
+		$this->assertSame( 'Your Atelier Lumière membership is approved', $email['subject'] );
+		$this->assertStringContainsString( 'target="_blank">Atelier Lumière</a></p>', $email['html'] );
 	}
 
 	public function test_approval_sends_the_approved_e_mail(): void {
@@ -214,8 +214,8 @@ final class NotificationsTest extends TestCase {
 	public function test_brand_in_text_by_default_or_as_saved(): void {
 		$this->settings['email_logo'] = 'none';
 		$this->assertSame( array( 'Atelier Axell', 'The Axell World' ), Notifications::brand() );
-		$this->settings['email_atelier_name'] = 'Atelier Axell Club';
-		$this->assertSame( 'Atelier Axell Club', Notifications::brand()[0], 'The brand in text is the Atelier name.' );
+		$this->settings['email_atelier_name'] = 'Atelier Lumière';
+		$this->assertSame( 'Atelier Lumière', Notifications::brand()[0], 'The brand in text is the Atelier name.' );
 		unset( $this->settings['email_atelier_name'] );
 
 		$this->settings['email_tagline'] = 'Universo próprio';

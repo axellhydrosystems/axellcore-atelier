@@ -16,7 +16,7 @@ still pending.
 
 ## 1. What this plugin does
 
-Ships the "Atelier Axell Club" landing page at `/atelier` as a **plugin-owned
+Ships the "Atelier Axell" landing page at `/atelier` as a **plugin-owned
 FSE template** (`register_block_template()`, WP 6.7+), fully isolated from
 the active theme (no theme header/footer/global-styles CSS loads on this
 page). Content is authored as **WordPress core blocks** (Group, Columns,

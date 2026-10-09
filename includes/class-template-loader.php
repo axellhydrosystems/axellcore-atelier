@@ -106,7 +106,7 @@ final class Template_Loader {
 			Plugin::TEMPLATE_NAME,
 			array(
 				'title'       => __( 'Atelier — Blank Canvas', 'axellcore-atelier' ),
-				'description' => __( 'Self-contained canvas for the Atelier Axell Club landing page. No header/footer template parts — the page content renders alone.', 'axellcore-atelier' ),
+				'description' => __( 'Self-contained canvas for the Atelier Axell landing page. No header/footer template parts — the page content renders alone.', 'axellcore-atelier' ),
 				'content'     => file_get_contents( $template_path ), // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
 				'post_types'  => array( 'page' ),
 			)
