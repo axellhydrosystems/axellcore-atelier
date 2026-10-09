@@ -3,7 +3,7 @@
  * Plugin Name:       Atelier Axell
  * Plugin URI:        https://github.com/axellhydrosystems/axellcore-atelier
  * Description:       Landing page and membership applications for Atelier Axell.
- * Version:           0.6.0
+ * Version:           0.7.0
  * Requires at least: 6.7
  * Requires PHP:      7.4
  * Author:            Axell
@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'AXELLCORE_ATELIER_VERSION', '0.6.0' );
+define( 'AXELLCORE_ATELIER_VERSION', '0.7.0' );
 define( 'AXELLCORE_ATELIER_FILE', __FILE__ );
 define( 'AXELLCORE_ATELIER_PATH', plugin_dir_path( __FILE__ ) );
 define( 'AXELLCORE_ATELIER_URL', plugin_dir_url( __FILE__ ) );

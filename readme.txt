@@ -4,7 +4,7 @@ Tags: axell, atelier, landing-page, blocks
 Requires at least: 6.7
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 0.6.0
+Stable tag: 0.7.0
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -17,6 +17,16 @@ Landing page and membership applications for Atelier Axell.
 The Atelier Axell landing (`/atelier`) built from native WordPress blocks: every section is core blocks styled with block attributes, presets, the plugin's block styles and per-block custom CSS, matched pixel for pixel to the approved mockup. The header and footer are template parts. The application form is a family of `axell/form*` blocks (labels, controls, address with state and city, CPF/CNPJ, partner stores) with Interactivity API behaviour; each submission creates a pending member (a user), reviewed in Atelier > Members. Without JetEngine the plugin also registers the `revendas` post type with production's signature and imports the bundled revendas on activation.
 
 == Changelog ==
+
+= 0.7.0 =
+* Renamed to axellcore-atelier (folder, text domain, REST namespace axellcore-atelier/v1 and repository), shown as "Atelier Axell". What was saved under the former name (its options, the media and menu meta, and the pages on the "atelier-club" template, now "atelier") moves over once, on the first request.
+* "Atelier Axell" everywhere in place of "Atelier Axell Club": the page created on activation, its content, the e-mails and the SEO description.
+* Application form: an error on a field (an e-mail or a document already registered) shows its message in the error notice, in place of its generic text, and the field's border in red (another red with focus) until the field is edited, with or without JavaScript.
+* Form notices: the new success and error style on the landing page and in the form's template.
+* Consent (LGPD) recorded with the member, as one meta: when, IP, page, the text and its links. The e-mail preview has a sample consent, and takes &user_id=ID for a member's own data.
+* reCAPTCHA is off on local sites by the environment type and on .local and .test addresses too.
+* UF filter: the code ranks first.
+* No notices from other plugins on Settings > Mail (Camaleaunmail) either.
 
 = 0.6.0 =
 * User profile: Google's address suggestions on the street field, as on the application form (with Google Maps' dark gray logo on the light screen). Choosing an address fills in street, number, complement, neighborhood, state and city (its exact name, without opening its list) and CEP; nothing is saved until "Update User".
