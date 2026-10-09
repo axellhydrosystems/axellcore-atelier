@@ -226,3 +226,18 @@
 		width: calc(100% - var(--aa-ac-inset, 0px));
 	}
 }
+
+/*
+ * A field the server refused (aria-invalid, set by the form after a submission
+ * with JavaScript or on render without it): its border in the error colour,
+ * a different one with focus. !important: the field's border colour is an
+ * inline style and its focus colour block CSS with !important. A select with
+ * a list shows its toggle in place of the select.
+ */
+:is(.wp-block-axell-form, .wp-block-axell-form-atelier) :is([aria-invalid="true"], .aa-select:has(> select[aria-invalid="true"]) .aa-select__toggle) {
+	border-color: #b61d35 !important;
+}
+
+:is(.wp-block-axell-form, .wp-block-axell-form-atelier) :is([aria-invalid="true"], .aa-select:has(> select[aria-invalid="true"]) .aa-select__toggle):focus {
+	border-color: #9c2b72 !important;
+}

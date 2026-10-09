@@ -159,11 +159,15 @@ const { state } = store( 'axell/form', {
 						context.errorDetail = error.message;
 						context.status = 'error';
 						control.setCustomValidity( error.message );
-						control.addEventListener(
-							'input',
-							() => control.setCustomValidity( '' ),
-							{ once: true }
-						);
+						control.setAttribute( 'aria-invalid', 'true' );
+						const clear = () => {
+							control.setCustomValidity( '' );
+							control.removeAttribute( 'aria-invalid' );
+							control.removeEventListener( 'input', clear );
+							control.removeEventListener( 'change', clear );
+						};
+						control.addEventListener( 'input', clear );
+						control.addEventListener( 'change', clear );
 						control.reportValidity();
 						return;
 					}
