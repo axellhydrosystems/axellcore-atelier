@@ -150,7 +150,7 @@ final class ConsentTest extends TestCase {
 		Members::record_consent(
 			7,
 			array(
-				'text'  => 'Li e concordo.',
+				'text'  => 'Li e concordo com o regulamento.',
 				'links' => array( array( 'label' => 'regulamento', 'url' => 'https://axell.com.br/regulamento' ) ),
 				'ip'    => '203.0.113.9',
 				'url'   => 'https://axell.com.br/atelier/',
@@ -160,7 +160,24 @@ final class ConsentTest extends TestCase {
 		$summary = explode( "\n", Members::consent_summary( 7 ) );
 		$this->assertStringStartsWith( 'Accepted on ', $summary[0] );
 		$this->assertStringContainsString( 'IP 203.0.113.9, at https://axell.com.br/atelier/', $summary[0] );
-		$this->assertSame( '“Li e concordo.”', $summary[1] );
-		$this->assertSame( 'regulamento: https://axell.com.br/regulamento', $summary[2] );
+		$this->assertSame( '“Li e concordo com o <a href="https://axell.com.br/regulamento">regulamento</a>.”', $summary[1] );
+		$this->assertCount( 2, $summary, 'The link is in the text.' );
+	}
+
+	public function test_links_are_anchors_in_the_text(): void {
+		$consent = array(
+			'text'  => 'Li o regulamento e a Política de regulamento.',
+			'links' => array(
+				array( 'label' => 'regulamento', 'url' => '#' ),
+				array( 'label' => 'Política', 'url' => 'https://axell.com.br/p' ),
+				array( 'label' => 'termos', 'url' => 'https://axell.com.br/t' ),
+			),
+		);
+
+		$this->assertSame(
+			array( 'Li o <a href="#">regulamento</a> e a <a href="https://axell.com.br/p">Política</a> de regulamento.', array( '<a href="https://axell.com.br/t">termos</a>' ) ),
+			Members::consent_links( $consent ),
+			'Each link where it is in the text, in order; one not found comes apart.'
+		);
 	}
 }

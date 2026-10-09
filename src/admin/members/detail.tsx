@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from '@wordpress/element';
+import { RawHTML, useEffect, useMemo, useState } from '@wordpress/element';
 import { __, _x } from '@wordpress/i18n';
 import { DataForm } from '@wordpress/dataviews';
 import type { Field, Form, FormField } from '@wordpress/dataviews';
@@ -78,11 +78,15 @@ export default function MemberDetailView( {
 				readOnly: true,
 				label: __( 'Consent (LGPD)', 'axellcore-atelierclub' ),
 				type: 'text',
-				getValue: ( { item } ) =>
-					item.consent ||
-					__(
-						'Not recorded (application sent before the consent was recorded).',
-						'axellcore-atelierclub'
+				// HTML from the server (escaped, its links through esc_url()).
+				render: ( { item } ) =>
+					item.consent ? (
+						<RawHTML>{ item.consent }</RawHTML>
+					) : (
+						__(
+							'Not recorded (application sent before the consent was recorded).',
+							'axellcore-atelierclub'
+						)
 					),
 			},
 			{

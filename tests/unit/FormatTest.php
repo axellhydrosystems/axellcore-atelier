@@ -53,4 +53,17 @@ final class FormatTest extends TestCase {
 		$this->assertNull( Format::url( 'ftp://site.com.br' ) );
 		Monkey\tearDown();
 	}
+
+	public function test_text_links_are_links_again(): void {
+		Monkey\setUp();
+		Functions\when( 'esc_url' )->alias( static fn( $url ) => 0 === strpos( $url, 'javascript:' ) ? '' : htmlspecialchars( $url, ENT_QUOTES ) );
+		$escaped = htmlspecialchars( 'Li o <a href="#">regulamento</a>, a <a href="https://x.com/?a=1&b=2">Política</a> e <a href="javascript:alert(1)">isto</a> <b>x</b>.', ENT_QUOTES );
+
+		$this->assertSame(
+			'Li o <a href="#">regulamento</a>, a <a href="https://x.com/?a=1&amp;b=2">Política</a> e &lt;a href=&quot;javascript:alert(1)&quot;&gt;isto&lt;/a&gt; &lt;b&gt;x&lt;/b&gt;.',
+			Format::text_links( $escaped ),
+			'Only links, only through esc_url().'
+		);
+		Monkey\tearDown();
+	}
 }

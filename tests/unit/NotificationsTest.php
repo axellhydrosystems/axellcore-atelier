@@ -179,7 +179,7 @@ final class NotificationsTest extends TestCase {
 		$this->assertStringContainsString( 'Registration type: Individual · CPF', $this->sent[0][2] );
 		$this->assertStringContainsString( 'CPF: 529.982.247-25', $this->sent[0][2] );
 		$this->assertStringContainsString( 'City: SP Campinas', $this->sent[0][2] );
-		$this->assertStringContainsString( 'Landmark: —', $this->sent[0][2], 'An empty field reads as a dash.' );
+		$this->assertStringContainsString( "Landmark: <br>", $this->sent[0][2], 'An empty field stays empty.' );
 		// The form's order: authorship, document, address, stores.
 		$positions = array_map( fn( $label ) => strpos( $this->sent[0][2], $label ), array( 'Name:', 'Company:', 'E-mail:', 'Phone:', 'Main practice:', 'Registration type:', 'CPF:', 'Street:', 'Neighborhood:', 'City:', 'Postal code:', 'Partner stores:' ) );
 		$sorted    = $positions;

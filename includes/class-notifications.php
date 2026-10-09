@@ -401,9 +401,7 @@ final class Notifications {
 			'{stores}'                    => implode( "\n", $stores ),
 			'{consent}'                   => Members::consent_summary( $user_id ),
 		);
-		// An empty field reads as a dash ("Landmark: —").
-		$vars = array_map( static fn( $value ) => '' !== trim( (string) $value ) ? (string) $value : '—', $vars );
-		return $vars + array(
+		return array_map( 'strval', $vars ) + array(
 			'{member_admin_url}' => admin_url( 'admin.php?page=' . Member::ADMIN_PAGE . '&member=' . $user_id ),
 		) + self::site_vars();
 	}
@@ -487,7 +485,8 @@ final class Notifications {
 
 	/**
 	 * The plain text as HTML: escaped, a blank line starts a paragraph, a
-	 * line break stays one, and addresses become links.
+	 * line break stays one, and links written as <a href> and addresses
+	 * become links.
 	 *
 	 * @param string               $body   Plain text.
 	 * @param array<string,string> $styles Inline styles (email-styles.php).
@@ -497,7 +496,7 @@ final class Notifications {
 		$paragraphs = preg_split( '/\n\s*\n/', str_replace( array( "\r\n", "\r" ), "\n", trim( (string) $body ) ) );
 		$html       = '';
 		foreach ( (array) $paragraphs as $paragraph ) {
-			$paragraph = make_clickable( nl2br( esc_html( trim( $paragraph ) ), false ) );
+			$paragraph = make_clickable( Format::text_links( nl2br( esc_html( trim( $paragraph ) ), false ) ) );
 			$paragraph = str_replace( '<a ', '<a class="aa-link" style="' . esc_attr( $styles['link'] ) . '" ', $paragraph );
 			$html     .= '<p class="aa-text" style="' . esc_attr( $styles['p'] ) . '">' . $paragraph . "</p>\n";
 		}
@@ -615,7 +614,7 @@ final class Notifications {
 			'{address_number}'            => '1000',
 			'{address_2}'                 => 'Sala 12',
 			'{neighborhood}'              => 'Jardins',
-			'{landmark}'                  => '—',
+			'{landmark}'                  => '',
 			'{state}'                     => 'SP',
 			'{city}'                      => 'São Paulo',
 			'{postal}'                    => '01426-001',
@@ -626,7 +625,7 @@ final class Notifications {
 				wp_date( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ) ),
 				'203.0.113.10',
 				Settings::page() ? (string) get_permalink( Settings::page() ) : home_url( '/' )
-			) . "\n“Li e concordo com o regulamento do Atelier Axell Club e com o tratamento dos meus dados conforme a Política de Privacidade e a LGPD.”",
+			) . "\n“Li e concordo com o <a href=\"#\">regulamento do Atelier Axell Club</a> e com o tratamento dos meus dados conforme a Política de Privacidade e a LGPD.”",
 			'{member_admin_url}'          => admin_url( 'admin.php?page=' . Member::ADMIN_PAGE ),
 		) + self::site_vars();
 	}

@@ -461,7 +461,7 @@ final class Member_Profile {
 			$button, // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped above.
 			esc_html( $help ),
 			esc_html__( 'Consent (LGPD)', 'axellcore-atelierclub' ),
-			'' !== $consent ? nl2br( esc_html( $consent ) ) : esc_html__( 'Not recorded (application sent before the consent was recorded).', 'axellcore-atelierclub' )
+			'' !== $consent ? nl2br( Format::text_links( esc_html( $consent ) ) ) : esc_html__( 'Not recorded (application sent before the consent was recorded).', 'axellcore-atelierclub' ) // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped, its links through esc_url().
 		);
 	}
 

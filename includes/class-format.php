@@ -122,4 +122,24 @@ final class Format {
 		}
 		return (string) $value;
 	}
+
+	/**
+	 * Links written in a text (<a href="url">text</a>), escaped with the
+	 * rest, as links again: only the address (through esc_url()) and the
+	 * text, no other attribute; an address esc_url() refuses stays as
+	 * written.
+	 *
+	 * @param string $html Escaped text.
+	 * @return string
+	 */
+	public static function text_links( $html ) {
+		return (string) preg_replace_callback(
+			'#&lt;a href=&quot;([^"&\s]*(?:&amp;[^"&\s]*)*)&quot;&gt;(.*?)&lt;/a&gt;#u',
+			static function ( $matches ) {
+				$url = esc_url( html_entity_decode( $matches[1], ENT_QUOTES, 'UTF-8' ) );
+				return '' !== $url ? '<a href="' . $url . '">' . $matches[2] . '</a>' : $matches[0];
+			},
+			(string) $html
+		);
+	}
 }

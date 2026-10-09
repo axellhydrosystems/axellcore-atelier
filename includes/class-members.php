@@ -646,7 +646,8 @@ final class Members {
 
 	/**
 	 * The consent as text, for the team e-mail and the screens: when, from
-	 * where, the text accepted and its links. '' when not recorded.
+	 * where, and the text accepted with its links as <a href> (as HTML:
+	 * Format::text_links()). '' when not recorded.
 	 *
 	 * @param int $user_id Member.
 	 * @return string
@@ -665,13 +666,38 @@ final class Members {
 				'' !== $consent['url'] ? $consent['url'] : '—'
 			),
 		);
-		if ( '' !== $consent['text'] ) {
-			$lines[] = '“' . $consent['text'] . '”';
+
+		list( $text, $rest ) = self::consent_links( $consent );
+		if ( '' !== $text ) {
+			$lines[] = '“' . $text . '”';
 		}
+		return implode( "\n", array_merge( $lines, $rest ) );
+	}
+
+	/**
+	 * The text accepted with its links as on the form, <a href>, where they
+	 * are in the text ("… o <a href="https://…">regulamento</a> …"). A link
+	 * whose text is not found comes apart, one per line.
+	 *
+	 * @param array{text:string,links:array<int,array{label:string,url:string}>} $consent Consent (consent()).
+	 * @return array{0:string,1:array<int,string>} The text, and the links apart.
+	 */
+	public static function consent_links( array $consent ) {
+		$text   = (string) $consent['text'];
+		$rest   = array();
+		$offset = 0;
 		foreach ( $consent['links'] as $link ) {
-			$lines[] = ( '' !== $link['label'] ? $link['label'] . ': ' : '' ) . $link['url'];
+			$label    = (string) $link['label'];
+			$anchor   = '<a href="' . str_replace( '"', '%22', $link['url'] ) . '">' . ( '' !== $label ? $label : $link['url'] ) . '</a>';
+			$position = '' !== $label ? strpos( $text, $label, $offset ) : false;
+			if ( false === $position ) {
+				$rest[] = $anchor;
+				continue;
+			}
+			$text   = substr_replace( $text, $anchor, $position, strlen( $label ) );
+			$offset = $position + strlen( $anchor );
 		}
-		return implode( "\n", $lines );
+		return array( $text, $rest );
 	}
 
 	/**

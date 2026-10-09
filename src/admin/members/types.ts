@@ -10,7 +10,7 @@ export interface MemberSummary {
 	br_revenue_id: string;
 	data: string;
 	status: string;
-	/** The consent (LGPD) as recorded: when, IP, page and text; '' if none. */
+	/** The consent (LGPD) as recorded, as HTML: when, IP, page and text with its links; '' if none. */
 	consent: string;
 }
 

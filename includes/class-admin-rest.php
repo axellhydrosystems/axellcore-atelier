@@ -431,8 +431,8 @@ final class Admin_Rest {
 			// Read-only text: the site's date and time formats and timezone.
 			'data'     => (string) wp_date( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ), (int) strtotime( $user->user_registered . ' UTC' ) ),
 			'status'   => $this->status( $user ),
-			// The consent given on the form (LGPD), read-only.
-			'consent'  => Members::consent_summary( $user->ID ),
+			// The consent given on the form (LGPD), read-only, as HTML (its links).
+			'consent'  => nl2br( Format::text_links( esc_html( Members::consent_summary( $user->ID ) ) ) ),
 		);
 
 		foreach ( Members::TEXT_META_FIELDS as $field ) {
