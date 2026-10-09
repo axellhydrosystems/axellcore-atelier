@@ -305,7 +305,7 @@ final class Settings {
 		add_settings_section( 'recaptcha', __( 'reCAPTCHA on the forms', 'axellcore-atelierclub' ), '__return_false', $page );
 		add_settings_field( 'recaptcha_enabled', __( 'Protection', 'axellcore-atelierclub' ), array( $this, 'render_recaptcha_enabled' ), $page, 'recaptcha', array( 'label_for' => self::OPTION . '-recaptcha_enabled' ) );
 		add_settings_field( 'recaptcha_version', __( 'Version', 'axellcore-atelierclub' ), array( $this, 'render_recaptcha_version' ), $page, 'recaptcha', array( 'label_for' => self::OPTION . '-recaptcha_version' ) );
-		add_settings_field( 'recaptcha_skip_local', __( 'Local addresses', 'axellcore-atelierclub' ), array( $this, 'render_recaptcha_skip_local' ), $page, 'recaptcha', array( 'label_for' => self::OPTION . '-recaptcha_skip_local' ) );
+		add_settings_field( 'recaptcha_skip_local', __( 'Local sites', 'axellcore-atelierclub' ), array( $this, 'render_recaptcha_skip_local' ), $page, 'recaptcha', array( 'label_for' => self::OPTION . '-recaptcha_skip_local' ) );
 
 		// Each version's intro, its name linked to Google's page (as Elementor's).
 		$intro = static function ( $text, $url ) {
@@ -576,15 +576,15 @@ final class Settings {
 	}
 
 	/**
-	 * Checkbox: no reCAPTCHA on a local address (Recaptcha::LOCAL_PATTERN).
+	 * Checkbox: no reCAPTCHA on a local site (Recaptcha::is_local()).
 	 */
 	public function render_recaptcha_skip_local() {
 		printf(
 			'<input type="hidden" name="%1$s[recaptcha_skip_local]" value="0"><label><input type="checkbox" id="%1$s-recaptcha_skip_local" name="%1$s[recaptcha_skip_local]" value="1"%2$s> %3$s</label><p class="description">%4$s</p>',
 			esc_attr( self::OPTION ),
 			checked( (bool) self::get( 'recaptcha_skip_local' ), true, false ),
-			esc_html__( 'Disable on localhost and 127.0.0.1', 'axellcore-atelierclub' ),
-			esc_html__( 'When the site address is http(s)://localhost or http(s)://127.0.0.1, with or without a port, the forms have no reCAPTCHA.', 'axellcore-atelierclub' )
+			esc_html__( 'Disable on local sites', 'axellcore-atelierclub' ),
+			esc_html__( 'Addresses on localhost, 127.0.0.1, .local and .test, and sites with the "local" environment type.', 'axellcore-atelierclub' )
 		);
 	}
 

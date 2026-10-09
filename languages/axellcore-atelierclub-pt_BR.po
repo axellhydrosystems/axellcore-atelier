@@ -487,24 +487,24 @@ msgid "Members"
 msgstr "Membros"
 
 #. translators: %s: form field name.
-#: includes/class-members.php:253
+#: includes/class-members.php:254
 #, php-format
 msgid "Missing required field: %s"
 msgstr "Campo obrigatório ausente: %s"
 
 #: includes/class-admin-rest.php:271
-#: includes/class-members.php:261
-#: includes/class-members.php:880
+#: includes/class-members.php:262
+#: includes/class-members.php:965
 #: includes/class-resellers-rest.php:374
 msgid "Invalid email address."
 msgstr "Endereço de e-mail inválido."
 
-#: includes/class-members.php:408
-#: includes/class-members.php:881
+#: includes/class-members.php:409
+#: includes/class-members.php:966
 msgid "Invalid state/city."
 msgstr "Estado/cidade inválido."
 
-#: includes/class-members.php:338
+#: includes/class-members.php:339
 msgid "Could not save your application."
 msgstr "Não foi possível salvar seu cadastro."
 
@@ -949,8 +949,8 @@ msgstr "Formulário não encontrado."
 msgid "Arrow"
 msgstr "Seta"
 
-#: includes/class-members.php:785
-#: includes/class-members.php:890
+#: includes/class-members.php:870
+#: includes/class-members.php:975
 #: includes/class-places.php:597
 #: includes/class-rest.php:183
 msgid "Too many attempts. Try again in a few minutes."
@@ -1433,8 +1433,8 @@ msgid "Channels"
 msgstr "Canais"
 
 #: includes/class-admin-rest.php:275
-#: includes/class-members.php:314
-#: includes/class-members.php:887
+#: includes/class-members.php:315
+#: includes/class-members.php:972
 msgid "This e-mail is already registered."
 msgstr "Este e-mail já está cadastrado."
 
@@ -1505,12 +1505,12 @@ msgid "Member (user)"
 msgstr "Membro (usuário)"
 
 #. translators: %s: date and time of the submission.
-#: includes/class-form-submission.php:348
+#: includes/class-form-submission.php:356
 #, php-format
 msgid "Form submission %s"
 msgstr "Envio de formulário %s"
 
-#: includes/class-form-submission.php:395
+#: includes/class-form-submission.php:403
 msgid "New form submission"
 msgstr "Novo envio de formulário"
 
@@ -2381,24 +2381,24 @@ msgid "Invalid CNPJ."
 msgstr "CNPJ inválido."
 
 #: includes/class-member-profile.php:704
-#: includes/class-members.php:286
-#: includes/class-members.php:882
+#: includes/class-members.php:287
+#: includes/class-members.php:967
 msgid "Enter a phone number with area code."
 msgstr "Informe um telefone com DDD."
 
 #: includes/class-member-profile.php:708
-#: includes/class-members.php:289
-#: includes/class-members.php:883
+#: includes/class-members.php:290
+#: includes/class-members.php:968
 msgid "Enter a CEP with 8 digits."
 msgstr "Informe um CEP com 8 dígitos."
 
 #: includes/class-member-profile.php:813
-#: includes/class-members.php:304
-#: includes/class-members.php:886
+#: includes/class-members.php:305
+#: includes/class-members.php:971
 msgid "Choose a reseller from the list."
 msgstr "Escolha uma revenda da lista."
 
-#: includes/class-members.php:879
+#: includes/class-members.php:964
 msgid "Fill in the required fields."
 msgstr "Preencha os campos obrigatórios."
 
@@ -2434,7 +2434,7 @@ msgstr "Criar página do Atelier"
 msgid "Creates a page with the Atelier landing content and makes it the Atelier page."
 msgstr "Cria uma página com o conteúdo da landing do Atelier e a define como a página do Atelier."
 
-#: includes/class-notifications.php:579
+#: includes/class-notifications.php:578
 #: includes/class-places.php:323
 #: includes/class-settings.php:1027
 msgid "Sorry, you are not allowed to do that."
@@ -3495,7 +3495,7 @@ msgid "Atelier: Partner stores"
 msgstr "Atelier: Lojas parceiras"
 
 #: includes/class-member-profile.php:694
-#: includes/class-members.php:273
+#: includes/class-members.php:274
 msgid "Only Brazil is accepted."
 msgstr "Só o Brasil é aceito."
 
@@ -3565,7 +3565,7 @@ msgctxt "WooCommerce field"
 msgid "Postcode / ZIP"
 msgstr "CEP"
 
-#: includes/class-members.php:309
+#: includes/class-members.php:310
 msgid "Enter the store as \"Name - UF City\"."
 msgstr "Informe a loja como \"Nome - UF Cidade\"."
 
@@ -3704,7 +3704,7 @@ msgstr "Endereço do site"
 msgid "Today's date"
 msgstr "Data de hoje"
 
-#: includes/class-notifications.php:584
+#: includes/class-notifications.php:583
 msgid "Unknown e-mail."
 msgstr "E-mail desconhecido."
 
@@ -3870,7 +3870,7 @@ msgstr "Atelier Axell"
 msgid "Atelier name"
 msgstr "Nome do Atelier"
 
-#: includes/class-members.php:837
+#: includes/class-members.php:922
 msgid "Enter a valid address, such as https://yoursite.com.br."
 msgstr "Informe um endereço válido, como https://seusite.com.br."
 
@@ -3953,7 +3953,7 @@ msgstr "Atelier: Status"
 msgid "Membership"
 msgstr "Adesão"
 
-#: includes/class-members.php:891
+#: includes/class-members.php:976
 msgid "We could not confirm you are not a robot. Please try again."
 msgstr "Não foi possível confirmar que você não é um robô. Tente novamente."
 
@@ -3968,10 +3968,6 @@ msgstr "Proteção"
 #: includes/class-settings.php:307
 msgid "Version"
 msgstr "Versão"
-
-#: includes/class-settings.php:308
-msgid "Local addresses"
-msgstr "Endereços locais"
 
 #: includes/class-settings.php:326
 msgid "reCAPTCHA v2"
@@ -4030,14 +4026,6 @@ msgstr "reCAPTCHA v3 (invisível, por pontuação)"
 #: includes/class-settings.php:569
 msgid "reCAPTCHA v2 (\"I'm not a robot\" box)"
 msgstr "reCAPTCHA v2 (caixa “Não sou um robô”)"
-
-#: includes/class-settings.php:586
-msgid "Disable on localhost and 127.0.0.1"
-msgstr "Desativar em localhost e 127.0.0.1"
-
-#: includes/class-settings.php:587
-msgid "When the site address is http(s)://localhost or http(s)://127.0.0.1, with or without a port, the forms have no reCAPTCHA."
-msgstr "Quando o endereço do site é http(s)://localhost ou http(s)://127.0.0.1, com ou sem porta, os formulários ficam sem reCAPTCHA."
 
 #: includes/class-settings.php:668
 msgid "Score threshold should be a value between 0 and 1, default: 0.5"
@@ -4133,7 +4121,8 @@ msgid "Consent text"
 msgstr "Texto do consentimento"
 
 #. translators: 1: date and time, 2: IP address, 3: page address.
-#: includes/class-members.php:603
+#: includes/class-members.php:663
+#: includes/class-notifications.php:624
 #, php-format
 msgid "Accepted on %1$s, IP %2$s, at %3$s"
 msgstr "Aceito em %1$s, IP %2$s, em %3$s"
@@ -4201,3 +4190,15 @@ msgstr ""
 #: includes/class-notifications.php:359
 msgid "Consent (LGPD): when, IP, page and the text accepted"
 msgstr "Consentimento (LGPD): quando, IP, página e o texto aceito"
+
+#: includes/class-settings.php:308
+msgid "Local sites"
+msgstr "Sites locais"
+
+#: includes/class-settings.php:586
+msgid "Disable on local sites"
+msgstr "Desativar em sites locais"
+
+#: includes/class-settings.php:587
+msgid "Addresses on localhost, 127.0.0.1, .local and .test, and sites with the \"local\" environment type."
+msgstr "Endereços em localhost, 127.0.0.1, .local e .test, e sites com o tipo de ambiente \"local\"."

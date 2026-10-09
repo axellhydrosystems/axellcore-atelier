@@ -3,7 +3,7 @@
  * Google reCAPTCHA on the Atelier forms (Atelier → Settings → Integrations),
  * in the mold of Elementor Pro's form reCAPTCHA: v3 (invisible, a score) or
  * v2 (the "I'm not a robot" box), each with its own keys. Off on a local
- * address (localhost, 127.0.0.1) when the setting says so.
+ * site (is_local()) when the setting says so.
  *
  * The form blocks get the script and, for v2, the box (render filter); the
  * submission service checks the token with Google before anything is stored.
@@ -23,9 +23,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 final class Recaptcha {
 
 	/**
-	 * A local address: http(s)://localhost or 127.0.0.1, with or without a port.
+	 * A local address: http(s)://localhost, 127.0.0.1 or a .local or .test
+	 * host, with or without a port.
 	 */
-	const LOCAL_PATTERN = '#^https?://(localhost|127\.0\.0\.1)(:\d+)?(/|$)#i';
+	const LOCAL_PATTERN = '#^https?://(localhost|127\.0\.0\.1|[a-z0-9.-]+\.(local|test))(:\d+)?(/|$)#i';
 
 	/**
 	 * Google's token check.
@@ -90,12 +91,16 @@ final class Recaptcha {
 	}
 
 	/**
-	 * Whether an address is local (LOCAL_PATTERN).
+	 * Whether an address is local (LOCAL_PATTERN). The site is local too
+	 * when its environment type is "local", whatever its address.
 	 *
 	 * @param string|null $url Address; the site's by default.
 	 * @return bool
 	 */
 	public static function is_local( $url = null ) {
+		if ( null === $url && function_exists( 'wp_get_environment_type' ) && 'local' === wp_get_environment_type() ) {
+			return true;
+		}
 		return 1 === preg_match( self::LOCAL_PATTERN, null === $url ? (string) home_url( '/' ) : (string) $url );
 	}
 

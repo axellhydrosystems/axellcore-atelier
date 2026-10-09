@@ -61,10 +61,10 @@ final class RecaptchaTest extends TestCase {
 	}
 
 	public function test_local_addresses(): void {
-		foreach ( array( 'http://localhost:8884', 'http://localhost', 'https://localhost/', 'https://127.0.0.1', 'http://127.0.0.1:8080/site/' ) as $url ) {
+		foreach ( array( 'http://localhost:8884', 'http://localhost', 'https://localhost/', 'https://127.0.0.1', 'http://127.0.0.1:8080/site/', 'http://axell.local', 'https://axell.test:8443/', 'http://dev.axell.local/site/' ) as $url ) {
 			$this->assertTrue( Recaptcha::is_local( $url ), $url );
 		}
-		foreach ( array( 'https://axell.com.br', 'http://localhost.com.br', 'http://127.0.0.10', 'ftp://localhost', 'http://my-localhost' ) as $url ) {
+		foreach ( array( 'https://axell.com.br', 'http://localhost.com.br', 'http://127.0.0.10', 'ftp://localhost', 'http://my-localhost', 'https://axell.local.com.br', 'https://test.axell.com.br', 'http://.local' ) as $url ) {
 			$this->assertFalse( Recaptcha::is_local( $url ), $url );
 		}
 	}
@@ -94,6 +94,16 @@ final class RecaptchaTest extends TestCase {
 
 		$this->settings( array( 'recaptcha_skip_local' => false ) );
 		$this->assertTrue( Recaptcha::active() );
+	}
+
+	public function test_local_environment_is_local_whatever_the_address(): void {
+		Functions\when( 'home_url' )->justReturn( 'https://homolog.axell.com.br/' );
+		Functions\when( 'wp_get_environment_type' )->justReturn( 'production' );
+		$this->assertFalse( Recaptcha::is_local() );
+
+		Functions\when( 'wp_get_environment_type' )->justReturn( 'local' );
+		$this->assertTrue( Recaptcha::is_local() );
+		$this->assertFalse( Recaptcha::is_local( 'https://homolog.axell.com.br/' ), 'An address given is only the address.' );
 	}
 
 	public function test_no_token_is_refused_without_asking_google(): void {
