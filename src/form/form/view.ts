@@ -154,8 +154,10 @@ const { state } = store( 'axell/form', {
 						? controlOf( form, error.data.field )
 						: undefined;
 					if ( control && error.message ) {
-						// A field the visitor can fix: report it there, as the browser does.
-						context.status = 'idle';
+						// A field the visitor can fix: the error notification says
+						// what to fix, and the field reports it, as the browser does.
+						context.errorDetail = error.message;
+						context.status = 'error';
 						control.setCustomValidity( error.message );
 						control.addEventListener(
 							'input',

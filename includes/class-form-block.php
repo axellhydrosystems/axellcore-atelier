@@ -177,7 +177,16 @@ final class Form_Block {
 			'' === $detail ? ' hidden' : '',
 			esc_html( $detail )
 		);
-		return (string) preg_replace( '/(<[^>]*\bdata-axell-notice-type="error"[^>]*>)/', '$1' . str_replace( array( '\\', '$' ), array( '\\\\', '\\$' ), $paragraph ), $html, 1 );
+		$paragraph = str_replace( array( '\\', '$' ), array( '\\\\', '\\$' ), $paragraph );
+
+		// Inside the notice's own box (its first block, e.g. a styled group),
+		// so the message takes the box's look; else first in the notice.
+		$count  = 0;
+		$inside = preg_replace( '/(<[^>]*\bdata-axell-notice-type="error"[^>]*>\s*<div\b[^>]*>)/', '$1' . $paragraph, $html, 1, $count );
+		if ( $count ) {
+			return (string) $inside;
+		}
+		return (string) preg_replace( '/(<[^>]*\bdata-axell-notice-type="error"[^>]*>)/', '$1' . $paragraph, $html, 1 );
 	}
 
 	/**
