@@ -310,7 +310,7 @@ final class Activator {
 		$page_id = self::insert_trusted_content(
 			array(
 				'post_type'    => 'page',
-				'post_title'   => __( 'Atelier Axell Club', 'axellcore-atelier' ),
+				'post_title'   => __( 'Atelier Axell', 'axellcore-atelier' ),
 				'post_name'    => self::PAGE_SLUG,
 				'post_status'  => 'publish',
 				'post_content' => self::read_content_file( AXELLCORE_ATELIER_PATH . 'content/atelier-page.html', '' ),

@@ -16,6 +16,7 @@ msgstr ""
 
 #. Plugin Name of the plugin
 #: axellcore-atelier.php
+#: includes/class-activator.php:313
 #: includes/class-classic-template.php:64
 msgid "Atelier Axell"
 msgstr "Atelier Axell"
@@ -390,7 +391,6 @@ msgstr "Atelier — Cabeçalho"
 msgid "Atelier — Footer"
 msgstr "Atelier — Rodapé"
 
-#: includes/class-activator.php:313
 #: includes/class-icons.php:73
 msgid "Atelier Axell Club"
 msgstr "Atelier Axell Club"

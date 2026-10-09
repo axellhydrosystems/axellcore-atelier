@@ -9,13 +9,14 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-10-09T01:18:05+00:00\n"
+"POT-Creation-Date: 2026-10-09T01:48:12+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: axellcore-atelier\n"
 
 #. Plugin Name of the plugin
 #: axellcore-atelier.php
+#: includes/class-activator.php:313
 #: includes/class-classic-template.php:64
 msgid "Atelier Axell"
 msgstr ""
@@ -41,11 +42,6 @@ msgstr ""
 
 #: includes/class-activator.php:59
 msgid "Atelier — Footer"
-msgstr ""
-
-#: includes/class-activator.php:313
-#: includes/class-icons.php:73
-msgid "Atelier Axell Club"
 msgstr ""
 
 #: includes/class-admin-rest.php:260
@@ -232,6 +228,10 @@ msgstr ""
 
 #: includes/class-form-submission.php:403
 msgid "New form submission"
+msgstr ""
+
+#: includes/class-icons.php:73
+msgid "Atelier Axell Club"
 msgstr ""
 
 #: includes/class-icons.php:74
